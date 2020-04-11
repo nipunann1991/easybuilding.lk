@@ -1,0 +1,97 @@
+@import '../../../../styles';
+
+.login-screen{
+	background: $white;
+
+	.ad-area{
+		display: none;
+
+		@include breakpoint($tablet-medium){
+			@include flex();
+		}
+			
+	 	img{
+	 		width: 470px;
+	 		margin: auto;
+	 	}
+	}
+	
+	bfv-messages{
+		display: none;
+	}
+	 
+	.login-form { 
+
+		.app-form{ 
+
+			.error-names{
+				font-size: 12px;
+				background-color: $danger-color;
+			 	color: $white;
+			    padding: 4px 15px;
+			    border-radius: 30px;
+			}
+
+			.app-form-inner{
+				width: 350px; 
+
+				@include breakpoint($tablet){
+					width: 400px;
+				}
+
+				.has-error{
+					input{
+						border: 1px #ff051c solid;
+					}
+
+					.invalid-feedback{
+						display: none;
+					}
+				}
+
+				h3{
+					text-transform: capitalize;
+					margin-bottom: 30px;
+					text-align: center;
+					font-size: $h3-font-size - 3;
+				}
+
+				input{
+					background: $input-color;
+					padding: 12px 25px;
+					height: auto;
+					border-radius: 50px;
+					border: 1px transparent solid;
+					margin-bottom: 15px;
+
+				}
+
+				button.app-login{
+					background: $green-color;
+					border-radius: 50px;
+					border-radius: 50px;
+					width: 100%;
+					color: $white;
+					padding: 4px 25px;
+					outline: 0 !important;
+					margin-top: 20px;
+					font-size: $base-font-size;
+				}
+
+				a{
+					text-align: center;
+					width: 100%;
+					display: block;
+					margin-top: 25px;
+					font-size: $base-font-size - 2;
+					color: $dark-gray;
+
+					&.create-account{
+						 margin-top: 0;
+					}
+				}
+			}
+		}
+
+	}
+}

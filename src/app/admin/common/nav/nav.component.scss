@@ -1,0 +1,59 @@
+@import '../../../../styles';
+
+.left-nav{ 
+	@include box-shadow(0, -6px, 60px, -9px, rgba(0, 0, 0, 0.21));
+	z-index: 101;
+	position: fixed;
+	height: 100%;
+	background: #1e1e2d;
+	left: -150px;
+	width: 200px;
+    transition: all 0.3s ease;
+
+    &.open-nav{
+		left: 0;
+    }
+
+	ul{
+		padding: 0;
+
+		li{
+			list-style-type: none;
+
+			a{
+				display: block;
+				padding: 7px 25px;
+				text-decoration: none;
+				//font-size: $h2-font-size;
+				font-size: 17px;
+				color: $white;
+				border-radius: 0; 
+				background-color: transparent;
+				text-align: left;
+
+				&:hover, &.active-link{
+					background: $base-bg-color;  
+				}
+
+				span.nav-title{
+					font-size: 13px;
+					line-height: 17px; 
+					margin-top: 5px;
+					margin-left: 10px;
+					position: relative;
+					top: 1px;
+				}
+
+			}
+
+			&.expand-nav{
+				text-align: center;
+
+				a{
+					font-size: $base-font-size + 2;
+				 	font-weight: 900;
+				}
+			}
+		}
+	}
+}
