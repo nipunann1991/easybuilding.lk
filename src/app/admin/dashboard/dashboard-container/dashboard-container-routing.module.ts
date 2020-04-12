@@ -7,7 +7,8 @@ const routes: Routes = [
   
   { path: '', component: DashboardContainerComponent, canActivate: [AuthGuard],
     children: [
-      { path: 'dashboard', loadChildren: () => import('./../../../admin/dashboard/dashboard/dashboard.module').then(m => m.DashboardModule) },
+      { path: 'dashboard', loadChildren: () => import('./../../../admin/dashboard/dashboard/dashboard.module').then(m => m.DashboardModule) }, 
+	    { path: 'clients', loadChildren: () => import('./../../../admin/dashboard/clients/clients.module').then(m => m.ClientsModule) },
       { path: 'settings',  loadChildren: () => import('./../../../admin/dashboard/settings/settings.module').then(m => m.SettingsModule) },
       { path: 'categories', loadChildren: () => import('./../../../admin/dashboard/categories/categories.module').then(m => m.CategoriesModule) },
       { path: 'certification', loadChildren: () => import('./../../../admin/dashboard/certification/certification.module').then(m => m.CertificationModule) },
@@ -17,8 +18,7 @@ const routes: Routes = [
       { path: 'services', loadChildren: () => import('./../../../admin/dashboard/services/services.module').then(m => m.ServicesModule) },
     ]
   },
-  { path: 'login', loadChildren: () => import('./../../../admin/dashboard/login/login.module').then(m => m.LoginModule) }, 
-//  canActivate: [AuthGuard],
+  { path: 'login', loadChildren: () => import('./../../../admin/dashboard/login/login.module').then(m => m.LoginModule) },
 
 ];
 

@@ -9,6 +9,7 @@ const routes: Routes = [
 	{ path: 'contact', loadChildren: () => import('./web/pages/contact/contact.module').then(m => m.ContactModule) },
 	{ path: 'admin', loadChildren: () => import('./admin/dashboard/dashboard-container/dashboard-container.module').then(m => m.DashboardContainerModule) },
 	{ path: '404-page-not-found', loadChildren: () => import('./web/pages/page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) },
+	{ path: 'login', loadChildren: () => import('./web/pages/login/login.module').then(m => m.LoginModule) },  
 	{ path: '**', redirectTo: '/404-page-not-found' }
 	 
 	 

@@ -1,0 +1,8 @@
+<div class="container">
+    <p>login works!</p>
+    <img src="https://lh3.googleusercontent.com/a-/AOh14GisC--kL07FCODwshq3lCEH8lnSWOfzpBvcjEQbqg=s96-c" alt="">
+    <button mat-button *ngIf="!isLoggedIn" (click)="signInWithGoogle()" class="app-login" >Google</button> 
+    <button mat-button *ngIf="!isLoggedIn" (click)="signInWithFB()" class="app-login" >FB</button> 
+    <button mat-button *ngIf="isLoggedIn" (click)="signOut()" class="app-login" >Sign Out</button> 
+</div>
+
