@@ -22,6 +22,8 @@ export class LoginComponent implements OnInit {
   status: boolean = false;
   loginFaild: boolean = false;
   formIsValid: boolean = true;
+  isLoggedIn : boolean = false;
+  isUserValid: boolean = false; 
 
   formGroup: FormGroup;
 
@@ -47,6 +49,8 @@ export class LoginComponent implements OnInit {
             Validators.maxLength(300)
           ]),
       }); 
+      
+
       this.isAuthorized();
 
   }
@@ -71,9 +75,14 @@ export class LoginComponent implements OnInit {
   }
 
   isAuthorized(){
-    if (this.authservice.isAuthenticated()) {
-        this.router.navigate(['admin/dashboard']);
-      }
+    this.authservice.isAuthenticatedUser.subscribe(value => { 
+      this.isUserValid = value; 
+
+      if(this.isUserValid){
+        this.isLoggedIn = true;
+      } 
+       
+    });
   }
 
 

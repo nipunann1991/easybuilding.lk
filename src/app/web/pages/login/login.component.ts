@@ -5,6 +5,7 @@ import { AuthService as Auth } from '../../../admin/auth/auth.service';
 import { AuthService as OAuth } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 import { ClientsService } from '../../../admin/api/clients.service'; 
+import { Globals } from './../../../app.global';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
   isLoggedIn : boolean = false;
   // loginFaild: boolean = false;
   formIsValid: boolean = true;
+  val : number = 0;
 
   formGroup: FormGroup;
 
@@ -26,13 +28,14 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authservice: Auth,
     private oauth: OAuth,
-    private client: ClientsService
+    private client: ClientsService,
+    private global: Globals
 
-  ) { }
+  ) {  }
 
   ngOnInit() {
- 
-      this.isAuthorized();
+    this.val = 0;
+    this.isAuthorized();
        
   }
 
@@ -71,6 +74,7 @@ export class LoginComponent implements OnInit {
         if (response.status == 200) { ;
 
            let token = { auth_token:  userDetails.authToken, session_id: response.data.client_id, email: userDetails.email }; 
+           this.global.auth_token = userDetails.authToken;
            localStorage.setItem('token', JSON.stringify(token) );
 
             console.log(response);
@@ -86,12 +90,12 @@ export class LoginComponent implements OnInit {
     this.formIsValid = true;
   }
 
-  isAuthorized(){
-    console.log(this.authservice.isAuthenticated());
-    
-    if (this.authservice.isAuthenticated()) {
-        //this.isLoggedIn = true; 
-      }
+  isAuthorized(){   
+    if(this.authservice.isAuthenticated()){
+      this.isLoggedIn = true;
+    }
+         
+      
   }
 
 

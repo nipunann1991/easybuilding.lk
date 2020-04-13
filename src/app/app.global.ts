@@ -8,7 +8,7 @@ export class Globals {
 	currencyAlias = "Rs. ";
 	isItemsEditable: boolean; 
 	editable: boolean = false;
-
+    auth_token: any = "";
     itemsEditable: Subject<boolean> = new Subject<boolean>();
 
      constructor()  {
@@ -25,9 +25,7 @@ export class Globals {
    
     }
 
-    toggleItemEditable() {
-        this.itemsEditable.next(!this.isItemsEditable);
-    }
+    
 
 	
        

@@ -13,14 +13,14 @@ export interface CanComponentDeactivate {
 export class AuthDeactivateGuardService   {
 
   	constructor(
-  		public auth: AuthService,
+  		public authservice: AuthService,
   		public router: Router
   	) { }
 
  
-  	canActivate(): boolean {
-
-	    if (!this.auth.isAuthenticated()) { 
+  	canActivate(): any { 
+		  
+	    if (!this.authservice.isAuthenticated()) { 
 	      	return true;
 	    }else{  
 			this.router.navigate(['admin/dashboard']);
