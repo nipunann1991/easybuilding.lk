@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, CanDeactivate  } from '@angular/router';
-import { AuthService } from './auth.service';
+import { AuthService } from '../auth.service';
 import { Observable } from 'rxjs/Observable';
 
 export interface CanComponentDeactivate {
@@ -21,10 +21,13 @@ export class AuthDeactivateGuardService   {
   	canActivate(): any { 
 		  
 	    if (!this.authservice.isAuthenticated()) { 
-	      	return true;
-	    }else{  
+			  return true;
+			  
+	    }else if(this.authservice.validateBackendUser() && this.authservice.isAuthenticated()){
 			this.router.navigate(['admin/dashboard']);
-	    	return false;
+			return false;
+		}else{ 
+			return true;
 		}
 		 
 	}

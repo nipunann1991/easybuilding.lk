@@ -7,8 +7,11 @@ export class Globals {
 
 	currencyAlias = "Rs. ";
 	isItemsEditable: boolean; 
-	editable: boolean = false;
-    auth_token: any = "";
+	editable: boolean = false; 
+    token: any = {
+        auth_token: '',
+        provider_id: ''
+    }
     itemsEditable: Subject<boolean> = new Subject<boolean>();
 
      constructor()  {

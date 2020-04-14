@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "leocodex-restaurant": {
+    "easybuilding.lk": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -15,16 +15,13 @@
       },
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/leocodex-restaurant",
+            "outputPath": "dist/easybuilding.lk",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.json",
-            "customWebpackConfig": {
-              "path": "./custom-webpack.config.js"
-             },
+            "tsConfig": "src/tsconfig.app.json", 
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -89,18 +86,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "leocodex-restaurant:build"
+            "browserTarget": "easybuilding.lk:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "leocodex-restaurant:build:production"
+              "browserTarget": "easybuilding.lk:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "leocodex-restaurant:build"
+            "browserTarget": "easybuilding.lk:build"
           }
         },
         "test": {
@@ -135,7 +132,7 @@
         }
       }
     },
-    "leocodex-restaurant-e2e": {
+    "easybuilding.lk-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -144,11 +141,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "leocodex-restaurant:serve"
+            "devServerTarget": "easybuilding.lk:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "leocodex-restaurant:serve:production"
+              "devServerTarget": "easybuilding.lk:serve:production"
             }
           }
         },
@@ -164,5 +161,5 @@
       }
     }
   },
-  "defaultProject": "leocodex-restaurant"
+  "defaultProject": "easybuilding.lk"
 }

@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit {
   signInWithGoogle(): void {
     this.oauth.signIn(GoogleLoginProvider.PROVIDER_ID);
     this.oAuth();
-    }
+  }
   
   signInWithFB(): void {
     this.oauth.signIn(FacebookLoginProvider.PROVIDER_ID);

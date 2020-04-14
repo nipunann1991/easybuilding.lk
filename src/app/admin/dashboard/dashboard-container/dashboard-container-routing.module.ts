@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuardService as AuthGuard  } from './../../../admin/auth/auth-guard.service';
+import { AuthGuardService as AuthGuard  } from '../../auth/backend/auth-guard.service';
 import { DashboardContainerComponent } from './dashboard-container.component';
 
 const routes: Routes = [
   
   { path: '', component: DashboardContainerComponent, canActivate: [AuthGuard],
     children: [
-      { path: 'dashboard', loadChildren: () => import('./../../../admin/dashboard/dashboard/dashboard.module').then(m => m.DashboardModule) }, 
+      { path: 'dashboard',  loadChildren: () => import('./../../../admin/dashboard/dashboard/dashboard.module').then(m => m.DashboardModule) }, 
 	    { path: 'clients', loadChildren: () => import('./../../../admin/dashboard/clients/clients.module').then(m => m.ClientsModule) },
       { path: 'settings',  loadChildren: () => import('./../../../admin/dashboard/settings/settings.module').then(m => m.SettingsModule) },
       { path: 'categories', loadChildren: () => import('./../../../admin/dashboard/categories/categories.module').then(m => m.CategoriesModule) },

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { AuthService } from './auth.service';
+import { AuthService } from '../auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,28 +8,17 @@ import { AuthService } from './auth.service';
 export class AuthGuardService {
 
   constructor(
-  	public auth: AuthService,
+    public auth: AuthService,
   	public router: Router
   ) { }
 
-   	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
 	 
 		if (!this.auth.isAuthenticated()) {
-			this.router.navigate(['admin/login']);
+			this.router.navigate(['login']);
 			return false;
-		}else{  
-			if(state.url === '/admin'){
-				this.router.navigate(['admin/dashboard']);
-			}
+		}else{   
 			return true;
-		} 
-	    
-	    
-	}
-	  
-	 
-
-  	 
-
-  	
+		}  
+	} 
 }

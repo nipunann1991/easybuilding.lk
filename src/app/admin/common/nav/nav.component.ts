@@ -57,7 +57,9 @@ export class NavComponent implements OnInit {
 				title: 'Settings',
 				icon: 'icon-settings',
 				link: '/admin/settings'
-			}
+			},
+
+			 
 		]
 
   	}

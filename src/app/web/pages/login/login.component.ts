@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { AuthService as Auth } from '../../../admin/auth/auth.service';
 import { AuthService as OAuth } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
-import { ClientsService } from '../../../admin/api/clients.service'; 
+import { LoginService } from '../../../admin/api/login.service'; 
 import { Globals } from './../../../app.global';
 
 @Component({
@@ -28,13 +28,12 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authservice: Auth,
     private oauth: OAuth,
-    private client: ClientsService,
+    private login: LoginService,
     private global: Globals
 
   ) {  }
 
-  ngOnInit() {
-    this.val = 0;
+  ngOnInit() { 
     this.isAuthorized();
        
   }
@@ -68,16 +67,17 @@ export class LoginComponent implements OnInit {
       auth_token:  userDetails.authToken 
     }
     
-    this.client.onClientLogin(param)
+    this.login.onClientLogin(param)
       .subscribe((response: any) => {
 
         if (response.status == 200) { ;
 
-           let token = { auth_token:  userDetails.authToken, session_id: response.data.client_id, email: userDetails.email }; 
-           this.global.auth_token = userDetails.authToken;
-           localStorage.setItem('token', JSON.stringify(token) );
+           let token = { auth_token:  userDetails.authToken, session_id: response.data.client_id, email: userDetails.email, provider_id: response.data.provider_id }; 
+           this.global.token.auth_token = userDetails.authToken;
+           this.global.token.provider_id = token.provider_id; 
+           localStorage.setItem('token', JSON.stringify(token) ); 
+           this.router.navigate(['my-account']);
 
-            console.log(response);
         }else{
 
         }
@@ -119,8 +119,7 @@ export class LoginComponent implements OnInit {
   signOut(): void {
     this.oauth.signOut().then( (userDetails) =>{
         this.isLoggedIn = false;
-        localStorage.clear();
-        console.log(userDetails);
+        localStorage.clear(); 
     });    
   }
 
