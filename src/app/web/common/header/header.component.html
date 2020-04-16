@@ -1,0 +1,33 @@
+<div class="container-fluid header-area">
+    <div class="container">
+        <div class="content-area">
+            <div class="logo">
+                <a routerLink="/"><img src="../../../../assets/images/easybuilding-logo.png" alt="Wasybuilding Logo"></a>
+            </div>
+            <div class="search-box">
+                <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <div class="cta-buttons">
+                <button mat-button  routerLink="/login" *ngIf="!isLogged" class="btn btn-login mat-button">Login</button>    
+                <button mat-button *ngIf="!isLogged" class="btn btn-primary sign-up mat-button">Sign Up</button>   
+                <div class="user-account" routerLink="/my-account" *ngIf="isLogged">
+                    <div class="user-img"></div>
+                    <div class="user-name"><p>Hello, Nipuna</p></div> 
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid nav-area">
+    <div class="container">
+         <ul class="nav-item-list">
+            <li><a routerLink="/login">Photos</a></li>
+            <li><a routerLink="/login">Products</a></li>
+            <li><a routerLink="/login">BOQ</a></li>
+            <li><a routerLink="/login">Shop By Department</a></li>
+            <li><a routerLink="/login">Contact</a></li>
+         </ul>
+    </div>
+</div>
+ 
+<!--   <h3>header works!</h3> <a>User</a><br/> -->

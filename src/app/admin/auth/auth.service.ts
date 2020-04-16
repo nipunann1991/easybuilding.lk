@@ -45,15 +45,16 @@ export class AuthService {
       return this.login.checkUserLoginStatus(token)
         .subscribe((response) => {
           
-          if (response.status == 200 && response.data.length == 0) {  
-            this.isAuthenticatedUser.next(false); 
-            return this.isUserValid = false;  
-
-          }else if (response.status == 200 && response.data.length > 0) { 
+          if (response.status == 200 && response.data.length > 0 ) { 
             this.isAuthenticatedUser.next(true);  
-            this.global.token.auth_token = token.auth_token; 
+            this.global.token.auth_token = token.auth_token;   
+              
+            return this.isUserValid = true; 
 
-            return this.isUserValid = true;
+          }else{
+            this.isAuthenticatedUser.next(false); 
+            //localStorage.clear(); 
+            return this.isUserValid = false;  
           }
            
       });  

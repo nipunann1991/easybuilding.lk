@@ -15,7 +15,7 @@ export class LoginService {
         fromObject : postVals
     });
 
-    return this.http.post(environment.baseUrl+'ClientController/onClientLogin', params); 
+    return this.http.post(environment.baseUrl+'LoginController/onClientLogin', params); 
    
   }
  
@@ -26,7 +26,7 @@ export class LoginService {
         fromObject : postVals
     });
 
-    return this.http.post(environment.baseUrl+'ClientController/checkUserLoginStatus', params); 
+    return this.http.post(environment.baseUrl+'LoginController/checkUserLoginStatus', params); 
    
   }
 }

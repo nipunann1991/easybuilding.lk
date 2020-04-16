@@ -1,0 +1,112 @@
+
+@import '../../../../styles';
+
+.header-area{
+    .content-area{
+        padding: 1rem 0;
+        @include flex(); 
+
+        img{
+            width: 18rem;
+        }
+    }
+
+    .search-box{ 
+        width: 100%;
+        margin: 0 1.5rem;
+
+        input{
+            width: 100%;
+        }
+    }
+
+    .cta-buttons{
+        overflow: hidden;
+        padding-left: 0;
+        margin: 0;
+        width: 34.3rem;
+         
+        button{
+            font-family: $bold-font;
+            font-weight: bold; 
+            
+            &.btn-login{
+                background-color: $light-blue-color;
+
+                &:hover{
+                    background-color: darken($light-blue-color, 10%);
+                }
+            }
+
+            &.sign-up{
+                margin-left: 0.5rem;
+            }
+        }
+
+        .user-account{
+            @include flex(); 
+            align-items: center;
+            justify-content: center;
+
+            .user-img{
+                width: 3.8rem;
+                height: 3.8rem;
+                border-radius: 50%;
+                background: #eeeeee;
+            }
+
+            .user-name{
+                margin-left: 1.2rem;
+                p{
+                    margin-bottom: 0;
+                }
+            }
+        }
+        
+    } 
+}
+
+.nav-area{
+    ul.nav-item-list{
+        padding-left: 0; 
+        @include flex(); 
+        
+
+        li{
+            width: 100%;
+            text-align: center;
+            list-style: none;
+
+            a{
+                font-family: $bold-font;
+                font-weight: bold; 
+                font-size: 1.4rem;
+                color: $base-color;
+                padding: 1rem 1.5rem;
+                display: block;
+                text-transform: uppercase;
+                position: relative;
+                
+                &::before{
+                    content: "";
+                    width: 1px;
+                    height: 50%;
+                    background-color: #C4CED9;
+                    position: absolute;
+                    right: 0;
+                    top: 25%;
+                    
+                }
+                
+            }
+
+            &:last-child{
+                a{
+                    &:before{
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

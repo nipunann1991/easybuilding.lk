@@ -16,6 +16,7 @@ export class AuthGuardService {
 	 
 		if (!this.auth.isAuthenticated()) {
 			this.router.navigate(['admin/login']);
+			window.location.href
 			return false;
 		}else{  
 			if(state.url === '/admin'){

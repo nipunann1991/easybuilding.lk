@@ -19,7 +19,7 @@ export class AuthDeactivateGuardService {
       return true;
       
     }else {
-      this.router.navigate(['my-account']);
+      this.router.navigate(['my-account']); 
       return false;
 
     }

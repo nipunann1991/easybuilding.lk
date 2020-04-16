@@ -7,20 +7,30 @@
 @import 'animate';
 
 *{
-	font-family: 'Muli', sans-serif;;
+	
 }
 
-h1, h2, h3, h4{  
-	font-weight: 700;
+html{
+	font-size: 62.5%;
 }
+
+h1, h2{  
+	font-family: $bold-font;
+	font-weight: bold; 
+}
+
+
 
 
 body{   
-	font-size: $base-font-size;	
+	font-size: 1.6rem;	 
 	line-height: $base-font-size + 7;
 	letter-spacing: 0.02em;
-	background: $body-bg;
+	background: $white;
 	overflow-x: hidden;
+	font-family: $normal-font;
+	font-weight: normal;
+  	font-style: normal;
 }
 
 p{ 
@@ -212,12 +222,20 @@ p{
 	background: #fff7e0;
 }
 
-
+.form-control{
+	font-size: inherit;
+	min-height: 3.8rem;
+}
 .btn{
 	background: $base-color; 
 	color: $white;
-	padding: 0 30px;	
-	font-weight: 700;
+	padding: 0 2em;	
+	font-weight: 700; 
+	
+	&:focus{
+		box-shadow: none;
+		outline: 0;
+	}
 
 	&.btn-primary{
 		background-color: $base-bg-color;

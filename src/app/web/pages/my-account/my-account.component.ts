@@ -18,10 +18,12 @@ export class MyAccountComponent implements OnInit {
   }
 
   signOut(): void {
-    this.oauth.signOut().then( (userDetails) =>{ 
-        console.log(userDetails)
+    this.oauth.signOut().then( (userDetails) =>{  
         localStorage.clear();  
-        this.router.navigate(['login']);
+        window.location.href = "login";
+        //this.router.navigate(['login']);
+    }).catch((e)=>{
+      console.log(e)
     });    
   }
 

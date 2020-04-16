@@ -1,0 +1,60 @@
+@import '../../../../styles';
+
+.section{
+    padding: 6rem 0;
+
+    h2{
+        font-size: 3.4rem;
+        text-align: center;
+    }
+}
+.banner-area{
+    position: relative;
+    height: 58rem;
+    background-image: url("/assets/images/banner-image.jpg");
+    background-position:  50%;
+
+    &::before{
+        content: "";
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background: rgba(0, 0, 0, 0.25);
+        position: absolute;
+    }
+
+    .banner-inner{
+       
+        height: 100%;
+        @include flex(); 
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        color: $white; 
+        position: relative;
+        z-index: 12;
+
+        h1{ 
+            font-size: 5.5rem;
+            margin-bottom: 3rem;
+        }
+
+        p{
+            font-size: 2.4rem;
+            line-height: 3.1rem;
+            margin-bottom: 5rem;
+        }
+
+        button.get-started{
+            font-family: $normal-font;
+            font-size: 2rem;
+            line-height: 3.4rem;
+            padding: 1rem 5rem;
+            font-weight: normal;
+  	        font-style: normal;
+        }
+        
+    }
+}
