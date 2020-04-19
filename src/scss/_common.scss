@@ -14,18 +14,15 @@ html{
 	font-size: 62.5%;
 }
 
-h1, h2{  
+h1, h2, h3, h4{  
 	font-family: $bold-font;
 	font-weight: bold; 
 }
-
-
+ 
 
 
 body{   
-	font-size: 1.6rem;	 
-	line-height: $base-font-size + 7;
-	letter-spacing: 0.02em;
+	font-size: 1.6rem;	  
 	background: $white;
 	overflow-x: hidden;
 	font-family: $normal-font;
@@ -34,11 +31,16 @@ body{
 }
 
 p{ 
-	font-size: $base-font-size;	
-	line-height: $base-font-size + 7;
-	letter-spacing: 0.02em;
+	font-size: 1.6rem;	
+	line-height: 2rem; 
+	margin-bottom: 0;
+	color: $dark-gray;
 }
 
+ul{
+	margin-bottom: 0;
+	padding: 0;
+}
 
 .full-screen{
 	width: 100%;
@@ -54,6 +56,17 @@ p{
 	align-items: center;
 	justify-content: center;
 
+}
+
+.read-more-link{
+	color: $read-more;
+	margin-top: 1.5rem;
+	display: inline-block; 
+	background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAKCAYAAABi8KSDAAAABHNCSVQICAgIfAhkiAAAAJpJREFUGFeFkbENwkAQBHe/AVKkd4pM6BJMJ6YR81ABHdACHdACpIgUYgd2yC96otdhm8tON6u7vSVM+aCK0q4nt11gl49p4SKohnQRcB3ITS74gZPYBzWUTlYwCk8JWLTxDGJhz0m9gCWBtYDHc+9W9O37SLCagcsI3F8HV/4/Q7gNjnUyOm8wA9Pm6dcZcBT+hhIVesfGhvIBQMNdC/doLa4AAAAASUVORK5CYII=');
+	background-repeat: no-repeat;
+    background-position: 100% 50%; 
+    width: auto;
+    padding-right: 2rem;
 }
 
 .select-fw{
@@ -88,7 +101,11 @@ p{
 	}
 }
  
-
+.container{
+	@include breakpoint(1500px){
+		min-width: 1250px;
+	}
+}
 .grouped-box{
 	border: 1px #d1d1d1 solid;
 	border-radius: 25px;

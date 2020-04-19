@@ -1,6 +1,18 @@
 
 @import '../../../../styles';
 
+ 
+.header-wrapper{
+    &.fixed-header{ 
+        .header-area{
+            position: fixed;
+            background: $white;
+            width: 100%;
+            @include box-shadow(0px, 3px,8px, 1px, rgba(196,206,217,0.25)); 
+            z-index: 1001;
+        }
+    }
+}
 .header-area{
     .content-area{
         padding: 1rem 0;
@@ -47,6 +59,8 @@
             @include flex(); 
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            outline: 0;
 
             .user-img{
                 width: 3.8rem;
@@ -69,7 +83,9 @@
 .nav-area{
     ul.nav-item-list{
         padding-left: 0; 
-        @include flex(); 
+        @include flex();  
+        position: relative; 
+        //margin-bottom: 0.5rem;
         
 
         li{
@@ -77,15 +93,28 @@
             text-align: center;
             list-style: none;
 
+            
+
             a{
                 font-family: $bold-font;
                 font-weight: bold; 
                 font-size: 1.4rem;
                 color: $base-color;
-                padding: 1rem 1.5rem;
+                padding: 1rem 1.5rem 1rem 1.5rem;
                 display: block;
                 text-transform: uppercase;
-                position: relative;
+                position: relative; 
+                
+                &:after{
+                    content: ""; 
+                    width: 100%;
+                    height: 3px;
+                    background-color: $light-blue-color; //$base-bg-color;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    display: none;
+                }
                 
                 &::before{
                     content: "";
@@ -98,6 +127,55 @@
                     
                 }
                 
+            }
+
+            &:hover{
+
+                a{
+                    &:after{
+                        display: block;
+                    }
+                }
+                
+                .mega-menu{ 
+                  display: block;
+                }
+            }
+
+            .mega-menu{
+                height: 50rem;
+                width: 100%;
+                position: absolute;
+                z-index: 100;
+                background: #fff;
+                padding: 2rem;
+                display: none;
+                border-top: 1px $light-gray solid;
+
+                h3{
+                    color: $light-blue-color;
+                    text-align: left;
+                    margin-bottom: 1.5rem;
+                }
+
+                ul{
+                    li{
+                        a{
+                            padding: 0;
+                            text-align: left;
+                            font-size: 1.4rem;
+                            line-height: 2.3rem;
+                            font-family: $normal-font;
+                            font-weight: normal;
+                            font-style: normal;
+                            text-transform: capitalize;
+
+                            &::before, &:after{
+                                display: none;
+                            }
+                        }
+                    }
+                }
             }
 
             &:last-child{

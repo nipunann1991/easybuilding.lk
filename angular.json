@@ -41,7 +41,7 @@
               "node_modules/popper.js/dist/umd/popper.min.js", 
               "node_modules/fancybox/dist/js/jquery.fancybox.js",
               "node_modules/datatables.net/js/jquery.dataTables.min.js",
-               "node_modules/jszip/dist/jszip.js",
+              "node_modules/jszip/dist/jszip.js",
               "node_modules/datatables.net-buttons/js/dataTables.buttons.js",
               "node_modules/datatables.net-buttons/js/buttons.colVis.js",
               "node_modules/datatables.net-buttons/js/buttons.flash.js",
@@ -52,8 +52,10 @@
               "node_modules/nanoscroller/bin/javascripts/jquery.nanoscroller.js", 
               "node_modules/select2/dist/js/select2.min.js",
               "node_modules/jsbarcode/dist/JsBarcode.all.min.js",
-              "src/assets/js/app.main.js"
-
+              "src/assets/js/TweenMax.min.js",
+              "node_modules/scrollmagic/scrollmagic/uncompressed/ScrollMagic.js", 
+              "node_modules/scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js",
+              "src/assets/js/app.main.js" 
             ]
           },
           "configurations": {
