@@ -28,7 +28,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void { 
-
+    
+    window.scroll(0,0); 
+    
     this.featuredProfList = [{
       id: 1,
       title: "Modern Pool #1",
@@ -176,13 +178,19 @@ export class HomeComponent implements OnInit {
         let elm = '.services-list';
         let elm1 = '.services-area';
         let servicesAnims = new TimelineMax();   
+        let servicesAnims1 = new TimelineMax();   
 
         servicesAnims
           .from(elm1+' h2', 0.3, {  opacity: 0, ease: Power1.easeIn })  
-          .from(elm1+' p.text-center', 0.3, { opacity: 0, ease: Power1.easeIn })  
+          .from(elm1+' p.text-center', 0.3, { opacity: 0, ease: Power1.easeIn });
+        
+        appAnimations.scrollMagicInit(elm1, servicesAnims, 0);
+          
+        servicesAnims1  
           .from(elm+' li', 0.3, { autoAlpha: 0, y: 10, stagger: 0.2,  ease: Power1.easeOut } );
 
-        appAnimations.scrollMagicInit(elm1, servicesAnims); 
+        appAnimations.scrollMagicInit(elm1, servicesAnims1, 400);
+         
         
       },
 

@@ -12,7 +12,9 @@ export class ContactComponent implements OnInit {
     this.pageSEO();  
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
+    window.scroll(0,0); 
+
   }
 
   pageSEO() : void{

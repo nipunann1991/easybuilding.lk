@@ -6,11 +6,11 @@
                     <a routerLink="/"><img src="/assets/images/easybuilding-logo.png" alt="Wasybuilding Logo"></a>
                 </div>
                 <div class="search-box">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" class="form-control" placeholder="Search Photos, Products & More...">
                 </div>
                 <div class="cta-buttons">
                     <button mat-button  routerLink="/login" *ngIf="!isLogged" class="btn btn-login mat-button">Login</button>    
-                    <button mat-button *ngIf="!isLogged" class="btn btn-primary sign-up mat-button">Sign Up</button>   
+                    <button mat-button *ngIf="!isLogged" class="btn btn-primary sign-up mat-button">Upload Product</button>   
                     <div class="user-account" routerLink="/my-account" *ngIf="isLogged">
                         <div class="user-img"></div>
                         <div class="user-name"><p>Hello, Nipuna</p></div> 
@@ -23,7 +23,7 @@
         <div class="container">
             <ul class="nav-item-list">
                 <li>
-                    <a routerLink="/login">Photos</a>
+                    <a routerLink="/login"><i class="photo-img"></i>Photos</a>
                     <div class="mega-menu">
                         <div class="row">
                             <div class="col-md-3">
@@ -39,10 +39,10 @@
                         </div> 
                     </div>
                 </li>
-                <li><a routerLink="/login">Products</a></li>
-                <li><a routerLink="/login">BOQ</a></li>
-                <li><a routerLink="/login">Shop By Department</a></li>
-                <li><a routerLink="/contact">Contact</a></li>
+                <li><a routerLink="/login"><i class="products-img"></i>Products</a></li>
+                <li><a routerLink="/login"><i class="shop-img"></i>Services</a></li>
+                <li><a routerLink="/login"><i class="blog-img"></i>BOQ</a></li> 
+                <li><a routerLink="/contact"><i class="photo-img"></i>Contact</a></li>
             </ul>
         </div>
     </div>

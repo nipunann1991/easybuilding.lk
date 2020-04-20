@@ -29,6 +29,15 @@
 
         input{
             width: 100%;
+            background-image: url('/assets/images/search.png');
+            background-repeat: no-repeat;
+            background-position: 15px 50%;
+            padding-left: 4.2rem;
+
+            @include placeholder() {
+                color: #b9b9bc;
+                line-height: 6rem;;
+            }
         }
     }
 
@@ -36,7 +45,7 @@
         overflow: hidden;
         padding-left: 0;
         margin: 0;
-        width: 34.3rem;
+        width: 42rem;
          
         button{
             font-family: $bold-font;
@@ -84,26 +93,55 @@
     ul.nav-item-list{
         padding-left: 0; 
         @include flex();  
-        position: relative; 
-        //margin-bottom: 0.5rem;
+        position: relative;  
+        padding: 0 10%;
         
 
         li{
             width: 100%;
             text-align: center;
             list-style: none;
-
-            
+ 
 
             a{
                 font-family: $bold-font;
                 font-weight: bold; 
                 font-size: 1.4rem;
                 color: $base-color;
-                padding: 1rem 1.5rem 1rem 1.5rem;
+                padding: 1rem 1.5rem 1.5rem 1.5rem;
+                letter-spacing: 0.05rem;
                 display: block;
                 text-transform: uppercase;
                 position: relative; 
+
+                i{ 
+                    width: 2rem;
+                    height: 2rem;
+                    display: inline-block;
+                    position: relative;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    margin-right: 10px;
+                    top: 5px;
+
+                    &.photo-img{
+                        background-image: url('/assets/images/photo.png');
+                    }
+
+                    &.products-img{
+                        background-image: url('/assets/images/product.png');
+                    }
+
+
+                    &.shop-img{
+                        background-image: url('/assets/images/storage.png');
+                    }
+
+                    &.blog-img{
+                        background-image: url('/assets/images/blog.png'); 
+                    }
+                    
+                }
                 
                 &:after{
                     content: ""; 
@@ -144,7 +182,7 @@
 
             .mega-menu{
                 height: 50rem;
-                width: 100%;
+                width: 80%;
                 position: absolute;
                 z-index: 100;
                 background: #fff;
@@ -169,6 +207,7 @@
                             font-weight: normal;
                             font-style: normal;
                             text-transform: capitalize;
+                            letter-spacing: 0rem;
 
                             &::before, &:after{
                                 display: none;
