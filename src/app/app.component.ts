@@ -10,8 +10,7 @@ export class AppComponent {
 
   constructor() { }
 
-  ngOnInit(){
-  	console.log(3434)
+  ngOnInit(){ 
   }
 
   

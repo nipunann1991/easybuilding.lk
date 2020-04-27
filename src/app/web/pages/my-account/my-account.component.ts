@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService as OAuth } from "angularx-social-login";
+import { Globals } from "../../../app.global"
 
 @Component({
   selector: 'app-my-account',
@@ -9,12 +10,18 @@ import { AuthService as OAuth } from "angularx-social-login";
 })
 export class MyAccountComponent implements OnInit {
 
+  editableMode: boolean;
+  
   constructor(
     private oauth: OAuth,
-    private router: Router
+    private router: Router,
+    private globals: Globals
+
   ) { }
 
   ngOnInit(): void {
+
+    
   }
 
   signOut(): void {
@@ -23,7 +30,8 @@ export class MyAccountComponent implements OnInit {
         window.location.href = "login";
         //this.router.navigate(['login']);
     }).catch((e)=>{
-      console.log(e)
+        localStorage.clear();  
+        window.location.href = "login";
     });    
   }
 

@@ -6,6 +6,7 @@ import { DashboardContainerRoutingModule } from './dashboard-container-routing.m
 import { DashboardContainerComponent } from './dashboard-container.component';
 import { HeaderComponent } from "../../common/header/header.component";
 import { NavComponent } from "../../common/nav/nav.component";
+import { CategoriesModule } from '../categories/categories.module';
 
 @NgModule({
   declarations: [
@@ -15,8 +16,9 @@ import { NavComponent } from "../../common/nav/nav.component";
   ],
   imports: [
     AppSharedModule,
-    CommonModule,
+    CommonModule, 
     DashboardContainerRoutingModule,  
+    CategoriesModule,
   ]
 })
 export class DashboardContainerModule { }

@@ -1,1 +1,34 @@
-<p>categories works!</p>
+<div class="right-container  animated fadeIn">
+    <div class="title">
+      <h2><button mat-button class="transparent-btn back-btn"  ><i class="icon-left-arrow"></i></button> Categories</h2> 
+      <div class="clearfix"></div>
+    </div>
+    <div class="tab-btns"> 
+      <a mat-button routerLink="/admin/categories/main-categories" routerLinkActive="btn-primary-transparent"  class="btn btn-default-transparent"> Main Categories</a>
+      <a mat-button routerLink="/admin/categories/level1-category" routerLinkActive="btn-primary-transparent" class="btn btn-default-transparent">Level 1 Categories</a>  
+      <a mat-button routerLink="/admin/categories/level2-category" routerLinkActive="btn-primary-transparent" class="btn btn-default-transparent">Level 2 Categories</a> 
+    </div>
+    <router-outlet></router-outlet>
+    <!-- <app-main-category></app-main-category>  -->
+        <!-- <ul class="nav nav-tabs">
+            <li><a mat-button class="active" data-toggle="tab" href="#home">Main Categories</a></li>
+            <li><a mat-button data-toggle="tab" href="#menu1">Level-1 Categories</a></li>
+            <li><a mat-button data-toggle="tab" href="#menu2">Level-2 Categories</a></li> 
+          </ul>
+        
+          <div class="tab-content">
+            <div id="home" class="tab-pane fade in active show">
+                
+            </div>
+            <div id="menu1" class="tab-pane fade">
+              <h3>Level-1 Categories</h3>
+              <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div id="menu2" class="tab-pane fade">
+              <h3>Level-2 Categories</h3>
+              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+            </div> 
+          </div> -->
+     
+    
+</div>

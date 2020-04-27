@@ -39,6 +39,12 @@ export class NavComponent implements OnInit {
 				link: '/admin/products'
 			},
 			{
+				title: 'Categories',
+				icon: 'icon-box',
+				link: '/admin/categories'
+			},
+			
+			{
 				title: 'Clients',
 				icon: 'icon-group',
 				link: '/admin/clients'

@@ -10,20 +10,28 @@ export class AuthGuardService {
   constructor(
   	public auth: AuthService,
   	public router: Router
-  ) { }
+  ) { 
+
+	
+  }
 
    	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-	 
-		if (!this.auth.isAuthenticated()) {
+		
+		if (!this.auth.isAuthenticated()) { 
 			this.router.navigate(['admin/login']);
 			window.location.href
 			return false;
-		}else{  
-			if(state.url === '/admin'){
+			
+		}else if(!this.auth.validateBackendUser()){
+			this.router.navigate(['admin/login']);
+			return false;
+
+		}else if(this.auth.validateBackendUser() && this.auth.isAuthenticated()){
+			if(state.url == '/admin'){
 				this.router.navigate(['admin/dashboard']);
 			}
 			return true;
-		}  
+		}
 	} 
   	
 }

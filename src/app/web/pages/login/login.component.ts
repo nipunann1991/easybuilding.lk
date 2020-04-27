@@ -10,14 +10,13 @@ import { Globals } from './../../../app.global';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
   anim: string = '';
   status: boolean = false;
-  isLoggedIn : boolean = false;
-  // loginFaild: boolean = false;
+  isLoggedIn : boolean = false; 
   formIsValid: boolean = true;
   val : number = 0;
 
@@ -57,11 +56,12 @@ export class LoginComponent implements OnInit {
   }
 
   onClientLogin(userDetails): void {
-
+    console.log(userDetails)
     let param = { 
       email: userDetails.email, 
       first_name: userDetails.firstName, 
       last_name: userDetails.lastName, 
+      profie_image: userDetails.photoUrl, 
       provider: userDetails.provider.charAt(0),
       provider_id: userDetails.id, 
       auth_token:  userDetails.authToken 
@@ -70,11 +70,21 @@ export class LoginComponent implements OnInit {
     this.login.onClientLogin(param)
       .subscribe((response: any) => {
 
-        if (response.status == 200) { ;
+        console.log(response);
 
-           let token = { auth_token:  userDetails.authToken, session_id: response.data.client_id, email: userDetails.email, provider_id: response.data.provider_id }; 
+        if (response.status == 200 && response.data.length > 0) { ;
+
+           let token = { auth_token:  userDetails.authToken, 
+            session_id: response.data[0].client_id, 
+            email: userDetails.email, 
+            provider_id: response.data[0].provider_id 
+          }; 
+           
            this.global.token.auth_token = userDetails.authToken;
            this.global.token.provider_id = token.provider_id; 
+           this.global.user.first_name = response.data[0].first_name; 
+           this.global.user.profie_image = response.data[0].profie_image; 
+           
            localStorage.setItem('token', JSON.stringify(token) ); 
            this.router.navigate(['my-account']);
 

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core'; 
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
-import { MatButtonModule, MatCheckboxModule, MatNativeDateModule, MatFormFieldModule, MatSlideToggleModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatNativeDateModule, MatFormFieldModule, MatTabsModule, MatSlideToggleModule } from '@angular/material';
+ 
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatDialogModule} from '@angular/material/dialog';  
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -32,12 +33,21 @@ import { NgxFileDropModule } from 'ngx-file-drop';
       NgBootstrapFormValidationModule.forRoot(), 
     ],
   exports: [  
-    MatButtonModule, 
-    MatCheckboxModule, 
-    DragDropModule, 
-    MatSlideToggleModule, 
-    MatDatepickerModule, 
-    ReactiveFormsModule,
+    FormsModule,
+      ReactiveFormsModule,
+      NgxFileDropModule,
+      HttpClientModule, 
+      DataTablesModule, 
+      NgSelect2Module,
+      MatButtonModule, 
+      MatSlideToggleModule, 
+      DragDropModule, 
+      MatCheckboxModule, 
+      MatNativeDateModule, 
+      MatDialogModule, 
+      MatFormFieldModule, 
+      MatDatepickerModule, 
+      NgBootstrapFormValidationModule
     
   ],
   entryComponents: []

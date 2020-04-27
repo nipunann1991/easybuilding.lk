@@ -1,0 +1,61 @@
+<div class="row">
+      
+    <div class="col-md-4">
+        <div *ngIf="!isEditableRoute" class="white-box-panel">
+            <h3 class="title">Add Main Category</h3>
+            <form id="myform" class="wrapped-block" [formGroup]="formGroup" (ngSubmit)="onSubmit()" novalidate="novalidate">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="category_name">Category Name</label> 
+                            <input id="category_name" name="category_name" formControlName="cat_name" type="text" class="form-control">
+                        </div> 
+                    </div>
+                        
+                    <div class="col-md-12">
+                        <button mat-button name="submit" type="submit" class="btn btn-primary">Add Category</button>
+                        <button mat-button type="button" class="btn btn-default clear-btn">Clear</button>
+                    </div> 
+                </div> 
+            </form>
+        </div> 
+
+        <div *ngIf="isEditableRoute" class="white-box-panel">
+            <h3 class="title">Edit Main Category</h3>
+            <form id="myform" class="wrapped-block" [formGroup]="formGroup" (ngSubmit)="onUpdate()" novalidate="novalidate">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="category_name">Category Name</label> 
+                            <input id="category_name" name="category_name" formControlName="cat_name" type="text" class="form-control">
+                        </div> 
+                    </div>
+                        
+                    <div class="col-md-12">
+                        <button mat-button name="submit" type="submit" class="btn btn-primary"> <i class="icon-pencil"></i> Edit Category</button>
+                        <button mat-button type="button" class="btn btn-default close-btn">Close</button>
+                    </div> 
+                </div> 
+            </form>
+        </div>
+        
+    </div>
+
+    <div class="col-md-8"> 
+        <div class="white-box-panel">
+            <h3 class="title">Main Categories List</h3>
+            <button id="refresh-btn" type="button" class="btn waves-effect waves-light blue d-none" (click)="rerender()">  Rerender  </button>
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="row-border hover">
+                <thead>
+                <tr>   
+                    <th>Category Id</th>   
+                    <th>Category Name</th>  
+                    <th></th> 
+                </tr>
+                </thead>
+                
+            </table>
+        </div>
+    </div>
+    
+</div>

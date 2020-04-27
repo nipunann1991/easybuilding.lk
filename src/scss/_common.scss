@@ -27,7 +27,11 @@ body{
 	overflow-x: hidden;
 	font-family: $normal-font;
 	font-weight: normal;
-  	font-style: normal;
+	  font-style: normal;
+	  
+	&.admin-layout{
+		background-color: #f8f8f8;
+	}
 }
 
 p{ 
@@ -56,6 +60,10 @@ ul{
 	align-items: center;
 	justify-content: center;
 
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
 }
 
 .read-more-link{
@@ -130,8 +138,8 @@ ul{
 		left: 0;
 
 		  
-		.title{
-			margin-bottom: 25px;
+		.title{ 
+			margin-bottom: 2rem;
 
 			h2{
 				font-size: $h3-font-size + 3;
@@ -162,8 +170,42 @@ ul{
 .btn.close-btn{
 	color: $white;
 }
+.nav.nav-tabs{
+	li{
+		position: relative;
+		top: 1px;
 
+		a{
+			padding: 0.3rem 3rem;
+			font-size: 1.5rem;
+			text-decoration: none;
+			border: 1px transparent solid;
 
+			&.active{  
+				border: 1px #d6d6d6 solid;
+				border-bottom: 1px #ffffff solid;
+			}
+		}
+		
+	}
+}
+.tab-content{
+	.tab-pane{
+		padding: 1.5rem;
+
+		h3.title{
+			font-size: 2.1rem;
+			display: none;
+		}
+
+		.wrapped-block{
+			padding: 2rem 3rem;
+			border: 1px #d6d6d6 solid;
+			border-radius: 5px;
+
+		}
+	}
+}
 .badge{
 	padding: 4px;
 
@@ -246,13 +288,17 @@ ul{
 .btn{
 	background: $base-color; 
 	color: $white;
-	padding: 0 2em;	
-	font-weight: 700; 
+	font-family: $normal-font;
+	letter-spacing: 0.04rem;
+	font-weight: normal;
+	font-style: normal;
+	padding: 0 2em;	 
 	
 	&:focus{
 		box-shadow: none;
 		outline: 0;
-	}
+	} 
+	
 
 	&.btn-primary{
 		background-color: $base-bg-color;
@@ -265,6 +311,43 @@ ul{
 		}
 	}
 
+	&.btn-fb{
+		background-color: #0066c3;
+    	border-color: #0066c3;
+		color: $white;
+
+		&:hover{
+			background: darken(#0066c3, 5%);
+			color: $white;
+		}
+	}
+
+
+	
+	&.btn-default-transparent{
+		background-color: transparent;
+		border: 1px $base-color solid;
+		color: $base-color;
+
+		&:hover{
+			background-color: inherit;
+			border-color: darken($base-color, 5%);
+			color: darken($base-color, 5%);;
+		}
+	}
+
+	&.btn-primary-transparent{ 
+		border: 1px $base-bg-color solid;
+		color: $base-bg-color;
+		background: rgba(60, 142, 249, 0.08);
+
+		&:hover{
+			background: rgba(60, 142, 249, 0.12);
+			border-color: darken($base-bg-color, 5%);
+			color: darken($base-bg-color, 5%);;
+		}
+	}
+	
 	&.btn-danger{
 		background-color: $danger-color;
 		border-color: $danger-color;
@@ -306,6 +389,14 @@ ul{
 	&:hover{
 		background: lighten($base-color, 10%);
 		color: $white;
+	}
+}
+
+.tab-btns{
+	margin-bottom: 1.5rem;
+
+	a.btn{
+		margin-right: 1rem;
 	}
 }
 
@@ -395,9 +486,15 @@ button.second-btn{
     box-shadow: 0 0 12px #eee !important;
 
     div[aria-live="polite"]{
-    	font-size: 13px;
-    	line-height: 18px;
+    	font-size: 1.4rem;
+    	line-height: 1.9rem;
     }
+}
+
+.toast-title{
+	font-family: $bold-font;
+	font-weight: bold;  
+    font-size: 1.8rem;
 }
 
 .toast-top-right{
@@ -455,27 +552,24 @@ button.second-btn{
 	background: $white;
 	border-radius: 5px;
 	@include box-shadow(0, 2px, 16px, -3px, rgba(0, 0, 0, 0.1));
-	min-height: 250px;
+	min-height: 150px;
  
 }
 
 
 table.dataTable{
-	font-size: 13px;
+	font-size: 1.4rem;
+    line-height: 1.9rem;
 
 	thead {
 		th, td{
-			padding: 5px 10px;
+			padding: 0.85rem 1rem;
 		}
 	}
 
 	tbody {
-		th, td{
-			padding: 5px 10px;
-
-			img{
-				width: 60px;
-			}
+		th, td{ 
+			padding: 0.85rem 1rem;
 
 			a{
 				cursor: pointer; 
@@ -487,10 +581,14 @@ table.dataTable{
 
 			&:last-child{
 				a{ 
-					font-size: 11px;
+					font-size: 1.2rem;
 					
 					i{
 						font-weight: bold;
+
+						&.icon-bin{
+							color: $danger-color;
+						}
 					}
 
 					&.delete-data{
@@ -505,22 +603,22 @@ table.dataTable{
 }
 
 div.dataTables_wrapper{
-	    font-size: 12px;
+		font-size: 1.4rem;
 
 	div.dataTables_paginate{ 
-		font-size: 11px;
+		font-size: 1.4rem;
 
 		.paginate_button{
 			padding: 2px;
     		line-height: 1rem;
     		border-radius: 3px;
-    		padding: 1px 5px;
+    		padding: 0.5rem;
     		border: 1px solid #979797;
 		}
 	}
 
 	div.dataTables_info{ 
-		font-size: 11px;
+		font-size: 1.2rem;
 	}
 
 	div.dataTables_filter input{
@@ -558,12 +656,15 @@ button.dt-button{
 .bootbox {
 	.modal-header{
 		.modal-title{
-			font-size: 19px;
+			font-size: 1.8rem;
+			font-family: $bold-font;
+			font-weight: bold; 
 		}
 	}
 	.modal-footer{
 		button.btn {
-			padding: 5px 30px;
+			font-size: 1.5rem;
+			padding: 0.5rem 3rem;
 			
 			&.pull-left {
 				order: 1;
@@ -576,10 +677,15 @@ button.dt-button{
 	}
 }
 
+.modal-backdrop.show{
+	opacity: 0.75;
+}
+
 .modal{  
 	transform: translate(0,15%);
 
-	&.show{
+	&.show{ 
+
 		.modal-dialog{
 			transform: translate(0,50%);
 			transition: all 0s ease;

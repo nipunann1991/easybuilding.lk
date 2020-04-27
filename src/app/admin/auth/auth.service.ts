@@ -16,6 +16,7 @@ export class AuthService {
     private login: LoginService,
     private global: Globals
   ) {   
+     
     this.isUserAuthenticated() 
   }
  
@@ -42,18 +43,23 @@ export class AuthService {
 
   isUserAuthenticated() :  boolean{ 
     const token: any = JSON.parse(localStorage.getItem('token'));
+
       return this.login.checkUserLoginStatus(token)
         .subscribe((response) => {
-          
-          if (response.status == 200 && response.data.length > 0 ) { 
-            this.isAuthenticatedUser.next(true);  
-            this.global.token.auth_token = token.auth_token;   
-              
+          console.log(response)
+          if (response.status === 200 && response.data.length > 0) { 
+
+            this.isAuthenticatedUser.next(true); 
+            this.global.token.auth_token = token.auth_token;
+            this.global.user.first_name = response.data[0].first_name;   
+            this.global.user.profie_image = response.data[0].profie_image; 
+            
+            console.log(response , "--------true-----------------")
             return this.isUserValid = true; 
 
           }else{
             this.isAuthenticatedUser.next(false); 
-            //localStorage.clear(); 
+            console.log(response , "--------false-----------------")
             return this.isUserValid = false;  
           }
            

@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageContainerComponent implements OnInit {
 
-  constructor() { }
+  constructor() { 
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.remove('admin-layout');
+  }
 
   ngOnInit(): void {  
   }

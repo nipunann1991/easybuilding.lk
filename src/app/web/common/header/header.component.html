@@ -8,12 +8,12 @@
                 <div class="search-box">
                     <input type="text" class="form-control" placeholder="Search Photos, Products & More...">
                 </div>
-                <div class="cta-buttons">
+                <div class="cta-buttons"> 
                     <button mat-button  routerLink="/login" *ngIf="!isLogged" class="btn btn-login mat-button">Login</button>    
                     <button mat-button *ngIf="!isLogged" class="btn btn-primary sign-up mat-button">Upload Product</button>   
                     <div class="user-account" routerLink="/my-account" *ngIf="isLogged">
-                        <div class="user-img"></div>
-                        <div class="user-name"><p>Hello, Nipuna</p></div> 
+                        <div class="user-img" [ngStyle]="{'background-image': 'url('+ user.profie_image + ')'}"></div> 
+                        <div class="user-name"><p>Hello, {{user.first_name}}</p></div> 
                     </div> 
                 </div>
             </div>
@@ -23,11 +23,45 @@
         <div class="container">
             <ul class="nav-item-list">
                 <li>
-                    <a routerLink="/login"><i class="photo-img"></i>Photos</a>
+                    <a routerLink="/login"><i class="photo-img"></i>Photos</a> 
+                </li>
+                <li>
+                    <a routerLink="/products"><i class="products-img"></i>Products</a>
+                    <div class="mega-menu">
+                        <div class="row">
+                           
+                            <div class="col-md-4" *ngFor="let menu_item_cols of menuItemCols">
+                                <ng-container *ngFor="let menu_item of menu_item_cols"> 
+                                
+                                    <h3>{{menu_item.title}}</h3>
+                                    <ul>
+                                        <li *ngFor="let misc of menu_item.children"><a routerLink="{{misc.url}}">{{misc.title}}</a></li>
+                                    </ul>  
+
+                                </ng-container>
+                                
+                            </div>
+                                
+                            
+                            <!-- <div class="col-md-3">
+                                <ul> menu-item-col
+                                    <li><a routerLink="/login">Products</a></li>
+                                    <li><a routerLink="/login">BOQ</a></li>
+                                    <li><a routerLink="/login">Shop By Department</a></li>
+                                    <li><a routerLink="/contact">Contact</a></li> 
+                                </ul>
+ 
+
+                            </div> -->
+                       </div>
+                    </div>
+                </li>
+                <li>
+                    <a routerLink="/login"><i class="shop-img"></i>Services</a>
                     <div class="mega-menu">
                         <div class="row">
                             <div class="col-md-3">
-                                <h3>Product Categories</h3>
+                                <h3>Product Categories #2</h3>
                                 <ul>
                                     <li><a routerLink="/login">Products</a></li>
                                     <li><a routerLink="/login">BOQ</a></li>
@@ -39,8 +73,6 @@
                         </div> 
                     </div>
                 </li>
-                <li><a routerLink="/login"><i class="products-img"></i>Products</a></li>
-                <li><a routerLink="/login"><i class="shop-img"></i>Services</a></li>
                 <li><a routerLink="/login"><i class="blog-img"></i>BOQ</a></li> 
                 <li><a routerLink="/contact"><i class="photo-img"></i>Contact</a></li>
             </ul>

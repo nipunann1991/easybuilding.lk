@@ -1,7 +1,21 @@
-<div class="container">
-    <h2>Client Login Page</h2> 
-    <button mat-button class="btn btn-danger" *ngIf="!isLoggedIn" (click)="signInWithGoogle()"  >Google</button> 
-    <button mat-button class="btn btn-primary" *ngIf="!isLoggedIn" (click)="signInWithFB()" >FB</button> 
-    <!-- <button mat-button *ngIf="isLoggedIn" (click)="signOut()" class="app-login" >Sign Out</button>  -->
+<div class="container-fluid login-page">
+    <div class="container">
+        <div class="login-wrapper">
+            <div class="logo">
+                <a routerLink="/"><img src="/assets/images/easybuilding-logo.png" alt="Wasybuilding Logo"></a>
+            </div>
+            <div class="text-desc">
+                <p>Easy Building is built exclusively for home remodeling and design professionals.</p>
+            </div>
+            <div class="login-accounts" *ngIf="!isLoggedIn">
+                <button mat-button class="btn btn-danger"  (click)="signInWithGoogle()"  >Login with Google</button> 
+                <button mat-button class="btn btn-fb" (click)="signInWithFB()" >Login with Facebook</button> 
+            </div> 
+            <div class="login-accounts" *ngIf="isLoggedIn">
+                <h3>Please wait...</h3>
+            </div>
+        </div>
+        
+        <!-- <button mat-button *ngIf="isLoggedIn" (click)="signOut()" class="app-login" >Sign Out</button>  -->
+    </div>  
 </div>
-
