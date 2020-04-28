@@ -10,8 +10,8 @@
         
         <div class="user"> 
             <div class="user-details">
-                <div class="user-img"></div>
-                <div class="user-name">Nipuna Nanayakkara</div> <i class="icon-down-arrow arrow-down"></i>
+                <div class="user-img" [ngStyle]="{'background-image': 'url('+ user.profie_image + ')'}"></div>
+                <div class="user-name">Welcome, {{user.first_name}}</div> <i class="icon-down-arrow arrow-down"></i>
             </div> 
         </div>
 

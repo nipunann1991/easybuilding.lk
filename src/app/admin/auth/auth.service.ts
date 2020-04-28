@@ -49,17 +49,24 @@ export class AuthService {
           console.log(response)
           if (response.status === 200 && response.data.length > 0) { 
 
+            let token = { 
+              auth_token:  response.data[0].auth_token, 
+              session_id: response.data[0].client_id, 
+              email: response.data[0].email, 
+              provider_id: response.data[0].provider_id 
+            };
+
             this.isAuthenticatedUser.next(true); 
             this.global.token.auth_token = token.auth_token;
             this.global.user.first_name = response.data[0].first_name;   
             this.global.user.profie_image = response.data[0].profie_image; 
-            
-            console.log(response , "--------true-----------------")
+
+            localStorage.setItem('token', JSON.stringify(token) ); 
+             
             return this.isUserValid = true; 
 
           }else{
-            this.isAuthenticatedUser.next(false); 
-            console.log(response , "--------false-----------------")
+            this.isAuthenticatedUser.next(false);  
             return this.isUserValid = false;  
           }
            

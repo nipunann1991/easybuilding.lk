@@ -73,8 +73,10 @@ export class LoginComponent implements OnInit {
         console.log(response);
 
         if (response.status == 200 && response.data.length > 0) { ;
+ 
 
-           let token = { auth_token:  userDetails.authToken, 
+           let token = { 
+            auth_token:  userDetails.authToken, 
             session_id: response.data[0].client_id, 
             email: userDetails.email, 
             provider_id: response.data[0].provider_id 

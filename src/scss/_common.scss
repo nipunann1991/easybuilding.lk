@@ -285,6 +285,11 @@ ul{
 	font-size: inherit;
 	min-height: 3.8rem;
 }
+
+.form-control:disabled, .form-control[readonly] {
+	background-color: #f8f8f8;
+}
+
 .btn{
 	background: $base-color; 
 	color: $white;

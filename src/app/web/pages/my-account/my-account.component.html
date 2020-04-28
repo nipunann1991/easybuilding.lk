@@ -1,11 +1,22 @@
-
-<div class="container">
-    <h2>My Account works! {{editableMode}}</h2>
-    <!-- <img src="https://lh3.googleusercontent.com/a-/AOh14GisC--kL07FCODwshq3lCEH8lnSWOfzpBvcjEQbqg=s96-c" alt="">  -->
-    <a routerLink="/">Home</a><br/>
-    <a routerLink="/my-account/settings">Settings</a><br/>
-    <a routerLink="/admin">Admin</a><br/>
-    
-    <button mat-button class="btn btn-warning" (click)="signOut()" >Sign Out</button> 
+<div class="page-container animated fadeIn">
+    <div class="container">
+        <app-profile></app-profile> 
+        <div class="content-wrapper"> 
+            
+            <div class="row">
+                <div class="col-md-3"> 
+                    <a routerLink="/">Home</a><br/> 
+                    <a routerLink="account-info" >Account Information</a><br/> 
+                    <a routerLink="settings">Settings</a><br/>
+                    <a routerLink="/admin" *ngIf="isAdminAccessible">Admin</a><br/> 
+                    
+                    <button mat-button class="btn btn-warning" (click)="signOut()" >Sign Out</button> 
+                </div>
+                <div class="col-md-9">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+            
+        </div>
+    </div>
 </div>
-
