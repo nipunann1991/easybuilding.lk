@@ -1,6 +1,6 @@
 <!-- <div class="row">
     <div class="col-md-6"> -->
-        <form id="myform" class="wrapped-block" [formGroup]="formGroup" (ngSubmit)="onSave()" novalidate="novalidate">
+        <form id="myform" class="wrapped-block animated fadeIn" [formGroup]="formGroup" (ngSubmit)="onSave()" novalidate="novalidate">
             <div class="row">
                 <div class="col-md-12">
                     <h2>Account Information</h2>
@@ -28,17 +28,18 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea name="description" class="form-control" formControlName="description" cols="30" rows="8"></textarea> 
+                        <ckeditor [editor]="Editor" data="" formControlName="description"></ckeditor>
+                        <!-- <textarea name="description" class="form-control" formControlName="description" cols="30" rows="8"></textarea>  -->
                     </div>  
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="email">Email Address</label> 
-                        <input id="email" name="email" formControlName="email" disabled="disabled" type="text" class="form-control" >
+                        <input id="email" name="email" formControlName="email" type="text" class="form-control" >
                     </div>
                 </div>    
                 <div class="col-md-12">
-                    <button mat-button name="submit" type="submit" class="btn btn-primary">Save Info</button>
+                    <button mat-button name="submit" type="submit" class="btn btn-primary">Save Account Info</button>
                     <button mat-button type="button" class="btn btn-default close-btn">Close</button>
                 </div> 
             </div> 

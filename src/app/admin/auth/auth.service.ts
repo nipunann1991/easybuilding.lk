@@ -46,7 +46,7 @@ export class AuthService {
 
       return this.login.checkUserLoginStatus(token)
         .subscribe((response) => {
-          console.log(response)
+        
           if (response.status === 200 && response.data.length > 0) { 
 
             let token = { 

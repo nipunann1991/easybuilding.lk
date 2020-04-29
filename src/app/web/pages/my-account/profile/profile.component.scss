@@ -17,6 +17,7 @@
         @include flex();
         align-items: flex-end;
 
+        
         .profile-img{
             width: 14rem;
             height: 14rem;
@@ -30,14 +31,26 @@
             background-position: 50% 50%; 
         }
 
-        .details{
-            margin-bottom: 3rem;
-            margin-left: 1.5rem;
+        .details-wrapper{
+            @include flex();
+            @include calc("width", "100% - 17.5rem");
+            margin-bottom: 0rem;
+            padding: 1.5rem 0;
 
-            h3{
-                font-size: 2.3rem;
-                margin-bottom: 0;
+            .details{ 
+                margin-left: 1.5rem;
+    
+                h3{
+                    font-size: 2.3rem;
+                    margin-bottom: 0;
+                }
             }
-        }
+
+            button.edit-profile{
+                margin-left: auto;
+                margin-right: 3.5rem;
+            }
+        } 
+        
     } 
 }

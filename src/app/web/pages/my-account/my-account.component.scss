@@ -2,5 +2,20 @@
  
 
 .content-wrapper{
+    @include flex();
+    align-items: start;
     padding: 9rem 0 4rem 0;
+
+    .left-block{
+        width: 25%
+    }
+
+    .right-block{
+        width: 75% 
+    }
+
+    app-user{
+        width: 100%;
+    }
+     
 }

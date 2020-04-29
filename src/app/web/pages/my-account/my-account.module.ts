@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { MyAccountRoutingModule } from './my-account-routing.module';
 import { MyAccountComponent } from './my-account.component';
 import { ProfileModule } from './profile/profile.module';
+import { AppSharedModule } from '../../../app.shared.module';
+import { UserModule } from './user/user.module';
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { ProfileModule } from './profile/profile.module';
   imports: [
     CommonModule,
     MyAccountRoutingModule,
+    AppSharedModule,
     ProfileModule,
+    UserModule,
   ],
   exports: [MyAccountComponent]
 })

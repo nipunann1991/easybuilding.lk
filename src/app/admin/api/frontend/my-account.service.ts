@@ -16,6 +16,16 @@ export class MyAccountService {
     return this.http.get(environment.baseUrl+'ProfileController/getProfileDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
   }
 
+  getAccountDetails(){  
+    this.token = JSON.parse(localStorage.getItem('token')); 
+    return this.http.get(environment.baseUrl+'ProfileController/getAccountDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+  }
+
+  getContactDetails(){  
+    this.token = JSON.parse(localStorage.getItem('token')); 
+    return this.http.get(environment.baseUrl+'ProfileController/getContactDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+  }
+  
   updateProfileDetails(postVals){ 
     this.token = JSON.parse(localStorage.getItem('token')); 
     const params = new HttpParams({

@@ -3,20 +3,18 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
-  selector: 'app-account-info',
-  templateUrl: './account-info.component.html',
-  styleUrls: ['./account-info.component.css']
+  selector: 'app-contact-info',
+  templateUrl: './contact-info.component.html',
+  styleUrls: ['./contact-info.component.css']
 })
-export class AccountInfoComponent implements OnInit {
+export class ContactInfoComponent implements OnInit {
 
-  profile: any = {}
-  isEmailDisabled: boolean = true;
   formGroup: FormGroup;
-  public Editor = ClassicEditor;
   clientId: any;
+  profile: any = {}
+
 
   constructor(
     private myaccount: MyAccountService,
@@ -25,34 +23,43 @@ export class AccountInfoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    this.getAccountDetails();
+    
     this.formGroup = new FormGroup({ 
-      first_name: new FormControl({value:'', disabled: true}, [
+      address_line1: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(100)
+      ]),
+      address_line2: new FormControl(''),
+      city: new FormControl('', [
         Validators.required,
         Validators.minLength(2),
         Validators.maxLength(100)
       ]),
 
-      last_name: new FormControl({value:'', disabled: true}, [
+      tel1: new FormControl('', [
         Validators.required,
-        Validators.minLength(2),
+        Validators.minLength(10),
         Validators.maxLength(100)
       ]),
-      display_name: new FormControl(''),
-      description: new FormControl(''),
+
+      tel2: new FormControl('', [ 
+        Validators.minLength(10),
+        Validators.maxLength(100)
+      ]),
+       
       email: new FormControl({value:'', disabled: true}, [ 
           Validators.required, 
       ]), 
 
     });
- 
-
-    this.getAccountDetails()
   }
+
 
   getAccountDetails(){
 
-    this.myaccount.getAccountDetails() 
+    this.myaccount.getContactDetails() 
       .subscribe((response: any) => {
         if (response.status == 200) {
            
@@ -60,11 +67,12 @@ export class AccountInfoComponent implements OnInit {
 
 
           this.formGroup.setValue({
-              first_name: this.profile.first_name, 
-              last_name: this.profile.last_name,
-              display_name: this.profile.display_name,
-              description: this.profile.description,
-              email: this.profile.email,
+            address_line1: this.profile.address_line1, 
+            address_line2: this.profile.address_line2,
+            city: this.profile.city,
+            tel1: this.profile.tel1,
+            tel2: this.profile.tel2,
+            email: this.profile.email,
           });
 
           this.clientId = this.profile.client_id
@@ -75,7 +83,6 @@ export class AccountInfoComponent implements OnInit {
           
       });
   }
-
 
   onSave(){
 

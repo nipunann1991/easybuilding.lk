@@ -1,22 +1,29 @@
 <div class="page-container animated fadeIn">
     <div class="container">
-        <app-profile></app-profile> 
-        <div class="content-wrapper"> 
-            
-            <div class="row">
-                <div class="col-md-3"> 
-                    <a routerLink="/">Home</a><br/> 
-                    <a routerLink="account-info" >Account Information</a><br/> 
+        <app-profile 
+            [profileData]="profileData"
+            (isProfileEditable)="onGetCourseversionID($event)"
+        ></app-profile> 
+        <div class="content-wrapper" *ngIf="isEditableMode"> 
+             
+                <div class="left-block"> 
+                    <a routerLink="/my-account/user">Home</a><br/> 
+                    <a routerLink="account-info" >Account Information</a><br/>
+                    <a routerLink="contact-info" >Contact Details</a><br/>
+                    
                     <a routerLink="settings">Settings</a><br/>
                     <a routerLink="/admin" *ngIf="isAdminAccessible">Admin</a><br/> 
                     
                     <button mat-button class="btn btn-warning" (click)="signOut()" >Sign Out</button> 
                 </div>
-                <div class="col-md-9">
+                <div class="right-block">
                     <router-outlet></router-outlet>
                 </div>
-            </div>
             
+        </div>
+
+        <div class="content-wrapper" *ngIf="!isEditableMode"> 
+            <app-user [profileData]="profileData"></app-user>
         </div>
     </div>
 </div>

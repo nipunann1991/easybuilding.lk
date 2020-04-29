@@ -1,0 +1,28 @@
+ <div class="container-fluid animated fadeIn">
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Awards</h3>
+            <p><i>No awards yet.</i></p>
+        </div>
+        <div class="col-md-9">
+            <div class="item">
+                <h3>Description</h3>
+                <div  *ngIf="profile.description == '' ">
+                    <p><i>Add a description about your business.</i></p>
+                </div>
+                <div [innerHTML]="profile.description"></div>
+            </div>
+            <div class="item"> 
+                <h3>Contact Details</h3>
+                <ul>
+                    <li>
+                        {{profile.address_line1}} {{profile.address_line2}} {{profile.city}}
+                    </li>
+                    <li>{{profile.tel1}}</li>
+                    <li>{{profile.email}}</li>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+ </div>

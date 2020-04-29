@@ -11,7 +11,7 @@
                 <div class="cta-buttons"> 
                     <button mat-button  routerLink="/login" *ngIf="!isLogged" class="btn btn-login mat-button">Login</button>    
                     <button mat-button *ngIf="!isLogged" class="btn btn-primary sign-up mat-button">Upload Product</button>   
-                    <div class="user-account" routerLink="/my-account" *ngIf="isLogged">
+                    <div class="user-account" routerLink="/my-account/user" *ngIf="isLogged">
                         <div class="user-img" [ngStyle]="{'background-image': 'url('+ user.profie_image + ')'}"></div> 
                         <div class="user-name"><p>Hello, {{user.first_name}}</p></div> 
                     </div> 

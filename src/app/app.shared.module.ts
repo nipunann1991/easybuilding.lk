@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DataTablesModule } from 'angular-datatables';
 import { NgSelect2Module } from 'ng-select2';
 import { NgxFileDropModule } from 'ngx-file-drop'; 
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { NgxFileDropModule } from 'ngx-file-drop';
       MatDialogModule, 
       MatFormFieldModule, 
       MatDatepickerModule, 
+      CKEditorModule,
       NgBootstrapFormValidationModule.forRoot(), 
     ],
   exports: [  
@@ -47,6 +49,7 @@ import { NgxFileDropModule } from 'ngx-file-drop';
       MatDialogModule, 
       MatFormFieldModule, 
       MatDatepickerModule, 
+      CKEditorModule, 
       NgBootstrapFormValidationModule
     
   ],
