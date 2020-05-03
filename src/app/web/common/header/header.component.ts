@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService as Auth } from '../../../admin/auth/auth.service';
+import { AuthService as OAuth } from "angularx-social-login";
 import { Router, NavigationEnd, RouterEvent } from "@angular/router";
 import { filter } from 'rxjs/operators';
 import { Globals } from "../../../app.global"
@@ -23,6 +24,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private authservice: Auth,
+    private oauth: OAuth,
     private router: Router,
     private globals: Globals
   ) { 
@@ -301,6 +303,18 @@ export class HeaderComponent implements OnInit {
     }else{ 
       this.isLogged = false;
     }
+  }
+
+  signOut(): void {
+    this.oauth.signOut().then( (userDetails) =>{  
+      localStorage.clear();  
+      this.router.navigate(['/']); 
+
+    }).catch((e)=>{
+        localStorage.clear();  
+        this.router.navigate(['/']); 
+
+    });    
   }
 
 }

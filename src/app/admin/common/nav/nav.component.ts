@@ -34,21 +34,26 @@ export class NavComponent implements OnInit {
 				link: '/admin/dashboard'
 			},
 			{
-				title: 'Products',
+				title: 'Clients',
+				icon: 'icon-group',
+				link: '/admin/clients'
+			}, 
+			{
+				title: 'Cities',
 				icon: 'icon-box',
-				link: '/admin/products'
+				link: '/admin/cities'
 			},
 			{
 				title: 'Categories',
 				icon: 'icon-box',
 				link: '/admin/categories'
+			},  
+			{
+				title: 'Products',
+				icon: 'icon-box',
+				link: '/admin/products'
 			},
 			
-			{
-				title: 'Clients',
-				icon: 'icon-group',
-				link: '/admin/clients'
-			},   
 			{
 				title: 'Certification',
 				icon: 'icon-shopping-cart',

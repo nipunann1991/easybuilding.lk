@@ -3,11 +3,29 @@
 .profile-area{
     position: relative;
     .cover-image{
-        height: 25rem;
+        height: 35rem;
         background-color: #eeeeee;
         background-image: url(/assets/images/picture.png);
         background-repeat: no-repeat;
         background-position: 50% 50%; 
+
+        &.loader{
+            background-image: url(/assets/images/loader1.svg);
+            background-size: 6.5rem;
+        }
+
+        i.icon-bin{
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: $white;
+
+            &:hover{
+                color: $danger-color;
+            }
+        }
     }
 
     .profile-details{
@@ -41,16 +59,17 @@
                 margin-left: 1.5rem;
     
                 h3{
-                    font-size: 2.3rem;
+                    font-size: 2.7rem;
                     margin-bottom: 0;
                 }
             }
 
             button.edit-profile{
                 margin-left: auto;
-                margin-right: 3.5rem;
+                margin-right: 1.5rem;
             }
         } 
         
     } 
 }
+

@@ -1,4 +1,22 @@
 <div class="row"> 
+    <div class="col-md-8"> 
+        <div class="white-box-panel">
+            <h3 class="title">Level 1 Categories List</h3>
+            <button id="refresh-btn" type="button" class="btn waves-effect waves-light blue d-none" (click)="rerender()">  Rerender  </button>
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="row-border hover">
+                <thead>
+                <tr>   
+                    <th>Category Id</th>   
+                    <th>Category Level 1</th> 
+                    <th>Parent Category</th>   
+                    <th></th> 
+                </tr>
+                </thead>
+                
+            </table>
+        </div>
+    </div>
+    
     <div class="col-md-4">
         <div *ngIf="!isEditableRoute" class="white-box-panel">
             <h3 class="title">Add Level 1 Category</h3>
@@ -50,24 +68,5 @@
             </form>
         </div>
         
-    </div>
-
-    <div class="col-md-8"> 
-        <div class="white-box-panel">
-            <h3 class="title">Level 1 Categories List</h3>
-            <button id="refresh-btn" type="button" class="btn waves-effect waves-light blue d-none" (click)="rerender()">  Rerender  </button>
-            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="row-border hover">
-                <thead>
-                <tr>   
-                    <th>Category Id</th>   
-                    <th>Category Level 1</th> 
-                    <th>Parent Category</th>   
-                    <th></th> 
-                </tr>
-                </thead>
-                
-            </table>
-        </div>
-    </div>
-    
+    </div> 
 </div>

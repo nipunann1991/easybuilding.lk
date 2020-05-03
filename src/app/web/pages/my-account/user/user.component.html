@@ -1,16 +1,9 @@
  <div class="container-fluid animated fadeIn">
     <div class="row">
         <div class="col-md-3">
-            <h3>Awards</h3>
-            <p><i>No awards yet.</i></p>
-        </div>
-        <div class="col-md-9">
-            <div class="item">
-                <h3>Description</h3>
-                <div  *ngIf="profile.description == '' ">
-                    <p><i>Add a description about your business.</i></p>
-                </div>
-                <div [innerHTML]="profile.description"></div>
+            <div class="item"> 
+                <h3>Awards</h3>
+                <p><i>No awards yet.</i></p>
             </div>
             <div class="item"> 
                 <h3>Contact Details</h3>
@@ -22,6 +15,28 @@
                     <li>{{profile.email}}</li>
                 </ul>
             </div>
+        </div>
+        <div class="col-md-9">
+
+            <div class="item">
+                <h3>Description</h3>
+                <div  *ngIf="profile.description == '' ">
+                    <p><i>Add a description about your business.</i></p>
+                </div>
+                <div [innerHTML]="profile.description"></div>
+            </div>
+
+            <div class="item"> 
+                <h3>Services Provided</h3>
+                <p><i>No services yet.</i></p>
+            </div>
+
+            <div class="item"> 
+                <h3>Areas Served</h3>
+                <p><i>No services areas yet.</i></p>
+            </div>
+            
+           
             
         </div>
     </div>

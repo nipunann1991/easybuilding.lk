@@ -7,9 +7,16 @@ import { environment } from "./../../../environments/environment";
 })
 export class ClientsService {
 
+  token: any = {};
+
   constructor(private http: HttpClient) { }
+ 
 
-
+  getClientDetailsDT(){ 
+    this.token = JSON.parse(localStorage.getItem('token')); 
+    let url = environment.baseUrl+'ClientController/getClientDetailsDT?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id; 
+   	return url;  
+  }
  
 
 

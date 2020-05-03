@@ -35,44 +35,44 @@ export class HomeComponent implements OnInit {
       id: 1,
       title: "Modern Pool #1",
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "/assets/images/modern-pool1.png",
+      imgUrl: "./assets/images/modern-pool1.png",
     },
     {
       id: 2,
       title: "Modern Pool #2",
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "/assets/images/modern-pool2.png",
+      imgUrl: "./assets/images/modern-pool2.png",
     },{
       id: 3,
       title: "Modern Pool #3",
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "/assets/images/modern-pool3.png",
+      imgUrl: "./assets/images/modern-pool3.png",
     },{
       id: 4,
       title: "Modern Pool #4",
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "/assets/images/modern-pool4.png",
+      imgUrl: "./assets/images/modern-pool4.png",
     },{
       id: 5,
       title: "Modern Pool #5",
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "/assets/images/modern-pool5.png",
+      imgUrl: "./assets/images/modern-pool5.png",
     },
     {
       id: 6,
       title: "Modern Pool #6",
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "/assets/images/modern-pool6.png",
+      imgUrl: "./assets/images/modern-pool6.png",
     },{
       id: 7,
       title: "Modern Pool #7",
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "/assets/images/modern-pool7.png",
+      imgUrl: "./assets/images/modern-pool7.png",
     },{
       id: 8,
       title: "Modern Pool #8",
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "/assets/images/modern-pool8.png",
+      imgUrl: "./assets/images/modern-pool8.png",
     }];
 
 
@@ -80,39 +80,39 @@ export class HomeComponent implements OnInit {
       id: 1,
       title: "Modern Pool #1",
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "/assets/images/products1.png",
+      imgUrl: "./assets/images/products1.png",
     },
     {
       id: 2,
       title: "Modern Pool #2",
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "/assets/images/products2.png",
+      imgUrl: "./assets/images/products2.png",
     },{
       id: 3,
       title: "Modern Pool #3",
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "/assets/images/products3.png",
+      imgUrl: "./assets/images/products3.png",
     },{
       id: 4,
       title: "Modern Pool #4",
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "/assets/images/products4.png",
+      imgUrl: "./assets/images/products4.png",
     },{
       id: 5,
       title: "Modern Pool #5",
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "/assets/images/products5.png",
+      imgUrl: "./assets/images/products5.png",
     },
     {
       id: 6,
       title: "Modern Pool #6",
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "/assets/images/products6.png",
+      imgUrl: "./assets/images/products6.png",
     },{
       id: 7,
       title: "Modern Pool #7",
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "/assets/images/products7.png",
+      imgUrl: "./assets/images/products7.png",
     }]
 
 
@@ -247,7 +247,7 @@ export class HomeComponent implements OnInit {
     }
     
 
-    //appAnimations.init();  
+    appAnimations.init();  
 
     this.nextBanner(); 
     

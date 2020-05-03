@@ -12,16 +12,18 @@ export class UserComponent implements OnInit {
   @Input() profileData: any;
   profile: any = {}
 
-  constructor( ) { }
+  constructor( ) { 
+ 
+   
+    
+  }
 
-  ngOnInit(): void {
-    this.profile = this.profileData;
+  ngOnInit(): void { 
+
   }
 
   ngOnChanges(){
-    this.profile = this.profileData;
-    console.log(this.profile);
-
+    this.profile = this.profileData;  
   }
 
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { Router, ActivatedRoute, ActivationStart ,  RoutesRecognized,  NavigationEnd } from '@angular/router';
 import { AuthService as OAuth } from "angularx-social-login";
 import { Globals } from "../../../app.global"
 import { AuthService as Auth } from '../../../admin/auth/auth.service';
@@ -13,53 +13,116 @@ import { MyAccountService } from '../../../admin/api/frontend/my-account.service
 })
 export class MyAccountComponent implements OnInit {
 
+  @Input() getRouterParams: any = {};
   isEditableMode: boolean = false;
   isAdminAccessible: boolean = false;
   profileData: any = {};
+  navItems: any = [];
   
   constructor(
     private oauth: OAuth,
     private auth: Auth,
     private router: Router,
     private globals: Globals,
-    private myaccount: MyAccountService
+    private myaccount: MyAccountService,
+    private route: ActivatedRoute
 
-  ) {  }
+  ) {  
+
+     
+  }
 
   ngOnInit(): void {
-    this.isAdminAccessible = this.auth.validateBackendUser();
-    this.getProfileDetails(); 
 
+    this.navItems = [
+      { title: "Home", url: "/my-account/user/me/0", icon: ""},
+      { title: "Account Information", url: "account-info", icon: ""},
+      { title: "Contact Details", url: "contact-info", icon: ""},
+      { title: "Services & Areas", url: "services", icon: ""},
+      { title: "Settings", url: "settings", icon: ""},
+      
+    ];
+
+    this.isAdminAccessible = this.auth.validateBackendUser();
+    
+    if(this.route.params !== null){
+      this.route.params.subscribe( (routeParams) =>  {  
+        window.scroll(0,0); 
+        this.getProfileDetails(routeParams);   
+      });
+
+    }else{
+      
+      console.log(this.getRouterParams);
+      window.scroll(0,0); 
+      this.getProfileDetails(this.getRouterParams);  
+      
+    }
+      
     this.router.events.subscribe((event) => {
+       
       if (event instanceof NavigationEnd) {
-        if(event.url === '/my-account/user'){
-          this.getProfileDetails(); 
+        if(event.url === '/my-account/user/me/0'){
+          window.scroll(0,0); 
           this.isEditableMode = false;
+          let params = {id: 'me', provider_id: 0 };
+          this.getProfileDetails(params); 
+          
         }
       }
     });
     
   }
- 
-  getProfileDetails(){ 
-    
-    this.myaccount.getProfileDetails() 
-      .subscribe((response: any) => {
-        if (response.status == 200) {
-           
-          this.profileData = response.data[0];   
-          this.setLargeImg(); 
 
-        }else{
+  onOpen($event){
+    console.log($event)
+  }
+ 
+  getProfileDetails(routeParams){ 
+
+    if(routeParams.id== 'me' && routeParams.provider_id == "0" ){
+
+      this.myaccount.getProfileDetails() 
+        .subscribe((response: any) => {
+          if (response.status == 200) {
             
-        }
-          
-      });
+            this.profileData = response.data[0];   
+            this.profileData.profile_editable = true;
+            this.profileData.is_editable_btn = false;
+            this.setLargeImg(); 
+
+          }else{
+              
+          }
+            
+        });
+
+    }else{
+
+      let params = {client_id: routeParams.id, provider_id: routeParams.provider_id }
+
+      this.myaccount.getCustomProfileDetails(params) 
+        .subscribe((response: any) => {
+          if (response.status == 200 && response.data.length > 0 ) {
+            
+            this.profileData = response.data[0];   
+            this.profileData.profile_editable = false;
+            this.setLargeImg(); 
+
+          }else{
+            //this.router.navigate(['/my-account/user/me/0']);
+          }
+            
+        });
+
+    }
+    
+    
   }
 
   onGetCourseversionID(value){ 
     this.isEditableMode = value;
-    this.router.navigate(['/my-account/account-info']);
+    this.router.navigate(['/my-account/user/me/0/account-info']);
 
   }
 

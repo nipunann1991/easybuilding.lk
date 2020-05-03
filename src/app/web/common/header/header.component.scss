@@ -25,7 +25,7 @@
 
     .search-box{ 
         width: 100%;
-        margin: 0 1.5rem;
+        margin: 0 3.5rem;
 
         input{
             width: 100%;
@@ -41,11 +41,26 @@
         }
     }
 
-    .cta-buttons{
-        overflow: hidden;
+    .cta-buttons{ 
         padding-left: 0;
         margin: 0;
-        width: 43rem;
+        width: 46rem;
+
+        a.login-btn{
+            margin-right: 1.5rem;
+            color: $base-color;
+            font-family: $bold-font;
+            font-weight: bold; 
+            text-decoration: none;
+
+            i{
+                margin-right: 0.5rem;
+            }
+
+            &:hover{
+                color: $light-blue-color;
+            }
+        }
          
         button{
             font-family: $bold-font;
@@ -67,9 +82,10 @@
         .user-account{
             @include flex(); 
             align-items: center;
-            justify-content: center;
+            justify-content: flex-end;
             cursor: pointer;
             outline: 0;
+            position: relative;
 
             .user-img{
                 width: 3.8rem;
@@ -85,6 +101,69 @@
                     margin-bottom: 0;
                 }
             }
+
+            i{
+                color: $dark-gray;
+                margin-left: 1.5rem;
+ 
+            }
+
+            .mini-menu{
+                display: none;
+                position: absolute;
+                z-index: 1000;
+                bottom: -10.5rem;
+                width: 16rem;
+                padding-top: 3rem;
+ 
+                ul{
+                    background: $white;
+                    border: 1px #eee solid; 
+	                @include box-shadow(0, 2px, 16px, -3px, rgba(0, 0, 0, 0.3)); 
+
+                    li{
+                        
+                        a{
+                            padding: 0.65rem 1rem;
+                            display: block;
+                            color: $dark-gray;
+                            text-decoration: none;
+                            font-size: 1.4rem; 
+
+                            i{
+                                color: inherit;
+                                margin-left: 0;
+                                margin-right: 5px;
+                            }
+
+                            &:hover{
+                                background: $body-bg; 
+                                color: $base-bg-color;
+
+                                i{
+                                    color: inherit;
+                                }
+                            }
+                        }
+
+                        &:last-child{
+                            border-top: 1px darken($body-bg, 5%) solid;
+                            border-bottom: 0;
+
+                            a{
+                                
+                            }
+                        }
+                    }
+                }
+            } 
+
+            &:hover{
+                .mini-menu{
+                    display: block; 
+                }
+            }
+            
         }
         
     } 

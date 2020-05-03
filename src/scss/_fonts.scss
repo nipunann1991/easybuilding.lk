@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Alice|Playfair+Display:400,700,900|Muli:300,400,600,700,800,900|Abril+Fatface');
 
-
 @font-face {
   font-family: 'Circular Std';
   src: url('/assets/fonts/CircularStd-MediumItalic.eot');
@@ -133,6 +132,27 @@
 }
 .icon-group:before {
   content: "\e90f";
+}
+.icon-tel:before {
+  content: "\e910";
+}
+.icon-location:before {
+  content: "\e912";
+}
+.icon-mobile:before {
+  content: "\e914";
+}
+.icon-email:before {
+  content: "\e915";
+}
+.icon-interface:before {
+  content: "\e916";
+}
+.icon-upload:before {
+  content: "\e917";
+}
+.icon-profile:before {
+  content: "\e918";
 }
 .icon-close:before {
   content: "\e913";

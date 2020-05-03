@@ -2,16 +2,43 @@
  
 
 .content-wrapper{
-    @include flex();
-    align-items: start;
-    padding: 9rem 0 4rem 0;
+    @include flex(); 
+    align-items: inherit;
+    padding: 10rem 0 4rem 0;
 
     .left-block{
-        width: 25%
+        width: 20%;
+        padding: 2rem;
+        padding-right: 0;
+        //background: $body-bg;
+        margin-right: 0;
+        border-radius: 0.5rem;
+        
+
+
+        a{
+            font-size: 1.6rem;
+            font-family: $bold-font;
+	        font-weight: bold; 
+            display: block;
+            text-align: left;
+            text-decoration: none;
+            border-radius: 20px 0 0 20px;
+            line-height: 4.5rem;
+            
+            &.active-btn{
+                background: $base-bg-color;
+                color: $white;
+                @include box-shadow(0, 2px, 16px, -3px, rgba(0, 0, 0, 0.5)); 
+
+            }
+        }
     }
 
     .right-block{
-        width: 75% 
+        width: 75%;
+        padding: 3rem;
+        @include box-shadow(0, 2px, 16px, -3px, rgba(0, 0, 0, 0.15)); 
     }
 
     app-user{

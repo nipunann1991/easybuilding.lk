@@ -88,7 +88,7 @@ export class LoginComponent implements OnInit {
            this.global.user.profie_image = response.data[0].profie_image; 
            
            localStorage.setItem('token', JSON.stringify(token) ); 
-           this.router.navigate(['my-account']);
+           this.router.navigate(['/my-account']);
 
         }else{
 

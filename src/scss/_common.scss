@@ -49,7 +49,6 @@ ul{
 		font-size: 1.5rem;	
 		line-height: 1.9rem;  
 		color: $dark-gray;
-		margin-bottom: 0.5rem;
 		list-style: none;
 	}
 }
@@ -216,6 +215,7 @@ ul{
 }
 .badge{
 	padding: 4px;
+	font-weight: normal;
 
 	&.badge-success{
 		background-color: lighten($success-green-color, 5%);
@@ -491,12 +491,50 @@ button.second-btn{
     background: rgba(0, 0, 0, 0.65);
 }
 
+ngx-file-drop{
+	.ngx-file-drop__drop-zone{
+		height: 100% !important;
+		border: 0 !important;
+
+		.ngx-file-drop__content{
+			height: 100%;
+
+			.preview{
+				width: 100%;
+				height: 100%;
+				background-size: cover;
+				background-position: 100%;
+			}
+
+			.upload-btn{
+				position: absolute;
+				right: 1.5rem;
+				bottom: 1.5rem;
+				min-width: inherit;
+				width: 3.6rem;
+				height: 3.6rem;
+				display: block;
+				z-index: 1000;
+				padding: 0;
+				background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J/AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAHdElNRQfkBB4QFSL6tHHYAAAB30lEQVRIx9XVsUvVURQH8M97alZY+ZKwpCEaglzqUWCbDRZFOTY0FLXV1OY/UENbBFJmRQ1BlEKBoBWEuESlGRFhDg1CSNozM8gyxdvQQ+r37uupU33vdL73nO/vnHvO717+e6QiXIXjsioS7KwBt8yVlkx7JBRZXdEPJtAouKC8gC9zXtAQK6HGGVkr80ydegc9iEjv1eu1sbz13UsXTaRs9kydD6YXHL9o9j4iUKvHugVrlU1G7eGuGU3LakCjb+6Tc+8vTuWR06Ayf5i3fU2rMRENrddmxIwZI9ps/22n2ZRhGUxYTXCtIDjtnDnBGx06DQlmnZXO714VBE1oFeIClwVP7FqwGzwXXMpbWYM6VBYXOCroVpmoultwJOEZFUh5JydTkFW1nOHEJLYK6QLH3bZqN1nAf3bFNtnC40piBx5H+9LLYgQyyEUFPmJ9aYEcaqMCGzBeWuAp9kUF9ud3EyhsY7+pSA4bTelPcNEu0KJKpzV/cGt1qNISSyw2iS2CIYfyBZY57K0QCS86ypwwKRjTp8+44JNjEa9WIfazwk1dTjpgC17pcSMyWnmMRq+vxeGhSa6bd0rVkoOrnDavnYyBotd4qfVCdcqvh2SnFUvMYNqgO34su/x/Bz8Bi0Wxhu+JoH0AAAAldEVYdGRhdGU6Y3JlYXRlADIwMjAtMDQtMzBUMTY6MjE6MzQrMDA6MDBG6v8wAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIwLTA0LTMwVDE2OjIxOjM0KzAwOjAwN7dHjAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAAASUVORK5CYII=');
+				background-color: transparent;
+				background-repeat: no-repeat;
+				background-size: 85%;
+				background-position: 50%;
+				
+			}
+		}
+	}
+}
+
+
 .toast-container .ngx-toastr{
 	padding: 15px 15px 15px 47px; 
     width: 350px; 
     background-position: 15px 17px; 
     background-size: 20px;
-    box-shadow: 0 0 12px #eee !important;
+	@include box-shadow(0, 2px, 16px, -3px, rgba(0, 0, 0, 0.3)); 
+
 
     div[aria-live="polite"]{
     	font-size: 1.4rem;
@@ -702,6 +740,11 @@ button.dt-button{
 		.modal-dialog{
 			transform: translate(0,50%);
 			transition: all 0s ease;
+			
+			.modal-body{
+				font-size: 1.5rem;
+				line-height: 1.9rem; 
+			}
 		}
 	}
 
@@ -710,6 +753,13 @@ button.dt-button{
 			transition: all 0s ease;
 			transform: translate(0,50%);
 		}
+	}
+}
+
+.wrapped-block{
+	h2{
+		font-size: 2.3rem;
+		margin-bottom: 2rem;
 	}
 }
 

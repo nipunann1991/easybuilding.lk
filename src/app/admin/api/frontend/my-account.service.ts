@@ -15,6 +15,11 @@ export class MyAccountService {
     this.token = JSON.parse(localStorage.getItem('token')); 
     return this.http.get(environment.baseUrl+'ProfileController/getProfileDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
   }
+ 
+  getCustomProfileDetails(params){  
+    this.token = JSON.parse(localStorage.getItem('token')); 
+    return this.http.get(environment.baseUrl+'ProfileController/getCustomProfileDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id+'&client_id='+params.client_id+'&provider_id='+params.provider_id);
+  }
 
   getAccountDetails(){  
     this.token = JSON.parse(localStorage.getItem('token')); 
@@ -34,4 +39,22 @@ export class MyAccountService {
     
     return this.http.post(environment.baseUrl+'ProfileController/updateProfileDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   }
+
+  uploadCoverImage(formData){
+    this.token = JSON.parse(localStorage.getItem('token')); 
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'undefined');
+
+    return this.http.post(environment.baseUrl+'ProfileController/fileUpload?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, formData , { headers: headers });
+  }
+
+  removeFile(postVals){
+
+    const params = new HttpParams({
+       fromObject : postVals
+    });
+
+    return this.http.post(environment.baseUrl+'ProfileController/removeFile?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+}
+
 }

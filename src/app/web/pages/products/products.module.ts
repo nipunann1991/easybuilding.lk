@@ -9,7 +9,7 @@ import { ProductsComponent } from './products.component';
   declarations: [ProductsComponent],
   imports: [
     CommonModule,
-    ProductsRoutingModule
+    ProductsRoutingModule,
   ]
 })
 export class ProductsModule { }

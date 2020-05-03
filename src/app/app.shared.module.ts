@@ -11,6 +11,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { NgSelect2Module } from 'ng-select2';
 import { NgxFileDropModule } from 'ngx-file-drop'; 
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
       MatFormFieldModule, 
       MatDatepickerModule, 
       CKEditorModule,
+      ImageCropperModule,
       NgBootstrapFormValidationModule.forRoot(), 
     ],
   exports: [  
@@ -50,6 +52,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
       MatFormFieldModule, 
       MatDatepickerModule, 
       CKEditorModule, 
+      ImageCropperModule, 
       NgBootstrapFormValidationModule
     
   ],

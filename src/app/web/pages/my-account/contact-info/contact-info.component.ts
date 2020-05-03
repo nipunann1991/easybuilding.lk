@@ -94,7 +94,7 @@ export class ContactInfoComponent implements OnInit {
 
           if (response.status == 200) {
             this.toastr.success('Information saved successfully', 'Success !');  
-            this.router.navigate(['/my-account']);
+            this.router.navigate(['/my-account/user/me/0/']);
             
           }else if (response.status == 401){
             this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  

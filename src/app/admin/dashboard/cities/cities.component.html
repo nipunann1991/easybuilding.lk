@@ -1,0 +1,80 @@
+<div class="right-container  animated fadeIn">
+    <div class="title">
+        <h2><button mat-button class="transparent-btn back-btn"  ><i class="icon-left-arrow"></i></button> Cities</h2> 
+        <div class="clearfix"></div>
+    </div>
+    <div class="row"> 
+        <div class="col-md-7"> 
+            <div class="white-box-panel">
+                <h3 class="title">Cities List</h3>
+                <button id="refresh-btn" type="button" class="btn waves-effect waves-light blue d-none" (click)="rerender()">  Rerender  </button>
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="row-border hover">
+                    <thead>
+                    <tr>   
+                        <th>City Id</th>   
+                        <th>District</th> 
+                        <th>City Name</th>   
+                        <th></th> 
+                    </tr>
+                    </thead>
+                    
+                </table>
+            </div>
+        </div>
+        
+        <div class="col-md-5">
+            <div *ngIf="!isEditableRoute" class="white-box-panel">
+                <h3 class="title">Add Cities</h3>
+                <form id="myform" class="wrapped-block" [formGroup]="formGroup" (ngSubmit)="onSubmit()" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="district_id">District</label> 
+                                <ng-select2 [data]="districtsData" formControlName="district_id" class="select-fw" >
+                                </ng-select2> 
+                                
+                                <!-- [(ngModel)]="getSelectedParentCategory"  -->
+                            </div>
+                            <div class="form-group">
+                                <label for="city">City Name</label> 
+                                <input id="city" name="city" formControlName="city" type="text" class="form-control">
+                            </div>  
+                        </div>
+                            
+                        <div class="col-md-12">
+                            <button mat-button name="submit" type="submit" class="btn btn-primary">Add City</button>
+                            <button mat-button type="button" (click)="clearForm()" class="btn btn-default clear-btn">Clear</button>
+                        </div> 
+                    </div> 
+                </form>
+            </div> 
+
+            <div *ngIf="isEditableRoute" class="white-box-panel">
+                <h3 class="title">Edit Cities</h3>
+                <form id="myform" class="wrapped-block" [formGroup]="formGroup" (ngSubmit)="onUpdate()" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="district_id">District</label> 
+                                <ng-select2 [data]="districtsData" formControlName="district_id" class="select-fw" >
+                                </ng-select2> 
+                                
+                                <!-- [(ngModel)]="getSelectedParentCategory"  -->
+                            </div>
+                            <div class="form-group">
+                                <label for="city">City Name</label> 
+                                <input id="city" name="city" formControlName="city" type="text" class="form-control">
+                            </div>  
+                        </div>
+                            
+                        <div class="col-md-12">
+                            <button mat-button name="submit" type="submit" class="btn btn-primary">Edit City</button>
+                            <button mat-button type="button" class="btn btn-default clear-btn">Clear</button>
+                        </div> 
+                    </div>
+                </form>
+            </div>
+            
+        </div> 
+    </div>
+</div>
