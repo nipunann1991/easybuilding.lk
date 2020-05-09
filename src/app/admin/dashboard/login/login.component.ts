@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from "@angular/router";
 import { AuthService as Auth } from '../../auth/auth.service';
-import { AuthService as OAuth } from "angularx-social-login";
-import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
+import { LoginService } from '../../../admin/api/login.service'; 
+import { Globals } from './../../../app.global';
+//import { AuthService as OAuth } from "angularx-social-login";
+//import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 
 
 @Component({
@@ -24,6 +26,7 @@ export class LoginComponent implements OnInit {
   formIsValid: boolean = true;
   isLoggedIn : boolean = false;
   isUserValid: boolean = false; 
+  noUserAvailable: boolean = false; 
 
   formGroup: FormGroup;
 
@@ -31,7 +34,9 @@ export class LoginComponent implements OnInit {
     private router: Router, 
     private formBuilder: FormBuilder,
     private authservice: Auth,
-    private oauth: OAuth
+    private login: LoginService,
+    private global: Globals
+    //private oauth: OAuth
 
   ) { }
 
@@ -59,10 +64,7 @@ export class LoginComponent implements OnInit {
 
       if (!this.formGroup.invalid) { 
         this.formIsValid = true;
-        localStorage.setItem('token', this.userDetails);
-        console.log(this.userDetails);
-
-        this.isAuthorized();
+        this.onAdminLogin(this.formGroup.value)
         
 
       }else{
@@ -86,27 +88,53 @@ export class LoginComponent implements OnInit {
   }
 
 
-  signInWithGoogle(): void {
-    this.oauth.signIn(GoogleLoginProvider.PROVIDER_ID);
-    this.oAuth();
-  }
-  
-  signInWithFB(): void {
-    this.oauth.signIn(FacebookLoginProvider.PROVIDER_ID);
-    this.oAuth();
+  onAdminLogin(userDetails): void {
     
+    let param = { 
+      user_email: userDetails.username, 
+      password: userDetails.password  
+    }
     
-  } 
-  
-  signOut(): void {
-    this.oauth.signOut();
+    this.login.onAdminLogin(param)
+      .subscribe((response: any) => {
+
+        console.log(response);
+
+        if (response.status == 200 && response.data.length > 0) { 
+          
+          let data = response.data[0];
+
+           let token = { 
+            auth_token:  data.auth_token, 
+            session_id: data.user_id, 
+            email: data.user_email, 
+            provider_id: "21232f297a57a5a743894a0e4a801fc3", 
+
+          }; 
+           
+           this.global.tokenAdmin.auth_token = data.auth_token;
+           this.global.tokenAdmin.provider_id = ""; 
+           this.global.userAdmin.first_name = data.user_email; 
+           this.global.userAdmin.profie_image = ""; 
+
+           
+          localStorage.setItem('tokenAdmin', JSON.stringify(token) );  
+          this.isLoggedIn = true; 
+          this.router.navigate(['/admin/dashboard']);
+
+        }else{
+          this.noUserAvailable = true;
+
+          setTimeout(()=>{
+            this.noUserAvailable = false;
+
+          },3000)
+        }
+        
+          
+    })
+
   }
 
-
-  oAuth(){
-    this.oauth.authState.subscribe((user) => {
-      console.log(user)
-    });
-  }
 
 }

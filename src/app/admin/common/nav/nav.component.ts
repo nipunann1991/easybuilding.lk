@@ -30,40 +30,40 @@ export class NavComponent implements OnInit {
   		this.menu = [ 
 			{
 				title: 'Home',
-				icon: 'icon-home',
+				icon: 'icon-dashboard',
 				link: '/admin/dashboard'
 			},
 			{
 				title: 'Clients',
-				icon: 'icon-group',
+				icon: 'icon-users',
 				link: '/admin/clients'
 			}, 
 			{
 				title: 'Cities',
-				icon: 'icon-box',
+				icon: 'icon-location',
 				link: '/admin/cities'
 			},
 			{
 				title: 'Categories',
-				icon: 'icon-box',
+				icon: 'icon-tools',
 				link: '/admin/categories'
 			},  
 			{
 				title: 'Products',
-				icon: 'icon-box',
+				icon: 'icon-upload',
 				link: '/admin/products'
 			},
 			
 			{
 				title: 'Certification',
-				icon: 'icon-shopping-cart',
+				icon: 'icon-certificate',
 				link: '/admin/certification'
 			}, 
-			{
-				title: 'Reports',
-				icon: 'icon-growth',
-				link: '/admin/orders'
-			},
+			// {
+			// 	title: 'Reports',
+			// 	icon: 'icon-growth',
+			// 	link: '/admin/orders'
+			// },
 			{
 				title: 'Settings',
 				icon: 'icon-settings',

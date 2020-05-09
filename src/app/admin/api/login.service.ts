@@ -18,7 +18,17 @@ export class LoginService {
     return this.http.post(environment.baseUrl+'LoginController/onClientLogin', params); 
    
   }
- 
+  
+
+  onAdminLogin(postVals) : any {  
+
+    const params = new HttpParams({
+        fromObject : postVals
+    });
+
+    return this.http.post(environment.baseUrl+'LoginController/onAdminLogin', params); 
+   
+  }
 
   checkUserLoginStatus(postVals)  : any {  
 

@@ -130,7 +130,24 @@ class CommonController extends CI_Controller {
 			'data' => 'auth_token= "'. $this->input->get('auth_token') .'" AND client_id= "'. $this->input->get('session_id') .'"', 
 		);
 
-		return $this->selectRawCustomData__($search_index);
+		$result = $this->selectRawCustomData__($search_index);
+
+		if (sizeof($result["data"]) == 0) {
+			
+			 $search_index = array(
+				'columns' => '*' ,   
+				'table' => 'users',
+				'eq_table_col' => '1',
+				'data' => 'auth_token= "'. $this->input->get('auth_token') .'" AND user_id= "'. $this->input->get('session_id') .'"', 
+			);
+
+			return $this->selectRawCustomData__($search_index);
+
+		}else{
+			return $result;
+		}	
+
+		 
 
     }
 
@@ -375,22 +392,23 @@ class CommonController extends CI_Controller {
 		$url=$this->config->base_url();
 		
 		$target_dir = "assets/uploads/";
-		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/gold-pos-api/'.$target_dir;
+		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/'.$target_dir;
 
      	$name = $_POST['name']; 
+     	$timestamp = time();
 
-	    $target_file = $target_dir . basename(time().''.$_FILES["file"]["name"]); 
+	    $target_file = $target_dir . basename($timestamp.''.$_FILES["file"]["name"]); 
 	    $image_url = array('image_url' => $target_file );
 
 	    $move_file = move_uploaded_file($_FILES["file"]["tmp_name"], $target_file);
 
-	    $this->make_thumb($target_file, $upload_dir.'thumb/'.basename(time().''.$_FILES["file"]["name"]), 340);
+	    $this->make_thumb($target_file, $upload_dir.'thumb/'.basename($timestamp.''.$_FILES["file"]["name"]), 340);
 
-	    $this->make_thumb($target_file, $upload_dir.'/xs-thumb/'.basename(time().''.$_FILES["file"]["name"]), 100);
+	    $this->make_thumb($target_file, $upload_dir.'/xs-thumb/'.basename($timestamp.''.$_FILES["file"]["name"]), 100);
 
 	    $output = array(
 			'status' => 200 , 
-			'data' => (object) array('new_file'=> basename(time().''.$_FILES["file"]["name"]), 'target_file' => $url.''.$target_file, 'moved_path' => $move_file, 'temp_folder' => $_FILES["file"]["tmp_name"])  
+			'data' => (object) array('new_file'=> basename($timestamp.''.$_FILES["file"]["name"]), 'target_file' => $url.''.$target_file, 'moved_path' => $move_file, 'temp_folder' => $_FILES["file"]["tmp_name"])  
 		);
  
  	    return $this->output->set_output(json_encode($output, JSON_PRETTY_PRINT));
@@ -430,7 +448,7 @@ class CommonController extends CI_Controller {
 	public function deleteUploadedFile($file){ 
 		
 		$target_dir = "assets/uploads/";
-		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/gold-pos-api/'.$target_dir;
+		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/'.$target_dir;
 		
 		unlink($upload_dir.''.$file);
 		unlink($upload_dir.'thumb/'.$file);

@@ -10,6 +10,7 @@ export class PageContainerComponent implements OnInit {
   constructor() { 
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('admin-layout');
+    console.log('ds')
   }
 
   ngOnInit(): void {  

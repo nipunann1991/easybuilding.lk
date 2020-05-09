@@ -7,23 +7,23 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 })
 export class CitiesService {
 
-  token: any = {};
+  token: any = JSON.parse(localStorage.getItem('tokenAdmin'));
 
   constructor(private http: HttpClient) { }
 
   getCitiesDT(){ 
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     let url = environment.baseUrl+'CityController/getCitiesDT?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id; 
    	return url;  
   }
 
   getDistricts(){
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     return this.http.get(environment.baseUrl+'CityController/getDistricts?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
   }
 
   getSelectedCity(postVals){
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     const params = new HttpParams({
       fromObject : postVals
     }); 
@@ -32,7 +32,7 @@ export class CitiesService {
   }
 
   addCity(postVals){
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     const params = new HttpParams({
       fromObject : postVals
     }); 
@@ -41,7 +41,7 @@ export class CitiesService {
   }
 
   editCity(postVals){
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     const params = new HttpParams({
       fromObject : postVals
     }); 
@@ -50,7 +50,7 @@ export class CitiesService {
   }
 
   deleteCity(postVals){
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     const params = new HttpParams({
       fromObject : postVals
     }); 

@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
   }
 
   onClientLogin(userDetails): void {
-    console.log(userDetails)
+    
     let param = { 
       email: userDetails.email, 
       first_name: userDetails.firstName, 

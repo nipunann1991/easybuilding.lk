@@ -43,19 +43,40 @@ class LoginController extends CommonController {
 			return $this->returnJSON($sessionData);
 	
 		}else{
-
+ 
 			$sessionData = $this->updateUserSession($getClient->client_id, $this->input->post('auth_token'));    
-			$sessionData['data'] = $this->setSessionData($sessionData, $getClient,'Session updated');
+
+			$search_index = array(
+				'columns' => 'us.*, c.*' ,   
+				'table' => 'user_sessions us, clients c',
+				'eq_table_col' => '1',
+				'data' => 'us.auth_token= "'.$this->input->post('auth_token').'" AND c.client_id=us.client_id ', 
+			);
+
+			$inputData  = $this->selectRawCustomData__($search_index)['data'][0]; 
+
+			$sessionData['data'] = $this->setSessionData($sessionData, $inputData ,'Session updated');
 
 			return $this->returnJSON($sessionData);
 		}
 		
  
 	}
+	
+	public function onAdminLogin(){
 
+		$search_index = array(
+			'columns' => '*' ,   
+			'table' => 'users',
+			'eq_table_col' => '1',
+			'data' => 'user_email= "'.$this->input->post('user_email').'" AND password= "'.md5($this->input->post('password')).'"', 
+		);
+
+		return $this->selectCustomData__($search_index)  ;
+	}
  
 	public function checkUserLoginStatus(){
-
+ 
 		$search_index = array(
 			'columns' => 'us.*, c.*' ,   
 			'table' => 'user_sessions us, clients c',
@@ -79,6 +100,8 @@ class LoginController extends CommonController {
 		$arrayVal = (object) array( 
 			'client_id' => $inputData->client_id, 
 			'first_name' => $inputData->first_name, 
+			'email' => $inputData->email, 
+			'auth_token' => $inputData->auth_token, 
 			'profie_image' => $inputData->profie_image, 
 			'provider_id' => ( (int)$inputData->status* (int)$inputData->client_id) ."".$inputData->provider_id."".$inputData->client_id,  
 			'message' => $message 

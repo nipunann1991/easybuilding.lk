@@ -12,12 +12,13 @@ declare const bootbox:any;
 @Component({
   selector: 'app-cities',
   templateUrl: './cities.component.html',
-  styleUrls: ['./cities.component.css']
+  styleUrls: ['./cities.component.scss']
 })
+
 export class CitiesComponent implements OnInit {
 
-  @ViewChild(DataTableDirective, {static: false})
-
+  @ViewChild(DataTableDirective, { static: false }) 
+ 
 	dtElement: DataTableDirective;
 	dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject();
@@ -82,26 +83,26 @@ export class CitiesComponent implements OnInit {
     }],
     dom: 'lfrtip', 
     buttons: [ 
-        {
-              extend:    'copyHtml5',
-              text:      '<i class="fa fa-files-o"></i> Copy',
-              titleAttr: 'Copy'
-          },
-          {
-              extend:    'excelHtml5',
-              text:      '<i class="fa fa-file-excel-o"></i> Excel',
-              titleAttr: 'Export to Excel'
-          },
-          {
-              extend:    'csvHtml5',
-              text:      '<i class="fa fa-file-text-o"></i> CSV',
-              titleAttr: 'Export to CSV'
-          },
-          {
-              extend:    'pdfHtml5',
-              text:      '<i class="fa fa-file-pdf-o"></i> PDF',
-              titleAttr: 'Export to PDF'
-          }
+      {
+          extend:    'copyHtml5',
+          text:      '<i class="fa fa-files-o"></i> Copy',
+          titleAttr: 'Copy'
+      },
+      {
+          extend:    'excelHtml5',
+          text:      '<i class="fa fa-file-excel-o"></i> Excel',
+          titleAttr: 'Export to Excel'
+      },
+      {
+          extend:    'csvHtml5',
+          text:      '<i class="fa fa-file-text-o"></i> CSV',
+          titleAttr: 'Export to CSV'
+      },
+      {
+          extend:    'pdfHtml5',
+          text:      '<i class="fa fa-file-pdf-o"></i> PDF',
+          titleAttr: 'Export to PDF'
+      }
     ],
 
   };
@@ -153,6 +154,7 @@ export class CitiesComponent implements OnInit {
   
       this.cities.addCity(this.formGroup.value)
         .subscribe((response: any) => {
+
           if (response.status == 200) {
             this.toastr.success('New city has been added successfully', 'Success !');  
             this.formGroup.reset();
@@ -169,6 +171,7 @@ export class CitiesComponent implements OnInit {
   }
 
   onUpdate(){
+    
     if (!this.formGroup.invalid) {
       this.formGroup.value.city_id = this.param.params.id;
 
@@ -205,8 +208,7 @@ export class CitiesComponent implements OnInit {
          
           this.cityData = response.data[0];
           this.formGroup.setValue({district_id: this.cityData.district_id, city: this.cityData.city});
-          //this.getSelectedParentCategory = parseInt(response.data[0].parent_cat_id); 
-
+ 
          }else{
              console.log(response)
          }
@@ -269,8 +271,10 @@ export class CitiesComponent implements OnInit {
 	}
 
   clearForm(){
-    this.formGroup.reset();
+    this.formGroup.reset(); 
   }
+
+  
 
   getDistricts(): void{
  

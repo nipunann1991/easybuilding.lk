@@ -13,9 +13,7 @@ class CategoriesController extends CommonController {
 	public function getNextTableID(){   
 		return $this->getNextID('customers');  
 	}
- 
   
-
 	public function getSelectedMainCategory(){  
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {

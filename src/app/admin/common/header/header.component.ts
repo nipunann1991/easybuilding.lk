@@ -19,8 +19,7 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.user = this.globals.user;
-    console.log(this.user)
+    this.user = this.globals.userAdmin;
   }
 
   

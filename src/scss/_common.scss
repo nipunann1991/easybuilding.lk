@@ -491,6 +491,11 @@ button.second-btn{
     background: rgba(0, 0, 0, 0.65);
 }
 
+
+.ck.ck-editor__main>.ck-editor__editable{
+  height: 200px;
+}
+
 ngx-file-drop{
 	.ngx-file-drop__drop-zone{
 		height: 100% !important;

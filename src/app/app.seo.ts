@@ -30,22 +30,23 @@ export interface SeoSocialShareData {
 
     setSEOData(seo_data): void{
 
-        const seoData: SeoSocialShareData = {
+      const seoData: SeoSocialShareData = {
 
-            title: seo_data.title,
-            keywords: seo_data.keywords,
-            description: seo_data.description,
-            image: seo_data.image,
+        title: seo_data.title,
+        keywords: seo_data.keywords,
+        description: seo_data.description,
+        image: seo_data.image,
             
-          };
+      };
     
-          this.seoSocialShareService.setData(seoData);
+      this.seoSocialShareService.setData(seoData);
     
-          const jsonLdObject = this.jsonLdService.getObject('Website', {
-            name: '',
-            url: '',
-          });
-          this.jsonLdService.setData(jsonLdObject);
+      const jsonLdObject = this.jsonLdService.getObject('Website', {
+        name: '',
+        url: '',
+      });
+
+      this.jsonLdService.setData(jsonLdObject);
 
     }
   

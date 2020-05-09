@@ -17,17 +17,13 @@ export class AuthGuardService {
 
    	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
 		
-		if (!this.auth.isAuthenticated()) { 
-			this.router.navigate(['admin/login']);
+		if (!this.auth.isAdminUserAuthenticated()) { 
+			this.router.navigate(['admin/login']); 
 			window.location.href
 			return false;
 			
-		}else if(!this.auth.validateBackendUser()){
-			this.router.navigate(['admin/login']);
-			return false;
-
-		}else if(this.auth.validateBackendUser() && this.auth.isAuthenticated()){
-			if(state.url == '/admin'){
+		}else if(this.auth.isAdminUserAuthenticated()){
+			if(state.url == '/admin'){ 
 				this.router.navigate(['admin/dashboard']);
 			}
 			return true;

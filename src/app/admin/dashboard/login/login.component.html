@@ -12,7 +12,7 @@
 					<div class="app-form-inner"> 
 
 						<h3>Member Login</h3>
-						<p *ngIf="!formIsValid" class="error-names">Invalid Username or Password</p>
+						<p *ngIf="noUserAvailable" class="error-names">Invalid Username or Password</p>
 					  	<div class="form-group">
 					    	<input placeholder="Email or Username" formControlName="username" class="form-control" [(ngModel)]="userDetails.username" (ngModelChange)="clearFilter()" name="username" type="text"> 
 					    	 <!-- <bfv-messages></bfv-messages> -->
@@ -29,10 +29,10 @@
 					</div> 
 				</form>
 
-				<button mat-button  (click)="signInWithGoogle()" class="app-login" >Google</button> 
+				<!-- <button mat-button  (click)="signInWithGoogle()" class="app-login" >Google</button> 
 				<button mat-button  (click)="signInWithFB()" class="app-login" >FB</button> 
 				<button mat-button  (click)="signOut()" class="app-login" >Sign Out</button> 
-				
+				 -->
 
 			</div>
 		</div>

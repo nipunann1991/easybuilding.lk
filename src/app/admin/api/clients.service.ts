@@ -7,13 +7,12 @@ import { environment } from "./../../../environments/environment";
 })
 export class ClientsService {
 
-  token: any = {};
+  token: any = JSON.parse(localStorage.getItem('tokenAdmin'));;
 
   constructor(private http: HttpClient) { }
  
 
-  getClientDetailsDT(){ 
-    this.token = JSON.parse(localStorage.getItem('token')); 
+  getClientDetailsDT(){  
     let url = environment.baseUrl+'ClientController/getClientDetailsDT?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id; 
    	return url;  
   }

@@ -7,44 +7,39 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 })
 export class CategoriesService {
  
-  token: any = {};
+  token: any = JSON.parse(localStorage.getItem('tokenAdmin'));;
 
   constructor(private http: HttpClient) {  
    
   }
 
-  getMainCategoriesDT(){ 
-    this.token = JSON.parse(localStorage.getItem('token')); 
+  getMainCategoriesDT(){  
     let url = environment.baseUrl+'CategoriesController/getMainCategoriesDT?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id; 
    	return url;  
   }
 
-  getLvl1CategoriesDT(){ 
-    this.token = JSON.parse(localStorage.getItem('token')); 
+  getLvl1CategoriesDT(){  
     let url = environment.baseUrl+'CategoriesController/getLvl1CategoriesDT?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id; 
    	return url;  
   }
 
-  getLvl2CategoriesDT(){ 
-    this.token = JSON.parse(localStorage.getItem('token')); 
+  getLvl2CategoriesDT(){  
     let url = environment.baseUrl+'CategoriesController/getLvl2CategoriesDT?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id; 
    	return url;  
   }
   
-  getMainCategories(){  
-    this.token = JSON.parse(localStorage.getItem('token')); 
+  getMainCategories(){   
     return this.http.get(environment.baseUrl+'CategoriesController/getMainCategories?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
   }
 
 
-  getParentLvl1Categories(){  
-    this.token = JSON.parse(localStorage.getItem('token')); 
+  getParentLvl1Categories(){ 
     return this.http.get(environment.baseUrl+'CategoriesController/getParentLvl1Categories?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
   }
  
 
   addMainCategory(postVals){
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     const params = new HttpParams({
       fromObject : postVals
     }); 
@@ -53,7 +48,7 @@ export class CategoriesService {
   }
 
   addLvl1Category(postVals){
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     const params = new HttpParams({
       fromObject : postVals
     }); 
@@ -62,7 +57,7 @@ export class CategoriesService {
   }
 
   addLvl2Category(postVals){
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     const params = new HttpParams({
       fromObject : postVals
     }); 
@@ -71,7 +66,7 @@ export class CategoriesService {
   }
   
   getSelectedMainCategory(postVals){
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     const params = new HttpParams({
       fromObject : postVals
     }); 
@@ -81,7 +76,7 @@ export class CategoriesService {
   
 
   getSelectedLvl1Category(postVals){
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     const params = new HttpParams({
       fromObject : postVals
     }); 
@@ -91,7 +86,7 @@ export class CategoriesService {
   
 
   getSelectedLvl2Category(postVals){
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     const params = new HttpParams({
       fromObject : postVals
     }); 
@@ -100,7 +95,7 @@ export class CategoriesService {
   }
 
   editMainCategory(postVals){
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     const params = new HttpParams({
       fromObject : postVals
     }); 
@@ -110,7 +105,7 @@ export class CategoriesService {
   
 
   editLvl1Category(postVals){
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     const params = new HttpParams({
       fromObject : postVals
     }); 
@@ -119,7 +114,7 @@ export class CategoriesService {
   } 
 
   editLvl2Category(postVals){
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     const params = new HttpParams({
       fromObject : postVals
     }); 
@@ -129,7 +124,7 @@ export class CategoriesService {
   
   
   deleteMainCategory(postVals){
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     const params = new HttpParams({
       fromObject : postVals
     }); 
@@ -138,7 +133,7 @@ export class CategoriesService {
   }
 
   deleteLvl1Category(postVals){
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     const params = new HttpParams({
       fromObject : postVals
     }); 

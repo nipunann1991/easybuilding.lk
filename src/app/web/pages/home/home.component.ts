@@ -247,7 +247,7 @@ export class HomeComponent implements OnInit {
     }
     
 
-    appAnimations.init();  
+    //appAnimations.init();  
 
     this.nextBanner(); 
     

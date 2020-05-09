@@ -53,12 +53,22 @@ export class ClientsComponent implements OnInit {
       },
       {
         targets: 3,
+        data: function (row) {
+
+          let tel = row.tel1; 
+          (tel == '') ? tel = '-' : '';
+          return tel;
+        },
+        
+      },
+      {
+        targets: 4,
         data: function( row ){    
           return row.provider 
         },
         
       },{
-        targets: 4,
+        targets: 5,
         data: function( row ){    
           if(row.status == 0){
             return '<span class="badge badge-danger">Inactive</span>';
@@ -74,12 +84,10 @@ export class ClientsComponent implements OnInit {
         },
         
       },{
-        targets: 5,
+        targets: 6,
         data: function( row ){   
 
-          return '<a class="view-client-data" data-id="'+row.client_id+'" data-provider-id="'+row.provider_id+'" title="VIew"><i class="icon-plus"></i></a> '+ 
-          '<a class="edit-maincategory-data" data-id="'+row.client_id+'" title="Edit"><i class="icon-pencil"></i></a> ' ;
-            // '<a class="delete-maincategory-data" data-id="'+row.client_id+'" title="Edit"><i class="icon-bin"></i></a>'
+          return '<a class="view-client-data" data-id="' + row.client_id + '" data-provider-id="' + row.provider_id + '" title="View"><i class="icon-view"></i></a> '; 
             
         }, 
       }],

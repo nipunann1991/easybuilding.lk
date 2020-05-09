@@ -7,13 +7,25 @@ export class Globals {
 
 	currencyAlias = "Rs. ";
 	isItemsEditable: boolean = false; 
-	editable: boolean = true; 
+    editable: boolean = true; 
+    isAdminToken: any ="21232f297a57a5a743894a0e4a801fc3";
     token: any = {
         auth_token: '',
         provider_id: ''
     }
 
+    tokenAdmin: any = {
+        auth_token: '',
+        provider_id: ''
+    }
+
+    
     user: any = {
+        first_name: '',
+        profie_image: ''
+    }
+
+    userAdmin: any = {
         first_name: '',
         profie_image: ''
     }
@@ -21,20 +33,15 @@ export class Globals {
 
     itemsEditable: Subject<boolean> = new Subject<boolean>();
 
-     constructor()  { 
-
-     	// if (localStorage.getItem("editableMode") != null) {
-	    //     this.isItemsEditable = this.editable = (localStorage.getItem("editableMode") == 'true');   ;
-	         
-	    // }
+     constructor()  {  
 
      	this.itemsEditable.subscribe((value) => {
             this.isItemsEditable = value;
             console.log(value)
-            //localStorage.setItem('editableMode', this.isItemsEditable.toString() );
+            
         });
 
-        //this.voted.emit(true);
+        
    
     }
 

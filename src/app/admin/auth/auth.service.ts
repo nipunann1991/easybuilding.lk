@@ -9,6 +9,7 @@ import { Globals } from './../../app.global';
 export class AuthService {
  
   isAuthenticatedUser: Subject<boolean> = new Subject<boolean>();
+  isAuthenticatedAdminUser: Subject<boolean> = new Subject<boolean>();
   isUserValid: boolean; 
  
   
@@ -16,7 +17,8 @@ export class AuthService {
     private login: LoginService,
     private global: Globals
   ) {   
-     
+    
+    this.isAuthenticatedAdminUser.next(true);
     this.isUserAuthenticated() 
   }
  
@@ -74,6 +76,22 @@ export class AuthService {
         
     }
 
+
+    isAdminUserAuthenticated() :  boolean{  
+      const token  = JSON.parse(localStorage.getItem('tokenAdmin'));
+
+      if( localStorage.getItem("tokenAdmin") !== null){
+
+        if( token.provider_id == this.global.isAdminToken){
+          return true;
+        }
+
+      }
+       
+      return false;
+      
+    }
+
     validateBackendUser():  boolean{ 
       const token  = JSON.parse(localStorage.getItem('token'));
 
@@ -84,6 +102,17 @@ export class AuthService {
       }
      
       return false
+    }
+
+
+    generateRandomToken() {
+      const lengthOfCode = 100;
+      let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.";
+      let text = "";
+      for (let i = 0; i < lengthOfCode; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+      }
+        return text;
     }
 
 }

@@ -204,7 +204,7 @@ export class MainCategoryComponent implements OnInit {
             
      }); 
 
-   }
+  }
 
   openDeleteCustomerModal(cat_id){ 
     const component = this;

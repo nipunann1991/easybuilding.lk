@@ -20,15 +20,19 @@ export class AuthDeactivateGuardService   {
  
   	canActivate(): any { 
 		  
-	    if (!this.authservice.isAuthenticated()) { 
+	    if (!this.authservice.isAdminUserAuthenticated()) { 
+				console.log(1)
 			  return true;
 			  
-	    }else if(this.authservice.validateBackendUser() && this.authservice.isAuthenticated()){
-			this.router.navigate(['admin/dashboard']);
-			return false;
-		}else{ 
-			return true;
-		}
+	    }else if(this.authservice.isAdminUserAuthenticated()){
+				console.log(2)
+				this.router.navigate(['admin/dashboard']);
+				return false;
+				
+			}else{ 
+				console.log(3)
+				return true;
+			}
 		 
 	}
 }

@@ -7,32 +7,34 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 })
 export class MyAccountService {
 
-  token: any = {};
+  token: any = JSON.parse(localStorage.getItem('token'));
 
   constructor(private http: HttpClient) { }
 
   getProfileDetails(){  
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     return this.http.get(environment.baseUrl+'ProfileController/getProfileDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
   }
  
   getCustomProfileDetails(params){  
-    this.token = JSON.parse(localStorage.getItem('token')); 
+    if( this.token == null){
+      this.token = JSON.parse(localStorage.getItem('tokenAdmin'));
+    }
     return this.http.get(environment.baseUrl+'ProfileController/getCustomProfileDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id+'&client_id='+params.client_id+'&provider_id='+params.provider_id);
   }
 
   getAccountDetails(){  
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     return this.http.get(environment.baseUrl+'ProfileController/getAccountDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
   }
 
   getContactDetails(){  
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     return this.http.get(environment.baseUrl+'ProfileController/getContactDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
   }
   
   updateProfileDetails(postVals){ 
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     const params = new HttpParams({
       fromObject : postVals
     }); 
@@ -41,7 +43,7 @@ export class MyAccountService {
   }
 
   uploadCoverImage(formData){
-    this.token = JSON.parse(localStorage.getItem('token')); 
+     
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'undefined');
 

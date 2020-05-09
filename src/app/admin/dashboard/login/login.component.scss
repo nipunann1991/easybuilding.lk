@@ -16,20 +16,20 @@
 	 	}
 	}
 	
-	bfv-messages{
-		display: none;
+	.error-names{ 
+		margin-bottom: 1.5rem;
 	}
 	 
 	.login-form { 
 
 		.app-form{ 
 
-			.error-names{
-				font-size: 12px;
+			.error-names{ 
+				font-size: 1.5rem;
 				background-color: $danger-color;
 			 	color: $white;
-			    padding: 4px 15px;
-			    border-radius: 30px;
+			  padding: 0.8rem 1.5rem;
+			  border-radius: 30px;
 			}
 
 			.app-form-inner{
@@ -42,6 +42,7 @@
 				.has-error{
 					input{
 						border: 1px #ff051c solid;
+						margin-bottom: 0;
 					}
 
 					.invalid-feedback{
@@ -74,7 +75,7 @@
 					color: $white;
 					padding: 4px 25px;
 					outline: 0 !important;
-					margin-top: 20px;
+					margin-top: 0;
 					font-size: $base-font-size;
 				}
 
