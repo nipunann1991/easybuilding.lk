@@ -27,16 +27,27 @@ class LoginController extends CommonController {
 			 
 			$clientData = $this->insertRawData__('clients', $dataset);  
 
+			$sessionData = $this->addUserSession($clientData['data']->insertedId, $this->input->post('auth_token'));
+
 			$search_index = array(
-				'columns' => '*' ,   
-				'table' => 'clients',
+				'columns' => 'us.*, c.*' ,   
+				'table' => 'user_sessions us, clients c',
 				'eq_table_col' => '1',
-				'data' => 'client_id= "'. $clientData['data']->insertedId .'"', 
+				'data' => 'us.auth_token= "'.$this->input->post('auth_token').'" AND c.client_id=us.client_id AND c.client_id= "'. $clientData['data']->insertedId .'" ',
+				 
 			);
 
-			$inputData = $this->selectRawCustomData__($search_index)['data'][0];
+			$inputData = $this->selectRawCustomData__($search_index)['data'][0]; 
 
-			$sessionData = $this->addUserSession($clientData['data']->insertedId, $this->input->post('auth_token'));
+			if ($inputData->provider == "G" || $inputData->provider == "F" ) {
+				 
+				$dataset = array(  
+					'profie_image' => $this->saveProfileImage__($inputData->client_id, $inputData->profie_image, $inputData->provider),
+					'client_id' => $inputData->client_id
+				); 
+
+				$this->updateData__('clients', $dataset, 'client_id="'.$dataset['client_id'].'"');
+			}
 		 
 			$sessionData['data'] = $this->setSessionData($sessionData, $inputData,'Session inserted');  
 

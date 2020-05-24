@@ -387,34 +387,101 @@ class CommonController extends CI_Controller {
 	}
 
 
-	public function fileUpload__($postVal, $fileVal){ 
+	public function fileUpload__($client_id, $postVal, $fileVal){ 
 
-		$url=$this->config->base_url();
-		
-		$target_dir = "assets/uploads/";
-		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/'.$target_dir;
+		$url=$this->config->base_url(); 
+		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/'.$client_id.'/';
 
-     	$name = $_POST['name']; 
-     	$timestamp = time();
+		if (!file_exists($upload_dir)) {
+		    mkdir($upload_dir, 0777, true);
+		    mkdir($upload_dir.'/thumb', 0777, true);
+		    mkdir($upload_dir.'/xs-thumb', 0777, true); 
+		} 
+ 
+     	$generatedFileName = basename(time().''.$_FILES["file"]["name"]);
 
-	    $target_file = $target_dir . basename($timestamp.''.$_FILES["file"]["name"]); 
-	    $image_url = array('image_url' => $target_file );
+	    $target_file = $upload_dir . $generatedFileName;   
 
 	    $move_file = move_uploaded_file($_FILES["file"]["tmp_name"], $target_file);
 
-	    $this->make_thumb($target_file, $upload_dir.'thumb/'.basename($timestamp.''.$_FILES["file"]["name"]), 340);
-
-	    $this->make_thumb($target_file, $upload_dir.'/xs-thumb/'.basename($timestamp.''.$_FILES["file"]["name"]), 100);
+	    $this->make_thumb($target_file, $upload_dir.'/thumb/'. $generatedFileName, 340); 
+	    $this->make_thumb($target_file, $upload_dir.'/xs-thumb/'. $generatedFileName, 100);
 
 	    $output = array(
 			'status' => 200 , 
-			'data' => (object) array('new_file'=> basename($timestamp.''.$_FILES["file"]["name"]), 'target_file' => $url.''.$target_file, 'moved_path' => $move_file, 'temp_folder' => $_FILES["file"]["tmp_name"])  
+			'data' => (object) array(
+				'new_file'=> $generatedFileName, 
+				'target_file' => $url.'assets/uploads/'.$client_id.'/'.$generatedFileName, 
+				'moved_path' => $move_file, 'temp_folder' => $_FILES["file"]["tmp_name"]
+			)  
 		);
  
  	    return $this->output->set_output(json_encode($output, JSON_PRETTY_PRINT));
+
+
 	}
 
 
+	public function saveCoverImage__($client_id, $postVal, $fileVal){ 
+
+		$url=$this->config->base_url(); 
+		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/'.$client_id.'/';
+
+     	$generatedFileName = basename(time().''.$_FILES["file"]["name"]);
+
+	    $target_file = $upload_dir . $generatedFileName;   
+
+	    $move_file = move_uploaded_file($_FILES["file"]["tmp_name"], $target_file); 
+
+	    $output = array(
+			'status' => 200 , 
+			'data' => (object) array(
+				'new_file'=> $generatedFileName, 
+				'target_file' => $url.'assets/uploads/'.$client_id.'/'.$generatedFileName, 
+				'moved_path' => $move_file, 'temp_folder' => $_FILES["file"]["tmp_name"]
+			)  
+		);
+ 
+ 	    return $this->output->set_output(json_encode($output, JSON_PRETTY_PRINT));
+
+
+	}
+
+	
+	public function saveProfileImage__($client_id, $remoteUrl, $provider){ 
+		  
+		switch ($provider) {
+			case 'F': 
+				$url = explode('?', $remoteUrl);
+				$remoteUrl = $url[0]."?type=large"; 
+				break;
+
+			case 'G':
+				$url = explode('=', $remoteUrl);
+				$remoteUrl = $url[0]."=s200-c"; 
+				break;
+			
+			default: 
+				break;
+		}
+		  
+		   
+		$img = time().''.'prof.png';  
+		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/'.$client_id.'/';
+		
+		if (!file_exists($upload_dir)) {
+		    mkdir($upload_dir, 0777, true);
+		    mkdir($upload_dir.'/thumb', 0777, true);
+		    mkdir($upload_dir.'/xs-thumb', 0777, true); 
+		} 
+		   
+		file_put_contents($upload_dir.''.$img, file_get_contents($remoteUrl)); 
+		  
+		return $img;
+	}
+
+
+	 
 
 
 	public function make_thumb($src, $dest, $desired_width) {
@@ -445,10 +512,9 @@ class CommonController extends CI_Controller {
 	}
  
 
-	public function deleteUploadedFile($file){ 
+	public function deleteUploadedFile($client_id, $file){ 
 		
-		$target_dir = "assets/uploads/";
-		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/'.$target_dir;
+		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/'.$client_id.'/';
 		
 		unlink($upload_dir.''.$file);
 		unlink($upload_dir.'thumb/'.$file);

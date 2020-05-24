@@ -31,6 +31,20 @@ class ProfileController extends CommonController {
 	}
 
 
+	public function getCompanyData(){  
+   
+		$search_index = array(
+			'columns' => '*' ,   
+			'table' => 'company_details',
+			'eq_table_col' => '1',
+			'data' => '1', 
+		);
+
+		return $this->selectCustomData__($search_index); 
+		
+	}
+
+
 	public function getCustomProfileDetails(){  
  
 
@@ -109,13 +123,11 @@ class ProfileController extends CommonController {
 
 	public function fileUpload(){ 
 
-		if (sizeof($this->isUserSessionValid()['data']) == 1) {
-			return $this->fileUpload__($_POST, $_FILES);
+		if (sizeof($this->isUserSessionValid()['data']) == 1) { 
+			return $this->saveCoverImage__( $this->input->get('session_id'), $_POST, $_FILES);
 		}else{
 			return $this->invalidSession(); 
-		} 
- 
- 	   
+		}  
  
 	} 
 
@@ -123,7 +135,7 @@ class ProfileController extends CommonController {
 		
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
 			$file_name = $this->input->post('file_name'); 
-			return $this->deleteUploadedFile($file_name);  
+			return $this->deleteUploadedFile($this->input->get('session_id') , $file_name);  
 		}else{
 			return $this->invalidSession(); 
 		} 
