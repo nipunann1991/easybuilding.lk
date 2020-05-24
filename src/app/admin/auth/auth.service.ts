@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { LoginService } from '../../admin/api/login.service'; 
 import { Subject } from 'rxjs/Subject';
 import { Globals } from './../../app.global';
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -27,14 +28,16 @@ export class AuthService {
   public isAuthenticated():  any  {  
 
     const token: any = JSON.parse(localStorage.getItem('token'));
-
+    
     if( localStorage.getItem("token") !== null){
-
+       
       if(this.global.token.auth_token == "" || this.global.token.provider_id == "" ){
         this.global.token.auth_token = token.auth_token;
         this.global.token.provider_id = token.provider_id;
+        this.global.token.session_id = token.session_id;
       }
-      
+ 
+
       if (this.global.token.auth_token === token.auth_token && this.global.token.provider_id === token.provider_id ) {
 		    return true;
       }
@@ -60,8 +63,10 @@ export class AuthService {
 
             this.isAuthenticatedUser.next(true); 
             this.global.token.auth_token = token.auth_token;
-            this.global.user.first_name = response.data[0].first_name;   
-            this.global.user.profie_image = response.data[0].profie_image; 
+
+            this.global.token.session_id = response.data[0].client_id;
+            this.global.user.first_name = response.data[0].first_name;    
+            this.global.user.profie_image = environment.uploadPath +  response.data[0].client_id +"/"+response.data[0].profie_image; 
 
             localStorage.setItem('token', JSON.stringify(token) ); 
              
@@ -82,7 +87,7 @@ export class AuthService {
 
       if( localStorage.getItem("tokenAdmin") !== null){
 
-        if( token.provider_id == this.global.isAdminToken){
+        if( token.provider_id == this.global.isAdminToken || token.provider_id == this.global.isManagerToken){
           return true;
         }
 

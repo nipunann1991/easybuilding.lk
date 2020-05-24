@@ -101,15 +101,17 @@ export class LoginComponent implements OnInit {
         console.log(response);
 
         if (response.status == 200 && response.data.length > 0) { 
-          
+
           let data = response.data[0];
+          let provider_id = '';
+
+          (data.role_id==2)? provider_id = this.global.isAdminToken :  provider_id = this.global.isManagerToken;
 
            let token = { 
             auth_token:  data.auth_token, 
             session_id: data.user_id, 
             email: data.user_email, 
-            provider_id: "21232f297a57a5a743894a0e4a801fc3", 
-
+            provider_id: provider_id,  
           }; 
            
            this.global.tokenAdmin.auth_token = data.auth_token;

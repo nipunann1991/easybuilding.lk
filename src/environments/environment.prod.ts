@@ -1,6 +1,6 @@
 
 
-let serverUrl = "http://localhost:81/easybuilding-api/";
+let serverUrl = "https://easybuilding.herokuapp.com/easybuilding-api/";
 
 export const environment = {
   production: true,

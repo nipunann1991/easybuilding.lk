@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { AuthService as Auth } from '../../../admin/auth/auth.service';
 import { AuthService as OAuth } from "angularx-social-login";
 import { Router, NavigationEnd, RouterEvent } from "@angular/router";
@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
   editableMode: boolean = false; 
   menuItemCols: any; 
   totalItemLengths: any = [];
+  @Input() logoOnly: boolean =  false; 
 
   user: any = {
     first_name: '',
@@ -30,12 +31,14 @@ export class HeaderComponent implements OnInit {
   ) { 
 
     this.isAccessed();
-    this.user = this.globals.user;
-      
+    this.user = this.globals.user; 
+
+    
+  
   }
 
   ngOnInit(): void {
-
+      console.log(this.logoOnly)
     
     this.menuItemCols =  [{
         "id": "1;",

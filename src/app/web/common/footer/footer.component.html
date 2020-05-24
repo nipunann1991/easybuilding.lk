@@ -1,6 +1,50 @@
 <div class="container-fluid footer-area">
     <div class="container">
-        <p>footer works!</p>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium, qui maiores. Omnis eos temporibus itaque voluptatibus expedita eveniet recusandae voluptatem distinctio ipsam, repellendus saepe vero dolore quaerat consequatur fuga ea.</p>
+        <div class="flex-wrapper">
+            <div class="columns contact-details">
+                <img src="./assets/images/easybuilding-logo.png" alt="Wasybuilding Logo">
+                 <ul>
+                     <li class="address" [innerHTML]="companyData.company_address">  
+                     </li>
+                     <li class="tel" *ngIf="companyData.company_tel1 != ''">
+                        {{companyData.company_tel1}} <span *ngIf="companyData.company_tel2 != ''">|</span> {{companyData.company_tel2}}
+                     </li>
+                     <li class="email" *ngIf="companyData.company_email != ''">
+                        {{companyData.company_email}}
+                     </li>
+                 </ul>
+            </div>
+            <div class="columns">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="">Service Providers</a></li>
+                    <li><a href="">Quotation Requests</a></li>
+                    <li><a href="">Own BOQ</a></li> 
+                    <li><a href="">Construction Tips</a></li>
+                    <li><a href="">About Us</a></li>
+                    <li><a href="">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="columns">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="">Service Packages</a></li>
+                    <li><a href="">Easy Guide</a></li>
+                    <li><a href="">Privacy policy</a></li> 
+                </ul>
+            </div>
+            <div class="columns">
+                <h3>Find Us On</h3>
+                <ul class="social-icons">
+                    <li *ngIf="companyData.fb_url != ''"><a href="{{companyData.fb_url}}" target="_blank"><i class="icon-facebook"></i> Facebook</a></li>
+                    <li *ngIf="companyData.twitter_url != ''"><a href="{{companyData.twitter_url}}" target="_blank"><i class="icon-twitter"></i> Twitter</a></li> 
+                    <li *ngIf="companyData.linkedin_url != ''"><a href="{{companyData.linkedin_url}}" target="_blank"><i class="icon-linkedin2"></i> Linkedin</a></li> 
+                    <li *ngIf="companyData.youtube_url != ''"><a href="{{companyData.youtube_url}}" target="_blank"><i class="icon-youtube"></i> Youtube</a></li> 
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p> Need help with an existing Easy Building order? Call <a href="">{{companyData.company_tel1}}</a> | &copy; EasyBuilding.lk - All rights reserved 2020.</p>
+        </div>
     </div>
 </div>

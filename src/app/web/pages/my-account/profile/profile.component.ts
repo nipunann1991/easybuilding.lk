@@ -4,6 +4,7 @@ import { environment } from "../../../../../environments/environment";
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop'; 
 import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
 import { ImageCroppedEvent, Dimensions, ImageTransform } from 'ngx-image-cropper';
+import { Globals } from "../../../../app.global";
 import * as $ from 'jquery';
 declare const bootbox:any;
 
@@ -22,7 +23,9 @@ export class ProfileComponent implements OnInit {
   isDisplayNameNull: boolean = true;
   isEditable: boolean = false; 
   bgImage: any = "transparent"
+  profImage: any = "transparent"
   isBgImage: boolean = false;
+  isProfImage: boolean = false;
   isUploading: boolean = false;
   uploadedImage: any = "";
   ClientId: any;
@@ -33,6 +36,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private myaccount: MyAccountService,
     private toastr: ToastrService, 
+    private globals: Globals
   ) { }
 
   ngOnInit(): void { 
@@ -45,15 +49,24 @@ export class ProfileComponent implements OnInit {
     this.ClientId = this.profileData.client_id;
     this.uploadedImage = this.profileData.cover_img;
     this.isEditable = this.profileData.is_editable_btn;
-   
+    
+    console.log(  this.profileData );
 
     if(this.profileData.cover_img === '' ){
       this.isBgImage = false;
 
-    }else{
- 
-      this.bgImage = 'url('+ environment.uploadPath + this.profileData.cover_img +')' ;
+    }else{ 
+      this.bgImage = 'url('+ environment.uploadPath +  this.ClientId + '/'+ this.profileData.cover_img +')' ; 
       this.isBgImage = true;
+      
+    }  
+
+    if(this.profileData.profie_image === '' ){
+      this.isProfImage = false; 
+
+    }else{ 
+      this.profImage = 'url('+ environment.uploadPath +  this.ClientId + '/'+ this.profileData.profie_image +')' ;
+      this.isProfImage = true; 
 
     }  
 

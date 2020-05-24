@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AppSEO } from "./../../../app.seo"; 
-import * as ScrollMagic from "scrollmagic";  
-import { TweenMax, TimelineMax  } from "gsap";  
+import { gsap,TweenMax, TimelineMax } from "gsap";  
+import * as ScrollMagic from "scrollmagic"; 
 import { ScrollMagicPluginGsap } from "scrollmagic-plugin-gsap";  
-const gsapStuff = [CSSPlugin];
+import { ScrollScene, ScrollObserver  } from 'scrollscene'
+//const gsapStuff = [CSSPlugin];
 
 
 @Component({
@@ -22,8 +23,8 @@ export class HomeComponent implements OnInit {
   currBannerItem: number = -1;
 
   
-  constructor(private seo: AppSEO, ) {  
-    ScrollMagicPluginGsap(ScrollMagic, TweenMax, TimelineMax);
+  constructor(private seo: AppSEO) {    
+    ScrollMagicPluginGsap(ScrollMagic, TweenMax, TimelineMax); 
     this.pageSEO();  
   }
 
@@ -116,24 +117,15 @@ export class HomeComponent implements OnInit {
     }]
 
 
-    this.BannerArray = [].slice.call(this.BannerImgs);
-
-    // var controller = new ScrollMagic.Controller();
-
-    //   var scene = new ScrollMagic.Scene({
-    //     triggerElement: '.services-area',
-    //     triggerHook: .6,
-    //     offset: 200
-    //   })
-    //   .setClassToggle('.header-wrapper', 'fixed-header')  
-    //   .addTo(controller);
+    this.BannerArray = [].slice.call(this.BannerImgs); 
   
   }
 
   ngAfterViewInit() {
-    this.pageAnimation();
+    this.pageAnimation(); 
   }
 
+    
 
   pageAnimation(): void{ 
 
@@ -142,7 +134,7 @@ export class HomeComponent implements OnInit {
       
 
       init: function(){
-        appAnimations.parallaxBanner();
+        //appAnimations.parallaxBanner();
         appAnimations.bannerAnims();
         appAnimations.servicesAnims();
         appAnimations.browseAnims();
@@ -163,33 +155,36 @@ export class HomeComponent implements OnInit {
 
       bannerAnims:  () =>{ 
         let elm = '.banner-area'; 
-        let bannerAnimation = new TimelineMax({ delay: 0.4 });
+        const domNode = document.querySelector(elm) 
+        const bannerAnimation = gsap.timeline({ paused: true });
 
         bannerAnimation
-          .from(elm+' h1', 0.4, { opacity: 0})
-          .from(elm+' p', 0.4, {y: 10, opacity: 0})
-          .from(elm+' .btn ', 0.4, {y: 10, opacity: 0}); 
+          .from(elm+' h1', 0.4, { opacity: 0, ease: Power1.easeIn})
+          .from(elm+' p', 0.4, {y: 10, opacity: 0, ease: Power1.easeIn})
+          .from(elm+' .btn ', 0.4, {y: 10, opacity: 0, ease: Power1.easeIn}); 
+ 
         
-        appAnimations.scrollMagicInit(elm, bannerAnimation );
+        appAnimations.scrollMagicInit(domNode, bannerAnimation, 0 );
         
       },
 
       servicesAnims:  () =>{
         let elm = '.services-list';
-        let elm1 = '.services-area';
-        let servicesAnims = new TimelineMax();   
-        let servicesAnims1 = new TimelineMax();   
+        let elm1 = '.services-area';  
+        const dom_elm = document.querySelector(elm); 
+        const dom_elm1 = document.querySelector(elm1); 
 
-        servicesAnims
-          .from(elm1+' h2', 0.3, {  opacity: 0, ease: Power1.easeIn })  
-          .from(elm1+' p.text-center', 0.3, { opacity: 0, ease: Power1.easeIn });
+        const servicesAnims = gsap.timeline({ paused: true });
+        const servicesAnims1 = gsap.timeline({ paused: true });
         
-        appAnimations.scrollMagicInit(elm1, servicesAnims, 0);
-          
-        servicesAnims1  
-          .from(elm+' li', 0.3, { autoAlpha: 0, y: 10, stagger: 0.2,  ease: Power1.easeOut } );
+        servicesAnims
+          .from(elm1+' h2', 0.3, {  opacity: 0, ease: Power1.easeIn })
+          .from(elm1+' p.text-center', 0.3, { opacity: 0, ease: Power1.easeIn }); 
 
-        appAnimations.scrollMagicInit(elm1, servicesAnims1, 400);
+        appAnimations.scrollMagicInit(dom_elm, servicesAnims, 0);
+
+        servicesAnims1.from(elm+' li', 0.3, { autoAlpha: 0, y: 10, stagger: 0.2,  ease: Power1.easeOut } ); 
+        appAnimations.scrollMagicInit(dom_elm1, servicesAnims1, 400);
          
         
       },
@@ -197,14 +192,16 @@ export class HomeComponent implements OnInit {
       browseAnims:  () =>{
 
         let elm = '.browse-item';
-        let browseAnimations1 = new TimelineMax();  
-        let browseAnimations2 = new TimelineMax(); 
+        const dom_elm = document.querySelector(elm); 
+ 
+        const browseAnimations1 = gsap.timeline({ paused: true });
+        const browseAnimations2 = gsap.timeline({ paused: true });
 
         browseAnimations1.from(elm+'.item1', 0.4, { y: 20, opacity: 0, ease: Power1.easeIn }) 
-        appAnimations.scrollMagicInit(elm, browseAnimations1); 
+        appAnimations.scrollMagicInit(dom_elm, browseAnimations1, 200); 
 
         browseAnimations2.from(elm+'.item2', 0.4, { y: 20, opacity: 0, ease: Power1.easeIn }) 
-        appAnimations.scrollMagicInit(elm, browseAnimations2);
+        appAnimations.scrollMagicInit(dom_elm, browseAnimations2, 200);
          
       },
 
@@ -213,14 +210,16 @@ export class HomeComponent implements OnInit {
         let elm = ".fetured-area";
         let elm1 = ".featured-list";
 
-        let featuredAnim = new TimelineMax(); 
-        let featuredAnimBox = new TimelineMax(); 
+        const dom_elm = document.querySelector(elm); 
+        const dom_elm1 = document.querySelector(elm1);  
+        const featuredAnim = gsap.timeline({ paused: true });
+        const featuredAnimBox = gsap.timeline({ paused: true });
 
         featuredAnim.from(elm+' h2', 0.3, { opacity: 0, y: 10, ease: Power1.easeIn }) 
-        appAnimations.scrollMagicInit(elm, featuredAnim);
+        appAnimations.scrollMagicInit(dom_elm, featuredAnim);
 
         featuredAnimBox.from(elm1+' .featured-item-wrapper', 0.3, { autoAlpha: 0, y: 10, stagger: 0.2, ease: Power1.easeOut });
-        appAnimations.scrollMagicInit(elm1, featuredAnimBox); 
+        appAnimations.scrollMagicInit(dom_elm1, featuredAnimBox); 
 
       },
 
@@ -228,20 +227,28 @@ export class HomeComponent implements OnInit {
         let elm = ".fetured-products-area";
         let elm1 = ".fetured-products-list";
 
-        let featuredAnim = new TimelineMax(); 
-        let featuredAnimBox = new TimelineMax(); 
+        const dom_elm = document.querySelector(elm); 
+        const dom_elm1 = document.querySelector(elm1);  
+        const featuredAnim = gsap.timeline({ repeat: 0, paused: true });
+        const featuredAnimBox = gsap.timeline({ paused: true }); 
 
         featuredAnim.from(elm+' h2', 0.3, { opacity: 0, y: 10, ease: Power1.easeIn }) 
-        appAnimations.scrollMagicInit(elm, featuredAnim);
+        appAnimations.scrollMagicInit(dom_elm, featuredAnim);
 
         featuredAnimBox.from(elm1+' .fetured-products-item-wrapper', 0.3, { autoAlpha: 0, y: 10, stagger: 0.2, ease: Power1.easeOut });
-        appAnimations.scrollMagicInit(elm1, featuredAnimBox); 
+        appAnimations.scrollMagicInit(dom_elm1, featuredAnimBox); 
       },
       
-      scrollMagicInit:  (elm, animation, offset = 200) =>{
-        return new ScrollMagic.Scene( { triggerElement: elm, triggerHook: "onEnter", offset: offset} )
-          .setTween( animation )
-          .addTo(appAnimations.controller);
+      scrollMagicInit:  (domNode, tl, offset = 200) =>{ 
+
+        return  new ScrollObserver({ 
+          triggerElement: domNode, 
+          gsap: {
+            timeline: tl, 
+          }, 
+          useDuration: false,
+          offset: offset,  
+        }) 
       }
 
     }

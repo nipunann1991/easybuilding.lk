@@ -271,3 +271,16 @@
   background-repeat: no-repeat;
   background-position: $bg-position;
 }
+
+
+@mixin regular {
+  font-family: 'Circular Std Book';
+  font-weight: normal;
+  font-style: normal;
+}
+
+@mixin bold {
+  font-family: 'Circular Std';
+  font-weight: bold;
+  font-style: normal;
+}

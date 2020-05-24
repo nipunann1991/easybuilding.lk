@@ -1,19 +1,60 @@
+<!-- <div class="container-fluid login-page-header">
+    <div class="container">
+        <div class="logo">
+            <a routerLink="/"><img src="/assets/images/easybuilding-logo.png" alt="Wasybuilding Logo"></a>
+        </div>
+    </div>
+</div> -->
+<app-header [logoOnly]="islogoOnly" ></app-header>
 <div class="container-fluid login-page">
     <div class="container">
-        <div class="login-wrapper">
-            <div class="logo">
-                <a routerLink="/"><img src="/assets/images/easybuilding-logo.png" alt="Wasybuilding Logo"></a>
+        <h1>Sign In to Easybuilding</h1>
+
+        <div class="column-container">
+            <div class="column">
+                <form class="app-form"  [formGroup]="formGroup" (ngSubmit)="onSubmit()">  
+                    <div class="app-form-inner"> 
+                        <p *ngIf="noUserAvailable" class="error-names">Invalid Username or Password</p>
+                            <div class="form-group">
+                                <label for="">Username or Email</label>
+                                <input placeholder="" formControlName="username" class="form-control"  name="username" type="text"> 
+                                <!-- <bfv-messages></bfv-messages> -->
+                            </div>
+                            <div class="form-group">
+                                <label for="">Password</label>
+                                <input placeholder="" formControlName="password" class="form-control" name="password" type="password" >
+                                <!-- <bfv-messages></bfv-messages> -->
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Keep me signed in</label>
+                            </div>
+                            <div class="form-group">
+                                <button mat-button class="app-sign-in" >Sign In</button> 
+                                <button mat-button class="app-mail-link" >Email me link to sign in</button>  
+                            </div> 
+                            <div class="">
+                                <a routerLink="" >Forgot your password?</a>
+                            </div> 
+                    </div> 
+                </form>
             </div>
-            <div class="text-desc">
-                <p>Easy Building is built exclusively for home remodeling and design professionals.</p>
-            </div>
-            <div class="login-accounts" *ngIf="!isLoggedIn">
-                <button mat-button class="btn btn-danger"  (click)="signInWithGoogle()"  >Login with Google</button> 
-                <button mat-button class="btn btn-fb" (click)="signInWithFB()" >Login with Facebook</button> 
+            <div class="column">
+                <div class="login-wrapper"> 
+                   
+                    <div class="login-accounts" *ngIf="!isLoggedIn"> 
+                        <button mat-button class="btn btn-fb" (click)="signInWithFB()" ><img src="/assets/images/facebook.svg" alt=""> Login with Facebook</button> 
+                        <button mat-button class="btn btn-google"  (click)="signInWithGoogle()"  ><img src="/assets/images/google.svg" alt=""> Login with Google</button> 
+                    </div> 
+                    <div class="login-accounts" *ngIf="isLoggedIn">
+                        <h3>Please wait...</h3>
+                    </div>
+                </div>
             </div> 
-            <div class="login-accounts" *ngIf="isLoggedIn">
-                <h3>Please wait...</h3>
-            </div>
+            
+        </div> 
+        <div class="bottom-container">
+           <p>Don't have an account yet? <a routerLink="" class="create-account" >Create your account</a></p>
         </div>
         
         <!-- <button mat-button *ngIf="isLoggedIn" (click)="signOut()" class="app-login" >Sign Out</button>  -->

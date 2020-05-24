@@ -27,7 +27,7 @@
         </ngx-file-drop>  
     </div>
     <div class="profile-details">
-        <div class="profile-img" [ngStyle]="{'background-image': 'url('+ profile.profie_image + ')', 'background-size': 'contain'}"></div>
+        <div class="profile-img" [ngStyle]="{'background-image': ''+ profImage + '', 'background-size': 'contain'}"></div>
         <div class="details-wrapper">
             <div class="details">
                 <h3 *ngIf="isDisplayNameNull">{{profile.first_name}} {{profile.last_name}}</h3>

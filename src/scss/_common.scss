@@ -27,10 +27,50 @@ body{
 	overflow-x: hidden;
 	font-family: $normal-font;
 	font-weight: normal;
-	  font-style: normal;
+	font-style: normal;
+		
 	  
 	&.admin-layout{
-		background-color: #f8f8f8;
+		
+		background-color: #F4F7FC; 
+		//letter-spacing: 0.02rem;
+		//font-family: $adminfont;
+
+		// h1, h2, h3, h4{
+		// 	font-family: inherit;
+		// 	font-weight: 700;
+		// }
+
+
+		// label{
+		// 	font-family: inherit;
+		// 	font-weight: 600;
+		// 	font-size: 1.5rem;
+		// }
+	  
+		.form-control, p{
+			font-weight: 400;
+			font-size: 1.45rem; 
+		}
+
+		div.dataTables_wrapper{
+			label{
+				font-size: 1.3rem;
+				font-weight: 500;
+			}
+		}
+
+		table.dataTable thead th, table.dataTable tfoot th {
+			font-size: 1.4rem;
+		}
+
+		table.dataTable tbody th, table.dataTable tbody td{
+			font-size: 1.4rem;
+		}
+
+		div.dataTables_wrapper div.dataTables_info, div.dataTables_wrapper div.dataTables_paginate{
+			font-size: 1.2rem;
+		}
 	}
 }
 
@@ -38,7 +78,8 @@ p{
 	font-size: 1.5rem;	
 	line-height: 1.9rem; 
 	margin-bottom: 0;
-	color: $dark-gray;
+	color: $default-text-color; 
+	font-weight: 400;
 }
 
 ul{
@@ -48,7 +89,7 @@ ul{
 	li{
 		font-size: 1.5rem;	
 		line-height: 1.9rem;  
-		color: $dark-gray;
+		color: $default-text-color;
 		list-style: none;
 	}
 }
@@ -117,7 +158,7 @@ ul{
 }
  
 .container{
-	@include breakpoint(1500px){
+	@include breakpoint($medium-desktop){
 		min-width: 1250px;
 	}
 }
@@ -150,6 +191,8 @@ ul{
 
 			h2{
 				font-size: $h3-font-size + 3;
+				font-family: inherit;
+				font-weight: 700;
 				text-transform: capitalize;
 				margin-bottom: 0;
 				float: left; 
@@ -325,13 +368,47 @@ ul{
 	}
 
 	&.btn-fb{
-		background-color: #0066c3;
-    	border-color: #0066c3;
+		background-color: #1877F2;
+    border-color: #1877F2;
 		color: $white;
 
+		i{
+			position: relative;
+			width: 4rem;
+			height: 4rem;
+			display: inline-block;
+
+			&:before{
+				content: "";
+				background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABHNCSVQICAgIfAhkiAAABIJJREFUaEPlms9vG0UUx79v88Phh+30AHaQECncUCQcDkiUA8kBcaowPXAlkVCPJJXAzo0ELrGhqjnCpc4RJGhyLqjOpb0gMP9AEqkH1nCIvY5KYjf7qtm1E//Y9c56x5sifPWbN+8z78e8mVmCol9y7d9Z5sYHYG2WiFPMnCKi6U71zFwmoiqYSkxcPjmJ7lYLVFVhAgVRYhlvPl4hMtMAzQ6jy4IDFY4b0Z0gUEOBJNfqC2D+AsDCMMY7jWHmKkErQBvf0jefOfCr1xeI7YHmLSKk/U4kK98G0vPRDdkxQk4aJJGtrYCx3hv3fibzIytCzuSx5X++fr4sM84TZHqVpyOT9duj9IKboZZ3NLqhb8aKXjADQWwI4x4RpbwUjfR/pnWvUHMFeWogzleoqOdiy24L5gjyFEJY9jPzjUo+XnCCcQRJZIw7F5ETMuFpMj78Ox/b7pXtA0lkaqtEdEtG6UXI2AVgcr53r+kCsfeJxh8qS+z7r49jbkbDldfG+7h/+K2JH39vDrMeJT0XW+wc2AWiMqSiU8DP15/D3Euaq6Hf3D3BzV8bw4CgN8TOQFptx72htDoMuvvpYAgxJAgIwAd6Ln65PfU5SNYQEEp6p0/emcRXVyOeaxIMxOpLltubpQUicgPc3PecWVJAxhvBPWKV43IlH58/67US2XqBwCuSdnqK/bUZdZS5+UsD9/cen/338NDEw0P21DdI4NTU5kU/ZnskW9sf9jzhNIkbyMxaPZDRToMZ9G0lF10l1WElJgsVpBVeNIoNMEwQsXDHJ9FLpCo/PnpzAi9fsovgZ+85VyxRpTp/9/dO8WD/NHi4ES1SMmOUQHg3qLafrj+LK6+O+VITuPy2ZhPNpAitQxUtyTAg1757pMYjzBuUzBrB6l9rVf7XIG/ljgLvI2IdGdhR5pEvr0YwN2PnyNsuufJgrzuxr33/yFdOuQmLvUQZSOckYZdfiBxJZA2xvb+hZGlaSi4ERFX5vUiPiLMJJTO1dRCJ609lv9A9IjbEFzNGWiPcUUYRdq8FrlVy8WkSVz9TkfrhfxcEO5VcLG01R6oTPtTQap0SWydEYwmM26q8EiaI6HzFu4oFYt0sRowDAsVVwIQGwtjS87ElYfP55YPC6hUaCNGivhktdYPYb4DiGSywV0IBYezq+djZrU/3TaMir4QCQhOXO69N++9+FbQsIwdh3tDz8fXOfO4DeeHzo5SmnZaChNgoQRj4s5KL9T08OT4rJNfUlmMVldA+d3CNaDLl9Orr+mI1ih4sCJCAMM2xBbfH0YFviMmMUQTh4yAGqBjrBdFVft0mHMW9lx84GQgpECEkOmQiLgYpAH6Mb8uKxCaaSMt8CeH5zt5Wal2tmk0RaoHvwKSgHErsoHHSIG0l1vkFXADRK1IG+RVi7EKbWJLxwsB9RHZeUaKZsarsvM/YgkbFdu8ka0dbzrdHeiewN1BeAnjBD5RIYoBKRNg+Po5uB/nESTrZZVfHOm1OHaXYNFMEWB+dsfX5Bx0Qm9YHZiaorGlUHXbl3Wx5Aj/1G19ONawjAAAAAElFTkSuQmCC');
+				position: absolute;
+				height: 100%;
+				top: 0;
+				left: 0;
+				background-size: contain;
+				width: 100%;
+				z-index: 100;
+			}
+		}
+
 		&:hover{
-			background: darken(#0066c3, 5%);
+			background: darken(#1877F2, 5%);
 			color: $white;
+		}
+	}
+
+	&.btn-google{
+		background-color: transparent;
+    border: 1px $border-gray solid;
+		color: $dark-gray;
+
+		&:before{
+			content: "";
+		}
+
+		&:hover{
+			background: transparent;
+			color: $dark-gray;
 		}
 	}
 
@@ -532,6 +609,11 @@ ngx-file-drop{
 	}
 }
 
+label{
+	font-family: 'Circular Std';
+	font-weight: 500;
+  font-style: normal;
+}
 
 .toast-container .ngx-toastr{
 	padding: 15px 15px 15px 47px; 
@@ -614,7 +696,7 @@ ngx-file-drop{
 
 
 table.dataTable{
-	font-size: 1.4rem;
+	font-size: 1.3rem;
     line-height: 1.9rem;
 
 	thead {
@@ -665,11 +747,16 @@ div.dataTables_wrapper{
 		font-size: 1.4rem;
 
 		.paginate_button{
-			padding: 2px;
+				padding: 2px;
     		line-height: 1rem;
     		border-radius: 3px;
     		padding: 0.5rem;
-    		border: 1px solid #979797;
+				border: 1px solid #979797;
+				
+				&.current{
+					color: $white !important;
+					background: $darker-gray;
+				}
 		}
 	}
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+
 import { Router } from "@angular/router";
 import { AuthService as Auth } from '../../../admin/auth/auth.service';
 import { AuthService as OAuth } from "angularx-social-login";
@@ -19,6 +20,8 @@ export class LoginComponent implements OnInit {
   isLoggedIn : boolean = false; 
   formIsValid: boolean = true;
   val : number = 0;
+  islogoOnly: boolean = true;
+  
 
   formGroup: FormGroup;
 
@@ -34,26 +37,36 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() { 
     this.isAuthorized();
+
+    this.formGroup = this.formBuilder.group({ 
+
+        username: new FormControl('', [ 
+          Validators.required,
+          Validators.maxLength(300)
+        ]),
+
+        password: new FormControl('', [ 
+          Validators.required,
+          Validators.maxLength(300)
+        ]),
+    }); 
        
   }
 
   
   onSubmit() { 
 
-    //   if (!this.formGroup.invalid) { 
-    //     this.formIsValid = true;
-    //     localStorage.setItem('token', this.userDetails);
-    //     console.log(this.userDetails);
-
-    //     this.isAuthorized();
+      if (!this.formGroup.invalid) { 
+        this.formIsValid = true;
+        //this.onAdminLogin(this.formGroup.value)
         
 
-    //   }else{
-    //     this.formIsValid = false;
-    // } 
-
-    
+      }else{
+        this.formIsValid = false;
+    } 
   }
+
+ 
 
   onClientLogin(userDetails): void {
     
@@ -81,14 +94,8 @@ export class LoginComponent implements OnInit {
             email: userDetails.email, 
             provider_id: response.data[0].provider_id 
           }; 
-           
-           this.global.token.auth_token = userDetails.authToken;
-           this.global.token.provider_id = token.provider_id; 
-           this.global.user.first_name = response.data[0].first_name; 
-           this.global.user.profie_image = response.data[0].profie_image; 
-           
-           localStorage.setItem('token', JSON.stringify(token) ); 
-           this.router.navigate(['/my-account']);
+          localStorage.setItem('token', JSON.stringify(token) ); 
+          window.location.href = '/my-account';
 
         }else{
 
@@ -131,7 +138,7 @@ export class LoginComponent implements OnInit {
   signOut(): void {
     this.oauth.signOut().then( (userDetails) =>{
         this.isLoggedIn = false;
-        localStorage.clear(); 
+        localStorage.clear();  
     });    
   }
 
@@ -145,7 +152,7 @@ export class LoginComponent implements OnInit {
         console.log(user)
         this.isLoggedIn = true;
       }
-      //console.log(user)
+      
     });
   }
 

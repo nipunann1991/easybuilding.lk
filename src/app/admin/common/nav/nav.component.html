@@ -2,7 +2,12 @@
 	<!-- (mouseenter)="openNav()" (mouseleave)="hideNav()" -->
     <ul> 
         <li class="" *ngFor="let m of menu">
-            <a mat-flat-button  routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: false}" routerLink="{{m.link}}" title="{{m.title}}">
+            <a mat-flat-button  routerLinkActive="active-link" 
+                [routerLinkActiveOptions]="{exact: false}" 
+                routerLink="{{m.link}}" 
+                title="{{m.title}}"
+                *ngIf="m.permission == 0"
+            >
             	<i class="{{m.icon}}"></i>
             	<span class="nav-title">{{m.title}}</span>
             </a>

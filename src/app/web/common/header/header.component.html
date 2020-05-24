@@ -1,14 +1,14 @@
 <div class="header-wrapper"> 
-    <div class="container-fluid header-area">
+    <div class="container-fluid header-area" [ngClass]="{'login-border': (logoOnly === true) }" >
         <div class="container">
             <div class="content-area">
                 <div class="logo">
                     <a routerLink="/"><img src="./assets/images/easybuilding-logo.png" alt="Wasybuilding Logo"></a>
                 </div>
-                <div class="search-box">
+                <div class="search-box" *ngIf="!logoOnly">
                     <input type="text" class="form-control" placeholder="Search Photos, Products & More...">
                 </div>
-                <div class="cta-buttons"> 
+                <div class="cta-buttons" *ngIf="!logoOnly"> 
                     <a  routerLink="/login" *ngIf="!isLogged" class="login-btn" ><i class="icon-profile"></i> Login</a>
                     <button mat-button  routerLink="/login" *ngIf="!isLogged" class="btn d-none btn-login mat-button"><i class="icon-profile"> </i>Login</button>    
                     <button mat-button *ngIf="!isLogged" class="btn btn-primary sign-up mat-button">Upload Product</button>   
@@ -29,7 +29,7 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid nav-area">
+    <div class="container-fluid nav-area" *ngIf="!logoOnly">
         <div class="container">
             <ul class="nav-item-list">
                 <li>

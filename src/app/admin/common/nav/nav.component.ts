@@ -11,7 +11,8 @@ import * as $ from 'jquery';
 export class NavComponent implements OnInit {
 
 	menu: any = []; 
-
+	tokenAdmin:any = JSON.parse(localStorage.getItem('tokenAdmin'));
+	accessAll: any = 2;
 
   	constructor(private globals: Globals, private router: Router) { 
   		  router.events.subscribe( (event) => {
@@ -23,41 +24,57 @@ export class NavComponent implements OnInit {
  
             }
   		  	
-  		  });
+				});
+				
+				if (this.globals.isAdminToken == this.tokenAdmin.provider_id	){
+					this.accessAll = 0;
+				}
   	} 
 
   	ngOnInit() {
+
   		this.menu = [ 
 			{
 				title: 'Home',
 				icon: 'icon-dashboard',
-				link: '/admin/dashboard'
+				link: '/admin/dashboard',
+				permission: 0,
 			},
 			{
 				title: 'Clients',
 				icon: 'icon-users',
-				link: '/admin/clients'
+				link: '/admin/clients',
+				permission: 0,
+
 			}, 
 			{
 				title: 'Cities',
 				icon: 'icon-location',
-				link: '/admin/cities'
+				link: '/admin/cities',
+				permission: 0,
+
 			},
 			{
 				title: 'Categories',
 				icon: 'icon-tools',
-				link: '/admin/categories'
+				link: '/admin/categories',
+				permission: 0,
+
 			},  
 			{
 				title: 'Products',
 				icon: 'icon-upload',
-				link: '/admin/products'
+				link: '/admin/products',
+				permission: 0,
+
 			},
 			
 			{
 				title: 'Certification',
 				icon: 'icon-certificate',
-				link: '/admin/certification'
+				link: '/admin/certification',
+				permission: 0,
+
 			}, 
 			// {
 			// 	title: 'Reports',
@@ -67,13 +84,12 @@ export class NavComponent implements OnInit {
 			{
 				title: 'Settings',
 				icon: 'icon-settings',
-				link: '/admin/settings'
+				link: '/admin/settings',
+				permission: this.accessAll,
 			},
-
-			 
 		]
 
-  	}
+  }
 
   	openNav(){
     	$("html .left-nav, html .right-container").addClass('open-nav');

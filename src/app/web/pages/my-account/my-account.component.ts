@@ -52,8 +52,6 @@ export class MyAccountComponent implements OnInit {
       });
 
     }else{
-      
-      console.log(this.getRouterParams);
       window.scroll(0,0); 
       this.getProfileDetails(this.getRouterParams);  
       
@@ -89,7 +87,8 @@ export class MyAccountComponent implements OnInit {
             this.profileData = response.data[0];   
             this.profileData.profile_editable = true;
             this.profileData.is_editable_btn = false;
-            this.setLargeImg(); 
+             
+            console.log(this.profileData)
 
           }else{
               
@@ -107,7 +106,7 @@ export class MyAccountComponent implements OnInit {
             
             this.profileData = response.data[0];   
             this.profileData.profile_editable = false;
-            this.setLargeImg(); 
+            
 
           }else{
             //this.router.navigate(['/my-account/user/me/0']);

@@ -49,7 +49,10 @@ export class GeneralComponent implements OnInit {
         Validators.required, 
       ]),
 
-      company_fb_url: new FormControl(''),
+      fb_url: new FormControl(''),
+      twitter_url: new FormControl(''),
+      youtube_url: new FormControl(''),
+      linkedin_url: new FormControl(''),
       
     }); 
   }
@@ -76,7 +79,10 @@ export class GeneralComponent implements OnInit {
               company_tel1: companyData.company_tel1,
               company_tel2: companyData.company_tel2, 
               company_email: companyData.company_email, 
-              company_fb_url: companyData.company_fb_url,
+              fb_url: companyData.fb_url,
+              twitter_url: companyData.twitter_url,
+              youtube_url: companyData.youtube_url,
+              linkedin_url: companyData.linkedin_url,
             })
 
           }

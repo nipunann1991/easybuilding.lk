@@ -1,7 +1,7 @@
 @import '../../../../styles';
 
 .section{
-    padding: 5rem 0;
+    padding: 6rem 0;
 
     h2{
         font-size: 2.8rem;
@@ -71,7 +71,7 @@
         }
 
         p{
-            font-size: 1.8rem;
+            font-size: 2rem;
             line-height: 2.4rem;
             margin-bottom: 5rem;
             color: $white;
@@ -91,8 +91,13 @@
 
 .services-area{
 
+    h2{
+        text-transform: capitalize;
+    }
+
     p.text-center{
-        font-size: 1.6rem;
+        font-size: 1.7rem;
+        line-height: 2.1rem; 
     }
 
     ul.services-list{

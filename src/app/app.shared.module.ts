@@ -12,6 +12,7 @@ import { NgSelect2Module } from 'ng-select2';
 import { NgxFileDropModule } from 'ngx-file-drop'; 
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
       MatDatepickerModule, 
       CKEditorModule,
       ImageCropperModule,
+      LoadingBarHttpClientModule,
       NgBootstrapFormValidationModule.forRoot(), 
     ],
   exports: [  
@@ -53,6 +55,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
       MatDatepickerModule, 
       CKEditorModule, 
       ImageCropperModule, 
+      LoadingBarHttpClientModule,
       NgBootstrapFormValidationModule
     
   ],

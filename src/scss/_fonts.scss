@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Alice|Playfair+Display:400,700,900|Muli:300,400,600,700,800,900|Abril+Fatface');
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @font-face {
   font-family: 'Circular Std';
   src: url('/assets/fonts/CircularStd-MediumItalic.eot');
@@ -127,103 +126,90 @@
 .icon-certificate:before {
   content: "\e900";
 }
-
 .icon-dashboard:before {
   content: "\e90b";
 }
-
 .icon-tools:before {
   content: "\e90d";
 }
-
 .icon-settings:before {
   content: "\e90e";
 }
-
 .icon-users:before {
   content: "\e90f";
 }
-
 .icon-view:before {
   content: "\e919";
 }
-
 .icon-growth:before {
   content: "\e90c";
 }
-
 .icon-tel:before {
   content: "\e910";
 }
-
 .icon-location:before {
   content: "\e912";
 }
-
 .icon-mobile:before {
   content: "\e914";
 }
-
 .icon-email:before {
   content: "\e915";
 }
-
 .icon-interface:before {
   content: "\e916";
 }
-
 .icon-upload:before {
   content: "\e917";
 }
-
 .icon-profile:before {
   content: "\e918";
 }
-
 .icon-close:before {
   content: "\e913";
 }
-
 .icon-grid:before {
   content: "\e901";
 }
-
 .icon-list:before {
   content: "\e902";
 }
-
 .icon-pencil:before {
   content: "\e903";
 }
-
 .icon-bin:before {
   content: "\e904";
 }
-
 .icon-plus:before {
   content: "\e905";
 }
-
 .icon-dark-arrow-right:before {
   content: "\e906";
 }
-
 .icon-magnifying-glass:before {
   content: "\e907";
 }
-
 .icon-left-arrow:before {
   content: "\e908";
 }
-
 .icon-right-arrow:before {
   content: "\e909";
 }
-
 .icon-down-arrow:before {
   content: "\e90a";
 }
-
 .icon-shopping-cart:before {
   content: "\e911";
+}
+.icon-facebook:before {
+  content: "\ea90";
+}
+.icon-twitter:before {
+  content: "\ea96";
+}
+.icon-youtube:before {
+  content: "\ea9d";
+}
+.icon-linkedin2:before {
+  content: "\eaca";
 }
