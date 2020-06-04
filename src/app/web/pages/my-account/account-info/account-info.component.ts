@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router,  NavigationEnd } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -14,6 +14,7 @@ export class AccountInfoComponent implements OnInit {
 
   profile: any = {}
   isEmailDisabled: boolean = true;
+  isStepsForm: boolean = false;
   formGroup: FormGroup;
   public Editor = ClassicEditor;
   clientId: any;
@@ -38,14 +39,22 @@ export class AccountInfoComponent implements OnInit {
         Validators.minLength(2),
         Validators.maxLength(100)
       ]),
-      display_name: new FormControl(''),
+      display_name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(100)
+      ]),
       description: new FormControl(''),
       email: new FormControl({value:'', disabled: true}, [ 
           Validators.required, 
       ]), 
 
     });
- 
+
+     if(this.router.url.includes("steps")){
+       this.isStepsForm = true;
+     }
+     
 
     this.getAccountDetails()
   }
@@ -86,8 +95,13 @@ export class AccountInfoComponent implements OnInit {
         .subscribe((response: any) => {
 
           if (response.status == 200) {
-            this.toastr.success('Information saved successfully', 'Success !');  
-            this.router.navigate(['/my-account/user/me/0']);
+            if( !this.isStepsForm ){
+              this.toastr.success('Information saved successfully', 'Success !');  
+              this.router.navigate(['/my-account/user/me/0']);
+            }else{
+              this.router.navigate(['/my-account/user/me/0/steps/contact-info']);
+            }
+          
             
           }else if (response.status == 401){
             this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  

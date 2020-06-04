@@ -284,3 +284,9 @@
   font-weight: bold;
   font-style: normal;
 }
+
+@mixin extra-bold {
+  font-family: 'Circular Std';
+  font-weight: 900;
+  font-style: normal;
+}

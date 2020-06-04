@@ -21,17 +21,29 @@
                     <!-- <p>Drag drop or upload a image.</p> -->
                     <button type="button" mat-button class="btn upload-btn" *ngIf="profile.profile_editable" (click)="openFileSelector()"> </button>
                 </div>
-                <div *ngIf="isBgImage" class="preview" [ngStyle]="{'background-image':bgImage}"></div>
+                <div *ngIf="isBgImage" class="preview" [ngClass]="{'shadow': bgImage}" [ngStyle]="{'background-image':bgImage}"></div>
              
             </ng-template>
         </ngx-file-drop>  
     </div>
     <div class="profile-details">
-        <div class="profile-img" [ngStyle]="{'background-image': ''+ profImage + '', 'background-size': 'contain'}"></div>
+        <div class="profile-img" [ngStyle]="{'background-image': ''+ profImage + '', 'background-size': 'cover'}"></div>
         <div class="details-wrapper">
-            <div class="details">
-                <h3 *ngIf="isDisplayNameNull">{{profile.first_name}} {{profile.last_name}}</h3>
-                <h3 *ngIf="!isDisplayNameNull">{{profile.display_name}}</h3> 
+            <div class="details" [ngClass]="{'no-img': !isBgImage}">
+                 
+                <ul>
+                    <li class="name">
+                        <h3 *ngIf="isDisplayNameNull">{{profile.first_name}} {{profile.last_name}}</h3>
+                        <h3 *ngIf="!isDisplayNameNull">{{profile.display_name}}</h3> 
+                    </li>
+                    <li class="address"> 
+                        <p>{{profile.address_line1}} {{profile.address_line2}} {{profile.city}}</p> 
+                    </li>
+                    <li>
+                        <star-rating  starType="icon" labelText="2 Reviews"  [showHalfStars]="true" labelPosition="right" [rating]="4"></star-rating>
+                    </li>
+                </ul>
+                
             </div>
             <button mat-button (click)="editProfile()" *ngIf="profile.profile_editable && !isEditable" class="btn btn-primary-transparent edit-profile"><i class="icon-pencil"></i> Edit Profile</button>
             <button mat-button class="btn btn-primary-transparent edit-profile" *ngIf="!profile.profile_editable">Publish</button>

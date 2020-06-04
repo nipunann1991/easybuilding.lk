@@ -5,12 +5,15 @@
 
     h3{
         margin-bottom: 2rem;
+        color: $base-color;
+        @include extra-bold;
+        font-size: 1.8rem;
     }
 
     p, li{
         font-size: 1.5rem; 
         line-height: 2.3rem;
-        color: $base-color;
+        color: $dark-gray;
     }
 
     li{

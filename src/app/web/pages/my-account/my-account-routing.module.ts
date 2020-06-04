@@ -10,10 +10,10 @@ const routes: Routes = [
 	  	{ path: 'account-info', loadChildren: () => import('../my-account/account-info/account-info.module').then(m => m.AccountInfoModule) },
 	    { path: 'contact-info', loadChildren: () => import('../my-account/contact-info/contact-info.module').then(m => m.ContactInfoModule) },
       { path: 'services', loadChildren: () => import('../my-account/services/services.module').then(m => m.ServicesModule) },
-	 
+      { path: 'steps', loadChildren: () => import('../my-account/steps/steps.module').then(m => m.StepsModule) },
     ]
   },
-
+  
   { path: '', redirectTo: 'user/me/0', canActivate: [AuthGuard], loadChildren: () => import('../my-account/user/user.module').then(m => m.UserModule) },
   
 ];

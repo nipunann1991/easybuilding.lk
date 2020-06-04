@@ -114,15 +114,52 @@ ul{
     margin-bottom: 1.5rem;
 }
 
+.rating{
+	justify-content: flex-end;
+
+	&.color-positive, &.color-negative{
+		.star-container{
+			.star{
+				i{
+					font-size: 2rem;
+					line-height: 2rem;
+					color: $yellow !important;
+				}
+			}
+		}
+	}
+
+	&.medium {
+		.label-value{
+			font-size: 1.4rem;
+			padding-left: 1rem;
+			margin-left: 0.5rem;
+			position: relative;
+
+			&:before{
+				content: "";
+				position: absolute;
+				height: 70%;
+				width: 1px;
+				background: rgba(255, 255, 255, 0.3);
+				left: 0;
+				top: 15%;
+			}
+
+		}
+	}
+	
+}
+
 .read-more-link{
 	color: $read-more;
 	margin-top: 1.5rem;
 	display: inline-block; 
 	background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAKCAYAAABi8KSDAAAABHNCSVQICAgIfAhkiAAAAJpJREFUGFeFkbENwkAQBHe/AVKkd4pM6BJMJ6YR81ABHdACHdACpIgUYgd2yC96otdhm8tON6u7vSVM+aCK0q4nt11gl49p4SKohnQRcB3ITS74gZPYBzWUTlYwCk8JWLTxDGJhz0m9gCWBtYDHc+9W9O37SLCagcsI3F8HV/4/Q7gNjnUyOm8wA9Pm6dcZcBT+hhIVesfGhvIBQMNdC/doLa4AAAAASUVORK5CYII=');
 	background-repeat: no-repeat;
-    background-position: 100% 50%; 
-    width: auto;
-    padding-right: 2rem;
+	background-position: 100% 50%; 
+	width: auto;
+	padding-right: 2rem;
 }
 
 .select-fw{
@@ -341,6 +378,10 @@ ul{
 	background-color: #f8f8f8;
 }
 
+.btn-wrapper{
+	margin-top: 1rem;	
+}
+
 .btn{
 	background: $base-color; 
 	color: $white;
@@ -348,7 +389,7 @@ ul{
 	letter-spacing: 0.04rem;
 	font-weight: normal;
 	font-style: normal;
-	padding: 0 2em;	 
+	padding: 0.1rem 3rem !important;	 
 	
 	&:focus{
 		box-shadow: none;
@@ -365,6 +406,34 @@ ul{
 			background: darken($base-bg-color, 5%);
 			color: $white;
 		}
+	}
+
+	&.btn-prev{
+		float: left;
+		text-transform: uppercase;
+		@include bold;
+		border: 1px $light-blue-color solid;
+		color: $light-blue-color;
+		background-color: transparent;
+
+		&:hover{
+			border-color: darken($light-blue-color, 5%);
+			color: darken($light-blue-color, 5%);
+			background-color: transparent;
+		}
+	}
+
+	&.btn-next{
+		float: right;
+		text-transform: uppercase;
+		@include bold;
+		background-color: $light-blue-color;
+
+		&:hover{
+			background: darken($light-blue-color, 5%);
+			color: $white;
+		}
+		
 	}
 
 	&.btn-fb{
@@ -434,7 +503,7 @@ ul{
 		&:hover{
 			background: rgba(60, 142, 249, 0.12);
 			border-color: darken($base-bg-color, 5%);
-			color: darken($base-bg-color, 5%);;
+			color: darken($base-bg-color, 5%);
 		}
 	}
 	
@@ -612,7 +681,9 @@ ngx-file-drop{
 label{
 	font-family: 'Circular Std';
 	font-weight: 500;
-  font-style: normal;
+	font-style: normal;
+	color: $dark-gray;
+	@include regular; 
 }
 
 .toast-container .ngx-toastr{
@@ -650,6 +721,10 @@ label{
     	background-color: $danger-color;
     	color: $white;
     }
+}
+
+.form-control.is-valid, .was-validated .form-control:valid{
+	border-color: $mid-gray;
 }
 
 .mat-slide-toggle-bar{

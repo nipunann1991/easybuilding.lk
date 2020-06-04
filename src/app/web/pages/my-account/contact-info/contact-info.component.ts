@@ -14,6 +14,7 @@ export class ContactInfoComponent implements OnInit {
   formGroup: FormGroup;
   clientId: any;
   profile: any = {}
+  isStepsForm: boolean = false;
 
 
   constructor(
@@ -54,6 +55,10 @@ export class ContactInfoComponent implements OnInit {
       ]), 
 
     });
+
+    if(this.router.url.includes("steps")){
+      this.isStepsForm = true;
+    }
   }
 
 
@@ -105,6 +110,10 @@ export class ContactInfoComponent implements OnInit {
         });
     }
 
+  }
+
+  previousLink(){
+    this.router.navigate(['/my-account/user/me/0/steps/account-info']);
   }
 
 }

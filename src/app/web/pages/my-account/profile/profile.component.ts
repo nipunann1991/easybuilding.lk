@@ -17,8 +17,10 @@ export class ProfileComponent implements OnInit {
    
   @Input() profileData: any;
   @Output() isProfileEditable = new EventEmitter<any>();
+
   
-  public files: NgxFileDropEntry[] = [];
+  public files: NgxFileDropEntry[] = []; 
+  
   profile: any = {}
   isDisplayNameNull: boolean = true;
   isEditable: boolean = false; 
@@ -49,8 +51,7 @@ export class ProfileComponent implements OnInit {
     this.ClientId = this.profileData.client_id;
     this.uploadedImage = this.profileData.cover_img;
     this.isEditable = this.profileData.is_editable_btn;
-    
-    console.log(  this.profileData );
+     
 
     if(this.profileData.cover_img === '' ){
       this.isBgImage = false;
@@ -77,6 +78,8 @@ export class ProfileComponent implements OnInit {
     }
 
   }
+
+ 
 
 
   editProfile(){

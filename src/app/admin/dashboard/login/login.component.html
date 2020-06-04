@@ -11,21 +11,22 @@
 				<form class="app-form"  [formGroup]="formGroup" (ngSubmit)="onSubmit()">  
 					<div class="app-form-inner"> 
 
-						<h3>Member Login</h3>
+						<h1>Login to Easybuilding Admin</h1>
 						<p *ngIf="noUserAvailable" class="error-names">Invalid Username or Password</p>
 					  	<div class="form-group">
-					    	<input placeholder="Email or Username" formControlName="username" class="form-control" [(ngModel)]="userDetails.username" (ngModelChange)="clearFilter()" name="username" type="text"> 
+								<label for="">Email or Username</label>
+					    	<input placeholder="" formControlName="username" class="form-control" [(ngModel)]="userDetails.username" (ngModelChange)="clearFilter()" name="username" type="text"> 
 					    	 <!-- <bfv-messages></bfv-messages> -->
 					  	</div>
 					  	<div class="form-group">
-					    	<input placeholder="Password" formControlName="password" class="form-control" name="password" type="password" [(ngModel)]="userDetails.password" (ngModelChange)="clearFilter()">
+								<label for="">Password</label>
+					    	<input placeholder="" formControlName="password" class="form-control" name="password" type="password" [(ngModel)]="userDetails.password" (ngModelChange)="clearFilter()">
 					    	 <!-- <bfv-messages></bfv-messages> -->
 					  	</div>
 					  	 
 						<button mat-button class="app-login" >Login</button> 
 						 
-					  	<a routerLink="" >Forgot Username/ Password?</a>
-					  	<a routerLink="" class="create-account" ><strong>Create your account</strong></a>
+					   
 					</div> 
 				</form>
 

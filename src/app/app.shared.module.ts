@@ -13,6 +13,7 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { StarRatingModule } from 'angular-star-rating';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
       CKEditorModule,
       ImageCropperModule,
       LoadingBarHttpClientModule,
+      StarRatingModule.forRoot(),
       NgBootstrapFormValidationModule.forRoot(), 
     ],
   exports: [  
@@ -56,6 +58,7 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
       CKEditorModule, 
       ImageCropperModule, 
       LoadingBarHttpClientModule,
+      StarRatingModule,
       NgBootstrapFormValidationModule
     
   ],

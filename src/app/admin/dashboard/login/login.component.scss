@@ -19,8 +19,23 @@
 	.error-names{ 
 		margin-bottom: 1.5rem;
 	}
+
+	h1{
+			font-size: 2.7rem;
+			margin-bottom: 3rem;
+	} 
 	 
 	.login-form { 
+		position: relative;
+
+		&:before{
+			content: "";
+			position: absolute;
+			height: 40%;
+			width: 1px;
+			background: $border-gray;
+			left: 5%;
+		}
 
 		.app-form{ 
 
@@ -36,7 +51,7 @@
 				width: 350px; 
 
 				@include breakpoint($tablet){
-					width: 400px;
+					width: 360px;
 				}
 
 				.has-error{
@@ -58,25 +73,28 @@
 				}
 
 				input{
-					background: $input-color;
-					padding: 12px 25px;
-					height: auto;
-					border-radius: 50px;
-					border: 1px transparent solid;
+					background: $form-control-gray;
+					border-color: $border-gray;
+					height: 4rem; 
 					margin-bottom: 15px;
 
 				}
 
+				label{
+					color: $dark-gray;
+          @include regular; 
+				}
+
 				button.app-login{
-					background: $green-color;
-					border-radius: 50px;
-					border-radius: 50px;
+					background: $light-blue-color; 
 					width: 100%;
-					color: $white;
-					padding: 4px 25px;
+					color: $white; 
 					outline: 0 !important;
-					margin-top: 0;
-					font-size: $base-font-size;
+					margin-top: 15px;
+					text-transform: uppercase;
+					font-size: $base-font-size; 
+					padding: 0.2rem 1rem;
+					@include bold;
 				}
 
 				a{
@@ -92,7 +110,8 @@
 					}
 				}
 			}
-		}
-
+		} 
 	}
+
+ 
 }

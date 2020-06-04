@@ -1,10 +1,6 @@
  <div class="container-fluid animated fadeIn">
     <div class="row">
-        <div class="col-md-3">
-            <div class="item"> 
-                <h3>Awards</h3>
-                <p><i>No awards yet.</i></p>
-            </div>
+        <div class="col-md-3"> 
             <div class="item"> 
                 <h3>Contact Details</h3>
                 <ul>
@@ -15,11 +11,15 @@
                     <li>{{profile.email}}</li>
                 </ul>
             </div>
+            <div class="item"> 
+                <h3>Awards</h3>
+                <p><i>No awards yet.</i></p>
+            </div>
         </div>
         <div class="col-md-9">
 
             <div class="item">
-                <h3>Description</h3>
+                <h3>About</h3>
                 <div  *ngIf="profile.description == '' ">
                     <p><i>Add a description about your business.</i></p>
                 </div>

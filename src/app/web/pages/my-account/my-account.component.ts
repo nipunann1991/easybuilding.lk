@@ -17,6 +17,7 @@ export class MyAccountComponent implements OnInit {
   isEditableMode: boolean = false;
   isAdminAccessible: boolean = false;
   profileData: any = {};
+  profileCompleted: boolean = false;
   navItems: any = [];
   
   constructor(
@@ -89,6 +90,12 @@ export class MyAccountComponent implements OnInit {
             this.profileData.is_editable_btn = false;
              
             console.log(this.profileData)
+
+            if(this.profileData.steps == 0){
+              this.router.navigate(['/my-account/user/me/0/steps/account-info']);
+            }else{
+              this.profileCompleted = true;
+            }
 
           }else{
               
