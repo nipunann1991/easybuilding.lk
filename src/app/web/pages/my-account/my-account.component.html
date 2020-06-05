@@ -24,7 +24,34 @@
         </div>
 
         <div class="content-wrapper" *ngIf="!isEditableMode"> 
-            <app-user [profileData]="profileData"></app-user>
+
+            <div class="left-block"> 
+                <div class="item"> 
+                    <h3>Contact Details</h3>
+                    <ul>
+                        <li class="address">
+                            {{profileData.address_line1}} {{profileData.address_line2}} {{profileData.city}}
+                        </li>
+                        <li class="tel">{{profileData.tel1}}</li>
+                        <li class="email">{{profileData.email}}</li>
+                    </ul>
+                </div>
+                <div class="item"> 
+                    <h3>Awards</h3>
+                    <p><i>No awards yet.</i></p>
+                </div>
+            </div>
+            <div class="right-block">
+                <ul class="tab-list">
+                    <li><a href="">About</a></li>
+                    <li><a href="">Projects</a></li>
+                    <li><a href="">Reviews</a></li>
+                </ul>
+                <div class="content-area">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+            
         </div>
     </div>
     <div class="container-fluid-layout" *ngIf="!profileCompleted">

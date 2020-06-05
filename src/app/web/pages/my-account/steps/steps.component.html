@@ -4,10 +4,7 @@
 
       <h2>Complete Your Profile</h2> 
       <ul class="steps">
-        <li class="active"><span>Basic Information</span></li>
-        <li class="active"><span>Contact Details</span></li>
-        <li><span>Step 1</span></li>
-        <li><span>Step 1</span></li>
+        <li *ngFor="let s of steps" [ngClass]="{'active': s.active, 'completed': s.completed }"><span>{{s.title}}</span></li> 
       </ul> 
 
     </div> 

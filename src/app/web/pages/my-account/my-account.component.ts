@@ -91,14 +91,14 @@ export class MyAccountComponent implements OnInit {
              
             console.log(this.profileData)
 
-            if(this.profileData.steps == 0){
-              this.router.navigate(['/my-account/user/me/0/steps/account-info']);
+            if(this.profileData.steps < 4){
+              this.router.navigate(['steps/account-info'], { relativeTo: this.route.parent });
             }else{
-              this.profileCompleted = true;
+              this.profileCompleted = true; 
             }
 
           }else{
-              
+            
           }
             
         });

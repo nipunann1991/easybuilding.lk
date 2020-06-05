@@ -31,11 +31,12 @@
 
         i.icon-bin{
             position: absolute;
-            right: 1.5rem;
-            top: 1.5rem;
+            right: 2rem;
+            top: 2rem;
             font-size: 2.5rem;
             cursor: pointer;
             color: $white;
+            z-index: 100;
 
             &:hover{
                 color: $danger-color;
@@ -47,28 +48,35 @@
         position: absolute;
         width: 100%;
         bottom: -7rem;
-        @include flex();
-        align-items: start;
-
-
+        @include flex();  
         
-        .profile-img{
-            width: 21rem;
-            height: 23rem;
+        .profile-img-wrapper{
+            width: 25rem;
+            height: 27rem;
             margin-left: 3.5rem;
-            background-color: #e0e0e0; 
-            border: 5px #f8f8f8 solid;
-            box-shadow: 0 18px 55px -9px rgba(0, 0, 0, 0.21);
-            background-image: url(/assets/images/picture.png);
-            background-repeat: no-repeat;
-            background-position: 50% 50%; 
+            
+            .profile-img{
+                width: 100%;
+                height: 100%;
+                background-color: #e0e0e0; 
+                border: 5px #f8f8f8 solid;
+                box-shadow: 0 18px 55px -9px rgba(0, 0, 0, 0.21);
+                background-image: url(/assets/images/picture.png);
+                background-repeat: no-repeat;
+                background-position: 50% 50%; 
+            }
+
+            button.btn-contact{
+                width: 100%;
+                margin-top: 1.5rem;
+            }
         }
 
         .details-wrapper{
             @include flex();
             @include calc("width", "100% - 17.5rem");
             margin-bottom: 0rem;
-            padding: 5rem 2.5rem 0 2.5rem;
+            padding: 0rem 2.5rem 0 2.5rem;
 
             .details{  
                 color: $white;
@@ -83,7 +91,7 @@
                     li{
                         color: inherit;
                         letter-spacing: 0.05rem;
-                        margin-bottom: 0.4rem;
+                        margin-bottom: 0.5rem;
 
                         &.name{
                             @include extra-bold;
@@ -103,6 +111,13 @@
                             font-size: 3rem;
                             margin-bottom: 0;
                             color: inherit;
+                            display: inline-block;
+                        }
+
+                        a.edit{
+                            position: relative;
+                            top: -0.5rem;
+                            margin-left: 1.5rem;
                         }
         
                         p{ 

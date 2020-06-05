@@ -3,7 +3,7 @@
         <form id="myform" class="wrapped-block animated fadeIn" [formGroup]="formGroup" (ngSubmit)="onSave()" novalidate="novalidate">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>Basic Information</h2>
+                    <h2>Business Information</h2>
                 </div>
                 <div class="d-none">
                     <div class="col-md-6">  
@@ -18,12 +18,21 @@
                             <input id="last_name" name="last_name" formControlName="last_name" type="text" class="form-control">
                         </div>  
                     </div>
-                </div>  
-                <div class="col-md-12">
+                </div>   
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="display_name">Business Name</label> 
                         <input id="display_name" name="display_name" formControlName="display_name" type="text" class="form-control">
                     </div>  
+                </div>
+
+                <div class="col-md-6">
+                   
+                    <div class="form-group">
+                        <label for="display_name">Select the option describes you the best?</label> 
+                        <ng-select2 [data]="professionalCategory" formControlName="prof_category" class="select-fw" >
+                        </ng-select2> 
+                    </div> 
                 </div>
 
                 <div class="col-md-12">

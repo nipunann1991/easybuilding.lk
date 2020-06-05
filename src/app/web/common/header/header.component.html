@@ -12,15 +12,15 @@
                     <a  routerLink="/login" *ngIf="!isLogged" class="login-btn" ><i class="icon-profile"></i> Login</a>
                     <button mat-button  routerLink="/login" *ngIf="!isLogged" class="btn d-none btn-login mat-button"><i class="icon-profile"> </i>Login</button>    
                     <button mat-button *ngIf="!isLogged" class="btn btn-primary sign-up mat-button">Upload Product</button>   
-                    <div class="user-account" routerLink="/my-account/user/me/0" *ngIf="isLogged">
+                    <div class="user-account" routerLink="/my-account/user/me/0/about" *ngIf="isLogged">
                         <div class="user-img" [ngStyle]="{'background-image': 'url('+ user.profie_image + ')'}"></div> 
                         <div class="user-name"><p>Hello, {{user.first_name}}</p></div> 
                         <i class="icon-down-arrow"></i>
-
+                        
                         <div class="mini-menu">
                             <ul>
-                                <li><a routerLink="/my-account/user/me/0"><i class="icon-profile"></i> Profile</a></li>
-                                <li><a routerLink="/my-account/user/me/0"><i class="icon-upload"></i> Upload Products</a></li>
+                                <li><a routerLink="/my-account/user/me/0/about"><i class="icon-profile"></i> Profile</a></li>
+                                <li><a routerLink="/my-account/user/me/0/about"><i class="icon-upload"></i> Upload Products</a></li>
                                 <li><a (click)="signOut()" >Sign Out</a></li>
                             </ul>
                         </div>

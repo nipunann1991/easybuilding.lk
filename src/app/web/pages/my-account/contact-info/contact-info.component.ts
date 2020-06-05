@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
 
@@ -21,6 +21,7 @@ export class ContactInfoComponent implements OnInit {
     private myaccount: MyAccountService,
     private toastr: ToastrService,
     private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -98,8 +99,15 @@ export class ContactInfoComponent implements OnInit {
         .subscribe((response: any) => {
 
           if (response.status == 200) {
-            this.toastr.success('Information saved successfully', 'Success !');  
-            this.router.navigate(['/my-account/user/me/0/']);
+
+            if( !this.isStepsForm ){
+              this.toastr.success('Information saved successfully', 'Success !');  
+              this.router.navigate(['/my-account/user/me/0/']);
+            }else{ 
+              this.router.navigate(["../services"], { relativeTo: this.route.parent });
+            }
+           
+            
             
           }else if (response.status == 401){
             this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  
@@ -112,8 +120,8 @@ export class ContactInfoComponent implements OnInit {
 
   }
 
-  previousLink(){
-    this.router.navigate(['/my-account/user/me/0/steps/account-info']);
+  previousLink(){ 
+    this.router.navigate(["../account-info"], { relativeTo: this.route.parent });
   }
 
 }

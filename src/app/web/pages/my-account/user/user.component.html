@@ -1,14 +1,14 @@
  <div class="container-fluid animated fadeIn">
     <div class="row">
-        <div class="col-md-3"> 
+        <div class="left-block"> 
             <div class="item"> 
                 <h3>Contact Details</h3>
                 <ul>
-                    <li>
+                    <li class="address">
                         {{profile.address_line1}} {{profile.address_line2}} {{profile.city}}
                     </li>
-                    <li>{{profile.tel1}}</li>
-                    <li>{{profile.email}}</li>
+                    <li class="tel">{{profile.tel1}}</li>
+                    <li class="email">{{profile.email}}</li>
                 </ul>
             </div>
             <div class="item"> 
@@ -16,7 +16,7 @@
                 <p><i>No awards yet.</i></p>
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="right-block">
 
             <div class="item">
                 <h3>About</h3>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router,  NavigationEnd } from '@angular/router';
+import { Router,ActivatedRoute,  NavigationEnd } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -19,10 +19,17 @@ export class AccountInfoComponent implements OnInit {
   public Editor = ClassicEditor;
   clientId: any;
 
+  professionalCategory: any = [
+    {  id: 1, text: "Skilled Proffessional" },
+    {  id: 2, text: "Showroom/ Local retailer" },
+    {  id: 3, text: "Manufacture/ Brand" }
+  ]
+
   constructor(
     private myaccount: MyAccountService,
     private toastr: ToastrService,
     private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -44,6 +51,9 @@ export class AccountInfoComponent implements OnInit {
         Validators.minLength(2),
         Validators.maxLength(100)
       ]),
+      prof_category: new FormControl('', [
+        Validators.required
+      ]), 
       description: new FormControl(''),
       email: new FormControl({value:'', disabled: true}, [ 
           Validators.required, 
@@ -66,12 +76,12 @@ export class AccountInfoComponent implements OnInit {
         if (response.status == 200) {
            
           this.profile = response.data[0];
-
-
+ 
           this.formGroup.setValue({
               first_name: this.profile.first_name, 
-              last_name: this.profile.last_name,
+              last_name: this.profile.last_name, 
               display_name: this.profile.display_name,
+              prof_category: this.profile.prof_category,
               description: this.profile.description,
               email: this.profile.email,
           });
@@ -90,7 +100,9 @@ export class AccountInfoComponent implements OnInit {
 
     if (!this.formGroup.invalid) {
 
-      this.formGroup.value.client_id = this.clientId; 
+      this.formGroup.value.client_id = this.clientId;
+      this.formGroup.value.prof_category = parseInt(this.formGroup.value.prof_category); 
+      
       this.myaccount.updateProfileDetails(this.formGroup.value)
         .subscribe((response: any) => {
 
@@ -98,8 +110,8 @@ export class AccountInfoComponent implements OnInit {
             if( !this.isStepsForm ){
               this.toastr.success('Information saved successfully', 'Success !');  
               this.router.navigate(['/my-account/user/me/0']);
-            }else{
-              this.router.navigate(['/my-account/user/me/0/steps/contact-info']);
+            }else{ 
+              this.router.navigate(["../contact-info"], { relativeTo: this.route.parent });
             }
           
             
