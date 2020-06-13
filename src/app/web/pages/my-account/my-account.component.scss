@@ -46,6 +46,10 @@
                 &.tel{
                     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABHNCSVQICAgIfAhkiAAAA+tJREFUSEut1n9I3GUcB/D35/nenefIpB9as43+yD9WVIuB/8xYNPqBgX8MJ4Mhka2c3lF43hLbcPecuUxQv6Z5Z6YbyxpDx5JIMP0nWOWQJIjgBo1m0f4oiZDZTu/u+7zjLC9HSnX6/eeB7/f7vF/f53k+z8NXfIGmYiJnWAH5FBH8dQlghOqnn/NN+ajWidX72bRSF9CXIeYhQE2DUBlE6BWRxw0wHO3Uz2cTnsnyBUMxGJlbTCxXeZM58dUHKWvpXm9uzjgp1xatxcrhjo7fs4WkLqivCuEYJvf326eurwbVHtOFyuASBBJPLJee6W2bzxrxBUJfi4gnKagY6NRXVoN8Pt9t8BaOgaZoOeGUDfWd+mETiJ6C4FFDlPfbemZtkL9Bf0jgsDF4sr9bf5Y1crRe91gKrxigvL9Lf7I26GggfMSlOAiwpa8zHMoa8QfCByC4aMDBaJd++Vak2edSVp8xzomo/cabWSO+htadgPMFwKtW0nOot/f4ygLX1uv9SuEcwV/dKZT19IR/zBpJd/Q16EmAe0mrLGqfvJSuLDGYFLCYRh2KdofGswXS/VZ2eF0gXK0UTtNwKGLrl/wBfQEKFQTeinTq1zcD/I3UNd2hcr0TFGxzlpPVyu1uEXCfGB7oe7tlakuQlSkLhpoE0maAs4oyTOE5IeaSbu8zA+1NC5uBMgdipdaeghv4EsQOJlEFFyqUQi0N7IitG7YESYf4X9XP0cURUL5ZAqq8iudB2QWFrkiH1htBRwKBO4ds+zcAXO+dzEgyx0lQdwkQIPFRImEFPR5nEpACx6D93e5Q29qQFxvb87ypeCsE+0DMg5gl1ASJVIrmxoJa+G7UtuP/QFaqrUFPKMGzNBwR5W4kUmMgHiA5nkw6xwffab1WE2h+xCVqSERKjJGYKN4lQGG6P5keEn8RSiwHt5eti1RWak/BDkyLwh4DnF82Sydy4D2tFJ4gcQXCM6TUCXA3iQ+Sxq1dllMkxpTAQrEi7jNEoRJ5CmDvukj6a2pqatyuvKIZAR4jZWopHq/15npfAHhQRB4kMUeKjtqhs+utg79e76FwVkR9uiGSWaOAHhWFg6TEDBzb0HXZBecw6Ho/0t0c26gYfMGWEtDMwGDqX5E/91A4CLARBtsgmKYgck8ePtZamy1DVg7MY/ph5aBTFEtJoRBfETJGJ/W5s2TFBgb0zbXg/x7J2s7+4MmnHUe9pizsTlcTie8BXBeDWVicN5RvabAIMflKqYs0ZvQ/Tdc6UyK+er0bFqpAlALYLiL3p2uX6b8qEunGkDdJU50tcotbE9S7XJTtgLMXysqF4U4BchPEhfdsPfIH2vfNkc83FewAAAAASUVORK5CYII=');
                     background-size: 1.6rem;
+
+                    span{
+                        display: block;
+                    }
                 }
         
                 &.email{
@@ -64,14 +68,11 @@
 	        font-weight: bold; 
             display: block;
             text-align: left;
-            text-decoration: none;
-            border-radius: 20px 0 0 20px;
-            line-height: 4.5rem;
+            text-decoration: none; 
+            line-height: 3.5rem;
             
-            &.active-btn{
-                background: $base-bg-color;
-                color: $white;
-                @include box-shadow(0, 2px, 16px, -3px, rgba(0, 0, 0, 0.5)); 
+            &.active-btn{ 
+                color: $base-bg-color; 
 
             }
         }
@@ -92,17 +93,34 @@
                 float: left;
 
                 a{
-                    padding: 1.5rem 4rem;
+                    padding: 1.7rem 4rem;
                     display: block;
                     font-size: 1.6rem;
                     color: $base-color;
                     @include bold;
+
+                    &.active-link{
+                        position: relative;
+                        color: $base-bg-color;
+
+                        &:before{
+                            content: "";
+                            position: absolute;
+                            width: 100%;
+                            bottom: 0;
+                            left: 0;
+                            height: 4px;
+                            background-color: $base-bg-color;
+            
+                        }
+
+                    }
                 }
             }
         }
 
         .content-area{
-            padding: 2rem 0;
+            padding: 3rem 2rem;
         }
     }
 

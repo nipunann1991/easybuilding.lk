@@ -35,9 +35,8 @@ export class AuthService {
         this.global.token.auth_token = token.auth_token;
         this.global.token.provider_id = token.provider_id;
         this.global.token.session_id = token.session_id;
-      }
- 
-
+      } 
+      
       if (this.global.token.auth_token === token.auth_token && this.global.token.provider_id === token.provider_id ) {
 		    return true;
       }

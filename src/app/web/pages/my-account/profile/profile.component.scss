@@ -10,6 +10,10 @@
         background-repeat: no-repeat;
         background-position: 50% 50%; 
 
+        @include breakpoint($x-large-desktop){
+            height: 40rem;
+        }
+
         &.loader{
             background-image: url(/assets/images/loader1.svg);
             background-size: 6.5rem;
@@ -66,10 +70,10 @@
                 background-position: 50% 50%; 
             }
 
-            button.btn-contact{
+            a.btn-contact{
                 width: 100%;
                 margin-top: 1.5rem;
-            }
+            } 
         }
 
         .details-wrapper{
@@ -118,6 +122,7 @@
                             position: relative;
                             top: -0.5rem;
                             margin-left: 1.5rem;
+                            cursor: pointer;
                         }
         
                         p{ 

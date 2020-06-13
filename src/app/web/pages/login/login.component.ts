@@ -7,6 +7,7 @@ import { AuthService as OAuth } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 import { LoginService } from '../../../admin/api/login.service'; 
 import { Globals } from './../../../app.global';
+import { environment } from "../../../../environments/environment";
 
 @Component({
   selector: 'app-login',
@@ -85,17 +86,17 @@ export class LoginComponent implements OnInit {
 
         console.log(response);
 
-        if (response.status == 200 && response.data.length > 0) { ;
- 
+        if (response.status == 200 && response.data.length > 0) {  
 
-           let token = { 
+          let token = { 
             auth_token:  userDetails.authToken, 
             session_id: response.data[0].client_id, 
             email: userDetails.email, 
             provider_id: response.data[0].provider_id 
           }; 
+
           localStorage.setItem('token', JSON.stringify(token) ); 
-          window.location.href = '/my-account';
+          window.location.href = environment.profileUrl;
 
         }else{
 

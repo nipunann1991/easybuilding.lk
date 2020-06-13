@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, CanDeactivate  } from '@angular/router';
 import { AuthService } from '../auth.service'; 
+import { environment } from "../../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class AuthDeactivateGuardService {
       return true;
       
     }else {
-      this.router.navigate(['my-account']); 
+      this.router.navigate([environment.profileUrl]); 
       return false;
 
     }

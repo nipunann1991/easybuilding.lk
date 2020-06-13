@@ -46,7 +46,7 @@ export class StepsComponent implements OnInit {
         this.setActiveStatus(1);
         break;
 
-      case 'services':
+      case 'service-areas':
         this.setActiveStatus(2);
         break;
     

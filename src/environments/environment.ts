@@ -8,7 +8,8 @@ export const environment = {
   production: false,
   baseUrl: serverUrl+'index.php/',
   uploadPath: serverUrl+"assets/uploads/",
-  token: JSON.parse(localStorage.getItem('token'))
+  token: JSON.parse(localStorage.getItem('token')),
+  profileUrl: '/my-account/user/me/0/about'
 };
 
 /*

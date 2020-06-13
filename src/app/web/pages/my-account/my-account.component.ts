@@ -4,7 +4,7 @@ import { AuthService as OAuth } from "angularx-social-login";
 import { Globals } from "../../../app.global"
 import { AuthService as Auth } from '../../../admin/auth/auth.service';
 import { MyAccountService } from '../../../admin/api/frontend/my-account.service';
-
+import { environment } from "../../../../environments/environment";
 
 @Component({
   selector: 'app-my-account',
@@ -19,6 +19,8 @@ export class MyAccountComponent implements OnInit {
   profileData: any = {};
   profileCompleted: boolean = false;
   navItems: any = [];
+  baseurl = "/my-account/user/me/0/";
+  baseurlEdit = this.baseurl+"/edit/";
   
   constructor(
     private oauth: OAuth,
@@ -30,18 +32,48 @@ export class MyAccountComponent implements OnInit {
 
   ) {  
 
+    this.router.events.subscribe((event) => {
+       
+      if (event instanceof NavigationEnd) {   
+
+        if(event.url === environment.profileUrl){  
+          window.scroll(0,0); 
+          this.isEditableMode = false;
+          let params = {id: 'me', provider_id: 0 };  
+          this.getProfileDetails(params);  
+          
+        }else{
+          if(event.url.indexOf('/edit/') > -1 ){
+            this.isEditableMode = true; 
+            this.profileData.is_editable_btn = false; 
+            let params = {id: 'me', provider_id: 0 };  
+            this.getProfileDetails(params);  
+
+          }else{
+            this.isEditableMode = false; 
+            this.profileData.is_editable_btn = false;
+            
+          } 
+        }
+
+      
+ 
+
+        
+      }
+    });
      
   }
 
   ngOnInit(): void {
+ 
 
     this.navItems = [
-      { title: "Home", url: "/my-account/user/me/0", icon: ""},
-      { title: "Account Information", url: "account-info", icon: ""},
-      { title: "Contact Details", url: "contact-info", icon: ""},
-      { title: "Services & Areas", url: "services", icon: ""},
-      { title: "Settings", url: "settings", icon: ""},
-      
+      { title: "Home", url: this.baseurl+"about", icon: ""},
+      { title: "Account Information", url: this.baseurlEdit+"account-info", icon: ""},
+      { title: "Contact Details", url: this.baseurlEdit+"contact-info", icon: ""},
+      { title: "Services & Areas", url: this.baseurlEdit+"service-areas", icon: ""},
+      { title: "Settings", url: this.baseurlEdit+"settings", icon: ""}
     ];
 
     this.isAdminAccessible = this.auth.validateBackendUser();
@@ -58,18 +90,7 @@ export class MyAccountComponent implements OnInit {
       
     }
       
-    this.router.events.subscribe((event) => {
-       
-      if (event instanceof NavigationEnd) {
-        if(event.url === '/my-account/user/me/0'){
-          window.scroll(0,0); 
-          this.isEditableMode = false;
-          let params = {id: 'me', provider_id: 0 };
-          this.getProfileDetails(params); 
-          
-        }
-      }
-    });
+    
     
   }
 
@@ -87,14 +108,14 @@ export class MyAccountComponent implements OnInit {
             
             this.profileData = response.data[0];   
             this.profileData.profile_editable = true;
-            this.profileData.is_editable_btn = false;
-             
-            console.log(this.profileData)
+            this.profileData.is_editable_btn = false; 
 
             if(this.profileData.steps < 4){
-              this.router.navigate(['steps/account-info'], { relativeTo: this.route.parent });
+              this.profileCompleted = false;
+              this.router.navigate(['/steps/account-info'], { relativeTo: this.route.parent });
             }else{
-              this.profileCompleted = true; 
+              this.profileCompleted = true;  
+              
             }
 
           }else{
@@ -109,12 +130,10 @@ export class MyAccountComponent implements OnInit {
 
       this.myaccount.getCustomProfileDetails(params) 
         .subscribe((response: any) => {
-          if (response.status == 200 && response.data.length > 0 ) {
-            
+          if (response.status == 200 && response.data.length > 0 ) { 
             this.profileData = response.data[0];   
             this.profileData.profile_editable = false;
-            
-
+             
           }else{
             //this.router.navigate(['/my-account/user/me/0']);
           }
@@ -126,10 +145,8 @@ export class MyAccountComponent implements OnInit {
     
   }
 
-  onGetCourseversionID(value){ 
-    this.isEditableMode = value;
-    this.router.navigate(['/my-account/user/me/0/account-info']);
-
+  isProfileEditable(value){ 
+    this.isEditableMode = value; 
   }
 
   setLargeImg(){

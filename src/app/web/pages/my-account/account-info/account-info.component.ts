@@ -54,6 +54,7 @@ export class AccountInfoComponent implements OnInit {
       prof_category: new FormControl('', [
         Validators.required
       ]), 
+      br_no: new FormControl(''),
       description: new FormControl(''),
       email: new FormControl({value:'', disabled: true}, [ 
           Validators.required, 
@@ -82,8 +83,10 @@ export class AccountInfoComponent implements OnInit {
               last_name: this.profile.last_name, 
               display_name: this.profile.display_name,
               prof_category: this.profile.prof_category,
+              br_no: this.profile.br_no,
               description: this.profile.description,
               email: this.profile.email,
+              
           });
 
           this.clientId = this.profile.client_id
@@ -109,7 +112,7 @@ export class AccountInfoComponent implements OnInit {
           if (response.status == 200) {
             if( !this.isStepsForm ){
               this.toastr.success('Information saved successfully', 'Success !');  
-              this.router.navigate(['/my-account/user/me/0']);
+              this.router.navigate(['/my-account/user/me/0/about']);
             }else{ 
               this.router.navigate(["../contact-info"], { relativeTo: this.route.parent });
             }

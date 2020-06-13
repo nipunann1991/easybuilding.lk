@@ -26,12 +26,18 @@
                     </div>  
                 </div>
 
-                <div class="col-md-6">
-                   
+                <div class="col-md-6"> 
                     <div class="form-group">
                         <label for="display_name">Select the option describes you the best?</label> 
                         <ng-select2 [data]="professionalCategory" formControlName="prof_category" class="select-fw" >
                         </ng-select2> 
+                    </div> 
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="form-group">
+                        <label for="br_no">Business Registration Number</label> 
+                        <input id="br_no" name="br_no" formControlName="br_no" type="text" class="form-control"> 
                     </div> 
                 </div>
 

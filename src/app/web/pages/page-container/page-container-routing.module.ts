@@ -10,6 +10,7 @@ const routes: Routes = [{ path: '', component: PageContainerComponent, children:
     { path: 'products', loadChildren: () => import('../../../web/pages/products/products.module').then(m => m.ProductsModule) },
     { path: 'products/:id', loadChildren: () => import('../../../web/pages/products/products.module').then(m => m.ProductsModule) }, 
     { path: 'my-account', canActivate: [AuthGuard], loadChildren: () => import('../../../web/pages/my-account/my-account.module').then(m => m.MyAccountModule) },
+    { path: 'steps', canActivate: [AuthGuard], loadChildren: () => import('../my-account/steps/steps.module').then(m => m.StepsModule) },
   ]},
   
 	{ path: 'login', canActivate: [AuthDeactiveGuard], loadChildren: () => import('../../../web/pages/login/login.module').then(m => m.LoginModule) }, 

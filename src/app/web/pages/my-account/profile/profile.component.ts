@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 import { environment } from "../../../../../environments/environment";
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop'; 
 import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
@@ -31,14 +32,15 @@ export class ProfileComponent implements OnInit {
   isUploading: boolean = false;
   uploadedImage: any = "";
   ClientId: any;
-
+  userEmail: any = ""
   imageChangedEvent: any = '';
   croppedImage: any = '';
 
   constructor(
     private myaccount: MyAccountService,
     private toastr: ToastrService, 
-    private globals: Globals
+    private globals: Globals,
+    private router: Router,
   ) { }
 
   ngOnInit(): void { 
@@ -51,7 +53,7 @@ export class ProfileComponent implements OnInit {
     this.ClientId = this.profileData.client_id;
     this.uploadedImage = this.profileData.cover_img;
     this.isEditable = this.profileData.is_editable_btn;
-     
+    this.userEmail = this.profileData.email;
 
     if(this.profileData.cover_img === '' ){
       this.isBgImage = false;
@@ -85,6 +87,7 @@ export class ProfileComponent implements OnInit {
   editProfile(){
     this.isEditable = true;
     this.isProfileEditable.emit(true); 
+    this.router.navigate(['/my-account/user/me/0/edit/account-info']);
   }
   
 

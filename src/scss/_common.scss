@@ -117,7 +117,7 @@ ul{
 .rating{
 	justify-content: flex-end;
 
-	&.color-positive, &.color-negative{
+	&.color-positive, &.color-negative, &.color-default {
 		.star-container{
 			.star{
 				i{
@@ -179,16 +179,27 @@ ul{
 		width: 100% !important;
 		display: block;
 
-		.select2-selection--single{
+		.select2-selection--multiple{
+			.select2-selection__choice{
+				padding: 3px 5px;
+				background: $body-bg;
+			}
+			
+			.select2-selection__choice__remove{
+				margin-right: 7px;
+			}
+		}
+
+		.select2-selection--single, .select2-selection--multiple{
 			border: 1px solid #ced4da;
-			min-height: 38px;
+			min-height: 4.2rem;
 
 			.select2-selection__arrow{
 				height: 100%;
 			}
 
 			.select2-selection__rendered{
-				line-height: 38px;
+				line-height: 4.2rem;
 			}
 		}
 	}
@@ -370,7 +381,7 @@ ul{
 
 .form-control{
 	font-size: inherit;
-	min-height: 3.8rem;
+	min-height: 4.2rem;
 }
 
 .form-control:disabled, .form-control[readonly] {
@@ -414,6 +425,7 @@ ul{
 		border: 1px $light-blue-color solid;
 		color: $light-blue-color;
 		background-color: transparent;
+		min-width: 15rem;
 
 		&:hover{
 			border-color: darken($light-blue-color, 5%);
@@ -426,6 +438,7 @@ ul{
 		float: right;
 		text-transform: uppercase;
 		@include bold;
+		min-width: 15rem;
 		background-color: $light-blue-color;
 
 		&:hover{
@@ -645,8 +658,17 @@ button.second-btn{
 }
 
 
+.ck-editor__top{
+	display: none;
+}
+
+ 
 .ck.ck-editor__main>.ck-editor__editable{
-  height: 200px;
+	min-height: 200px;
+	
+	p{
+		line-height: 2.2rem;
+	}
 }
 
 ngx-file-drop{
@@ -685,19 +707,16 @@ ngx-file-drop{
 	}
 }
 
-label{
-	font-family: 'Circular Std';
-	font-weight: 500;
-	font-style: normal;
+label{ 
 	color: $dark-gray;
 	@include regular; 
 }
 
 .toast-container .ngx-toastr{
 	padding: 15px 15px 15px 47px; 
-    width: 350px; 
-    background-position: 15px 17px; 
-    background-size: 20px;
+  width: 350px; 
+  background-position: 15px 17px; 
+  background-size: 20px;
 	@include box-shadow(0, 2px, 16px, -3px, rgba(0, 0, 0, 0.3)); 
 
 

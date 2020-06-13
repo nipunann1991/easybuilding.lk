@@ -102,9 +102,9 @@ export class ContactInfoComponent implements OnInit {
 
             if( !this.isStepsForm ){
               this.toastr.success('Information saved successfully', 'Success !');  
-              this.router.navigate(['/my-account/user/me/0/']);
+              this.router.navigate(['/my-account/user/me/0/about']);
             }else{ 
-              this.router.navigate(["../services"], { relativeTo: this.route.parent });
+              this.router.navigate(["../service-areas"], { relativeTo: this.route.parent });
             }
            
             

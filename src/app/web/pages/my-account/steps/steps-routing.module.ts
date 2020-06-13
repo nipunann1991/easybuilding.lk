@@ -8,6 +8,7 @@ const routes: Routes = [{
   children: [  
       { path: 'account-info', loadChildren: () => import('../../my-account/account-info/account-info.module').then(m => m.AccountInfoModule) },
       { path: 'contact-info', loadChildren: () => import('../../my-account/contact-info/contact-info.module').then(m => m.ContactInfoModule) },
+      { path: 'service-areas', loadChildren: () => import('../../my-account/service-areas/service-areas.module').then(m => m.ServiceAreasModule) },
       { path: 'services', loadChildren: () => import('../../my-account/services/services.module').then(m => m.ServicesModule) },
 
     ] 

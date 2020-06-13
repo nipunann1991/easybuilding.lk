@@ -4,6 +4,7 @@ import { AuthService as OAuth } from "angularx-social-login";
 import { Router, NavigationEnd, RouterEvent } from "@angular/router";
 import { filter } from 'rxjs/operators';
 import { Globals } from "../../../app.global"
+import { environment } from "../../../../environments/environment";
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,8 @@ export class HeaderComponent implements OnInit {
   editableMode: boolean = false; 
   menuItemCols: any; 
   totalItemLengths: any = [];
-  @Input() logoOnly: boolean =  false; 
+  @Input() logoOnly: boolean =  false;
+  profilrUrl: any = environment.profileUrl;
 
   user: any = {
     first_name: '',
