@@ -32,6 +32,7 @@ export class ProfileComponent implements OnInit {
   isUploading: boolean = false;
   uploadedImage: any = "";
   ClientId: any;
+  companyId: any;
   userEmail: any = ""
   imageChangedEvent: any = '';
   croppedImage: any = '';
@@ -51,15 +52,18 @@ export class ProfileComponent implements OnInit {
 
     this.profile = this.profileData;
     this.ClientId = this.profileData.client_id;
+    this.companyId = this.profileData.company_id;
     this.uploadedImage = this.profileData.cover_img;
     this.isEditable = this.profileData.is_editable_btn;
     this.userEmail = this.profileData.email;
+
+ 
 
     if(this.profileData.cover_img === '' ){
       this.isBgImage = false;
 
     }else{ 
-      this.bgImage = 'url('+ environment.uploadPath +  this.ClientId + '/'+ this.profileData.cover_img +')' ; 
+      this.bgImage = 'url('+ environment.uploadPath + this.ClientId + '/'+ this.companyId + '/'+ this.profileData.cover_img +')' ; 
       this.isBgImage = true;
       
     }  
@@ -68,7 +72,7 @@ export class ProfileComponent implements OnInit {
       this.isProfImage = false; 
 
     }else{ 
-      this.profImage = 'url('+ environment.uploadPath +  this.ClientId + '/'+ this.profileData.profie_image +')' ;
+      this.profImage = 'url('+ environment.uploadPath + this.ClientId + '/'+  this.companyId + '/'+ this.profileData.profie_image +')' ;
       this.isProfImage = true; 
 
     }  
@@ -107,6 +111,7 @@ export class ProfileComponent implements OnInit {
             const formData = new FormData()
             formData.append('file', file);
             formData.append('name', file.name);
+            formData.append('company_id', this.companyId);
 
            const promise = new Promise((resolve, reject) => { 
       
@@ -125,7 +130,7 @@ export class ProfileComponent implements OnInit {
                     this.uploadedImage = response.data.new_file;
 
                     let param = {
-                      client_id: this.ClientId,
+                      company_id: this.companyId, 
                       cover_img: response.data.new_file
                     }
 
@@ -253,12 +258,11 @@ validateFile(file){
 
   deleteImgFromServer(){
     const promise = new Promise((resolve, reject) => {
-
-         
-      let param = { file_name: this.uploadedImage };
+ 
+      let param = { company_id: this.companyId, client_id: this.ClientId, file_name: this.uploadedImage };
 
       let editParam = {
-        client_id: this.ClientId,
+        company_id: this.companyId,
         cover_img: ""
       }
 
@@ -268,7 +272,7 @@ validateFile(file){
 
             this.bgImage = "transparent"
             this.isBgImage = false; 
-            this.myaccount.removeFile(param).subscribe((response: any) => { }); 
+            this.myaccount.removeCoverImage(param).subscribe((response: any) => { }); 
 
             resolve();
         },

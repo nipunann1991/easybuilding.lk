@@ -17,7 +17,7 @@ export class AccountInfoComponent implements OnInit {
   isStepsForm: boolean = false;
   formGroup: FormGroup;
   public Editor = ClassicEditor;
-  clientId: any;
+  clientId: any; companyId: any;
 
   professionalCategory: any = [
     {  id: 1, text: "Skilled Proffessional" },
@@ -55,6 +55,7 @@ export class AccountInfoComponent implements OnInit {
         Validators.required
       ]), 
       br_no: new FormControl(''),
+      website: new FormControl(''), 
       description: new FormControl(''),
       email: new FormControl({value:'', disabled: true}, [ 
           Validators.required, 
@@ -86,10 +87,12 @@ export class AccountInfoComponent implements OnInit {
               br_no: this.profile.br_no,
               description: this.profile.description,
               email: this.profile.email,
+              website: this.profile.website
               
           });
 
           this.clientId = this.profile.client_id
+          this.companyId = this.profile.company_id
   
         }else{
             
@@ -104,6 +107,7 @@ export class AccountInfoComponent implements OnInit {
     if (!this.formGroup.invalid) {
 
       this.formGroup.value.client_id = this.clientId;
+      this.formGroup.value.company_id = this.companyId;
       this.formGroup.value.prof_category = parseInt(this.formGroup.value.prof_category); 
       
       this.myaccount.updateProfileDetails(this.formGroup.value)

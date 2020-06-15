@@ -204,6 +204,17 @@ ul{
 		}
 	}
 }
+
+.steps-form{ 
+
+	label{
+		@include bold;
+
+		&.form-check-label{
+			margin-left: 1rem;
+		}
+	}
+}
  
 .container{
 	@include breakpoint($medium-desktop){

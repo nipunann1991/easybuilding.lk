@@ -5,6 +5,7 @@ import { Globals } from "../../../app.global"
 import { AuthService as Auth } from '../../../admin/auth/auth.service';
 import { MyAccountService } from '../../../admin/api/frontend/my-account.service';
 import { environment } from "../../../../environments/environment";
+import { map, filter } from "rxjs/operators";
 
 @Component({
   selector: 'app-my-account',
@@ -18,9 +19,11 @@ export class MyAccountComponent implements OnInit {
   isAdminAccessible: boolean = false;
   profileData: any = {};
   profileCompleted: boolean = false;
+  serviceAreas: any = "";
   navItems: any = [];
   baseurl = "/my-account/user/me/0/";
   baseurlEdit = this.baseurl+"/edit/";
+  _routeListener: any;
   
   constructor(
     private oauth: OAuth,
@@ -31,8 +34,8 @@ export class MyAccountComponent implements OnInit {
     private route: ActivatedRoute
 
   ) {  
-
-    this.router.events.subscribe((event) => {
+ 
+    this._routeListener = this.router.events.subscribe((event) => {
        
       if (event instanceof NavigationEnd) {   
 
@@ -43,6 +46,7 @@ export class MyAccountComponent implements OnInit {
           this.getProfileDetails(params);  
           
         }else{
+
           if(event.url.indexOf('/edit/') > -1 ){
             this.isEditableMode = true; 
             this.profileData.is_editable_btn = false; 
@@ -50,16 +54,12 @@ export class MyAccountComponent implements OnInit {
             this.getProfileDetails(params);  
 
           }else{
+            
             this.isEditableMode = false; 
             this.profileData.is_editable_btn = false;
             
           } 
-        }
-
-      
- 
-
-        
+        }  
       }
     });
      
@@ -88,10 +88,13 @@ export class MyAccountComponent implements OnInit {
       window.scroll(0,0); 
       this.getProfileDetails(this.getRouterParams);  
       
-    }
-      
+    } 
     
-    
+  }
+ 
+ 
+  ngOnDestroy() { 
+    this._routeListener.unsubscribe();
   }
 
   onOpen($event){
@@ -107,6 +110,17 @@ export class MyAccountComponent implements OnInit {
           if (response.status == 200) {
             
             this.profileData = response.data[0];   
+            console.log( this.profileData );
+
+            
+            if(this.profileData.all_island == "1"){
+              this.serviceAreas = "All Island Service";
+            }else{
+
+              this.getServiceCitiesByCompany( this.profileData.company_id);
+
+            }
+            
             this.profileData.profile_editable = true;
             this.profileData.is_editable_btn = false; 
 
@@ -114,7 +128,7 @@ export class MyAccountComponent implements OnInit {
               this.profileCompleted = false;
               this.router.navigate(['/steps/account-info'], { relativeTo: this.route.parent });
             }else{
-              this.profileCompleted = true;  
+              this.profileCompleted = true;    
               
             }
 
@@ -138,10 +152,8 @@ export class MyAccountComponent implements OnInit {
             //this.router.navigate(['/my-account/user/me/0']);
           }
             
-        });
-
-    }
-    
+        }); 
+    } 
     
   }
 
@@ -165,6 +177,22 @@ export class MyAccountComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  getServiceCitiesByCompany(company_id){
+
+    let params = { company_id: company_id }
+
+    this.myaccount.getServiceCitiesByCompany(params) 
+        .subscribe((response: any) => {
+        if (response.status == 200 && response.data.length > 0 ) {  
+            this.serviceAreas = response.data;
+            
+        }else{
+          //this.router.navigate(['/my-account/user/me/0']);
+        }
+          
+      });
   }
 
   signOut(): void {

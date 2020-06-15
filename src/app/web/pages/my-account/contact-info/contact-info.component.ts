@@ -12,7 +12,7 @@ import { MyAccountService } from '../../../../admin/api/frontend/my-account.serv
 export class ContactInfoComponent implements OnInit {
 
   formGroup: FormGroup;
-  clientId: any;
+  clientId: any; companyId: any;
   profile: any = {}
   isStepsForm: boolean = false;
 
@@ -51,7 +51,7 @@ export class ContactInfoComponent implements OnInit {
         Validators.maxLength(100)
       ]),
        
-      email: new FormControl({value:'', disabled: true}, [ 
+      email: new FormControl({value:'', disabled: false}, [ 
           Validators.required, 
       ]), 
 
@@ -81,7 +81,8 @@ export class ContactInfoComponent implements OnInit {
             email: this.profile.email,
           });
 
-          this.clientId = this.profile.client_id
+          this.clientId = this.profile.client_id;
+          this.companyId = this.profile.company_id;
   
         }else{
             
@@ -95,6 +96,7 @@ export class ContactInfoComponent implements OnInit {
     if (!this.formGroup.invalid) {
 
       this.formGroup.value.client_id = this.clientId; 
+      this.formGroup.value.company_id = this.companyId; 
       this.myaccount.updateProfileDetails(this.formGroup.value)
         .subscribe((response: any) => {
 

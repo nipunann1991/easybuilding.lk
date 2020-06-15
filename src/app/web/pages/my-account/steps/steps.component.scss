@@ -87,5 +87,9 @@
     width: 75%;
     margin: 2rem auto 5rem auto; 
     border-radius: 3px;
+    
+    label{
+      @include bold;
+    }
   }
 }

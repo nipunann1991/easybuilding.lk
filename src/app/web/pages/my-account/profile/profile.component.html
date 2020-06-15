@@ -30,7 +30,8 @@
     <div class="container">
         <div class="profile-details">
             <div class="profile-img-wrapper">
-                <div class="profile-img" [ngStyle]="{'background-image': ''+ profImage + '', 'background-size': 'cover'}"></div>
+                <div class="profile-img" *ngIf="isProfImage" [ngStyle]="{'background-image': ''+ profImage + '', 'background-size': 'cover'}"></div>
+                <div class="profile-img" *ngIf="!isProfImage" [ngStyle]="{'background-image': transparent }"></div>
                 <a mat-button class="btn btn-primary btn-contact" href="mailto:{{userEmail}}">Contact Me</a>
             </div> 
             <div class="details-wrapper">

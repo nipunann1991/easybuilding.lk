@@ -27,11 +27,26 @@ export class MyAccountService {
      
     return this.http.get(environment.baseUrl+'ProfileController/getAccountDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
   }
-
+ 
+  getServiceDetails(){   
+    return this.http.get(environment.baseUrl+'ProfileController/getServiceDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+  }
+ 
 
   getCities(){   
     return this.http.get(environment.baseUrl+'ProfileController/getCities?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
   }
+
+  getServiceCitiesByCompany(postVals){   
+
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ProfileController/getServiceCitiesByCompany?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  }
+
+  
 
   getContactDetails(){  
      
@@ -47,6 +62,17 @@ export class MyAccountService {
     return this.http.post(environment.baseUrl+'ProfileController/updateProfileDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   }
 
+  updateProfileWithServiceArea(postVals){ 
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ProfileController/updateProfileWithServiceArea?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  }
+
+  
+
   uploadCoverImage(formData){
      
     const headers = new HttpHeaders();
@@ -55,13 +81,13 @@ export class MyAccountService {
     return this.http.post(environment.baseUrl+'ProfileController/fileUpload?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, formData , { headers: headers });
   }
 
-  removeFile(postVals){
+  removeCoverImage(postVals){
 
     const params = new HttpParams({
        fromObject : postVals
     });
 
-    return this.http.post(environment.baseUrl+'ProfileController/removeFile?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+    return this.http.post(environment.baseUrl+'ProfileController/removeCoverImage?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
 }
 
 }

@@ -13,14 +13,16 @@ export class StepsComponent implements OnInit {
     { id: 2, title: "Contact Details", active: false, },
     { id: 3, title: "Services", active: false, },
     { id: 4, title: "Step 2", active: false, },
-  ]
+  ];
+
+  _routeListener: any;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute
   ) { 
 
-    router.events.subscribe((val) => {
+    this._routeListener = router.events.subscribe((val) => {
       
         if(val instanceof NavigationEnd){
           let url = val.url; 
@@ -33,6 +35,10 @@ export class StepsComponent implements OnInit {
 
   ngOnInit(): void {
    
+  } 
+
+  ngOnDestroy() { 
+    this._routeListener.unsubscribe();
   }
 
   activeUrl(url){
