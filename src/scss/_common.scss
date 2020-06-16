@@ -32,21 +32,7 @@ body{
 	  
 	&.admin-layout{
 		
-		background-color: #F4F7FC; 
-		//letter-spacing: 0.02rem;
-		//font-family: $adminfont;
-
-		// h1, h2, h3, h4{
-		// 	font-family: inherit;
-		// 	font-weight: 700;
-		// }
-
-
-		// label{
-		// 	font-family: inherit;
-		// 	font-weight: 600;
-		// 	font-size: 1.5rem;
-		// }
+		background-color: #F4F7FC;  
 	  
 		.form-control, p{
 			font-weight: 400;
@@ -72,7 +58,21 @@ body{
 			font-size: 1.2rem;
 		}
 	}
+
+	&.modal-open{
+		.animated {
+			animation-fill-mode: none;
+
+			.image-edit-modal{
+				max-width: 90rem;
+				transform: translate(0, 0%);
+			}
+		}
+	}
+	
 }
+
+
 
 p{ 
 	font-size: 1.5rem;	

@@ -1,10 +1,14 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, EventEmitter, Input, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { environment } from "../../../../../environments/environment";
+import { HttpClient } from '@angular/common/http';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop'; 
 import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
+import { ModalManager } from 'ngb-modal';
 import { ImageCroppedEvent, Dimensions, ImageTransform } from 'ngx-image-cropper';
+import { FileSaverService, } from 'ngx-filesaver';
+import { FileSaverOptions, saveA, ResponseContentType  } from 'file-saver';
 import { Globals } from "../../../../app.global";
 import * as $ from 'jquery';
 declare const bootbox:any;
@@ -12,13 +16,15 @@ declare const bootbox:any;
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProfileComponent implements OnInit {
    
   @Input() profileData: any;
   @Output() isProfileEditable = new EventEmitter<any>();
-
+  @ViewChild('myModal') myModal;
+  private modalRef;
   
   public files: NgxFileDropEntry[] = []; 
   
@@ -42,6 +48,9 @@ export class ProfileComponent implements OnInit {
     private toastr: ToastrService, 
     private globals: Globals,
     private router: Router,
+    private modalService: ModalManager,
+    private httpClient: HttpClient,
+    private fileSaverService: FileSaverService,
   ) { }
 
   ngOnInit(): void { 
@@ -86,12 +95,101 @@ export class ProfileComponent implements OnInit {
   }
 
  
+  openModal(){
+    this.modalRef = this.modalService.open(this.myModal, {
+        size: "lg",
+        modalClass: 'image-edit-modal',
+        hideCloseButton: false,
+        centered: true,
+        backdrop: true,
+        animation: true,
+        keyboard: false,
+        closeOnOutsideClick: false,
+        backdropClass: "modal-backdrop"
+    }) 
+  }
 
+  closeModal(){
+      this.modalService.close(this.modalRef);
+      
+  }
 
   editProfile(){
     this.isEditable = true;
     this.isProfileEditable.emit(true); 
     this.router.navigate(['/my-account/user/me/0/edit/account-info']);
+  }
+
+
+  onSave() {
+    var blob = this.dataURItoBlob(this.croppedImage);
+
+    console.log()
+
+    var formData = new FormData();
+    formData.append("file", blob);
+    formData.append('name', "test");
+    formData.append('company_id', this.companyId);
+
+    
+    console.log(formData)
+
+    const promise = new Promise((resolve, reject) => { 
+      
+      this.myaccount.uploadCoverImage(formData)
+        .toPromise()
+        .then((response: any) => {
+          
+          if (response.status == 200) {  
+            console.log(response.data);
+            
+             
+
+          }else{
+              console.log(response)
+          }
+
+           
+          
+            resolve();
+        },
+          err => {
+            
+            reject(err);
+          }
+        );
+    });
+
+    return promise;
+
+    
+ 
+  }
+
+  
+  dataURItoBlob(dataURI) {
+    // convert base64 to raw binary data held in a string
+    // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+    var byteString = atob(dataURI.split(',')[1]);
+  
+    // separate out the mime component
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+  
+    // write the bytes of the string to an ArrayBuffer
+    var ab = new ArrayBuffer(byteString.length);
+  
+    // create a view into the buffer
+    var ia = new Uint8Array(ab);
+  
+    // set the bytes of the buffer to the correct values
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+  
+    // write the ArrayBuffer to a blob, and you're done
+    var blob = new Blob([ab], {type: mimeString});
+    return blob;
+  
   }
   
 
@@ -115,7 +213,7 @@ export class ProfileComponent implements OnInit {
 
            const promise = new Promise((resolve, reject) => { 
       
-            this.myaccount.uploadCoverImage(formData)
+              this.myaccount.uploadCoverImage(formData)
                 .toPromise()
                 .then((response: any) => {
                   
@@ -157,7 +255,7 @@ export class ProfileComponent implements OnInit {
                     resolve();
                 },
                   err => {
-                    // Error
+                    
                     reject(err);
                   }
                 );
@@ -288,7 +386,7 @@ validateFile(file){
     this.imageChangedEvent = event;
   }
   imageCropped(event: ImageCroppedEvent) {
-      this.croppedImage = event.base64;
+      this.croppedImage = event.base64; 
   }
   imageLoaded() {
       // show cropper
@@ -299,6 +397,10 @@ validateFile(file){
   }
   loadImageFailed() {
       // show message
+  }
+
+  saveImage(){
+    console.log(this.croppedImage)
   }
 
 }

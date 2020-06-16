@@ -14,6 +14,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { StarRatingModule } from 'angular-star-rating';
+import { ModalModule } from 'ngb-modal';
+import { FileSaverModule } from 'ngx-filesaver';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { StarRatingModule } from 'angular-star-rating';
       MatDatepickerModule, 
       CKEditorModule,
       ImageCropperModule,
+      ModalModule,
+      FileSaverModule,
       LoadingBarHttpClientModule,
       StarRatingModule.forRoot(),
       NgBootstrapFormValidationModule.forRoot(), 
@@ -58,7 +62,9 @@ import { StarRatingModule } from 'angular-star-rating';
       CKEditorModule, 
       ImageCropperModule, 
       LoadingBarHttpClientModule,
+      ModalModule,
       StarRatingModule,
+      FileSaverModule,
       NgBootstrapFormValidationModule
     
   ],

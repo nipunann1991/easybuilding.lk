@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute, ActivationStart ,  RoutesRecognized,  NavigationEnd } from '@angular/router';
 import { AuthService as OAuth } from "angularx-social-login";
 import { Globals } from "../../../app.global"
@@ -10,7 +10,8 @@ import { map, filter } from "rxjs/operators";
 @Component({
   selector: 'app-my-account',
   templateUrl: './my-account.component.html',
-  styleUrls: ['./my-account.component.scss']
+  styleUrls: ['./my-account.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MyAccountComponent implements OnInit {
 

@@ -1,14 +1,25 @@
-<!-- <input type="file" (change)="fileChangeEvent($event)" />
-<image-cropper
-    [imageChangedEvent]="imageChangedEvent"
-    [maintainAspectRatio]="true"
-    [aspectRatio]="1200 / 350"
-    format="png"
-    (imageCropped)="imageCropped($event)"
-    (imageLoaded)="imageLoaded()"
-    (cropperReady)="cropperReady()"
-    (loadImageFailed)="loadImageFailed()"
-></image-cropper> -->
+
+
+<button (click)="openModal()">open my modal</button>
+<modal #myModal> 
+    <modal-content>
+        <input type="file" (change)="fileChangeEvent($event)" />
+        <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="1400 / 450"
+            format="jpg"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady()"
+            (loadImageFailed)="loadImageFailed()"
+        ></image-cropper>
+    </modal-content>
+    <modal-footer> 
+        <button class="btn btn-primary" (click)="onSave()">Save Image</button>
+        <button class="btn btn-primary" (click)="closeModal()">close</button>
+    </modal-footer>
+</modal>
 
 <div class="profile-area">
     
@@ -18,8 +29,7 @@
         (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
             
             <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                <div *ngIf="!isBgImage" class="drop-template">
-                    <!-- <p>Drag drop or upload a image.</p> -->
+                <div *ngIf="!isBgImage" class="drop-template"> 
                     <button type="button" mat-button class="btn upload-btn" *ngIf="profile.profile_editable" (click)="openFileSelector()"> </button>
                 </div>
                 <div *ngIf="isBgImage" class="preview" [ngClass]="{'shadow': bgImage}" [ngStyle]="{'background-image':bgImage}"></div>
@@ -42,8 +52,7 @@
                             <h3 *ngIf="isDisplayNameNull">{{profile.first_name}} {{profile.last_name}}</h3>
                             <h3 *ngIf="!isDisplayNameNull">{{profile.display_name}}</h3> 
                             <a (click)="editProfile()" class="edit" *ngIf="profile.profile_editable && !isEditable" ><i class="icon-pencil"></i></a>
-                        </li>
-                        <!-- (click)="editProfile()" -->
+                        </li> 
                         <li class="address"> 
                             <p>{{profile.address_line1}} {{profile.address_line2}} {{profile.city}}</p> 
                         </li>

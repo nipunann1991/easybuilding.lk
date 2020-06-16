@@ -19,4 +19,5 @@ import { UserModule } from './user/user.module';
   ],
   exports: [MyAccountComponent]
 })
+
 export class MyAccountModule { }
