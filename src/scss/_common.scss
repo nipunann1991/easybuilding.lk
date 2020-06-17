@@ -64,8 +64,17 @@ body{
 			animation-fill-mode: none;
 
 			.image-edit-modal{
-				max-width: 90rem;
+				max-width: 110rem;
 				transform: translate(0, 0%);
+
+				.modal-header{
+					padding: 1.5rem;
+					align-items: center;
+
+					h2{
+						margin: 0;
+					}
+				}
 			}
 		}
 	}

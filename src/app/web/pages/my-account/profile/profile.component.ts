@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
    
   @Input() profileData: any;
   @Output() isProfileEditable = new EventEmitter<any>();
-  @ViewChild('myModal') myModal;
+  @ViewChild('uploadCover') uploadCover;
   private modalRef;
   
   public files: NgxFileDropEntry[] = []; 
@@ -42,6 +42,7 @@ export class ProfileComponent implements OnInit {
   userEmail: any = ""
   imageChangedEvent: any = '';
   croppedImage: any = '';
+  optimizedImg: any;
 
   constructor(
     private myaccount: MyAccountService,
@@ -93,104 +94,9 @@ export class ProfileComponent implements OnInit {
     }
 
   }
-
  
-  openModal(){
-    this.modalRef = this.modalService.open(this.myModal, {
-        size: "lg",
-        modalClass: 'image-edit-modal',
-        hideCloseButton: false,
-        centered: true,
-        backdrop: true,
-        animation: true,
-        keyboard: false,
-        closeOnOutsideClick: false,
-        backdropClass: "modal-backdrop"
-    }) 
-  }
-
-  closeModal(){
-      this.modalService.close(this.modalRef);
-      
-  }
-
-  editProfile(){
-    this.isEditable = true;
-    this.isProfileEditable.emit(true); 
-    this.router.navigate(['/my-account/user/me/0/edit/account-info']);
-  }
 
 
-  onSave() {
-    var blob = this.dataURItoBlob(this.croppedImage);
-
-    console.log()
-
-    var formData = new FormData();
-    formData.append("file", blob);
-    formData.append('name', "test");
-    formData.append('company_id', this.companyId);
-
-    
-    console.log(formData)
-
-    const promise = new Promise((resolve, reject) => { 
-      
-      this.myaccount.uploadCoverImage(formData)
-        .toPromise()
-        .then((response: any) => {
-          
-          if (response.status == 200) {  
-            console.log(response.data);
-            
-             
-
-          }else{
-              console.log(response)
-          }
-
-           
-          
-            resolve();
-        },
-          err => {
-            
-            reject(err);
-          }
-        );
-    });
-
-    return promise;
-
-    
- 
-  }
-
-  
-  dataURItoBlob(dataURI) {
-    // convert base64 to raw binary data held in a string
-    // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
-    var byteString = atob(dataURI.split(',')[1]);
-  
-    // separate out the mime component
-    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
-  
-    // write the bytes of the string to an ArrayBuffer
-    var ab = new ArrayBuffer(byteString.length);
-  
-    // create a view into the buffer
-    var ia = new Uint8Array(ab);
-  
-    // set the bytes of the buffer to the correct values
-    for (var i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-    }
-  
-    // write the ArrayBuffer to a blob, and you're done
-    var blob = new Blob([ab], {type: mimeString});
-    return blob;
-  
-  }
   
 
   dropped(files: NgxFileDropEntry[]) {
@@ -202,66 +108,65 @@ export class ProfileComponent implements OnInit {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
 
-          if (this.validateFile(file)) {
+          if (this.validateFile(file)) { 
+            // this.isUploading = true;
 
-            this.isUploading = true;
+            // const formData = new FormData()
+            // formData.append('file', file);
+            // formData.append('name', file.name);
+            // formData.append('company_id', this.companyId);
 
-            const formData = new FormData()
-            formData.append('file', file);
-            formData.append('name', file.name);
-            formData.append('company_id', this.companyId);
-
-           const promise = new Promise((resolve, reject) => { 
+          //  const promise = new Promise((resolve, reject) => { 
       
-              this.myaccount.uploadCoverImage(formData)
-                .toPromise()
-                .then((response: any) => {
+          //     this.myaccount.uploadCoverImage(formData)
+          //       .toPromise()
+          //       .then((response: any) => {
                   
-                  if (response.status == 200) {  
-                    console.log(response.data);
+          //         if (response.status == 200) {  
+          //           console.log(response.data);
                     
                     
-                    this.bgImage = 'url('+response.data.target_file+')' ;
-                    this.isBgImage = true;
-                    this.isUploading = false;
+          //           this.bgImage = 'url('+response.data.target_file+')' ;
+          //           this.isBgImage = true;
+          //           this.isUploading = false;
     
-                    this.uploadedImage = response.data.new_file;
+          //           this.uploadedImage = response.data.new_file;
 
-                    let param = {
-                      company_id: this.companyId, 
-                      cover_img: response.data.new_file
-                    }
+          //           let param = {
+          //             company_id: this.companyId, 
+          //             cover_img: response.data.new_file
+          //           }
 
-                    this.myaccount.updateProfileDetails(param)
-                      .subscribe((response: any) => {
+          //           this.myaccount.updateProfileDetails(param)
+          //             .subscribe((response: any) => {
 
-                        if (response.status == 200) {
-                          this.toastr.success('Information saved successfully', 'Success !');  
+          //               if (response.status == 200) {
+          //                 this.toastr.success('Information saved successfully', 'Success !');  
                           
-                        }else if (response.status == 401){
-                          this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  
-                        }else{
-                          this.toastr.error('Information saving failed. Please try again', 'Error !'); 
-                        }
+          //               }else if (response.status == 401){
+          //                 this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  
+          //               }else{
+          //                 this.toastr.error('Information saving failed. Please try again', 'Error !'); 
+          //               }
                           
-                      });
+          //             });
      
-                  }else{
-                      console.log(response)
-                  }
+          //         }else{
+          //             console.log(response)
+          //         }
     
                    
                   
-                    resolve();
-                },
-                  err => {
+          //           resolve();
+          //       },
+          //         err => {
                     
-                    reject(err);
-                  }
-                );
-            });
+          //           reject(err);
+          //         }
+          //       );
+          //   });
     
-            return promise;
+          //   return promise;
     
             
           }  
@@ -382,9 +287,180 @@ validateFile(file){
   }
 
 
-  fileChangeEvent(event: any): void {
-    this.imageChangedEvent = event;
+  openModal(){
+    this.modalRef = this.modalService.open(this.uploadCover, {
+        size: "lg",
+        modalClass: 'image-edit-modal',
+        hideCloseButton: false,
+        centered: true,
+        backdrop: true,
+        animation: true,
+        keyboard: false,
+        closeOnOutsideClick: false,
+        backdropClass: "modal-backdrop"
+    }) 
+
   }
+
+  closeModal(){
+      this.modalService.close(this.modalRef); 
+  }
+
+  editProfile(){
+    this.isEditable = true;
+    this.isProfileEditable.emit(true); 
+    this.router.navigate(['/my-account/user/me/0/edit/account-info']);
+  }
+
+
+  onSave() {  
+    let blob = this.dataURItoBlob(this.croppedImage); 
+    this.optimizedImg = this.generateCanvas(blob);  
+  }
+
+  
+  dataURItoBlob(dataURI) {
+    // convert base64 to raw binary data held in a string
+    // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+    var byteString = atob(dataURI.split(',')[1]);
+  
+    // separate out the mime component
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+  
+    // write the bytes of the string to an ArrayBuffer
+    var ab = new ArrayBuffer(byteString.length);
+  
+    // create a view into the buffer
+    var ia = new Uint8Array(ab);
+  
+    // set the bytes of the buffer to the correct values
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+  
+    // write the ArrayBuffer to a blob, and you're done
+    var blob = new Blob([ab], {type: "image/jpeg"}); 
+
+    return blob 
+  
+  }
+
+  generateCanvas(blob){
+     
+    window.URL = window.URL || window.webkitURL;
+    var blobURL = window.URL.createObjectURL(blob); // and get it's URL
+
+    var image = new Image();
+    image.src = blobURL;
+
+    const that = this;
+    let resizeMeToblob;;
+
+    return image.onload = function() { 
+       that.resizeMe(image);
+    }
+
+  }
+
+ 
+
+  resizeMe(img) {
+    
+    var canvas = document.createElement('canvas');
+
+    var width = img.width;
+    var height = img.height; 
+    
+    canvas.width = width;
+    canvas.height = height;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, width, height);
+
+    let imageUrl = canvas.toBlob(blob => { 
+
+      this.uploadCoverImage(blob);  
+
+    },"image/jpeg", 0.9); 
+
+  }
+
+  uploadCoverImage(blob){
+    
+    this.isUploading = true;
+    var formData = new FormData();
+    formData.append("file", blob);
+    formData.append('name', "test");
+    formData.append('company_id', this.companyId); 
+
+     const promise = new Promise((resolve, reject) => { 
+      
+        this.myaccount.uploadCoverImage(formData)
+          .toPromise()
+          .then((response: any) => {
+            
+            if (response.status == 200) {   
+               
+              this.bgImage = 'url('+response.data.target_file+')' ;
+              this.isBgImage = true;
+              this.isUploading = false;
+
+              this.uploadedImage = response.data.new_file;
+
+              let param = {
+                company_id: this.companyId, 
+                cover_img: response.data.new_file
+              }
+
+              this.myaccount.updateProfileDetails(param)
+                .subscribe((response: any) => {
+
+                  if (response.status == 200) {
+                    this.toastr.success('Information saved successfully', 'Success !');  
+                    
+                  }else if (response.status == 401){
+                    this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  
+                  }else{
+                    this.toastr.error('Information saving failed. Please try again', 'Error !'); 
+                  }
+                  this.imageChangedEvent = "";
+                  this.closeModal();
+                    
+                });
+
+            }else{
+                
+            } 
+
+              resolve();
+          },
+            err => {
+              
+              reject(err);
+            }
+          );
+      });
+
+      return promise;
+  }
+
+
+  openCoverImgUpload(fileInput:any){
+    fileInput.click(); 
+  }
+
+  fileChangeEvent(event: any): void { 
+    this.imageChangedEvent = event;   
+    let files =  this.imageChangedEvent.srcElement.files;
+
+    this.files = files;
+    for (const droppedFile of files) { 
+
+      if (this.validateFile(droppedFile)) { 
+        this.openModal();
+      }
+    } 
+  }
+
   imageCropped(event: ImageCroppedEvent) {
       this.croppedImage = event.base64; 
   }

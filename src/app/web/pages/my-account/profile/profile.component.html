@@ -1,9 +1,9 @@
-
-
-<button (click)="openModal()">open my modal</button>
-<modal #myModal> 
-    <modal-content>
-        <input type="file" (change)="fileChangeEvent($event)" />
+<input type="file" class="d-none" (change)="fileChangeEvent($event)" #fileInput />
+<modal #uploadCover> 
+    <modal-header> 
+        <h2>Upload Cover Image</h2>
+    </modal-header>
+    <modal-content> 
         <image-cropper
             [imageChangedEvent]="imageChangedEvent"
             [maintainAspectRatio]="true"
@@ -16,8 +16,8 @@
         ></image-cropper>
     </modal-content>
     <modal-footer> 
-        <button class="btn btn-primary" (click)="onSave()">Save Image</button>
-        <button class="btn btn-primary" (click)="closeModal()">close</button>
+        <button class="btn btn-primary" mat-button (click)="onSave()">Set Cover Image</button>
+        <button class="btn btn-primary-transparent close-btn" mat-button (click)="closeModal()">Close</button>
     </modal-footer>
 </modal>
 
@@ -25,12 +25,12 @@
     
     <div class="cover-image" [ngClass]="{ 'loader' : isUploading }"  >
         <i *ngIf="isBgImage && profile.profile_editable" class="icon-bin" (click)="deleteImage()"></i>
-        <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" 
+        <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="openCoverImgUpload(fileInput)" 
         (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
             
             <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                <div *ngIf="!isBgImage" class="drop-template"> 
-                    <button type="button" mat-button class="btn upload-btn" *ngIf="profile.profile_editable" (click)="openFileSelector()"> </button>
+                <div *ngIf="!isBgImage" class="drop-template">  
+                    <button type="button" mat-button class="btn upload-btn" *ngIf="profile.profile_editable" (click)="openCoverImgUpload(fileInput)"> </button>
                 </div>
                 <div *ngIf="isBgImage" class="preview" [ngClass]="{'shadow': bgImage}" [ngStyle]="{'background-image':bgImage}"></div>
                 
