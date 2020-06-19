@@ -24,6 +24,9 @@ export class ProfileComponent implements OnInit {
   @Input() profileData: any;
   @Output() isProfileEditable = new EventEmitter<any>();
   @ViewChild('uploadCover') uploadCover;
+  @ViewChild('uploadProfile') uploadProfile;
+  @ViewChild('fileInput') fileInput;
+  
   private modalRef;
   
   public files: NgxFileDropEntry[] = []; 
@@ -36,13 +39,21 @@ export class ProfileComponent implements OnInit {
   isBgImage: boolean = false;
   isProfImage: boolean = false;
   isUploading: boolean = false;
-  uploadedImage: any = "";
+  coverImage: any = "";
+  profileImage: any = "";
   ClientId: any;
   companyId: any;
   userEmail: any = ""
   imageChangedEvent: any = '';
   croppedImage: any = '';
+  modalTitle: any = '';
   optimizedImg: any;
+  uploadStatus: number = 0;
+  deleteStatus: number = 0; 
+  aspectRatio: any = {
+    x: 1400,
+    y: 450
+  };
 
   constructor(
     private myaccount: MyAccountService,
@@ -63,7 +74,8 @@ export class ProfileComponent implements OnInit {
     this.profile = this.profileData;
     this.ClientId = this.profileData.client_id;
     this.companyId = this.profileData.company_id;
-    this.uploadedImage = this.profileData.cover_img;
+    this.coverImage = this.profileData.cover_img;
+    this.profileImage = this.profileData.profie_image;
     this.isEditable = this.profileData.is_editable_btn;
     this.userEmail = this.profileData.email;
 
@@ -73,7 +85,7 @@ export class ProfileComponent implements OnInit {
       this.isBgImage = false;
 
     }else{ 
-      this.bgImage = 'url('+ environment.uploadPath + this.ClientId + '/'+ this.companyId + '/'+ this.profileData.cover_img +')' ; 
+      this.bgImage = 'url('+ environment.uploadPath + this.ClientId + '/'+ this.companyId + '/'+ this.coverImage +')' ; 
       this.isBgImage = true;
       
     }  
@@ -82,7 +94,7 @@ export class ProfileComponent implements OnInit {
       this.isProfImage = false; 
 
     }else{ 
-      this.profImage = 'url('+ environment.uploadPath + this.ClientId + '/'+  this.companyId + '/'+ this.profileData.profie_image +')' ;
+      this.profImage = 'url('+ environment.uploadPath + this.ClientId + '/'+  this.companyId + '/'+ this.profileImage +')' ;
       this.isProfImage = true; 
 
     }  
@@ -96,91 +108,7 @@ export class ProfileComponent implements OnInit {
   }
  
 
-
-  
-
-  dropped(files: NgxFileDropEntry[]) {
-    this.files = files;
-    for (const droppedFile of files) {
  
-      // Is it a file?
-      if (droppedFile.fileEntry.isFile) {
-        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {
-
-          if (this.validateFile(file)) { 
-            // this.isUploading = true;
-
-            // const formData = new FormData()
-            // formData.append('file', file);
-            // formData.append('name', file.name);
-            // formData.append('company_id', this.companyId);
-
-          //  const promise = new Promise((resolve, reject) => { 
-      
-          //     this.myaccount.uploadCoverImage(formData)
-          //       .toPromise()
-          //       .then((response: any) => {
-                  
-          //         if (response.status == 200) {  
-          //           console.log(response.data);
-                    
-                    
-          //           this.bgImage = 'url('+response.data.target_file+')' ;
-          //           this.isBgImage = true;
-          //           this.isUploading = false;
-    
-          //           this.uploadedImage = response.data.new_file;
-
-          //           let param = {
-          //             company_id: this.companyId, 
-          //             cover_img: response.data.new_file
-          //           }
-
-          //           this.myaccount.updateProfileDetails(param)
-          //             .subscribe((response: any) => {
-
-          //               if (response.status == 200) {
-          //                 this.toastr.success('Information saved successfully', 'Success !');  
-                          
-          //               }else if (response.status == 401){
-          //                 this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  
-          //               }else{
-          //                 this.toastr.error('Information saving failed. Please try again', 'Error !'); 
-          //               }
-                          
-          //             });
-     
-          //         }else{
-          //             console.log(response)
-          //         }
-    
-                   
-                  
-          //           resolve();
-          //       },
-          //         err => {
-                    
-          //           reject(err);
-          //         }
-          //       );
-          //   });
-    
-          //   return promise;
-    
-            
-          }  
- 
-        });
-
-      } else {
-        // It was a directory (empty directories are added, otherwise only files)
-        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log(droppedFile.relativePath, fileEntry);
-      }
-    }
-}
-
 validateFileExtention(file_name){
 
   let validFileExtensions = [".jpg", ".jpeg", ".png"]; 
@@ -223,13 +151,20 @@ validateFile(file){
     console.log(event);
   }
 
-  deleteImage(){
-    //alert(image);
+  deleteImage(index){ 
+    const component = this; 
+    this.deleteStatus = parseInt(index);
+    let title = "";
 
-    const component = this;
+    if(this.deleteStatus == 1){
+      title = "profile"
+    }else{
+      title = "cover"
+    }
+
     let dialog = bootbox.confirm({
-      title: "Delete Cover Image",
-      message: "Are you sure you need to delete this cover image? After you proceed to delete it can be undone.",
+      title: "Delete "+ title +" Image",
+      message: "Are you sure you need to delete the "+ title +"  image? Please note after you proceed it can be undone.",
       buttons: {
         confirm: {
           label: 'Yes, Delete',  
@@ -261,21 +196,31 @@ validateFile(file){
 
   deleteImgFromServer(){
     const promise = new Promise((resolve, reject) => {
- 
-      let param = { company_id: this.companyId, client_id: this.ClientId, file_name: this.uploadedImage };
-
-      let editParam = {
-        company_id: this.companyId,
-        cover_img: ""
+      let param; let editParam; 
+     
+     
+      if(this.deleteStatus==1){
+        param = { company_id: this.companyId, client_id: this.ClientId, file_name: this.profileImage }; 
+        editParam = { company_id: this.companyId, profie_image: "" }; 
+      }else{
+        param = { company_id: this.companyId, client_id: this.ClientId, file_name: this.coverImage }; 
+        editParam = { company_id: this.companyId, cover_img: "" };
       }
 
       this.myaccount.updateProfileDetails(editParam)
         .toPromise()
-        .then((response: any) => {
+        .then((response: any) => { 
+          
+          if(this.deleteStatus == 1){
+            this.profImage = "transparent"
+            this.isProfImage = false;  
 
+          }else{
             this.bgImage = "transparent"
-            this.isBgImage = false; 
-            this.myaccount.removeCoverImage(param).subscribe((response: any) => { }); 
+            this.isBgImage = false;  
+          }
+          
+          this.myaccount.removeCoverImage(param).subscribe((response: any) => { }); 
 
             resolve();
         },
@@ -285,103 +230,65 @@ validateFile(file){
 
     return promise; 
   }
-
-
-  openModal(){
-    this.modalRef = this.modalService.open(this.uploadCover, {
-        size: "lg",
-        modalClass: 'image-edit-modal',
-        hideCloseButton: false,
-        centered: true,
-        backdrop: true,
-        animation: true,
-        keyboard: false,
-        closeOnOutsideClick: false,
-        backdropClass: "modal-backdrop"
-    }) 
-
-  }
-
-  closeModal(){
-      this.modalService.close(this.modalRef); 
-  }
-
-  editProfile(){
-    this.isEditable = true;
-    this.isProfileEditable.emit(true); 
-    this.router.navigate(['/my-account/user/me/0/edit/account-info']);
-  }
-
-
-  onSave() {  
-    let blob = this.dataURItoBlob(this.croppedImage); 
-    this.optimizedImg = this.generateCanvas(blob);  
-  }
-
-  
-  dataURItoBlob(dataURI) {
-    // convert base64 to raw binary data held in a string
-    // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
-    var byteString = atob(dataURI.split(',')[1]);
-  
-    // separate out the mime component
-    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
-  
-    // write the bytes of the string to an ArrayBuffer
-    var ab = new ArrayBuffer(byteString.length);
-  
-    // create a view into the buffer
-    var ia = new Uint8Array(ab);
-  
-    // set the bytes of the buffer to the correct values
-    for (var i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-    }
-  
-    // write the ArrayBuffer to a blob, and you're done
-    var blob = new Blob([ab], {type: "image/jpeg"}); 
-
-    return blob 
-  
-  }
-
-  generateCanvas(blob){
-     
-    window.URL = window.URL || window.webkitURL;
-    var blobURL = window.URL.createObjectURL(blob); // and get it's URL
-
-    var image = new Image();
-    image.src = blobURL;
-
-    const that = this;
-    let resizeMeToblob;;
-
-    return image.onload = function() { 
-       that.resizeMe(image);
-    }
-
-  }
-
  
-
-  resizeMe(img) {
+  uploadProfileImage(blob){
     
-    var canvas = document.createElement('canvas');
+    this.isUploading = true;
+    var formData = new FormData();
+    formData.append("file", blob);
+    formData.append('name', "test");
+    formData.append('company_id', this.companyId); 
 
-    var width = img.width;
-    var height = img.height; 
-    
-    canvas.width = width;
-    canvas.height = height;
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0, width, height);
+     const promise = new Promise((resolve, reject) => { 
+      
+        this.myaccount.uploadProfileImage(formData)
+          .toPromise()
+          .then((response: any) => {
+            
+            if (response.status == 200) {   
+               
+              this.profImage = 'url('+response.data.target_file+')' ;
+              this.isProfImage = true; 
 
-    let imageUrl = canvas.toBlob(blob => { 
+              this.profileImage = response.data.new_file;
 
-      this.uploadCoverImage(blob);  
+              let param = {
+                company_id: this.companyId, 
+                profie_image: response.data.new_file
+              }
 
-    },"image/jpeg", 0.9); 
+              this.myaccount.updateProfileDetails(param)
+                .subscribe((response: any) => {
 
+                  if (response.status == 200) {
+                    this.toastr.success('Profile image updated successfully', 'Success !');  
+                    
+                  }else if (response.status == 401){
+                    this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');
+
+                  }else{
+                    this.toastr.error('Profile image updating failed. Please try again', 'Error !'); 
+
+                  }
+                  this.imageChangedEvent = "";
+                  this.closeModal();
+                    
+                });
+
+            }else{
+                
+            } 
+
+              resolve();
+          },
+            err => {
+              
+              reject(err);
+            }
+          );
+      });
+
+      return promise;
   }
 
   uploadCoverImage(blob){
@@ -404,7 +311,7 @@ validateFile(file){
               this.isBgImage = true;
               this.isUploading = false;
 
-              this.uploadedImage = response.data.new_file;
+              this.coverImage = response.data.new_file;
 
               let param = {
                 company_id: this.companyId, 
@@ -415,12 +322,12 @@ validateFile(file){
                 .subscribe((response: any) => {
 
                   if (response.status == 200) {
-                    this.toastr.success('Information saved successfully', 'Success !');  
+                    this.toastr.success('Cover image updated successfully', 'Success !');  
                     
                   }else if (response.status == 401){
                     this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  
                   }else{
-                    this.toastr.error('Information saving failed. Please try again', 'Error !'); 
+                    this.toastr.error('Cover image updating failed. Please try again', 'Error !'); 
                   }
                   this.imageChangedEvent = "";
                   this.closeModal();
@@ -444,31 +351,46 @@ validateFile(file){
   }
 
 
-  openCoverImgUpload(fileInput:any){
-    fileInput.click(); 
+  openImgUpload(fileInput:any, profile_state){
+    this.uploadStatus = profile_state;
+
+    if(this.uploadStatus == 1){
+      this.modalTitle = "Profile";
+      this.aspectRatio = { x: 450, y: 450 }; 
+    }else{
+      this.modalTitle = "Cover";
+      this.aspectRatio = { x: 1400, y: 450 };
+    }
+
+    fileInput.click();   
   }
 
   fileChangeEvent(event: any): void { 
-    this.imageChangedEvent = event;   
-    let files =  this.imageChangedEvent.srcElement.files;
-
+    this.imageChangedEvent = event;     
+    let files =  this.imageChangedEvent.srcElement.files; 
     this.files = files;
+    this.isUploading = true;
     for (const droppedFile of files) { 
 
       if (this.validateFile(droppedFile)) { 
         this.openModal();
+      }else{
+        this.isUploading = false;
       }
     } 
   }
 
+ 
+
   imageCropped(event: ImageCroppedEvent) {
       this.croppedImage = event.base64; 
   }
+ 
+
   imageLoaded() {
       // show cropper
   }
-  cropperReady(sourceImageDimensions: Dimensions) {
-      // cropper ready
+  cropperReady(sourceImageDimensions: Dimensions) { 
       console.log('Cropper ready', sourceImageDimensions);
   }
   loadImageFailed() {
@@ -477,6 +399,104 @@ validateFile(file){
 
   saveImage(){
     console.log(this.croppedImage)
+  }
+
+  openModal(){
+    this.modalRef = this.modalService.open(this.uploadCover, {
+        size: "lg",
+        modalClass: 'image-edit-modal',
+        hideCloseButton: false,
+        centered: true,
+        backdrop: true,
+        animation: true,
+        keyboard: false,
+        closeOnOutsideClick: false,
+        backdropClass: "modal-backdrop"
+    }) 
+ 
+
+  }
+
+  
+
+
+  closeModal(){
+    this.isUploading = false;
+    this.fileInput.nativeElement.value = "";
+    this.modalService.close(this.modalRef); 
+  }
+
+  editProfile(){
+    this.isEditable = true;
+    this.isProfileEditable.emit(true); 
+    this.router.navigate(['/my-account/user/me/0/edit/account-info']);
+  }
+
+
+  onSave() {  
+    let blob = this.dataURItoBlob(this.croppedImage); 
+    this.optimizedImg = this.generateCanvas(blob);  
+  }
+
+  
+  dataURItoBlob(dataURI) {
+    
+    var byteString = atob(dataURI.split(',')[1]); 
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0] 
+    var ab = new ArrayBuffer(byteString.length); 
+    var ia = new Uint8Array(ab);
+   
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+   
+    var blob = new Blob([ab], {type: "image/jpeg"}); 
+
+    return blob 
+  
+  }
+
+  generateCanvas(blob){
+     
+    window.URL = window.URL || window.webkitURL;
+    var blobURL = window.URL.createObjectURL(blob);  
+
+    var image = new Image();
+    image.src = blobURL;
+
+    const that = this;
+    let resizeMeToblob;
+
+    return image.onload = function() { 
+       that.resizeMe(image);
+    }
+
+  }
+
+ 
+
+  resizeMe(img) {
+     
+    var canvas = document.createElement('canvas');
+
+    var width = img.width;
+    var height = img.height; 
+    
+    canvas.width = width;
+    canvas.height = height;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, width, height);
+
+    canvas.toBlob(blob => {  
+       
+      if(this.uploadStatus == 0){
+        this.uploadCoverImage(blob)
+      }else{
+        this.uploadProfileImage(blob)
+      }
+
+    },"image/jpeg", 0.9); 
+
   }
 
 }

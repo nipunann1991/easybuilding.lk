@@ -81,6 +81,14 @@ export class MyAccountService {
     return this.http.post(environment.baseUrl+'ProfileController/fileUpload?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, formData , { headers: headers });
   }
 
+  uploadProfileImage(formData){
+     
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'undefined');
+
+    return this.http.post(environment.baseUrl+'ProfileController/fileUpload?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, formData , { headers: headers });
+  }
+
   removeCoverImage(postVals){
 
     const params = new HttpParams({

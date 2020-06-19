@@ -1,13 +1,14 @@
 <input type="file" class="d-none" (change)="fileChangeEvent($event)" #fileInput />
+
 <modal #uploadCover> 
     <modal-header> 
-        <h2>Upload Cover Image</h2>
+        <h2>Upload {{modalTitle}} Image</h2>
     </modal-header>
     <modal-content> 
         <image-cropper
             [imageChangedEvent]="imageChangedEvent"
             [maintainAspectRatio]="true"
-            [aspectRatio]="1400 / 450"
+            [aspectRatio]="aspectRatio.x / aspectRatio.y"
             format="jpg"
             (imageCropped)="imageCropped($event)"
             (imageLoaded)="imageLoaded()"
@@ -16,21 +17,22 @@
         ></image-cropper>
     </modal-content>
     <modal-footer> 
-        <button class="btn btn-primary" mat-button (click)="onSave()">Set Cover Image</button>
+        <button class="btn btn-primary" mat-button (click)="onSave()">Set {{modalTitle}} Image</button> 
         <button class="btn btn-primary-transparent close-btn" mat-button (click)="closeModal()">Close</button>
     </modal-footer>
 </modal>
 
+
 <div class="profile-area">
     
     <div class="cover-image" [ngClass]="{ 'loader' : isUploading }"  >
-        <i *ngIf="isBgImage && profile.profile_editable" class="icon-bin" (click)="deleteImage()"></i>
-        <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="openCoverImgUpload(fileInput)" 
+        <i *ngIf="isBgImage && profile.profile_editable" class="icon-bin" (click)="deleteImage(0)"></i>
+        <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="openImgUpload(fileInput, 0)" 
         (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
             
             <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
                 <div *ngIf="!isBgImage" class="drop-template">  
-                    <button type="button" mat-button class="btn upload-btn" *ngIf="profile.profile_editable" (click)="openCoverImgUpload(fileInput)"> </button>
+                    <a href="javascript:void(0)" class="upload-btn" title="Upload cover image" *ngIf="profile.profile_editable" (click)="openImgUpload(fileInput, 0)"> </a>
                 </div>
                 <div *ngIf="isBgImage" class="preview" [ngClass]="{'shadow': bgImage}" [ngStyle]="{'background-image':bgImage}"></div>
                 
@@ -40,8 +42,13 @@
     <div class="container">
         <div class="profile-details">
             <div class="profile-img-wrapper">
-                <div class="profile-img" *ngIf="isProfImage" [ngStyle]="{'background-image': ''+ profImage + '', 'background-size': 'cover'}"></div>
-                <div class="profile-img" *ngIf="!isProfImage" [ngStyle]="{'background-image': transparent }"></div>
+                <div class="profile-img" *ngIf="isProfImage" [ngStyle]="{'background-image': profImage}">
+                    <i class="icon-bin" (click)="deleteImage(1)"></i>
+                </div>
+                <div class="profile-img" *ngIf="!isProfImage" [ngStyle]="{'background-image': transparent }">
+                    <a href="javascript:void(0)" class="upload-btn" title="Upload profile image"  (click)="openImgUpload(fileInput, 1)"> </a>
+                </div>
+                
                 <a mat-button class="btn btn-primary btn-contact" href="mailto:{{userEmail}}">Contact Me</a>
             </div> 
             <div class="details-wrapper">
@@ -69,4 +76,26 @@
         </div>
     </div> 
 </div>
+
+<!-- <modal #uploadProfile> 
+    <modal-header> 
+        <h2>Upload Cover Image</h2>
+    </modal-header>
+    <modal-content> 
+        <image-cropper
+            [imageChangedEvent]="profileImageChangedEvent"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="aspectRatio"
+            format="jpg"
+            (imageCropped)="profileImageChangedEvent($event)"
+            (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady()"
+            (loadImageFailed)="loadImageFailed()"
+        ></image-cropper>
+    </modal-content>
+    <modal-footer> 
+        <button class="btn btn-primary" mat-button (click)="onSave()">Set Cover Image</button>
+        <button class="btn btn-primary-transparent close-btn" mat-button (click)="closeModal()">Close</button>
+    </modal-footer>
+</modal> -->
 
