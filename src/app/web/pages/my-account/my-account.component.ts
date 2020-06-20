@@ -119,6 +119,9 @@ export class MyAccountComponent implements OnInit {
             }else{
 
               this.getServiceCitiesByCompany( this.profileData.company_id);
+              this.getServiceDistrictsByCompany( this.profileData.company_id);
+
+              
 
             }
             
@@ -185,6 +188,23 @@ export class MyAccountComponent implements OnInit {
     let params = { company_id: company_id }
 
     this.myaccount.getServiceCitiesByCompany(params) 
+        .subscribe((response: any) => {
+        if (response.status == 200 && response.data.length > 0 ) {  
+            this.serviceAreas = response.data;
+            
+        }else{
+          //this.router.navigate(['/my-account/user/me/0']);
+        }
+          
+      });
+  }
+
+
+   getServiceDistrictsByCompany(company_id){
+
+    let params = { company_id: company_id }
+
+    this.myaccount.getServiceDistrictsByCompany(params) 
         .subscribe((response: any) => {
         if (response.status == 200 && response.data.length > 0 ) {  
             this.serviceAreas = response.data;

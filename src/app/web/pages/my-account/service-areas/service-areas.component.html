@@ -3,60 +3,54 @@
       <div class="col-md-12">
           <h2>Services & Service Areas</h2>
       </div>
-      <div class="col-md-12">  
-          <div class="form-group">
-              <label for="service_areas">Service Areas</label> 
-              <ng-select2 [data]="serviceAreas" [options]="options" formControlName="service_areas" class="select-fw" >
-              </ng-select2> 
-          </div>   
-      </div>
-      <div class="col-md-6">  
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="all_island" (change)="changeStatus($event)" [checked]="all_island">
-            <label class="form-check-label" for="all_island" >All Island service</label>
-        </div>  
-    </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="service_areas" class="service-label">Display my service area by </label> 
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio" value='cities' (change)="setServiceAreaBy($event, 0)" [checked]="isCities">City 
+                    </label>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio" value='districts' (change)="setServiceAreaBy($event, 1)" [checked]="isDistricts">District
+                    </label>
+                </div> 
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio" value='all' (change)="setServiceAreaBy($event, 2)" [checked]="all_island">All Island Service
+                    </label>
+                </div> 
+            </div> 
+            <div class="form-group" *ngIf="isDistricts && !all_island">
+                <label for="service_areas">Service Areas</label> 
+                <ng-select2 [data]="serviceAreasDistrict" [options]="options" formControlName="service_areas" class="select-fw" >
+                </ng-select2> 
+            </div> 
+            <div class="form-group" *ngIf="isCities && !all_island">
+                <label for="service_areas">Service Areas</label> 
+                <ng-select2 [data]="serviceAreasCity" [options]="options" formControlName="service_areas" class="select-fw" >
+            </ng-select2> 
+            </div>    
+        </div> 
+        <!-- <div class="col-md-6">  
+            <div class="form-check">
+                <label for="service_areas">Service Areas</label>  
+                <input type="checkbox" class="form-check-input" id="all_island" (change)="changeStatus($event)" [checked]="all_island">
+                <label class="form-check-label" for="all_island" >All Island Service</label>
+            </div>  
+        </div> -->
+       
+    <div class="col-md-12 btn-wrapper">
+        <ng-container *ngIf="!isStepsForm">
+            <button mat-button name="submit" type="submit" class="btn btn-primary">Save</button>
+            <button mat-button type="button" class="btn btn-default close-btn">Close</button>
+        </ng-container>
 
-      <!-- 
-      <div class="col-md-6">
-          <div class="form-group">
-              <label for="city">City</label> 
-              <input id="city" name="city" formControlName="city" type="text" class="form-control">
-          </div>  
-      </div> 
-      <div class="contact_no col-md-12">
-          <div class="row">
-              <div class="col-md-6">
-                  <div class="form-group">
-                      <label for="tel1">Phone Number</label> 
-                      <input id="tel1" name="tel1" formControlName="tel1" type="text" class="form-control">
-                  </div>  
-              </div>
-              <div class="col-md-6">
-                  <div class="form-group">
-                      <label for="tel2">Other Contact Number</label> 
-                      <input id="tel2" name="tel2" formControlName="tel2" type="text" class="form-control">
-                  </div>  
-              </div>
-          </div> 
-      </div>
-       -->
-      <!-- <div class="col-md-12">
-          <div class="form-group">
-              <label for="email">Email Address</label> 
-              <input id="email" name="email" formControlName="email" type="text" class="form-control" >
-          </div>
-      </div>     -->
-      <div class="col-md-12 btn-wrapper">
-          <ng-container *ngIf="!isStepsForm">
-              <button mat-button name="submit" type="submit" class="btn btn-primary">Save</button>
-              <button mat-button type="button" class="btn btn-default close-btn">Close</button>
-          </ng-container>
-
-          <ng-container *ngIf="isStepsForm">
-              <button mat-button type="button" (click)="previousLink()" class="btn btn-prev">Previous</button>
-              <button mat-button name="submit" type="submit" class="btn btn-next">Next</button> 
-          </ng-container>
+        <ng-container *ngIf="isStepsForm">
+            <button mat-button type="button" (click)="previousLink()" class="btn btn-prev">Previous</button>
+            <button mat-button name="submit" type="submit" class="btn btn-next">Next</button> 
+        </ng-container>
           
       </div> 
   </div> 

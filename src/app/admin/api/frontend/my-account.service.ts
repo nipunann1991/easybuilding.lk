@@ -37,6 +37,11 @@ export class MyAccountService {
     return this.http.get(environment.baseUrl+'ProfileController/getCities?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
   }
 
+
+  getDistricts(){   
+    return this.http.get(environment.baseUrl+'ProfileController/getDistricts?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+  } 
+
   getServiceCitiesByCompany(postVals){   
 
     const params = new HttpParams({
@@ -44,6 +49,15 @@ export class MyAccountService {
     }); 
     
     return this.http.post(environment.baseUrl+'ProfileController/getServiceCitiesByCompany?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  }
+
+  getServiceDistrictsByCompany(postVals){   
+
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ProfileController/getServiceDistrictsByCompany?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   }
 
   

@@ -3,12 +3,12 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router,ActivatedRoute,  NavigationEnd } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
-import { Options } from 'select2';
+import { Options } from 'select2'; 
 
 @Component({
   selector: 'app-service-areas',
   templateUrl: './service-areas.component.html',
-  styleUrls: ['./service-areas.component.css']
+  styleUrls: ['./service-areas.component.scss']
 })
 export class ServiceAreasComponent implements OnInit {
 
@@ -17,14 +17,15 @@ export class ServiceAreasComponent implements OnInit {
   profile: any = {};
   clientId: any; companyId: any;
   eventE1: any;
+  isCities: boolean = true;
+  isDistricts: boolean = false;
   public value: string[];
   
   formGroup: FormGroup;
   public options: Options;
 
-  serviceAreas: any = [
-     
-  ];
+  serviceAreasCity: any = [];
+  serviceAreasDistrict: any = [];
 
   constructor(
     private myaccount: MyAccountService,
@@ -37,7 +38,7 @@ export class ServiceAreasComponent implements OnInit {
 
     this.formGroup = new FormGroup({ 
       
-      service_areas: new FormControl({value:''}, [
+      service_areas: new FormControl({value:[]}, [
         Validators.required
       ]), 
      
@@ -57,6 +58,7 @@ export class ServiceAreasComponent implements OnInit {
    
     this.getServiceDetails();
     this.getCities();  
+    this.getDistricts();
     this.select2Order();
   }
 
@@ -69,34 +71,21 @@ export class ServiceAreasComponent implements OnInit {
            
           this.profile = response.data[0];
           
-          if(this.profile.service_areas != ""){
-           
-            this.formGroup.setValue({
-              service_areas: JSON.parse(this.profile.service_areas),  
-            }); 
-
-             console.log(JSON.parse(this.profile.service_areas))
-            
-          }else{
-            this.formGroup.setValue({
-              service_areas: [],  
-            }); 
-          }
-         
-          
-          if(this.profile.all_island == 1){
-            this.all_island = true;
-            this.formGroup.controls['service_areas'].disable();
-
-          }else{
-            this.all_island = false;
-            this.formGroup.controls['service_areas'].enable(); 
-
-          }  
-      
+          (this.profile.service_areas != "[]")? this.isCities = true :  this.isCities = false ;
+          (this.profile.service_dist != "[]")? this.isDistricts = true :  this.isDistricts = false ;
+          (this.profile.all_island == 1)? this.all_island = true :  this.all_island = false ;
 
           this.clientId = this.profile.client_id
           this.companyId = this.profile.company_id
+
+          this.formGroup.setValue({
+            service_areas: JSON.parse(this.profile.service_areas),  
+          }); 
+
+          this.formGroup.setValue({
+            service_areas: JSON.parse(this.profile.service_dist),  
+          });  
+         
   
         }else{
             
@@ -111,10 +100,8 @@ export class ServiceAreasComponent implements OnInit {
       .subscribe((response: any) => {
         if (response.status == 200) {
            
-          this.serviceAreas = response.data; 
-          // this.formGroup.setValue({
-          //   service_areas: ["1071","1048","1042"] //JSON.parse(this.profile.service_areas),  
-          // }); 
+          this.serviceAreasCity = response.data; 
+          
   
         }else{
             
@@ -123,10 +110,48 @@ export class ServiceAreasComponent implements OnInit {
       });
   }
 
+
+  getDistricts(){ 
+
+    this.myaccount.getDistricts() 
+      .subscribe((response: any) => {
+        if (response.status == 200) {
+           
+          this.serviceAreasDistrict = response.data; 
+          
+  
+        }else{
+            
+        }
+          
+      });
+  }
+
+
+  
   changeStatus(event){ 
     this.all_island = event.target.checked; 
     (this.all_island)?  this.formGroup.controls['service_areas'].disable() :  this.formGroup.controls['service_areas'].enable() ;
    
+  }
+
+  setServiceAreaBy(event, index){
+    console.log(index);
+    if(index == 0){
+      this.isCities = true;
+      this.isDistricts = false;
+      this.all_island = false;
+
+    }else if(index == 1){
+      this.isCities = false;
+      this.isDistricts = true;
+      this.all_island = false;
+
+    }else if(index == 2){
+      this.all_island = true;
+      this.isCities = false;
+      this.isDistricts = false;
+    }
   }
 
 
@@ -149,13 +174,24 @@ export class ServiceAreasComponent implements OnInit {
     if (!this.formGroup.invalid) {
 
       (this.all_island)? this.formGroup.value.all_island = 1 : this.formGroup.value.all_island = 0 ; 
+      
 
       console.log(this.formGroup.value);
 
       this.formGroup.value.client_id = this.clientId;
       this.formGroup.value.company_id = this.companyId; 
       this.formGroup.value.steps = 4; 
-      this.formGroup.value.service_areas = JSON.stringify(this.formGroup.value.service_areas); 
+
+      if(this.isCities){
+        this.formGroup.value.service_areas = JSON.stringify(this.formGroup.value.service_areas); 
+        this.formGroup.value.service_dist = "[]";
+
+      }else if(this.isDistricts){
+        this.formGroup.value.service_dist = JSON.stringify(this.formGroup.value.service_areas); 
+        this.formGroup.value.service_areas = "[]";
+      }
+      
+      
       
       this.myaccount.updateProfileWithServiceArea(this.formGroup.value)
         .subscribe((response: any) => {

@@ -1,0 +1,21 @@
+@import '../../../../../styles';
+
+label.service-label{
+  @include bold;
+  margin-right: 2rem;
+  display: block;
+}
+
+.form-check{
+  padding-left: 2.5rem;
+
+  .form-check-input { 
+      margin-top: .5rem;
+      margin-left: -2.25rem;
+  } 
+  
+}
+
+.form-check-inline{
+  margin-right: 2rem;
+}
