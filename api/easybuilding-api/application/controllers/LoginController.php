@@ -46,6 +46,10 @@ class LoginController extends CommonController {
 					'client_id' => $inputData->client_id
 				); 
 
+				$datasetCompany = array(   
+					'client_id' => $inputData->client_id
+				); 
+				$this->insertData__('client_company', $datasetCompany);
 				$this->updateData__('clients', $dataset, 'client_id="'.$dataset['client_id'].'"');
 			}
 		 

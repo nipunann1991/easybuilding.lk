@@ -424,10 +424,15 @@ class CommonController extends CI_Controller {
 
 	public function saveCoverImage__($client_id, $postVal, $fileVal){ 
 
-		$url=$this->config->base_url(); 
-		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/'.$client_id.'/';
 
-     	$generatedFileName = basename(time().''.$_FILES["file"]["name"]);
+		$url=$this->config->base_url(); 
+		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/'.$client_id.'/'.$postVal['company_id'].'/';
+
+		if (!file_exists($upload_dir)) {
+		    mkdir($upload_dir, 0777, true);
+		} 
+
+     	$generatedFileName = basename(time().''.$_FILES["file"]["name"]).'.jpg';
 
 	    $target_file = $upload_dir . $generatedFileName;   
 
@@ -437,7 +442,7 @@ class CommonController extends CI_Controller {
 			'status' => 200 , 
 			'data' => (object) array(
 				'new_file'=> $generatedFileName, 
-				'target_file' => $url.'assets/uploads/'.$client_id.'/'.$generatedFileName, 
+				'target_file' => $url.'assets/uploads/'.$client_id.'/'.$postVal['company_id'].'/'.$generatedFileName, 
 				'moved_path' => $move_file, 'temp_folder' => $_FILES["file"]["tmp_name"]
 			)  
 		);
@@ -471,8 +476,8 @@ class CommonController extends CI_Controller {
 		
 		if (!file_exists($upload_dir)) {
 		    mkdir($upload_dir, 0777, true);
-		    mkdir($upload_dir.'/thumb', 0777, true);
-		    mkdir($upload_dir.'/xs-thumb', 0777, true); 
+		    // mkdir($upload_dir.'/thumb', 0777, true);
+		    // mkdir($upload_dir.'/xs-thumb', 0777, true); 
 		} 
 		   
 		file_put_contents($upload_dir.''.$img, file_get_contents($remoteUrl)); 
@@ -512,13 +517,13 @@ class CommonController extends CI_Controller {
 	}
  
 
-	public function deleteUploadedFile($client_id, $file){ 
+	public function deleteUploadedFile($client_id, $company_id, $file){ 
 		
-		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/'.$client_id.'/';
+		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/'.$client_id.'/'.$company_id.'/';
 		
 		unlink($upload_dir.''.$file);
-		unlink($upload_dir.'thumb/'.$file);
-		unlink($upload_dir.'xs-thumb/'.$file); 
+		// unlink($upload_dir.'thumb/'.$file);
+		// unlink($upload_dir.'xs-thumb/'.$file); 
 
 		return 'file removed';
 
