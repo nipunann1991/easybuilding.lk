@@ -53,11 +53,8 @@ export class ClientsComponent implements OnInit {
       },
       {
         targets: 3,
-        data: function (row) {
-
-          let tel = row.tel1; 
-          (tel == '') ? tel = '-' : '';
-          return tel;
+        data: function (row) { 
+          return row.verified_email;
         },
         
       },

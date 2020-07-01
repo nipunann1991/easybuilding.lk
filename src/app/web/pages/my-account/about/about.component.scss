@@ -11,5 +11,49 @@
     line-height: 2.2rem;
   }
 
-  
+  &.project-data{
+   
+
+    .add-new-project{
+      width: 25rem;
+      height: 25rem;
+      border: 2px $mid-gray dashed;
+      justify-content: center;
+      text-align: center; 
+      @include flex();
+      cursor: pointer;
+
+      &:hover{
+        border: 2px $base-bg-color dashed;
+
+        span.plus{
+          background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAARVBMVEUAAAA8jvg8jvk9j/g7jvs8jvk8jPs7jfk8jfk7j/g8jfk8jvo8jvk8jvk8jfg7jvg7j/k8j/k8jvg9j/s8j/k8jvkAAAD0LaKmAAAAFXRSTlMAb+ZtPf48eYB0d7vn5G5sfYjEO+WVltPyAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAAd0SU1FB+QHAQsQKU+4LZ0AAAB+SURBVFjD7ddLDoAgDEXRCojgX6T736qyANDkJcbBu9PCGZE0iDTrjLEC5FS19wAw3IAOABAKEAgQIECAAIEvARfHalMBpvo8unv/KpSVGQNmMRiwyArd7zcRvx/VUjmU6vP9/MU7IECAAAECBN4Gf3192Z9P+6+ZzXlrn7gAVGMxQ/wV1J8AAAAldEVYdGRhdGU6Y3JlYXRlADIwMjAtMDctMDFUMTE6MTY6NDErMDA6MDBG/u4SAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIwLTA3LTAxVDExOjE2OjQxKzAwOjAwN6NWrgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAAASUVORK5CYII=');
+        }
+
+        h3{
+          color: $base-bg-color;
+        }
+      }
+
+      span.plus{
+        @include regular;
+        color: $mid-gray;
+        height: 6.4rem;
+        width: 6.4rem;
+        display: block;
+        margin: auto;
+        margin-bottom: 2rem;
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAQAAAAAYLlVAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAHdElNRQfkBwELCAn2zZUMAAAA5UlEQVRo3u3YPQ7CMAwF4OcyMHABbsJAioTEcYBeoWNHDlQxxGHgIPxcgIEBzBKxdEFJRZbnDvFi+4uHDgEyQhu96tXvcnpIemmozQMATFYupHapMvDue4k6vUkGwKbD7L8bGCUIIIAAAggggAACCCCAAAIECDUWNkmo3WATsx59wugXzk5FGxzK3d/2ojfMywFwr2AFxwOvCl3B8SadAMFhbbOEcodlzE5IeKCQx/u4OmXwtVWLX5vepfh/gAACCCCAAAIIIIAAAgggIAMgz2H23w1oPO3tx93Kz+F3etFL2Ob0+AAqRDtHmbfM0gAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMC0wNy0wMVQxMTowODowOSswMDowMC4cQfwAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjAtMDctMDFUMTE6MDg6MDkrMDA6MDBfQflAAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAABJRU5ErkJggg==');
+        background-repeat: no-repeat;
+        background-position: 50%;
+      }
+
+      h3{
+        color: $mid-gray;
+        @include medium;
+        margin-bottom: 0;
+      }
+    }
+  }
+ 
 }

@@ -279,6 +279,12 @@
   font-style: normal;
 }
 
+@mixin medium {
+  font-family: 'Circular Std';
+  font-weight: 500;
+  font-style: normal;
+}
+
 @mixin bold {
   font-family: 'Circular Std';
   font-weight: bold;

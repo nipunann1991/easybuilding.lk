@@ -70,22 +70,31 @@ export class ServiceAreasComponent implements OnInit {
         if (response.status == 200) {
            
           this.profile = response.data[0];
+
+          console.log(this.profile);
           
           (this.profile.service_areas != "[]")? this.isCities = true :  this.isCities = false ;
           (this.profile.service_dist != "[]")? this.isDistricts = true :  this.isDistricts = false ;
           (this.profile.all_island == 1)? this.all_island = true :  this.all_island = false ;
 
-          this.clientId = this.profile.client_id
-          this.companyId = this.profile.company_id
+          this.clientId = this.profile.client_id;
+          this.companyId = this.profile.company_id;
 
-          this.formGroup.setValue({
-            service_areas: JSON.parse(this.profile.service_areas),  
-          }); 
 
-          this.formGroup.setValue({
-            service_areas: JSON.parse(this.profile.service_dist),  
-          });  
-         
+          if(this.isDistricts){
+
+            this.formGroup.setValue({
+              service_areas: JSON.parse(this.profile.service_dist),  
+            });
+
+          }else if(this.isCities){
+
+            this.formGroup.setValue({
+              service_areas: JSON.parse(this.profile.service_areas),  
+            }); 
+
+          } 
+          
   
         }else{
             
@@ -136,7 +145,7 @@ export class ServiceAreasComponent implements OnInit {
   }
 
   setServiceAreaBy(event, index){
-    console.log(index);
+     
     if(index == 0){
       this.isCities = true;
       this.isDistricts = false;

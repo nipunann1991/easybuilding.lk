@@ -31,16 +31,8 @@
                 <label for="service_areas">Service Areas</label> 
                 <ng-select2 [data]="serviceAreasCity" [options]="options" formControlName="service_areas" class="select-fw" >
             </ng-select2> 
-            </div>    
-        </div> 
-        <!-- <div class="col-md-6">  
-            <div class="form-check">
-                <label for="service_areas">Service Areas</label>  
-                <input type="checkbox" class="form-check-input" id="all_island" (change)="changeStatus($event)" [checked]="all_island">
-                <label class="form-check-label" for="all_island" >All Island Service</label>
-            </div>  
-        </div> -->
-       
+        </div>    
+    </div>  
     <div class="col-md-12 btn-wrapper">
         <ng-container *ngIf="!isStepsForm">
             <button mat-button name="submit" type="submit" class="btn btn-primary">Save</button>

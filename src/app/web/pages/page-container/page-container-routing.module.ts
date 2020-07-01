@@ -11,6 +11,8 @@ const routes: Routes = [{ path: '', component: PageContainerComponent, children:
     { path: 'products/:id', loadChildren: () => import('../../../web/pages/products/products.module').then(m => m.ProductsModule) }, 
     { path: 'my-account', canActivate: [AuthGuard], loadChildren: () => import('../../../web/pages/my-account/my-account.module').then(m => m.MyAccountModule) },
     { path: 'steps', canActivate: [AuthGuard], loadChildren: () => import('../my-account/steps/steps.module').then(m => m.StepsModule) },
+    { path: 'my-account/user/me/0/upload-project', canActivate: [AuthGuard], loadChildren: () => import('../my-account/upload-project/upload-project.module').then(m => m.UploadProjectModule) },
+	 
   ]},
   
 	{ path: 'login', canActivate: [AuthDeactiveGuard], loadChildren: () => import('../../../web/pages/login/login.module').then(m => m.LoginModule) }, 
