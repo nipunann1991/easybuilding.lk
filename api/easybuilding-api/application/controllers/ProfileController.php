@@ -212,7 +212,46 @@ class ProfileController extends CommonController {
 		}
 		
 	}
+	
 
+	public function getProjectDetails(){  
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+
+			$search_index = array(
+				'columns' => 'p.*, cc.client_id' ,   
+				'table' => 'project p, client_company cc',
+				'eq_table_col' => '1',
+				'data' => 'p.company_id= "'.$this->input->post('company_id').'" AND p.project_id= "'.$this->input->post('project_id').'" AND cc.company_id=p.company_id', 
+			);
+
+			return $this->selectCustomData__($search_index);
+
+		}else{
+			return $this->invalidSession(); 
+		}
+		
+	}
+
+
+	public function getMinimalProjectDetails(){  
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+
+			$search_index = array(
+				'columns' => 'project_id, project_name, project_year, primary_img, total_imgs' ,   
+				'table' => 'project',
+				'eq_table_col' => '1 order by project_id DESC Limit 5',
+				'data' => 'company_id= "'.$this->input->post('company_id').'"', 
+			);
+
+			return $this->selectCustomData__($search_index);
+
+		}else{
+			return $this->invalidSession(); 
+		}
+		
+	}
 	
 	
 
@@ -271,6 +310,21 @@ class ProfileController extends CommonController {
 	}
 
 
+	public function addNewProjectDetails(){  
+
+ 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+			$dataset = $this->input->post();
+			return $this->insertData__('project', $dataset);  
+
+		}else{
+			return $this->invalidSession(); 
+		}
+		 
+	}
+
+	
+
+
 	public function insertServiceDistricts($service_areas, $company_id){  
 
  		foreach ($service_areas as $value) {
@@ -297,6 +351,17 @@ class ProfileController extends CommonController {
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) { 
 			return $this->saveCoverImage__( $this->input->get('session_id'), $_POST, $_FILES);
+		}else{
+			return $this->invalidSession(); 
+		}  
+ 
+	} 
+
+
+	public function uploadProjectImages(){ 
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) { 
+			return $this->uploadProjectImages__( $this->input->get('session_id'), $_POST, $_FILES);
 		}else{
 			return $this->invalidSession(); 
 		}  

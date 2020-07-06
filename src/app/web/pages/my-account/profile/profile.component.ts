@@ -79,7 +79,8 @@ export class ProfileComponent implements OnInit {
     this.isEditable = this.profileData.is_editable_btn;
     this.userEmail = this.profileData.email;
 
- 
+    //this.globals.token.company_id = this.companyId;
+    //localStorage.setItem("token", JSON.stringify( this.globals.token )); 
 
     if(this.profileData.cover_img === '' ){
       this.isBgImage = false;

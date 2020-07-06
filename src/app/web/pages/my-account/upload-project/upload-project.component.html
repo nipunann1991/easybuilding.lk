@@ -1,13 +1,74 @@
+<div class="back-to-area">
+    <div class="container">
+        <a class="back-to" routerLink="/my-account/user/me/0/about">Back to Profile</a>
+    </div> 
+</div>
 <div class="page-container animated fadeIn  new-project">
   <div class="container"> 
     <div class="row"> 
-      <div class="col-md-7">
+      <div class="col-md-12"> 
         <h2>Upload a New Project</h2>
-        <p>A Project is a collection of photos and videos of your own work or products. Projects are usually best organized by client, job site, or product line.</p>
+        <p>A Project is a collection of photos and videos of your own work or products.</p>
       </div>
       <div class="col-md-5">
+
+        <ngx-file-drop dropZoneLabel="Drop files here" 
+        (onFileOver)="fileOver($event)" (onFileDrop)="dropped($event)"  (onFileLeave)="fileLeave($event)"> 
+            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                <div class="drop-template"></div> 
+            </ng-template>
+        </ngx-file-drop>
+
         
+       
       </div>
+      <div class="offset-md-1 col-md-6">
+        <div class="uploaded-image-holder">
+            <div *ngFor="let ui of uploadedImages" class="img-box"  [ngStyle]="{'background-image': 'url('+ ui +')'}">
+                 
+            </div>  
+            <div class="clearfix"></div>
+        </div>
+
+        <form id="myform" class="wrapped-block animated fadeIn" [formGroup]="formGroup" (ngSubmit)="onSave()" novalidate="novalidate">
+          <div class="row"> 
+              <div class="col-md-12">
+                  <div class="form-group">
+                      <label for="project_name">Project Name</label> 
+                      <input id="project_name" name="project_name" formControlName="project_name" type="text" class="form-control">
+                  </div>  
+              </div>
+              <div class="col-md-12">
+                  <div class="form-group">
+                      <label for="project_description">Project Description</label>
+                      <textarea name="description" class="form-control" formControlName="project_description" cols="10" rows="5"></textarea>
+                  </div>  
+              </div> 
+              <div class="col-md-6"> 
+                  <div class="form-group">
+                      <label for="project_year">Project Year</label> 
+                      <input id="project_year" name="project_year" formControlName="project_year" type="text" class="form-control"> 
+                  </div> 
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="project_cost">Project Cost (Rs.)</label> 
+                      <input id="project_cost" name="project_cost" formControlName="project_cost" type="text" class="form-control">
+                  </div>  
+              </div>
+              
+              <div class="col-md-12">
+                  <ng-container>
+                      <button mat-button name="submit" type="submit" class="btn btn-primary">Upload & Save</button>
+                      <button mat-button type="button" class="btn btn-default close-btn">Close</button>
+                  </ng-container> 
+              </div> 
+          </div> 
+      </form>
+      
+    </div>
+      
+      
     </div>
   </div> 
 </div>

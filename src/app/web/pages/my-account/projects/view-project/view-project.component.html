@@ -1,0 +1,35 @@
+<div class="back-to-area">
+  <div class="container">
+      <a class="back-to" routerLink="/my-account/user/me/0/about">Back to Profile</a>
+  </div> 
+</div>
+<div class="page-container animated fadeIn  view-project">
+  <div class="container">  
+    <div class="row">
+      <div class="view-project-main-img col-md-8">
+         <div class="img-area" [ngStyle]="{'background-image': 'url('+ mainImg +')'}">
+           
+         </div>
+         <div class="project-content">
+          <h1>{{projectData.project_name}}</h1>
+          <ul class="additional-info">
+            <li class="year"><strong>Project Year: </strong>  {{projectData.project_year}}</li>
+            <li class="photos"><strong>Project Cost: </strong> {{projectData.project_cost}}</li>
+            <li class="location"><strong>Location: </strong> Colombo</li>
+          </ul>
+          <p>{{projectData.project_description}}</p> 
+         </div>
+      </div>
+
+      <div class="col-md-4">
+       <div class="row gallery-images">
+         <div *ngFor="let pi of projectImages; let i = index" class="image" (click)="viewImage(i)" [ngStyle]="{'background-image': 'url('+ imageURLThumb + pi +')'}">
+
+         </div>
+        
+       </div>
+      </div>
+    </div>
+    
+  </div>
+</div>

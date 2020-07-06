@@ -3,6 +3,8 @@
 
  
 .header-wrapper{
+    border-bottom: 1px #f2f2f2 solid;
+    
     &.fixed-header{ 
         .header-area{
             position: fixed;
@@ -20,7 +22,7 @@
     }
 
     .content-area{
-        padding: 1rem 0;
+        padding: 1.5rem 0 1rem 0;
         @include flex(); 
 
         img{

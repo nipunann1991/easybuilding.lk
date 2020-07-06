@@ -11,10 +11,10 @@ export class MyAccountService {
 
   constructor(private http: HttpClient) { }
 
-  getProfileDetails(){  
-     
+  getProfileDetails(){   
     return this.http.get(environment.baseUrl+'ProfileController/getProfileDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
   }
+ 
  
   getCustomProfileDetails(params){  
     if( this.token == null){
@@ -60,7 +60,26 @@ export class MyAccountService {
     return this.http.post(environment.baseUrl+'ProfileController/getServiceDistrictsByCompany?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   }
 
+ 
+  getProjectDetails(postVals){   
+
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ProfileController/getProjectDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  }
+
   
+
+  getMinimalProjectDetails(postVals){   
+
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ProfileController/getMinimalProjectDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  }
 
   getContactDetails(){  
      
@@ -93,6 +112,23 @@ export class MyAccountService {
     headers.append('Content-Type', 'undefined');
 
     return this.http.post(environment.baseUrl+'ProfileController/fileUpload?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, formData , { headers: headers });
+  }
+
+  uploadProjectImages(formData){
+     
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'undefined');
+
+    return this.http.post(environment.baseUrl+'ProfileController/uploadProjectImages?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, formData , { headers: headers });
+  }
+ 
+  addNewProjectDetails(postVals){ 
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ProfileController/addNewProjectDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   }
 
   uploadProfileImage(formData){

@@ -49,7 +49,8 @@ export class MyAccountComponent implements OnInit {
         }else{
 
           if(event.url.indexOf('/edit/') > -1 ){
-            this.isEditableMode = true; 
+            this.isEditableMode = true;  
+            window.scrollTo(0,250)
             this.profileData.is_editable_btn = false; 
             let params = {id: 'me', provider_id: 0 };  
             this.getProfileDetails(params);  
@@ -119,9 +120,7 @@ export class MyAccountComponent implements OnInit {
             }else{
 
               this.getServiceCitiesByCompany( this.profileData.company_id);
-              this.getServiceDistrictsByCompany( this.profileData.company_id);
-
-              
+              this.getServiceDistrictsByCompany( this.profileData.company_id); 
 
             }
             

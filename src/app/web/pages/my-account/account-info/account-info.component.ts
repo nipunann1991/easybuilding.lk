@@ -63,9 +63,9 @@ export class AccountInfoComponent implements OnInit {
 
     });
 
-     if(this.router.url.includes("steps")){
-       this.isStepsForm = true;
-     }
+      if(this.router.url.includes("steps")){
+        this.isStepsForm = true;
+      }
      
 
     this.getAccountDetails()
