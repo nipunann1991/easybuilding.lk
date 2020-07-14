@@ -7,7 +7,8 @@ import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 
 import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
 import { ModalManager } from 'ngb-modal';
 import { ImageCroppedEvent, Dimensions, ImageTransform } from 'ngx-image-cropper';
-import { FileSaverService, } from 'ngx-filesaver';
+import { FileSaverService, } from 'ngx-filesaver'; 
+import { FacebookService, InitParams, UIParams, UIResponse } from 'ngx-facebook';
 import { FileSaverOptions, saveA, ResponseContentType  } from 'file-saver';
 import { Globals } from "../../../../app.global";
 import * as $ from 'jquery';
@@ -55,6 +56,8 @@ export class ProfileComponent implements OnInit {
     y: 450
   };
 
+  
+
   constructor(
     private myaccount: MyAccountService,
     private toastr: ToastrService, 
@@ -63,10 +66,34 @@ export class ProfileComponent implements OnInit {
     private modalService: ModalManager,
     private httpClient: HttpClient,
     private fileSaverService: FileSaverService,
-  ) { }
+    private fb: FacebookService
+  ) {  
+
+    const initParams: InitParams = {
+      appId: '2651390971778041',
+      xfbml: true,
+      version: 'v2.9'
+    };
+ 
+    fb.init(initParams);
+
+  }
 
   ngOnInit(): void { 
     
+  }
+
+  share(url: string) {
+ 
+    const params: UIParams = {
+      href: 'https://easybuilding.lk/ServiceProviders/MainIndex',
+      method: 'share'
+    };
+   
+    this.fb.ui(params)
+      .then((res: UIResponse) => console.log(res))
+      .catch((e: any) => console.error(e));
+   
   }
 
   ngOnChanges(){

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 06, 2020 at 07:03 PM
+-- Generation Time: Jul 14, 2020 at 08:32 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -451,6 +451,7 @@ CREATE TABLE IF NOT EXISTS `client_company` (
   `service` int(11) NOT NULL DEFAULT '0',
   `service_areas` mediumblob NOT NULL,
   `service_dist` mediumblob NOT NULL,
+  `services` mediumblob NOT NULL,
   PRIMARY KEY (`company_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
@@ -458,10 +459,10 @@ CREATE TABLE IF NOT EXISTS `client_company` (
 -- Dumping data for table `client_company`
 --
 
-INSERT INTO `client_company` (`company_id`, `client_id`, `display_name`, `description`, `website`, `br_no`, `email`, `address_line1`, `address_line2`, `city`, `tel1`, `tel2`, `profie_image`, `cover_img`, `prof_category`, `verified_email`, `verify_code`, `steps`, `parent`, `all_island`, `service`, `service_areas`, `service_dist`) VALUES
-(1, 66, 'Dubai Homes', '<p>Best of Houzz 2012-2020 | With locations in Minnesota and Texas, we work with homeowners from coast to coast to design and furnish their interiors. Contact us today for more information! Martha O’Hara Interiors designs beautiful spaces with the goal of connecting life and style. Finding that enviable mix of style and warmth that exudes your true aesthetic and sticks to your budget - it\'s what we do best! Whether you are building, remodeling, or updating your furniture, our award-winning team will create an interior that is tailored to your tastes and lifestyle. With locations in Minnesota and Texas, we work with homeowners and building professionals from coast to coast.</p>', 'https://oozmm.com', 'PV263644577', 'info@n3holdings.com', '275A Colombo Road', 'Kidagammulla', 'Gampaha', '033-2228887', '071-6378515', '1593686608blob.jpg', '1592629830blob.jpg', 1, 0, 0, 4, 0, 0, 0, 0x5b2231323734222c2231303735222c2231303734222c2237222c2231303733222c2231303732222c2231303739225d, 0x5b5d),
-(3, 68, 'Test Holdings', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p><p>tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p><p>quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p><p>consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse</p><p>cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non</p><p>proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '', 'nipunann0710@gmail.com', '275A Colombo Road, KIdagammulla', '', 'Gampaha', '0716378515', '', '', '', 1, 0, 0, 4, 0, 0, 0, 0x5b2231323233225d, ''),
-(2, 67, 'JAT Living', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '', 'info@jatliving.lk', '141 Danister De Silva Mw,', 'Orion City,', 'Colombo 09', '0112589963', '', '', '', 1, 0, 0, 4, 0, 0, 0, 0x5b2231303731222c2231303438222c2231303432225d, '');
+INSERT INTO `client_company` (`company_id`, `client_id`, `display_name`, `description`, `website`, `br_no`, `email`, `address_line1`, `address_line2`, `city`, `tel1`, `tel2`, `profie_image`, `cover_img`, `prof_category`, `verified_email`, `verify_code`, `steps`, `parent`, `all_island`, `service`, `service_areas`, `service_dist`, `services`) VALUES
+(1, 66, 'Dubai Homes', '<p>Best of Houzz 2012-2020 | With locations in Minnesota and Texas, we work with homeowners from coast to coast to design and furnish their interiors. Contact us today for more information! Martha O’Hara Interiors designs beautiful spaces with the goal of connecting life and style. Finding that enviable mix of style and warmth that exudes your true aesthetic and sticks to your budget - it\'s what we do best! Whether you are building, remodeling, or updating your furniture, our award-winning team will create an interior that is tailored to your tastes and lifestyle. With locations in Minnesota and Texas, we work with homeowners and building professionals from coast to coast.</p>', 'https://oozmm.com', 'PV263644577', 'info@n3holdings.com', '275A Colombo Road', 'Kidagammulla', 'Gampaha', '033-2228887', '071-6378515', '1593686608blob.jpg', '1592629830blob.jpg', 1, 0, 0, 4, 0, 0, 0, 0x5b2231323734222c2231303735222c2231303734222c2237222c2231303733222c2231303732222c2231303739225d, 0x5b5d, 0x5b22434c3231303134222c22434c3231303131222c22434c3231303232225d),
+(3, 68, 'Test Holdings', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p><p>tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p><p>quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p><p>consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse</p><p>cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non</p><p>proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '', 'nipunann0710@gmail.com', '275A Colombo Road, KIdagammulla', '', 'Gampaha', '0716378515', '', '', '', 1, 0, 0, 4, 0, 0, 0, 0x5b2231323233225d, '', ''),
+(2, 67, 'JAT Living', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '', 'info@jatliving.lk', '141 Danister De Silva Mw,', 'Orion City,', 'Colombo 09', '0112589963', '', '', '', 1, 0, 0, 4, 0, 0, 0, 0x5b2231303731222c2231303438222c2231303432225d, '', '');
 
 -- --------------------------------------------------------
 
@@ -556,17 +557,16 @@ CREATE TABLE IF NOT EXISTS `project` (
   `primary_img` varchar(1000) NOT NULL,
   `total_imgs` int(11) NOT NULL,
   PRIMARY KEY (`project_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `project`
 --
 
 INSERT INTO `project` (`project_id`, `project_name`, `project_description`, `project_year`, `project_cost`, `project_address`, `company_id`, `images`, `primary_img`, `total_imgs`) VALUES
-(7, 'Sample Project 2', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '2019', '3M', '', 1, 0x5b22313539343031373832357770333034393332392e6a7067222c2231353934303137383235456c6567616e745f4d6f6465726e5f4c75787572795f486f7573655f57616c6c70617065722e6a7067225d, '1594017825wp3049329.jpg', 3),
-(8, 'Sample Project 3', 'quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat.', '2020', '2.6M', '', 1, 0x5b223135393430323034393430316632353866383965383435626161396233633839303131616435336461662e6a7067222c2231353934303230343937456c6567616e745f4d6f6465726e5f4c75787572795f486f7573655f57616c6c70617065722e6a7067225d, '159402049401f258f89e845baa9b3c89011ad53daf.jpg', 2),
-(9, 'Landscapes', 'Landscapes eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '2018', '100M', '', 1, 0x5b22313539343032303636334453435f383031342d3230303078313230302e6a7067222c2231353934303230363633315f53356a54463861797949584b4a6e6b424e2d313133772e6a706567222c22313539343032303636334f726b6e65792d322e6a7067225d, '1594020663DSC_8014-2000x1200.jpg', 3),
-(10, 'Kitchen Project', 'A Moody, Modern Kitchen Design By Maker   May Habitus Living', '2019', '1.1M', '', 1, 0x5b223135393430353636313332323962393238656135623837643138393863616530613062636234383166382e6a7067222c2231353934303536363133696d61676573202831292e6a7067222c223135393430353636313335666537376437323530663962613930353431653865356433316534346564652e6a7067222c2231353934303536363133696d616765732e6a7067222c2231353934303536363133696d61676573202832292e6a7067222c223135393430353636313336616264326134613334313637653531356162383765363536323435383838622e6a7067225d, '1594056613229b928ea5b87d1898cae0a0bcb481f8.jpg', 6);
+(13, 'Living Room Concepts', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iste hic, mollitia dolorem unde voluptatibus explicabo consectetur dicta eius sapiente aliquam? Corrupti, velit temporibus! Voluptates, eius error eaque quos quis maiores', '2019', '1M', '', 1, 0x5b2231353934373237323432696d616765735f345f2e6a7067222c2231353934373237323432696d616765735f335f2e6a7067222c22313539343732373234326261642d6c6976696e672d726f6f6d2d636c65616e696e672d6861626974732e6a7067222c22313539343732373234324d6f6465726e2d4c6976696e67726f6f6d2d362e6a7067225d, '1594727242images_4_.jpg', 4),
+(12, 'Malabe Housing Project', 'Malabe Housing Project Malabe Housing Project Malabe Housing Project', '2019', '3.5M', '', 1, 0x5b2231353934363635383839696d616765735f325f2e6a7067222c22313539343636353838393232363231363138362e6a7067222c22313539343636353838394e6f726d616e746f6e2d4176656e75652d332d3136303078313036382e6a7067222c22313539343636353838396c616b652d686f7573652d696e2d6173636f6e612d62792d77657370692d64652d6d6575726f6e2d726f6d656f2d617263686974656374732d3035312e6a7067225d, '1594665889images_2_.jpg', 4),
+(11, 'Mr Anil\'s Kitchen', 'Reliable, Trustworthy and committed Contractor who will be able to build house construction as per architectural requirements', '2020', '1M', '', 1, 0x5b223135393431353333393832323962393238656135623837643138393863616530613062636234383166382e6a7067222c2231353934313533333939696d616765732e6a7067222c223135393431353333393835666537376437323530663962613930353431653865356433316534346564652e6a7067222c223135393431353333393836616264326134613334313637653531356162383765363536323435383838622e6a7067222c223135393431353334313036616264326134613334313637653531356162383765363536323435383838622e6a7067222c2231353934363635353236696d616765735f315f2e6a7067225d, '1594153398229b928ea5b87d1898cae0a0bcb481f8.jpg', 6);
 
 -- --------------------------------------------------------
 
@@ -592,6 +592,29 @@ INSERT INTO `roles` (`role_id`, `role_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `services_list`
+--
+
+DROP TABLE IF EXISTS `services_list`;
+CREATE TABLE IF NOT EXISTS `services_list` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cat_lvl2_id` varchar(100) NOT NULL,
+  `company_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `services_list`
+--
+
+INSERT INTO `services_list` (`id`, `cat_lvl2_id`, `company_id`) VALUES
+(1, 'CL21014', 1),
+(2, 'CL21011', 1),
+(3, 'CL21022', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `service_areas`
 --
 
@@ -601,7 +624,7 @@ CREATE TABLE IF NOT EXISTS `service_areas` (
   `city_id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=80 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=129 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `service_areas`
@@ -611,13 +634,13 @@ INSERT INTO `service_areas` (`id`, `city_id`, `company_id`) VALUES
 (1, 1071, 2),
 (2, 1048, 2),
 (3, 1042, 2),
-(79, 1079, 1),
-(78, 1072, 1),
-(77, 1073, 1),
-(76, 7, 1),
-(75, 1074, 1),
-(74, 1075, 1),
-(73, 1274, 1);
+(128, 1079, 1),
+(127, 1072, 1),
+(126, 1073, 1),
+(125, 7, 1),
+(124, 1074, 1),
+(123, 1075, 1),
+(122, 1274, 1);
 
 -- --------------------------------------------------------
 
@@ -631,7 +654,7 @@ CREATE TABLE IF NOT EXISTS `service_districts` (
   `district_id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -682,7 +705,7 @@ INSERT INTO `user_sessions` (`session_id`, `client_id`, `auth_token`, `password`
 (49, 68, 'ya29.a0AfH6SMBOtHqXoOMrDPi0KQBpa_kH4zb_BblRmBGas0Mm2PyMhnB01FaSW-TBa8iijdnJRsRV8fu2ziBml-tHqYuimqr97-JbnUP6Miw2IlMWiDuxzW9Xx7hoKVy42DHHWLcgTMDskZHv7eCNo1xnMgq9-J2L-xV52Aom1A', ''),
 (50, 69, 'EAAlrbREIkZCkBADIzYv4TSZC9sqnIwzMgKM7lYQCYFvlatZB53BcU6h61OWTfAiPZAZCGAC8MEwkmgLxZBYONS17uVUlYPSL7KFq7tU6i9hc0sggFdUPndHFrcZASazH1JfOtlyunu5tI6EZBGjE454ikaCEpsYM2ZBlmZCEhZAMRp31e2HmaFAZANf93yNZBgabg2rP5lFW4KddRp4Oac8PKgzy4', ''),
 (48, 67, 'ya29.a0AfH6SMDXG1umKIPgSZI9I6yRwt3jnALF3zgdnvehalcxiDciLlk0GsDM4b61uG4eYsfFXxgG7tAh2OpDdprxXbGidaguowME5euXLE8zgE4LgWXjqEAxk_ULqCVg-F-L9YcSZj7Y0J7lduv1EaIn17IeCCni6t_8omsbcA', ''),
-(47, 66, 'EAAlrbREIkZCkBAA3FkqtGZCqfCmWP91tUD44DPx7dUBCvSVwh4sskiZBYQdwR98JezMOYCcVe5JnZBCtsxioIUsT3qZBOtZAgghb6MrNtsbacMIqRX6gOL8xZC3t8qLajMh8nFjGZCWD3TW1CRoIPFqY7znTLZB90D93dfGMeBIHvZBp2EpGmCneq4BZBLj0pGTXoezZAW2SMZBQuBHeAOO0k3r2D', ''),
+(47, 66, 'EAAlrbREIkZCkBANFVZCZC4KBodsg0MLrBa0LxAHqogvkXpEL0ZCzfSivvnaPocbhB5AKbytZAOpJJZAaPhyjXBR0THfVQf9eDVphVLQ90myGA8guANo6wr8noJtJRTFVTYgIYcZCB1GuhENugti14unBQm7KxXoJTD3kwsGAHZCMkYpGbFO5yezAsXPfe7Oj8U54gCmeC70uOlluWrMCq8FD', ''),
 (46, 65, 'EAAlrbREIkZCkBAOHVjjUZCBewHTfKUnqDc56JFkG7bKHsi9GQhxZCrm9tUY4ZBYg76zZB2xZC99j22HoU0AGkPOJuW0IxZAVd4hI96l4oQtG4saG6STgGKiCZCtvhPO5kGsMZAJYkdwpnpeQqFThhDFZCiZB5QarXXswuA4tXLyTdYQ1G01EAv25mS0ZA1eYTSJu6P8m7N8l9zuypCpY4T2roZBs3', '');
 COMMIT;
 

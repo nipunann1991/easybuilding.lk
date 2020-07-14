@@ -10,6 +10,7 @@ import { ProjectsComponent } from './projects.component';
   imports: [
     CommonModule,
     ProjectsRoutingModule
-  ]
+  ],
+  exports: [ProjectsComponent]
 })
 export class ProjectsModule { }

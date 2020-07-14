@@ -13,6 +13,7 @@ const routes: Routes = [{ path: '', component: PageContainerComponent, children:
     { path: 'steps', canActivate: [AuthGuard], loadChildren: () => import('../my-account/steps/steps.module').then(m => m.StepsModule) },
     { path: 'my-account/user/me/0/:company_id/upload-project', canActivate: [AuthGuard], loadChildren: () => import('../my-account/upload-project/upload-project.module').then(m => m.UploadProjectModule) },
 	  { path: 'my-account/projects/view-project/:company_id/:project_id', canActivate: [AuthGuard], loadChildren: () => import('../my-account/projects/view-project/view-project.module').then(m => m.ViewProjectModule) },
+  	{ path: 'my-account/projects/edit-project/:company_id/:project_id', loadChildren: () => import('../my-account/projects/edit-project/edit-project.module').then(m => m.EditProjectModule) },
 
   ]},
   

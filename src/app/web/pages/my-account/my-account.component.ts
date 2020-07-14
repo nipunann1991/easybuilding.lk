@@ -20,7 +20,9 @@ export class MyAccountComponent implements OnInit {
   isAdminAccessible: boolean = false;
   profileData: any = {};
   profileCompleted: boolean = false;
+  isPublicProfile: boolean = false;
   serviceAreas: any = "";
+  services: any = "";
   navItems: any = [];
   baseurl = "/my-account/user/me/0/";
   baseurlEdit = this.baseurl+"/edit/";
@@ -107,13 +109,15 @@ export class MyAccountComponent implements OnInit {
 
     if(routeParams.id== 'me' && routeParams.provider_id == "0" ){
 
+      this.isPublicProfile = false;
+
       this.myaccount.getProfileDetails() 
         .subscribe((response: any) => {
           if (response.status == 200) {
             
-            this.profileData = response.data[0];   
-            console.log( this.profileData );
+            this.profileData = response.data[0];    
 
+            console.log(this.profileData);
             
             if(this.profileData.all_island == "1"){
               this.serviceAreas = "All Island Service";
@@ -121,6 +125,7 @@ export class MyAccountComponent implements OnInit {
 
               this.getServiceCitiesByCompany( this.profileData.company_id);
               this.getServiceDistrictsByCompany( this.profileData.company_id); 
+              this.getServics( this.profileData.company_id); 
 
             }
             
@@ -150,7 +155,10 @@ export class MyAccountComponent implements OnInit {
           if (response.status == 200 && response.data.length > 0 ) { 
             this.profileData = response.data[0];   
             this.profileData.profile_editable = false;
-             
+            this.isPublicProfile = true;
+
+            console.log(this.profileData);
+
           }else{
             //this.router.navigate(['/my-account/user/me/0']);
           }
@@ -210,6 +218,22 @@ export class MyAccountComponent implements OnInit {
             
         }else{
           //this.router.navigate(['/my-account/user/me/0']);
+        }
+          
+      });
+  }
+
+  getServics(company_id){
+
+    let params = { company_id: company_id }
+
+      this.myaccount.getServics(params) 
+        .subscribe((response: any) => {
+        if (response.status == 200 && response.data.length > 0 ) {  
+            this.services = response.data;
+            console.log(this.services);
+        }else{
+          
         }
           
       });

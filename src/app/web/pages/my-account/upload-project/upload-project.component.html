@@ -10,17 +10,13 @@
         <h2>Upload a New Project</h2>
         <p>A Project is a collection of photos and videos of your own work or products.</p>
       </div>
-      <div class="col-md-5">
-
+      <div class="col-md-5"> 
         <ngx-file-drop dropZoneLabel="Drop files here" 
         (onFileOver)="fileOver($event)" (onFileDrop)="dropped($event)"  (onFileLeave)="fileLeave($event)"> 
             <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
                 <div class="drop-template"></div> 
             </ng-template>
-        </ngx-file-drop>
-
-        
-       
+        </ngx-file-drop> 
       </div>
       <div class="offset-md-1 col-md-6">
         <div class="uploaded-image-holder">

@@ -82,6 +82,17 @@
       width: 100%;
       background-color: $light-gray;
       background-size: cover;
+
+      a.edit-project{
+        color: $white;
+        margin: 12px;
+        float: right;
+        text-decoration: none;
+
+        &:hover{
+          color: $danger-color;
+        }
+      }
     }
 
     .project-content{

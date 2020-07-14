@@ -16,6 +16,7 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { StarRatingModule } from 'angular-star-rating';
 import { ModalModule } from 'ngb-modal';
 import { FileSaverModule } from 'ngx-filesaver';
+import { FacebookModule } from 'ngx-facebook';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { FileSaverModule } from 'ngx-filesaver';
       LoadingBarHttpClientModule,
       StarRatingModule.forRoot(),
       NgBootstrapFormValidationModule.forRoot(), 
+      FacebookModule.forRoot()
     ],
   exports: [  
     FormsModule,

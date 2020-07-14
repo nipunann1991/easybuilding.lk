@@ -63,4 +63,8 @@ export class ViewProjectComponent implements OnInit {
     
   }
 
+  goBack(){
+    window.history.back();
+  }
+
 }

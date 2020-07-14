@@ -81,7 +81,23 @@ body{
 	
 }
 
+.fb_dialog_advanced{
+		position: fixed !important;
+		padding: 0 !important;
+		@include box-shadow(2px, 4px, 42px, -9px, rgba(142, 142, 142, 0.75));
+		border-radius: 3px !important; 
+}
 
+.fb_dialog_close_icon{
+	top: 14px !important;
+}
+
+.select2-container--default .select2-results__group{
+	padding: 15px;
+	background: #f9f9f9;
+	font-size: 17px;
+	letter-spacing: 0.02rem;
+}
 
 p{ 
 	font-size: 1.5rem;	

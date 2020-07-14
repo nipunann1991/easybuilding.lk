@@ -31,6 +31,7 @@ export class AboutComponent implements OnInit {
     window.scroll(0,0); 
     let params = {id: 'me', provider_id: 0 };
     this.getProfileDetails(params);  
+    
   }
 
 

@@ -44,7 +44,7 @@ export function provideConfig() {
     BrowserAnimationsModule, 
     AppRoutingModule,  
     SocialLoginModule,
-    AppSharedModule,
+    AppSharedModule, 
     ToastrModule.forRoot()
   ],
   exports: [

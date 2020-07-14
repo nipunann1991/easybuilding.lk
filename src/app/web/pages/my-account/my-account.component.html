@@ -1,5 +1,5 @@
 <div class="page-container animated fadeIn">
-    <ng-container *ngIf="profileCompleted">
+    <ng-container *ngIf="profileCompleted || isPublicProfile">
         <app-profile 
             [profileData]="profileData"
             (isProfileEditable)="isProfileEditable($event)"
@@ -24,6 +24,11 @@
                             <h3>Service Areas</h3>
                             <p *ngIf="serviceAreas == ''"><i>No service areas yet.</i></p>
                             <p *ngIf="serviceAreas != ''">{{ serviceAreas }}</p>
+                        </div>
+                        <div class="item"> 
+                            <h3>Services</h3>
+                            <p *ngIf="services == ''"><i>No service areas yet.</i></p>
+                            <p *ngIf="services != ''">{{ services }}</p>
                         </div>
                         <div class="item"> 
                             <h3>Awards</h3>

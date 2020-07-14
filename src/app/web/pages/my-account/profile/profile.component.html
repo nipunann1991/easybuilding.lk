@@ -1,80 +1,82 @@
-<input type="file" class="d-none" (change)="fileChangeEvent($event)" #fileInput />
+<div class="page-container animated fadeIn"> 
 
-<modal #uploadCover> 
-    <modal-header> 
-        <h2>Upload {{modalTitle}} Image</h2>
-    </modal-header>
-    <modal-content> 
-        <image-cropper
-            [imageChangedEvent]="imageChangedEvent"
-            [maintainAspectRatio]="true"
-            [aspectRatio]="aspectRatio.x / aspectRatio.y"
-            format="jpg"
-            (imageCropped)="imageCropped($event)"
-            (imageLoaded)="imageLoaded()"
-            (cropperReady)="cropperReady()"
-            (loadImageFailed)="loadImageFailed()"
-        ></image-cropper>
-    </modal-content>
-    <modal-footer> 
-        <button class="btn btn-primary" mat-button (click)="onSave()">Set {{modalTitle}} Image</button> 
-        <button class="btn btn-primary-transparent close-btn" mat-button (click)="closeModal()">Close</button>
-    </modal-footer>
-</modal>
+    <input type="file" class="d-none" (change)="fileChangeEvent($event)" #fileInput />
+
+    <modal #uploadCover> 
+        <modal-header> 
+            <h2>Upload {{modalTitle}} Image</h2>
+        </modal-header>
+        <modal-content> 
+            <image-cropper
+                [imageChangedEvent]="imageChangedEvent"
+                [maintainAspectRatio]="true"
+                [aspectRatio]="aspectRatio.x / aspectRatio.y"
+                format="jpg"
+                (imageCropped)="imageCropped($event)"
+                (imageLoaded)="imageLoaded()"
+                (cropperReady)="cropperReady()"
+                (loadImageFailed)="loadImageFailed()"
+            ></image-cropper>
+        </modal-content>
+        <modal-footer> 
+            <button class="btn btn-primary" mat-button (click)="onSave()">Set {{modalTitle}} Image</button> 
+            <button class="btn btn-primary-transparent close-btn" mat-button (click)="closeModal()">Close</button>
+        </modal-footer>
+    </modal>
 
 
-<div class="profile-area">
-    
-    <div class="cover-image" [ngClass]="{ 'loader' : isUploading }"  >
-        <i *ngIf="isBgImage && profile.profile_editable" class="icon-bin" (click)="deleteImage(0)"></i>
-        <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="openImgUpload(fileInput, 0)" 
-        (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-            
-            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                <div *ngIf="!isBgImage" class="drop-template">  
-                    <a href="javascript:void(0)" class="upload-btn" title="Upload cover image" *ngIf="profile.profile_editable" (click)="openImgUpload(fileInput, 0)"> </a>
-                </div>
-                <div *ngIf="isBgImage" class="preview" [ngClass]="{'shadow': bgImage}" [ngStyle]="{'background-image':bgImage}"></div>
+    <div class="profile-area">
+        
+        <div class="cover-image" [ngClass]="{ 'loader' : isUploading }"  >
+            <i *ngIf="isBgImage && profile.profile_editable" class="icon-bin" (click)="deleteImage(0)"></i>
+            <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="openImgUpload(fileInput, 0)" 
+            (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
                 
-            </ng-template>
-        </ngx-file-drop>  
-    </div>
-    <div class="container">
-        <div class="profile-details">
-            <div class="profile-img-wrapper">
-                <div class="profile-img" *ngIf="isProfImage" [ngStyle]="{'background-image': profImage}">
-                    <i class="icon-bin" (click)="deleteImage(1)"></i>
-                </div>
-                <div class="profile-img" *ngIf="!isProfImage" [ngStyle]="{'background-image': transparent }">
-                    <a href="javascript:void(0)" class="upload-btn" title="Upload profile image"  (click)="openImgUpload(fileInput, 1)"> </a>
-                </div>
-                
-                <a mat-button class="btn btn-primary btn-contact" href="mailto:{{userEmail}}">Contact Me</a>
-            </div> 
-            <div class="details-wrapper">
-                <div class="details" [ngClass]="{'no-img': !isBgImage}">
-                     
-                    <ul>
-                        <li class="name">
-                            <h3 *ngIf="isDisplayNameNull">{{profile.first_name}} {{profile.last_name}}</h3>
-                            <h3 *ngIf="!isDisplayNameNull">{{profile.display_name}}</h3> 
-                            <a (click)="editProfile()" class="edit" *ngIf="profile.profile_editable && !isEditable" ><i class="icon-pencil"></i></a>
-                        </li> 
-                        <li class="address"> 
-                            <p>{{profile.address_line1}} {{profile.address_line2}} {{profile.city}}</p> 
-                        </li>
-                        <li>
-                            <star-rating  starType="icon" labelText="0 Reviews"  [showHalfStars]="true" labelPosition="right" [rating]="0"></star-rating>
-                        </li>
-                    </ul>
+                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                    <div *ngIf="!isBgImage" class="drop-template">  
+                        <a href="javascript:void(0)" class="upload-btn" title="Upload cover image" *ngIf="profile.profile_editable" (click)="openImgUpload(fileInput, 0)"> </a>
+                    </div>
+                    <div *ngIf="isBgImage" class="preview" [ngClass]="{'shadow': bgImage}" [ngStyle]="{'background-image':bgImage}"></div>
                     
-                </div>
-                
-                <button mat-button class="btn btn-primary-transparent edit-profile" *ngIf="!profile.profile_editable">Publish</button>
-            </div>
-    
+                </ng-template>
+            </ngx-file-drop>  
         </div>
-    </div> 
-</div>
- 
+        <div class="container">
+            <div class="profile-details">
+                <div class="profile-img-wrapper">
+                    <div class="profile-img" *ngIf="isProfImage" [ngStyle]="{'background-image': profImage}">
+                        <i class="icon-bin" (click)="deleteImage(1)"></i>
+                    </div>
+                    <div class="profile-img" *ngIf="!isProfImage" [ngStyle]="{'background-image': transparent }">
+                        <a href="javascript:void(0)" class="upload-btn" title="Upload profile image"  (click)="openImgUpload(fileInput, 1)"> </a>
+                    </div>
+                    
+                    <a mat-button class="btn btn-primary btn-contact" href="mailto:{{userEmail}}">Contact Me</a>
+                </div> 
+                <div class="details-wrapper">
+                    <div class="details" [ngClass]="{'no-img': !isBgImage}">
+                        
+                        <ul>
+                            <li class="name">
+                                <h3 *ngIf="isDisplayNameNull">{{profile.first_name}} {{profile.last_name}}</h3>
+                                <h3 *ngIf="!isDisplayNameNull">{{profile.display_name}}</h3> 
+                                <a (click)="editProfile()" class="edit" *ngIf="profile.profile_editable && !isEditable" ><i class="icon-pencil"></i></a>
+                            </li> 
+                            <li class="address"> 
+                                <p>{{profile.address_line1}} {{profile.address_line2}} {{profile.city}}</p> 
+                            </li>
+                            <li>
+                                <star-rating  starType="icon" labelText="0 Reviews"  [showHalfStars]="true" labelPosition="right" [rating]="0"></star-rating>
+                            </li>
+                        </ul>
+                        
+                    </div> 
+                    <button mat-button class="btn btn-primary share-fb" (click)="share()"><i class="icon-facebook"></i> Share</button>
+                    <!-- <button mat-button class="btn btn-primary-transparent edit-profile" *ngIf="!profile.profile_editable">Publish</button> -->
+                </div>
+        
+            </div>
+        </div> 
+    </div>
+</div>  
 

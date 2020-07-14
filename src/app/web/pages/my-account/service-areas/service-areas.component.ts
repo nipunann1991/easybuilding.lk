@@ -26,6 +26,8 @@ export class ServiceAreasComponent implements OnInit {
 
   serviceAreasCity: any = [];
   serviceAreasDistrict: any = [];
+  serviceCategories: any = [];
+  allServices: any = [];;
 
   constructor(
     private myaccount: MyAccountService,
@@ -39,6 +41,10 @@ export class ServiceAreasComponent implements OnInit {
     this.formGroup = new FormGroup({ 
       
       service_areas: new FormControl({value:[]}, [
+        Validators.required
+      ]), 
+
+      services: new FormControl({value:[]}, [
         Validators.required
       ]), 
      
@@ -59,6 +65,7 @@ export class ServiceAreasComponent implements OnInit {
     this.getServiceDetails();
     this.getCities();  
     this.getDistricts();
+    this.getAllCategoriesData();
     this.select2Order();
   }
 
@@ -85,12 +92,15 @@ export class ServiceAreasComponent implements OnInit {
 
             this.formGroup.setValue({
               service_areas: JSON.parse(this.profile.service_dist),  
+              services: JSON.parse(this.profile.services)
             });
 
           }else if(this.isCities){
 
             this.formGroup.setValue({
               service_areas: JSON.parse(this.profile.service_areas),  
+              services: JSON.parse(this.profile.services)
+
             }); 
 
           } 
@@ -120,14 +130,32 @@ export class ServiceAreasComponent implements OnInit {
   }
 
 
+  getAllCategoriesData(){
+    this.myaccount.getAllCategoriesData() 
+      .subscribe((response: any) => {
+        if (response.status == 200) {
+           
+          
+          this.serviceCategories = response.data; 
+
+          this.allServices = response.data
+          console.log(this.serviceCategories);
+  
+        }else{
+            
+        }
+          
+      });
+  }
+
+
   getDistricts(){ 
 
     this.myaccount.getDistricts() 
       .subscribe((response: any) => {
         if (response.status == 200) {
            
-          this.serviceAreasDistrict = response.data; 
-          
+          this.serviceAreasDistrict = response.data;  
   
         }else{
             
@@ -190,6 +218,7 @@ export class ServiceAreasComponent implements OnInit {
       this.formGroup.value.client_id = this.clientId;
       this.formGroup.value.company_id = this.companyId; 
       this.formGroup.value.steps = 4; 
+      this.formGroup.value.services = JSON.stringify(this.formGroup.value.services); 
 
       if(this.isCities){
         this.formGroup.value.service_areas = JSON.stringify(this.formGroup.value.service_areas); 
@@ -200,7 +229,7 @@ export class ServiceAreasComponent implements OnInit {
         this.formGroup.value.service_areas = "[]";
       }
       
-      
+      console.log(this.formGroup.value)
       
       this.myaccount.updateProfileWithServiceArea(this.formGroup.value)
         .subscribe((response: any) => {

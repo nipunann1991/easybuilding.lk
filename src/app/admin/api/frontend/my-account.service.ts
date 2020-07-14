@@ -42,6 +42,10 @@ export class MyAccountService {
     return this.http.get(environment.baseUrl+'ProfileController/getDistricts?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
   } 
 
+  getAllCategoriesData(){   
+    return this.http.get(environment.baseUrl+'ProfileController/getAllCategoriesData?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+  } 
+   
   getServiceCitiesByCompany(postVals){   
 
     const params = new HttpParams({
@@ -60,7 +64,17 @@ export class MyAccountService {
     return this.http.post(environment.baseUrl+'ProfileController/getServiceDistrictsByCompany?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   }
 
+
+  getServics(postVals){   
+
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ProfileController/getServics?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  }
  
+
   getProjectDetails(postVals){   
 
     const params = new HttpParams({
@@ -131,6 +145,18 @@ export class MyAccountService {
     return this.http.post(environment.baseUrl+'ProfileController/addNewProjectDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   }
 
+
+  editProjectDetails(postVals){ 
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ProfileController/editProjectDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  }
+
+  
+
   uploadProfileImage(formData){
      
     const headers = new HttpHeaders();
@@ -146,6 +172,15 @@ export class MyAccountService {
     });
 
     return this.http.post(environment.baseUrl+'ProfileController/removeCoverImage?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
-}
+  }
+
+  removeProjectImages(postVals){
+
+    const params = new HttpParams({
+       fromObject : postVals
+    });
+
+    return this.http.post(environment.baseUrl+'ProfileController/removeProjectImages?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  }
 
 }

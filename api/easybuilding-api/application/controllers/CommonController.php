@@ -431,8 +431,10 @@ class CommonController extends CI_Controller {
 		    mkdir($upload_dir, 0777, true); 
 		    mkdir($upload_dir.'/thumb', 0777, true);
 		} 
- 
-     	$generatedFileName = basename(time().''.$_FILES["file"]["name"]);
+
+		$file_name = preg_replace("/\s+\(|\)/", "_", $_FILES["file"]["name"]);  
+		 
+     	$generatedFileName = basename(time().''.$file_name);
 
 	    $target_file = $upload_dir . $generatedFileName;   
 
@@ -561,6 +563,19 @@ class CommonController extends CI_Controller {
 		return 'file removed';
 
 	}
+
+
+	public function deleteProjectImages($client_id, $company_id, $file){ 
+		
+		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/'.$client_id.'/'.$company_id.'/projects/';
+		
+		unlink($upload_dir.''.$file); 
+		unlink($upload_dir.'thumb/'.$file); 
+
+		return 'file removed';
+
+	}
+
 
 
 
