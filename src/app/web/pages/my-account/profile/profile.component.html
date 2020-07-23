@@ -71,7 +71,7 @@
                         </ul>
                         
                     </div> 
-                    <button mat-button class="btn btn-primary share-fb" (click)="share()"><i class="icon-facebook"></i> Share</button>
+                    <button *ngIf="isBgImage && isProfImage" mat-button class="btn btn-primary share-fb" (click)="share()"><i class="icon-facebook"></i> Share</button>
                     <!-- <button mat-button class="btn btn-primary-transparent edit-profile" *ngIf="!profile.profile_editable">Publish</button> -->
                 </div>
         

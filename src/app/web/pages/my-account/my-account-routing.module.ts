@@ -4,7 +4,9 @@ import { AuthGuardService as AuthGuard  } from '../../../admin/auth/frontend/aut
 import { MyAccountComponent } from './my-account.component';
 
 const routes: Routes = [
-  { path: 'user/:id/:provider_id', component: MyAccountComponent, canActivate: [AuthGuard] , 
+  
+
+  { path: 'user/:user', component: MyAccountComponent, canActivate: [AuthGuard] , 
     children: [ 
       { path: 'about', loadChildren: () => import('../my-account/about/about.module').then(m => m.AboutModule) }, 
 	    { path: 'projects', loadChildren: () => import('../my-account/projects/projects.module').then(m => m.ProjectsModule) },
@@ -17,9 +19,9 @@ const routes: Routes = [
       { path: 'edit/contact-info', loadChildren: () => import('../my-account/contact-info/contact-info.module').then(m => m.ContactInfoModule) },
       
     ] 
-  }, 
-  
-  { path: '', redirectTo: 'user/me/0/about', canActivate: [AuthGuard], loadChildren: () => import('../my-account/user/user.module').then(m => m.UserModule) },
+  },   
+ 
+  { path: '', redirectTo: 'user/me/about', canActivate: [AuthGuard], loadChildren: () => import('../my-account/user/user.module').then(m => m.UserModule) },
   
 ];
 

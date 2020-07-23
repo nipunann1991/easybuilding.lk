@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { environment } from "../../../../../environments/environment";
 import { HttpClient } from '@angular/common/http';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop'; 
-import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
+import { ProfileService } from "../../../../admin/api/frontend/profile.service";
+import { MyAccountService } from '../../../../admin/api/frontend/my-account.service'; 
 import { ModalManager } from 'ngb-modal';
 import { ImageCroppedEvent, Dimensions, ImageTransform } from 'ngx-image-cropper';
 import { FileSaverService, } from 'ngx-filesaver'; 
@@ -62,6 +63,7 @@ export class ProfileComponent implements OnInit {
     private myaccount: MyAccountService,
     private toastr: ToastrService, 
     private globals: Globals,
+    private ps: ProfileService,
     private router: Router,
     private modalService: ModalManager,
     private httpClient: HttpClient,
@@ -98,40 +100,46 @@ export class ProfileComponent implements OnInit {
 
   ngOnChanges(){
 
-    this.profile = this.profileData;
-    this.ClientId = this.profileData.client_id;
-    this.companyId = this.profileData.company_id;
-    this.coverImage = this.profileData.cover_img;
-    this.profileImage = this.profileData.profie_image;
-    this.isEditable = this.profileData.is_editable_btn;
-    this.userEmail = this.profileData.email;
+    this.ps.userProfileData.subscribe(data => {
+      this.profileData = data;   
+      this.profile = this.profileData;
+      this.ClientId = this.profileData.client_id;
+      this.companyId = this.profileData.company_id;
+      this.coverImage = this.profileData.cover_img;
+      this.profileImage = this.profileData.profie_image;
+      this.isEditable = this.profileData.is_editable_btn;
+      this.userEmail = this.profileData.email;
 
-    //this.globals.token.company_id = this.companyId;
-    //localStorage.setItem("token", JSON.stringify( this.globals.token )); 
+      //this.globals.token.company_id = this.companyId;
+      //localStorage.setItem("token", JSON.stringify( this.globals.token )); 
 
-    if(this.profileData.cover_img === '' ){
-      this.isBgImage = false;
+      if(this.profileData.cover_img === '' ){
+        this.isBgImage = false;
 
-    }else{ 
-      this.bgImage = 'url('+ environment.uploadPath + this.ClientId + '/'+ this.companyId + '/'+ this.coverImage +')' ; 
-      this.isBgImage = true;
-      
-    }  
+      }else{ 
+        this.bgImage = 'url('+ environment.uploadPath + this.ClientId + '/'+ this.companyId + '/'+ this.coverImage +')' ; 
+        this.isBgImage = true;
+        
+      }  
 
-    if(this.profileData.profie_image === '' ){
-      this.isProfImage = false; 
+      if(this.profileData.profie_image === '' ){
+        this.isProfImage = false; 
 
-    }else{ 
-      this.profImage = 'url('+ environment.uploadPath + this.ClientId + '/'+  this.companyId + '/'+ this.profileImage +')' ;
-      this.isProfImage = true; 
+      }else{ 
+        this.profImage = 'url('+ environment.uploadPath + this.ClientId + '/'+  this.companyId + '/'+ this.profileImage +')' ;
+        this.isProfImage = true; 
 
-    }  
+      }  
 
-    if(this.profile.display_name !== ""){
-      this.isDisplayNameNull = false;
-    }else{
-      this.isDisplayNameNull = true;
-    }
+      if(this.profile.display_name !== ""){
+        this.isDisplayNameNull = false;
+      }else{
+        this.isDisplayNameNull = true;
+      }
+  
+     });
+
+    
 
   }
  
@@ -457,7 +465,7 @@ validateFile(file){
   editProfile(){
     this.isEditable = true;
     this.isProfileEditable.emit(true); 
-    this.router.navigate(['/my-account/user/me/0/edit/account-info']);
+    this.router.navigate(['/my-account/user/me/edit/account-info']);
   }
 
 

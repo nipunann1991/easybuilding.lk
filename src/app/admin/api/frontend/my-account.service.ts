@@ -20,7 +20,7 @@ export class MyAccountService {
     if( this.token == null){
       this.token = JSON.parse(localStorage.getItem('tokenAdmin'));
     }
-    return this.http.get(environment.baseUrl+'ProfileController/getCustomProfileDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id+'&client_id='+params.client_id+'&provider_id='+params.provider_id);
+    return this.http.get(environment.baseUrl+'ProfileController/getCustomProfileDetails?client_id='+params.client_id+'&provider_id='+params.provider_id);
   }
 
   getAccountDetails(){  
@@ -52,7 +52,7 @@ export class MyAccountService {
       fromObject : postVals
     }); 
     
-    return this.http.post(environment.baseUrl+'ProfileController/getServiceCitiesByCompany?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+    return this.http.post(environment.baseUrl+'ProfileController/getServiceCitiesByCompany', params);
   }
 
   getServiceDistrictsByCompany(postVals){   
@@ -61,7 +61,7 @@ export class MyAccountService {
       fromObject : postVals
     }); 
     
-    return this.http.post(environment.baseUrl+'ProfileController/getServiceDistrictsByCompany?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+    return this.http.post(environment.baseUrl+'ProfileController/getServiceDistrictsByCompany', params);
   }
 
 
@@ -71,7 +71,7 @@ export class MyAccountService {
       fromObject : postVals
     }); 
     
-    return this.http.post(environment.baseUrl+'ProfileController/getServics?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+    return this.http.post(environment.baseUrl+'ProfileController/getServics', params);
   }
  
 
@@ -81,7 +81,7 @@ export class MyAccountService {
       fromObject : postVals
     }); 
     
-    return this.http.post(environment.baseUrl+'ProfileController/getProjectDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+    return this.http.post(environment.baseUrl+'ProfileController/getProjectDetails', params);
   }
 
   
@@ -92,12 +92,12 @@ export class MyAccountService {
       fromObject : postVals
     }); 
     
-    return this.http.post(environment.baseUrl+'ProfileController/getMinimalProjectDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+    return this.http.post(environment.baseUrl+'ProfileController/getMinimalProjectDetails', params);
   }
 
   getContactDetails(){  
      
-    return this.http.get(environment.baseUrl+'ProfileController/getContactDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+    return this.http.get(environment.baseUrl+'ProfileController/getContactDetails');
   }
   
   updateProfileDetails(postVals){ 

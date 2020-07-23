@@ -4,27 +4,8 @@
     <div class="desc" [innerHTML]="profileData.description"></div>
   </div>
   <div class="project-data block">
-    <h3>Project</h3>
-    <app-projects></app-projects>
-    <!-- <div *ngFor="let p of project" class="project-block" routerLink="/my-account/projects/view-project/{{companyId}}/{{p.project_id}}">
-      <div class="project-img" [ngStyle]="{'background-image': 'url('+ imageURL + p.primary_img +')'}">
-        <a routerLink="/my-account/projects/edit-project/{{companyId}}/{{p.project_id}}" class="edit-project"><i class="icon-pencil"></i></a>
-      </div> 
-      <div class="project-content">
-         <h3>{{p.project_name}}</h3> 
-         <ul>
-           <li class="year" title="Project Year">{{p.project_year}}</li>
-           <li class="photos" title="Project Total Photos">{{p.total_imgs}}</li>
-         </ul>  
-      </div>
-    </div>
-    <div class="add-new-project" routerLink="/my-account/user/me/0/{{companyId}}/upload-project">
-      <div class="inner">
-        <span class="plus"></span>
-        <h3>Add New Project</h3>
-      </div>
-    </div> -->
-    <!-- <p><i>No project available.</i></p> -->
+    <h3>Projects</h3>
+    <app-projects itemLimit="5"></app-projects> 
     <div class="clearfix"></div>
   </div>
   <div class="about-data block last">

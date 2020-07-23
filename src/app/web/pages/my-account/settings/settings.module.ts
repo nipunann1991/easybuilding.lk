@@ -10,6 +10,7 @@ import { SettingsComponent } from './settings.component';
   imports: [
     CommonModule,
     SettingsRoutingModule
-  ]
+  ],
+  exports: [SettingsComponent]
 })
 export class SettingsModule { }

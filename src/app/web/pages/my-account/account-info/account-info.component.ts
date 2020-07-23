@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router,ActivatedRoute,  NavigationEnd } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
+import { ProfileService } from "../../../../admin/api/frontend/profile.service";
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
@@ -27,13 +28,15 @@ export class AccountInfoComponent implements OnInit {
 
   constructor(
     private myaccount: MyAccountService,
+    private pf: ProfileService,
     private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-
+     
+    
     this.formGroup = new FormGroup({ 
       first_name: new FormControl({value:'', disabled: true}, [
         Validators.required,
@@ -109,14 +112,14 @@ export class AccountInfoComponent implements OnInit {
       this.formGroup.value.client_id = this.clientId;
       this.formGroup.value.company_id = this.companyId;
       this.formGroup.value.prof_category = parseInt(this.formGroup.value.prof_category); 
-      
+     
       this.myaccount.updateProfileDetails(this.formGroup.value)
         .subscribe((response: any) => {
 
           if (response.status == 200) {
             if( !this.isStepsForm ){
               this.toastr.success('Information saved successfully', 'Success !');  
-              this.router.navigate(['/my-account/user/me/0/about']);
+              this.router.navigate(['/my-account']);
             }else{ 
               this.router.navigate(["../contact-info"], { relativeTo: this.route.parent });
             }

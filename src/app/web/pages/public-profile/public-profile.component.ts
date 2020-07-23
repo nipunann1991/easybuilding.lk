@@ -9,12 +9,12 @@ import { environment } from "../../../../environments/environment";
 import { map, filter } from "rxjs/operators";
 
 @Component({
-  selector: 'app-my-account',
-  templateUrl: './my-account.component.html',
-  styleUrls: ['./my-account.component.scss'],
+  selector: 'app-public-profile',
+  templateUrl: './public-profile.component.html',
+  styleUrls: ['../my-account/my-account.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class MyAccountComponent implements OnInit {
+export class PublicProfileComponent implements OnInit {
 
   @Input() getRouterParams: any = {};
   isEditableMode: boolean = false;
@@ -29,7 +29,7 @@ export class MyAccountComponent implements OnInit {
   baseurl = "/my-account/user/me/";
   baseurlEdit = this.baseurl+"/edit/";
   _routeListener: any;
-  x: any;
+
   constructor(
     private oauth: OAuth,
     private auth: Auth,
@@ -38,17 +38,16 @@ export class MyAccountComponent implements OnInit {
     private myaccount: MyAccountService,
     private profile: ProfileService,
     private route: ActivatedRoute
-
-  ) {  
+  ) { 
  
+
     this._routeListener = this.router.events.subscribe((event) => {
        
       if (event instanceof NavigationEnd) {   
 
-        this.isFullScreen = false;
-
-        if(event.url === environment.profileUrl){  
-         // window.scroll(0,0); 
+          this.isFullScreen = false;
+ 
+        if(event.url === environment.profileUrl){   
           this.isEditableMode = false;
           let params = {user: 'me'};  
           this.getProfileDetails(params);  
@@ -62,12 +61,12 @@ export class MyAccountComponent implements OnInit {
             let params = {user: 'me' };  
             this.getProfileDetails(params);  
 
-          }else{
-
-            if((event.url.indexOf('/view-project/') > -1 ) || (event.url.indexOf('/edit-project/') > -1 )){
+          }else{ 
+            
+            if(event.url.indexOf('/view-project/') > -1 ){
               this.isFullScreen = true;
             }
-            
+
             this.isEditableMode = false; 
             this.profileData.is_editable_btn = false;
             
@@ -75,16 +74,12 @@ export class MyAccountComponent implements OnInit {
         }  
       }
     });
-     
+
   }
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void { 
 
-    // this.profile.view.subscribe(res => {
-    //   this.isFullScreen = res 
-    // })
-     
+    
   
     this.navItems = [
       { title: "Home", url: this.baseurl+"about", icon: ""},
@@ -107,9 +102,9 @@ export class MyAccountComponent implements OnInit {
       this.getProfileDetails(this.getRouterParams);  
       
     } 
-    
+
+  
   }
- 
  
   ngOnDestroy() { 
     this._routeListener.unsubscribe();
@@ -120,23 +115,25 @@ export class MyAccountComponent implements OnInit {
   }
  
   getProfileDetails(routeParams){ 
-     
-      this.isPublicProfile = false;
+      
+    let params = {client_id: routeParams.user, provider_id: routeParams.provider_id }
 
-      this.myaccount.getProfileDetails() 
-        .subscribe((response: any) => {
-          if (response.status == 200) {
-            
-            this.profileData = response.data[0];    
-            this.profileData.profile_editable = true;
-            this.profileData.is_editable_btn = false; 
-            this.profile.setProfileData(this.profileData);
-            
-            this.getOtherProfileRelatedData();
-            
-          } 
-            
-        }); 
+    this.myaccount.getCustomProfileDetails(params) 
+      .subscribe((response: any) => {
+        if (response.status == 200 && response.data.length > 0 ) { 
+          this.profileData = response.data[0];   
+          this.profileData.profile_editable = false;
+          this.isPublicProfile = true; 
+          this.profile.setProfileData(this.profileData); 
+       
+          this.getOtherProfileRelatedData();
+
+        }else{
+          //this.router.navigate(['/my-account/user/me/0']);
+        }
+          
+      }); 
+     
     
   }
 

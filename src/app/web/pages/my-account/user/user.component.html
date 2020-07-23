@@ -1,43 +1,4 @@
  <div class="container-fluid animated fadeIn">
-    <div class="row">
-        <div class="left-block"> 
-            <div class="item"> 
-                <h3>Contact Details</h3>
-                <ul>
-                    <li class="address">
-                        {{profile.address_line1}} {{profile.address_line2}} {{profile.city}}
-                    </li>
-                    <li class="tel">{{profile.tel1}}</li>
-                    <li class="email">{{profile.email}}</li>
-                </ul>
-            </div>
-            <div class="item"> 
-                <h3>Awards</h3>
-                <p><i>No awards yet.</i></p>
-            </div>
-        </div>
-        <div class="right-block">
-
-            <div class="item">
-                <h3>About</h3>
-                <div  *ngIf="profile.description == '' ">
-                    <p><i>Add a description about your business.</i></p>
-                </div>
-                <div [innerHTML]="profile.description"></div>
-            </div>
-
-            <div class="item"> 
-                <h3>Services Provided</h3>
-                <p><i>No services yet.</i></p>
-            </div>
-
-            <div class="item"> 
-                <h3>Areas Served</h3>
-                <p><i>No services areas yet.</i></p>
-            </div>
-            
-           
-            
-        </div>
-    </div>
- </div>
+     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam eligendi unde delectus distinctio odit accusamus ipsa esse, impedit similique aliquid nisi perspiciatis voluptatem fugiat natus eaque assumenda totam? Labore, eius!</p>
+    <app-settings></app-settings>
+</div>

@@ -12,6 +12,7 @@ import { ProjectsModule } from '../projects/projects.module';
     CommonModule,
     AboutRoutingModule,
     ProjectsModule
-  ]
+  ],
+  exports: [AboutComponent]
 })
 export class AboutModule { }

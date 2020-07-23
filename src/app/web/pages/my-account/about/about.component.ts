@@ -1,6 +1,8 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { Router, ActivatedRoute, ActivationStart ,  RoutesRecognized,  NavigationEnd } from '@angular/router';
 import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
+
+import { ProfileService } from "../../../../admin/api/frontend/profile.service";
 import { Globals } from "../../../../app.global";
 import { environment } from "../../../../../environments/environment";
 
@@ -12,109 +14,62 @@ import { environment } from "../../../../../environments/environment";
 })
 export class AboutComponent implements OnInit {
 
+  @Input() itemLimit: string;
+
   profileData: any = {};
   companyId: any = "";
   clientId: any = "";
   project: any = "";
 
   imageURL: string = "";
+  isPrevEdit: boolean = false;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private myaccount: MyAccountService,
+    private profile: ProfileService,
     private globals: Globals,
-  ) { }
+  ) { 
+
+   
+    
+  }
 
   ngOnInit(): void {
 
-    window.scroll(0,0); 
-    let params = {id: 'me', provider_id: 0 };
-    this.getProfileDetails(params);  
-    
-  }
+    this.profile.userProfileData.subscribe(data => {
+      this.profileData = data; 
+      console.log("data", data)
+    });
+
+    this.profile.setfullScreenView(false);  
+
+    if(this.profile.getPreviousUrl().indexOf('/me/edit/') > -1){
+      this.getProfileDetails();   
+    }
+
+   
+  } 
 
 
-  getProfileDetails(routeParams){  
-
-    if(routeParams.id== 'me' && routeParams.provider_id == "0" ){
-
-
-      const promise = new Promise((resolve, reject) => { 
+  getProfileDetails(){ 
       
-        this.myaccount.getProfileDetails()
-          .toPromise()
-          .then((response: any) => {
-            
-            if (response.status == 200) {  
-              
-              this.profileData = response.data[0];    
-              this.profileData.profile_editable = true;
-              this.profileData.is_editable_btn = false; 
-              this.clientId  = this.profileData.client_id;  
-              this.companyId = this.profileData.company_id;  
-
-              this.imageURL = environment.uploadPath + this.clientId +'/'+ this.companyId +'/projects/thumb/';
-              
-              this.getMinimalProjectDetails( this.companyId );
-
-            }else{
-
-                
-            } 
-
-              resolve();
-          },
-            err => { 
-              reject(err);
-            }
-
-          );
-
-      });
- 
-
-    }else{
-
-      let params = {client_id: routeParams.id, provider_id: routeParams.provider_id }
-
-      this.myaccount.getCustomProfileDetails(params) 
-        .subscribe((response: any) => {
-          if (response.status == 200 && response.data.length > 0 ) {
-            
-            this.profileData = response.data[0];   
-            this.profileData.profile_editable = false;
-            
-
-          }else{
-            
-          }
-            
-        });
-
-    } 
-    
-  }
-
-
-  getMinimalProjectDetails(company_id){
-
-    let params = { company_id: company_id }
-
-    this.myaccount.getMinimalProjectDetails(params) 
+    this.myaccount.getProfileDetails() 
       .subscribe((response: any) => {
-        if (response.status == 200 && response.data.length > 0 ) {
+        if (response.status == 200) {
           
-          console.log( response.data ) 
-
-          this.project = response.data
-
-        }else{
+          this.profileData = response.data[0];    
+          this.profileData.profile_editable = true;
+          this.profileData.is_editable_btn = false; 
+          this.profile.setProfileData(this.profileData);
           
-        }
+         // this.getOtherProfileRelatedData();
           
-      });
-
-  }
+        } 
+          
+      }); 
+  
+}
 
 }

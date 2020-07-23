@@ -1,6 +1,6 @@
-<div *ngFor="let p of project" class="project-block" routerLink="/my-account/projects/view-project/{{companyId}}/{{p.project_id}}">
+<div *ngFor="let p of project" class="project-block" routerLink="view-project/{{companyId}}/{{p.project_id}}">
   <div class="project-img" [ngStyle]="{'background-image': 'url('+ imageURL + p.primary_img +')'}">
-    <a routerLink="/my-account/projects/edit-project/{{companyId}}/{{p.project_id}}" class="edit-project"><i class="icon-pencil"></i></a>
+    <a *ngIf="isEdit" routerLink="edit-project/{{companyId}}/{{p.project_id}}" class="edit-project"><i class="icon-pencil"></i></a>
   </div> 
   <div class="project-content">
      <h3>{{p.project_name}}</h3> 
@@ -10,7 +10,7 @@
      </ul>  
   </div>
 </div>
-<div class="add-new-project" *ngIf="isEdit" routerLink="/my-account/user/me/0/{{companyId}}/upload-project">
+<div class="add-new-project" *ngIf="isEdit" routerLink="/my-account/user/me/projects/upload-project/{{companyId}}">
   <div class="inner">
     <span class="plus"></span>
     <h3>Add New Project</h3>

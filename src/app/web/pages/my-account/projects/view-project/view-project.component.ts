@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ActivationStart ,  RoutesRecognized,  NavigationEnd } from '@angular/router';
 import { MyAccountService } from '../../../../../admin/api/frontend/my-account.service';
+import { ProfileService } from "../../../../../admin/api/frontend/profile.service";
 import { environment } from "../../../../../../environments/environment";
 
 @Component({
@@ -22,13 +23,17 @@ export class ViewProjectComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private myaccount: MyAccountService,
-  ) { }
+    private profile: ProfileService,
+  ) { 
+    this.profile.setfullScreenView(true);
+  }
 
   ngOnInit(): void {
     window.scroll(0,0); 
     this.companyID = this.route.snapshot.params.company_id;
     this.projectID = this.route.snapshot.params.project_id; 
     this.getProjectDetails(this.companyID, this.projectID);
+     
   }
 
   getProjectDetails(company_id, project_id){
@@ -37,10 +42,8 @@ export class ViewProjectComponent implements OnInit {
 
     this.myaccount.getProjectDetails(params) 
       .subscribe((response: any) => {
-        if (response.status == 200 && response.data.length > 0 ) {
-          
-          console.log( response.data[0] ) 
-
+        if (response.status == 200 && response.data.length > 0 ) { 
+         
           this.projectData = response.data[0];
           this.projectImages = JSON.parse(response.data[0].images);
           this.clientId = response.data[0].client_id;
@@ -48,6 +51,7 @@ export class ViewProjectComponent implements OnInit {
           this.imageURLThumb = environment.uploadPath + this.clientId +'/'+ this.companyID +'/projects/thumb/';
 
           this.mainImg = this.imageURL + response.data[0].primary_img;
+        
           
 
         }else{
@@ -63,7 +67,7 @@ export class ViewProjectComponent implements OnInit {
     
   }
 
-  goBack(){
+  goBack(){ 
     window.history.back();
   }
 

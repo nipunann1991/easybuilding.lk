@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop'; 
 import { ImageCroppedEvent, Dimensions, ImageTransform } from 'ngx-image-cropper';
 import { MyAccountService } from '../../../../../admin/api/frontend/my-account.service';
+import { ProfileService } from "../../../../../admin/api/frontend/profile.service";
 import { environment } from "../../../../../../environments/environment";
 import * as $ from 'jquery';
 declare const bootbox:any;
@@ -38,13 +39,16 @@ export class EditProjectComponent implements OnInit {
   constructor(
     private myaccount: MyAccountService,
     private toastr: ToastrService,  
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private profile: ProfileService,
   ) { }
 
   ngOnInit(): void {
 
     window.scroll(0,0);  
 
+    this.profile.setfullScreenView(true);
+    
     this.formGroup = new FormGroup({ 
 
       project_name: new FormControl('',[
