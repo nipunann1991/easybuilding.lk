@@ -64,7 +64,7 @@ export class MyAccountComponent implements OnInit {
 
           }else{
 
-            if((event.url.indexOf('/view-project/') > -1 ) || (event.url.indexOf('/edit-project/') > -1 )){
+            if((event.url.indexOf('/view-project/') > -1 ) || (event.url.indexOf('/edit-project/') > -1 ) || (event.url.indexOf('/upload-project/') > -1 )){
               this.isFullScreen = true;
             }
             

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 14, 2020 at 08:32 PM
+-- Generation Time: Jul 25, 2020 at 06:57 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -460,9 +460,9 @@ CREATE TABLE IF NOT EXISTS `client_company` (
 --
 
 INSERT INTO `client_company` (`company_id`, `client_id`, `display_name`, `description`, `website`, `br_no`, `email`, `address_line1`, `address_line2`, `city`, `tel1`, `tel2`, `profie_image`, `cover_img`, `prof_category`, `verified_email`, `verify_code`, `steps`, `parent`, `all_island`, `service`, `service_areas`, `service_dist`, `services`) VALUES
-(1, 66, 'Dubai Homes', '<p>Best of Houzz 2012-2020 | With locations in Minnesota and Texas, we work with homeowners from coast to coast to design and furnish their interiors. Contact us today for more information! Martha O’Hara Interiors designs beautiful spaces with the goal of connecting life and style. Finding that enviable mix of style and warmth that exudes your true aesthetic and sticks to your budget - it\'s what we do best! Whether you are building, remodeling, or updating your furniture, our award-winning team will create an interior that is tailored to your tastes and lifestyle. With locations in Minnesota and Texas, we work with homeowners and building professionals from coast to coast.</p>', 'https://oozmm.com', 'PV263644577', 'info@n3holdings.com', '275A Colombo Road', 'Kidagammulla', 'Gampaha', '033-2228887', '071-6378515', '1593686608blob.jpg', '1592629830blob.jpg', 1, 0, 0, 4, 0, 0, 0, 0x5b2231323734222c2231303735222c2231303734222c2237222c2231303733222c2231303732222c2231303739225d, 0x5b5d, 0x5b22434c3231303134222c22434c3231303131222c22434c3231303232225d),
+(1, 66, 'Dubai Homes', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non</p><p>proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', 'https://oozmm.com', 'PV263644577', 'info@n3holdings.com', '275A Colombo Road  ', 'Kidagammulla', 'Gampaha', '033-2228887', '071-6378515', '1594828893blob.jpg', '1595390456blob.jpg', 1, 0, 0, 4, 0, 0, 0, 0x5b5d, 0x5b2236222c2238222c223130225d, 0x5b22434c3231303135222c22434c3231303137225d),
 (3, 68, 'Test Holdings', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p><p>tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p><p>quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p><p>consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse</p><p>cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non</p><p>proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '', 'nipunann0710@gmail.com', '275A Colombo Road, KIdagammulla', '', 'Gampaha', '0716378515', '', '', '', 1, 0, 0, 4, 0, 0, 0, 0x5b2231323233225d, '', ''),
-(2, 67, 'JAT Living', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '', 'info@jatliving.lk', '141 Danister De Silva Mw,', 'Orion City,', 'Colombo 09', '0112589963', '', '', '', 1, 0, 0, 4, 0, 0, 0, 0x5b2231303731222c2231303438222c2231303432225d, '', '');
+(2, 67, 'JAT Living', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '', 'info@jatliving.lk', '141 Danister De Silva Mw,', 'Orion City,', 'Colombo 09', '0112589963', '', '1595702942blob.jpg', '', 1, 0, 0, 4, 0, 0, 0, 0x5b2231303731222c2231303438222c2231303432225d, '', '');
 
 -- --------------------------------------------------------
 
@@ -557,16 +557,47 @@ CREATE TABLE IF NOT EXISTS `project` (
   `primary_img` varchar(1000) NOT NULL,
   `total_imgs` int(11) NOT NULL,
   PRIMARY KEY (`project_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `project`
 --
 
 INSERT INTO `project` (`project_id`, `project_name`, `project_description`, `project_year`, `project_cost`, `project_address`, `company_id`, `images`, `primary_img`, `total_imgs`) VALUES
-(13, 'Living Room Concepts', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iste hic, mollitia dolorem unde voluptatibus explicabo consectetur dicta eius sapiente aliquam? Corrupti, velit temporibus! Voluptates, eius error eaque quos quis maiores', '2019', '1M', '', 1, 0x5b2231353934373237323432696d616765735f345f2e6a7067222c2231353934373237323432696d616765735f335f2e6a7067222c22313539343732373234326261642d6c6976696e672d726f6f6d2d636c65616e696e672d6861626974732e6a7067222c22313539343732373234324d6f6465726e2d4c6976696e67726f6f6d2d362e6a7067225d, '1594727242images_4_.jpg', 4),
-(12, 'Malabe Housing Project', 'Malabe Housing Project Malabe Housing Project Malabe Housing Project', '2019', '3.5M', '', 1, 0x5b2231353934363635383839696d616765735f325f2e6a7067222c22313539343636353838393232363231363138362e6a7067222c22313539343636353838394e6f726d616e746f6e2d4176656e75652d332d3136303078313036382e6a7067222c22313539343636353838396c616b652d686f7573652d696e2d6173636f6e612d62792d77657370692d64652d6d6575726f6e2d726f6d656f2d617263686974656374732d3035312e6a7067225d, '1594665889images_2_.jpg', 4),
-(11, 'Mr Anil\'s Kitchen', 'Reliable, Trustworthy and committed Contractor who will be able to build house construction as per architectural requirements', '2020', '1M', '', 1, 0x5b223135393431353333393832323962393238656135623837643138393863616530613062636234383166382e6a7067222c2231353934313533333939696d616765732e6a7067222c223135393431353333393835666537376437323530663962613930353431653865356433316534346564652e6a7067222c223135393431353333393836616264326134613334313637653531356162383765363536323435383838622e6a7067222c223135393431353334313036616264326134613334313637653531356162383765363536323435383838622e6a7067222c2231353934363635353236696d616765735f315f2e6a7067225d, '1594153398229b928ea5b87d1898cae0a0bcb481f8.jpg', 6);
+(31, 'Katunayaka Airport Project', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. \n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '2020', '10B', '', 2, 0x5b22313539353730323733327765625f4368616e67692d54342d53696e6761706f72652d332d48522d4372656469742d42656e6f792e6a7067222c22313539353730323733387765625f4368616e67692d54342d53696e6761706f72652d312d48522d4372656469742d42656e6f792e6a7067222c22313539353730323833377765625f4368616e67692d54342d53696e6761706f72652d382d48522d4372656469742d42656e6f792e6a7067222c22313539353730333335337765625f4368616e67692d54342d53696e6761706f72652d372d48522d4372656469742d42656e6f792e6a7067225d, '1595702732web_Changi-T4-Singapore-3-HR-Credit-Benoy.jpg', 4),
+(29, 'Kitchen Projects', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '2019', '1M', '', 1, 0x5b223135393537303230313632323962393238656135623837643138393863616530613062636234383166382e6a7067222c223135393537303230313635666537376437323530663962613930353431653865356433316534346564652e6a7067222c223135393537303230313636616264326134613334313637653531356162383765363536323435383838622e6a7067225d, '1595702016229b928ea5b87d1898cae0a0bcb481f8.jpg', 3),
+(30, 'Homagama Housing Project', 'Homagama Housing Project', '2020', '30M', '', 1, 0x5b22313539353730323133313232363231363138362e6a7067222c22313539353730323133314e6f726d616e746f6e2d4176656e75652d332d3136303078313036382e6a7067222c22313539353730323133316c616b652d686f7573652d696e2d6173636f6e612d62792d77657370692d64652d6d6575726f6e2d726f6d656f2d617263686974656374732d3035312e6a7067225d, '1595702131226216186.jpg', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `project_images`
+--
+
+DROP TABLE IF EXISTS `project_images`;
+CREATE TABLE IF NOT EXISTS `project_images` (
+  `img_id` int(11) NOT NULL AUTO_INCREMENT,
+  `project_id` int(11) NOT NULL,
+  `file_name` varchar(1000) NOT NULL,
+  `description` varchar(1500) NOT NULL,
+  PRIMARY KEY (`img_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `project_images`
+--
+
+INSERT INTO `project_images` (`img_id`, `project_id`, `file_name`, `description`) VALUES
+(59, 31, '1595702837web_Changi-T4-Singapore-8-HR-Credit-Benoy.jpg', ''),
+(58, 31, '1595702738web_Changi-T4-Singapore-1-HR-Credit-Benoy.jpg', ''),
+(60, 31, '1595703353web_Changi-T4-Singapore-7-HR-Credit-Benoy.jpg', ''),
+(56, 31, '1595702732web_Changi-T4-Singapore-3-HR-Credit-Benoy.jpg', ''),
+(48, 29, '1595702016229b928ea5b87d1898cae0a0bcb481f8.jpg', ''),
+(49, 29, '15957020165fe77d7250f9ba90541e8e5d31e44ede.jpg', ''),
+(50, 29, '15957020166abd2a4a34167e515ab87e656245888b.jpg', ''),
+(52, 30, '1595702131226216186.jpg', ''),
+(53, 30, '1595702131Normanton-Avenue-3-1600x1068.jpg', ''),
+(54, 30, '1595702131lake-house-in-ascona-by-wespi-de-meuron-romeo-architects-051.jpg', '');
 
 -- --------------------------------------------------------
 
@@ -601,16 +632,15 @@ CREATE TABLE IF NOT EXISTS `services_list` (
   `cat_lvl2_id` varchar(100) NOT NULL,
   `company_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `services_list`
 --
 
 INSERT INTO `services_list` (`id`, `cat_lvl2_id`, `company_id`) VALUES
-(1, 'CL21014', 1),
-(2, 'CL21011', 1),
-(3, 'CL21022', 1);
+(23, 'CL21017', 1),
+(22, 'CL21015', 1);
 
 -- --------------------------------------------------------
 
@@ -624,7 +654,7 @@ CREATE TABLE IF NOT EXISTS `service_areas` (
   `city_id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=129 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=148 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `service_areas`
@@ -633,14 +663,7 @@ CREATE TABLE IF NOT EXISTS `service_areas` (
 INSERT INTO `service_areas` (`id`, `city_id`, `company_id`) VALUES
 (1, 1071, 2),
 (2, 1048, 2),
-(3, 1042, 2),
-(128, 1079, 1),
-(127, 1072, 1),
-(126, 1073, 1),
-(125, 7, 1),
-(124, 1074, 1),
-(123, 1075, 1),
-(122, 1274, 1);
+(3, 1042, 2);
 
 -- --------------------------------------------------------
 
@@ -654,7 +677,16 @@ CREATE TABLE IF NOT EXISTS `service_districts` (
   `district_id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `service_districts`
+--
+
+INSERT INTO `service_districts` (`id`, `district_id`, `company_id`) VALUES
+(47, 10, 1),
+(46, 8, 1),
+(45, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -704,8 +736,8 @@ CREATE TABLE IF NOT EXISTS `user_sessions` (
 INSERT INTO `user_sessions` (`session_id`, `client_id`, `auth_token`, `password`) VALUES
 (49, 68, 'ya29.a0AfH6SMBOtHqXoOMrDPi0KQBpa_kH4zb_BblRmBGas0Mm2PyMhnB01FaSW-TBa8iijdnJRsRV8fu2ziBml-tHqYuimqr97-JbnUP6Miw2IlMWiDuxzW9Xx7hoKVy42DHHWLcgTMDskZHv7eCNo1xnMgq9-J2L-xV52Aom1A', ''),
 (50, 69, 'EAAlrbREIkZCkBADIzYv4TSZC9sqnIwzMgKM7lYQCYFvlatZB53BcU6h61OWTfAiPZAZCGAC8MEwkmgLxZBYONS17uVUlYPSL7KFq7tU6i9hc0sggFdUPndHFrcZASazH1JfOtlyunu5tI6EZBGjE454ikaCEpsYM2ZBlmZCEhZAMRp31e2HmaFAZANf93yNZBgabg2rP5lFW4KddRp4Oac8PKgzy4', ''),
-(48, 67, 'ya29.a0AfH6SMDXG1umKIPgSZI9I6yRwt3jnALF3zgdnvehalcxiDciLlk0GsDM4b61uG4eYsfFXxgG7tAh2OpDdprxXbGidaguowME5euXLE8zgE4LgWXjqEAxk_ULqCVg-F-L9YcSZj7Y0J7lduv1EaIn17IeCCni6t_8omsbcA', ''),
-(47, 66, 'EAAlrbREIkZCkBANFVZCZC4KBodsg0MLrBa0LxAHqogvkXpEL0ZCzfSivvnaPocbhB5AKbytZAOpJJZAaPhyjXBR0THfVQf9eDVphVLQ90myGA8guANo6wr8noJtJRTFVTYgIYcZCB1GuhENugti14unBQm7KxXoJTD3kwsGAHZCMkYpGbFO5yezAsXPfe7Oj8U54gCmeC70uOlluWrMCq8FD', ''),
+(48, 67, 'ya29.a0AfH6SMAaQJbi5lmSsTKq0imdXZqcdQdahfLW97vsofG__8TV34hWbZ1Y0Q6YmkIYhh6Nk8xu5fgCKigtIwdQzGYUioJ8MgeT3hb2vchTL3kVp4QXsiux000yKHIIxK5Ym-vHr5DL6PxF2YQ5-4enmlEaKvcC_AC8BGt5LQ', ''),
+(47, 66, 'EAAlrbREIkZCkBAMFFHsZAATdOvZBWg74GAuKfLggHdwQR4qOxRquqIBCRK8kNn2izXElxBYot6KF4DuvfBVeyRZAMK4T5ZCIdAutRiB1qNAbNjoZCu46LsbIIDIdXOved1MGgnhzmz1xhhjkSX0YkkWrZC9RywTLhCWMQn0gytTZBWr41I0zvZA3aeZAuhOChITEzvONZCsovDQsUSZAyM6QFHez', ''),
 (46, 65, 'EAAlrbREIkZCkBAOHVjjUZCBewHTfKUnqDc56JFkG7bKHsi9GQhxZCrm9tUY4ZBYg76zZB2xZC99j22HoU0AGkPOJuW0IxZAVd4hI96l4oQtG4saG6STgGKiCZCtvhPO5kGsMZAJYkdwpnpeQqFThhDFZCiZB5QarXXswuA4tXLyTdYQ1G01EAv25mS0ZA1eYTSJu6P8m7N8l9zuypCpY4T2roZBs3', '');
 COMMIT;
 

@@ -107,11 +107,12 @@ export class EditProjectComponent implements OnInit {
           formData.append('file', file);
           formData.append('name', file.name);  
           formData.append('company_id', this.companyID)
+          formData.append('project_id', this.projectID)
           
 
           const promise = new Promise((resolve, reject) => { 
     
-          this.myaccount.uploadProjectImages(formData)
+          this.myaccount.uploadProjectImagesOnEdit(formData)
               .toPromise()
               .then((response: any) => {
                 

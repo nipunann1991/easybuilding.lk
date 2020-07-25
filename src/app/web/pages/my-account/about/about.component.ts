@@ -39,8 +39,7 @@ export class AboutComponent implements OnInit {
   ngOnInit(): void {
 
     this.profile.userProfileData.subscribe(data => {
-      this.profileData = data; 
-      console.log("data", data)
+      this.profileData = data;  
     });
 
     this.profile.setfullScreenView(false);  

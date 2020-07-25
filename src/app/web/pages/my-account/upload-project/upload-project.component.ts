@@ -217,6 +217,7 @@ export class UploadProjectComponent implements OnInit {
   
             if (response.status == 200) { 
               this.toastr.success('Project added successfully', 'Success !');  
+              window.history.back();
               
             }else if (response.status == 401){
               this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  

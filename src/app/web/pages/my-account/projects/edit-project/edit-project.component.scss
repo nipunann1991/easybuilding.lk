@@ -17,9 +17,9 @@
     margin-top: 2rem;
 
     .img-box{
-      @include calc("width", "20% - 1rem");
+      @include calc("width", "25% - 1rem");
       position: relative;
-      height: 9rem;
+      height: 10rem;
       background-color: #eee;
       display: inline-block;
       margin-right: 1rem;  
@@ -65,7 +65,7 @@
 
     .ngx-file-drop__drop-zone{
       margin-top: 3rem;
-      height: 70% !important;
+      height: 35rem !important;
       border-radius: 1rem;
 
       &.ngx-file-drop__drop-zone--over{
@@ -79,7 +79,7 @@
         position: relative;
 
         &:before{
-          content: "Upload Image Files";
+          content: "Drag to Upload Images Here";
           position: absolute;
           color: $dark-gray;
 

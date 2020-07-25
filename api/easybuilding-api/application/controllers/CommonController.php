@@ -141,7 +141,9 @@ class CommonController extends CI_Controller {
 				'data' => 'auth_token= "'. $this->input->get('auth_token') .'" AND user_id= "'. $this->input->get('session_id') .'"', 
 			);
 
-			return $this->selectRawCustomData__($search_index);
+			$result = $this->selectRawCustomData__($search_index);
+
+			return $result;
 
 		}else{
 			return $result;
@@ -421,7 +423,7 @@ class CommonController extends CI_Controller {
 	}
 
 
-	public function uploadProjectImages__($client_id, $postVal, $fileVal){ 
+	public function uploadProjectImages__($client_id, $postVal, $fileVal, $isRaw){ 
 
 		$url=$this->config->base_url();  
 		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/'.$client_id.'/'.$postVal['company_id'].'/projects/';
@@ -451,7 +453,12 @@ class CommonController extends CI_Controller {
 			)  
 		);
  
- 	    return $this->output->set_output(json_encode($output, JSON_PRETTY_PRINT));
+ 	    
+ 	    if (!$isRaw) {
+ 	    	return $this->output->set_output(json_encode($output, JSON_PRETTY_PRINT));
+ 	    }else{
+ 	    	return json_encode($output, JSON_PRETTY_PRINT);
+ 	    }
 
 
 	}

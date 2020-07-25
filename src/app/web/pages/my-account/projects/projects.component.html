@@ -1,18 +1,30 @@
-<div *ngFor="let p of project" class="project-block" routerLink="view-project/{{companyId}}/{{p.project_id}}">
-  <div class="project-img" [ngStyle]="{'background-image': 'url('+ imageURL + p.primary_img +')'}">
-    <a *ngIf="isEdit" routerLink="edit-project/{{companyId}}/{{p.project_id}}" class="edit-project"><i class="icon-pencil"></i></a>
-  </div> 
-  <div class="project-content">
-     <h3>{{p.project_name}}</h3> 
-     <ul>
-       <li class="year" title="Project Year">{{p.project_year}}</li>
-       <li class="photos" title="Project Total Photos">{{p.total_imgs}}</li>
-     </ul>  
+<div class="projects-wrapper">
+  <div *ngFor="let p of project; let i = index;" class="project-block" >
+    <!-- routerLink="view-project/{{companyId}}/{{p.project_id}}" -->
+    <div class="project-img" [ngStyle]="{'background-image': 'url('+ imageURL + p.primary_img +')'}"  (click)="openProject(companyId, p.project_id)">
+      <!-- <a *ngIf="isEdit"  class="edit-project"><i class="icon-pencil"></i></a> -->
+    </div> 
+  
+    <div class="dot-nav" *ngIf="isEdit">
+      <a class="dot-menu dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" #dotmenu><span>Menu</span></a>
+      <ul class="dropdown-menu mini-nav" aria-labelledby="dropdownMenuButton">
+        <li><a routerLink="edit-project/{{companyId}}/{{p.project_id}}"><i class="icon-pencil"></i> Edit</a></li>
+        <li><a href="javascript:void(0)" (click)="deleteProject(i, companyId, p.project_id)"><i class="icon-bin"></i> Delete</a></li>
+      </ul>
+    </div>
+    <div class="project-content"  (click)="openProject(companyId, p.project_id)">    
+       <h3>{{p.project_name}}</h3> 
+       <ul>
+         <li class="year" title="Project Year">{{p.project_year}}</li>
+         <li class="photos" title="Project Total Photos">{{p.total_imgs}}</li>
+       </ul>  
+    </div>
   </div>
-</div>
-<div class="add-new-project" *ngIf="isEdit" routerLink="/my-account/user/me/projects/upload-project/{{companyId}}">
-  <div class="inner">
-    <span class="plus"></span>
-    <h3>Add New Project</h3>
+  <div class="add-new-project" *ngIf="isEdit" routerLink="/my-account/user/me/projects/upload-project/{{companyId}}">
+    <div class="inner">
+      <span class="plus"></span>
+      <h3>Add New Project</h3>
+    </div>
   </div>
+  <div class="clearboth"></div>
 </div>

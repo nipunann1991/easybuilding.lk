@@ -75,29 +75,16 @@ class ProfileController extends CommonController {
 
 
 	public function getCustomProfileDetails(){  
+ 		 
+
+		$search_index = array(
+			'columns' => 'c.*, cc.*' ,   
+			'table' => 'user_sessions us, clients c, client_company cc',
+			'eq_table_col' => '1',
+			'data' => 'c.client_id = us.client_id AND c.client_id = cc.client_id AND c.provider_id= "'.$this->input->get('provider_id').'" AND c.client_id= "'.$this->input->get('client_id').'"', 
+		);
  
-
-		if (sizeof($this->isUserSessionValid()['data']) == 1) {
-
-			$search_index = array(
-				'columns' => 'c.*, cc.*' ,   
-				'table' => 'user_sessions us, clients c, client_company cc',
-				'eq_table_col' => '1',
-				'data' => 'us.auth_token= "'.$this->input->get('auth_token').'" AND c.client_id = us.client_id AND c.client_id = cc.client_id AND c.provider_id= "'.$this->input->get('provider_id').'" AND c.client_id= "'.$this->input->get('client_id').'"', 
-			);
-
-			// $search_index = array(
-			// 	'columns' => 'c.*' ,   
-			// 	'table' => 'user_sessions us, clients c',
-			// 	'eq_table_col' => '1',
-			// 	'data' => 'c.provider_id= "'.$this->input->get('provider_id').'" AND c.client_id= "'.$this->input->get('client_id').'" AND c.client_id = us.client_id', 
-			// );
-
-			return $this->selectCustomData__($search_index);
-
-		}else{
-			return $this->invalidSession(); 
-		}
+		return $this->selectCustomData__($search_index); 
 		
 	}
 
@@ -162,7 +149,7 @@ class ProfileController extends CommonController {
 
 	public function getServiceCitiesByCompany(){    
 
-		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+		 
 			$search_index = array(
 				'columns' => 'c.city' ,   
 				'table' => 'service_areas sa, cites c',
@@ -182,49 +169,41 @@ class ProfileController extends CommonController {
 				'data' => implode(", " , $cities), 
 			);
 			
-			return $this->returnJSON($data); 
-
-		}else{
-			return $this->invalidSession(); 
-		}
+			return $this->returnJSON($data);  
 		
 	}
 
 
 	public function getServiceDistrictsByCompany(){    
 
-		if (sizeof($this->isUserSessionValid()['data']) == 1) {
-			$search_index = array(
-				'columns' => 'd.district_name' ,   
-				'table' => 'service_districts sd, districts d',
-				'eq_table_col' => 'd.district_id = sd.district_id ',
-				'data' => 'sd.company_id= "'.$this->input->post('company_id').'"', 
-			);
- 
-			$dataset = $this->selectRawCustomData__($search_index);
-			$district = array();
+		 
+		$search_index = array(
+			'columns' => 'd.district_name' ,   
+			'table' => 'service_districts sd, districts d',
+			'eq_table_col' => 'd.district_id = sd.district_id ',
+			'data' => 'sd.company_id= "'.$this->input->post('company_id').'"', 
+		);
 
-			foreach ($dataset["data"] as $value) { 
-				array_push($district, $value->district_name);
-			}
+		$dataset = $this->selectRawCustomData__($search_index);
+		$district = array();
 
-			$data = array( 
-				'status' => 200, 
-				'data' => implode(", " , $district), 
-			);
-			
-			return $this->returnJSON($data); 
-
-		}else{
-			return $this->invalidSession(); 
+		foreach ($dataset["data"] as $value) { 
+			array_push($district, $value->district_name);
 		}
+
+		$data = array( 
+			'status' => 200, 
+			'data' => implode(", " , $district), 
+		);
+		
+		return $this->returnJSON($data);  
 		
 	}
 
 
 	public function getServics(){    
 
-		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+		 
 			$search_index = array(
 				'columns' => 'cl2.cat_lvl2_name' ,   
 				'table' => 'services_list sl, `categories-level2` cl2',
@@ -246,49 +225,56 @@ class ProfileController extends CommonController {
 			
 			return $this->returnJSON($data); 
 
-		}else{
-			return $this->invalidSession(); 
-		}
+		 
 		
 	}
 	
 
-	public function getProjectDetails(){  
+	public function getProjectDetails(){   
 
-		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+		$search_index = array(
+			'columns' => 'p.*, cc.client_id' ,   
+			'table' => 'project p, client_company cc',
+			'eq_table_col' => '1',
+			'data' => 'p.company_id= "'.$this->input->post('company_id').'" AND p.project_id= "'.$this->input->post('project_id').'" AND cc.company_id=p.company_id', 
+		);
 
-			$search_index = array(
-				'columns' => 'p.*, cc.client_id' ,   
-				'table' => 'project p, client_company cc',
-				'eq_table_col' => '1',
-				'data' => 'p.company_id= "'.$this->input->post('company_id').'" AND p.project_id= "'.$this->input->post('project_id').'" AND cc.company_id=p.company_id', 
-			);
+		return $this->selectCustomData__($search_index); 
+		
+	}
 
-			return $this->selectCustomData__($search_index);
+	public function getProjectImages(){   
 
-		}else{
-			return $this->invalidSession(); 
-		}
+		$search_index = array(
+			'columns' => 'file_name' ,   
+			'table' => 'project_images',
+			'eq_table_col' => '1',
+			'data' => 'project_id= "'.$this->input->post('project_id').'"', 
+		);
+
+		return $this->selectRawCustomData__($search_index); 
 		
 	}
 
 
 	public function getMinimalProjectDetails(){  
+  
 
-		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+		$limit = "";
 
-			$search_index = array(
-				'columns' => 'project_id, project_name, project_year, primary_img, total_imgs' ,   
-				'table' => 'project',
-				'eq_table_col' => '1 order by project_id DESC Limit 5',
-				'data' => 'company_id= "'.$this->input->post('company_id').'"', 
-			);
-
-			return $this->selectCustomData__($search_index);
-
-		}else{
-			return $this->invalidSession(); 
+		if ($this->input->post('limit') != -1) {
+			$limit = 'Limit '.$this->input->post('limit').'';
 		}
+
+		$search_index = array(
+			'columns' => 'project_id, project_name, project_year, primary_img, total_imgs' ,   
+			'table' => 'project',
+			'eq_table_col' => '1 order by project_id DESC '.$limit,
+			'data' => 'company_id= "'.$this->input->post('company_id').'"', 
+		);
+
+		return $this->selectCustomData__($search_index);
+ 
 		
 	}
 
@@ -341,20 +327,7 @@ class ProfileController extends CommonController {
 		}
 		
 	}
-
-
-	public function editProjectDetails(){ 
-
-		if (sizeof($this->isUserSessionValid()['data']) == 1) {
-			$dataset = $this->input->post(); 
-			return $this->updateData__('project', $dataset, 'project_id="'.$this->input->post('project_id').'"');
-		}else{
-			return $this->invalidSession(); 
-		} 
-
-	} 
-	
-	
+ 
 
 	public function updateProfileDetails(){ 
 
@@ -450,14 +423,48 @@ class ProfileController extends CommonController {
 
  		if (sizeof($this->isUserSessionValid()['data']) == 1) {
 			$dataset = $this->input->post();
-			return $this->insertData__('project', $dataset);  
+
+			$imageList = json_decode($dataset["images"]);
+
+			$result = $this->insertRawData__('project', $dataset);
+			$project_id = $result["data"]->insertedId; 
+
+			foreach ($imageList as $image) { 
+
+				$dataset_imgs = array(
+					'file_name' => $image, 
+					'project_id' => $project_id, 
+				); 
+
+				$this->insertData__('project_images', $dataset_imgs);  
+			}  
+
+			$data = array( 
+				'status' => 200, 
+				'data' => $result["data"]->message, 
+			);
+			
+			return $this->returnJSON($data);
+ 
 
 		}else{
 			return $this->invalidSession(); 
 		}
 		 
 	} 
+	
 
+	public function editProjectDetails(){ 
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+			$dataset = $this->input->post(); 
+			return $this->updateData__('project', $dataset, 'project_id="'.$this->input->post('project_id').'"');
+		}else{
+			return $this->invalidSession(); 
+		} 
+
+	} 
+	
 
 	public function deleteProduct(){   
 		$this->deleteData__('product_prices','product_id="'.$this->input->post('product_id').'"');
@@ -478,7 +485,28 @@ class ProfileController extends CommonController {
 	public function uploadProjectImages(){ 
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) { 
-			return $this->uploadProjectImages__( $this->input->get('session_id'), $_POST, $_FILES);
+			return $this->uploadProjectImages__( $this->input->get('session_id'), $_POST, $_FILES, false);
+		}else{
+			return $this->invalidSession(); 
+		}  
+ 
+	} 
+
+	public function uploadProjectImagesOnEdit(){ 
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {  
+
+			$result = json_decode($this->uploadProjectImages__( $this->input->get('session_id'), $_POST, $_FILES, true));
+
+			$dataset_imgs = array(
+				'file_name' => $result->data->new_file, 
+				'project_id' => $_POST['project_id'], 
+			); 
+
+			$this->insertData__('project_images', $dataset_imgs); 
+
+			return $this->output->set_output(json_encode($result, JSON_PRETTY_PRINT));
+
 		}else{
 			return $this->invalidSession(); 
 		}  
@@ -507,12 +535,38 @@ class ProfileController extends CommonController {
 			$company_id = $this->input->post('company_id'); 
 			$client_id = $this->input->get('session_id'); 
 
+			$this->deleteData__('project_images','file_name="'.$file_name.'"');  
 
-			
 			return $this->deleteProjectImages($client_id, $company_id , $file_name); 
 
 		}else{
 			return $this->invalidSession(); 
+		} 
+		
+	}
+
+
+	public function deleteProject(){   
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) { 
+
+			$company_id = $this->input->post('company_id'); 
+			$project_id = $this->input->post('project_id');  
+			$client_id = $this->input->get('session_id'); 
+
+			$files = $this->getProjectImages(); 
+
+			foreach ($files["data"] as $image) {  
+				$this->deleteProjectImages($client_id, $company_id , $image->file_name);  
+			} 
+
+			$this->deleteData__('project_images','project_id="'. $project_id .'"');
+
+			return $this->deleteData__('project','project_id="'. $project_id .'" AND company_id="'. $company_id .'"');
+
+		}else{
+			return $this->invalidSession(); 
+			
 		} 
 		
 	}

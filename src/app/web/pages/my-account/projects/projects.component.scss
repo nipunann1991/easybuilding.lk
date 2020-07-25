@@ -1,8 +1,9 @@
 @import '../../../../../styles';
 
+ 
 .add-new-project{
   @include calc("width","33.33% - 1.5rem");
-  height: 25rem;
+  height: 27.8rem;
   border: 2px $mid-gray dashed;
   justify-content: center;
   text-align: center; 
@@ -39,7 +40,7 @@
     @include medium;
     margin-bottom: 0;
   }
-}
+} 
 
 .project-block{
   position: relative;
@@ -71,8 +72,85 @@
     }
   }
 
+  .dot-nav{
+    position: absolute;
+    right: 0;
+    display: block;
+    z-index: 100001;
+    margin-top: 1.5rem;
+
+
+    a.dot-menu{
+      background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMzg0IDM4NCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzg0IDM4NDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPGc+DQoJCTxjaXJjbGUgY3g9IjE5MiIgY3k9IjQyLjY2NyIgcj0iNDIuNjY3Ii8+DQoJPC9nPg0KPC9nPg0KPGc+DQoJPGc+DQoJCTxjaXJjbGUgY3g9IjE5MiIgY3k9IjE5MiIgcj0iNDIuNjY3Ii8+DQoJPC9nPg0KPC9nPg0KPGc+DQoJPGc+DQoJCTxjaXJjbGUgY3g9IjE5MiIgY3k9IjM0MS4zMzMiIHI9IjQyLjY2NyIvPg0KCTwvZz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg0K);
+      background-repeat: no-repeat;
+      width: 15px;
+      height: 15px;
+      display: block;
+      float: right;
+      margin-right: 1rem;
+      cursor: pointer;
+      padding: 0.85rem;  
+     
+
+      span{
+       visibility: hidden;
+      }
+ 
+
+      &:hover{
+        opacity: 0.5;
+      }
+    }
+
+    ul.mini-nav{ 
+      padding-left: 0;
+      width: 10rem;
+      border: 1px #e6e4e4 solid;
+      box-shadow: 0px 3px 8px 1px rgba(196, 206, 217, 0.25);
+      padding: 5px;
+      background: $white;
+      left: inherit !important;
+      right: 2.5rem;
+      top: -2rem !important;
+
+  
+      li{
+        padding: 0;
+        margin: 0;
+        float: none; 
+
+        &:last-child{
+          a{
+
+            &:hover{
+              color: $danger-color
+            }
+            
+          }
+        } 
+
+        a{
+          padding: 2px 5px;
+          display: block;
+          color: $base-color;
+          text-decoration: none;
+
+          &:hover{
+            color: $dark-gray;
+          }
+
+          i{
+            font-size: 1.3rem;
+            margin-right: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+
   .project-content{
     padding: 1.5rem;
+    position: relative; 
 
     h3{
       @include medium; 

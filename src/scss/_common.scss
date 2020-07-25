@@ -939,9 +939,13 @@ button.dt-button{
 		}
 	}
 	.modal-footer{
+		border-top: 0;
+		
 		button.btn {
 			font-size: 1.5rem;
 			padding: 0.5rem 3rem;
+			line-height: 3.2rem;
+
 			
 			&.pull-left {
 				order: 1;
@@ -958,14 +962,28 @@ button.dt-button{
 	opacity: 0.75;
 }
 
-.modal{  
-	transform: translate(0,15%);
+.modal{   
+	display: none;
+	opacity: 0;
+
+	.modal-dialog{ 
+		position: absolute;  
+		left: 0;
+		right: 0;
+		bottom: 0;
+		top: 30%;
+		margin: auto;
+
+	}
+	 
 
 	&.show{ 
+		opacity: 1;
+		// display: flex !important;
+		// align-items: center;
 
-		.modal-dialog{
-			transform: translate(0,50%);
-			transition: all 0s ease;
+		.modal-dialog{ 
+			transition: all 0.2s ease;
 			
 			.modal-body{
 				font-size: 1.5rem;
@@ -976,8 +994,7 @@ button.dt-button{
 
 	&.fade{
 		.modal-dialog{
-			transition: all 0s ease;
-			transform: translate(0,50%);
+			transition: all 0.2s ease; 
 		}
 	}
 }
@@ -1036,4 +1053,8 @@ button.dt-button{
     		}
     	}
 	}
+}
+
+.clearboth{
+  clear: both;
 }

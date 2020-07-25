@@ -135,6 +135,15 @@ export class MyAccountService {
 
     return this.http.post(environment.baseUrl+'ProfileController/uploadProjectImages?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, formData , { headers: headers });
   }
+
+
+  uploadProjectImagesOnEdit(formData){
+     
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'undefined');
+
+    return this.http.post(environment.baseUrl+'ProfileController/uploadProjectImagesOnEdit?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, formData , { headers: headers });
+  }
  
   addNewProjectDetails(postVals){ 
      
@@ -153,6 +162,16 @@ export class MyAccountService {
     }); 
     
     return this.http.post(environment.baseUrl+'ProfileController/editProjectDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  }
+
+
+  deleteProject(postVals){ 
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ProfileController/deleteProject?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   }
 
   
