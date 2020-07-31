@@ -10,14 +10,18 @@ export class UserComponent implements OnInit {
 
   routerParams:any = {};
   constructor(
-    private route: ActivatedRoute 
+    private route: ActivatedRoute,
+    private router: Router,
   ) { 
 
     this.route.params.subscribe( (routeParams) =>  {  
-      window.scroll(0,0); 
-      //this.getProfileDetails(routeParams); 
-      this.routerParams = routeParams;
-      console.log(routeParams)
+      window.scroll(0,0);  
+
+      this.routerParams = {
+        user : routeParams.id,
+        provider_id : routeParams.provider_id, 
+      };
+        
     });
     
   }
@@ -25,6 +29,10 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
  
     
+  }
+
+  backToClients(){
+    this.router.navigate(['/admin/clients']);
   }
 
 }

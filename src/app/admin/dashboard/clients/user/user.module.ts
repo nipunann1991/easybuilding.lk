@@ -5,6 +5,7 @@ import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user.component';
 import { MyAccountModule } from '../../../../web/pages/my-account/my-account.module';
 import { AppSharedModule } from '../../../../../app/app.shared.module'; 
+import { PublicProfileModule } from '../../../../web/pages/public-profile/public-profile.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { AppSharedModule } from '../../../../../app/app.shared.module';
     CommonModule,
     UserRoutingModule, 
     AppSharedModule,
-    MyAccountModule
+    MyAccountModule,
+    PublicProfileModule
   ]
 })
 export class UserModule { }

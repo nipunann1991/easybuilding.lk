@@ -92,8 +92,10 @@ export class PublicProfileComponent implements OnInit {
     this.isAdminAccessible = this.auth.validateBackendUser();
     
     if(this.route.params !== null){
+      
       this.route.params.subscribe( (routeParams) =>  {  
         window.scroll(0,0); 
+        console.log(routeParams)
         this.getProfileDetails(routeParams);   
       });
 
@@ -115,7 +117,7 @@ export class PublicProfileComponent implements OnInit {
   }
  
   getProfileDetails(routeParams){ 
-      
+      console.log(routeParams)
     let params = {client_id: routeParams.user, provider_id: routeParams.provider_id }
 
     this.myaccount.getCustomProfileDetails(params) 

@@ -1,9 +1,10 @@
 
 <div class="right-container animated fadeIn">
     <div class="title">
-        <h2><button mat-button class="transparent-btn back-btn"  ><i class="icon-left-arrow"></i></button>View Client</h2> 
+        <h2><button mat-button class="transparent-btn backto-btn" (click)="backToClients()" ><i class="icon-left-arrow"></i></button>View Client</h2> 
         <div class="clearfix"></div>
       </div>
-      <app-my-account [getRouterParams]="routerParams"></app-my-account>
+      <app-public-profile [getRouterParams]="routerParams"></app-public-profile>
+      <!-- <app-my-account [getRouterParams]="routerParams"></app-my-account> -->
       <!-- [routeParams]="routeParams" -->
 </div>

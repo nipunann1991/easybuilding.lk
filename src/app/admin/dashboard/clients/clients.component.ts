@@ -84,7 +84,7 @@ export class ClientsComponent implements OnInit {
         targets: 6,
         data: function( row ){   
 
-          return '<a class="view-client-data" data-id="' + row.client_id + '" data-provider-id="' + row.provider_id + '" title="View"><i class="icon-view"></i></a> '; 
+          return '<a class="view-client-data" data-id="' + row.client_id + '" data-provider-id="' + row.provider_id + '/about" title="View"><i class="icon-view"></i></a> '; 
             
         }, 
       }],

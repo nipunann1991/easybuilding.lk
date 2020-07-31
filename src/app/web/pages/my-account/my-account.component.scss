@@ -1,5 +1,8 @@
 @import '../../../../styles';
  
+.page-layout{
+    background: $white;
+}
 
 .content-wrapper{
     @include flex(); 

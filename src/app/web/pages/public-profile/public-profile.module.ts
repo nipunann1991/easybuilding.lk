@@ -17,6 +17,7 @@ import { AboutModule } from '../my-account/about/about.module';
     ProfileModule, 
     MyAccountModule,
     AboutModule
-  ]
+  ],
+  exports: [PublicProfileComponent]
 })
 export class PublicProfileModule { }
