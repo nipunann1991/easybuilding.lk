@@ -80,11 +80,6 @@ export class MyAccountComponent implements OnInit {
 
   ngOnInit(): void {
     
-
-    // this.profile.view.subscribe(res => {
-    //   this.isFullScreen = res 
-    // })
-     
   
     this.navItems = [
       { title: "Home", url: this.baseurl+"about", icon: ""},

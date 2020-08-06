@@ -97,7 +97,7 @@ export class MyAccountService {
 
   getContactDetails(){  
      
-    return this.http.get(environment.baseUrl+'ProfileController/getContactDetails');
+    return this.http.get(environment.baseUrl+'ProfileController/getContactDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
   }
   
   updateProfileDetails(postVals){ 

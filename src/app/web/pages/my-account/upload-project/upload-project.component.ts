@@ -58,7 +58,13 @@ export class UploadProjectComponent implements OnInit {
 
       project_cost: new FormControl('',[
         Validators.required
-      ]), 
+      ]),
+      
+      architect: new FormControl(''),
+
+      contractor: new FormControl(''),
+
+      structural_engineer: new FormControl(''),
 
     });
 

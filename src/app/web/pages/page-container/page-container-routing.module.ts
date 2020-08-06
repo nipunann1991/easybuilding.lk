@@ -19,6 +19,7 @@ const routes: Routes = [{ path: '', component: PageContainerComponent, children:
   
   
 	{ path: 'login', canActivate: [AuthDeactiveGuard], loadChildren: () => import('../../../web/pages/login/login.module').then(m => m.LoginModule) }, 
+	{ path: 'create-account', loadChildren: () => import('../../../web/pages/create-account/create-account.module').then(m => m.CreateAccountModule) },
   
 	
 ];

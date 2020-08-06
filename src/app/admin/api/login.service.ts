@@ -18,6 +18,16 @@ export class LoginService {
     return this.http.post(environment.baseUrl+'LoginController/onClientLogin', params); 
    
   }
+
+  onEBUserLogin(postVals) : any {  
+
+    const params = new HttpParams({
+        fromObject : postVals
+    });
+
+    return this.http.post(environment.baseUrl+'LoginController/onEBUserLogin', params); 
+   
+  }
   
 
   onAdminLogin(postVals) : any {  

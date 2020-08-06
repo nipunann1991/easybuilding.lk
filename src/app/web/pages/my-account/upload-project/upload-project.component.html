@@ -30,28 +30,46 @@
           <div class="row"> 
               <div class="col-md-12">
                   <div class="form-group">
-                      <label for="project_name">Project Name</label> 
+                      <label for="project_name">Project Name<span class="required-star">*</span></label> 
                       <input id="project_name" name="project_name" formControlName="project_name" type="text" class="form-control">
                   </div>  
               </div>
               <div class="col-md-12">
                   <div class="form-group">
-                      <label for="project_description">Project Description</label>
+                      <label for="project_description">Project Description<span class="required-star">*</span></label>
                       <textarea name="description" class="form-control" formControlName="project_description" cols="10" rows="5"></textarea>
                   </div>  
               </div> 
               <div class="col-md-6"> 
                   <div class="form-group">
-                      <label for="project_year">Project Year</label> 
+                      <label for="project_year">Project Year<span class="required-star">*</span></label> 
                       <input id="project_year" name="project_year" formControlName="project_year" type="text" class="form-control"> 
                   </div> 
               </div>
               <div class="col-md-6">
                   <div class="form-group">
-                      <label for="project_cost">Project Cost (Rs.)</label> 
+                      <label for="project_cost">Project Cost (Rs.)<span class="required-star">*</span></label> 
                       <input id="project_cost" name="project_cost" formControlName="project_cost" type="text" class="form-control">
                   </div>  
               </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                    <label for="project_cost">Architect</label> 
+                    <input id="project_cost" name="architect" formControlName="architect" type="text" class="form-control">
+                </div>  
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="project_cost">Contractor</label> 
+                    <input id="project_cost" name="contractor" formControlName="contractor" type="text" class="form-control">
+                </div>  
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="project_cost">Structural Engineer</label> 
+                    <input id="project_cost" name="structural_engineer" formControlName="structural_engineer" type="text" class="form-control">
+                </div>  
+            </div>
               
               <div class="col-md-12">
                   <ng-container>

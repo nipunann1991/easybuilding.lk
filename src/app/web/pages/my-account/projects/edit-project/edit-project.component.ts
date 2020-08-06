@@ -71,6 +71,12 @@ export class EditProjectComponent implements OnInit {
         Validators.required
       ]), 
 
+      architect: new FormControl(''),
+
+      contractor: new FormControl(''),
+
+      structural_engineer: new FormControl(''),
+
     });
 
     this.companyID = this.route.snapshot.params.company_id; 
@@ -242,6 +248,9 @@ export class EditProjectComponent implements OnInit {
               project_description: this.projectData.project_description, 
               project_year: this.projectData.project_year,
               project_cost: this.projectData.project_cost, 
+              architect: this.projectData.architect, 
+              contractor: this.projectData.contractor, 
+              structural_engineer: this.projectData.structural_engineer, 
               
             });
 

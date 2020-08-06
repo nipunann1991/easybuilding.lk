@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, ActivationStart ,  RoutesRecognized,  Navigat
 import { MyAccountService } from '../../../../../admin/api/frontend/my-account.service';
 import { ProfileService } from "../../../../../admin/api/frontend/profile.service";
 import { environment } from "../../../../../../environments/environment";
+import { Globals } from "../../../../../app.global";
 
 @Component({
   selector: 'app-view-project',
@@ -19,11 +20,15 @@ export class ViewProjectComponent implements OnInit {
   imageURLThumb: string = "";
   imageURL: string = "";
   mainImg: string = "";
+  profileImg: string = "";
+  profileURL: string = "";
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private myaccount: MyAccountService,
     private profile: ProfileService,
+    private globals: Globals,
   ) { 
     this.profile.setfullScreenView(true);
   }
@@ -45,14 +50,22 @@ export class ViewProjectComponent implements OnInit {
         if (response.status == 200 && response.data.length > 0 ) { 
          
           this.projectData = response.data[0];
-          this.projectImages = JSON.parse(response.data[0].images);
+          this.projectImages = JSON.parse(this.projectData.images);
           this.clientId = response.data[0].client_id;
           this.imageURL = environment.uploadPath + this.clientId +'/'+ this.companyID +'/projects/';
           this.imageURLThumb = environment.uploadPath + this.clientId +'/'+ this.companyID +'/projects/thumb/';
 
-          this.mainImg = this.imageURL + response.data[0].primary_img;
-        
-          
+          this.mainImg = this.imageURL + this.projectData.primary_img;
+          this.profileImg = environment.uploadPath + this.clientId +'/'+ this.companyID +'/'+ this.projectData.profie_image;
+         
+
+          if( parseInt(this.projectData.client_id)  ==  parseInt(this.globals.token.session_id)){
+            this.profileURL = "/my-account/user/me/about";
+          }else{
+            this.profileURL = "/user/"+this.projectData.client_id+"/"+this.projectData.provider_id+"/about"; 
+          }
+
+           
 
         }else{
           
@@ -69,6 +82,10 @@ export class ViewProjectComponent implements OnInit {
 
   goBack(){ 
     window.history.back();
+  }
+
+  gotoProfile(){
+    this.router.navigate([this.profileURL], { relativeTo: this.route.parent });
   }
 
 }

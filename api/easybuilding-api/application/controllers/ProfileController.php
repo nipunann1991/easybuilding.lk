@@ -110,6 +110,7 @@ class ProfileController extends CommonController {
 	}
 
 	public function getContactDetails(){   
+ 
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
 			$search_index = array(

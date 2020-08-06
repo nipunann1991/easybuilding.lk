@@ -41,13 +41,13 @@
                 </ng-template>
             </ngx-file-drop>  
         </div>
-        <div class="container">
+        <div class="profile-details-wrapper container">
             <div class="profile-details">
                 <div class="profile-img-wrapper">
                     <div class="profile-img" *ngIf="isProfImage" [ngStyle]="{'background-image': profImage}">
-                        <i class="icon-bin" (click)="deleteImage(1)"></i>
+                        <i class="icon-bin" *ngIf="isProfImage && profile.profile_editable" (click)="deleteImage(1)"></i>
                     </div>
-                    <div class="profile-img" *ngIf="!isProfImage" [ngStyle]="{'background-image': transparent }">
+                    <div class="profile-img" *ngIf="!isProfImage && profile.profile_editable" [ngStyle]="{'background-image': transparent }">
                         <a href="javascript:void(0)" class="upload-btn" title="Upload profile image"  (click)="openImgUpload(fileInput, 1)"> </a>
                     </div>
                     

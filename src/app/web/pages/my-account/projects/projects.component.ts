@@ -31,6 +31,7 @@ export class ProjectsComponent implements OnInit {
   imageURL: string = "";
   isEdit: boolean = false;
   isMenuOpen: boolean;
+  isProjectsAvailable: boolean = false;
 
   constructor(
     private router: Router,
@@ -62,7 +63,6 @@ export class ProjectsComponent implements OnInit {
       this.imageURL = environment.uploadPath + this.clientId +'/'+ this.companyId +'/projects/thumb/';
 
       ( typeof this.itemLimit === 'undefined' )?  limit = -1 : limit = this.itemLimit  ; 
-      //this.profile.setfullScreenView(false);
 
       this.getMinimalProjectDetails( this.companyId, limit );
      
@@ -77,10 +77,13 @@ export class ProjectsComponent implements OnInit {
 
     this.myaccount.getMinimalProjectDetails(params) 
       .subscribe((response: any) => {
-        if (response.status == 200 && response.data.length > 0 ) {
-
+        if (response.status == 200 && response.data.length > 0 ) { 
+          this.isProjectsAvailable = true;
           this.project = response.data
          
+        } if (response.status == 200 && response.data.length == 0 ) {
+          this.isProjectsAvailable = false;
+
         }else{
           
         }

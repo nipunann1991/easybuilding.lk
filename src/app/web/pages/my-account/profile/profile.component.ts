@@ -113,7 +113,9 @@ export class ProfileComponent implements OnInit {
       //this.globals.token.company_id = this.companyId;
       //localStorage.setItem("token", JSON.stringify( this.globals.token )); 
 
-      if(this.profileData.cover_img === '' ){
+      
+
+      if(this.profileData.cover_img == "" ){
         this.isBgImage = false;
 
       }else{ 
@@ -122,7 +124,7 @@ export class ProfileComponent implements OnInit {
         
       }  
 
-      if(this.profileData.profie_image === '' ){
+      if(this.profileData.profie_image == "" ){
         this.isProfImage = false; 
 
       }else{ 

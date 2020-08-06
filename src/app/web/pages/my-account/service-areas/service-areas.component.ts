@@ -58,7 +58,7 @@ export class ServiceAreasComponent implements OnInit {
     };
 
     if(this.router.url.includes("steps")){
-      this.isStepsForm = true;
+      this.isStepsForm = true; 
     }
 
    
@@ -80,9 +80,16 @@ export class ServiceAreasComponent implements OnInit {
 
           console.log(this.profile);
           
-          (this.profile.service_areas != "[]")? this.isCities = true :  this.isCities = false ;
-          (this.profile.service_dist != "[]")? this.isDistricts = true :  this.isDistricts = false ;
-          (this.profile.all_island == 1)? this.all_island = true :  this.all_island = false ;
+          if(this.profile.service_areas != "[]" && this.profile.service_dist != "[]"){
+            this.isCities = true
+
+          }else{
+            (this.profile.service_areas != "[]")? this.isCities = true :  this.isCities = false ;
+            (this.profile.service_dist != "[]")? this.isDistricts = true :  this.isDistricts = false ;
+            (this.profile.all_island == 1 && !this.isStepsForm)? this.all_island = true :  this.all_island = false;
+          }
+          
+         
 
           this.clientId = this.profile.client_id;
           this.companyId = this.profile.company_id;
@@ -95,7 +102,9 @@ export class ServiceAreasComponent implements OnInit {
               services: JSON.parse(this.profile.services)
             });
 
-          }else if(this.isCities){
+          }
+          
+          if(this.isCities){
 
             this.formGroup.setValue({
               service_areas: JSON.parse(this.profile.service_areas),  
@@ -103,7 +112,7 @@ export class ServiceAreasComponent implements OnInit {
 
             }); 
 
-          } 
+          }
           
   
         }else{
