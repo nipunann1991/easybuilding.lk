@@ -68,10 +68,10 @@
                             <li>
                                 <star-rating  
                                     starType="icon" 
-                                    labelText="0 Reviews"  
+                                    [labelText]="totalReviews"  
                                     [showHalfStars]="true" 
                                     labelPosition="right" 
-                                    [rating]="3.5"
+                                    [rating]="rating"
                                     [readOnly]="true"
                                 ></star-rating>
                             </li>

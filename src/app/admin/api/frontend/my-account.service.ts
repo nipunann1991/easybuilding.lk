@@ -202,4 +202,13 @@ export class MyAccountService {
     return this.http.post(environment.baseUrl+'ProfileController/removeProjectImages?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   }
 
+  addNewReview(postVals){ 
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ProfileController/addNewReview?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  }
+
 }

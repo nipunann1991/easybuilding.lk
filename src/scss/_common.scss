@@ -12,12 +12,22 @@
 
 html{
 	font-size: 62.5%;
+	
+
+	&.cdk-global-scrollblock{
+		height: auto;
+		
+		body{
+			height: auto;
+		}
+	}
 }
 
 h1, h2, h3, h4{  
 	font-family: $bold-font;
 	font-weight: bold; 
 }
+
  
 
 

@@ -1,8 +1,13 @@
 import { NgModule } from '@angular/core'; 
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
-import { MatButtonModule, MatCheckboxModule, MatNativeDateModule, MatFormFieldModule, MatTabsModule, MatSlideToggleModule } from '@angular/material';
- 
+//import { MatButtonModule, MatCheckboxModule, MatNativeDateModule, MatFormFieldModule, MatTabsModule, MatSlideToggleModule } from '@angular/material';
+import { MatButtonModule } from "@angular/material/button";
+import {MatCheckboxModule} from '@angular/material/checkbox'; 
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule} from '@angular/material/datepicker';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
 import { MatDialogModule} from '@angular/material/dialog';  
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
@@ -32,6 +37,7 @@ import { reviewDialog } from "../app/web/pages/my-account/reviews/reviews.compon
       NgSelect2Module,
       MatButtonModule, 
       MatSlideToggleModule, 
+      MatIconModule,
       DragDropModule, 
       MatCheckboxModule, 
       MatNativeDateModule, 
@@ -61,6 +67,7 @@ import { reviewDialog } from "../app/web/pages/my-account/reviews/reviews.compon
       MatNativeDateModule, 
       MatDialogModule, 
       MatFormFieldModule, 
+      MatIconModule,
       MatDatepickerModule, 
       CKEditorModule, 
       ImageCropperModule, 

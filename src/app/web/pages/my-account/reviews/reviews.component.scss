@@ -103,3 +103,64 @@ ul.reviews-list{
   }
 
 }
+
+
+.dialog-item{
+
+  .header{
+    border-bottom: 1px #d3d3d3 solid;
+    padding-bottom: 1rem;
+    overflow: hidden;
+
+    h2{
+      float: left;
+    }
+
+    button.close-dialog{
+      background: transparent;
+      border: 0;
+      margin: 0;
+      float: right;
+      padding: 0;
+      line-height: 0;
+    }
+
+  }
+
+  .dialog-body{
+    
+    .star-icon{
+      outline: 0;
+
+      .star-container{
+        margin: 0;
+
+        .star{ 
+          width: 3.5rem;
+          height: 3.5rem;
+          margin-right: 1px;
+
+          i{
+            font-size: 4rem;
+            color: $yellow !important;
+          }
+        }
+
+      }
+    } 
+
+    .form-group{
+      textarea.form-control{
+        height: 12rem;
+      }
+    }
+
+    
+  }
+
+
+  .footer{
+    padding: 2.5rem 0;
+  }
+  
+}
