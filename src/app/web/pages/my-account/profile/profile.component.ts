@@ -12,7 +12,7 @@ import { FileSaverService, } from 'ngx-filesaver';
 import { FacebookService, InitParams, UIParams, UIResponse } from 'ngx-facebook';
 import { FileSaverOptions, saveA, ResponseContentType  } from 'file-saver';
 import { Globals } from "../../../../app.global";
-import * as $ from 'jquery';
+import * as $ from 'jquery'; 
 declare const bootbox:any;
 
 @Component({
@@ -72,9 +72,10 @@ export class ProfileComponent implements OnInit {
   ) {  
 
     const initParams: InitParams = {
-      appId: '2651390971778041',
+      appId: '2651390971778041', 
       xfbml: true,
-      version: 'v2.9'
+      version: 'v2.9',
+      
     };
  
     fb.init(initParams);
@@ -85,11 +86,13 @@ export class ProfileComponent implements OnInit {
     
   }
 
-  share(url: string) {
+  share() {
  
     const params: UIParams = {
+      method: 'share',
       href: 'https://easybuilding.lk/ServiceProviders/MainIndex',
-      method: 'share'
+      display: 'popup',
+     
     };
    
     this.fb.ui(params)

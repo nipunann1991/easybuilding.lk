@@ -10,7 +10,6 @@ import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-logi
 import { ToastrModule } from 'ngx-toastr';  
 import { BrowserJsonLdModule } from 'ngx-seo';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
- 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -34,8 +33,7 @@ export function provideConfig() {
 
 @NgModule({
   declarations: [
-    AppComponent, 
-
+    AppComponent,   
   ],
 
   imports: [
@@ -49,6 +47,9 @@ export function provideConfig() {
   ],
   exports: [
     
+  ],
+  entryComponents:[ 
+     
   ],
   providers: [
     Globals, 

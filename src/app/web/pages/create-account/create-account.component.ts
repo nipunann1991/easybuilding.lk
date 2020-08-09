@@ -103,7 +103,8 @@ export class CreateAccountComponent implements OnInit {
       profie_image: userDetails.photoUrl, 
       provider: userDetails.provider.charAt(0),
       provider_id: userDetails.id, 
-      auth_token:  userDetails.authToken 
+      auth_token:  userDetails.authToken, 
+      password:  userDetails.password 
     }
     
     this.login.onClientLogin(param)

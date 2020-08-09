@@ -17,10 +17,11 @@ import { StarRatingModule } from 'angular-star-rating';
 import { ModalModule } from 'ngb-modal';
 import { FileSaverModule } from 'ngx-filesaver';
 import { FacebookModule } from 'ngx-facebook';
+import { reviewDialog } from "../app/web/pages/my-account/reviews/reviews.component";
 
 @NgModule({
   declarations: [
-    
+    reviewDialog
   ],
   imports: [ 
       FormsModule,
@@ -70,6 +71,8 @@ import { FacebookModule } from 'ngx-facebook';
       NgBootstrapFormValidationModule
     
   ],
-  entryComponents: []
+  entryComponents: [
+    reviewDialog
+  ]
 })
 export class AppSharedModule {}

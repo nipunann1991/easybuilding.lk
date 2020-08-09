@@ -112,6 +112,34 @@
                             color: inherit;
                             letter-spacing: 0.05rem;
                             margin-bottom: 0.5rem;
+
+                            .star-icon{
+                                outline: 0;
+
+                                &.value-0{
+
+                                    .star-container{ 
+                                        .star{ 
+                                            opacity: 0.3;
+                                            
+                                            i{
+                                                color: $white !important;
+                                            }
+                                        }
+                                    }
+
+                                }
+
+                                .star-container{
+                                    .star{
+                                        margin-right: 3px;
+
+                                        i{
+                                            color: $yellow !important;
+                                        }
+                                    }
+                                }
+                            }
     
                             &.name{
                                 @include extra-bold;

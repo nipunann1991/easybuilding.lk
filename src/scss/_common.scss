@@ -142,17 +142,18 @@ ul{
 .rating{
 	justify-content: flex-end;
 
-	&.color-positive, &.color-negative, &.color-default {
-		.star-container{
-			.star{
-				i{
-					font-size: 2rem;
-					line-height: 2rem;
-					color: $yellow !important;
-				}
-			}
-		}
-	}
+	// &.color-positive, &.color-negative, &.color-default {
+	// 	.star-container{
+	// 		.star{
+	// 			margin-right: 3px;
+	// 			i{
+	// 				font-size: 2rem;
+	// 				line-height: 2rem; 
+	// 				color: $yellow ;
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	&.medium {
 		.label-value{

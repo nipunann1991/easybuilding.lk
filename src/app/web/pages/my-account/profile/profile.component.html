@@ -47,7 +47,7 @@
                     <div class="profile-img" *ngIf="isProfImage" [ngStyle]="{'background-image': profImage}">
                         <i class="icon-bin" *ngIf="isProfImage && profile.profile_editable" (click)="deleteImage(1)"></i>
                     </div>
-                    <div class="profile-img" *ngIf="!isProfImage && profile.profile_editable" [ngStyle]="{'background-image': transparent }">
+                    <div class="profile-img"  *ngIf="!isProfImage" [ngStyle]="{'background-image': transparent }">
                         <a href="javascript:void(0)" class="upload-btn" title="Upload profile image"  (click)="openImgUpload(fileInput, 1)"> </a>
                     </div>
                     
@@ -66,11 +66,19 @@
                                 <p>{{profile.address_line1}} {{profile.address_line2}} {{profile.city}}</p> 
                             </li>
                             <li>
-                                <star-rating  starType="icon" labelText="0 Reviews"  [showHalfStars]="true" labelPosition="right" [rating]="0"></star-rating>
+                                <star-rating  
+                                    starType="icon" 
+                                    labelText="0 Reviews"  
+                                    [showHalfStars]="true" 
+                                    labelPosition="right" 
+                                    [rating]="3.5"
+                                    [readOnly]="true"
+                                ></star-rating>
                             </li>
                         </ul>
                         
                     </div> 
+
                     <button *ngIf="isBgImage && isProfImage" mat-button class="btn btn-primary share-fb" (click)="share()"><i class="icon-facebook"></i> Share</button>
                     <!-- <button mat-button class="btn btn-primary-transparent edit-profile" *ngIf="!profile.profile_editable">Publish</button> -->
                 </div>
