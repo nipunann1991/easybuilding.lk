@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AboutRoutingModule } from './about-routing.module';
 import { AboutComponent } from './about.component';
 import { ProjectsModule } from '../projects/projects.module';
+import { ReviewsModule } from '../reviews/reviews.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { ProjectsModule } from '../projects/projects.module';
   imports: [
     CommonModule,
     AboutRoutingModule,
-    ProjectsModule
+    ProjectsModule,
+    ReviewsModule
   ],
   exports: [AboutComponent]
 })

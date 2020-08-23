@@ -1,20 +1,21 @@
 
-<div class="total-reviews">
-  <h2>7 reviews</h2> 
-  <button mat-button class="btn btn-transparent btn-review" (click)="reviewDialog()"><i class="icon-pencil"></i> Add a Review</button>
+<div class="total-reviews" *ngIf="isShowHeader">
+  <h2>{{reviews.length}} reviews</h2> 
+  <button mat-button class="btn btn-transparent btn-review" (click)="reviewDialog()">Write a Review</button>
 </div>
 
+<p  *ngIf="!isShowHeader && reviews.length == 0" ><i>No reviews available</i></p>
 <ul class="reviews-list">
-  <li class="reviews">
+  <li *ngFor="let r of reviews" class="reviews">
 
     <div class="reviews-wrapper">
       <div class="reviews-header">
         <div class="prof-img"></div>
         <div class="prof-details">
           <div class="title-n-reviews">
-            <div class="title">
-              <h3>Nipuna Nanayakkara</h3>
-              <span class="date">08/08/2020</span>
+            <div class="title-text">
+              <h3>{{r.reviewer_name}}</h3>
+              <span class="date">{{r.review_date}}</span>
             </div>
            <div class="reviews">
             <star-rating  
@@ -22,18 +23,19 @@
                 labelText=""  
                 [showHalfStars]="true" 
                 labelPosition="right" 
-                [rating]="3.5"
+                [rating]="r.rating"
                 [readOnly]="true"
             ></star-rating>
            </div>
           </div>
           <div class="description">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem id consequatur praesentium rerum quis quo et assumenda, officia corrupti, provident exercitationem hic autem nobis illo ex aliquam numquam doloribus cumque.</p>
+            <p>{{r.description}}</p>
           </div>
         </div>
       </div> 
-    </div>
-
-  </li>
+    </div> 
+  </li> 
 </ul>
+
+<div class="view-more"  *ngIf="!isShowHeader && reviews.length != 0"><a routerLink="#" (click)="gotoReview()">View more Reviews</a></div>
 

@@ -12,6 +12,7 @@ import { AppSharedModule } from '../../../../app.shared.module';
     CommonModule,
     ReviewsRoutingModule,
     AppSharedModule,
-  ]
+  ],
+  exports: [ReviewsComponent]
 })
 export class ReviewsModule { }

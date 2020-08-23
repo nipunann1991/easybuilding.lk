@@ -6,8 +6,7 @@
 	height: $nav-height;
 	position: fixed;
 	@include box-shadow(0, -6px, 60px, -9px, rgba(0, 0, 0, 0.21));
-	z-index: 102;
-	padding-left: 0;
+	z-index: 102; 
 
 	.navigation-inner{
 		@include flex();
@@ -31,8 +30,7 @@
 			}
 			
 			a{
-				color: $base-color;
-				font-weight: 700;
+				color: $base-color; 
 				text-transform: uppercase; 
 			}
 		}

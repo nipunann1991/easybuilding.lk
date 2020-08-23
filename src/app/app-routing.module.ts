@@ -9,10 +9,7 @@ const routes: Routes = [
 	
 	{ path: 'admin', loadChildren: () => import('./admin/dashboard/dashboard-container/dashboard-container.module').then(m => m.DashboardContainerModule) },
 	{ path: '404-page-not-found', loadChildren: () => import('./web/pages/page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) },
-	
-	
-	
-	
+	  
 	 
 	{ path: '**', redirectTo: '/404-page-not-found' }
 	 
@@ -20,7 +17,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+		paramsInheritanceStrategy: 'always'
+	})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+ 

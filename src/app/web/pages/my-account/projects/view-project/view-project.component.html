@@ -12,6 +12,11 @@
          </div>
          <div class="project-content"> 
           <h1>{{projectData.project_name}}</h1>
+          <ul class="design-info">
+            <li class="architect" *ngIf="projectData.architect != ''"><strong>Architect :</strong>  {{projectData.architect}}</li>
+            <li class="contractor" *ngIf="projectData.contractor != ''"><strong>Contractor :</strong>  {{projectData.contractor}}</li>
+            <li class="engienner" *ngIf="projectData.structural_engineer != ''"><strong>Structural Engineer :</strong>  {{projectData.structural_engineer}}</li>
+          </ul>
           <div class="project-details">
             <ul class="additional-info">
               <li class="year"><strong>Project Year </strong>  {{projectData.project_year}}</li>
@@ -19,17 +24,14 @@
               <li class="location"><strong>Location </strong> Colombo</li> 
             </ul> 
           </div> 
+           
+           
+           
           <div class="project-desc">
             <p>{{projectData.project_description}}</p> 
           </div>
          </div>
-         <div class="project-details">
-          <ul class="design-info">
-            <li class="architect" *ngIf="projectData.architect != ''"><strong>Architect :</strong>  {{projectData.architect}}</li>
-            <li class="contractor" *ngIf="projectData.contractor != ''"><strong>Contractor :</strong>  {{projectData.contractor}}</li>
-            <li class="engienner" *ngIf="projectData.structural_engineer != ''"><strong>Structural Engineer :</strong>  {{projectData.structural_engineer}}</li>
-          </ul>
-         </div>
+        
         <div class="user-profile-details">
           <div class="profile-image" (click)="gotoProfile()" [ngStyle]="{'background-image': 'url('+ profileImg +')'}"></div>
           <div class="user-details">

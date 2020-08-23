@@ -23,6 +23,7 @@ export class AboutComponent implements OnInit {
 
   imageURL: string = "";
   isPrevEdit: boolean = false;
+  reviewData: any;
 
   constructor(
     private router: Router,
@@ -43,6 +44,7 @@ export class AboutComponent implements OnInit {
     });
 
     this.profile.setfullScreenView(false);  
+    this.reviewData = { header: false , limit: 2}
 
     if(this.profile.getPreviousUrl().indexOf('/me/edit/') > -1){
       this.getProfileDetails();   

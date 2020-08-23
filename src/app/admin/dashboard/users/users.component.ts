@@ -2,16 +2,16 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs'
 import { RouterModule, ActivatedRoute, Routes, Router} from '@angular/router';
-import { ClientsService } from '../../../admin/api/clients.service'; 
+import { ClientsService } from '../../api/clients.service'; 
 import * as $ from 'jquery';
 declare const bootbox:any;
 
 @Component({
   selector: 'app-clients',
-  templateUrl: './clients.component.html',
-  styleUrls: ['./clients.component.css']
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.css']
 })
-export class ClientsComponent implements OnInit {
+export class UsersComponent implements OnInit {
 
   @ViewChild(DataTableDirective, {static: false})
 
@@ -54,14 +54,14 @@ export class ClientsComponent implements OnInit {
       {
         targets: 3,
         data: function (row) { 
-          return row.verified_email;
+          return row.provider;
         },
         
       },
       {
         targets: 4,
         data: function( row ){    
-          return row.provider 
+          return  '<a class="view-client-data" data-id="' + row.client_id + '" data-provider-id="' + row.provider_id + '/about" title="View">' +   row.display_name  + '</i></a> ';
         },
         
       },{
@@ -84,7 +84,7 @@ export class ClientsComponent implements OnInit {
         targets: 6,
         data: function( row ){   
 
-          return '<a class="view-client-data" data-id="' + row.client_id + '" data-provider-id="' + row.provider_id + '/about" title="View"><i class="icon-view"></i></a> '; 
+          return ""
             
         }, 
       }],
@@ -141,7 +141,8 @@ export class ClientsComponent implements OnInit {
 
 
   viewClent(id, provider_id){
-    this.router.navigate(['admin/clients/user/'+id+'/'+provider_id]);
+    this.router.navigate(['admin/users/user/'+id+'/'+provider_id]);
+    //window.open('admin/users/user/'+id+'/'+provider_id, '_blank');
   }
 
   ngAfterViewInit(): void {

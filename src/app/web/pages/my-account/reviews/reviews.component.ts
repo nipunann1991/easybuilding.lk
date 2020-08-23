@@ -1,10 +1,12 @@
-import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, Inject, ViewEncapsulation } from '@angular/core';
+import { Router, ActivatedRoute, ActivationStart ,  RoutesRecognized,  NavigationEnd } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import {ClickEvent, HoverRatingChangeEvent, RatingChangeEvent } from 'angular-star-rating';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
 import { Globals } from "../../../../app.global";
 import { ToastrService } from 'ngx-toastr';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-reviews',
@@ -14,14 +16,44 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ReviewsComponent implements OnInit {
 
+  @Input() reviewData: any; 
   dialogRef: MatDialogRef<reviewDialog>;
   formGroup: FormGroup;
+  reviews: any = [];
+  isShowHeader: boolean = true;
+  resultLimit: number = -1;
+  clientId: any;
 
-  constructor( public dialog: MatDialog ) { }
+  constructor( 
+    public dialog: MatDialog,
+    private myaccount: MyAccountService,  
+    private toastr: ToastrService,
+    private globals: Globals,
+    private route: ActivatedRoute,
+    private router: Router
+  ) { 
+
+    
+  }
 
   ngOnInit(): void {
+    
+    window.scroll(0,0); 
  
-
+    if( typeof this.reviewData === 'undefined' ){
+      this.isShowHeader = true 
+    }else{
+      this.isShowHeader = this.reviewData.header ; 
+      this.resultLimit = this.reviewData.limit;
+    }  
+    
+    this.route.parent.params.subscribe((params) => { 
+      console.log(params); 
+      (params.user === "me")? this.clientId = this.globals.token.session_id : this.clientId = params.user;
+      
+    }); 
+    
+     this.getReviews();
   }
 
   reviewDialog(){
@@ -40,6 +72,33 @@ export class ReviewsComponent implements OnInit {
       
     });
   }
+
+
+  getReviews(){
+
+    let param = { client_id: this.clientId, limit: this.resultLimit }
+
+    this.myaccount.getReviews(param)
+    .subscribe((response: any) => {
+  
+      if (response.status == 200) { 
+        
+        this.reviews = response.data
+        console.log(response.data)
+        
+      
+      } 
+        
+    });
+
+  }
+
+
+  gotoReview(){
+    this.router.navigate(['../reviews'], { relativeTo: this.route.parent });
+  }
+
+ 
 
   
 }
@@ -104,7 +163,7 @@ export class reviewDialog {
   onSave(){
     if (!this.formGroup.invalid) {
       
-      this.formGroup.value.client_id = this.globals.token.session_id;
+      this.formGroup.value.client_id = this.globals.token.session_id ;
       //console.log(this.formGroup.value)
       
       this.myaccount.addNewReview(this.formGroup.value)

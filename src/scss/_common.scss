@@ -287,7 +287,7 @@ ul{
 
 	.right-container{
 		float: right;
-		@include calc('width', '100% - 200px');
+		@include calc('width', '100% - 12rem');
 		padding: 25px 35px;
 		padding-top: 40px;
 		transition: all 0.3s ease;

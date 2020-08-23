@@ -18,5 +18,10 @@ export class ClientsService {
   }
  
 
+  getClientProfileDetailsDT(){  
+    let url = environment.baseUrl+'ClientController/getClientProfileDetailsDT?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id; 
+   	return url;  
+  }
+
 
 }

@@ -58,6 +58,7 @@ export class ProjectsComponent implements OnInit {
       this.clientId  = this.profileData.client_id;  
       this.companyId = this.profileData.company_id;   
       this.isEdit = this.profileData.profile_editable;
+      
  
 
       this.imageURL = environment.uploadPath + this.clientId +'/'+ this.companyId +'/projects/thumb/';
@@ -73,6 +74,7 @@ export class ProjectsComponent implements OnInit {
  
   getMinimalProjectDetails(company_id, limit){
 
+    this.project = [];
     let params = { company_id: company_id, limit: limit }
 
     this.myaccount.getMinimalProjectDetails(params) 
@@ -82,9 +84,10 @@ export class ProjectsComponent implements OnInit {
           this.project = response.data
          
         } if (response.status == 200 && response.data.length == 0 ) {
-          this.isProjectsAvailable = false;
+          this.isProjectsAvailable = false; 
+          this.project = [];
 
-        }else{
+        }else {
           
         }
           

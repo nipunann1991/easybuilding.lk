@@ -1,7 +1,7 @@
 // -----------------------------------------------------------------------------
 // This file contains all application-wide Sass variables.
 // -----------------------------------------------------------------------------
-
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
 
 /// Regular font family
 //$font-family-reg: Arial, Helvetica, sans-serif !default; 
@@ -11,6 +11,7 @@ $code-font: 'Hind Siliguri', sans-serif;
 $normal-font: 'Circular Std Book';
 $bold-font: 'Circular Std';
 $adminfont: 'Poppins', sans-serif;
+
 /// Base font sizes for small and large screens
 /// Below that is 100%
 /// @type Length

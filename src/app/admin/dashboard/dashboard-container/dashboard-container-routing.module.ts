@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: '', component: DashboardContainerComponent, canActivate: [AuthGuard],
     children: [
       { path: 'dashboard',  loadChildren: () => import('./../../../admin/dashboard/dashboard/dashboard.module').then(m => m.DashboardModule) }, 
-	    { path: 'clients', loadChildren: () => import('./../../../admin/dashboard/clients/clients.module').then(m => m.ClientsModule) },
+	    { path: 'users', loadChildren: () => import('./../../../admin/dashboard/users/users.module').then(m => m.UsersModule) },
       { path: 'cities', loadChildren: () => import('./../../../admin/dashboard/cities/cities.module').then(m => m.CitiesModule) },
       { path: 'settings',  loadChildren: () => import('./../../../admin/dashboard/settings/settings.module').then(m => m.SettingsModule) },
       { path: 'categories',  loadChildren: () => import('./../../../admin/dashboard/categories/categories.module').then(m => m.CategoriesModule) },
@@ -17,6 +17,7 @@ const routes: Routes = [
       { path: 'location', loadChildren: () => import('./../../../admin/dashboard/location/location.module').then(m => m.LocationModule) },
       { path: 'reviews', loadChildren: () => import('./../../../admin/dashboard/reviews/reviews.module').then(m => m.ReviewsModule) },
       { path: 'services', loadChildren: () => import('./../../../admin/dashboard/services/services.module').then(m => m.ServicesModule) },
+      { path: 'profiles', loadChildren: () => import('./../../../admin/dashboard/client-profiles/client-profiles.module').then(m => m.ClientProfilesModule) },
       //{ path: 'main-categories', loadChildren: () => import('./../../../admin/dashboard/categories/main-category/main-category.module').then(m => m.MainCategoryModule) },
 	 
     ]

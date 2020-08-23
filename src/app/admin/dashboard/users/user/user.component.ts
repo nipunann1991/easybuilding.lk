@@ -32,7 +32,7 @@ export class UserComponent implements OnInit {
   }
 
   backToClients(){
-    this.router.navigate(['/admin/clients']);
+    this.router.navigate(['/admin/users']);
   }
 
 }

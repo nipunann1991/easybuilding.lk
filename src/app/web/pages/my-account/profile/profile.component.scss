@@ -103,6 +103,26 @@
                     
                     &.no-img{
                         color: inherit;
+
+                        ul{  
+                            li{  
+                                .star-icon{ 
+
+                                    &.value-0{ 
+
+                                        .star-container{ 
+                                            .star{ 
+                                                opacity: 0.3;
+                                                
+                                                i{
+                                                    color: $base-color !important;
+                                                }
+                                            }
+                                        } 
+                                    }
+                                }
+                            }
+                        }
                     }
                     
                     ul{

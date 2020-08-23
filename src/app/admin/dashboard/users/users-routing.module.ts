@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ClientsComponent } from './clients.component';
+import { UsersComponent } from './users.component';
 
 const routes: Routes = [
-  { path: '', component: ClientsComponent },
+  { path: '', component: UsersComponent },
   { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
   // { path: 'user', loadChildren: () => import('../../../web/pages/public-profile/public-profile.module').then(m => m.PublicProfileModule) },
   
@@ -15,4 +15,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ClientsRoutingModule { }
+export class UsersRoutingModule { }
