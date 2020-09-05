@@ -75,7 +75,7 @@ class CommonQueryModel extends CI_Model{
     function count_filtered($data)
     {
         $select_query = "select ".$data['columns']." FROM ".$data['table']." WHERE ".$data['data']."" ;
-        $query = $this->db->query($select_query); 
+        $query = $this->db->query($select_query);  
  
         return $query->num_rows();
     }
@@ -261,7 +261,7 @@ class CommonQueryModel extends CI_Model{
 
     public function getTotalRows($search_index){
  
-        $select_query = "SELECT ".$search_index['columns']." FROM `".$search_index['table']."` WHERE ".$search_index['data']."" ;  
+        $select_query = "SELECT ".$search_index['columns']." FROM ".$search_index['table']." WHERE ".$search_index['data']."" ;  
 
         $query = $this->db->query($select_query); 
 

@@ -24,6 +24,7 @@ class LoginController extends CommonController {
 		if ( $getClient->count == 0) {
 			$dataset = $this->input->post(); 
 			unset($dataset['auth_token']); 
+			unset($dataset['password']); 
 			 
 			$clientData = $this->insertRawData__('clients', $dataset);  
 
@@ -49,7 +50,22 @@ class LoginController extends CommonController {
 				$datasetCompany = array(   
 					'client_id' => $inputData->client_id
 				); 
+
 				$this->insertData__('client_company', $datasetCompany);
+				$this->updateData__('clients', $dataset, 'client_id="'.$dataset['client_id'].'"');
+			}else{
+
+				$dataset = array(  
+					'profie_image' => '',
+					'client_id' => $inputData->client_id
+				); 
+
+				$datasetCompany = array(   
+					'client_id' => $inputData->client_id
+				); 
+				
+				$this->insertData__('client_company', $datasetCompany);
+				$this->updatePassword($inputData->client_id, $this->input->post('auth_token'), $this->input->post('password'));
 				$this->updateData__('clients', $dataset, 'client_id="'.$dataset['client_id'].'"');
 			}
 		 
@@ -76,6 +92,39 @@ class LoginController extends CommonController {
 		}
 		
  
+	}
+
+	public function onEBUserLogin(){ 
+
+		$search_index = array(  
+			'table' => 'clients c,  user_sessions us',
+			'columns' => 'COUNT(*) as count, c.first_name, c.profie_image, c.client_id, c.provider_id, c.status, us.password', 
+			'data' => 'c.email= "'.$this->input->post('email').'" AND us.password= "'.$this->input->post('password').'" AND us.client_id=c.client_id' 
+		);
+
+		$getClient = $this->getTotalRows__($search_index)['data'][0];  
+		$getClient->email = $this->input->post('email');
+		$getClient->auth_token = $this->input->post('authToken');
+ 
+		if ($getClient->count == 1) {
+			
+			$inputData = $getClient;
+			$sessionData = $this->updateUserSession($getClient->client_id, $this->input->post('authToken'));    
+			$sessionData['data'] = $this->setSessionData($sessionData, $inputData ,'Session updated'); 
+
+			return $this->returnJSON($sessionData); 
+
+		}else{
+
+			$arrayVal = (object) array( 
+				'status' =>  404,
+				'message' => "Invalid email or password. Please try again with correct credentials."
+			);
+
+			return $this->returnJSON($arrayVal); 
+		}
+
+		
 	}
 	
 	public function onAdminLogin(){
@@ -145,6 +194,17 @@ class LoginController extends CommonController {
 		);  
 
 		return $this->updateRawData__('user_sessions', $dataset, 'client_id="'.$dataset['client_id'].'"');  
+	}
+
+	public function updatePassword($client_id, $auth_token, $password){   
+
+		$dataset = array(  
+			'auth_token' => $auth_token,
+			'client_id' => $client_id,
+			'password' => $password  
+		);  
+
+		return $this->updateRawData__('user_sessions', $dataset, 'client_id="'.$dataset['client_id'].'" AND auth_token="'.$dataset['auth_token'].'"');  
 	}
  
  

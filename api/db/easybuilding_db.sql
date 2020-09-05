@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 25, 2020 at 06:57 PM
+-- Generation Time: Sep 05, 2020 at 02:04 AM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -409,7 +409,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `verified_email` int(11) NOT NULL DEFAULT '0',
   `verify_code` int(11) NOT NULL,
   PRIMARY KEY (`client_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=70 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=78 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `clients`
@@ -418,7 +418,10 @@ CREATE TABLE IF NOT EXISTS `clients` (
 INSERT INTO `clients` (`client_id`, `first_name`, `last_name`, `email`, `profie_image`, `status`, `provider`, `provider_id`, `verified_email`, `verify_code`) VALUES
 (66, 'Nirmal', 'Nanayakkara', 'nipuisha@yahoo.com', '1592118606prof.png', 1, 'F', '3184985174847762', 0, 0),
 (67, 'Nipuna', 'Nanayakkara', 'nipunann0710@gmail.com', '1592233783prof.png', 1, 'G', '101780267759212434309', 0, 0),
-(68, 'Imali', 'Gunawardana', 'imaligunawardana1995@gmail.com', '1592412727prof.png', 1, 'G', '106207594050682912858', 0, 0);
+(68, 'Imali', 'Gunawardana', 'imaligunawardana1995@gmail.com', '1592412727prof.png', 1, 'G', '106207594050682912858', 0, 0),
+(76, 'Nishantha', 'Perera', 'nishanthaperera77@gmail.com', '', 1, 'E', '1596897751555', 0, 0),
+(75, 'Mahesh', 'Fernando', 'maheshfdo90@gmail.com', '', 1, 'E', '1596694098300', 0, 0),
+(77, 'Mithila', 'Samarasingha', 'mithila@gmail.com', '', 1, 'E', '1598932425341', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -452,17 +455,22 @@ CREATE TABLE IF NOT EXISTS `client_company` (
   `service_areas` mediumblob NOT NULL,
   `service_dist` mediumblob NOT NULL,
   `services` mediumblob NOT NULL,
+  `total_reviews` int(11) NOT NULL DEFAULT '0',
+  `rating` float NOT NULL,
   PRIMARY KEY (`company_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `client_company`
 --
 
-INSERT INTO `client_company` (`company_id`, `client_id`, `display_name`, `description`, `website`, `br_no`, `email`, `address_line1`, `address_line2`, `city`, `tel1`, `tel2`, `profie_image`, `cover_img`, `prof_category`, `verified_email`, `verify_code`, `steps`, `parent`, `all_island`, `service`, `service_areas`, `service_dist`, `services`) VALUES
-(1, 66, 'Dubai Homes', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non</p><p>proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', 'https://oozmm.com', 'PV263644577', 'info@n3holdings.com', '275A Colombo Road  ', 'Kidagammulla', 'Gampaha', '033-2228887', '071-6378515', '1594828893blob.jpg', '1595390456blob.jpg', 1, 0, 0, 4, 0, 0, 0, 0x5b5d, 0x5b2236222c2238222c223130225d, 0x5b22434c3231303135222c22434c3231303137225d),
-(3, 68, 'Test Holdings', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p><p>tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p><p>quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p><p>consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse</p><p>cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non</p><p>proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '', 'nipunann0710@gmail.com', '275A Colombo Road, KIdagammulla', '', 'Gampaha', '0716378515', '', '', '', 1, 0, 0, 4, 0, 0, 0, 0x5b2231323233225d, '', ''),
-(2, 67, 'JAT Living', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '', 'info@jatliving.lk', '141 Danister De Silva Mw,', 'Orion City,', 'Colombo 09', '0112589963', '', '1595702942blob.jpg', '', 1, 0, 0, 4, 0, 0, 0, 0x5b2231303731222c2231303438222c2231303432225d, '', '');
+INSERT INTO `client_company` (`company_id`, `client_id`, `display_name`, `description`, `website`, `br_no`, `email`, `address_line1`, `address_line2`, `city`, `tel1`, `tel2`, `profie_image`, `cover_img`, `prof_category`, `verified_email`, `verify_code`, `steps`, `parent`, `all_island`, `service`, `service_areas`, `service_dist`, `services`, `total_reviews`, `rating`) VALUES
+(1, 66, 'Dubai Homes', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non</p><p>proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', 'https://oozmm.com', 'PV263644577', 'info@n3holdings.com', '275A Colombo Road  ', 'Kidagammulla', 'Gampaha', '033-2228887', '071-6378515', '1594828893blob.jpg', '1595390456blob.jpg', 1, 0, 0, 4, 0, 0, 0, 0x5b5d, 0x5b2236222c2238222c223130225d, 0x5b22434c3231303133222c22434c3231303131225d, 5, 4.2),
+(7, 75, 'Mahesh Steel Decos', '', '', '', 'maheshsteel@gmail.com', '248 Negambo Road', '', 'Wattala', '01124456733', '', '1596706929blob.jpg', '', 1, 0, 0, 4, 0, 0, 0, 0x5b2231303837222c2231303938222c2231303939225d, 0x5b5d, 0x5b22434c3231303133225d, 0, 0),
+(3, 68, 'Test Holdings', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p><p>tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p><p>quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p><p>consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse</p><p>cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non</p><p>proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '', 'nipunann07101@gmail.com', '275A Colombo Road, KIdagammulla', '', 'Gampaha', '0716378515', '', '', '', 1, 0, 0, 4, 0, 0, 0, 0x5b2231323233225d, '', '', 0, 0),
+(2, 67, 'JAT Living', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '', 'info@jatliving.lk', '141 Danister De Silva Mw,', 'Orion City,', 'Colombo 09', '0112589963', '', '1595702942blob.jpg', '', 1, 0, 0, 4, 0, 0, 0, 0x5b2231303731222c2231303438222c2231303432225d, '', '', 0, 0),
+(8, 76, 'Nishantha Constructions', '', '', 'PV58566101', 'info@nishconstructions.com', '89/4 Gampola Road', '', 'Peradeniya', '0812265786', '', '', '', 2, 0, 0, 4, 0, 0, 0, 0x5b5d, 0x5b223134222c223135222c223139222c223233225d, 0x5b22434c3231303130222c22434c3231303131225d, 0, 0),
+(9, 77, '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, '', '', '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -554,19 +562,22 @@ CREATE TABLE IF NOT EXISTS `project` (
   `project_address` varchar(500) NOT NULL,
   `company_id` int(11) NOT NULL,
   `images` mediumblob NOT NULL,
+  `architect` varchar(250) NOT NULL,
+  `contractor` varchar(250) NOT NULL,
+  `structural_engineer` varchar(250) NOT NULL,
   `primary_img` varchar(1000) NOT NULL,
   `total_imgs` int(11) NOT NULL,
   PRIMARY KEY (`project_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `project`
 --
 
-INSERT INTO `project` (`project_id`, `project_name`, `project_description`, `project_year`, `project_cost`, `project_address`, `company_id`, `images`, `primary_img`, `total_imgs`) VALUES
-(31, 'Katunayaka Airport Project', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. \n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '2020', '10B', '', 2, 0x5b22313539353730323733327765625f4368616e67692d54342d53696e6761706f72652d332d48522d4372656469742d42656e6f792e6a7067222c22313539353730323733387765625f4368616e67692d54342d53696e6761706f72652d312d48522d4372656469742d42656e6f792e6a7067222c22313539353730323833377765625f4368616e67692d54342d53696e6761706f72652d382d48522d4372656469742d42656e6f792e6a7067222c22313539353730333335337765625f4368616e67692d54342d53696e6761706f72652d372d48522d4372656469742d42656e6f792e6a7067225d, '1595702732web_Changi-T4-Singapore-3-HR-Credit-Benoy.jpg', 4),
-(29, 'Kitchen Projects', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '2019', '1M', '', 1, 0x5b223135393537303230313632323962393238656135623837643138393863616530613062636234383166382e6a7067222c223135393537303230313635666537376437323530663962613930353431653865356433316534346564652e6a7067222c223135393537303230313636616264326134613334313637653531356162383765363536323435383838622e6a7067225d, '1595702016229b928ea5b87d1898cae0a0bcb481f8.jpg', 3),
-(30, 'Homagama Housing Project', 'Homagama Housing Project', '2020', '30M', '', 1, 0x5b22313539353730323133313232363231363138362e6a7067222c22313539353730323133314e6f726d616e746f6e2d4176656e75652d332d3136303078313036382e6a7067222c22313539353730323133316c616b652d686f7573652d696e2d6173636f6e612d62792d77657370692d64652d6d6575726f6e2d726f6d656f2d617263686974656374732d3035312e6a7067225d, '1595702131226216186.jpg', 3);
+INSERT INTO `project` (`project_id`, `project_name`, `project_description`, `project_year`, `project_cost`, `project_address`, `company_id`, `images`, `architect`, `contractor`, `structural_engineer`, `primary_img`, `total_imgs`) VALUES
+(31, 'Katunayaka Airport Project', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. \n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '2020', '10B', '', 2, 0x5b22313539353730323733327765625f4368616e67692d54342d53696e6761706f72652d332d48522d4372656469742d42656e6f792e6a7067222c22313539353730323733387765625f4368616e67692d54342d53696e6761706f72652d312d48522d4372656469742d42656e6f792e6a7067222c22313539353730323833377765625f4368616e67692d54342d53696e6761706f72652d382d48522d4372656469742d42656e6f792e6a7067222c22313539353730333335337765625f4368616e67692d54342d53696e6761706f72652d372d48522d4372656469742d42656e6f792e6a7067225d, '', '0', '0', '1595702732web_Changi-T4-Singapore-3-HR-Credit-Benoy.jpg', 4),
+(29, 'Kitchen Projects', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '2019', '1M', '', 1, 0x5b223135393537303230313632323962393238656135623837643138393863616530613062636234383166382e6a7067222c223135393537303230313635666537376437323530663962613930353431653865356433316534346564652e6a7067222c223135393537303230313636616264326134613334313637653531356162383765363536323435383838622e6a7067225d, 'Amali De Silva', 'DD Constructions', 'Danushka De Silva', '1595702016229b928ea5b87d1898cae0a0bcb481f8.jpg', 3),
+(30, 'Homagama Housing Project', 'Traditional beige two-story wood exterior home idea in Boston with a shingle roof', '2020', '30M', '', 1, 0x5b22313539353730323133313232363231363138362e6a7067222c22313539353730323133314e6f726d616e746f6e2d4176656e75652d332d3136303078313036382e6a7067222c22313539353730323133316c616b652d686f7573652d696e2d6173636f6e612d62792d77657370692d64652d6d6575726f6e2d726f6d656f2d617263686974656374732d3035312e6a7067225d, 'Nirmana Perera', 'R&D Constructions', 'Nirmal Perera', '1595702131226216186.jpg', 3);
 
 -- --------------------------------------------------------
 
@@ -581,7 +592,7 @@ CREATE TABLE IF NOT EXISTS `project_images` (
   `file_name` varchar(1000) NOT NULL,
   `description` varchar(1500) NOT NULL,
   PRIMARY KEY (`img_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `project_images`
@@ -598,6 +609,35 @@ INSERT INTO `project_images` (`img_id`, `project_id`, `file_name`, `description`
 (52, 30, '1595702131226216186.jpg', ''),
 (53, 30, '1595702131Normanton-Avenue-3-1600x1068.jpg', ''),
 (54, 30, '1595702131lake-house-in-ascona-by-wespi-de-meuron-romeo-architects-051.jpg', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviews`
+--
+
+DROP TABLE IF EXISTS `reviews`;
+CREATE TABLE IF NOT EXISTS `reviews` (
+  `review_id` int(11) NOT NULL AUTO_INCREMENT,
+  `client_id` int(11) NOT NULL,
+  `reviewer_id` int(11) NOT NULL,
+  `reviewer_name` varchar(500) NOT NULL,
+  `description` varchar(3000) NOT NULL,
+  `rating` int(11) NOT NULL,
+  `review_date` date DEFAULT NULL,
+  PRIMARY KEY (`review_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`review_id`, `client_id`, `reviewer_id`, `reviewer_name`, `description`, `rating`, `review_date`) VALUES
+(1, 66, 0, 'Shanthi Alwis', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.', 4, '2020-08-06'),
+(2, 66, 0, 'Nimal De Silva', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets.', 5, '2020-08-08'),
+(4, 66, 0, 'Nipuna Nanayakkara', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem id consequatur praesentium rerum quis quo et assumenda, officia corrupti, provident exercitationem hic autem nobis illo ex aliquam numquam doloribus cumque.', 4, '2020-08-08'),
+(5, 66, 0, 'Chathumali Gunawardena', 'Very good architecture.', 4, '2020-08-19'),
+(6, 66, 0, 'Sunil Almeda', 'My housing project was done by Dubai Homes and highly recommended.', 4, '2020-09-24');
 
 -- --------------------------------------------------------
 
@@ -632,15 +672,18 @@ CREATE TABLE IF NOT EXISTS `services_list` (
   `cat_lvl2_id` varchar(100) NOT NULL,
   `company_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `services_list`
 --
 
 INSERT INTO `services_list` (`id`, `cat_lvl2_id`, `company_id`) VALUES
-(23, 'CL21017', 1),
-(22, 'CL21015', 1);
+(24, 'CL21013', 7),
+(30, 'CL21011', 1),
+(29, 'CL21013', 1),
+(28, 'CL21011', 8),
+(27, 'CL21010', 8);
 
 -- --------------------------------------------------------
 
@@ -654,7 +697,7 @@ CREATE TABLE IF NOT EXISTS `service_areas` (
   `city_id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=148 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=151 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `service_areas`
@@ -663,7 +706,10 @@ CREATE TABLE IF NOT EXISTS `service_areas` (
 INSERT INTO `service_areas` (`id`, `city_id`, `company_id`) VALUES
 (1, 1071, 2),
 (2, 1048, 2),
-(3, 1042, 2);
+(3, 1042, 2),
+(150, 1099, 7),
+(149, 1098, 7),
+(148, 1087, 7);
 
 -- --------------------------------------------------------
 
@@ -677,16 +723,20 @@ CREATE TABLE IF NOT EXISTS `service_districts` (
   `district_id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `service_districts`
 --
 
 INSERT INTO `service_districts` (`id`, `district_id`, `company_id`) VALUES
-(47, 10, 1),
-(46, 8, 1),
-(45, 6, 1);
+(55, 23, 8),
+(54, 19, 8),
+(53, 15, 8),
+(52, 14, 8),
+(58, 10, 1),
+(57, 8, 1),
+(56, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -727,17 +777,21 @@ CREATE TABLE IF NOT EXISTS `user_sessions` (
   `auth_token` varchar(500) NOT NULL,
   `password` varchar(100) NOT NULL,
   PRIMARY KEY (`session_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user_sessions`
 --
 
 INSERT INTO `user_sessions` (`session_id`, `client_id`, `auth_token`, `password`) VALUES
+(56, 75, 'DUAUWiVL7oFkNfZ1597291624296', '123456789'),
 (49, 68, 'ya29.a0AfH6SMBOtHqXoOMrDPi0KQBpa_kH4zb_BblRmBGas0Mm2PyMhnB01FaSW-TBa8iijdnJRsRV8fu2ziBml-tHqYuimqr97-JbnUP6Miw2IlMWiDuxzW9Xx7hoKVy42DHHWLcgTMDskZHv7eCNo1xnMgq9-J2L-xV52Aom1A', ''),
 (50, 69, 'EAAlrbREIkZCkBADIzYv4TSZC9sqnIwzMgKM7lYQCYFvlatZB53BcU6h61OWTfAiPZAZCGAC8MEwkmgLxZBYONS17uVUlYPSL7KFq7tU6i9hc0sggFdUPndHFrcZASazH1JfOtlyunu5tI6EZBGjE454ikaCEpsYM2ZBlmZCEhZAMRp31e2HmaFAZANf93yNZBgabg2rP5lFW4KddRp4Oac8PKgzy4', ''),
-(48, 67, 'ya29.a0AfH6SMAaQJbi5lmSsTKq0imdXZqcdQdahfLW97vsofG__8TV34hWbZ1Y0Q6YmkIYhh6Nk8xu5fgCKigtIwdQzGYUioJ8MgeT3hb2vchTL3kVp4QXsiux000yKHIIxK5Ym-vHr5DL6PxF2YQ5-4enmlEaKvcC_AC8BGt5LQ', ''),
-(47, 66, 'EAAlrbREIkZCkBAMFFHsZAATdOvZBWg74GAuKfLggHdwQR4qOxRquqIBCRK8kNn2izXElxBYot6KF4DuvfBVeyRZAMK4T5ZCIdAutRiB1qNAbNjoZCu46LsbIIDIdXOved1MGgnhzmz1xhhjkSX0YkkWrZC9RywTLhCWMQn0gytTZBWr41I0zvZA3aeZAuhOChITEzvONZCsovDQsUSZAyM6QFHez', ''),
+(51, 70, 'ya29.a0AfH6SMC5P51k_otbDQ2N-XPWyrg7JMJW7pfp_8sGW--8V7d0WhSAEvxK30wZPkmVQbS_eklU4mtNLwX-gcIdNG7b62QE59XIwCmubHoLJhQcqLMWH8VO4uXVYBRfa0pg2exfB3c1uYU-_YN_RGgVCu_E5CG1AwTAULpNUQ', ''),
+(57, 76, '24FLddcRPGKrZC91596897750977', '123456789'),
+(58, 77, 'sKj4LhVUde7wAal1598932425264', '123456789'),
+(48, 67, 'ya29.a0AfH6SMDpaefIpGr_EaAFrRJAzg5mkRs2NOXpB-jtozXvYshCx8UMHyy6Xy6L2ZHi-xdeLH8JDP3bhcLdePdQvtnOfeFnw2Fbk84AGdkRC7cRWGDw_QnZNDR6czbSzM8SIWRaiUcB4nKBzMGFQ0Dpuw0ZwFwMPzWVbNbJrg', ''),
+(47, 66, 'EAAlrbREIkZCkBADB6dCmtECRUI3mWgkXEhvDjazR1iayuwogx5s5idW487QfATAIPePHyuvWiZA6xsDTN2zGSQ5dHANaw72MifSNT9PYEr5ZCWaQXYTIZC2rJOrZBWZC20eXrAtO3jq3oxXcdE0iBIr7q42V3OxZCZBG49iSjdkiSaujjPB6tpLPgYH97WHJYdGzVV581aUKtoPSGs9DBoDZArwUf16ZANOhIZD', ''),
 (46, 65, 'EAAlrbREIkZCkBAOHVjjUZCBewHTfKUnqDc56JFkG7bKHsi9GQhxZCrm9tUY4ZBYg76zZB2xZC99j22HoU0AGkPOJuW0IxZAVd4hI96l4oQtG4saG6STgGKiCZCtvhPO5kGsMZAJYkdwpnpeQqFThhDFZCiZB5QarXXswuA4tXLyTdYQ1G01EAv25mS0ZA1eYTSJu6P8m7N8l9zuypCpY4T2roZBs3', '');
 COMMIT;
 

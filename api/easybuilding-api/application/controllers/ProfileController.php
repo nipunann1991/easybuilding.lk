@@ -44,6 +44,30 @@ class ProfileController extends CommonController {
 		
 	}
 
+
+	 public function getReviews(){  
+
+	 	$limit = "";
+ 
+	 	if($this->input->post('limit') != -1){
+
+	 		$limit = "LIMIT ".$this->input->post('limit');
+			
+	 	}
+   
+		$search_index = array(
+			'columns' => '*' ,   
+			'table' => 'reviews',
+			'eq_table_col' => "1 ORDER BY review_id DESC ".$limit,
+			'data' => 'client_id= "'.$this->input->post('client_id').'"', 
+		);
+
+		return $this->selectCustomData__($search_index);
+
+		 
+		
+	}
+
 	public function getCities(){  
    
 		$search_index = array(
@@ -110,7 +134,6 @@ class ProfileController extends CommonController {
 	}
 
 	public function getContactDetails(){   
- 
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
 			$search_index = array(
@@ -234,10 +257,10 @@ class ProfileController extends CommonController {
 	public function getProjectDetails(){   
 
 		$search_index = array(
-			'columns' => 'p.*, cc.client_id' ,   
-			'table' => 'project p, client_company cc',
+			'columns' => 'p.*, cc.client_id, cc.display_name, cc.total_reviews, cc.profie_image, c.provider_id' ,   
+			'table' => 'project p, client_company cc, clients c',
 			'eq_table_col' => '1',
-			'data' => 'p.company_id= "'.$this->input->post('company_id').'" AND p.project_id= "'.$this->input->post('project_id').'" AND cc.company_id=p.company_id', 
+			'data' => 'p.company_id= "'.$this->input->post('company_id').'" AND p.project_id= "'.$this->input->post('project_id').'" AND cc.company_id=p.company_id AND cc.client_id=c.client_id', 
 		);
 
 		return $this->selectCustomData__($search_index); 
@@ -571,6 +594,62 @@ class ProfileController extends CommonController {
 		} 
 		
 	}
+
+	public function addNewReview(){  
+
+ 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+			$dataset = $this->input->post(); 
+			$this->insertData__('reviews', $dataset); 
+
+			$total_reviews = $this->getTotalReviewsByUser();
+			$total_sum_reviews = $this->getTotalSumofReviewsByUser();
+
+			$rating = (int) $total_sum_reviews / (int) $total_reviews;
+
+			$dataset = array( 
+				'rating' => $rating, 
+				'total_reviews' => $total_reviews , 
+			);
+
+			return $this->updateData__('client_company', $dataset, 'client_id="'.$this->input->post('client_id').'"'); 
+
+		}else{
+			return $this->invalidSession(); 
+		}
+		 
+	} 
+
+
+	public function getTotalReviewsByUser(){
+
+    	$search = array(
+			'table' => 'reviews',
+			'columns' => '*', 
+			'data' => " client_id = '".$this->input->post('client_id')."'",
+		);
+
+
+		$result = $this->getTotalCount__($search); 
+
+		return $result;
+
+    }
+
+    public function getTotalSumofReviewsByUser(){
+
+    	$search = array(
+			'table' => 'reviews',
+			'column' => 'rating',
+			'data' => " client_id = '".$this->input->post('client_id')."'",
+			 
+		);
+
+
+		$result = $this->getSumOfColumn__($search); 
+
+		return $result;
+
+    }
 	 
  
 }

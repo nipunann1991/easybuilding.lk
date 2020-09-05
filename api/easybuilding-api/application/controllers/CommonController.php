@@ -120,6 +120,22 @@ class CommonController extends CI_Controller {
 
     }
 
+
+    public function getTotalCount__($data){
+ 
+		return $this->CommonQueryModel->getTotalCount($data);
+
+    }
+
+
+    public function getSumOfColumn__($data){
+ 
+		return $this->CommonQueryModel->getSumOfColumn($data);
+
+    }
+
+    
+
 	
 	public function isUserSessionValid(){
  		

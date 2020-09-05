@@ -26,22 +26,66 @@ class ClientController extends CommonController {
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
 
 			$dt = $this->dataTableInitialValues(); 
-			$search_columns = array('client_id', 'first_name', 'last_name', 'email', 'provider'); 
+			$search_columns = array('c.client_id', 'c.first_name', 'c.last_name', 'c.email', 'c.provider'); 
 
 	     	$search_by_feilds = $this->searchFromColsDT($search_columns, $dt['search_val']); 
 			$selectedOrd = 'desc'; 
 			$orderedCol = $dt['get_column_name'];		
 
 			$search1 = array(
-				'columns' => '*' ,   
-				'table' => 'clients',
-				'data' => $search_by_feilds.' order by '. $orderedCol .' '.$selectedOrd.' LIMIT '.$dt['start'].','.$dt['length'].'  ',
+				'columns' => 'c.*, cc.display_name' ,   
+				'table' => 'clients c, client_company cc',
+				'data' => "cc.client_id=c.client_id AND (".$search_by_feilds.')  order by c.'. $orderedCol .' '.$selectedOrd.' LIMIT '.$dt['start'].','.$dt['length'].'  ',
 				'eq_table_col' => ''
 			);  
 		
 			$get_data = array(
 				'columns' => '*' ,   
 				'table' => 'clients',
+				'data' => '1',
+			);  
+			  
+			$data = json_decode($this->selectCustomData__($search1)->final_output, true);
+ 
+	 		  
+			$result = (object) array(
+				'draw' => intval($this->input->get('draw')),
+				'recordsTotal' => $this->CommonQueryModel->count_filtered($get_data),
+				'recordsFiltered' => $this->CommonQueryModel->count_filtered($get_data),
+				"data" => $data['data'] 
+
+			);  
+	   		
+	   		return $this->returnJSON($result);
+
+		}else{
+			return $this->invalidSession(); 
+		}
+		
+	}
+
+
+	public function getClientProfileDetailsDT(){  
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+
+			$dt = $this->dataTableInitialValues(); 
+			$search_columns = array('cc.display_name', 'c.client_id', 'cc.email', 'cc.tel1'); 
+
+	     	$search_by_feilds = $this->searchFromColsDT($search_columns, $dt['search_val']); 
+			$selectedOrd = 'desc'; 
+			$orderedCol = $dt['get_column_name'];		
+
+			$search1 = array(
+				'columns' => 'c.client_id, c.first_name, c.last_name, c.provider_id, cc.*' ,   
+				'table' => 'clients c, client_company cc',
+				'data' => "cc.client_id=c.client_id AND (".$search_by_feilds.')  order by cc.'. $orderedCol .' '.$selectedOrd.' LIMIT '.$dt['start'].','.$dt['length'].'  ',
+				'eq_table_col' => ''
+			);  
+		
+			$get_data = array(
+				'columns' => '*' ,   
+				'table' => 'client_company',
 				'data' => '1',
 			);  
 			  

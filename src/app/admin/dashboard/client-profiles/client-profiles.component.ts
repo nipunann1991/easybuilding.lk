@@ -41,14 +41,14 @@ export class ClientProfilesComponent implements OnInit {
         { data: 'city' }, 
       ],
       columnDefs: [
-      // {
-      //   targets: 6,
-      //   data: function( row ){   
+      {
+        targets: 7,
+        data: function( row ){   
 
-      //     return ""
+          return  '<a class="view-client-data" data-id="' + row.client_id + '" data-provider-id="' + row.provider_id + '/about" title="View">View</i></a> ';
             
-      //   }, 
-      // }
+        }, 
+      }
     ],
       dom: 'lfrtip', 
       buttons: [ 
@@ -76,7 +76,7 @@ export class ClientProfilesComponent implements OnInit {
 
   };
 
-    // const component1 = this;
+    const component1 = this;
 
     // $('html').on('click', 'a.delete-maincategory-data' , function(e1){ 
     //   e1.preventDefault(); 
@@ -85,11 +85,11 @@ export class ClientProfilesComponent implements OnInit {
     // })
     
 
-    // $('html').on('click', 'a.view-client-data' , function(e1){ 
-    //   e1.preventDefault(); 
-    //   component1.viewClent($(this).attr('data-id'), $(this).attr('data-provider-id'));  
+    $('html').on('click', 'a.view-client-data' , function(e1){ 
+      e1.preventDefault(); 
+      component1.viewClent($(this).attr('data-id'), $(this).attr('data-provider-id'));  
       
-    // })
+    })
 
     
     // const component = this;
@@ -99,6 +99,10 @@ export class ClientProfilesComponent implements OnInit {
     //   component.editCategoryPage($(this).attr('data-id'));
       
     // });
+  }
+
+  viewClent(id, provider_id){
+    this.router.navigate(['admin/users/user/'+id+'/'+provider_id]); 
   }
 
 
