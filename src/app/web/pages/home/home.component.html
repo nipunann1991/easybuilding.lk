@@ -78,13 +78,27 @@
 
             <div class="featured-list row">
                 <div class="col-lg-3 col-md-6 col-sm-6 featured-item-wrapper" *ngFor="let fpl of featuredProfList">
-                    <div class="featured-item">
-                        <div class="item-img" [ngStyle]="{'background-image': 'url('+ fpl.imgUrl + ')'}">
-
-                        </div>
+                    <div class="featured-item" [routerLink]="fpl.profileLink">
+                        <div class="item-img" *ngIf="fpl.imgUrl !== ''" [ngStyle]="{'background-image': 'url('+ fpl.imgUrl + ')'}" [ngClass]="{'no-img': fpl.imgUrl === ''}"></div>
+                        <div class="item-img" *ngIf="fpl.imgUrl == ''" [ngClass]="{'no-img': fpl.imgUrl === ''}"></div>
+                        
                         <div class="item-desc">
                             <h4>{{fpl.title}}</h4>
-                            <p>{{fpl.description}}</p>                        
+                            <div class="ratings-holder">
+                                <star-rating  
+                                    starType="icon" 
+                                    [labelText]="totalReviews"  
+                                    [showHalfStars]="true" 
+                                    labelPosition="right" 
+                                    [rating]="fpl.rating"
+                                    [readOnly]="true"
+                                ></star-rating> {{ fpl.rating }} / {{fpl.total_reviews}} Reviews
+                            </div>
+                            
+                             <ul class="contact-details">
+                                <li class="address">{{ fpl.contact.city }}</li>
+                                <li class="tel">{{ fpl.contact.tel }}</li>
+                             </ul>                   
                         </div>
                     </div>
                 </div> 

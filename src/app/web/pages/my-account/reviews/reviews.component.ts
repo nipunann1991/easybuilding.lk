@@ -23,6 +23,7 @@ export class ReviewsComponent implements OnInit {
   isShowHeader: boolean = true;
   resultLimit: number = -1;
   clientId: any;
+  userId: any;
 
   constructor( 
     public dialog: MatDialog,
@@ -47,10 +48,9 @@ export class ReviewsComponent implements OnInit {
       this.resultLimit = this.reviewData.limit;
     }  
     
-    this.route.parent.params.subscribe((params) => { 
-      console.log(params); 
+    this.route.parent.params.subscribe((params) => {  
       (params.user === "me")? this.clientId = this.globals.token.session_id : this.clientId = params.user;
-      
+      this.userId = this.clientId;
     }); 
     
      this.getReviews();
@@ -60,14 +60,16 @@ export class ReviewsComponent implements OnInit {
     this.dialogRef =  this.dialog.open(reviewDialog, {
       height: 'auto',
       width: '600px', 
+      data: {
+        userId: this.userId,
+      }
+      
     });  
 
-    this.dialogRef.afterClosed().subscribe(result => {
-
-      console.log(result)
+    this.dialogRef.afterClosed().subscribe(result => { 
       
       if(result){
-         
+        this.getReviews();
       }
       
     });
@@ -115,6 +117,7 @@ export class reviewDialog {
 
   formGroup: FormGroup; 
   public confirmMessage:string;
+  userId: any;
      
   constructor( 
     public dialogRef: MatDialogRef<reviewDialog>,
@@ -123,7 +126,9 @@ export class reviewDialog {
     private globals: Globals,
     @Inject(MAT_DIALOG_DATA) public data
   ) { 
-
+ 
+    this.userId = data.userId;
+    console.log(this.userId)
     this.formGroup = new FormGroup({ 
       reviewer_name: new FormControl('', [
         Validators.required
@@ -163,8 +168,7 @@ export class reviewDialog {
   onSave(){
     if (!this.formGroup.invalid) {
       
-      this.formGroup.value.client_id = this.globals.token.session_id ;
-      //console.log(this.formGroup.value)
+      this.formGroup.value.client_id = this.userId ; 
       
       this.myaccount.addNewReview(this.formGroup.value)
         .subscribe((response: any) => {

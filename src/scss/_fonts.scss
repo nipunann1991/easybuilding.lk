@@ -123,83 +123,89 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-certificate:before {
+.icon-business-profile:before {
   content: "\e900";
 }
-.icon-dashboard:before {
-  content: "\e90b";
-}
-.icon-tools:before {
-  content: "\e90d";
-}
-.icon-settings:before {
-  content: "\e90e";
-}
-.icon-users:before {
-  content: "\e90f";
-}
-.icon-view:before {
-  content: "\e919";
-}
-.icon-growth:before {
-  content: "\e90c";
-}
-.icon-tel:before {
-  content: "\e910";
-}
-.icon-location:before {
-  content: "\e912";
-}
-.icon-mobile:before {
-  content: "\e914";
-}
-.icon-email:before {
-  content: "\e915";
-}
-.icon-interface:before {
-  content: "\e916";
-}
-.icon-upload:before {
-  content: "\e917";
-}
-.icon-profile:before {
-  content: "\e918";
-}
-.icon-close:before {
-  content: "\e913";
-}
-.icon-grid:before {
+.icon-single-profile:before {
   content: "\e901";
 }
-.icon-list:before {
+.icon-certificate:before {
   content: "\e902";
 }
-.icon-pencil:before {
+.icon-grid:before {
   content: "\e903";
 }
-.icon-bin:before {
+.icon-list:before {
   content: "\e904";
 }
-.icon-plus:before {
+.icon-pencil:before {
   content: "\e905";
 }
-.icon-dark-arrow-right:before {
+.icon-bin:before {
   content: "\e906";
 }
-.icon-magnifying-glass:before {
+.icon-plus:before {
   content: "\e907";
 }
-.icon-left-arrow:before {
+.icon-dark-arrow-right:before {
   content: "\e908";
 }
-.icon-right-arrow:before {
+.icon-magnifying-glass:before {
   content: "\e909";
 }
-.icon-down-arrow:before {
+.icon-left-arrow:before {
   content: "\e90a";
 }
-.icon-shopping-cart:before {
+.icon-right-arrow:before {
+  content: "\e90b";
+}
+.icon-down-arrow:before {
+  content: "\e90c";
+}
+.icon-dashboard:before {
+  content: "\e90d";
+}
+.icon-growth:before {
+  content: "\e90e";
+}
+.icon-tools:before {
+  content: "\e90f";
+}
+.icon-settings:before {
+  content: "\e910";
+}
+.icon-users:before {
   content: "\e911";
+}
+.icon-tel:before {
+  content: "\e912";
+}
+.icon-shopping-cart:before {
+  content: "\e913";
+}
+.icon-location:before {
+  content: "\e914";
+}
+.icon-close:before {
+  content: "\e915";
+}
+.icon-mobile:before {
+  content: "\e916";
+}
+.icon-email:before {
+  content: "\e917";
+}
+.icon-interface:before {
+  content: "\e918";
+}
+.icon-upload:before {
+  content: "\e919";
+}
+.icon-profile:before {
+  content: "\e91a";
+}
+.icon-view:before {
+  content: "\e91b";
 }
 .icon-facebook:before {
   content: "\ea90";

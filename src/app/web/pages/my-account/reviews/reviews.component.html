@@ -5,8 +5,8 @@
 </div>
 
 <p  *ngIf="!isShowHeader && reviews.length == 0" ><i>No reviews available</i></p>
-<ul class="reviews-list">
-  <li *ngFor="let r of reviews" class="reviews">
+<ul class="reviews-list" [ngClass]="{'view-more-bg': !isShowHeader}">
+  <li *ngFor="let r of reviews" class="reviews" >
 
     <div class="reviews-wrapper">
       <div class="reviews-header">

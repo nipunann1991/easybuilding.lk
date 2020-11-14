@@ -2,7 +2,7 @@
 
 .footer-area{
     padding: 4rem 0 2rem 0;
-    background: $form-control-gray; 
+    background: #04142f; // $form-control-gray; 
 
     .flex-wrapper{ 
         @include flex();
@@ -11,17 +11,22 @@
         padding-bottom: 4rem;
          
         .columns{ 
-            padding-right: 1.5rem;
+            padding-right: 1.5rem; 
+
+            h3{
+                color: #c6cfe6;
+            }
 
             ul{
                 &.social-icons{
                     li{
                         a{
                             text-decoration: none;
+                            font-size: 1.4rem;
 
                             i{
                                 color: $form-control-gray;
-                                background-color: $border-gray;
+                                background-color: rgba(255, 255, 255, 0.1);
                                 padding: 0.8rem;
                                 display: inline-block;
                                 margin-right: 1rem;
@@ -30,7 +35,7 @@
 
                             &:hover{
                                 i{
-                                    background-color: darken($border-gray, 10%);
+                                    background-color: rgba(255, 255, 255, 0.2);
                                 }
                             }
                         }
@@ -47,7 +52,8 @@
  
 
                     a{
-                        color: $darker-gray;
+                        color: $bluish-gray;
+                        font-size: 1.4rem;
                     }
                 }
             }
@@ -58,10 +64,14 @@
                 }
 
                 ul{
+
                     li{ 
                         background-repeat: no-repeat;
                         background-position: 0px 3px;
                         padding-left: 2.5rem;
+                        color: $bluish-gray;
+                        font-size: 1.5rem;
+                        letter-spacing: 0.03rem;
 
                         &.address{
                             background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAMCAYAAAC5tzfZAAAABHNCSVQICAgIfAhkiAAAALZJREFUKFPNkL0NwjAQhd/JC2QERsgIZARGSBsoLH5qrocgkJChIxuEDcIIjMAIqUH4kCM5RFagosCdv/P33smE4GjN0UOhFMEACiOz4mv4hrrACXeFioC44YJaFJJQbKVswTEsTq3g0wS1JaSHnM8eNZIT6IkKhChcpXUFqdlw4e40mfNQLMpvwruUtMmXOxrPWD6l93EiJL+RXNJ+zRffEm7S2/RnUjZl7v6StSiOW7551jd/AWOIWUVWlAvyAAAAAElFTkSuQmCC');
@@ -93,11 +103,18 @@
     
     .copyright{
         padding-top: 2rem;
-        text-align: center;
-        border-top: 1px $border-gray solid;
+        text-align: center; 
+        border-top: 1px rgba(255, 255, 255, 0.1) solid;
+        font-size: 1.3rem;
+        
+        p{
+            color: $bluish-gray;
+            font-size: inherit;
+        }
 
         a{
             color: $base-bg-color;
+            font-size: inherit;
         }
     }
 }

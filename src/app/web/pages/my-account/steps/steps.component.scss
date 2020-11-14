@@ -2,14 +2,32 @@
 
 .complete-steps{
   .steps-header{
-    padding: 3rem 3rem;
-    background: $body-bg;
-    text-align: center;
-    margin-top: 1rem;
-    border-bottom: 5px $border-gray solid;
+    padding: 5rem 3rem;
+    //background: $body-bg;
+    text-align: center;  
+    background-image: url("/assets/images/business-steel.jpg");
+    background-size: cover;
+    background-position: 50% 87%;
+    position: relative;
+
+    &:before{
+      position: absolute;
+      content: "";
+      background: rgba(4, 20, 47 , 0.8);
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 0;
+    }
 
     h2{
       font-size: 2.5rem;
+      position: relative;
+      z-index: 1;
+      color: $white;
+      margin-bottom: 3rem;
+      letter-spacing: 0.08rem;
     }
 
     ul.steps{
@@ -17,22 +35,29 @@
       width: 80%;
       margin: auto;
       margin-top: 2rem; 
+      z-index: 1;
 
       li{
         width: 25%;
         position: relative;
 
         span{
-          margin-top: 2.3rem;
+          margin-top: 3rem;
           display: block;
-          font-size: 1.3rem;
+          font-size: 1.35rem;
+          letter-spacing: 0.04rem;
+          color: $white;
         }
 
         &.active{
           &:after, &:before{
-            background-color: $light-blue-color;
+            background-color: $base-bg-color;
             color: $white;
           }  
+
+          span{
+            color: $base-bg-color;
+          }
         }
 
 
@@ -50,7 +75,7 @@
           content: "";
           height: 3px;
           width: 100%;
-          background: $border-gray;
+          background: rgba(255, 255, 255 , 0.35);
           position: absolute;
           top: 0.8rem;
           left: -50%;
@@ -85,7 +110,7 @@
   .steps-form{
     padding: 3rem;
     width: 75%;
-    margin: 2rem auto 5rem auto; 
+    margin: 5rem auto 5rem auto; 
     border-radius: 3px;
     
     label{

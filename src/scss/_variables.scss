@@ -1,14 +1,14 @@
 // -----------------------------------------------------------------------------
 // This file contains all application-wide Sass variables.
 // -----------------------------------------------------------------------------
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400&display=swap');
 
 /// Regular font family
 //$font-family-reg: Arial, Helvetica, sans-serif !default; 
 
 /// Code (monospace) font family
 $code-font: 'Hind Siliguri', sans-serif;
-$normal-font: 'Circular Std Book';
+$normal-font: 'Circular Std Book'; //'Nunito', sans-serif; //;
 $bold-font: 'Circular Std';
 $adminfont: 'Poppins', sans-serif;
 
@@ -36,6 +36,7 @@ $mid-gray: #c3c3c3;
 $dark-gray: #6B7380;
 $darker-gray: #5d626a;
 $base-color: #333333 ; //#201c1c;
+$bluish-gray: #939eba;
 $base-bg-color: #3C8EF9;
 $light-blue-color: #27B9FD;
 $dark-color: #111; //#684d32

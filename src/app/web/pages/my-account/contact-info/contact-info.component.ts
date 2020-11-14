@@ -14,8 +14,8 @@ export class ContactInfoComponent implements OnInit {
   formGroup: FormGroup;
   clientId: any; companyId: any;
   profile: any = {}
-  isStepsForm: boolean = false;
-
+  isStepsForm: boolean = false; 
+  profileType: string = "";
 
   constructor(
     private myaccount: MyAccountService,
@@ -69,16 +69,29 @@ export class ContactInfoComponent implements OnInit {
       .subscribe((response: any) => {
         if (response.status == 200) {
            
+          let email = "";
+
           this.profile = response.data[0];
 
+          if(this.profile.company_profile == 1){
+            this.profileType = "Company"; 
+            email = this.profile.email;
 
+          }else{
+            this.profileType = "" ; 
+            this.formGroup.get("email").disable();
+            email = this.profile.signup_email;
+             
+          }    
+           
+         
           this.formGroup.setValue({
             address_line1: this.profile.address_line1, 
             address_line2: this.profile.address_line2,
             city: this.profile.city,
             tel1: this.profile.tel1,
             tel2: this.profile.tel2,
-            email: this.profile.email,
+            email: email,
           });
 
           this.clientId = this.profile.client_id;
@@ -95,14 +108,21 @@ export class ContactInfoComponent implements OnInit {
 
     if (!this.formGroup.invalid) {
 
-      this.formGroup.value.client_id = this.clientId; 
-      this.formGroup.value.company_id = this.companyId; 
-      this.myaccount.updateProfileDetails(this.formGroup.value)
+      let presonalData = this.formGroup.getRawValue();
+
+      presonalData.client_id = this.clientId;
+      presonalData.company_id = this.companyId;  
+      
+      if(this.profile.company_profile == 0){
+        presonalData.steps = 2; 
+      } 
+
+      this.myaccount.updateProfileDetails(presonalData)
         .subscribe((response: any) => {
 
           if (response.status == 200) {
 
-            if( !this.isStepsForm ){
+            if( !this.isStepsForm || this.profile.company_profile == 0 ){
               this.toastr.success('Information saved successfully', 'Success !');  
               this.router.navigate(['/my-account/user/me/about']);
             }else{ 

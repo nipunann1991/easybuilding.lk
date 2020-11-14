@@ -23,10 +23,12 @@ import { ModalModule } from 'ngb-modal';
 import { FileSaverModule } from 'ngx-filesaver';
 import { FacebookModule } from 'ngx-facebook';
 import { reviewDialog } from "../app/web/pages/my-account/reviews/reviews.component";
+import { FirstLetterPipe } from "../app/pipes/first-letter.pipe";
 
 @NgModule({
   declarations: [
-    reviewDialog
+    reviewDialog,
+    FirstLetterPipe
   ],
   imports: [ 
       FormsModule,
@@ -75,8 +77,8 @@ import { reviewDialog } from "../app/web/pages/my-account/reviews/reviews.compon
       ModalModule,
       StarRatingModule,
       FileSaverModule,
-      NgBootstrapFormValidationModule
-    
+      NgBootstrapFormValidationModule,
+      FirstLetterPipe
   ],
   entryComponents: [
     reviewDialog

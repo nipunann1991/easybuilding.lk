@@ -7,30 +7,29 @@
   <div class="container">  
     <div class="row">
       <div class="view-project-main-img col-md-8">
-         <div class="img-area" [ngStyle]="{'background-image': 'url('+ mainImg +')'}">
+        <div class="img-area" [ngStyle]="{'background-image': 'url('+ mainImg +')'}">
            
-         </div>
-         <div class="project-content"> 
-          <h1>{{projectData.project_name}}</h1>
-          <ul class="design-info">
-            <li class="architect" *ngIf="projectData.architect != ''"><strong>Architect :</strong>  {{projectData.architect}}</li>
-            <li class="contractor" *ngIf="projectData.contractor != ''"><strong>Contractor :</strong>  {{projectData.contractor}}</li>
-            <li class="engienner" *ngIf="projectData.structural_engineer != ''"><strong>Structural Engineer :</strong>  {{projectData.structural_engineer}}</li>
-          </ul>
+        </div>
+        <div class="project-content"> 
+          <div class="top-header">
+            <h1>{{projectData.project_name}}</h1>
+            <ul class="design-info">
+              <li class="architect" *ngIf="projectData.architect != ''"><strong>Architect :</strong>  {{projectData.architect}}</li>
+              <li class="contractor" *ngIf="projectData.contractor != ''"><strong>Contractor :</strong>  {{projectData.contractor}}</li>
+              <li class="engienner" *ngIf="projectData.structural_engineer != ''"><strong>Structural Engineer :</strong>  {{projectData.structural_engineer}}</li>
+            </ul>
+          </div> 
           <div class="project-details">
             <ul class="additional-info">
               <li class="year"><strong>Project Year </strong>  {{projectData.project_year}}</li>
               <li class="photos"><strong>Project Cost </strong> {{projectData.project_cost}}</li>
               <li class="location"><strong>Location </strong> Colombo</li> 
             </ul> 
-          </div> 
-           
-           
-           
+          </div>  
           <div class="project-desc">
             <p>{{projectData.project_description}}</p> 
           </div>
-         </div>
+        </div>
         
         <div class="user-profile-details">
           <div class="profile-image" (click)="gotoProfile()" [ngStyle]="{'background-image': 'url('+ profileImg +')'}"></div>

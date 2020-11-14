@@ -114,9 +114,7 @@ export class ProfileComponent implements OnInit {
       this.isEditable = this.profileData.is_editable_btn;
       this.userEmail = this.profileData.email;
       this.totalReviews = this.profile.total_reviews + " Reviews";
-      this.rating =  this.profile.rating;
-      //this.globals.token.company_id = this.companyId;
-      //localStorage.setItem("token", JSON.stringify( this.globals.token )); 
+      this.rating =  this.profile.rating; 
 
       
 

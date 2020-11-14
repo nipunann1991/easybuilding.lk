@@ -44,7 +44,7 @@ export class AboutComponent implements OnInit {
     });
 
     this.profile.setfullScreenView(false);  
-    this.reviewData = { header: false , limit: 2}
+    this.reviewData = { header: false , limit: 3}
 
     if(this.profile.getPreviousUrl().indexOf('/me/edit/') > -1){
       this.getProfileDetails();   

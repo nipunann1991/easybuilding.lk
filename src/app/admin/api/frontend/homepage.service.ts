@@ -13,4 +13,8 @@ export class HomepageService {
     return this.http.get(environment.baseUrl+'HomeController/getCompanyData');
   }
 
+  getConstructors(){   
+    return this.http.get(environment.baseUrl+'HomeController/getConstructors');
+  }
+
 }

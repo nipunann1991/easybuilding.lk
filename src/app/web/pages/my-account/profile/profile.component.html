@@ -50,8 +50,9 @@
                     <div class="profile-img"  *ngIf="!isProfImage" [ngStyle]="{'background-image': transparent }">
                         <a href="javascript:void(0)" *ngIf="profile.profile_editable" class="upload-btn" title="Upload profile image"  (click)="openImgUpload(fileInput, 1)"> </a>
                     </div>
-                    
-                    <a mat-button class="btn btn-primary btn-contact" href="mailto:{{userEmail}}">Contact Me</a>
+                    <ng-container>
+                        <a mat-button class="btn btn-primary btn-contact" href="mailto:{{userEmail}}">Contact Me</a>
+                    </ng-container>
                 </div> 
                 <div class="details-wrapper">
                     <div class="details" [ngClass]="{'no-img': !isBgImage}">
@@ -73,6 +74,7 @@
                                     labelPosition="right" 
                                     [rating]="rating"
                                     [readOnly]="true"
+                                    *ngIf="profileData.prof_category == 1"
                                 ></star-rating>
                             </li>
                         </ul>

@@ -1,7 +1,7 @@
 <form id="myform" class="wrapped-block animated fadeIn" [formGroup]="formGroup" (ngSubmit)="onSave()" novalidate="novalidate">
     <div class="row">
         <div class="col-md-12">
-            <h2>Company Contact Details</h2>
+            <h2>{{ profileType }} Contact Details</h2>
         </div>
         <div class="col-md-6">  
             <div class="form-group">
@@ -41,7 +41,7 @@
         
         <div class="col-md-12">
             <div class="form-group">
-                <label for="email">Company Email Address</label> 
+                <label for="email">{{ profileType }} Email Address</label> 
                 <input id="email" name="email" formControlName="email" type="text" class="form-control" >
             </div>
         </div>    

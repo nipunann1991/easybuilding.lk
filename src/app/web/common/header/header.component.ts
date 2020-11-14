@@ -33,8 +33,7 @@ export class HeaderComponent implements OnInit {
   ) { 
 
     this.isAccessed();
-    this.user = this.globals.user; 
-
+    this.user = this.globals.user;  
     
   
   }

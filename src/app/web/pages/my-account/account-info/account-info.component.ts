@@ -9,16 +9,24 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 @Component({
   selector: 'app-account-info',
   templateUrl: './account-info.component.html',
-  styleUrls: ['./account-info.component.css']
+  styleUrls: ['./account-info.component.scss']
 })
 export class AccountInfoComponent implements OnInit {
 
   profile: any = {}
   isEmailDisabled: boolean = true;
   isStepsForm: boolean = false;
+  isCompanyProfile: boolean = false;
   formGroup: FormGroup;
+  personalFormGroup: FormGroup;
+
   public Editor = ClassicEditor;
-  clientId: any; companyId: any;
+  clientId: any; companyId: any; profileType: any;   profileTypeSelectedVal: number = -1;
+
+  profileTypesList = [ 
+    {title: "Business Profile", icon: "icon-business-profile", value: 1},
+    {title: "Personal Profile", icon: "icon-single-profile", value: 0},
+  ]
 
   professionalCategory: any = [
     {  id: 1, text: "Skilled Proffessional" },
@@ -66,6 +74,20 @@ export class AccountInfoComponent implements OnInit {
 
     });
 
+
+    this.personalFormGroup = new FormGroup({  
+      display_name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(100)
+      ]), 
+      description: new FormControl(''),
+      email: new FormControl({value:'', disabled: true}, [ 
+          Validators.required, 
+      ]), 
+
+    });
+
       if(this.router.url.includes("steps")){
         this.isStepsForm = true;
       }
@@ -80,22 +102,41 @@ export class AccountInfoComponent implements OnInit {
       .subscribe((response: any) => {
         if (response.status == 200) {
            
-          this.profile = response.data[0];
- 
-          this.formGroup.setValue({
-              first_name: this.profile.first_name, 
-              last_name: this.profile.last_name, 
-              display_name: this.profile.display_name,
-              prof_category: this.profile.prof_category,
-              br_no: this.profile.br_no,
-              description: this.profile.description,
+          this.profile = response.data[0];  
+          this.profileTypeSelectedVal = this.profile.company_profile
+          
+          if(this.profileTypeSelectedVal == 0){
+
+            this.personalFormGroup.setValue({ 
+              display_name: this.profile.display_name, 
+              description: this.profile.description,  
               email: this.profile.email,
-              website: this.profile.website
-              
-          });
+            });
+
+            this.personalFormGroup.get("display_name").disable();
+
+          }else if(this.profileTypeSelectedVal == 1){
+
+            this.formGroup.setValue({
+                first_name: this.profile.first_name, 
+                last_name: this.profile.last_name, 
+                display_name: this.profile.display_name,
+                prof_category: this.profile.prof_category,
+                br_no: this.profile.br_no,
+                description: this.profile.description,
+                email: this.profile.email,
+                website: this.profile.website
+                
+            });
+
+           
+
+          } 
+         
 
           this.clientId = this.profile.client_id
-          this.companyId = this.profile.company_id
+          this.companyId = this.profile.company_id;
+          this.profileType = this.profile.company_profile; 
   
         }else{
             
@@ -105,13 +146,14 @@ export class AccountInfoComponent implements OnInit {
   }
 
 
-  onSave(){
+  saveBusinessProfile(){
 
     if (!this.formGroup.invalid) {
 
       this.formGroup.value.client_id = this.clientId;
       this.formGroup.value.company_id = this.companyId;
       this.formGroup.value.prof_category = parseInt(this.formGroup.value.prof_category); 
+      this.formGroup.value.company_profile = this.profileType;
      
       this.myaccount.updateProfileDetails(this.formGroup.value)
         .subscribe((response: any) => {
@@ -134,6 +176,61 @@ export class AccountInfoComponent implements OnInit {
         });
     }
 
+  }
+
+
+  savePersonalProfile(){
+
+    if (!this.personalFormGroup.invalid) {
+
+      let presonalData = this.personalFormGroup.getRawValue();
+
+      presonalData.client_id = this.clientId;
+      presonalData.company_id = this.companyId;
+      presonalData.company_profile = this.profileType; 
+     
+      this.myaccount.updateProfileDetails(presonalData)
+        .subscribe((response: any) => {
+
+          if (response.status == 200) {
+            if( !this.isStepsForm ){
+              this.toastr.success('Information saved successfully', 'Success !');  
+              this.router.navigate(['/my-account']);
+            }else{ 
+              this.router.navigate(["../contact-info"], { relativeTo: this.route.parent });
+            }
+          
+            
+          }else if (response.status == 401){
+            this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  
+          }else{
+            this.toastr.error('Information saving failed. Please try again', 'Error !'); 
+          }
+            
+        });
+    }
+
+  }
+
+  selectedProfileType(e){
+    this.profileTypeSelectedVal =  e.srcElement.defaultValue;  
+    
+  }
+
+  continueSteps(){
+    this.profileType = this.profileTypeSelectedVal 
+
+    if(this.profileTypeSelectedVal == 1){
+      this.isCompanyProfile = true;
+    }else{
+      this.isCompanyProfile = false 
+      this.personalFormGroup.setValue({ 
+        display_name: this.profile.first_name+" "+this.profile.last_name, 
+        description: this.profile.description,  
+        email: this.profile.email,
+      });
+      this.personalFormGroup.get("display_name").disable();
+    }
   }
 
 }

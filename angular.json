@@ -21,24 +21,24 @@
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.json", 
+            "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [ 
+            "styles": [
               "node_modules/datatables.net-dt/css/jquery.dataTables.css",
               "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css", 
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/nanoscroller/bin/css/nanoscroller.css",
               "node_modules/select2/dist/css/select2.min.css",
               "node_modules/fancybox/dist/css/jquery.fancybox.css",
               "src/styles.scss"
             ],
-            "scripts": [ 
-              "node_modules/jquery/dist/jquery.min.js", 
-              "node_modules/popper.js/dist/umd/popper.min.js", 
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/popper.js/dist/umd/popper.min.js",
               "node_modules/fancybox/dist/js/jquery.fancybox.js",
               "node_modules/datatables.net/js/jquery.dataTables.min.js",
               "node_modules/jszip/dist/jszip.js",
@@ -49,13 +49,13 @@
               "node_modules/datatables.net-buttons/js/buttons.print.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "node_modules/bootbox/bootbox.js",
-              "node_modules/nanoscroller/bin/javascripts/jquery.nanoscroller.js", 
+              "node_modules/nanoscroller/bin/javascripts/jquery.nanoscroller.js",
               "node_modules/select2/dist/js/select2.min.js",
               "node_modules/jsbarcode/dist/JsBarcode.all.min.js",
               "src/assets/js/TweenMax.min.js",
-              "node_modules/scrollmagic/scrollmagic/uncompressed/ScrollMagic.js", 
+              "node_modules/scrollmagic/scrollmagic/uncompressed/ScrollMagic.js",
               "node_modules/scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js",
-              "src/assets/js/app.main.js" 
+              "src/assets/js/app.main.js"
             ]
           },
           "configurations": {
@@ -163,5 +163,8 @@
       }
     }
   },
-  "defaultProject": "easybuilding.lk"
+  "defaultProject": "easybuilding.lk",
+  "cli": {
+    "analytics": false
+  }
 }

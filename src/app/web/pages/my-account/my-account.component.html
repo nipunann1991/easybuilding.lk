@@ -22,21 +22,23 @@
                                     <li class="website"><a href="{{profileData.website}}" target="_blank">{{profileData.website}}</a></li>
                                 </ul>
                             </div>
-                            <div class="item"> 
-                                <h3>Service Areas</h3>
-                                <p *ngIf="serviceAreas == ''"><i>No service areas yet.</i></p>
-                                <p *ngIf="serviceAreas != ''">{{ serviceAreas }}</p>
-                            </div>
-                            <div class="item"> 
-                                <h3>Services</h3>
-                                <p *ngIf="services == ''"><i>No service areas yet.</i></p>
-                                <p *ngIf="services != ''">{{ services }}</p>
-                            </div>
-                            <div class="item"> 
-                                <h3>Awards</h3>
-                                <p><i>No awards yet.</i></p>
-                            </div>
                             
+                            <ng-container *ngIf="profileData.prof_category == 1">
+                                <div class="item"> 
+                                    <h3>Service Areas</h3>
+                                    <p *ngIf="serviceAreas == ''"><i>No service areas yet.</i></p>
+                                    <p *ngIf="serviceAreas != ''">{{ serviceAreas }}</p>
+                                </div>
+                                <div class="item"> 
+                                    <h3>Services</h3>
+                                    <p *ngIf="services == ''"><i>No service areas yet.</i></p>
+                                    <p *ngIf="services != ''">{{ services }}</p>
+                                </div>
+                                <div class="item"> 
+                                    <h3>Awards</h3>
+                                    <p><i>No awards yet.</i></p>
+                                </div>
+                            </ng-container>
                         </ng-container>
                         <ng-container *ngIf="profileCompleted && isEditableMode">
                             <ul>
@@ -51,9 +53,11 @@
                         <ng-container> 
                             <ul class="tab-list">
                                 <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="about" >About</a></li>
-                                <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="projects">Projects</a></li> 
-                                <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="services">Services</a></li>
-                                <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="reviews">Reviews</a></li>
+                                <ng-container *ngIf="profileData.prof_category == 1">
+                                    <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="projects">Projects</a></li> 
+                                    <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="services">Services</a></li>
+                                    <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="reviews">Reviews</a></li>
+                                </ng-container>
                             </ul>
                         </ng-container> 
                         <div class="content-area">

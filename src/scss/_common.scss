@@ -271,6 +271,7 @@ ul{
 		min-width: 1250px;
 	}
 }
+
 .grouped-box{
 	border: 1px #d1d1d1 solid;
 	border-radius: 25px;
@@ -315,11 +316,7 @@ ul{
 					border-radius: 20px;
 				}
 			}
-			 
-
-
 		}
-		
 	}
 }
 
@@ -497,6 +494,19 @@ ul{
 
 	&.btn-next{
 		float: right;
+		text-transform: uppercase;
+		@include bold;
+		min-width: 15rem;
+		background-color: $light-blue-color;
+
+		&:hover{
+			background: darken($light-blue-color, 5%);
+			color: $white;
+		}
+		
+	}
+
+	&.btn-light-blue{ 
 		text-transform: uppercase;
 		@include bold;
 		min-width: 15rem;

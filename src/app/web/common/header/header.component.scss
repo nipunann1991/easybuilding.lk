@@ -98,8 +98,13 @@
                 width: 3.8rem;
                 height: 3.8rem;
                 border-radius: 50%;
-                background-color: #eeeeee;
+                background-color: #d4e9ff;
                 background-size: cover;
+                @include flex();
+                align-items: center;
+                justify-content: center;
+                color: $base-bg-color;
+                font-size: 2rem;
             }
 
             .user-name{

@@ -1,0 +1,31 @@
+@import '../../../../styles';
+
+.title-area{
+    padding: 3rem 0;
+    @include box-shadow(0px, 3px, 8px, 1px, rgba(210, 210, 210, 0.4));
+}
+
+.products-wrapper{
+    padding: 2rem 0 5rem 0;
+
+    .filter-area{
+        display: flex;
+        flex-direction: row;
+        padding-bottom: 2rem; 
+
+        .dropdown{
+            margin-right: 1.5rem;
+
+            ul.dropdown-menu{ 
+                min-width: 150px;
+                
+                li{
+                    a{
+                        text-align: left;
+                        width: 100%;
+                    }
+                }
+            }
+        } 
+    }
+}

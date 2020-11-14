@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AppSEO } from "./../../../app.seo"; 
+import { HomepageService } from "../../../admin/api/frontend/homepage.service";
+import { environment } from "../../../../environments/environment";
 import { gsap,TweenMax, TimelineMax } from "gsap";  
 import * as ScrollMagic from "scrollmagic"; 
 import { ScrollMagicPluginGsap } from "scrollmagic-plugin-gsap";  
@@ -23,59 +25,15 @@ export class HomeComponent implements OnInit {
   currBannerItem: number = -1;
 
   
-  constructor(private seo: AppSEO) {    
+  constructor(private seo: AppSEO, private homePage: HomepageService) {    
     ScrollMagicPluginGsap(ScrollMagic, TweenMax, TimelineMax); 
     this.pageSEO();  
   }
-
+ 
   ngOnInit(): void { 
     
     window.scroll(0,0); 
-    
-    this.featuredProfList = [{
-      id: 1,
-      title: "Modern Pool #1",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "./assets/images/modern-pool1.png",
-    },
-    {
-      id: 2,
-      title: "Modern Pool #2",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "./assets/images/modern-pool2.png",
-    },{
-      id: 3,
-      title: "Modern Pool #3",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "./assets/images/modern-pool3.png",
-    },{
-      id: 4,
-      title: "Modern Pool #4",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "./assets/images/modern-pool4.png",
-    },{
-      id: 5,
-      title: "Modern Pool #5",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "./assets/images/modern-pool5.png",
-    },
-    {
-      id: 6,
-      title: "Modern Pool #6",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "./assets/images/modern-pool6.png",
-    },{
-      id: 7,
-      title: "Modern Pool #7",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "./assets/images/modern-pool7.png",
-    },{
-      id: 8,
-      title: "Modern Pool #8",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "./assets/images/modern-pool8.png",
-    }];
-
+      
 
     this.featuredProdList = [{
       id: 1,
@@ -118,6 +76,8 @@ export class HomeComponent implements OnInit {
 
 
     this.BannerArray = [].slice.call(this.BannerImgs); 
+
+    this.getConstructorList();
   
   }
 
@@ -125,6 +85,41 @@ export class HomeComponent implements OnInit {
     this.pageAnimation(); 
   }
 
+
+  
+
+  getConstructorList(){ 
+      
+    this.homePage.getConstructors() 
+      .subscribe((response: any) => {
+
+        response.data.forEach(elm => {
+         
+          let profileImg = environment.uploadPath + elm.client_id +'/'+ elm.company_id +'/';
+
+          (elm.profie_image == '')?  profileImg = ''  : profileImg = profileImg + elm.profie_image  ;
+
+          let constructors = {
+            id: elm.client_id,
+            title: elm.display_name, 
+            profileLink: '/user/'+ elm.client_id +'/'+ elm.provider_id +'/about', 
+            imgUrl: profileImg,
+            rating: elm.rating,
+            total_reviews : elm.total_reviews,
+            contact: {
+              city : elm.city, 
+              tel : elm.tel1, 
+            }
+          }
+
+          this.featuredProfList.push(constructors)
+          console.log(elm)
+        });
+ 
+          
+      }); 
+  
+}
     
 
   pageAnimation(): void{ 

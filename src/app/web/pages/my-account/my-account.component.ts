@@ -70,6 +70,7 @@ export class MyAccountComponent implements OnInit {
             
             this.isEditableMode = false; 
             this.profileData.is_editable_btn = false;
+ 
             
           } 
         }  
@@ -126,7 +127,7 @@ export class MyAccountComponent implements OnInit {
             this.profileData.profile_editable = true;
             this.profileData.is_editable_btn = false; 
             this.profile.setProfileData(this.profileData);
-            
+            console.log(this.profileData)
             this.getOtherProfileRelatedData();
             
           } 
@@ -169,14 +170,15 @@ export class MyAccountComponent implements OnInit {
       this.getServics( this.profileData.company_id); 
 
     }
-       
-    if(this.profileData.steps < 4){
+  
+    if((this.profileData.steps < 4 && this.profileData.company_profile == 1) || (this.profileData.steps < 2 && this.profileData.company_profile == 0) || (this.profileData.steps < 2 && this.profileData.company_profile == 0) || this.profileData.company_profile == -1){
       this.profileCompleted = false;
       this.router.navigate(['/steps/account-info'], { relativeTo: this.route.parent });
     }else{
       this.profileCompleted = true;    
       
     }
+ 
   }
 
   getServiceCitiesByCompany(company_id){

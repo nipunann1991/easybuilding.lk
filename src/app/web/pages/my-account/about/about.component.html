@@ -4,13 +4,16 @@
     <div class="desc" [innerHTML]="profileData.description"></div> 
     <p *ngIf="profileData.description == ''"><i>No description available.</i></p>
   </div>
-  <div class="project-data block">
-    <h3>Projects</h3>
-    <app-projects itemLimit="5"></app-projects>   
-     
-  </div>
-  <div class="about-data block last">
-    <h3>Reviews</h3> 
-    <app-reviews [reviewData]="reviewData" ></app-reviews> 
-  </div>
+
+  <ng-container *ngIf="profileData.prof_category == 1">
+    <div class="project-data block">
+      <h3>Projects</h3>
+      <app-projects itemLimit="5"></app-projects>   
+      
+    </div>
+    <div class="about-data block last">
+      <h3>Reviews</h3> 
+      <app-reviews [reviewData]="reviewData" ></app-reviews> 
+    </div>
+  </ng-container>
 </div>
