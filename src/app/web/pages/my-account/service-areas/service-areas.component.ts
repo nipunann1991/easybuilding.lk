@@ -113,6 +113,17 @@ export class ServiceAreasComponent implements OnInit {
             }); 
 
           }
+
+
+          if(this.all_island){
+
+            this.formGroup.setValue({
+              service_areas: JSON.parse(this.profile.service_areas),  
+              services: JSON.parse(this.profile.services)
+
+            }); 
+
+          }
           
   
         }else{
@@ -229,13 +240,18 @@ export class ServiceAreasComponent implements OnInit {
       this.formGroup.value.steps = 4; 
       this.formGroup.value.services = JSON.stringify(this.formGroup.value.services); 
 
-      if(this.isCities){
+      if(this.isCities && !this.all_island){
         this.formGroup.value.service_areas = JSON.stringify(this.formGroup.value.service_areas); 
         this.formGroup.value.service_dist = "[]";
 
       }else if(this.isDistricts){
         this.formGroup.value.service_dist = JSON.stringify(this.formGroup.value.service_areas); 
         this.formGroup.value.service_areas = "[]";
+
+      }else if(this.all_island){
+        this.formGroup.value.service_dist = "[]";
+        this.formGroup.value.service_areas = "[]";
+
       }
       
       console.log(this.formGroup.value)

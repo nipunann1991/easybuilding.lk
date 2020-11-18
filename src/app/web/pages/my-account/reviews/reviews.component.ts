@@ -21,9 +21,12 @@ export class ReviewsComponent implements OnInit {
   formGroup: FormGroup;
   reviews: any = [];
   isShowHeader: boolean = true;
-  resultLimit: number = -1;
+  resultLimit: number = 5;
+  totalReviews: number = 0;
+  pagination: any = [];
   clientId: any;
   userId: any;
+  reviewIndex: number = 0;
 
   constructor( 
     public dialog: MatDialog,
@@ -51,9 +54,11 @@ export class ReviewsComponent implements OnInit {
     this.route.parent.params.subscribe((params) => {  
       (params.user === "me")? this.clientId = this.globals.token.session_id : this.clientId = params.user;
       this.userId = this.clientId;
+      this.reviewIndex = params.id; 
+      this.getReviews();
     }); 
     
-     this.getReviews();
+     
   }
 
   reviewDialog(){
@@ -78,16 +83,22 @@ export class ReviewsComponent implements OnInit {
 
   getReviews(){
 
-    let param = { client_id: this.clientId, limit: this.resultLimit }
+    let param = { client_id: this.clientId, limit: this.resultLimit, page_index: this.reviewIndex}
 
     this.myaccount.getReviews(param)
     .subscribe((response: any) => {
   
       if (response.status == 200) { 
         
-        this.reviews = response.data
-        console.log(response.data)
-        
+        this.reviews = response.data;
+        this.totalReviews = response.total_results;
+
+        if(this.totalReviews % this.resultLimit != 0){
+          this.pagination = Array(Math.floor(this.totalReviews / this.resultLimit) + 1 ).fill(0).map((x,i)=>(i + 1));
+        }else{
+          this.pagination = Array(Math.floor(this.totalReviews / this.resultLimit)).fill(0).map((x,i)=>(i + 1));
+        }
+
       
       } 
         
@@ -100,7 +111,12 @@ export class ReviewsComponent implements OnInit {
     this.router.navigate(['../reviews'], { relativeTo: this.route.parent });
   }
 
- 
+
+  nextPage(index){
+    this.router.navigate(['../',index], { relativeTo: this.route.parent });
+  }
+
+  
 
   
 }

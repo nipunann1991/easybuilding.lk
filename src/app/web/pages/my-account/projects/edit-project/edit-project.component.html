@@ -36,6 +36,13 @@
                 </div>  
             </div>
             <div class="col-md-12">
+                <div class="form-group" >
+                    <label for="service_areas">Select Project Category<span class="required-star">*</span></label> 
+                    <ng-select2 [data]="allServices" [options]="options" formControlName="services" class="select-fw" >
+                    </ng-select2> 
+                </div> 
+            </div>
+            <div class="col-md-12">
                 <div class="form-group">
                     <label for="project_description">Project Description<span class="required-star">*</span></label>
                     <textarea name="description" class="form-control" formControlName="project_description" cols="10" rows="5"></textarea>

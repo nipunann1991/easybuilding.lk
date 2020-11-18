@@ -73,8 +73,17 @@ export class MyAccountService {
     
     return this.http.post(environment.baseUrl+'ProfileController/getServics', params);
   }
- 
 
+  getServicsWithID(postVals){   
+
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ProfileController/getServicsWithID', params);
+  }
+ 
+  
   getProjectDetails(postVals){   
 
     const params = new HttpParams({

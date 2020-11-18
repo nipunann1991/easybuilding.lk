@@ -10,7 +10,7 @@
             <div class="container main-content-area"> 
                 <div class="content-wrapper"> 
                     <div class="left-block">
-                        <ng-container *ngIf="!isEditableMode">
+                        <ng-container *ngIf="!isEditableMode && profileData.prof_category == 1">
                             <div class="item"> 
                                 <h3>Contact Details</h3>
                                 <ul>
@@ -21,29 +21,27 @@
                                     <li class="email">{{profileData.email}}</li>
                                     <li class="website"><a href="{{profileData.website}}" target="_blank">{{profileData.website}}</a></li>
                                 </ul>
+                            </div> 
+                            <div class="item"> 
+                                <h3>Service Areas</h3>
+                                <p *ngIf="serviceAreas == ''"><i>No service areas yet.</i></p>
+                                <p *ngIf="serviceAreas != ''">{{ serviceAreas }}</p>
                             </div>
-                            
-                            <ng-container *ngIf="profileData.prof_category == 1">
-                                <div class="item"> 
-                                    <h3>Service Areas</h3>
-                                    <p *ngIf="serviceAreas == ''"><i>No service areas yet.</i></p>
-                                    <p *ngIf="serviceAreas != ''">{{ serviceAreas }}</p>
-                                </div>
-                                <div class="item"> 
-                                    <h3>Services</h3>
-                                    <p *ngIf="services == ''"><i>No service areas yet.</i></p>
-                                    <p *ngIf="services != ''">{{ services }}</p>
-                                </div>
-                                <div class="item"> 
-                                    <h3>Awards</h3>
-                                    <p><i>No awards yet.</i></p>
-                                </div>
-                            </ng-container>
+                            <div class="item"> 
+                                <h3>Services</h3>
+                                <p *ngIf="services == ''"><i>No service areas yet.</i></p>
+                                <p *ngIf="services != ''">{{ services }}</p>
+                            </div>
+                            <div class="item"> 
+                                <h3>Awards</h3>
+                                <p><i>No awards yet.</i></p>
+                            </div>
+                             
                         </ng-container>
                         <ng-container *ngIf="profileCompleted && isEditableMode">
                             <ul>
-                                <li *ngFor="let nav of navItems">
-                                    <a mat-button routerLinkActive="active-btn" [routerLinkActiveOptions]="{exact: false}"  routerLink="{{nav.url}}" >{{nav.title}}</a>
+                                <li *ngFor="let nav of navItems"> 
+                                    <a mat-button routerLinkActive="active-btn"  *ngIf="!nav.isPersonalProfile"[routerLinkActiveOptions]="{exact: false}"  routerLink="{{nav.url}}" >{{nav.title}}</a>
                                 </li>
                             </ul>
                         </ng-container>
@@ -56,7 +54,7 @@
                                 <ng-container *ngIf="profileData.prof_category == 1">
                                     <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="projects">Projects</a></li> 
                                     <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="services">Services</a></li>
-                                    <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="reviews">Reviews</a></li>
+                                    <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="reviews/1">Reviews</a></li>
                                 </ng-container>
                             </ul>
                         </ng-container> 

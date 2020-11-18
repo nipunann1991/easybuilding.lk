@@ -64,10 +64,14 @@ export class AuthService {
             this.global.token.auth_token = token.auth_token;
 
             this.global.token.session_id = response.data[0].client_id;
-            this.global.user.first_name = response.data[0].first_name;  
+            this.global.user.first_name = response.data[0].first_name; 
+            
+            console.log("000",response.data[0])
             
             if(response.data[0].profie_image != ""){
               this.global.user.profie_image = environment.uploadPath +  response.data[0].client_id +"/"+response.data[0].profie_image; 
+            }else if(response.data[0].eb_profie_image != ""){
+              this.global.user.profie_image = environment.uploadPath +  response.data[0].client_id +"/"+response.data[0].company_id +"/"+response.data[0].eb_profie_image; 
             }
            
 

@@ -7,6 +7,7 @@ import { ImageCroppedEvent, Dimensions, ImageTransform } from 'ngx-image-cropper
 import { MyAccountService } from '../../../../../admin/api/frontend/my-account.service';
 import { ProfileService } from "../../../../../admin/api/frontend/profile.service";
 import { environment } from "../../../../../../environments/environment";
+import { Options } from 'select2';
 import * as $ from 'jquery';
 declare const bootbox:any;
 
@@ -18,10 +19,11 @@ declare const bootbox:any;
 })
 export class EditProjectComponent implements OnInit {
 
-  formGroup: FormGroup;
+  formGroup: FormGroup; 
   companyID:any;
   projectID:any;
 
+  public options: Options;
   public files: NgxFileDropEntry[] = []; 
   imageChangedEvent: any = '';
   isUploading: boolean = false;
@@ -35,6 +37,7 @@ export class EditProjectComponent implements OnInit {
   projectImages:any = [];
   projectImagesDeleted:any;
   imageURLThumb: string = "";
+  allServices: any = [];
 
   constructor(
     private myaccount: MyAccountService,
@@ -47,6 +50,12 @@ export class EditProjectComponent implements OnInit {
 
     window.scroll(0,0);  
 
+    this.options = {
+      multiple: true, 
+      closeOnSelect: true, 
+      tags: true 
+    };
+
     this.profile.setfullScreenView(true);
     
     this.formGroup = new FormGroup({ 
@@ -56,6 +65,10 @@ export class EditProjectComponent implements OnInit {
         Validators.minLength(2),
         Validators.maxLength(100)
       ]),
+
+      services: new FormControl('',[
+        Validators.required
+      ]), 
 
       project_description: new FormControl('',[
         Validators.required,
@@ -81,7 +94,7 @@ export class EditProjectComponent implements OnInit {
 
     this.companyID = this.route.snapshot.params.company_id; 
     this.projectID = this.route.snapshot.params.project_id;
-
+    this.getServicsWithID(this.companyID);
     this.getProjectDetails(this.companyID, this.projectID);
     
   }
@@ -223,6 +236,25 @@ export class EditProjectComponent implements OnInit {
     fileLeave(event){
       console.log(event);
     }
+    
+  
+    getServicsWithID(company_id){
+
+      let params = { company_id: company_id }
+  
+      this.myaccount.getServicsWithID(params) 
+        .subscribe((response: any) => {
+          if (response.status == 200 && response.data.length > 0 ) {
+            
+            console.log( response )  
+            this.allServices = response.data
+  
+          }else{
+            
+          }
+            
+        });
+    }
 
     getProjectDetails(company_id, project_id){
 
@@ -230,21 +262,21 @@ export class EditProjectComponent implements OnInit {
   
       this.myaccount.getProjectDetails(params) 
         .subscribe((response: any) => {
-          if (response.status == 200 && response.data.length > 0 ) {
-            
-            console.log( response.data[0] )  
+          if (response.status == 200) {
+             
   
-            this.projectData = response.data[0];
-            this.projectImages = JSON.parse(response.data[0].images);
+            this.projectData = response.data;
+            this.projectImages = JSON.parse(this.projectData.images);
 
-            this.clientId = response.data[0].client_id;
+            this.clientId = this.projectData.client_id;
             this.imageURL = environment.uploadPath + this.clientId +'/'+ this.companyID +'/projects/';
             this.imageURLThumb = environment.uploadPath + this.clientId +'/'+ this.companyID +'/projects/thumb/';
             
-            this.mainImg = this.imageURL + response.data[0].primary_img;
+            this.mainImg = this.imageURL + this.projectData.primary_img;
 
             this.formGroup.setValue({
-              project_name: this.projectData.project_name, 
+              project_name: this.projectData.project_name,
+              services: JSON.parse(this.projectData.services), 
               project_description: this.projectData.project_description, 
               project_year: this.projectData.project_year,
               project_cost: this.projectData.project_cost, 
@@ -278,7 +310,7 @@ export class EditProjectComponent implements OnInit {
         this.formGroup.value.primary_img = this.uploadedFileName[0]; 
         this.formGroup.value.total_imgs = this.uploadedFileName.length; 
         this.formGroup.value.project_id = this.projectID; 
-        
+        this.formGroup.value.services = JSON.stringify(this.formGroup.value.services); 
         
         this.myaccount.editProjectDetails(this.formGroup.value)
           .subscribe((response: any) => {

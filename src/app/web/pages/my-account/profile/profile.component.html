@@ -63,8 +63,8 @@
                                 <h3 *ngIf="!isDisplayNameNull">{{profile.display_name}}</h3> 
                                 <a (click)="editProfile()" class="edit" *ngIf="profile.profile_editable && !isEditable" ><i class="icon-pencil"></i></a>
                             </li> 
-                            <li class="address"> 
-                                <p>{{profile.address_line1}} {{profile.address_line2}} {{profile.city}}</p> 
+                            <li class="address" > 
+                                <p><span *ngIf="profileData.prof_category == 1">{{profile.address_line1}} {{profile.address_line2}} </span>{{profile.city}}</p> 
                             </li>
                             <li>
                                 <star-rating  
@@ -81,8 +81,8 @@
                         
                     </div> 
 
-                    <button *ngIf="isBgImage && isProfImage" mat-button class="btn btn-primary share-fb" (click)="share()"><i class="icon-facebook"></i> Share</button>
-                    <!-- <button mat-button class="btn btn-primary-transparent edit-profile" *ngIf="!profile.profile_editable">Publish</button> -->
+                    <button *ngIf="isBgImage && isProfImage && profileData.prof_category == 1" mat-button class="btn btn-primary share-fb" (click)="share()"><i class="icon-facebook"></i> Share</button>
+                    <button mat-button class="btn btn-primary edit-profile" *ngIf="profileData.prof_category != 1">Convert to Pro</button>
                 </div>
         
             </div>

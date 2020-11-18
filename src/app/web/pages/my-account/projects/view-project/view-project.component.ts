@@ -44,14 +44,17 @@ export class ViewProjectComponent implements OnInit {
   getProjectDetails(company_id, project_id){
 
     let params = { company_id: company_id, project_id: project_id }
-
+ 
     this.myaccount.getProjectDetails(params) 
       .subscribe((response: any) => {
-        if (response.status == 200 && response.data.length > 0 ) { 
+        if (response.status == 200  ) { 
          
-          this.projectData = response.data[0];
+          this.projectData = response.data;
+
+          console.log(this.projectData);
+
           this.projectImages = JSON.parse(this.projectData.images);
-          this.clientId = response.data[0].client_id;
+          this.clientId =  this.projectData.client_id;
           this.imageURL = environment.uploadPath + this.clientId +'/'+ this.companyID +'/projects/';
           this.imageURLThumb = environment.uploadPath + this.clientId +'/'+ this.companyID +'/projects/thumb/';
 

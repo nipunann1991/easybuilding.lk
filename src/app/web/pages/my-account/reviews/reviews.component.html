@@ -1,6 +1,6 @@
 
 <div class="total-reviews" *ngIf="isShowHeader">
-  <h2>{{reviews.length}} reviews</h2> 
+  <h2>{{ totalReviews }} reviews</h2> 
   <button mat-button class="btn btn-transparent btn-review" (click)="reviewDialog()">Write a Review</button>
 </div>
 
@@ -34,6 +34,12 @@
         </div>
       </div> 
     </div> 
+  </li> 
+</ul>
+
+<ul class="pagination review-pagination"> 
+  <li *ngFor="let page of pagination; let i = index" class="page-item">
+    <a class="page-link" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: false}" routerLink="#" (click)="nextPage(page)" >{{page}}</a>
   </li> 
 </ul>
 

@@ -14,7 +14,7 @@
                     <button mat-button *ngIf="!isLogged" class="btn btn-primary sign-up mat-button">Upload Product</button>   
                     
                     <div class="user-account" routerLink="/my-account/user/me/about" *ngIf="isLogged">
-
+                       
                         <div class="user-img" *ngIf="user.profie_image != ''" [ngStyle]="{'background-image': 'url('+ user.profie_image + ')'}"></div> 
                         <div class="user-img" *ngIf="user.profie_image == ''"> <span>{{user.first_name | firstLetter }}</span> </div>
                         

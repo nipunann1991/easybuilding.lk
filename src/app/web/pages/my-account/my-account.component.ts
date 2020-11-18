@@ -83,11 +83,11 @@ export class MyAccountComponent implements OnInit {
     
   
     this.navItems = [
-      { title: "Home", url: this.baseurl+"about", icon: ""},
-      { title: "Account Information", url: this.baseurlEdit+"account-info", icon: ""},
-      { title: "Contact Details", url: this.baseurlEdit+"contact-info", icon: ""},
-      { title: "Services & Areas", url: this.baseurlEdit+"service-areas", icon: ""},
-      { title: "Settings", url: this.baseurlEdit+"settings", icon: ""}
+      { title: "Home", url: this.baseurl+"about", icon: "", isPersonalProfile: false},
+      { title: "Account Information", url: this.baseurlEdit+"account-info", icon: "", isPersonalProfile: false},
+      { title: "Contact Details", url: this.baseurlEdit+"contact-info", icon: "", isPersonalProfile: false},
+      { title: "Services & Areas", url: this.baseurlEdit+"service-areas", icon: "", isPersonalProfile: false},
+      { title: "Settings", url: this.baseurlEdit+"settings", icon: "", isPersonalProfile: false}
     ];
     
     this.isAdminAccessible = this.auth.validateBackendUser();
@@ -127,7 +127,9 @@ export class MyAccountComponent implements OnInit {
             this.profileData.profile_editable = true;
             this.profileData.is_editable_btn = false; 
             this.profile.setProfileData(this.profileData);
-            console.log(this.profileData)
+            
+            ( this.profileData.company_profile == 0 )?  this.navItems[3].isPersonalProfile = true  : '';
+
             this.getOtherProfileRelatedData();
             
           } 
@@ -221,8 +223,7 @@ export class MyAccountComponent implements OnInit {
       this.myaccount.getServics(params) 
         .subscribe((response: any) => {
         if (response.status == 200 && response.data.length > 0 ) {  
-            this.services = response.data;
-            console.log(this.services);
+            this.services = response.data; 
         }else{
           
         }

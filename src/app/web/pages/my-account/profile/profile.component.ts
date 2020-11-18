@@ -467,9 +467,9 @@ validateFile(file){
     this.modalService.close(this.modalRef); 
   }
 
-  editProfile(){
-    this.isEditable = true;
+  editProfile(){ 
     this.isProfileEditable.emit(true); 
+    this.isEditable = true;
     this.router.navigate(['/my-account/user/me/edit/account-info']);
   }
 
