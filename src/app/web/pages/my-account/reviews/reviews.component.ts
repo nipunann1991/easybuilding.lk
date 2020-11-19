@@ -99,6 +99,7 @@ export class ReviewsComponent implements OnInit {
           this.pagination = Array(Math.floor(this.totalReviews / this.resultLimit)).fill(0).map((x,i)=>(i + 1));
         }
 
+        console.log("length", this.pagination.length)
       
       } 
         
@@ -108,7 +109,9 @@ export class ReviewsComponent implements OnInit {
 
 
   gotoReview(){
-    this.router.navigate(['../reviews'], { relativeTo: this.route.parent });
+    ;
+
+    console.log(this.router.navigate(['../reviews/1'], { relativeTo: this.route.parent }))
   }
 
 

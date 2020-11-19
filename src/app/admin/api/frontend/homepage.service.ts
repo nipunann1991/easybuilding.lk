@@ -17,4 +17,12 @@ export class HomepageService {
     return this.http.get(environment.baseUrl+'HomeController/getConstructors');
   }
 
+  getProductsMenuItems(){   
+    return this.http.get(environment.baseUrl+'HomeController/getProductsMenuItems');
+  }
+
+  getServicesMenuItems(){   
+    return this.http.get(environment.baseUrl+'HomeController/getServicesMenuItems');
+  }
+
 }

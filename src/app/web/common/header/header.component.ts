@@ -5,6 +5,7 @@ import { Router, NavigationEnd, RouterEvent } from "@angular/router";
 import { filter } from 'rxjs/operators';
 import { Globals } from "../../../app.global"
 import { environment } from "../../../../environments/environment";
+import { HomepageService } from "../../../admin/api/frontend/homepage.service";
 
 @Component({
   selector: 'app-header',
@@ -15,11 +16,13 @@ export class HeaderComponent implements OnInit {
 
   isLogged: boolean = false; 
   editableMode: boolean = false; 
-  menuItemCols: any; 
+  menuItemsProduct: any = []; 
+  menuItemsServices: any = []; 
   totalItemLengths: any = [];
+  menuArray: any = [];
   @Input() logoOnly: boolean =  false;
   profilrUrl: any = environment.profileUrl;
-
+  totalLinks: number = 0;
   user: any = {
     first_name: '',
     profie_image: ''
@@ -29,7 +32,8 @@ export class HeaderComponent implements OnInit {
     private authservice: Auth,
     private oauth: OAuth,
     private router: Router,
-    private globals: Globals
+    private globals: Globals,
+    private homePage: HomepageService
   ) { 
 
     this.isAccessed();
@@ -41,233 +45,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
       console.log(this.logoOnly)
     
-    this.menuItemCols =  [{
-        "id": "1;",
-        "title": "Construction Contractors",
-        "break": true,
-        "children": [
-          {
-            "title": "House Construction Contractors",
-            "url": "/products/house-construction-contractors"
-          },
-          {
-            "title": "Commercial Building Contraction Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Steel Building Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Road & Infrastructure Building Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Building Painters",
-            "url": "/"
-          },
-          {
-            "title": "Landscaping & Paving Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Grass Cutters & Tree Cutters",
-            "url": "/"
-          },
-          {
-            "title": "Carpenters & Wood workers",
-            "url": "/"
-          },
-          {
-            "title": "Plumbing Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Water Proofing Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Soil & Concrete testing Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Aluminum and Glass Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Masons",
-            "url": "/"
-          },
-          {
-            "title": "Steel Fences, Steel Gate  Contractors & Welders",
-            "url": "/"
-          },
-          {
-            "title": "Titanium, Terrazzo & Tiling Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Pest Controllers",
-            "url": "/"
-          },
-          {
-            "title": "Roller Gates & Roller Door Makers",
-            "url": "/"
-          },
-          {
-            "title": "Swimming Pool Makers",
-            "url": "/"
-          },
-          {
-            "title": "Gully Bowsers & West Removal",
-            "url": "/"
-          }
-        ]
-      },{
-        "id": "2",
-        "title": "Construction Contractors E",
-        "break": false,
-        "children": [
-          {
-            "title": "House Construction Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Commercial Building Contraction Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Steel Building Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Road & Infrastructure Building Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Building Painters",
-            "url": "/"
-          }
-        ]
-      },{
-        "id": "3",
-        "title": "House Interior Construction Contractors",
-        "break": false,
-        "children": [
-          {
-            "title": "Landscaping & Paving Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Grass Cutters & Tree Cutters",
-            "url": "/"
-          },
-          {
-            "title": "Carpenters & Wood workers",
-            "url": "/"
-          },
-          {
-            "title": "Plumbing Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Water Proofing Contractors",
-            "url": "/"
-          }
-        ]
-      },{
-        "id": "4",
-        "title": "House Interior Construction Contractors",
-        "break": true, 
-        "children": [
-          {
-            "title": "Landscaping & Paving Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Grass Cutters & Tree Cutters",
-            "url": "/"
-          },
-          {
-            "title": "Carpenters & Wood workers",
-            "url": "/"
-          },
-          {
-            "title": "Plumbing Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Water Proofing Contractors",
-            "url": "/"
-          }
-        ]
-      },{
-        "id": "4",
-        "title": "House Interior Construction Contractors",
-        "break": false, 
-        "children": [
-          {
-            "title": "Landscaping & Paving Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Grass Cutters & Tree Cutters",
-            "url": "/"
-          },
-          {
-            "title": "Carpenters & Wood workers",
-            "url": "/"
-          },
-          {
-            "title": "Plumbing Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Water Proofing Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Carpenters & Wood workers",
-            "url": "/"
-          },
-          {
-            "title": "Plumbing Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Water Proofing Contractors",
-            "url": "/"
-          },
-         
-        ]
-      },{
-        "id": "4",
-        "title": "House Interior Construction Contractors",
-        "break": true, 
-        "children": [
-          {
-            "title": "Landscaping & Paving Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Grass Cutters & Tree Cutters",
-            "url": "/"
-          },
-          {
-            "title": "Carpenters & Wood workers",
-            "url": "/"
-          },
-          {
-            "title": "Plumbing Contractors",
-            "url": "/"
-          },
-          {
-            "title": "Water Proofing Contractors",
-            "url": "/"
-          }
-        ]
-      }];
-        
+   
 
     this.router.events.pipe( filter(e => e instanceof NavigationEnd )
     ).subscribe(e => { 
@@ -277,29 +55,120 @@ export class HeaderComponent implements OnInit {
      }
     });
 
-    this.generateMegaMenu();  
+    this.getProductsMenuItems();
+    this.getServicesMenuItems();  
   }
 
-  generateMegaMenu() :void{
 
-    let x = [];
-    let oldMenu = this.menuItemCols;
-    this.menuItemCols = [];
+  
+ 
+  getProductsMenuItems(){
+    this.homePage.getProductsMenuItems() 
+    .subscribe((response: any) => {
+      let menuArray = this.setMenuItems(response)
+      this.menuItemsProduct = this.generateMegaMenu(menuArray);
 
-    oldMenu.forEach((element) => {
+    }); 
+  }
 
-      x.push(element);
 
-      if(element.break){ 
-        this.menuItemCols.push( x);
-        x = [];
+  getServicesMenuItems(){
+    this.homePage.getServicesMenuItems() 
+    .subscribe((response: any) => {
+
+      let menuArray = this.setMenuItems(response, false); 
+      console.log(menuArray);
+
+      this.menuItemsServices = this.generateMegaMenu(menuArray);
+
+    }); 
+  }
+
+
+  setMenuItems(res, breakLine = true): any{
+    let parentCat = ""
+    let parentCatName = ""
+    let menuItem = [];
+    let menuArray = []; 
+    let breapoint = true;
+    let count = 1; 
+    let maxLength = 10; 
+    let isLineBreak = false; 
+    this.totalLinks = 0;
+
+    res.data.forEach((elm, index) => {  
+      
+      if(breakLine){
+        isLineBreak = (count >= maxLength )
       }
+
+      if(parentCat != elm.parent_cat_id || isLineBreak || res.data.length == (index + 1)){ 
+        parentCat = elm.parent_cat_id;  
+         
+        (menuItem.length != 0)? menuArray.push({ 
+          id: this.menuArray.length, 
+          title: parentCatName, 
+          break: breapoint,
+          children: menuItem 
+        }) : '';
+        
+        this.totalLinks =  this.totalLinks + menuItem.length ;
+        
+        menuItem = []; 
+        count = 1;
+      } 
+
+      parentCatName = elm.cat_lvl1_name;  
+       
+      menuItem.push({ id: elm.id ,title: elm.cat_lvl2_name, url: "products/"+elm.cat_lvl2_id });
+      count++;   
+
+    }); 
+
+    return menuArray;
+
+  }
+
+
+  generateMegaMenu(menuArray): any{
+
+    let groupedMenu = [];
+    let oldMenu = menuArray;
+    let newMenu = [];
+    let lengthCount = 0;
+    let totalCount = 0; 
+    let column = 0; 
+
+    let noOfItemsPerCol =  Math.round(this.totalLinks / 3); 
+
+    oldMenu.forEach((element, index) => { 
       
-      
+      if( lengthCount < noOfItemsPerCol && menuArray.length != (index + 1) ){ 
+        groupedMenu.push(element);
+
+      }else{ 
+        newMenu.push(groupedMenu); 
+        groupedMenu = [];
+        lengthCount = 0;
+        column++;
+        groupedMenu.push(element); 
+       
+      }  
+
+      if(menuArray.length == (index + 1)){
+        (newMenu.length < 3)? newMenu.push(groupedMenu) : newMenu[2].push(...groupedMenu);
+      }
+       
+
+      lengthCount = lengthCount + element.children.length;
+      totalCount = totalCount + element.children.length; 
+       
     });
+     
+    return newMenu; 
     
   }
-  
+
 
   isAccessed(){
     if(this.authservice.isAuthenticated()){ 

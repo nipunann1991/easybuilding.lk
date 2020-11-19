@@ -31,10 +31,10 @@ class LoginController extends CommonController {
 			$sessionData = $this->addUserSession($clientData['data']->insertedId, $this->input->post('auth_token'));
 
 			$search_index = array(
-				'columns' => 'us.*, c.*' ,   
-				'table' => 'user_sessions us, clients c',
+				'columns' => 'us.*, c.*, cc.profie_image as cpi, cc.company_id' , 
+				'table' => 'user_sessions us, clients c, client_company cc',
 				'eq_table_col' => '1',
-				'data' => 'us.auth_token= "'.$this->input->post('auth_token').'" AND c.client_id=us.client_id AND c.client_id= "'. $clientData['data']->insertedId .'" ',
+				'data' => 'us.auth_token= "'.$this->input->post('auth_token').'" AND c.client_id=us.client_id AND c.client_id=cc.client_id AND c.client_id= "'. $clientData['data']->insertedId .'" ',
 				 
 			);
 
@@ -48,7 +48,8 @@ class LoginController extends CommonController {
 				); 
 
 				$datasetCompany = array(   
-					'client_id' => $inputData->client_id
+					'client_id' => $inputData->client_id,
+					'company_profile' => -1,
 				); 
 
 				$this->insertData__('client_company', $datasetCompany);
@@ -61,7 +62,9 @@ class LoginController extends CommonController {
 				); 
 
 				$datasetCompany = array(   
-					'client_id' => $inputData->client_id
+					'client_id' => $inputData->client_id,
+					'company_profile' => -1,
+
 				); 
 				
 				$this->insertData__('client_company', $datasetCompany);
@@ -78,10 +81,10 @@ class LoginController extends CommonController {
 			$sessionData = $this->updateUserSession($getClient->client_id, $this->input->post('auth_token'));    
 
 			$search_index = array(
-				'columns' => 'us.*, c.*' ,   
-				'table' => 'user_sessions us, clients c',
+				'columns' => 'us.*, c.*, cc.profie_image as cpi, cc.company_id' ,      
+				'table' => 'user_sessions us, clients c, client_company cc',
 				'eq_table_col' => '1',
-				'data' => 'us.auth_token= "'.$this->input->post('auth_token').'" AND c.client_id=us.client_id ', 
+				'data' => 'us.auth_token= "'.$this->input->post('auth_token').'" AND c.client_id=us.client_id AND c.client_id=cc.client_id ', 
 			);
 
 			$inputData  = $this->selectRawCustomData__($search_index)['data'][0]; 
@@ -97,9 +100,9 @@ class LoginController extends CommonController {
 	public function onEBUserLogin(){ 
 
 		$search_index = array(  
-			'table' => 'clients c,  user_sessions us',
-			'columns' => 'COUNT(*) as count, c.first_name, c.profie_image, c.client_id, c.provider_id, c.status, us.password', 
-			'data' => 'c.email= "'.$this->input->post('email').'" AND us.password= "'.$this->input->post('password').'" AND us.client_id=c.client_id' 
+			'table' => 'clients c,  user_sessions us, client_company cc',
+			'columns' => 'COUNT(*) as count, c.first_name, c.profie_image, cc.profie_image as cpi, cc.company_id, c.client_id, c.provider_id, c.status, us.password', 
+			'data' => 'c.email= "'.$this->input->post('email').'" AND us.password= "'.$this->input->post('password').'" AND us.client_id=c.client_id AND c.client_id=cc.client_id' 
 		);
 
 		$getClient = $this->getTotalRows__($search_index)['data'][0];  
@@ -142,10 +145,10 @@ class LoginController extends CommonController {
 	public function checkUserLoginStatus(){
  
 		$search_index = array(
-			'columns' => 'us.*, c.*' ,   
-			'table' => 'user_sessions us, clients c',
+			'columns' => 'us.*, c.*, cc.profie_image as cpi, cc.company_id' ,   
+			'table' => 'user_sessions us, clients c, client_company cc',
 			'eq_table_col' => '1',
-			'data' => 'us.auth_token= "'.$this->input->post('auth_token').'" AND c.client_id=us.client_id AND c.client_id= "'.$this->input->post('session_id').'"', 
+			'data' => 'us.auth_token= "'.$this->input->post('auth_token').'" AND c.client_id=us.client_id AND c.client_id=cc.client_id AND c.client_id= "'.$this->input->post('session_id').'"', 
 		);
 
 		$sessionData  = $this->selectRawCustomData__($search_index);
@@ -154,6 +157,8 @@ class LoginController extends CommonController {
 		 	$inputData  = $sessionData['data'][0];  
 			$sessionData['data'] = array_values($this->setSessionData($sessionData, $inputData,'Valid user'));
 		}
+
+
 		
 		return $this->returnJSON($sessionData); 
 	}
@@ -167,6 +172,8 @@ class LoginController extends CommonController {
 			'email' => $inputData->email, 
 			'auth_token' => $inputData->auth_token, 
 			'profie_image' => $inputData->profie_image, 
+			'company_id' => $inputData->company_id,  
+			'eb_profie_image' => $inputData->cpi, 
 			'provider_id' => ( (int)$inputData->status* (int)$inputData->client_id) ."".$inputData->provider_id."".$inputData->client_id,  
 			'message' => $message 
 		);

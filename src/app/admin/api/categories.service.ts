@@ -141,6 +141,15 @@ export class CategoriesService {
     return this.http.post(environment.baseUrl+'CategoriesController/deleteLvl1Category?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   }
 
+  deleteLvl2Category(postVals){
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'CategoriesController/deleteLvl2Category?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  }
+
   
 
   

@@ -9,7 +9,7 @@ const routes: Routes = [
     children: [ 
       { path: 'about', loadChildren: () => import('../my-account/about/about.module').then(m => m.AboutModule) }, 
 	    { path: 'projects', loadChildren: () => import('../my-account/projects/projects.module').then(m => m.ProjectsModule) },
-      { path: 'reviews', loadChildren: () => import('../my-account/reviews/reviews.module').then(m => m.ReviewsModule) },  
+      { path: 'reviews/:id', loadChildren: () => import('../my-account/reviews/reviews.module').then(m => m.ReviewsModule) },  
       { path: 'services', loadChildren: () => import('../my-account/services/services.module').then(m => m.ServicesModule) },   
     ] 
   }];

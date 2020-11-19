@@ -49,10 +49,10 @@ class ProfileController extends CommonController {
 
 	 	$limit = "";
  
-	 	if($this->input->post('limit') != -1){
-
-	 		$limit = "LIMIT ".$this->input->post('limit');
-			
+	 	if($this->input->post('limit') != 3){  
+	 		$limit = "LIMIT ".$this->input->post('limit') * ($this->input->post('page_index') - 1) ." , ".$this->input->post('limit') ."";  
+	 	}else{
+	 		$limit = "LIMIT 3"; 
 	 	}
    
 		$search_index = array(
@@ -62,8 +62,25 @@ class ProfileController extends CommonController {
 			'data' => 'client_id= "'.$this->input->post('client_id').'"', 
 		);
 
-		return $this->selectCustomData__($search_index);
+		$dataset = $this->selectRawCustomData__($search_index);
 
+		$get_data_count = array(
+			'columns' => '*' ,   
+			'table' => 'reviews',
+			'eq_table_col' => "1",
+			'data' => 'client_id= "'.$this->input->post('client_id').'"', 
+		);
+
+		 
+
+		$data = array( 
+			'status' => 200, 
+			'data' => $dataset["data"], 
+			'total_results' => $this->CommonQueryModel->count_filtered($get_data_count)
+		);
+		
+		return $this->returnJSON($data);  
+ 
 		 
 		
 	}
@@ -119,7 +136,7 @@ class ProfileController extends CommonController {
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
 			$search_index = array(
-				'columns' => 'c.client_id, cc.company_id, c.first_name, c.last_name, cc.display_name, cc.prof_category, cc.br_no, cc.website, cc.description, cc.email' ,   
+				'columns' => 'c.client_id, cc.company_id, c.first_name, c.last_name , cc.display_name, cc.prof_category, cc.br_no, cc.website, cc.description, cc.email, cc.company_profile' ,   
 				'table' => 'user_sessions us, clients c, client_company cc',
 				'eq_table_col' => '1',
 				'data' => 'us.auth_token= "'.$this->input->get('auth_token').'" AND c.client_id = us.client_id AND c.client_id = cc.client_id', 
@@ -137,7 +154,7 @@ class ProfileController extends CommonController {
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
 			$search_index = array(
-				'columns' => 'c.client_id, cc.company_id, cc.address_line1, cc.address_line2, cc.city, cc.tel1, cc.tel2, cc.email' ,   
+				'columns' => 'c.client_id, c.email AS signup_email, cc.company_profile, cc.company_id, cc.address_line1, cc.address_line2, cc.city, cc.tel1, cc.tel2, cc.email' ,   
 				'table' => 'user_sessions us, clients c, client_company cc',
 				'eq_table_col' => '1',
 				'data' => 'us.auth_token= "'.$this->input->get('auth_token').'" AND c.client_id = us.client_id AND c.client_id = cc.client_id', 
@@ -247,8 +264,22 @@ class ProfileController extends CommonController {
 				'data' => implode(", " , $services), 
 			);
 			
-			return $this->returnJSON($data); 
+			return $this->returnJSON($data);  
+		
+	}
 
+
+	public function getServicsWithID(){    
+
+		 
+			$search_index = array(
+				'columns' => 'cl2.cat_lvl2_id AS id, cl2.cat_lvl2_name AS text' ,   
+				'table' => 'services_list sl, `categories-level2` cl2',
+				'eq_table_col' => 'cl2.cat_lvl2_id = sl.cat_lvl2_id ',
+				'data' => 'sl.company_id= "'.$this->input->post('company_id').'"', 
+			);
+ 
+			return $this->selectCustomData__($search_index);
 		 
 		
 	}
@@ -263,7 +294,30 @@ class ProfileController extends CommonController {
 			'data' => 'p.company_id= "'.$this->input->post('company_id').'" AND p.project_id= "'.$this->input->post('project_id').'" AND cc.company_id=p.company_id AND cc.client_id=c.client_id', 
 		);
 
-		return $this->selectCustomData__($search_index); 
+		$data = $this->selectRawCustomData__($search_index); 
+
+		$getProjectCat = array(
+			'columns' => 'cl2.cat_lvl2_name' ,   
+			'table' => 'project_category pc, `categories-level2` cl2',
+			'eq_table_col' => 'pc.cat_lvl2_id = cl2.cat_lvl2_id ',
+			'data' => 'pc.project_id= "'.$this->input->post('project_id').'"', 
+		);
+
+		$getProjectCat = $this->selectRawCustomData__($getProjectCat);
+		$project_category = array();
+
+		foreach ($getProjectCat["data"] as $value) { 
+			array_push($project_category, $value->cat_lvl2_name);
+		} 
+ 
+		$data['data'][0]->project_category = $project_category;
+
+		$data = array( 
+			'status' => 200, 
+			'data' => $data['data'][0], 
+		);
+		
+		return $this->returnJSON($data);   
 		
 	}
 
@@ -368,7 +422,7 @@ class ProfileController extends CommonController {
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
 			$dataset = $this->input->post(); 
- 
+  
 			$service_areas = json_decode($dataset['service_areas']);
 			$service_dist = json_decode($dataset['service_dist']);
 			$services = json_decode($dataset['services']);
@@ -442,6 +496,20 @@ class ProfileController extends CommonController {
 		} 
 	} 
 
+	public function insertProjectCategory($services, $project_id){  
+
+ 		foreach ($services as $value) { 
+
+			$dataset = array(
+				'cat_lvl2_id' => $value, 
+				'project_id' => $project_id , 
+			); 
+
+			$this->insertData__('project_category', $dataset); 
+		} 
+	} 
+
+
 
 	public function addNewProjectDetails(){  
 
@@ -482,7 +550,18 @@ class ProfileController extends CommonController {
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
 			$dataset = $this->input->post(); 
-			return $this->updateData__('project', $dataset, 'project_id="'.$this->input->post('project_id').'"');
+
+			$services = json_decode($dataset['services']);  
+			$project_id = $this->input->post('project_id'); 
+
+			$this->deleteData__('project_category', 'project_id="'.$project_id.'"');  
+
+			if ($dataset['services'] != "[]") {
+				$this->insertProjectCategory($services, $project_id); 
+			}  
+
+			return $this->updateData__('project', $dataset, 'project_id="'.$this->input->post('project_id').'"'); 
+			 
 		}else{
 			return $this->invalidSession(); 
 		} 

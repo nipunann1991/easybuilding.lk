@@ -37,9 +37,9 @@
   </li> 
 </ul>
 
-<ul class="pagination review-pagination"> 
+<ul class="pagination review-pagination"  *ngIf="isShowHeader && pagination.length > 1 "> 
   <li *ngFor="let page of pagination; let i = index" class="page-item">
-    <a class="page-link" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: false}" routerLink="#" (click)="nextPage(page)" >{{page}}</a>
+    <a class="page-link" routerLink="#" (click)="nextPage(page)" [ngClass]="{'active': reviewIndex == page}">{{page}}</a>
   </li> 
 </ul>
 

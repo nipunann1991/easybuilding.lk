@@ -52,7 +52,7 @@ export class Level2CategoryComponent implements OnInit {
         Validators.maxLength(100)
       ]),
 
-      parent_cat_id: new FormControl('', [ 
+      parent_cat_id: new FormControl('CL11032', [ 
           Validators.required, 
       ]), 
 
@@ -166,7 +166,7 @@ export class Level2CategoryComponent implements OnInit {
         .subscribe((response: any) => {
           if (response.status == 200) {
             this.toastr.success('New category has been added successfully', 'Success !');  
-            this.formGroup.reset();
+            //this.formGroup.reset();
             $('#refresh-btn').trigger('click');
 
 
@@ -187,7 +187,7 @@ export class Level2CategoryComponent implements OnInit {
         .subscribe((response: any) => {
 
           if (response.status == 200) {
-            this.toastr.success('Category level 1 has been edited successfully', 'Success !');  
+            this.toastr.success('Category level 2 has been edited successfully', 'Success !');  
             this.formGroup.reset();
             $('#refresh-btn').trigger('click');
             this.returnBack();
@@ -262,9 +262,9 @@ export class Level2CategoryComponent implements OnInit {
 
   deleteLvl2Category(cat_id){
  
-    this.formGroup.value.cat_lvl1_id = cat_id;
+    this.formGroup.value.cat_lvl2_id = cat_id;
     
-    this.categories.deleteLvl1Category(this.formGroup.value)
+    this.categories.deleteLvl2Category(this.formGroup.value)
       .subscribe((response: any) => {
 
         if (response.status == 200) {

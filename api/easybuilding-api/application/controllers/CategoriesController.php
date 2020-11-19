@@ -277,15 +277,15 @@ class CategoriesController extends CommonController {
 			$search1 = array(
 				'columns' => 'cl.*, c.cat_lvl1_name' ,   
 				'table' => '`categories-level2` cl, `categories-level1` c ',
-				'data' => "c.cat_lvl1_id=cl.parent_cat_id AND (".$search_by_feilds.') order by '. $orderedCol .' '.$selectedOrd.' LIMIT '.$dt['start'].','.$dt['length'].'  ',
+				'data' => 'c.cat_lvl1_id=cl.parent_cat_id AND ('.$search_by_feilds.') order by '. $orderedCol .' '.$selectedOrd.' LIMIT '.$dt['start'].','.$dt['length'].'  ',
 				'eq_table_col' => ''
 			); 
 
 		  
 			$get_data = array(
-				'columns' => '*' ,   
-				'table' => '`categories-level2`',
-				'data' => '1',
+				'columns' => 'cl.*, c.cat_lvl1_name' ,   
+				'table' => '`categories-level2` cl, `categories-level1` c',
+				'data' => 'c.cat_lvl1_id=cl.parent_cat_id AND ('.$search_by_feilds.') order by '. $orderedCol .' '.$selectedOrd.' ',
 			); 
 
 			  
@@ -360,6 +360,16 @@ class CategoriesController extends CommonController {
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
 			return $this->deleteData__('`categories-level1`','cat_lvl1_id="'.$this->input->post('cat_lvl1_id').'"');
+		}else{
+			return $this->invalidSession(); 
+		} 
+		  
+	}
+
+	public function deleteLvl2Category(){   
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+			return $this->deleteData__('`categories-level2`','cat_lvl2_id="'.$this->input->post('cat_lvl2_id').'"');
 		}else{
 			return $this->invalidSession(); 
 		} 

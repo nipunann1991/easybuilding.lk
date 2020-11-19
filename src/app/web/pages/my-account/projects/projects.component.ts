@@ -58,16 +58,14 @@ export class ProjectsComponent implements OnInit {
       this.clientId  = this.profileData.client_id;  
       this.companyId = this.profileData.company_id;   
       this.isEdit = this.profileData.profile_editable;
-      
- 
 
       this.imageURL = environment.uploadPath + this.clientId +'/'+ this.companyId +'/projects/thumb/';
 
       ( typeof this.itemLimit === 'undefined' )?  limit = -1 : limit = this.itemLimit  ; 
-
-      this.getMinimalProjectDetails( this.companyId, limit );
-     
+      
     });
+
+    this.getMinimalProjectDetails( this.companyId, limit );
   
   }
  

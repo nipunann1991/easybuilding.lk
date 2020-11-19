@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Sep 05, 2020 at 02:04 AM
--- Server version: 5.7.21
--- PHP Version: 5.6.35
+-- Host: 127.0.0.1
+-- Generation Time: Nov 19, 2020 at 08:00 PM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -28,13 +27,11 @@ SET time_zone = "+00:00";
 -- Table structure for table `categories`
 --
 
-DROP TABLE IF EXISTS `categories`;
-CREATE TABLE IF NOT EXISTS `categories` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `categories` (
+  `id` int(11) NOT NULL,
   `cat_id` varchar(100) DEFAULT '0',
-  `cat_name` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+  `cat_name` varchar(50) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `categories`
@@ -50,14 +47,12 @@ INSERT INTO `categories` (`id`, `cat_id`, `cat_name`) VALUES
 -- Table structure for table `categories-level1`
 --
 
-DROP TABLE IF EXISTS `categories-level1`;
-CREATE TABLE IF NOT EXISTS `categories-level1` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `categories-level1` (
+  `id` int(11) NOT NULL,
   `cat_lvl1_id` varchar(100) NOT NULL,
   `cat_lvl1_name` varchar(100) NOT NULL,
-  `parent_cat_id` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+  `parent_cat_id` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `categories-level1`
@@ -66,8 +61,20 @@ CREATE TABLE IF NOT EXISTS `categories-level1` (
 INSERT INTO `categories-level1` (`id`, `cat_lvl1_id`, `cat_lvl1_name`, `parent_cat_id`) VALUES
 (15, 'CL11015', 'Construction Contractors', 'C1019'),
 (16, 'CL11016', 'Professional Service Providers', 'C1019'),
-(17, 'CL11017', 'House Interior Construction Contractors', 'C1019'),
-(18, 'CL11018', 'Construction Materials', 'C1015');
+(17, 'CL11017', 'House Interior Contractors', 'C1019'),
+(18, 'CL11018', 'Construction Materials', 'C1015'),
+(21, 'CL11021', 'Electrical, AC & Mechanical Contractors', 'C1019'),
+(22, 'CL11022', 'Flooring Materials ', 'C1015'),
+(23, 'CL11023', 'Paints & Coating ', 'C1015'),
+(24, 'CL11024', 'Electrical ', 'C1015'),
+(25, 'CL11025', 'Furniture ', 'C1015'),
+(26, 'CL11026', 'Bathroom ', 'C1015'),
+(27, 'CL11027', 'Roofing Materials', 'C1015'),
+(28, 'CL11028', 'CCTV & Home Security Systems ', 'C1015'),
+(29, 'CL11029', 'House Interior Deco ', 'C1015'),
+(30, 'CL11030', 'AC & Mechanical Systems ', 'C1015'),
+(31, 'CL11031', 'Kitchen ', 'C1015'),
+(32, 'CL11032', 'Machinery Tools and Vehicles ', 'C1015');
 
 -- --------------------------------------------------------
 
@@ -75,14 +82,12 @@ INSERT INTO `categories-level1` (`id`, `cat_lvl1_id`, `cat_lvl1_name`, `parent_c
 -- Table structure for table `categories-level2`
 --
 
-DROP TABLE IF EXISTS `categories-level2`;
-CREATE TABLE IF NOT EXISTS `categories-level2` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `categories-level2` (
+  `id` int(11) NOT NULL,
   `cat_lvl2_id` varchar(100) NOT NULL,
   `cat_lvl2_name` varchar(100) NOT NULL,
-  `parent_cat_id` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+  `parent_cat_id` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `categories-level2`
@@ -97,11 +102,132 @@ INSERT INTO `categories-level2` (`id`, `cat_lvl2_id`, `cat_lvl2_name`, `parent_c
 (15, 'CL21015', 'Plumbing Accessories, Pipes & Waste Removal', 'CL11018'),
 (16, 'CL21016', 'Cement', 'CL11018'),
 (17, 'CL21017', 'Sand ', 'CL11018'),
-(18, 'CL21018', 'Ready Mix Concrete', 'CL11015'),
+(18, 'CL21018', 'Ready Mix Concrete', 'CL11018'),
 (19, 'CL21019', 'Bricks', 'CL11018'),
 (20, 'CL21020', 'Adhesive, Grout and Sealant', 'CL11018'),
 (21, 'CL21021', 'Commercial Building Contraction Contractors ', 'CL11015'),
-(22, 'CL21022', 'Carpenters', 'CL11016');
+(22, 'CL21022', 'Structural Engineers & Consultants', 'CL11016'),
+(23, 'CL21023', 'Metal', 'CL11018'),
+(24, 'CL21024', 'Blocks', 'CL11018'),
+(25, 'CL21025', 'Steel', 'CL11018'),
+(27, 'CL21027', 'Water Proofing Materials ', 'CL11018'),
+(28, 'CL21028', 'Glass', 'CL11018'),
+(29, 'CL21029', 'Door & Window Fittings ', 'CL11018'),
+(30, 'CL21030', 'Hardware Stores', 'CL11018'),
+(31, 'CL21031', 'Pavers', 'CL11018'),
+(32, 'CL21032', 'Concrete Products', 'CL11018'),
+(33, 'CL21033', 'Timber Supplier & Saw Mills', 'CL11018'),
+(34, 'CL21034', 'Titanium, Terrazzo & Tiling Contractors ', 'CL11017'),
+(35, 'CL21035', 'Pantry Cupboard and Kitchen Accessory Makers', 'CL11017'),
+(36, 'CL21036', 'Furniture and Wood Workers ', 'CL11017'),
+(37, 'CL21037', 'Carpeting, Wood Flooring , Artificial Flooring Contractors ', 'CL11017'),
+(38, 'CL21038', 'House Cleaners', 'CL11017'),
+(39, 'CL21039', 'CCTV & Home Security Systems', 'CL11017'),
+(40, 'CL21040', 'Aluminum and Glass Contractors', 'CL11017'),
+(41, 'CL21041', 'Arts & Craft', 'CL11017'),
+(42, 'CL21042', 'Interior Deco, Curtains, Wall Papers and Window Films', 'CL11017'),
+(43, 'CL21043', 'Quantity Surveyors (QS)', 'CL11016'),
+(44, 'CL21044', 'Land Surveyors', 'CL11016'),
+(45, 'CL21045', 'Draftsmen', 'CL11016'),
+(46, 'CL21046', 'Electrical Engineers', 'CL11016'),
+(47, 'CL21047', 'MEP Engineers', 'CL11016'),
+(48, 'CL21048', 'Air condition Engineers & Consultants', 'CL11016'),
+(49, 'CL21049', 'Energy Consultants', 'CL11016'),
+(50, 'CL21050', '3D Image  Makers', 'CL11016'),
+(51, 'CL21051', 'Home Valuers', 'CL11016'),
+(52, 'CL21052', 'Project Managers', 'CL11016'),
+(53, 'CL21053', 'Steel Building Contractors', 'CL11015'),
+(54, 'CL21054', 'Road & Infrastructure Building Contractors', 'CL11015'),
+(55, 'CL21055', 'Building Painters', 'CL11015'),
+(56, 'CL21056', 'Landscaping & Paving Contractors', 'CL11015'),
+(57, 'CL21057', 'Grass Cutters & Tree Cutters', 'CL11015'),
+(58, 'CL21058', 'Carpenters & Wood workers', 'CL11015'),
+(59, 'CL21059', 'Plumbing Contractors', 'CL11015'),
+(60, 'CL21060', 'Water Proofing Contractors', 'CL11015'),
+(61, 'CL21061', 'Soil & Concrete testing Contractors', 'CL11015'),
+(62, 'CL21062', 'Aluminum and Glass Contractors', 'CL11015'),
+(63, 'CL21063', 'Masons', 'CL11015'),
+(64, 'CL21064', 'Steel Fences, Steel Gate  Contractors & Welders', 'CL11015'),
+(65, 'CL21065', 'Titanium, Terrazzo & Tiling Contractors', 'CL11015'),
+(66, 'CL21066', 'Pest Controllers', 'CL11015'),
+(67, 'CL21067', 'Roller Gates & Roller Door Makers', 'CL11015'),
+(68, 'CL21068', 'Swimming Pool Makers', 'CL11015'),
+(69, 'CL21069', 'Gully Bowsers & West Removal', 'CL11015'),
+(70, 'CL21070', 'House Wiring Electricians', 'CL11021'),
+(71, 'CL21071', 'Electrical Supply & Installation Contractors', 'CL11021'),
+(72, 'CL21072', 'Electrical Engineers', 'CL11021'),
+(73, 'CL21073', 'AC Supply and Installation Contractors', 'CL11021'),
+(74, 'CL21074', 'AC Technicians', 'CL11021'),
+(75, 'CL21075', 'Solar Power Suppliers & Installers', 'CL11021'),
+(76, 'CL21076', 'Lift, Elevator & Hoist Suppliers & Makers', 'CL11021'),
+(77, 'CL21077', 'Steel Fences, Steel Gate  Contractors & Welders', 'CL11021'),
+(78, 'CL21078', 'Generator Suppliers & Installations', 'CL11021'),
+(79, 'CL21079', 'Titanium Products', 'CL11022'),
+(80, 'CL21080', 'Tiles', 'CL11022'),
+(81, 'CL21081', 'Timber & Wooden Flooring', 'CL11022'),
+(82, 'CL21082', 'Carpets', 'CL11022'),
+(83, 'CL21083', 'Epoxy and Floor Paints', 'CL11022'),
+(84, 'CL21084', 'Artificial Flooring', 'CL11022'),
+(85, 'CL21085', 'Wall Paints', 'CL11023'),
+(86, 'CL21086', 'Wood Care Coatings', 'CL11023'),
+(87, 'CL21087', 'Epoxy and Floor Paints', 'CL11023'),
+(88, 'CL21088', 'Water Proofing Materials', 'CL11023'),
+(89, 'CL21089', 'Primers & Under coats', 'CL11023'),
+(90, 'CL21090', 'Steel & Metal Care Coatings', 'CL11023'),
+(91, 'CL21091', 'Light Fittings', 'CL11024'),
+(92, 'CL21092', 'Wires & Cables', 'CL11024'),
+(93, 'CL21093', 'Electrical Switches & Sockets', 'CL11024'),
+(94, 'CL21094', 'Electrical Conduits, Trunkings & Fittings', 'CL11024'),
+(95, 'CL21095', 'Solar Power Systems', 'CL11024'),
+(96, 'CL21096', 'Electrical Panels Boards, Breakers', 'CL11024'),
+(97, 'CL21097', 'Generators', 'CL11024'),
+(98, 'CL21098', 'Roller Doors, Gates & Auto Mated Doors', 'CL11024'),
+(99, 'CL21099', 'Sofas', 'Furniture'),
+(100, 'CL21100', 'Living Room Furniture', 'Furniture'),
+(101, 'CL21101', 'Sofa', 'CL11025'),
+(102, 'CL21102', 'Living Room Furniture', 'CL11025'),
+(103, 'CL21103', 'Dining Room Furniture', 'CL11025'),
+(104, 'CL21104', 'Office Furniture', 'CL11025'),
+(105, 'CL21105', 'Specialized Furniture', 'CL11025'),
+(106, 'CL21106', 'Bed Room Furniture', 'CL11025'),
+(107, 'CL21107', 'Outdoor', 'CL11025'),
+(108, 'CL21108', 'Kitchen', 'CL11025'),
+(110, 'CL21110', 'Floor Tiles', 'CL11026'),
+(111, 'CL21111', 'Wall Tiles', 'CL11026'),
+(112, 'CL21112', 'Bathroom Fittings', 'CL11026'),
+(113, 'CL21113', 'Plumbing Accessories, Pipes & Waste Removal', 'CL11026'),
+(114, 'CL21114', 'Showers, Taps & Accessories', 'CL11026'),
+(115, 'CL21115', 'Mirrors', 'CL11026'),
+(116, 'CL21116', 'Roofing Tiles', 'CL11027'),
+(117, 'CL21117', 'Roofing Sheets', 'CL11027'),
+(118, 'CL21118', 'Sandwich Roofing Sheets', 'CL11027'),
+(119, 'CL21119', 'Sandwich Roofing Sheets', 'CL11027'),
+(120, 'CL21120', 'Sky Lights', 'CL11027'),
+(121, 'CL21121', 'CCTV Suppliers', 'CL11028'),
+(122, 'CL21122', 'Fire Protection Systems', 'CL11028'),
+(123, 'CL21123', 'Home Security Systems', 'CL11028'),
+(124, 'CL21124', 'PA Systems', 'CL11028'),
+(125, 'CL21125', 'Network & Data Systems', 'CL11028'),
+(126, 'CL21126', 'Accesses Control', 'CL11028'),
+(127, 'CL21127', 'Blinds & Curtains', 'CL11029'),
+(128, 'CL21128', 'Arts & Crafts', 'CL11029'),
+(129, 'CL21129', 'Wall Papers', 'CL11029'),
+(130, 'CL21130', 'Plywood, Partition & Cladding', 'CL11029'),
+(131, 'CL21131', 'Home Improvement Products', 'CL11029'),
+(132, 'CL21132', 'AC Unit Suppliers', 'CL11030'),
+(133, 'CL21133', 'Chillers', 'CL11030'),
+(134, 'CL21134', 'Boilers', 'CL11030'),
+(135, 'CL21135', 'Lifts, Escalators & Hoists', 'CL11030'),
+(136, 'CL21136', 'Fans, Exhaust Fans &  Air Extractors', 'CL11030'),
+(137, 'CL21137', 'Sky Lights', 'CL11030'),
+(138, 'CL21138', 'Pantry Cupboards', 'CL11031'),
+(139, 'CL21139', 'Cooking Equipments ', 'CL11031'),
+(140, 'CL21140', 'Kitchen Accessories', 'CL11031'),
+(141, 'CL21141', 'Water Filter', 'CL11031'),
+(142, 'CL21142', 'Furniture', 'CL11031'),
+(143, 'CL21143', 'Heavy Construction Machinery Suppliers', 'CL11032'),
+(144, 'CL21144', 'Construction Tool Suppliers', 'CL11032'),
+(145, 'CL21145', 'Material Handling Equipments ', 'CL11032');
 
 -- --------------------------------------------------------
 
@@ -109,13 +235,11 @@ INSERT INTO `categories-level2` (`id`, `cat_lvl2_id`, `cat_lvl2_name`, `parent_c
 -- Table structure for table `cites`
 --
 
-DROP TABLE IF EXISTS `cites`;
-CREATE TABLE IF NOT EXISTS `cites` (
-  `city_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `cites` (
+  `city_id` int(11) NOT NULL,
   `district_id` int(11) NOT NULL,
-  `city` varchar(70) NOT NULL,
-  PRIMARY KEY (`city_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1279 DEFAULT CHARSET=latin1;
+  `city` varchar(70) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cites`
@@ -396,32 +520,33 @@ INSERT INTO `cites` (`city_id`, `district_id`, `city`) VALUES
 -- Table structure for table `clients`
 --
 
-DROP TABLE IF EXISTS `clients`;
-CREATE TABLE IF NOT EXISTS `clients` (
-  `client_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `clients` (
+  `client_id` int(11) NOT NULL,
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
+  `company_name` varchar(1000) NOT NULL,
   `email` varchar(100) NOT NULL,
   `profie_image` varchar(1000) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '1',
+  `status` int(11) NOT NULL DEFAULT 1,
   `provider` varchar(1) NOT NULL,
   `provider_id` varchar(150) NOT NULL,
-  `verified_email` int(11) NOT NULL DEFAULT '0',
-  `verify_code` int(11) NOT NULL,
-  PRIMARY KEY (`client_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=78 DEFAULT CHARSET=latin1;
+  `verified_email` int(11) NOT NULL DEFAULT 0,
+  `verify_code` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `clients`
 --
 
-INSERT INTO `clients` (`client_id`, `first_name`, `last_name`, `email`, `profie_image`, `status`, `provider`, `provider_id`, `verified_email`, `verify_code`) VALUES
-(66, 'Nirmal', 'Nanayakkara', 'nipuisha@yahoo.com', '1592118606prof.png', 1, 'F', '3184985174847762', 0, 0),
-(67, 'Nipuna', 'Nanayakkara', 'nipunann0710@gmail.com', '1592233783prof.png', 1, 'G', '101780267759212434309', 0, 0),
-(68, 'Imali', 'Gunawardana', 'imaligunawardana1995@gmail.com', '1592412727prof.png', 1, 'G', '106207594050682912858', 0, 0),
-(76, 'Nishantha', 'Perera', 'nishanthaperera77@gmail.com', '', 1, 'E', '1596897751555', 0, 0),
-(75, 'Mahesh', 'Fernando', 'maheshfdo90@gmail.com', '', 1, 'E', '1596694098300', 0, 0),
-(77, 'Mithila', 'Samarasingha', 'mithila@gmail.com', '', 1, 'E', '1598932425341', 0, 0);
+INSERT INTO `clients` (`client_id`, `first_name`, `last_name`, `company_name`, `email`, `profie_image`, `status`, `provider`, `provider_id`, `verified_email`, `verify_code`) VALUES
+(66, 'Nirmal', 'Nanayakkara', '', 'nirmalnipunananayakkara@gmail.com', '1592118606prof.png', 1, 'F', '3184985174847762', 0, 0),
+(67, 'Nipuna', 'Nanayakkara', '', 'nipunann0710@gmail.com', '1592233783prof.png', 1, 'G', '101780267759212434309', 0, 0),
+(68, 'Imali', 'Gunawardana', '', 'imaligunawardana1995@gmail.com', '1592412727prof.png', 1, 'G', '106207594050682912858', 0, 0),
+(76, 'Nishantha', 'Perera', '', 'nishanthaperera77@gmail.com', '', 1, 'E', '1596897751555', 0, 0),
+(75, 'Mahesh', 'Fernando', '', 'maheshfdo90@gmail.com', '', 1, 'E', '1596694098300', 0, 0),
+(77, 'Mithila', 'Samarasingha', '', 'mithila@gmail.com', '', 1, 'E', '1598932425341', 0, 0),
+(84, 'Imali', 'Gunawardena', '', 'imali.gunawardena@gmail.com', '', 1, 'E', '1605383438032', 0, 0),
+(85, 'Thilini', 'Perera', '', 'thilini.perera@gmail.com', '', 1, 'E', '1605501792378', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -429,9 +554,8 @@ INSERT INTO `clients` (`client_id`, `first_name`, `last_name`, `email`, `profie_
 -- Table structure for table `client_company`
 --
 
-DROP TABLE IF EXISTS `client_company`;
-CREATE TABLE IF NOT EXISTS `client_company` (
-  `company_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `client_company` (
+  `company_id` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
   `display_name` varchar(100) NOT NULL,
   `description` varchar(1500) NOT NULL,
@@ -446,31 +570,32 @@ CREATE TABLE IF NOT EXISTS `client_company` (
   `profie_image` varchar(1000) NOT NULL,
   `cover_img` varchar(1000) NOT NULL,
   `prof_category` int(11) NOT NULL,
-  `verified_email` int(11) NOT NULL DEFAULT '0',
-  `verify_code` int(11) NOT NULL DEFAULT '0',
-  `steps` int(11) NOT NULL DEFAULT '0',
-  `parent` int(11) DEFAULT '0',
-  `all_island` int(11) NOT NULL DEFAULT '0',
-  `service` int(11) NOT NULL DEFAULT '0',
+  `verified_email` int(11) NOT NULL DEFAULT 0,
+  `verify_code` int(11) NOT NULL DEFAULT 0,
+  `steps` int(11) NOT NULL DEFAULT 0,
+  `parent` int(11) DEFAULT 0,
+  `all_island` int(11) NOT NULL DEFAULT 0,
+  `service` int(11) NOT NULL DEFAULT 0,
   `service_areas` mediumblob NOT NULL,
   `service_dist` mediumblob NOT NULL,
   `services` mediumblob NOT NULL,
-  `total_reviews` int(11) NOT NULL DEFAULT '0',
+  `total_reviews` int(11) NOT NULL DEFAULT 0,
   `rating` float NOT NULL,
-  PRIMARY KEY (`company_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+  `company_profile` int(11) NOT NULL DEFAULT 1
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `client_company`
 --
 
-INSERT INTO `client_company` (`company_id`, `client_id`, `display_name`, `description`, `website`, `br_no`, `email`, `address_line1`, `address_line2`, `city`, `tel1`, `tel2`, `profie_image`, `cover_img`, `prof_category`, `verified_email`, `verify_code`, `steps`, `parent`, `all_island`, `service`, `service_areas`, `service_dist`, `services`, `total_reviews`, `rating`) VALUES
-(1, 66, 'Dubai Homes', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non</p><p>proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', 'https://oozmm.com', 'PV263644577', 'info@n3holdings.com', '275A Colombo Road  ', 'Kidagammulla', 'Gampaha', '033-2228887', '071-6378515', '1594828893blob.jpg', '1595390456blob.jpg', 1, 0, 0, 4, 0, 0, 0, 0x5b5d, 0x5b2236222c2238222c223130225d, 0x5b22434c3231303133222c22434c3231303131225d, 5, 4.2),
-(7, 75, 'Mahesh Steel Decos', '', '', '', 'maheshsteel@gmail.com', '248 Negambo Road', '', 'Wattala', '01124456733', '', '1596706929blob.jpg', '', 1, 0, 0, 4, 0, 0, 0, 0x5b2231303837222c2231303938222c2231303939225d, 0x5b5d, 0x5b22434c3231303133225d, 0, 0),
-(3, 68, 'Test Holdings', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p><p>tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p><p>quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p><p>consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse</p><p>cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non</p><p>proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '', 'nipunann07101@gmail.com', '275A Colombo Road, KIdagammulla', '', 'Gampaha', '0716378515', '', '', '', 1, 0, 0, 4, 0, 0, 0, 0x5b2231323233225d, '', '', 0, 0),
-(2, 67, 'JAT Living', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '', 'info@jatliving.lk', '141 Danister De Silva Mw,', 'Orion City,', 'Colombo 09', '0112589963', '', '1595702942blob.jpg', '', 1, 0, 0, 4, 0, 0, 0, 0x5b2231303731222c2231303438222c2231303432225d, '', '', 0, 0),
-(8, 76, 'Nishantha Constructions', '', '', 'PV58566101', 'info@nishconstructions.com', '89/4 Gampola Road', '', 'Peradeniya', '0812265786', '', '', '', 2, 0, 0, 4, 0, 0, 0, 0x5b5d, 0x5b223134222c223135222c223139222c223233225d, 0x5b22434c3231303130222c22434c3231303131225d, 0, 0),
-(9, 77, '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, '', '', '', 0, 0);
+INSERT INTO `client_company` (`company_id`, `client_id`, `display_name`, `description`, `website`, `br_no`, `email`, `address_line1`, `address_line2`, `city`, `tel1`, `tel2`, `profie_image`, `cover_img`, `prof_category`, `verified_email`, `verify_code`, `steps`, `parent`, `all_island`, `service`, `service_areas`, `service_dist`, `services`, `total_reviews`, `rating`, `company_profile`) VALUES
+(1, 66, 'UK Livings (Pvt) Ltd', '<p>Milind Pai - Architect &amp; Interior Designers was established in 1987. Since then we have evolved into a dedicated team of professionals committed to designing excellence and offering comprehensive service in Interior Designing and Project Consultation.</p><p>&nbsp;</p><p>&nbsp;In this firm the Architects &amp; the Interior Designers work in close collaboration with other experts including Engineers, Graphic Designers, Artists, Sculptures, Landscape Designers, Lighting &amp; Acoustic Specialists. We work on various verticals like Luxury Residential, Commercial, Boutique Retail, Institutional, Medical and Boutique Hospitality. Our well-trained design team undertakes professional designing job &amp; implement them in close co-ordination with various agencies engaged for the job. The site work is closely monitored by the site associates &amp; site supervisors designated for the particular site &amp; the total co-ordination job between the client &amp; the agencies is taken care of.&nbsp;</p><p>&nbsp;</p><p>Besides Mumbai we have executed projects in more than 30 Indian cities like Delhi, Surat, Pune, Bangalore, Nagpur, Indore, Hyderabad, Kolkatta, Guwahti, Pondicherry, Jodhpur, Bhubaneshwar, Raipur etc. and also International Cities like Dubai, Singapore and Muscat. Now we are also exploring more projects in the USA.</p>', 'https://oozmm.com', 'PV263644577', 'info@n3holdings.com', '275A Colombo Road  ', 'Kidagammulla', 'Gampaha', '033-2228887', '071-6378515', '1594828893blob.jpg', '1595390456blob.jpg', 1, 0, 0, 4, 0, 0, 0, 0x5b5d, 0x5b2234222c223130225d, 0x5b22434c3231303231222c22434c3231303134222c22434c3231303131225d, 6, 4, 1),
+(7, 75, 'Mahesh Steel Decos', '', '', '', 'maheshsteel@gmail.com', '248 Negambo Road', '', 'Wattala', '01124456733', '', '1596706929blob.jpg', '', 1, 0, 0, 4, 0, 0, 0, 0x5b2231303837222c2231303938222c2231303939225d, 0x5b5d, 0x5b22434c3231303133225d, 1, 3, 1),
+(3, 68, 'Test Holdings', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p><p>tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p><p>quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p><p>consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse</p><p>cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non</p><p>proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '', 'nipunann07101@gmail.com', '275A Colombo Road, KIdagammulla', '', 'Gampaha', '0716378515', '', '', '', 1, 0, 0, 4, 0, 0, 0, 0x5b2231323233225d, '', '', 0, 0, 1),
+(2, 67, 'JAT Living', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '', 'info@jatliving.lk', '141 Danister De Silva Mw,', 'Orion City,', 'Colombo 09', '0112589963', '', '1595702942blob.jpg', '', 1, 0, 0, 4, 0, 0, 0, 0x5b2231303731222c2231303438222c2231303432225d, '', '', 3, 4.66667, 1),
+(8, 76, 'Nishantha Constructions', '', '', 'PV58566101', 'info@nishconstructions.com', '89/4 Gampola Road', '', 'Peradeniya', '0812265786', '', '', '', 2, 0, 0, 4, 0, 0, 0, 0x5b5d, 0x5b223134222c223135222c223139222c223233225d, 0x5b22434c3231303130222c22434c3231303131225d, 0, 0, 1),
+(17, 85, '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, '', '', '', 0, 0, -1),
+(16, 84, 'Imali Gunawardena', '<p>I love creative architecture.</p>', '', '', 'imali.gunawardena@gmail.com', '233, Sinhagiri', 'Welikanna', 'Waga', '0362289002', '', '1605692538blob.jpg', '1605386181blob.jpg', 0, 0, 0, 2, 0, 0, 0, '', '', '', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -478,9 +603,8 @@ INSERT INTO `client_company` (`company_id`, `client_id`, `display_name`, `descri
 -- Table structure for table `company_details`
 --
 
-DROP TABLE IF EXISTS `company_details`;
-CREATE TABLE IF NOT EXISTS `company_details` (
-  `company_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `company_details` (
+  `company_id` int(11) NOT NULL,
   `company_name` varchar(100) NOT NULL,
   `company_logo` varchar(1000) NOT NULL,
   `company_desc` varchar(1000) NOT NULL,
@@ -492,9 +616,8 @@ CREATE TABLE IF NOT EXISTS `company_details` (
   `fb_url` varchar(250) NOT NULL,
   `twitter_url` varchar(250) NOT NULL,
   `youtube_url` varchar(250) NOT NULL,
-  `linkedin_url` varchar(250) NOT NULL,
-  PRIMARY KEY (`company_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `linkedin_url` varchar(250) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `company_details`
@@ -509,12 +632,10 @@ INSERT INTO `company_details` (`company_id`, `company_name`, `company_logo`, `co
 -- Table structure for table `districts`
 --
 
-DROP TABLE IF EXISTS `districts`;
-CREATE TABLE IF NOT EXISTS `districts` (
-  `district_id` int(11) NOT NULL AUTO_INCREMENT,
-  `district_name` varchar(50) NOT NULL,
-  PRIMARY KEY (`district_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
+CREATE TABLE `districts` (
+  `district_id` int(11) NOT NULL,
+  `district_name` varchar(50) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `districts`
@@ -552,32 +673,50 @@ INSERT INTO `districts` (`district_id`, `district_name`) VALUES
 -- Table structure for table `project`
 --
 
-DROP TABLE IF EXISTS `project`;
-CREATE TABLE IF NOT EXISTS `project` (
-  `project_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `project` (
+  `project_id` int(11) NOT NULL,
   `project_name` varchar(100) NOT NULL,
   `project_description` varchar(1000) NOT NULL,
   `project_year` varchar(10) NOT NULL,
   `project_cost` varchar(100) NOT NULL,
   `project_address` varchar(500) NOT NULL,
   `company_id` int(11) NOT NULL,
+  `services` mediumblob NOT NULL,
   `images` mediumblob NOT NULL,
   `architect` varchar(250) NOT NULL,
   `contractor` varchar(250) NOT NULL,
   `structural_engineer` varchar(250) NOT NULL,
   `primary_img` varchar(1000) NOT NULL,
-  `total_imgs` int(11) NOT NULL,
-  PRIMARY KEY (`project_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+  `total_imgs` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `project`
 --
 
-INSERT INTO `project` (`project_id`, `project_name`, `project_description`, `project_year`, `project_cost`, `project_address`, `company_id`, `images`, `architect`, `contractor`, `structural_engineer`, `primary_img`, `total_imgs`) VALUES
-(31, 'Katunayaka Airport Project', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. \n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '2020', '10B', '', 2, 0x5b22313539353730323733327765625f4368616e67692d54342d53696e6761706f72652d332d48522d4372656469742d42656e6f792e6a7067222c22313539353730323733387765625f4368616e67692d54342d53696e6761706f72652d312d48522d4372656469742d42656e6f792e6a7067222c22313539353730323833377765625f4368616e67692d54342d53696e6761706f72652d382d48522d4372656469742d42656e6f792e6a7067222c22313539353730333335337765625f4368616e67692d54342d53696e6761706f72652d372d48522d4372656469742d42656e6f792e6a7067225d, '', '0', '0', '1595702732web_Changi-T4-Singapore-3-HR-Credit-Benoy.jpg', 4),
-(29, 'Kitchen Projects', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '2019', '1M', '', 1, 0x5b223135393537303230313632323962393238656135623837643138393863616530613062636234383166382e6a7067222c223135393537303230313635666537376437323530663962613930353431653865356433316534346564652e6a7067222c223135393537303230313636616264326134613334313637653531356162383765363536323435383838622e6a7067225d, 'Amali De Silva', 'DD Constructions', 'Danushka De Silva', '1595702016229b928ea5b87d1898cae0a0bcb481f8.jpg', 3),
-(30, 'Homagama Housing Project', 'Traditional beige two-story wood exterior home idea in Boston with a shingle roof', '2020', '30M', '', 1, 0x5b22313539353730323133313232363231363138362e6a7067222c22313539353730323133314e6f726d616e746f6e2d4176656e75652d332d3136303078313036382e6a7067222c22313539353730323133316c616b652d686f7573652d696e2d6173636f6e612d62792d77657370692d64652d6d6575726f6e2d726f6d656f2d617263686974656374732d3035312e6a7067225d, 'Nirmana Perera', 'R&D Constructions', 'Nirmal Perera', '1595702131226216186.jpg', 3);
+INSERT INTO `project` (`project_id`, `project_name`, `project_description`, `project_year`, `project_cost`, `project_address`, `company_id`, `services`, `images`, `architect`, `contractor`, `structural_engineer`, `primary_img`, `total_imgs`) VALUES
+(31, 'Katunayaka Airport Project', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. \n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '2020', '10B', '', 2, '', 0x5b22313539353730323733327765625f4368616e67692d54342d53696e6761706f72652d332d48522d4372656469742d42656e6f792e6a7067222c22313539353730323733387765625f4368616e67692d54342d53696e6761706f72652d312d48522d4372656469742d42656e6f792e6a7067222c22313539353730323833377765625f4368616e67692d54342d53696e6761706f72652d382d48522d4372656469742d42656e6f792e6a7067222c22313539353730333335337765625f4368616e67692d54342d53696e6761706f72652d372d48522d4372656469742d42656e6f792e6a7067225d, '', '0', '0', '1595702732web_Changi-T4-Singapore-3-HR-Credit-Benoy.jpg', 4),
+(30, 'Homagama Housing Project', 'Homagama Housing Project - The traditional beige two-story wood exterior home idea in Boston with a shingle roof uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non.', '2020', '30M', '', 1, 0x5b22434c3231303131222c22434c3231303134225d, 0x5b22313539353730323133313232363231363138362e6a7067222c22313539353730323133314e6f726d616e746f6e2d4176656e75652d332d3136303078313036382e6a7067222c22313539353730323133316c616b652d686f7573652d696e2d6173636f6e612d62792d77657370692d64652d6d6575726f6e2d726f6d656f2d617263686974656374732d3035312e6a7067225d, 'Amal Fernando', 'R&D Constructions', 'Nirmal Perera', '1595702131226216186.jpg', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `project_category`
+--
+
+CREATE TABLE `project_category` (
+  `project_cat_id` int(11) NOT NULL,
+  `project_id` int(11) NOT NULL,
+  `cat_lvl2_id` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `project_category`
+--
+
+INSERT INTO `project_category` (`project_cat_id`, `project_id`, `cat_lvl2_id`) VALUES
+(6, 30, 'CL21011'),
+(7, 30, 'CL21014');
 
 -- --------------------------------------------------------
 
@@ -585,14 +724,12 @@ INSERT INTO `project` (`project_id`, `project_name`, `project_description`, `pro
 -- Table structure for table `project_images`
 --
 
-DROP TABLE IF EXISTS `project_images`;
-CREATE TABLE IF NOT EXISTS `project_images` (
-  `img_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `project_images` (
+  `img_id` int(11) NOT NULL,
   `project_id` int(11) NOT NULL,
   `file_name` varchar(1000) NOT NULL,
-  `description` varchar(1500) NOT NULL,
-  PRIMARY KEY (`img_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
+  `description` varchar(1500) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `project_images`
@@ -603,9 +740,6 @@ INSERT INTO `project_images` (`img_id`, `project_id`, `file_name`, `description`
 (58, 31, '1595702738web_Changi-T4-Singapore-1-HR-Credit-Benoy.jpg', ''),
 (60, 31, '1595703353web_Changi-T4-Singapore-7-HR-Credit-Benoy.jpg', ''),
 (56, 31, '1595702732web_Changi-T4-Singapore-3-HR-Credit-Benoy.jpg', ''),
-(48, 29, '1595702016229b928ea5b87d1898cae0a0bcb481f8.jpg', ''),
-(49, 29, '15957020165fe77d7250f9ba90541e8e5d31e44ede.jpg', ''),
-(50, 29, '15957020166abd2a4a34167e515ab87e656245888b.jpg', ''),
 (52, 30, '1595702131226216186.jpg', ''),
 (53, 30, '1595702131Normanton-Avenue-3-1600x1068.jpg', ''),
 (54, 30, '1595702131lake-house-in-ascona-by-wespi-de-meuron-romeo-architects-051.jpg', '');
@@ -616,17 +750,15 @@ INSERT INTO `project_images` (`img_id`, `project_id`, `file_name`, `description`
 -- Table structure for table `reviews`
 --
 
-DROP TABLE IF EXISTS `reviews`;
-CREATE TABLE IF NOT EXISTS `reviews` (
-  `review_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `reviews` (
+  `review_id` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
   `reviewer_id` int(11) NOT NULL,
   `reviewer_name` varchar(500) NOT NULL,
   `description` varchar(3000) NOT NULL,
   `rating` int(11) NOT NULL,
-  `review_date` date DEFAULT NULL,
-  PRIMARY KEY (`review_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+  `review_date` date DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reviews`
@@ -637,7 +769,12 @@ INSERT INTO `reviews` (`review_id`, `client_id`, `reviewer_id`, `reviewer_name`,
 (2, 66, 0, 'Nimal De Silva', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets.', 5, '2020-08-08'),
 (4, 66, 0, 'Nipuna Nanayakkara', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem id consequatur praesentium rerum quis quo et assumenda, officia corrupti, provident exercitationem hic autem nobis illo ex aliquam numquam doloribus cumque.', 4, '2020-08-08'),
 (5, 66, 0, 'Chathumali Gunawardena', 'Very good architecture.', 4, '2020-08-19'),
-(6, 66, 0, 'Sunil Almeda', 'My housing project was done by Dubai Homes and highly recommended.', 4, '2020-09-24');
+(6, 66, 0, 'Sunil Almeda', 'My housing project was done by Dubai Homes and highly recommended.', 4, '2020-09-24'),
+(7, 75, 0, 'Sarath Fernando', 'Good but average quality work. Need to improve in quality.', 3, '2020-10-30'),
+(8, 67, 0, 'Nipuna Nanayakkara', 'Best quality products in Sri Lanka.', 5, NULL),
+(9, 67, 0, 'Thilini Perera', 'Nice collection of products found in Sri Lanka', 5, NULL),
+(10, 67, 0, 'Anil Ferdz', 'Mind-blowing extraordinary extravagant.The ambience what is created is classic.I have a beautiful house and it\'s my dream house  Touchwood as I keep admiring my house as it\'s beautiful adorned by usPerfectionist is What Milindji.and he has excellent team to be appreciated!!', 4, NULL),
+(12, 66, 0, 'Murali Vijay', 'Looking to use an icon or symbol in place of text for some pagination links? Be sure to provide proper screen reader support with aria attributes.', 3, NULL);
 
 -- --------------------------------------------------------
 
@@ -645,11 +782,9 @@ INSERT INTO `reviews` (`review_id`, `client_id`, `reviewer_id`, `reviewer_name`,
 -- Table structure for table `roles`
 --
 
-DROP TABLE IF EXISTS `roles`;
-CREATE TABLE IF NOT EXISTS `roles` (
+CREATE TABLE `roles` (
   `role_id` int(11) NOT NULL,
-  `role_name` varchar(50) NOT NULL,
-  PRIMARY KEY (`role_id`)
+  `role_name` varchar(50) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -666,13 +801,11 @@ INSERT INTO `roles` (`role_id`, `role_name`) VALUES
 -- Table structure for table `services_list`
 --
 
-DROP TABLE IF EXISTS `services_list`;
-CREATE TABLE IF NOT EXISTS `services_list` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `services_list` (
+  `id` int(11) NOT NULL,
   `cat_lvl2_id` varchar(100) NOT NULL,
-  `company_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+  `company_id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `services_list`
@@ -680,10 +813,12 @@ CREATE TABLE IF NOT EXISTS `services_list` (
 
 INSERT INTO `services_list` (`id`, `cat_lvl2_id`, `company_id`) VALUES
 (24, 'CL21013', 7),
-(30, 'CL21011', 1),
-(29, 'CL21013', 1),
+(139, 'CL21011', 1),
 (28, 'CL21011', 8),
-(27, 'CL21010', 8);
+(27, 'CL21010', 8),
+(31, 'CL21018', 14),
+(138, 'CL21014', 1),
+(137, 'CL21021', 1);
 
 -- --------------------------------------------------------
 
@@ -691,13 +826,11 @@ INSERT INTO `services_list` (`id`, `cat_lvl2_id`, `company_id`) VALUES
 -- Table structure for table `service_areas`
 --
 
-DROP TABLE IF EXISTS `service_areas`;
-CREATE TABLE IF NOT EXISTS `service_areas` (
-  `id` double NOT NULL AUTO_INCREMENT,
+CREATE TABLE `service_areas` (
+  `id` double NOT NULL,
   `city_id` int(11) NOT NULL,
-  `company_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=151 DEFAULT CHARSET=latin1;
+  `company_id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `service_areas`
@@ -709,7 +842,8 @@ INSERT INTO `service_areas` (`id`, `city_id`, `company_id`) VALUES
 (3, 1042, 2),
 (150, 1099, 7),
 (149, 1098, 7),
-(148, 1087, 7);
+(148, 1087, 7),
+(151, 1100, 14);
 
 -- --------------------------------------------------------
 
@@ -717,13 +851,11 @@ INSERT INTO `service_areas` (`id`, `city_id`, `company_id`) VALUES
 -- Table structure for table `service_districts`
 --
 
-DROP TABLE IF EXISTS `service_districts`;
-CREATE TABLE IF NOT EXISTS `service_districts` (
-  `id` float NOT NULL AUTO_INCREMENT,
+CREATE TABLE `service_districts` (
+  `id` float NOT NULL,
   `district_id` int(11) NOT NULL,
-  `company_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
+  `company_id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `service_districts`
@@ -734,9 +866,8 @@ INSERT INTO `service_districts` (`id`, `district_id`, `company_id`) VALUES
 (54, 19, 8),
 (53, 15, 8),
 (52, 14, 8),
-(58, 10, 1),
-(57, 8, 1),
-(56, 6, 1);
+(82, 10, 1),
+(81, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -744,17 +875,15 @@ INSERT INTO `service_districts` (`id`, `district_id`, `company_id`) VALUES
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `user_id` int(11) NOT NULL,
   `user_email` varchar(1000) NOT NULL,
   `client_id` int(11) NOT NULL,
   `password` varchar(300) NOT NULL,
   `role_id` int(11) NOT NULL,
   `auth_token` varchar(150) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+  `status` int(11) NOT NULL DEFAULT 1
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
@@ -770,14 +899,12 @@ INSERT INTO `users` (`user_id`, `user_email`, `client_id`, `password`, `role_id`
 -- Table structure for table `user_sessions`
 --
 
-DROP TABLE IF EXISTS `user_sessions`;
-CREATE TABLE IF NOT EXISTS `user_sessions` (
-  `session_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user_sessions` (
+  `session_id` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
   `auth_token` varchar(500) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  PRIMARY KEY (`session_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
+  `password` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user_sessions`
@@ -790,9 +917,235 @@ INSERT INTO `user_sessions` (`session_id`, `client_id`, `auth_token`, `password`
 (51, 70, 'ya29.a0AfH6SMC5P51k_otbDQ2N-XPWyrg7JMJW7pfp_8sGW--8V7d0WhSAEvxK30wZPkmVQbS_eklU4mtNLwX-gcIdNG7b62QE59XIwCmubHoLJhQcqLMWH8VO4uXVYBRfa0pg2exfB3c1uYU-_YN_RGgVCu_E5CG1AwTAULpNUQ', ''),
 (57, 76, '24FLddcRPGKrZC91596897750977', '123456789'),
 (58, 77, 'sKj4LhVUde7wAal1598932425264', '123456789'),
-(48, 67, 'ya29.a0AfH6SMDpaefIpGr_EaAFrRJAzg5mkRs2NOXpB-jtozXvYshCx8UMHyy6Xy6L2ZHi-xdeLH8JDP3bhcLdePdQvtnOfeFnw2Fbk84AGdkRC7cRWGDw_QnZNDR6czbSzM8SIWRaiUcB4nKBzMGFQ0Dpuw0ZwFwMPzWVbNbJrg', ''),
-(47, 66, 'EAAlrbREIkZCkBADB6dCmtECRUI3mWgkXEhvDjazR1iayuwogx5s5idW487QfATAIPePHyuvWiZA6xsDTN2zGSQ5dHANaw72MifSNT9PYEr5ZCWaQXYTIZC2rJOrZBWZC20eXrAtO3jq3oxXcdE0iBIr7q42V3OxZCZBG49iSjdkiSaujjPB6tpLPgYH97WHJYdGzVV581aUKtoPSGs9DBoDZArwUf16ZANOhIZD', ''),
-(46, 65, 'EAAlrbREIkZCkBAOHVjjUZCBewHTfKUnqDc56JFkG7bKHsi9GQhxZCrm9tUY4ZBYg76zZB2xZC99j22HoU0AGkPOJuW0IxZAVd4hI96l4oQtG4saG6STgGKiCZCtvhPO5kGsMZAJYkdwpnpeQqFThhDFZCiZB5QarXXswuA4tXLyTdYQ1G01EAv25mS0ZA1eYTSJu6P8m7N8l9zuypCpY4T2roZBs3', '');
+(48, 67, 'ya29.A0AfH6SMCjYFOvRiTvo6OXw3RLeldStQfyJ3WkOBU3h2uNhp9arsShEyMMLyY056E2kK4uAO_3LpmDHunvN2abarytQlxzIBNwX_CoWZH9vZMrz0_RWnq7ea1b4jiVZsw35SyrThCHF--uB1mpVimXNRyi0sQwN4We4xR4ITaplyzABQ', ''),
+(47, 66, 'EAAlrbREIkZCkBABltzZBfbgz0U2jamapnxTfbCPVAQhYXASdKZB0wZBik4RgbIvHgjkZCe5UZA6h3EcpoC1Mzlx0xtelcoaQKNkzwTaqevwuL3nZAUppkGToZCGdDU76XGTYkTF8xhna71mAWZAlbyL9yCforyyVd210LNpA8GNZAZBPkYAPgTw9gPkaHK8rWAYW4qnb7jsfuYxAWZCVDVwHeDPn', ''),
+(46, 65, 'EAAlrbREIkZCkBAOHVjjUZCBewHTfKUnqDc56JFkG7bKHsi9GQhxZCrm9tUY4ZBYg76zZB2xZC99j22HoU0AGkPOJuW0IxZAVd4hI96l4oQtG4saG6STgGKiCZCtvhPO5kGsMZAJYkdwpnpeQqFThhDFZCiZB5QarXXswuA4tXLyTdYQ1G01EAv25mS0ZA1eYTSJu6P8m7N8l9zuypCpY4T2roZBs3', ''),
+(59, 78, 'EAAlrbREIkZCkBAJNtFOvVAP1VGqwak3lphgAFWDScZBUbi1GbHwZCKDXyKxtjbxcDPeWoxqYquRGRd4Rvct7ejOpNsatyJRrPC9JZBEO0ooIjk9xljLvprIuQtwDE5EsU2sZAX52EmqS6fvQ5JIobqx6OILdkTe8nM53TrbXOmFPzNWe5x8POYA0V7onsTag3XDd55rE0bbGQ7IZBo7Ijr', ''),
+(60, 79, 'EAAlrbREIkZCkBALAXr92TgW2ZCdE4sudVz8RYEeLEuokzRQndiYz1qTRG5XOlVqmNi9oF4brljOEuAqPd8ulbHY36OAZBZBkrEePJb3ULvxjjIelnVq7UPjYkUZAZBztB37QNC2CyxuhmDTKhpHNK0UaKeXTIbGGc31z1OZAk1ZCt6Hiw7VCgUoJTdJmhWRHsPaJMLWuutiPm78lP4j9bm9z', ''),
+(61, 80, 'sG9JTIpESTNPCH91605337768371', '12345678'),
+(62, 81, '12JeUFGFfk6a8RG1605355126371', '12345678'),
+(63, 82, 'fMpBshqWlwPeeeJ1605380324080', '12345678'),
+(64, 83, 'tqHhqcJy5wccBCv1605383015806', '12345678'),
+(65, 84, 'TcKfRbL8VtJlJQN1605693525052', '123456789'),
+(66, 85, 'NAvegHm9qKP8TTd1605501791505', '12345678');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `categories-level1`
+--
+ALTER TABLE `categories-level1`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `categories-level2`
+--
+ALTER TABLE `categories-level2`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cites`
+--
+ALTER TABLE `cites`
+  ADD PRIMARY KEY (`city_id`);
+
+--
+-- Indexes for table `clients`
+--
+ALTER TABLE `clients`
+  ADD PRIMARY KEY (`client_id`);
+
+--
+-- Indexes for table `client_company`
+--
+ALTER TABLE `client_company`
+  ADD PRIMARY KEY (`company_id`);
+
+--
+-- Indexes for table `company_details`
+--
+ALTER TABLE `company_details`
+  ADD PRIMARY KEY (`company_id`);
+
+--
+-- Indexes for table `districts`
+--
+ALTER TABLE `districts`
+  ADD PRIMARY KEY (`district_id`);
+
+--
+-- Indexes for table `project`
+--
+ALTER TABLE `project`
+  ADD PRIMARY KEY (`project_id`);
+
+--
+-- Indexes for table `project_category`
+--
+ALTER TABLE `project_category`
+  ADD PRIMARY KEY (`project_cat_id`);
+
+--
+-- Indexes for table `project_images`
+--
+ALTER TABLE `project_images`
+  ADD PRIMARY KEY (`img_id`);
+
+--
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`review_id`);
+
+--
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`role_id`);
+
+--
+-- Indexes for table `services_list`
+--
+ALTER TABLE `services_list`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `service_areas`
+--
+ALTER TABLE `service_areas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `service_districts`
+--
+ALTER TABLE `service_districts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- Indexes for table `user_sessions`
+--
+ALTER TABLE `user_sessions`
+  ADD PRIMARY KEY (`session_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT for table `categories-level1`
+--
+ALTER TABLE `categories-level1`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT for table `categories-level2`
+--
+ALTER TABLE `categories-level2`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
+
+--
+-- AUTO_INCREMENT for table `cites`
+--
+ALTER TABLE `cites`
+  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1279;
+
+--
+-- AUTO_INCREMENT for table `clients`
+--
+ALTER TABLE `clients`
+  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+
+--
+-- AUTO_INCREMENT for table `client_company`
+--
+ALTER TABLE `client_company`
+  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `company_details`
+--
+ALTER TABLE `company_details`
+  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `districts`
+--
+ALTER TABLE `districts`
+  MODIFY `district_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT for table `project`
+--
+ALTER TABLE `project`
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT for table `project_category`
+--
+ALTER TABLE `project_category`
+  MODIFY `project_cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `project_images`
+--
+ALTER TABLE `project_images`
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+
+--
+-- AUTO_INCREMENT for table `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `services_list`
+--
+ALTER TABLE `services_list`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
+
+--
+-- AUTO_INCREMENT for table `service_areas`
+--
+ALTER TABLE `service_areas`
+  MODIFY `id` double NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
+
+--
+-- AUTO_INCREMENT for table `service_districts`
+--
+ALTER TABLE `service_districts`
+  MODIFY `id` float NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `user_sessions`
+--
+ALTER TABLE `user_sessions`
+  MODIFY `session_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

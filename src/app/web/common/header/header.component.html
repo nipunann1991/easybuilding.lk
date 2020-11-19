@@ -44,19 +44,17 @@
                     <div class="mega-menu">
                         <div class="row">
                            
-                            <div class="col-md-4" *ngFor="let menu_item_cols of menuItemCols">
-                                <ng-container *ngFor="let menu_item of menu_item_cols"> 
+                            <div class="col-md-4" *ngFor="let prod_col of menuItemsProduct">
+                                <ng-container *ngFor="let prod of prod_col"> 
                                 
-                                    <h3>{{menu_item.title}}</h3>
+                                    <h3>{{prod.title}}</h3>
                                     <ul>
-                                        <li *ngFor="let misc of menu_item.children"><a routerLink="{{misc.url}}">{{misc.title}}</a></li>
+                                        <li *ngFor="let misc of prod.children"><a routerLink="{{misc.url}}">{{misc.title}}</a></li>
                                     </ul>  
 
-                                </ng-container>
-                                
-                            </div>
-                                 
-                        
+                                </ng-container> 
+                            </div> 
+
                        </div>
                     </div>
                 </li>
@@ -64,15 +62,15 @@
                     <a routerLink="/login"><i class="shop-img"></i>Services</a>
                     <div class="mega-menu">
                         <div class="row">
-                            <div class="col-md-3">
-                                <h3>Product Categories #2</h3>
-                                <ul>
-                                    <li><a routerLink="/login">Products</a></li>
-                                    <li><a routerLink="/login">BOQ</a></li>
-                                    <li><a routerLink="/login">Shop By Department</a></li>
-                                    <li><a routerLink="/contact">Contact</a></li>
-                                    
-                                </ul>
+                             <div class="col-md-4" *ngFor="let serv_col of menuItemsServices">
+                                <ng-container *ngFor="let service of serv_col"> 
+                                
+                                    <h3>{{service.title}}</h3>
+                                    <ul>
+                                        <li *ngFor="let misc1 of service.children"><a routerLink="{{misc1.url}}">{{misc1.title}}</a></li>
+                                    </ul>  
+
+                                </ng-container> 
                             </div>
                         </div> 
                     </div>
