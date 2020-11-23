@@ -8,10 +8,10 @@
                 <div class="search-box" *ngIf="!logoOnly">
                     <input type="text" class="form-control" placeholder="Search Photos, Products & More...">
                 </div>
-                <div class="cta-buttons" *ngIf="!logoOnly"> 
-                    <a  routerLink="/login" *ngIf="!isLogged" class="login-btn" ><i class="icon-profile"></i> Login</a>
+                <div class="cta-buttons" [ngClass]="{'short-btn-area': isLogged}" *ngIf="!logoOnly"> 
+                    <button mat-button routerLink="/login" *ngIf="!isLogged" class="login-btn btn btn-login mat-button" ><i class="icon-profile"></i> Login</button>
                     <button mat-button  routerLink="/login" *ngIf="!isLogged" class="btn d-none btn-login mat-button"><i class="icon-profile"> </i>Login</button>    
-                    <button mat-button *ngIf="!isLogged" class="btn btn-primary sign-up mat-button">Upload Product</button>   
+                    <button mat-button *ngIf="!isLogged" class="btn sign-up mat-button">Upload Product</button>   
                     
                     <div class="user-account" routerLink="/my-account/user/me/about" *ngIf="isLogged">
                        

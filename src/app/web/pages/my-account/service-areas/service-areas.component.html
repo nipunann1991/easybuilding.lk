@@ -1,8 +1,21 @@
 <form id="myform" class="wrapped-block animated fadeIn" [formGroup]="formGroup" (ngSubmit)="onSave()" novalidate="novalidate">
   <div class="row">
-      <div class="col-md-12">
-          <h2>Services & Service Areas</h2>
-      </div>
+        <div class="col-md-12">
+            <h2>Products & Services</h2>
+            <div class="form-group" >
+                <label for="servic e_areas">Service Categories</label> 
+                <ng-select2 [data]="allServices" [options]="options" formControlName="services" class="select-fw" >
+                </ng-select2>  
+            </div> 
+            <div class="form-group" >
+                <label for="servic e_areas">Product Categories</label> 
+                <ng-select2 [data]="allProducts" [options]="options" formControlName="products" class="select-fw" >
+                </ng-select2>  
+            </div>
+        </div> 
+        <div class="col-md-12">
+            <h2>Service Areas</h2>
+        </div>
         <div class="col-md-12">
             <div class="form-group">
                 <label for="service_areas" class="service-label">Display my service area by </label> 
@@ -31,37 +44,11 @@
                 <label for="service_areas">Service Areas</label> 
                 <ng-select2 [data]="serviceAreasCity" [options]="options" formControlName="service_areas" class="select-fw" >
             </ng-select2> 
-        </div>   
-      
-
-        <div class="row services"> 
-            <div class="col-md-12">
-                <h2>My Services</h2>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group" >
-                    <label for="service_areas">Select Service Categories</label> 
-                    <ng-select2 [data]="allServices" [options]="options" formControlName="services" class="select-fw" >
-                    </ng-select2> 
-                </div>
-            </div>
-          
-            <!-- <div class="category_block col-md-6" *ngFor="let sc of serviceCategories; let i = index;" >
-                <h3>{{sc.cat_lvl1_name}}</h3>
-                <ul>
-                    <li *ngFor="let sub of  sc.sub_categories">
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="{{sub.cat_lvl2_id}}">
-                            <label class="form-check-label" for="{{sub.cat_lvl2_id}}">{{sub.cat_lvl2_name}}</label>
-                        </div>
-                    </li>
-                </ul>
-            </div>  -->
-        </div>
-
-        
-        
+        </div>    
     </div>  
+    
+     
+     
     <div class="col-md-12 btn-wrapper">
         <ng-container *ngIf="!isStepsForm">
             <button mat-button name="submit" type="submit" class="btn btn-primary">Save</button>

@@ -158,8 +158,7 @@ export class HeaderComponent implements OnInit {
       if(menuArray.length == (index + 1)){
         (newMenu.length < 3)? newMenu.push(groupedMenu) : newMenu[2].push(...groupedMenu);
       }
-       
-
+        
       lengthCount = lengthCount + element.children.length;
       totalCount = totalCount + element.children.length; 
        

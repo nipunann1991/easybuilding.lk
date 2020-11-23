@@ -45,7 +45,15 @@ export class MyAccountService {
   getAllCategoriesData(){   
     return this.http.get(environment.baseUrl+'ProfileController/getAllCategoriesData?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
   } 
-   
+
+  getServiceCategories(){   
+    return this.http.get(environment.baseUrl+'ProfileController/getServiceCategories?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+  }
+
+  getProductCategories(){   
+    return this.http.get(environment.baseUrl+'ProfileController/getProductCategories?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+  }
+  
   getServiceCitiesByCompany(postVals){   
 
     const params = new HttpParams({
@@ -54,6 +62,8 @@ export class MyAccountService {
     
     return this.http.post(environment.baseUrl+'ProfileController/getServiceCitiesByCompany', params);
   }
+
+  
 
   getServiceDistrictsByCompany(postVals){   
 

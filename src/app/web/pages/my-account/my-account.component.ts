@@ -25,6 +25,7 @@ export class MyAccountComponent implements OnInit {
   isFullScreen: boolean = false;
   serviceAreas: any = "";
   services: any = "";
+  products: any = "";
   navItems: any = [];
   baseurl = "/my-account/user/me/";
   baseurlEdit = this.baseurl+"/edit/";
@@ -209,8 +210,7 @@ export class MyAccountComponent implements OnInit {
         if (response.status == 200 && response.data.length > 0 ) {  
             this.serviceAreas = response.data;
             
-        }else{
-          //this.router.navigate(['/my-account/user/me/0']);
+        }else{ 
         }
           
       });
@@ -222,8 +222,10 @@ export class MyAccountComponent implements OnInit {
 
       this.myaccount.getServics(params) 
         .subscribe((response: any) => {
-        if (response.status == 200 && response.data.length > 0 ) {  
-            this.services = response.data; 
+          
+        if (response.status == 200 ) {  
+          this.services = response.data.services;  
+          this.products = response.data.products;  
         }else{
           
         }

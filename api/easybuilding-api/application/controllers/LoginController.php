@@ -31,15 +31,16 @@ class LoginController extends CommonController {
 			$sessionData = $this->addUserSession($clientData['data']->insertedId, $this->input->post('auth_token'));
 
 			$search_index = array(
-				'columns' => 'us.*, c.*, cc.profie_image as cpi, cc.company_id' , 
-				'table' => 'user_sessions us, clients c, client_company cc',
+				'columns' => 'us.*, c.*' ,   
+				'table' => 'user_sessions us, clients c',
 				'eq_table_col' => '1',
-				'data' => 'us.auth_token= "'.$this->input->post('auth_token').'" AND c.client_id=us.client_id AND c.client_id=cc.client_id AND c.client_id= "'. $clientData['data']->insertedId .'" ',
+				'data' => 'us.auth_token= "'.$this->input->post('auth_token').'" AND c.client_id=us.client_id AND c.client_id= "'. $clientData['data']->insertedId .'" ',
 				 
 			);
 
-			$inputData = $this->selectRawCustomData__($search_index)['data'][0]; 
+			$inputData = $this->selectRawCustomData__($search_index)['data'][0];
 
+			 
 			if ($inputData->provider == "G" || $inputData->provider == "F" ) {
 				 
 				$dataset = array(  
@@ -72,7 +73,7 @@ class LoginController extends CommonController {
 				$this->updateData__('clients', $dataset, 'client_id="'.$dataset['client_id'].'"');
 			}
 		 
-			$sessionData['data'] = $this->setSessionData($sessionData, $inputData,'Session inserted');  
+			$sessionData['data'] = $this->setNewUserSessionData($sessionData, $inputData,'Session inserted');  
 
 			return $this->returnJSON($sessionData);
 	
@@ -163,6 +164,23 @@ class LoginController extends CommonController {
 		return $this->returnJSON($sessionData); 
 	}
 	
+
+	public function setNewUserSessionData($sessionData, $inputData, $message){ 
+		 
+		$arrayVal = (object) array( 
+			'client_id' => $inputData->client_id, 
+			'first_name' => $inputData->first_name, 
+			'email' => $inputData->email, 
+			'auth_token' => $inputData->auth_token, 
+			'profie_image' => $inputData->profie_image,  
+			'provider_id' => ( (int)$inputData->status* (int)$inputData->client_id) ."".$inputData->provider_id."".$inputData->client_id,  
+			'message' => $message 
+		);
+
+		return array($arrayVal);
+
+	}
+
 
 	public function setSessionData($sessionData, $inputData, $message){ 
 		 

@@ -173,7 +173,7 @@ class ProfileController extends CommonController {
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
 			$search_index = array(
-				'columns' => 'c.client_id, cc.company_id, cc.all_island, cc.service_areas, cc.service_dist, cc.services' ,   
+				'columns' => 'c.client_id, cc.company_id, cc.all_island, cc.service_areas, cc.service_dist, cc.services, cc.products' ,   
 				'table' => 'user_sessions us, clients c, client_company cc',
 				'eq_table_col' => '1',
 				'data' => 'us.auth_token= "'.$this->input->get('auth_token').'" AND c.client_id = us.client_id AND c.client_id = cc.client_id', 
@@ -246,22 +246,33 @@ class ProfileController extends CommonController {
 
 		 
 			$search_index = array(
-				'columns' => 'cl2.cat_lvl2_name' ,   
-				'table' => 'services_list sl, `categories-level2` cl2',
-				'eq_table_col' => 'cl2.cat_lvl2_id = sl.cat_lvl2_id ',
+				'columns' => 'cl2.cat_lvl2_name, c.cat_id, c.cat_name' ,   
+				'table' => 'services_list sl, `categories-level2` cl2, `categories-level1` cl1, categories c',
+				'eq_table_col' => 'cl2.cat_lvl2_id = sl.cat_lvl2_id AND cl2.parent_cat_id = cl1.cat_lvl1_id AND cl1.parent_cat_id = c.cat_id ORDER BY c.cat_id ASC ',
 				'data' => 'sl.company_id= "'.$this->input->post('company_id').'"', 
 			);
  
 			$dataset = $this->selectRawCustomData__($search_index);
+ 
 			$services = array();
+			$products = array();
 
 			foreach ($dataset["data"] as $value) { 
-				array_push($services, $value->cat_lvl2_name);
+
+				if ($value->cat_id == "C1015") {
+					array_push($products, $value->cat_lvl2_name);
+				}else if ($value->cat_id == "C1019") {
+					array_push($services, $value->cat_lvl2_name);
+				} 
+				
 			}
 
 			$data = array( 
 				'status' => 200, 
-				'data' => implode(", " , $services), 
+				'data' =>  array(
+					'services' => implode(", " , $services), 
+					'products' => implode(", " , $products), 
+				), 
 			);
 			
 			return $this->returnJSON($data);  
@@ -360,12 +371,113 @@ class ProfileController extends CommonController {
 	public function getAllCategoriesData(){  
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+ 
+			$search_lvl1 = array(
+				'columns' => 'cl1.cat_lvl1_id, cl1.cat_lvl1_name, c.cat_id, c.cat_name' ,   
+				'table' => '`categories-level1` cl1, `categories` c',
+				'eq_table_col' => '1 order by c.cat_name DESC, cl1.cat_lvl1_name ASC',
+				'data' => 'cl1.parent_cat_id=c.cat_id', 
+			);
+
+			$dataset = $this->selectRawCustomData__($search_lvl1);
+			$all_categories = array(); 
+
+			foreach ($dataset["data"] as $value) {   
+
+				$search_lvl2 = array(
+					'columns' => 'cat_lvl2_id AS id, cat_lvl2_name AS text' ,   
+					'table' => '`categories-level2`',
+					'eq_table_col' => '1 order by cat_lvl2_name ASC',
+					'data' => 'parent_cat_id="'.$value->cat_lvl1_id.'"', 
+				);
+
+				$dataset_lvl2 = $this->selectRawCustomData__($search_lvl2);
+
+				$sub_categories = array(
+					'id' => $value->cat_lvl1_id , 
+					'text' => $value->cat_lvl1_name , 
+					'parent_id' => $value->cat_id , 
+					'perent_text' => $value->cat_name ,
+					'children' => $dataset_lvl2['data'] 
+				);
+
+				array_push($all_categories, $sub_categories);
+				
+			}
+			
+			$data = array( 
+				'status' => 200, 
+				'data' => $all_categories, 
+			);
+			
+			return $this->returnJSON($data);   
+			
+
+		}else{
+			return $this->invalidSession(); 
+		}
+		
+	}
+
+
+	public function getServiceCategories(){  
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
 
 			$search_lvl1 = array(
 				'columns' => 'cat_lvl1_id, cat_lvl1_name' ,   
 				'table' => '`categories-level1`',
 				'eq_table_col' => '1 order by cat_lvl1_name ASC',
-				'data' => '1', 
+				'data' => 'parent_cat_id="C1019"', 
+			);
+
+			$dataset = $this->selectRawCustomData__($search_lvl1);
+			$all_categories = array(); 
+
+			foreach ($dataset["data"] as $value) {   
+
+				$search_lvl2 = array(
+					'columns' => 'cat_lvl2_id AS id, cat_lvl2_name AS text' ,   
+					'table' => '`categories-level2`',
+					'eq_table_col' => '1 order by cat_lvl2_name ASC',
+					'data' => 'parent_cat_id="'.$value->cat_lvl1_id.'"', 
+				);
+
+				$dataset_lvl2 = $this->selectRawCustomData__($search_lvl2);
+
+				$sub_categories = array(
+					'id' => $value->cat_lvl1_id , 
+					'text' => $value->cat_lvl1_name , 
+					'children' => $dataset_lvl2['data'] 
+				);
+
+				array_push($all_categories, $sub_categories);
+				
+			}
+			
+			$data = array( 
+				'status' => 200, 
+				'data' => $all_categories, 
+			);
+			
+			return $this->returnJSON($data);   
+			
+
+		}else{
+			return $this->invalidSession(); 
+		}
+		
+	}
+
+	public function getProductCategories(){  
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+
+			$search_lvl1 = array(
+				'columns' => 'cat_lvl1_id, cat_lvl1_name' ,   
+				'table' => '`categories-level1`',
+				'eq_table_col' => '1 order by cat_lvl1_name ASC',
+				'data' => 'parent_cat_id="C1015"', 
 			);
 
 			$dataset = $this->selectRawCustomData__($search_lvl1);
@@ -426,6 +538,7 @@ class ProfileController extends CommonController {
 			$service_areas = json_decode($dataset['service_areas']);
 			$service_dist = json_decode($dataset['service_dist']);
 			$services = json_decode($dataset['services']);
+			$products = json_decode($dataset['products']);
 
 			$company_id = $dataset['company_id']; 
 
@@ -434,6 +547,7 @@ class ProfileController extends CommonController {
 			$this->deleteData__('services_list', 'company_id="'.$this->input->post('company_id').'"');
 		 	
 		 	$this->insertServices($services, $company_id);
+		 	$this->insertServices($products, $company_id);
 
 			if ($dataset['service_areas'] != "[]") {
 				$this->insertServiceAreas($service_areas, $company_id);
