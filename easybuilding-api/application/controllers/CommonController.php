@@ -551,10 +551,12 @@ class CommonController extends CI_Controller {
 
 		/* read the source image */
 
-		if (exif_imagetype($src) == IMAGETYPE_JPEG) {
+		$extension = pathinfo($src, PATHINFO_EXTENSION);
+
+		if ($extension == 'jpg' || $extension == 'jpeg') { 
 		   $source_image = imagecreatefromjpeg($src);
 
-		}else if (exif_imagetype($src) == IMAGETYPE_PNG) {
+		}else if ($extension == 'png') {
 			$source_image = imagecreatefrompng($src);
 		}
 		
