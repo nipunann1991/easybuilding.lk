@@ -1,0 +1,33 @@
+<div class="products-wrapper">
+  <div *ngFor="let p of product; let i = index;" class="product-block" > 
+    <div class="product-img" [ngStyle]="{'background-image': 'url('+ imageURL + p.primary_img +')'}"  (click)="openProject(companyId, p.project_id)">
+     
+    </div> 
+  
+    <div class="dot-nav" *ngIf="isEdit">
+      <a class="dot-menu dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" #dotmenu><span>Menu</span></a>
+      <ul class="dropdown-menu mini-nav" aria-labelledby="dropdownMenuButton">
+        <li><a routerLink="edit-product/{{companyId}}/{{p.product_id}}"><i class="icon-pencil"></i> Edit</a></li>
+        <li><a href="javascript:void(0)" (click)="deleteProduct(i, companyId, p.product_id)"><i class="icon-bin"></i> Delete</a></li>
+      </ul>
+    </div>
+    <div class="product-content"  (click)="openProject(companyId, p.project_id)">    
+       <h3>{{p.product_name}}</h3> 
+       <p>{{ p.product_desc }}</p>
+       <ul>
+         <li class="price" title="Project Year">Rs.{{p.product_price}} / Piece</li> 
+       </ul>  
+    </div>
+  </div>
+
+    <div class="add-new-product" *ngIf="isEdit" routerLink="/my-account/user/me/products/upload-product/{{companyId}}">
+      <div class="inner">
+        <span class="plus"></span>
+        <h3>Add New Products</h3>
+      </div>
+    </div>
+  
+    <p *ngIf="!isProductsAvailable && !isEdit"><i>No products available.</i></p>
+    <div class="clearboth"></div>
+  </div>
+  

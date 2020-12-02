@@ -1,20 +1,46 @@
 import { Component, OnInit } from '@angular/core';
 import { AppSEO } from "./../../../app.seo";
+import { HomepageService } from '../../../admin/api/frontend/homepage.service';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.css']
+  styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent implements OnInit {
 
-  constructor(private seo: AppSEO) { 
+  companyData: any = {}
+
+  constructor(
+    private seo: AppSEO,
+    private home: HomepageService
+    ) { 
     this.pageSEO();  
   }
 
   ngOnInit(): void { 
     window.scroll(0,0); 
+    this.getCompanyData();
+  }
 
+
+  getCompanyData(){
+    this.home.getCompanyData()
+      .subscribe((response: any) => {
+
+          if (response.status == 200) { 
+            this.companyData = response.data[0]; 
+            this.companyData.company_address = this.companyData.company_address.replace(/\n/ig, '<br/>');
+
+            console.log(this.companyData)
+
+          }else if (response.status == 401){
+             
+          }else{
+             
+          } 
+
+    });
   }
 
   pageSEO() : void{

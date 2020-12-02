@@ -1,78 +1,73 @@
-<ng-container
-  *ngIf="!isFullScreen; then halfScreen; else fullScreen">
-</ng-container>
 
-<ng-container #halfScreen *ngIf="!isFullScreen" >
-    <div class="page-container page-layout animated fadeIn"> 
-      <ng-container>
-          <app-profile 
-              [profileData]="profileData"
-              (isProfileEditable)="isProfileEditable($event)"
-          ></app-profile>  
+<div class="page-container page-layout animated fadeIn"> 
+    <ng-container *ngIf="!isFullScreen">
+        <ng-container *ngIf="profileCompleted || isPublicProfile">
+            <app-profile 
+                [profileData]="profileData"
+                (isProfileEditable)="isProfileEditable($event)"
+            ></app-profile>  
 
-          <div class="container main-content-area"> 
-              <div class="content-wrapper"> 
-                  <div class="left-block">
-                      <ng-container *ngIf="!isEditableMode">
-                          <div class="item"> 
-                              <h3>Contact Details</h3>
-                              <ul>
-                                  <li class="address">
-                                      {{profileData.address_line1}} {{profileData.address_line2}} {{profileData.city}}
-                                  </li>
-                                  <li class="tel">{{profileData.tel1}} <span *ngIf="profileData.tel2 != 0">{{profileData.tel2}}</span></li> 
-                                  <li class="email">{{profileData.email}}</li>
-                                  <li class="website"><a href="{{profileData.website}}" target="_blank">{{profileData.website}}</a></li>
-                              </ul>
-                          </div>
-                          <div class="item"> 
-                              <h3>Service Areas</h3>
-                              <p *ngIf="serviceAreas == ''"><i>No service areas yet.</i></p>
-                              <p *ngIf="serviceAreas != ''">{{ serviceAreas }}</p>
-                          </div>
-                          <div class="item"> 
-                              <h3>Services</h3>
-                              <p *ngIf="services == ''"><i>No service areas yet.</i></p>
-                              <p *ngIf="services != ''">{{ services }}</p>
-                          </div>
-                          <div class="item"> 
-                              <h3>Awards</h3>
-                              <p><i>No awards yet.</i></p>
-                          </div>
-                          
-                      </ng-container>
-                      <ng-container *ngIf="profileCompleted && isEditableMode">
-                          <ul>
-                              <li *ngFor="let nav of navItems">
-                                  <a mat-button routerLinkActive="active-btn" [routerLinkActiveOptions]="{exact: false}"  routerLink="{{nav.url}}" >{{nav.title}}</a>
-                              </li>
-                          </ul>
-                      </ng-container>
-                  </div>
-                  <div class="right-block">
-                      
-                      <ng-container> 
-                          <ul class="tab-list">
-                              <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="about" >About</a></li>
-                              <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="projects">Projects</a></li> 
-                              <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="reviews/1">Reviews</a></li>
-                          </ul>
-                      </ng-container> 
-                      <div class="content-area">
-                          <router-outlet></router-outlet>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </ng-container> 
-    </div>
-</ng-container> 
-  
+            <div class="container main-content-area"> 
+                <div class="content-wrapper"> 
+                    <div class="left-block">
+                        <ng-container *ngIf="!isEditableMode">
+                            <div class="item"> 
+                                <h3>Contact Details</h3>
+                                <ul>
+                                    <li class="address">
+                                        {{profileData.address_line1}} {{profileData.address_line2}} {{profileData.city}}
+                                    </li>
+                                    <li class="tel">{{profileData.tel1}} <span *ngIf="profileData.tel2 != 0">{{profileData.tel2}}</span></li> 
+                                    <li class="email">{{profileData.email}}</li>
+                                    <li class="website"><a href="{{profileData.website}}" target="_blank">{{profileData.website}}</a></li>
+                                </ul>
+                            </div>
+                            <div class="item"> 
+                                <h3>Service Areas</h3>
+                                <p *ngIf="serviceAreas == ''"><i>No service areas yet.</i></p>
+                                <p *ngIf="serviceAreas != ''">{{ serviceAreas }}</p>
+                            </div>
+                            <div class="item"> 
+                                <h3>Services</h3>
+                                <p *ngIf="services == ''"><i>No service areas yet.</i></p>
+                                <p *ngIf="services != ''">{{ services }}</p>
+                            </div>
+                            <div class="item"> 
+                                <h3>Awards</h3>
+                                <p><i>No awards yet.</i></p>
+                            </div>
+                            
+                        </ng-container>
+                        <ng-container *ngIf="profileCompleted && isEditableMode">
+                            <ul>
+                                <li *ngFor="let nav of navItems">
+                                    <a mat-button routerLinkActive="active-btn" [routerLinkActiveOptions]="{exact: false}"  routerLink="{{nav.url}}" >{{nav.title}}</a>
+                                </li>
+                            </ul>
+                        </ng-container>
+                    </div>
+                    <div class="right-block">
+                        
+                        <ng-container> 
+                            <ul class="tab-list">
+                                <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="about" >About</a></li>
+                                <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="projects">Projects</a></li> 
+                                <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="products">Products</a></li>  
+                                <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="reviews/1">Reviews</a></li>
+                            </ul>
+                        </ng-container> 
+                        <div class="content-area">
+                            <router-outlet></router-outlet>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container> 
+    </ng-container>
+    <router-outlet *ngIf="isFullScreen"></router-outlet>
+</div>
+    
 
-<ng-template #fullScreen>
-    <div class="page-container animated fadeIn">
-        <router-outlet></router-outlet>
-    </div>
-</ng-template>
+
 
 

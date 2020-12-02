@@ -52,7 +52,6 @@
   cursor: pointer;
   border: 1px #ededed solid;
   border-radius: 0.5rem;
-  overflow: hidden;
   
   .project-img{
     height: 20rem;
@@ -75,9 +74,9 @@
   .dot-nav{
     position: absolute;
     right: 0;
+    bottom: 1.5rem;
     display: block;
-    z-index: 100001;
-    margin-top: 1.5rem;
+    z-index: 101; 
 
 
     a.dot-menu{
@@ -91,7 +90,10 @@
       cursor: pointer;
       padding: 0.85rem;  
      
-
+      &:after{
+        display: none;
+      }
+      
       span{
        visibility: hidden;
       }

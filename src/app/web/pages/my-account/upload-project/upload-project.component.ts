@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop'; 
 import { ImageCroppedEvent, Dimensions, ImageTransform } from 'ngx-image-cropper';
 import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
-
+import { Options } from 'select2';
 
 @Component({
   selector: 'app-upload-project',
@@ -18,12 +18,14 @@ export class UploadProjectComponent implements OnInit {
   formGroup: FormGroup;
   companyID:any;
 
+  public options: Options
   public files: NgxFileDropEntry[] = []; 
   imageChangedEvent: any = '';
   isUploading: boolean = false;
   croppedImage: any = '';
   uploadedImages: any = [];
   uploadedFileName: any = [];
+  allServices: any = [];
 
   constructor(
     private myaccount: MyAccountService,
@@ -38,12 +40,22 @@ export class UploadProjectComponent implements OnInit {
 
     window.scroll(0,0);  
 
+    this.options = {
+      multiple: true, 
+      closeOnSelect: true, 
+      tags: true 
+    };
+
     this.formGroup = new FormGroup({ 
 
       project_name: new FormControl('',[
         Validators.required,
         Validators.minLength(2),
         Validators.maxLength(100)
+      ]),
+
+      services: new FormControl('',[
+        Validators.required
       ]),
 
       project_description: new FormControl('',[
@@ -69,6 +81,7 @@ export class UploadProjectComponent implements OnInit {
     });
 
     this.companyID = this.route.snapshot.params.company_id;
+    this.getServicsWithID(this.companyID);
   }
 
   ngOnDestroy(){
@@ -143,8 +156,25 @@ export class UploadProjectComponent implements OnInit {
   }
 
 
-   
- 
+
+  getServicsWithID(company_id){
+
+    let params = { company_id: company_id }
+
+    this.myaccount.getServicsWithID(params) 
+      .subscribe((response: any) => {
+        if (response.status == 200 && response.data.length > 0 ) {
+          
+          console.log( response )  
+          this.allServices = response.data
+
+        }else{
+          
+        }
+          
+      });
+  }
+    
 
   imageCropped(event: ImageCroppedEvent) {
       this.croppedImage = event.base64; 
@@ -214,10 +244,9 @@ export class UploadProjectComponent implements OnInit {
         this.formGroup.value.company_id = this.companyID; 
         this.formGroup.value.primary_img = this.uploadedFileName[0]; 
         this.formGroup.value.total_imgs = this.uploadedFileName.length; 
-        
-        console.log(this.formGroup.value)
-        
-        
+        this.formGroup.value.services = JSON.stringify(this.formGroup.value.services); 
+
+         
         this.myaccount.addNewProjectDetails(this.formGroup.value)
           .subscribe((response: any) => {
   

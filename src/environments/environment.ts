@@ -9,7 +9,10 @@ export const environment = {
   baseUrl: serverUrl+'index.php/',
   uploadPath: serverUrl+"assets/uploads/",
   token: JSON.parse(localStorage.getItem('token')),
-  profileUrl: '/my-account/user/me/about'
+  profileUrl: '/my-account/user/me/about',
+  fb_provider : "2651390971778041",
+  google_provider: "308484019125-bouf476qe8mbm9593net0fad8ddgts5q.apps.googleusercontent.com",
+
 };
 
 /*

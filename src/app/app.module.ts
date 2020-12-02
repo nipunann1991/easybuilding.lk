@@ -12,18 +12,18 @@ import { BrowserJsonLdModule } from 'ngx-seo';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { environment } from "../environments/environment";
  
 //const config: SocketIoConfig = { url: 'http://localhost:8988', options: {} };
  
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider("308484019125-bouf476qe8mbm9593net0fad8ddgts5q.apps.googleusercontent.com")
+    provider: new GoogleLoginProvider(environment.google_provider)
   },
   {
     id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider("2651390971778041")
+    provider: new FacebookLoginProvider(environment.fb_provider)
   }
 ]);
 

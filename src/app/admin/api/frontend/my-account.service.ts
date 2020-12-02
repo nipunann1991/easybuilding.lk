@@ -92,6 +92,16 @@ export class MyAccountService {
     
     return this.http.post(environment.baseUrl+'ProfileController/getServicsWithID', params);
   }
+  
+
+  getProductsWithID(postVals){   
+
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ProfileController/getProductsWithID', params);
+  }
  
   
   getProjectDetails(postVals){   
@@ -114,6 +124,15 @@ export class MyAccountService {
     return this.http.post(environment.baseUrl+'ProfileController/getMinimalProjectDetails', params);
   }
 
+  getMinimalProductDetails(postVals){   
+
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ProfileController/getMinimalProductDetails', params);
+  }
+  
   getContactDetails(){  
      
     return this.http.get(environment.baseUrl+'ProfileController/getContactDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
@@ -173,6 +192,15 @@ export class MyAccountService {
     return this.http.post(environment.baseUrl+'ProfileController/addNewProjectDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   }
 
+  addNewProductDetails(postVals){ 
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ProfileController/addNewProductDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  }
+  
 
   editProjectDetails(postVals){ 
      
@@ -191,6 +219,16 @@ export class MyAccountService {
     }); 
     
     return this.http.post(environment.baseUrl+'ProfileController/deleteProject?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  }
+
+
+  deleteProduct(postVals){ 
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ProfileController/deleteProductDB?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   }
 
   
@@ -239,6 +277,16 @@ export class MyAccountService {
     
     return this.http.post(environment.baseUrl+'ProfileController/getReviews', params);
   }
+
+
+  uploadProductImages(formData){
+     
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'undefined');
+
+    return this.http.post(environment.baseUrl+'ProfileController/uploadProductImages?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, formData , { headers: headers });
+  }
+
 
   
 

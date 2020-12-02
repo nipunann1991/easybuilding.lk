@@ -73,7 +73,7 @@ export class ProfileComponent implements OnInit {
   ) {  
 
     const initParams: InitParams = {
-      appId: '2651390971778041', 
+      appId: environment.fb_provider, 
       xfbml: true,
       version: 'v2.9',
       

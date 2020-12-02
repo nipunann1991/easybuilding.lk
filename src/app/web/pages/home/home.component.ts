@@ -113,7 +113,7 @@ export class HomeComponent implements OnInit {
           }
 
           this.featuredProfList.push(constructors)
-          console.log(elm)
+          
         });
  
           

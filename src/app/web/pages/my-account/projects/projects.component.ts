@@ -107,18 +107,17 @@ export class ProjectsComponent implements OnInit {
 
           if (response.status == 200) { 
             
-            this.toastr.success('Project updated successfully', 'Success !');  
+            this.toastr.success('Project deleted successfully', 'Success !');  
             
             let limit = 0;
             ( typeof this.itemLimit === 'undefined' )?  limit = -1 : limit = this.itemLimit  ; 
             this.project.splice(index, 1); 
-            this.getMinimalProjectDetails( this.companyId, limit );
-           
+            this.getMinimalProjectDetails( this.companyId, limit ); 
             
           }else if (response.status == 401){
             this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  
           }else{
-            this.toastr.error('Project update failed. Please try again', 'Error !'); 
+            this.toastr.error('Project delete failed. Please try again', 'Error !'); 
           }
            
         }else{

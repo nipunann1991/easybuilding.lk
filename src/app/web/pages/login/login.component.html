@@ -7,7 +7,7 @@
             <div class="column">
                 <form class="app-form"  [formGroup]="formGroup" (ngSubmit)="onSubmit()">  
                     <div class="app-form-inner"> 
-                        <p *ngIf="noUserAvailable" class="error-names">Invalid Username or Password</p>
+                        <!-- <p *ngIf="noUserAvailable" class="error-names">Invalid Username or Password</p> -->
                             <div class="form-group">
                                 <label for="">Username or Email</label>
                                 <input placeholder="" formControlName="email" class="form-control"  name="email" type="email"> 

@@ -13,10 +13,10 @@
                 [aspectRatio]="aspectRatio.x / aspectRatio.y"
                 format="jpg"
                 (imageCropped)="imageCropped($event)"
-                (imageLoaded)="imageLoaded()"
-                (cropperReady)="cropperReady()"
+                (imageLoaded)="imageLoaded()" 
                 (loadImageFailed)="loadImageFailed()"
             ></image-cropper>
+            <!-- (cropperReady)="cropperReady()" -->
         </modal-content>
         <modal-footer> 
             <button class="btn btn-primary" mat-button (click)="onSave()">Set {{modalTitle}} Image</button> 

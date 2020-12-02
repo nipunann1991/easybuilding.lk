@@ -34,6 +34,13 @@
                       <input id="project_name" name="project_name" formControlName="project_name" type="text" class="form-control">
                   </div>  
               </div>
+                <div class="col-md-12">
+                    <div class="form-group" >
+                        <label for="service_areas">Select Project Category<span class="required-star">*</span></label> 
+                        <ng-select2 [data]="allServices" [options]="options" formControlName="services" class="select-fw" >
+                        </ng-select2> 
+                    </div> 
+                </div>
               <div class="col-md-12">
                   <div class="form-group">
                       <label for="project_description">Project Description<span class="required-star">*</span></label>

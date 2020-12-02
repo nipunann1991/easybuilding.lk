@@ -11,8 +11,10 @@ const routes: Routes = [
       { path: 'about', loadChildren: () => import('../my-account/about/about.module').then(m => m.AboutModule) }, 
 	    { path: 'projects', loadChildren: () => import('../my-account/projects/projects.module').then(m => m.ProjectsModule) },
       { path: 'reviews/:id', loadChildren: () => import('../my-account/reviews/reviews.module').then(m => m.ReviewsModule) },  
-      { path: 'services', loadChildren: () => import('../my-account/services/services.module').then(m => m.ServicesModule) }, 
-
+      { path: 'products', loadChildren: () => import('../my-account/products/products.module').then(m => m.ProductsModule) },
+	
+      // { path: 'web/pages/my-account/products/edit-project', loadChildren: () => import('./web/pages/my-account/products/edit-project/edit-project.module').then(m => m.EditProjectModule) },
+        
       { path: 'edit/settings', loadChildren: () => import('../my-account/settings/settings.module').then(m => m.SettingsModule) }, 
 	  	{ path: 'edit/account-info', loadChildren: () => import('../my-account/account-info/account-info.module').then(m => m.AccountInfoModule) },
       { path: 'edit/service-areas', loadChildren: () => import('../my-account/service-areas/service-areas.module').then(m => m.ServiceAreasModule) },

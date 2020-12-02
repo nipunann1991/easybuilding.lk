@@ -24,6 +24,7 @@ import { FileSaverModule } from 'ngx-filesaver';
 import { FacebookModule } from 'ngx-facebook';
 import { reviewDialog } from "../app/web/pages/my-account/reviews/reviews.component";
 import { FirstLetterPipe } from "../app/pipes/first-letter.pipe";
+import { LoadingBarModule, LoadingBarService } from '@ngx-loading-bar/core';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { FirstLetterPipe } from "../app/pipes/first-letter.pipe";
       ModalModule,
       FileSaverModule,
       LoadingBarHttpClientModule,
+      LoadingBarModule,
       StarRatingModule.forRoot(),
       NgBootstrapFormValidationModule.forRoot(), 
       FacebookModule.forRoot()
@@ -77,6 +79,7 @@ import { FirstLetterPipe } from "../app/pipes/first-letter.pipe";
       ModalModule,
       StarRatingModule,
       FileSaverModule,
+      LoadingBarModule,
       NgBootstrapFormValidationModule,
       FirstLetterPipe
   ],
