@@ -91,8 +91,8 @@
                                     [showHalfStars]="true" 
                                     labelPosition="right" 
                                     [rating]="fpl.rating"
-                                    [readOnly]="true"
-                                ></star-rating> {{ fpl.rating }} / {{fpl.total_reviews}} Reviews
+                                    [readOnly]="true" 
+                                ></star-rating>  {{ fpl.rating | roundToDecimal:1  }}  <span class="no-of-reviews">( {{fpl.total_reviews}} Review )</span>
                             </div>
                             
                              <ul class="contact-details">

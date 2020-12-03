@@ -114,7 +114,7 @@ export class ProfileComponent implements OnInit {
       this.isEditable = this.profileData.is_editable_btn;
       this.userEmail = this.profileData.email;
       this.totalReviews = this.profile.total_reviews + " Reviews";
-      this.rating =  this.profile.rating; 
+      this.rating = parseFloat(this.profile.rating).toFixed(1); 
 
       
 

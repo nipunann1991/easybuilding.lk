@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild  } from '@angular/core';
 import { Router, ActivatedRoute, ActivationStart ,  RoutesRecognized,  NavigationEnd } from '@angular/router';
 import { MyAccountService } from '../../../../../admin/api/frontend/my-account.service';
 import { ProfileService } from "../../../../../admin/api/frontend/profile.service";
 import { environment } from "../../../../../../environments/environment";
 import { Globals } from "../../../../../app.global";
+import { Gallery, GalleryItem, ImageItem } from 'ng-gallery'; 
+import { Lightbox } from 'ng-gallery/lightbox';
 
 @Component({
   selector: 'app-view-project',
@@ -22,6 +24,12 @@ export class ViewProjectComponent implements OnInit {
   mainImg: string = "";
   profileImg: string = "";
   profileURL: string = "";
+  openImageIndex: number = 0;
+  galleryId = 'myLightbox';
+ 
+
+  // gallery images
+  images: GalleryItem[] = [ ];
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +37,9 @@ export class ViewProjectComponent implements OnInit {
     private myaccount: MyAccountService,
     private profile: ProfileService,
     private globals: Globals,
+    public gallery: Gallery, 
+    private lightbox: Lightbox
+    
   ) { 
     this.profile.setfullScreenView(true);
   }
@@ -38,7 +49,23 @@ export class ViewProjectComponent implements OnInit {
     this.companyID = this.route.snapshot.params.company_id;
     this.projectID = this.route.snapshot.params.project_id; 
     this.getProjectDetails(this.companyID, this.projectID);
+
+    const galleryRef = this.gallery.ref(this.galleryId)
+
+    galleryRef.load(this.images);
+
+    galleryRef.setConfig({
+      thumbPosition: 'right',
+      imageSize: 'cover'
+    }); 
      
+  }
+
+
+  openInFullScreen(index: number) {
+    this.lightbox.open(index, this.galleryId, {
+      panelClass: 'fullscreen'
+    });
   }
 
   getProjectDetails(company_id, project_id){
@@ -50,14 +77,17 @@ export class ViewProjectComponent implements OnInit {
         if (response.status == 200  ) { 
          
           this.projectData = response.data;
-
-          console.log(this.projectData);
-
-          this.projectImages = JSON.parse(this.projectData.images);
+ 
           this.clientId =  this.projectData.client_id;
           this.imageURL = environment.uploadPath + this.clientId +'/'+ this.companyID +'/projects/';
           this.imageURLThumb = environment.uploadPath + this.clientId +'/'+ this.companyID +'/projects/thumb/';
+          this.projectImages = JSON.parse(this.projectData.images);
+         
 
+          this.projectImages.forEach(element => { 
+            this.images.push(new ImageItem({ src: this.imageURL+element, thumb: this.imageURLThumb+element }));
+          });
+  
           this.mainImg = this.imageURL + this.projectData.primary_img;
           this.profileImg = environment.uploadPath + this.clientId +'/'+ this.companyID +'/'+ this.projectData.profie_image;
          
@@ -79,8 +109,8 @@ export class ViewProjectComponent implements OnInit {
   }
 
   viewImage(i){
-    this.mainImg = this.imageURL + this.projectImages[i];
-    
+    this.mainImg = this.imageURL + this.projectImages[i]; 
+    this.openImageIndex = i;
   }
 
   goBack(){ 
@@ -90,5 +120,6 @@ export class ViewProjectComponent implements OnInit {
   gotoProfile(){
     this.router.navigate([this.profileURL], { relativeTo: this.route.parent });
   }
+
 
 }

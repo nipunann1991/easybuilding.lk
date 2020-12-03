@@ -102,9 +102,10 @@ export class HomeComponent implements OnInit {
           let constructors = {
             id: elm.client_id,
             title: elm.display_name, 
+            description: elm.description,
             profileLink: '/user/'+ elm.client_id +'/'+ elm.provider_id +'/about', 
             imgUrl: profileImg,
-            rating: elm.rating,
+            rating:  elm.rating,
             total_reviews : elm.total_reviews,
             contact: {
               city : elm.city, 

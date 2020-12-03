@@ -25,11 +25,17 @@ import { FacebookModule } from 'ngx-facebook';
 import { reviewDialog } from "../app/web/pages/my-account/reviews/reviews.component";
 import { FirstLetterPipe } from "../app/pipes/first-letter.pipe";
 import { LoadingBarModule, LoadingBarService } from '@ngx-loading-bar/core';
+import { GalleryModule } from  'ng-gallery';
+import { LightboxModule } from  'ng-gallery/lightbox';
+import { TruncateTextPipe } from './pipes/truncate-text.pipe';
+import { RoundToDecimalPipe } from './pipes/round-to-decimal.pipe';
 
 @NgModule({
   declarations: [
     reviewDialog,
-    FirstLetterPipe
+    FirstLetterPipe,
+    TruncateTextPipe,
+    RoundToDecimalPipe
   ],
   imports: [ 
       FormsModule,
@@ -53,6 +59,8 @@ import { LoadingBarModule, LoadingBarService } from '@ngx-loading-bar/core';
       FileSaverModule,
       LoadingBarHttpClientModule,
       LoadingBarModule,
+      GalleryModule,
+      LightboxModule,
       StarRatingModule.forRoot(),
       NgBootstrapFormValidationModule.forRoot(), 
       FacebookModule.forRoot()
@@ -80,8 +88,12 @@ import { LoadingBarModule, LoadingBarService } from '@ngx-loading-bar/core';
       StarRatingModule,
       FileSaverModule,
       LoadingBarModule,
+      GalleryModule,
+      LightboxModule,
       NgBootstrapFormValidationModule,
-      FirstLetterPipe
+      FirstLetterPipe,
+      TruncateTextPipe,
+      RoundToDecimalPipe
   ],
   entryComponents: [
     reviewDialog

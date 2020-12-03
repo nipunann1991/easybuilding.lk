@@ -5,29 +5,60 @@
     </div>
 </div>
 <div class="products-wrapper container-fluid">
-    <div class="container">
-        <div class="filter-area">
-            <div class="dropdown">
-                <button mat-button class="btn btn-default-transparent dropdown-toggle" type="button" data-toggle="dropdown">Categories
-                <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <li><a mat-button href="javascript:void(0);">HTML</a></li>
-                  <li><a mat-button href="javascript:void(0);">CSS</a></li>
-                  <li><a mat-button href="javascript:void(0);">JavaScript</a></li>
-                </ul>
+    <div class="container products-wrapper-inner">
+        <div class="left-nav-sort">
+            <h2>Filters</h2>
+            <div class="filter-item">
+                <label for="" class="lbl-title">Sort By:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sort_by" id="best_match" value="option1" checked>
+                    <label class="form-check-label" for="best_match">Best Match</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sort_by" id="hightest_rating" value="option2">
+                    <label class="form-check-label" for="hightest_rating">Highest Rating</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sort_by" id="most_reviewed" value="option2">
+                    <label class="form-check-label" for="most_reviewed">
+                      Most Reviewed
+                    </label>
+                </div>
             </div>
+            <div class="filter-item">
+                <label for="" class="lbl-title">Select by Category:</label>
+                <ng-select2 [data]="allServices" [options]="options" placeholder="Select Category Level 1" formControlName="services" class="select-fw mb-blk-5" >
+                </ng-select2>  
+                <ng-select2 [data]="allServices" [options]="options" placeholder="Select Category Level 2" formControlName="services" class="select-fw" >
+                </ng-select2> 
+            </div>
+            <div class="filter-item">
+                <label for="" class="lbl-title">Sort by Location:</label>
+                <ng-select2 [data]="allServices" [options]="options" placeholder="Search Location" formControlName="services" class="select-fw" >
+                </ng-select2> 
+            </div>
+            <div class="filter-item">
+                <label for="" class="lbl-title">By Rating:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="rate_by" id="all" value="option1" checked>
+                    <label class="form-check-label" for="all">All Ratings</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="rate_by" id="5star" value="option1">
+                    <label class="form-check-label" for="5star">5 Star Ratings</label>
 
-            <div class="dropdown">
-                <button mat-button class="btn btn-default-transparent dropdown-toggle" type="button" data-toggle="dropdown">Sort By
-                <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <li><a mat-button href="javascript:void(0);">HTML</a></li>
-                  <li><a mat-button href="javascript:void(0);">CSS</a></li>
-                  <li><a mat-button href="javascript:void(0);">JavaScript</a></li>
-                </ul>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="rate_by" id="4star" value="option1">
+                    <label class="form-check-label" for="4star">4 Star Ratings</label>
+                </div> 
             </div>
+        </div>
+        <div class="right-content-search">
+              
 
         </div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque facere placeat exercitationem nemo veniam, obcaecati reprehenderit eum consectetur nisi esse maiores non mollitia velit impedit accusantium iste accusamus sequi! Quam?</p>
+      
+        
     </div>
 </div>

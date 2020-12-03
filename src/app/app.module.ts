@@ -13,6 +13,7 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from "../environments/environment";
+
  
 //const config: SocketIoConfig = { url: 'http://localhost:8988', options: {} };
  
@@ -33,7 +34,7 @@ export function provideConfig() {
 
 @NgModule({
   declarations: [
-    AppComponent,   
+    AppComponent, 
   ],
 
   imports: [
