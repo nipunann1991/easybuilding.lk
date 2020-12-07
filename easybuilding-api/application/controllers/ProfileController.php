@@ -594,21 +594,28 @@ class ProfileController extends CommonController {
 			$this->deleteData__('service_areas', 'company_id="'.$this->input->post('company_id').'"');
 			$this->deleteData__('service_districts', 'company_id="'.$this->input->post('company_id').'"');
 			$this->deleteData__('services_list', 'company_id="'.$this->input->post('company_id').'"');
-		 	
-		 	$this->insertServices($services, $company_id);
-		 	$this->insertServices($products, $company_id);
-
-			if ($dataset['service_areas'] != "[]") {
-				$this->insertServiceAreas($service_areas, $company_id);
-
-			}else if ($dataset['service_dist'] != "[]"){
-				$this->insertServiceDistricts($service_dist, $company_id);
-				
-			} 
-
 
 			 
+		 	if (!empty($services)) { 
+		 		$this->insertServices($services, $company_id);
+
+		 	}
+
+		 	if (!empty($products)) { 
+		 		$this->insertServices($products, $company_id);
+		 	}
+ 
+
+			if (!empty($service_areas)) {
+				$this->insertServiceAreas($service_areas, $company_id);
+
+			}else if (!empty($service_dist)){
+				$this->insertServiceDistricts($service_dist, $company_id);
+				
+			}  
+			 
 			return $this->updateData__('client_company', $dataset, 'company_id="'.$this->input->post('company_id').'"');
+
 		}else{
 			return $this->invalidSession(); 
 		} 
@@ -622,8 +629,7 @@ class ProfileController extends CommonController {
 			$dataset = array(
 				'city_id' => $value , 
 				'company_id' => $company_id , 
-			);
- 
+			); 
 
 			$this->insertData__('service_areas', $dataset);
 		    	
@@ -653,7 +659,7 @@ class ProfileController extends CommonController {
 			$dataset = array(
 				'cat_lvl2_id' => $value, 
 				'company_id' => $company_id , 
-			); 
+			);  
 
 			$this->insertData__('services_list', $dataset); 
 		} 
@@ -687,7 +693,7 @@ class ProfileController extends CommonController {
 
 			$project_id = $result["data"]->insertedId; 
 			
-			if ($dataset['services'] != "[]") {
+			if (!empty($services)) {
 				$this->insertProjectCategory($services, $project_id); 
 			} 
  
@@ -727,7 +733,7 @@ class ProfileController extends CommonController {
 
 			$this->deleteData__('project_category', 'project_id="'.$project_id.'"');  
 
-			if ($dataset['services'] != "[]") {
+			if (!empty($services)) {
 				$this->insertProjectCategory($services, $project_id); 
 			}  
 
