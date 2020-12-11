@@ -66,16 +66,16 @@
                             <li class="address" > 
                                 <p><span *ngIf="profileData.prof_category == 1">{{profile.address_line1}} {{profile.address_line2}} </span>{{profile.city}}</p> 
                             </li>
-                            <li> 
+                            <li class="reviews">  
                                 <star-rating  
-                                    starType="icon" 
-                                    [labelText]="totalReviews"  
+                                    starType="icon"  
                                     [showHalfStars]="true" 
                                     labelPosition="right" 
                                     [rating]="rating"
                                     [readOnly]="true"
                                     *ngIf="profileData.prof_category == 1"
                                 ></star-rating>
+                                <span class="review-score">{{rating}} <a routerLink="reviews/1">( {{ totalReviews }} )</a></span>
                             </li>
                         </ul>
                         

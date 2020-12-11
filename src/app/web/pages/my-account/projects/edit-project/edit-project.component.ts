@@ -302,7 +302,7 @@ export class EditProjectComponent implements OnInit {
   
     }
 
-    onSave(){
+    onSave(isOnImageUpload = false){
 
       if (!this.formGroup.invalid) {
         this.formGroup.value.images = JSON.stringify(this.uploadedFileName); 
@@ -317,7 +317,8 @@ export class EditProjectComponent implements OnInit {
   
             if (response.status == 200) { 
               this.toastr.success('Project updated successfully', 'Success !');  
-              window.history.back();
+              (!isOnImageUpload)? window.history.back() : "" ;
+              
             }else if (response.status == 401){
               this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  
             }else{
@@ -367,7 +368,7 @@ export class EditProjectComponent implements OnInit {
 
             }); 
 
-            that.onSave();
+            that.onSave(true);
             
           }  
         } 

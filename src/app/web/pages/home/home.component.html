@@ -93,16 +93,14 @@
                                     [rating]="fpl.rating"
                                     [readOnly]="true" 
                                 ></star-rating>  {{ fpl.rating | roundToDecimal:1  }}  <span class="no-of-reviews">( {{fpl.total_reviews}} Review )</span>
-                            </div>
-                            
-                             <ul class="contact-details">
+                            </div> 
+                            <ul class="contact-details">
                                 <li class="address">{{ fpl.contact.city }}</li>
                                 <li class="tel">{{ fpl.contact.tel }}</li>
-                             </ul>                   
+                            </ul>                   
                         </div>
                     </div>
-                </div> 
-
+                </div>  
             </div>
         </div>
     </div>

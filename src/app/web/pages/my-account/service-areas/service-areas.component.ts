@@ -41,15 +41,16 @@ export class ServiceAreasComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.formGroup = new FormGroup({ 
-      
-      service_areas: new FormControl({value:[]}, [
+    this.formGroup = new FormGroup({  
+
+      services: new FormControl(""),
+       
+      products: new FormControl(""), 
+
+      service_areas: new FormControl("", [
         Validators.required
       ]), 
 
-      services: new FormControl({value:[]}),
-       
-      products: new FormControl({value:[]}), 
        
     });
 
@@ -85,12 +86,19 @@ export class ServiceAreasComponent implements OnInit {
           console.log(this.profile);
           
           if(this.profile.service_areas != "[]" && this.profile.service_dist != "[]"){
-            this.isCities = true
+            this.isCities = true;
 
-          }else{
+          }else{ 
+
             (this.profile.service_areas != "[]")? this.isCities = true :  this.isCities = false ;
             (this.profile.service_dist != "[]")? this.isDistricts = true :  this.isDistricts = false ;
-            (this.profile.all_island == 1 && !this.isStepsForm)? this.all_island = true :  this.all_island = false;
+            
+            if(this.profile.all_island == 1 && !this.isStepsForm){
+              this.all_island = true;
+              this.formGroup.controls['service_areas'].disable();
+            }else{
+              this.all_island = false;
+            }  
           }
            
 
@@ -302,8 +310,7 @@ export class ServiceAreasComponent implements OnInit {
   
   changeStatus(event){ 
     this.all_island = event.target.checked; 
-    (this.all_island)?  this.formGroup.controls['service_areas'].disable() :  this.formGroup.controls['service_areas'].enable() ;
-   
+    
   }
 
   setServiceAreaBy(event, index){
@@ -323,6 +330,9 @@ export class ServiceAreasComponent implements OnInit {
       this.isCities = false;
       this.isDistricts = false;
     }
+
+    (this.all_island)?  this.formGroup.controls['service_areas'].disable() :  this.formGroup.controls['service_areas'].enable() ;
+   
   }
 
 
@@ -345,9 +355,7 @@ export class ServiceAreasComponent implements OnInit {
     if (!this.formGroup.invalid) {
 
       (this.all_island)? this.formGroup.value.all_island = 1 : this.formGroup.value.all_island = 0 ; 
-      
-
-      console.log(this.formGroup.value);
+       
 
       this.formGroup.value.client_id = this.clientId;
       this.formGroup.value.company_id = this.companyId; 
@@ -360,7 +368,7 @@ export class ServiceAreasComponent implements OnInit {
         this.formGroup.value.service_dist = "[]";
 
       }else if(this.isDistricts){
-        this.formGroup.value.service_dist = JSON.stringify(this.formGroup.value.service_areas); 
+        this.formGroup.value.service_dist = JSON.stringify(this.formGroup.value.service_areas)
         this.formGroup.value.service_areas = "[]";
 
       }else if(this.all_island){
@@ -368,9 +376,7 @@ export class ServiceAreasComponent implements OnInit {
         this.formGroup.value.service_areas = "[]";
 
       }
-      
-      console.log(this.formGroup.value)
-      
+       
       this.myaccount.updateProfileWithServiceArea(this.formGroup.value)
         .subscribe((response: any) => {
 
@@ -378,8 +384,7 @@ export class ServiceAreasComponent implements OnInit {
             if( !this.isStepsForm ){
               this.toastr.success('Information saved successfully', 'Success !');  
               this.router.navigate(['/my-account/user/me/about']);
-            }else{ 
-              //this.router.navigate(["../contact-info"], { relativeTo: this.route.parent });
+            }else{  
               this.router.navigate(['/my-account/user/me/about']);
             }
           

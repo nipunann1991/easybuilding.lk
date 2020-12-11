@@ -1,7 +1,10 @@
 <form id="myform" class="wrapped-block animated fadeIn" [formGroup]="formGroup" (ngSubmit)="onSave()" novalidate="novalidate">
   <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 block-title" [ngClass]="{'title-only': !isStepsForm}">
             <h2>Products & Services</h2>
+            <p>Tell your clients what products or services you provide and your service areas.</p>
+        </div>
+        <div class="col-md-12 "> 
             <div class="form-group" >
                 <label for="servic e_areas">Service Categories</label> 
                 <ng-select2 [data]="allServices" [options]="options" formControlName="services" class="select-fw" >
@@ -18,7 +21,7 @@
         </div>
         <div class="col-md-12">
             <div class="form-group">
-                <label for="service_areas" class="service-label">Display my service area by </label> 
+                <label for="service_areas" class="service-label">Display my service area by  <span class="required-star">*</span></label> 
                 <div class="form-check-inline">
                     <label class="form-check-label">
                     <input type="radio" class="form-check-input" name="optradio" value='cities' (change)="setServiceAreaBy($event, 0)" [checked]="isCities">City 
@@ -43,8 +46,8 @@
             <div class="form-group" *ngIf="isCities && !all_island">
                 <label for="service_areas">Service Areas</label> 
                 <ng-select2 [data]="serviceAreasCity" [options]="options" formControlName="service_areas" class="select-fw" >
-            </ng-select2> 
-        </div>    
+                </ng-select2> 
+            </div>    
     </div>  
     
      
@@ -57,7 +60,7 @@
 
         <ng-container *ngIf="isStepsForm">
             <button mat-button type="button" (click)="previousLink()" class="btn btn-prev">Previous</button>
-            <button mat-button name="submit" type="submit" class="btn btn-next">Next</button> 
+            <button mat-button name="submit" type="submit" class="btn btn-next">Done</button> 
         </ng-container>
           
       </div> 

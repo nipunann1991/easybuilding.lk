@@ -10,9 +10,8 @@ export class StepsComponent implements OnInit {
 
   steps: any = [
     { id: 1, title: "Business Information", active: true, completed: false },
-    { id: 2, title: "Contact Details", active: false, },
-    { id: 3, title: "Services", active: false, },
-    { id: 4, title: "Step 2", active: false, },
+    { id: 2, title: "Contact Details", active: false, completed: false },
+    { id: 3, title: "Services", active: false, completed: false }, 
   ];
 
   _routeListener: any;
@@ -61,15 +60,25 @@ export class StepsComponent implements OnInit {
     }
   }
 
-  setActiveStatus(index){
-    this.steps[index].active = true;
+  setActiveStatus(activeIndex){ 
 
-    if( index-1 >= 0){
-      this.steps[index-1].completed = true; 
-    }
+    this.steps.forEach((element, index) => {
+      
+      this.steps[index].active = false;
+      this.steps[index].completed = false; 
     
-
-    this.steps[index + 1].active = false;
+      if( index <= activeIndex){
+        
+        this.steps[index].active = true;  
+        (index == activeIndex)?  this.steps[index].completed = false : this.steps[index].completed = true;     
+        
+      } 
+      
+    });
+ 
   }
 
 }
+
+
+ 

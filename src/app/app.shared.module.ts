@@ -8,6 +8,7 @@ import { MatDatepickerModule} from '@angular/material/datepicker';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
+import {MatSliderModule} from '@angular/material/slider';
 import { MatDialogModule} from '@angular/material/dialog';  
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
@@ -46,6 +47,7 @@ import { RoundToDecimalPipe } from './pipes/round-to-decimal.pipe';
       NgSelect2Module,
       MatButtonModule, 
       MatSlideToggleModule, 
+      MatSliderModule,
       MatIconModule,
       DragDropModule, 
       MatCheckboxModule, 
@@ -74,6 +76,7 @@ import { RoundToDecimalPipe } from './pipes/round-to-decimal.pipe';
       NgSelect2Module,
       MatButtonModule, 
       MatSlideToggleModule, 
+      MatSliderModule,
       DragDropModule, 
       MatCheckboxModule, 
       MatNativeDateModule, 

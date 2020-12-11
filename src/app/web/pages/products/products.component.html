@@ -1,7 +1,7 @@
 <div class="title-area container-fluid">
     <div class="container">
-        <p>Contractors</p>
-        <h1>Service Providers</h1>
+        <p>{{ pageData.parentCategory }} / {{ pageData.categoryLevel1 }} </p>
+        <h1>{{ pageData.categoryLevel2 }}</h1>
     </div>
 </div>
 <div class="products-wrapper container-fluid">
@@ -10,52 +10,111 @@
             <h2>Filters</h2>
             <div class="filter-item">
                 <label for="" class="lbl-title">Sort By:</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="sort_by" id="best_match" value="option1" checked>
-                    <label class="form-check-label" for="best_match">Best Match</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="sort_by" id="hightest_rating" value="option2">
-                    <label class="form-check-label" for="hightest_rating">Highest Rating</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="sort_by" id="most_reviewed" value="option2">
-                    <label class="form-check-label" for="most_reviewed">
-                      Most Reviewed
-                    </label>
-                </div>
+                <div class="form-check" *ngFor="let sb of sortByFilter">
+                    <input class="form-check-input" type="radio" name="sort_by" id="{{sb.alias}}" value="{{sb.id}}" [checked]="sb.isChecked">
+                    <label class="form-check-label" for="{{sb.alias}}">{{sb.option}}</label>
+                </div> 
             </div>
             <div class="filter-item">
                 <label for="" class="lbl-title">Select by Category:</label>
                 <ng-select2 [data]="allServices" [options]="options" placeholder="Select Category Level 1" formControlName="services" class="select-fw mb-blk-5" >
                 </ng-select2>  
-                <ng-select2 [data]="allServices" [options]="options" placeholder="Select Category Level 2" formControlName="services" class="select-fw" >
-                </ng-select2> 
+                 
             </div>
             <div class="filter-item">
                 <label for="" class="lbl-title">Sort by Location:</label>
+                <div class="form-check" *ngFor="let sbl of sortByLocation">
+                    <input class="form-check-input" type="checkbox" name="sort_location" id="{{sbl.alias}}" value="{{sbl.id}}" [checked]="sbl.isChecked">
+                    <label class="form-check-label" for="{{sbl.alias}}">{{sbl.option}}</label>
+                </div> 
                 <ng-select2 [data]="allServices" [options]="options" placeholder="Search Location" formControlName="services" class="select-fw" >
                 </ng-select2> 
             </div>
             <div class="filter-item">
                 <label for="" class="lbl-title">By Rating:</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="rate_by" id="all" value="option1" checked>
-                    <label class="form-check-label" for="all">All Ratings</label>
+                <div class="rating-range">
+                    <mat-slider [max]="5" [min]="0" [step]="1" [thumbLabel]="true"></mat-slider>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="rate_by" id="5star" value="option1">
-                    <label class="form-check-label" for="5star">5 Star Ratings</label>
-
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="rate_by" id="4star" value="option1">
-                    <label class="form-check-label" for="4star">4 Star Ratings</label>
-                </div> 
+                
+                 
             </div>
         </div>
         <div class="right-content-search">
-              
+            <div class="page-top">
+                <p>1 – 15 of 30,566 professionals</p>
+
+                <ul class="view-option">
+                    <li [ngClass]="{'active': isGridView }"><a href="javascipt:void(0)" (click)="gridView()"><i class="icon-grid"></i></a></li>
+                    <li [ngClass]="{'active': !isGridView }"><a href="javascipt:void(0)" (click)="listView()"><i class="icon-list"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="row">
+                <div class="item-block-wrapper" [ngClass]="(isGridView)? 'col-md-4' : 'col-md-12 list_view'" >
+                    <div class="item-block">
+                        <div class="item-image">
+
+                        </div>
+                        <div class="item-details">
+                            <h3>SPEEDO International (Pvt) Ltd</h3>
+                            <div class="ratings-holder">
+                                <star-rating  
+                                    starType="icon" 
+                                    [labelText]=""  
+                                    [showHalfStars]="true" 
+                                    labelPosition="right" 
+                                    [rating]="4"
+                                    [readOnly]="true" 
+                                ></star-rating> 
+                                    <!--  {{ fpl.rating | roundToDecimal:1  }}  <span class="no-of-reviews">( {{fpl.total_reviews}} Review )</span> -->
+                            </div>
+                            <div class="description">
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus labore perferendis tenetur dolore veritatis dignissimos sequi in ab, porro, eligendi commodi esse doloremque ipsum? Laudantium aspernatur eligendi amet nemo qui!</p>
+                            </div>
+                            <span class="badge badge-secondary">New</span> <span class="badge badge-secondary">Volupt atibus</span>
+                            <ul class="contact-details">
+                                <li class="address">Colombo</li>
+                                <li class="tel">0716378515</li>
+                            </ul>  
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                     
+                </div>
+
+                <div class="item-block-wrapper" [ngClass]="(isGridView)? 'col-md-4' : 'col-md-12 list_view'">
+                    <div class="item-block">
+                        <div class="item-image">
+
+                        </div>
+                        <div class="item-details">
+                            <h3>SPEEDO International (Pvt) Ltd</h3>
+                            <div class="ratings-holder">
+                                <star-rating  
+                                    starType="icon" 
+                                    [labelText]=""  
+                                    [showHalfStars]="true" 
+                                    labelPosition="right" 
+                                    [rating]="4"
+                                    [readOnly]="true" 
+                                ></star-rating> 
+                                    <!--  {{ fpl.rating | roundToDecimal:1  }}  <span class="no-of-reviews">( {{fpl.total_reviews}} Review )</span> -->
+                            </div>
+                            <div class="description">
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus labore perferendis tenetur dolore veritatis dignissimos sequi in ab, porro, eligendi commodi esse doloremque ipsum? Laudantium aspernatur eligendi amet nemo qui!</p>
+                            </div>
+                            <span class="badge badge-secondary">New</span> <span class="badge badge-secondary">Volupt atibus</span>
+                            <ul class="contact-details">
+                                <li class="address">Colombo</li>
+                                <li class="tel">0716378515</li>
+                            </ul>  
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                     
+                </div>
+                
+            </div>
 
         </div>
       

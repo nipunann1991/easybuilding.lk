@@ -27,10 +27,15 @@
                                 <p *ngIf="serviceAreas == ''"><i>No service areas yet.</i></p>
                                 <p *ngIf="serviceAreas != ''">{{ serviceAreas }}</p>
                             </div>
-                            <div class="item"> 
+                            <div class="item" *ngIf="services != ''"> 
                                 <h3>Services</h3>
-                                <p *ngIf="services == ''"><i>No service areas yet.</i></p>
+                                <p *ngIf="services == ''"><i>No services yet.</i></p>
                                 <p *ngIf="services != ''">{{ services }}</p>
+                            </div>
+                            <div class="item" *ngIf="products != ''"> 
+                                <h3>Products</h3>
+                                <p *ngIf="products == ''"><i>No products yet.</i></p>
+                                <p *ngIf="products != ''">{{ products }}</p>
                             </div>
                             <div class="item"> 
                                 <h3>Awards</h3>

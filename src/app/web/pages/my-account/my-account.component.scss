@@ -71,7 +71,7 @@
 
                     a{
                         @include regular;
-                        color: $dark-gray;
+                        color: $body-text-color;
                         line-height: 1.95rem;
                         
                         &:hover{

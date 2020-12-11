@@ -258,10 +258,10 @@ ul{
 .steps-form{ 
 
 	label{
-		@include bold;
+		@include bold; 
 
 		&.form-check-label{
-			margin-left: 1rem;
+			//margin-left: 1rem;
 		}
 	}
 }
@@ -702,6 +702,13 @@ button.second-btn{
 	margin-left: 10px;
 }
 
+form select.ng-invalid.ng-touched {
+    border: 1px #ff051c solid;
+    width: 100%;
+    display: block;
+    border: 0;
+}
+
 .dialog-header{
 	padding-bottom: 15px;
 	border-bottom: 1px $mid-gray solid;
@@ -1026,10 +1033,33 @@ button.dt-button{
 }
 
 .wrapped-block{
-	h2{
-		font-size: 2.3rem;
+
+	.block-title{
 		margin-bottom: 2rem;
+
+		&.title-only{
+
+			h2{
+				font-size: 2.1rem; 
+				margin: 0;
+			}
+
+			p{
+				display: none;
+			}
+		}
+
+		h2{
+			font-size: 2.6rem; 
+		}
+
+		p{
+			font-size: 1.8rem; 
+			color: $dark-gray;
+		}
+
 	}
+	
 }
 
 .form-group{

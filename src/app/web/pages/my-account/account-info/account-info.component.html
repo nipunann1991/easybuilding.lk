@@ -24,8 +24,9 @@
         
         <form id="myform" *ngIf="profileType == 1" class="wrapped-block animated fadeIn" [formGroup]="formGroup" (ngSubmit)="saveBusinessProfile()" novalidate="novalidate">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 block-title" [ngClass]="{'title-only': !isStepsForm}">
                     <h2>Business Information</h2>
+                    <p>Let's get started by introducing your business.</p>
                 </div> 
                 <div class="d-none">
                     <div class="col-md-6">  
@@ -41,27 +42,25 @@
                         </div>  
                     </div>
                 </div>   
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="form-group">
-                        <label for="display_name">Business Name</label> 
+                        <label for="display_name">Business Name <span class="required-star">*</span></label> 
                         <input id="display_name" name="display_name" formControlName="display_name" type="text" class="form-control">
                     </div>  
                 </div>
-                
                 <div class="col-md-6"> 
                     <div class="form-group">
-                        <label for="display_name">Select the option describes you the best?</label> 
+                        <label for="display_name">Select the option describes you the best? <span class="required-star">*</span></label> 
                         <ng-select2 [data]="professionalCategory" formControlName="prof_category" class="select-fw" >
                         </ng-select2> 
                     </div> 
                 </div>
-
                 <div class="col-md-6"> 
                     <div class="form-group">
                         <label for="br_no">Business Registration Number</label> 
                         <input id="br_no" name="br_no" formControlName="br_no" type="text" class="form-control"> 
                     </div> 
-                </div>
+                </div> 
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="website">Business Website</label> 
@@ -99,10 +98,11 @@
 
 
         <form id="myform1" *ngIf="profileType == 0" class="wrapped-block animated fadeIn" [formGroup]="personalFormGroup" (ngSubmit)="savePersonalProfile()" novalidate="novalidate">
-            <div class="row">
-                <div class="col-md-12">
+            <div class="row"> 
+                <div class="col-md-12 block-title">
                     <h2>Personal Information</h2>
-                </div> 
+                    <p>Let's get started by introducing your self.</p>
+                </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="display_name">Your Name</label> 

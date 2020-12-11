@@ -7,14 +7,17 @@
     h1{
         margin-bottom: 0;
     }
+
+    p{
+        color: $base-color;
+    }
 }
 
 
-:host ::ng-deep star-rating.star-sort{
+:host ::ng-deep star-rating{
     display: block;
     position: relative;
-    top: 1px;
-    margin-left: 5px;
+    top: 1px; 
     float: left;
  
     .rating{ 
@@ -47,8 +50,7 @@
 
     .left-nav-sort{
         width: 30rem;
-        height: 100%;
-       // background: $light-gray;
+        height: 100%; 
         padding: 2.5rem;
         min-height: 50rem;
         background: #f7f7f7;
@@ -62,6 +64,7 @@
                 font-family: "Circular Std";
                 font-weight: 500; 
                 margin-bottom: 1rem; 
+                color: $body-text-color;
             }
 
             .mb-blk-5{
@@ -77,6 +80,7 @@
                     position: relative;
                     top: 1px;
                     float: left;
+                    
                 }
 
                 label{
@@ -86,30 +90,142 @@
         }
     }
 
-    .right-content-search{
-        width: calc("100% - 30rem");
-       padding-left: 2.5rem;
-    }
+    .right-content-search{ 
+        @include calc("width", "100% - 30rem");
+        padding-left: 2.5rem;
 
-    .filter-area{
-        display: flex;
-        flex-direction: row;
-        padding-bottom: 2rem; 
+        .page-top{
+            display: flex;
+            width: 100%;
+            align-items: center;
+            overflow: hidden;
+            justify-content: space-between;
+            margin-bottom: 1.5rem; 
 
-        .dropdown{
-            margin-right: 1.5rem;
+            ul.view-option{ 
 
-            ul.dropdown-menu{ 
-                min-width: 150px;
-                
                 li{
+                    float: left;   
+                    margin-right: 5px;
+                    
                     a{
                         text-align: left;
                         width: 100%;
+                        font-size: 2rem;
+                        line-height: 1rem;
+                        border-radius: 3px;
+                        padding: 6px;
+                        border: 1px $body-text-color solid;
+                        color: $body-text-color;
+                        text-decoration: none;
+                        display: block;
+                    }
+
+                    &.active{
+                        a{
+                            color: $base-bg-color; 
+                            border-color: $base-bg-color;
+                        }
                     }
                 }
             }
-        } 
+        }
+
+        .item-block-wrapper{
+            &.list_view{ 
+
+                .item-block{
+                   margin-bottom: 1.5rem;
+                   
+                    .item-image{
+                        width: 25rem;
+                        height: 20rem; 
+                        float: left;
+                    }
+
+                    .item-details{
+                        @include calc("width", "100% - 25rem");
+                        float: left;
+                    }
+                }
+
+                
+                
+            }
+        }
+
+        .item-block{
+            border: 1px solid #eee;
+            @include box-shadow(0px, 3px,8px, 1px, rgba(196,206,217,0.25)); 
+
+            .item-image{
+                width: 100%;
+                height: 20rem;
+                background-color: #eee;
+            }
+
+            .item-details{
+                padding: 1.5rem;
+
+                h3{
+                    font-size: 1.6rem;
+                    margin-bottom: 0;
+                }
+
+                .ratings-holder{
+                    height: 100%;
+                    overflow: hidden;
+                    margin-bottom: 0.5rem;
+                }
+
+                .description{
+                    font-size: 1.35rem;
+                    line-height: 1.8rem;
+                    margin-bottom: 0.5rem;
+
+                    p{
+                        font-size: inherit;
+                        line-height: inherit;
+                    }
+                }
+                
+
+                span.badge{
+                    margin-right: 5px;
+                }
+
+                ul.contact-details{
+                    display: flex;
+                    margin-top: 0.5rem;
+                    
+                    li{
+                        font-size: 1.35rem;
+                        float: left;
+                        background-repeat: no-repeat ;
+                        background-position: 0 50%;
+                        padding: 0 1.8rem;  
+                        background-size: 1.2rem;
+                        color: $dark-gray;
+
+                        &.address {
+                            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABX1BMVEUAAABtc4Bsc4BrcoBrc4Brc4BqcINggIBqcoBrc4BrcoBrc4BrcoBsc4Brc4BqaoBrdIBrc4Brc4BxcYBrcoBrc4B0dItrc4Brc4BrcoBscoBqdIBtdIBqc4CAgIBrdIFrc4Bsc4Brc4Bsc4BmZplrc4Brc4Bqc4CAgIBsc4BrcYJrdIFrc4Bqc4Brc4BpdoNqc4FscoFodIBscYJscoBqcYBrdIJqcYBscoFpdIFtcYBocYRrc4Brc4Brc4Bsc4BmcIVVVaprc4Bsc4BrdIFrc4BscoBqc4BrdICAgIBsc4Brc4BtbYZrc4BrdIBrcoBrcoBrdIBsdINrc4Bqc4BodIBrc4Brc4BsdIBrdIJrc4Brc4Brc4BidolrcoFqdIFrc4Brc4Brc4Brc4BrdIFqdIFsc4Bsc4Brc4BxcY5rc4Bqc4AAAABrc4BqcoFsdYJrdIBrc4RrdIBrc4AAAABCIOyYAAAAc3RSTlMAKpXN8pQpCJz+9bOPtJsMy/2FEobKC6T7TE6jRHgEd8Z2seYFveSvBocreXqJ+idZUywtXCQ3SHtLNhtkvqJoGQPrpnXFdKjqAo73FfiNJpGYIfmXFqnzgDnnwekNaU3V19TYUWVmUMMJ48cBfH07rB/WxDK0aAAAAAFiS0dEAIgFHUgAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAHdElNRQfkBgURCBVBf1ECAAABL0lEQVQoz22R+zcCURDHv2nJJpLIUm3RrmcijxCpRfKI8s477zdl/v9zXNptd6v5Yc53vp97z52ZC6hhabJynLW5BeawtfL2Noej3c532Iy+s9PV5f4T7m5Xj8cAeoU+TfYLXt33kR8QA8HggAj4yVcFgyGJ3SJZJnZaGhrW/BFhFBijcSBMFmAiIqlgkqaAKE0DMxQFZmlOBTGaZ3NQGFggNscixVWwRMsseymRoBUmkpRSgbK6xrK4nk5vsK6Q2dzSXt/eyeq9Z3f3qjon5HWQF3J6sR/RGsHB4ZFhJcdcRpMnpykDQIE/q4g4XzCt3Xl+URHy5ZX5Q67p5n+3lKz5KaV4y2ZQ7u6lGoAHegSe6Bl18RLyvL69f9SDGP/5Rd9oECWOKzXyUf4plvXqFzqfLIWyl9WIAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIwLTA2LTA1VDE3OjA4OjIxKzAwOjAw/OAb5AAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMC0wNi0wNVQxNzowODoyMSswMDowMI29o1gAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAAAAElFTkSuQmCC);
+                            
+                        }
+                        
+                        &.tel {
+                            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABHNCSVQICAgIfAhkiAAAA+tJREFUSEut1n9I3GUcB/D35/nenefIpB9as43+yD9WVIuB/8xYNPqBgX8MJ4Mhka2c3lF43hLbcPecuUxQv6Z5Z6YbyxpDx5JIMP0nWOWQJIjgBo1m0f4oiZDZTu/u+7zjLC9HSnX6/eeB7/f7vF/f53k+z8NXfIGmYiJnWAH5FBH8dQlghOqnn/NN+ajWidX72bRSF9CXIeYhQE2DUBlE6BWRxw0wHO3Uz2cTnsnyBUMxGJlbTCxXeZM58dUHKWvpXm9uzjgp1xatxcrhjo7fs4WkLqivCuEYJvf326eurwbVHtOFyuASBBJPLJee6W2bzxrxBUJfi4gnKagY6NRXVoN8Pt9t8BaOgaZoOeGUDfWd+mETiJ6C4FFDlPfbemZtkL9Bf0jgsDF4sr9bf5Y1crRe91gKrxigvL9Lf7I26GggfMSlOAiwpa8zHMoa8QfCByC4aMDBaJd++Vak2edSVp8xzomo/cabWSO+htadgPMFwKtW0nOot/f4ygLX1uv9SuEcwV/dKZT19IR/zBpJd/Q16EmAe0mrLGqfvJSuLDGYFLCYRh2KdofGswXS/VZ2eF0gXK0UTtNwKGLrl/wBfQEKFQTeinTq1zcD/I3UNd2hcr0TFGxzlpPVyu1uEXCfGB7oe7tlakuQlSkLhpoE0maAs4oyTOE5IeaSbu8zA+1NC5uBMgdipdaeghv4EsQOJlEFFyqUQi0N7IitG7YESYf4X9XP0cURUL5ZAqq8iudB2QWFrkiH1htBRwKBO4ds+zcAXO+dzEgyx0lQdwkQIPFRImEFPR5nEpACx6D93e5Q29qQFxvb87ypeCsE+0DMg5gl1ASJVIrmxoJa+G7UtuP/QFaqrUFPKMGzNBwR5W4kUmMgHiA5nkw6xwffab1WE2h+xCVqSERKjJGYKN4lQGG6P5keEn8RSiwHt5eti1RWak/BDkyLwh4DnF82Sydy4D2tFJ4gcQXCM6TUCXA3iQ+Sxq1dllMkxpTAQrEi7jNEoRJ5CmDvukj6a2pqatyuvKIZAR4jZWopHq/15npfAHhQRB4kMUeKjtqhs+utg79e76FwVkR9uiGSWaOAHhWFg6TEDBzb0HXZBecw6Ho/0t0c26gYfMGWEtDMwGDqX5E/91A4CLARBtsgmKYgck8ePtZamy1DVg7MY/ph5aBTFEtJoRBfETJGJ/W5s2TFBgb0zbXg/x7J2s7+4MmnHUe9pizsTlcTie8BXBeDWVicN5RvabAIMflKqYs0ZvQ/Tdc6UyK+er0bFqpAlALYLiL3p2uX6b8qEunGkDdJU50tcotbE9S7XJTtgLMXysqF4U4BchPEhfdsPfIH2vfNkc83FewAAAAASUVORK5CYII=);
+                        }
+
+                        &:last-child{
+                            padding-right: 0;
+                        }
+
+                    }
+                }
+            }
+        }
+        
     }
+ 
 }
 

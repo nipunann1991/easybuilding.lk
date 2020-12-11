@@ -165,14 +165,14 @@ export class MyAccountComponent implements OnInit {
   getOtherProfileRelatedData(){
     if(this.profileData.all_island == "1"){
       this.serviceAreas = "All Island Service";
-
     }else{
 
       this.getServiceCitiesByCompany( this.profileData.company_id);
-      this.getServiceDistrictsByCompany( this.profileData.company_id); 
-      this.getServics( this.profileData.company_id); 
+      this.getServiceDistrictsByCompany( this.profileData.company_id);  
 
     }
+
+    this.getServics( this.profileData.company_id); 
   
     if((this.profileData.steps < 4 && this.profileData.company_profile == 1) || (this.profileData.steps < 2 && this.profileData.company_profile == 0) || (this.profileData.steps < 2 && this.profileData.company_profile == 0) || this.profileData.company_profile == -1){
       this.profileCompleted = false;
@@ -226,6 +226,7 @@ export class MyAccountComponent implements OnInit {
         if (response.status == 200 ) {  
           this.services = response.data.services;  
           this.products = response.data.products;  
+          
         }else{
           
         }
