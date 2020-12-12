@@ -39,9 +39,9 @@
                 <li>
                     <a routerLink="/login"><i class="photo-img"></i>Photos</a> 
                 </li>
-                <li>
+                <li (mouseover)="showProducts=true" (mouseout)="showProducts=false">
                     <a routerLink="/products"><i class="products-img"></i>Products</a>
-                    <div class="mega-menu">
+                    <div class="mega-menu" [ngClass]="{'active': showProducts}" >
                         <div class="row">
                            
                             <div class="col-md-4" *ngFor="let prod_col of menuItemsProduct">
@@ -49,7 +49,7 @@
                                 
                                     <h3>{{prod.title}}</h3>
                                     <ul>
-                                        <li *ngFor="let misc of prod.children"><a routerLink="{{misc.url}}">{{misc.title}}</a></li>
+                                        <li *ngFor="let misc of prod.children" (click)="showProducts=false"><a routerLink="{{misc.url}}" [queryParams]="{ results: '10',  index: '1'}">{{misc.title}}</a></li>
                                     </ul>  
 
                                 </ng-container> 
@@ -58,16 +58,16 @@
                        </div>
                     </div>
                 </li>
-                <li>
+                <li (mouseover)="showServices=true" (mouseout)="showServices=false">
                     <a routerLink="/login"><i class="shop-img"></i>Services</a>
-                    <div class="mega-menu">
+                    <div class="mega-menu" [ngClass]="{'active': showServices}">
                         <div class="row">
                              <div class="col-md-4" *ngFor="let serv_col of menuItemsServices">
                                 <ng-container *ngFor="let service of serv_col"> 
                                 
                                     <h3>{{service.title}}</h3>
                                     <ul>
-                                        <li *ngFor="let misc1 of service.children"><a routerLink="{{misc1.url}}">{{misc1.title}}</a></li>
+                                        <li *ngFor="let misc1 of service.children"  (click)="showServices=false"><a routerLink="{{misc1.url}}" [queryParams]="{ results: '10',  index: '1'}">{{misc1.title}}</a></li>
                                     </ul>  
 
                                 </ng-container> 

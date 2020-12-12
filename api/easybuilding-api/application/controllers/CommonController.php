@@ -439,10 +439,10 @@ class CommonController extends CI_Controller {
 	}
 
 
-	public function uploadProjectImages__($client_id, $postVal, $fileVal, $isRaw){ 
+	public function uploadProjectImages__($client_id, $postVal, $fileVal, $isRaw, $folder_name){ 
 
 		$url=$this->config->base_url();  
-		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/'.$client_id.'/'.$postVal['company_id'].'/projects/';
+		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/'.$client_id.'/'.$postVal['company_id'].'/'.$folder_name.'/';
 
  
 		if (!file_exists($upload_dir)) {
@@ -464,7 +464,7 @@ class CommonController extends CI_Controller {
 			'status' => 200 , 
 			'data' => (object) array(
 				'new_file'=> $generatedFileName, 
-				'target_file' => $url.'assets/uploads/'.$client_id.'/'.$postVal['company_id'].'/projects/'.$generatedFileName, 
+				'target_file' => $url.'assets/uploads/'.$client_id.'/'.$postVal['company_id'].'/'.$folder_name.'/'.$generatedFileName, 
 				'moved_path' => $move_file, 'temp_folder' => $_FILES["file"]["tmp_name"]
 			)  
 		);
@@ -551,10 +551,12 @@ class CommonController extends CI_Controller {
 
 		/* read the source image */
 
-		if (exif_imagetype($src) == IMAGETYPE_JPEG) {
+		$extension = pathinfo($src, PATHINFO_EXTENSION);
+
+		if ($extension == 'jpg' || $extension == 'jpeg') { 
 		   $source_image = imagecreatefromjpeg($src);
 
-		}else if (exif_imagetype($src) == IMAGETYPE_PNG) {
+		}else if ($extension == 'png') {
 			$source_image = imagecreatefrompng($src);
 		}
 		
@@ -591,6 +593,19 @@ class CommonController extends CI_Controller {
 	public function deleteProjectImages($client_id, $company_id, $file){ 
 		
 		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/'.$client_id.'/'.$company_id.'/projects/';
+		
+		unlink($upload_dir.''.$file); 
+		unlink($upload_dir.'thumb/'.$file); 
+
+		return 'file removed';
+
+	}
+
+
+
+	public function deleteProductImages($client_id, $company_id, $file){ 
+		
+		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/'.$client_id.'/'.$company_id.'/products/';
 		
 		unlink($upload_dir.''.$file); 
 		unlink($upload_dir.'thumb/'.$file); 

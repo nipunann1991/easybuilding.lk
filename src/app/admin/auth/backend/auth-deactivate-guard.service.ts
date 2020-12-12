@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router, CanDeactivate  } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 export interface CanComponentDeactivate {
   canDeactivate: () => Observable<boolean> | Promise<boolean> | boolean;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' 
 })
 export class AuthDeactivateGuardService   {
 

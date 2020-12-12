@@ -12,35 +12,7 @@
         color: $base-color;
     }
 }
-
-
-:host ::ng-deep star-rating{
-    display: block;
-    position: relative;
-    top: 1px; 
-    float: left;
  
-    .rating{ 
-        outline: 0;
-        margin-bottom: 0;
-
-        .star-container{
-            margin: 0;
-    
-            .star{
-                width: 1.8rem;
-                height: 1.8rem;
-    
-                i{
-                    font-size: 2.1rem;
-                    color: #FFC107 !important
-                }
-            }
-        } 
-    }
-}
-
-
 .products-wrapper{
     padding: 3rem 0 2rem 0; 
 
@@ -103,6 +75,7 @@
             margin-bottom: 1.5rem; 
 
             ul.view-option{ 
+                margin-left: auto;
 
                 li{
                     float: left;   
@@ -132,36 +105,39 @@
         }
 
         .item-block-wrapper{
+
             &.list_view{ 
 
                 .item-block{
-                   margin-bottom: 1.5rem;
+                   margin-bottom: 1.5rem; 
                    
                     .item-image{
                         width: 25rem;
                         height: 20rem; 
-                        float: left;
+                        float: left; 
                     }
 
                     .item-details{
                         @include calc("width", "100% - 25rem");
                         float: left;
                     }
-                }
-
-                
-                
+                } 
             }
         }
 
         .item-block{
             border: 1px solid #eee;
             @include box-shadow(0px, 3px,8px, 1px, rgba(196,206,217,0.25)); 
+            outline: 0;
+            cursor: pointer;
 
             .item-image{
                 width: 100%;
                 height: 20rem;
                 background-color: #eee;
+                background-repeat: no-repeat;
+                background-position: 50%;
+                background-size: 100%;
             }
 
             .item-details{
@@ -176,6 +152,32 @@
                     height: 100%;
                     overflow: hidden;
                     margin-bottom: 0.5rem;
+
+                    star-rating{
+                        display: block;
+                        position: relative;
+                        top: 1px; 
+                        float: left;
+                     
+                        .rating{ 
+                            outline: 0;
+                            margin-bottom: 0;
+                    
+                            .star-container{
+                                margin: 0;
+                        
+                                .star{
+                                    width: 1.8rem;
+                                    height: 1.8rem;
+                        
+                                    i{
+                                        font-size: 2.1rem;
+                                        color: #FFC107 !important
+                                    }
+                                }
+                            } 
+                        }
+                    }
                 }
 
                 .description{
@@ -183,7 +185,7 @@
                     line-height: 1.8rem;
                     margin-bottom: 0.5rem;
 
-                    p{
+                    > p{
                         font-size: inherit;
                         line-height: inherit;
                     }

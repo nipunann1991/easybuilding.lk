@@ -21,6 +21,8 @@ export class HeaderComponent implements OnInit {
   totalItemLengths: any = [];
   menuArray: any = [];
   @Input() logoOnly: boolean =  false;
+  showProducts: boolean = false;
+  showServices: boolean = false;
   profilrUrl: any = environment.profileUrl;
   totalLinks: number = 0;
   user: any = {
@@ -43,10 +45,8 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      console.log(this.logoOnly)
-    
-   
-
+      console.log(this.logoOnly) 
+      
     this.router.events.pipe( filter(e => e instanceof NavigationEnd )
     ).subscribe(e => { 
       
@@ -188,5 +188,7 @@ export class HeaderComponent implements OnInit {
 
     });    
   }
+
+  
 
 }

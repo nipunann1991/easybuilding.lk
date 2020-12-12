@@ -9,12 +9,21 @@ export class SearchService {
 
   constructor(private http: HttpClient) { }
 
-  getSelectedProduct(postVals){  
+  getSelectedProductData(postVals){  
     
     const params = new HttpParams({
       fromObject : postVals
     }); 
     
     return this.http.post(environment.baseUrl+'SearchController/getSelectedProduct', params); 
+  }
+
+  searchProducts(postVals){  
+    
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'SearchController/searchProducts', params); 
   }
 }

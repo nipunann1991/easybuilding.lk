@@ -40,9 +40,9 @@
             </div>
         </div>
         <div class="right-content-search">
-            <div class="page-top">
-                <p>1 – 15 of 30,566 professionals</p>
-
+            <div class="page-top"> 
+                <p *ngIf="pageData.start > 0">Showing {{ pageData.start }} – {{ pageData.end }} results from {{ pageData.total_results }} profiles</p>
+                <p *ngIf="pageData.start == 0">No results found.</p>
                 <ul class="view-option">
                     <li [ngClass]="{'active': isGridView }"><a href="javascipt:void(0)" (click)="gridView()"><i class="icon-grid"></i></a></li>
                     <li [ngClass]="{'active': !isGridView }"><a href="javascipt:void(0)" (click)="listView()"><i class="icon-list"></i></a></li>
@@ -50,31 +50,29 @@
             </div>
 
             <div class="row">
-                <div class="item-block-wrapper" [ngClass]="(isGridView)? 'col-md-4' : 'col-md-12 list_view'" >
-                    <div class="item-block">
-                        <div class="item-image">
-
-                        </div>
+                <div class="item-block-wrapper" *ngFor="let p of products" [ngClass]="(isGridView)? 'col-md-4' : 'col-md-12 list_view'" >
+                    <div class="item-block" [routerLink]="p.profileLink">
+                        <div class="item-image" *ngIf="p.imgUrl !== ''" [ngStyle]="{'background-image': 'url('+ p.imgUrl + ')'}" [ngClass]="{'no-img': p.imgUrl === ''}"></div>
+                        <div class="item-image" *ngIf="p.imgUrl == ''" [ngClass]="{'no-img': p.imgUrl === ''}"></div> 
                         <div class="item-details">
-                            <h3>SPEEDO International (Pvt) Ltd</h3>
+                            <h3>{{p.title}}</h3>
                             <div class="ratings-holder">
                                 <star-rating  
                                     starType="icon" 
                                     [labelText]=""  
                                     [showHalfStars]="true" 
                                     labelPosition="right" 
-                                    [rating]="4"
+                                    [rating]="p.rating"
                                     [readOnly]="true" 
                                 ></star-rating> 
                                     <!--  {{ fpl.rating | roundToDecimal:1  }}  <span class="no-of-reviews">( {{fpl.total_reviews}} Review )</span> -->
                             </div>
-                            <div class="description">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus labore perferendis tenetur dolore veritatis dignissimos sequi in ab, porro, eligendi commodi esse doloremque ipsum? Laudantium aspernatur eligendi amet nemo qui!</p>
-                            </div>
+                            <div class="description" *ngIf="isGridView" [innerHTML]="p.description | truncateText:[115] "></div>
+                            <div class="description" *ngIf="!isGridView" [innerHTML]="p.description | truncateText:[250] "></div>
                             <span class="badge badge-secondary">New</span> <span class="badge badge-secondary">Volupt atibus</span>
                             <ul class="contact-details">
-                                <li class="address">Colombo</li>
-                                <li class="tel">0716378515</li>
+                                <li class="address">{{p.contact.city}}</li>
+                                <li class="tel">{{p.contact.tel}}</li>
                             </ul>  
                         </div>
                         <div class="clearfix"></div>
@@ -82,38 +80,7 @@
                      
                 </div>
 
-                <div class="item-block-wrapper" [ngClass]="(isGridView)? 'col-md-4' : 'col-md-12 list_view'">
-                    <div class="item-block">
-                        <div class="item-image">
-
-                        </div>
-                        <div class="item-details">
-                            <h3>SPEEDO International (Pvt) Ltd</h3>
-                            <div class="ratings-holder">
-                                <star-rating  
-                                    starType="icon" 
-                                    [labelText]=""  
-                                    [showHalfStars]="true" 
-                                    labelPosition="right" 
-                                    [rating]="4"
-                                    [readOnly]="true" 
-                                ></star-rating> 
-                                    <!--  {{ fpl.rating | roundToDecimal:1  }}  <span class="no-of-reviews">( {{fpl.total_reviews}} Review )</span> -->
-                            </div>
-                            <div class="description">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus labore perferendis tenetur dolore veritatis dignissimos sequi in ab, porro, eligendi commodi esse doloremque ipsum? Laudantium aspernatur eligendi amet nemo qui!</p>
-                            </div>
-                            <span class="badge badge-secondary">New</span> <span class="badge badge-secondary">Volupt atibus</span>
-                            <ul class="contact-details">
-                                <li class="address">Colombo</li>
-                                <li class="tel">0716378515</li>
-                            </ul>  
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                     
-                </div>
-                
+                 
             </div>
 
         </div>

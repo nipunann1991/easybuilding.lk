@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
 import { SearchService } from "../../../admin/api/frontend/search.service";
 import { environment } from "../../../../environments/environment";
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
@@ -7,7 +7,8 @@ import { Options } from 'select2';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  styleUrls: ['./products.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ProductsComponent implements OnInit {
 
@@ -17,6 +18,7 @@ export class ProductsComponent implements OnInit {
   sortByCategory: any = [];
   sortByLocation: any = [];
   allServices: any = [];
+  products: any = [];
   isGridView: boolean = true;
   public options: Options;
 
@@ -26,19 +28,22 @@ export class ProductsComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) { 
 
+  
+
     this.router.events.subscribe((event) => {
 
       if (event instanceof NavigationEnd) { 
-        window.scroll(0,0); 
-        this.getSelectedProduct();
+        window.scroll(0,0);  
+        this.products = [];
+        this.getSelectedProductData();
+        this.searchProducts();
       }
       
     })
   }
  
-  ngOnInit(): void {
-    window.scroll(0,0); 
-
+  ngOnInit(): void { 
+ 
     this.options = {
       multiple: true, 
       closeOnSelect: true, 
@@ -68,15 +73,15 @@ export class ProductsComponent implements OnInit {
       { id: 3, option: "By District", alias: "district", isChecked: false }, 
       { id: 4, option: "By City", alias: "city", isChecked: false }, 
     ];
+ 
+    this.getGridView();
 
-    
-    
   }
 
-  getSelectedProduct(){
-    let params = { cat_lvl2_id: this.activatedRoute.snapshot.params.id };
-    
-    this.search.getSelectedProduct(params) 
+  getSelectedProductData(){
+    let params = { cat_lvl2_id: this.activatedRoute.snapshot.params.id }; 
+
+    this.search.getSelectedProductData(params) 
     .subscribe((response: any) => {
 
       if (response.status == 200) {
@@ -87,22 +92,88 @@ export class ProductsComponent implements OnInit {
           parentCategory: page.cat_name,
           categoryLevel1: page.cat_lvl1_name,
           categoryLevel2: page.cat_lvl2_name
-        }
+        } 
+ 
+      }
+      
+    });
 
-        /* console.log(response) */
+    
+  }
+
+
+  searchProducts(){
+
+    let params = { 
+      cat_lvl2_id: this.activatedRoute.snapshot.params.id, 
+      limit: this.activatedRoute.snapshot.queryParamMap.get('results'), 
+      page_index: this.activatedRoute.snapshot.queryParamMap.get('index') 
+    };   
+
+    this.search.searchProducts(params) 
+    .subscribe((response: any) => {
+
+      if (response.status == 200) {
+
+        this.pageData.start = response.start;
+        this.pageData.end = response.end;
+        this.pageData.total_results = response.total_results;
+
+        response.data.forEach(elm => {
+         
+          let profileImg = environment.uploadPath + elm.client_id +'/'+ elm.company_id +'/';
+
+          (elm.profie_image == '')?  profileImg = ''  : profileImg = profileImg + elm.profie_image  ;
+
+          let constructors = {
+            id: elm.client_id,
+            title: elm.display_name, 
+            description: elm.description,
+            profileLink: '/user/'+ elm.client_id +'/'+ elm.provider_id +'/about', 
+            imgUrl: profileImg,
+            rating:  elm.rating,
+            total_reviews : elm.total_reviews,
+            contact: {
+              city : elm.city, 
+              tel : elm.tel1, 
+            }
+          }
+
+          this.products.push(constructors)
+          
+        }); 
+ 
       }
       
     });
   }
 
+  getGridView(){ 
+    let storageData = JSON.parse(localStorage.getItem('token')); 
 
+    if(typeof storageData.isGridView !== 'undefined' ){
+      this.isGridView = storageData.isGridView;
+    }
+     
+  }
+
+  setGridView(){ 
+    let storageData = JSON.parse(localStorage.getItem('token')); 
+    storageData.isGridView = this.isGridView; 
+    localStorage.setItem('token', JSON.stringify(storageData) );   
+
+  }
+
+  
   gridView(){
     this.isGridView = true;
+    this.setGridView();
   }
 
 
   listView(){
     this.isGridView = false;
+    this.setGridView(); 
   }
 
 }

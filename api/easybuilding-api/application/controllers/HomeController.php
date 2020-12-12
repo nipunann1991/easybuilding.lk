@@ -50,8 +50,8 @@ class HomeController extends CommonController {
 			$search_index = array(
 				'columns' => 'cc.*, c.provider_id ' ,   
 				'table' => 'client_company cc, clients c',
-				'eq_table_col' => '1',
-				'data' => 'c.client_id = cc.client_id AND cc.company_profile = 1', 
+				'eq_table_col' => 'cc.company_profile = 1 Limit 8',
+				'data' => 'c.client_id = cc.client_id', 
 			);
 
 			return $this->selectCustomData__($search_index);

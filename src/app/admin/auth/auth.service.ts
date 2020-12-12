@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'; 
 import { LoginService } from '../../admin/api/login.service'; 
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { Globals } from './../../app.global';
 import { environment } from "../../../environments/environment";
 
