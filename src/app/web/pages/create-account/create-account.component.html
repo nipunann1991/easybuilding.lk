@@ -1,6 +1,7 @@
-<app-header [logoOnly]="islogoOnly" ></app-header>
+<app-header *ngIf="!isAdmin"  [logoOnly]="islogoOnly" ></app-header>
 <div class="container-fluid login-page">
-  <div class="container">
+  
+  <div *ngIf="!isAdmin" class="container">
       <h1>Create Account</h1>
 
       <div class="column-container">
@@ -51,8 +52,43 @@
       </div> 
       <div class="bottom-container">
          <p>Already Have an account? <a routerLink="/login" class="create-account" >Login</a> here.</p>
-      </div>
-      
-      <!-- <button mat-button *ngIf="isLoggedIn" (click)="signOut()" class="app-login" >Sign Out</button>  -->
+      </div> 
   </div>  
+  <div *ngIf="isAdmin" class="container">
+    <div class="column-container" [ngClass]="{'flex-col-container': isAdmin}">
+    <div class="column">
+        <form class="app-form"  [formGroup]="formGroup" (ngSubmit)="onSubmitAdmin()">  
+          <div class="app-form-inner"> 
+            <!-- <p *ngIf="noUserAvailable" class="error-names">Invalid Username or Password</p> -->
+            <div class="row d-none">
+              <div class="form-group col-md-12">
+                <label for="">First Name</label>
+                <input placeholder="" formControlName="firstName" class="form-control" disabled="disabled" name="first_name" type="text"> 
+              </div>
+              <div class="form-group col-md-12">
+                <label for="">Last Name</label>
+                <input placeholder="" formControlName="lastName" class="form-control" disabled="disabled" name="last_name" type="text"> 
+              </div>
+              <div class="form-group col-md-12">
+                  <label for="">Email</label>
+                  <input placeholder="" formControlName="email" class="form-control" disabled="disabled" name="username" type="text"> 
+                  <!-- <bfv-messages></bfv-messages> -->
+              </div>
+              <div class="form-group col-md-12">
+                  <label for="">Password</label>
+                  <input placeholder="" formControlName="password" class="form-control" name="password" disabled="disabled" type="password" >
+                  <!-- <bfv-messages></bfv-messages> -->
+              </div> 
+            </div> 
+            <div class="row">
+              <div class="form-group col-md-12">
+                <h3>Note: Please use this to create new profiles if the user has minor information to be displayed.</h3>
+                <button mat-button class="app-sign-in" >Create New Profile</button> 
+              </div>
+            </div>
+          </div> 
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

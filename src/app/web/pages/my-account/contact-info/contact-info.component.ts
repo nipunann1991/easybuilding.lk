@@ -15,6 +15,7 @@ export class ContactInfoComponent implements OnInit {
   clientId: any; companyId: any;
   profile: any = {}
   isStepsForm: boolean = false; 
+  isAdmin: boolean = false; 
   profileType: string = "";
 
   constructor(
@@ -60,6 +61,14 @@ export class ContactInfoComponent implements OnInit {
     if(this.router.url.includes("steps")){
       this.isStepsForm = true;
     }
+
+
+    if(this.router.url.includes("admin")){
+      this.isAdmin = true;
+      this.formGroup.get("address_line1").setValidators(null);
+      this.formGroup.get("email").setValidators(null);
+    }
+ 
   }
 
 

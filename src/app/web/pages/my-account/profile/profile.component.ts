@@ -116,7 +116,7 @@ export class ProfileComponent implements OnInit {
       this.totalReviews = this.profile.total_reviews + " Reviews";
       this.rating = parseFloat(this.profile.rating).toFixed(1); 
 
-      
+      console.log(this.profile, 'pf')
 
       if(this.profileData.cover_img == "" ){
         this.isBgImage = false;

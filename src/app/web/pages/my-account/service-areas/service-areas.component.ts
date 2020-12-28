@@ -13,6 +13,7 @@ import { Options } from 'select2';
 export class ServiceAreasComponent implements OnInit {
 
   isStepsForm: boolean = false;
+  isAdmin: boolean = false;
   all_island: boolean = false;
   profile: any = {};
   clientId: any; companyId: any;
@@ -64,14 +65,19 @@ export class ServiceAreasComponent implements OnInit {
       this.isStepsForm = true; 
     }
 
+    if(this.router.url.includes("admin")){
+      this.isAdmin = true; 
+    }
+
    
-    this.getServiceDetails();
+   
     this.getCities();  
     this.getDistricts();
     //this.getAllCategoriesData();
     this.getServiceCategories();
     this.getProductCategories();
     this.select2Order();
+    this.getServiceDetails();
   }
 
 
@@ -82,9 +88,7 @@ export class ServiceAreasComponent implements OnInit {
         if (response.status == 200) {
            
           this.profile = response.data[0];
-
-          console.log(this.profile);
-          
+  
           if(this.profile.service_areas != "[]" && this.profile.service_dist != "[]"){
             this.isCities = true;
 
@@ -93,7 +97,7 @@ export class ServiceAreasComponent implements OnInit {
             (this.profile.service_areas != "[]")? this.isCities = true :  this.isCities = false ;
             (this.profile.service_dist != "[]")? this.isDistricts = true :  this.isDistricts = false ;
             
-            if(this.profile.all_island == 1 && !this.isStepsForm){
+            if((this.profile.all_island == 1 && !this.isStepsForm) || (this.profile.all_island == 1 && this.isAdmin)){
               this.all_island = true;
               this.formGroup.controls['service_areas'].disable();
             }else{
@@ -101,17 +105,21 @@ export class ServiceAreasComponent implements OnInit {
             }  
           }
            
-
+          let products = "[]";
           this.clientId = this.profile.client_id;
           this.companyId = this.profile.company_id; 
-           
+
+          if(this.profile.products != ''){
+            products = this.profile.products
+          }
+ 
 
           if(this.isDistricts){
 
             this.formGroup.setValue({
               service_areas: JSON.parse(this.profile.service_dist),  
               services: JSON.parse(this.profile.services),
-              products: JSON.parse(this.profile.products)
+              products: JSON.parse(products)
             });
 
           }
@@ -121,7 +129,7 @@ export class ServiceAreasComponent implements OnInit {
             this.formGroup.setValue({
               service_areas: JSON.parse(this.profile.service_areas),  
               services: JSON.parse(this.profile.services),
-              products: JSON.parse(this.profile.products)
+              products: JSON.parse(products)
 
             }); 
 
@@ -133,7 +141,7 @@ export class ServiceAreasComponent implements OnInit {
             this.formGroup.setValue({
               service_areas: JSON.parse(this.profile.service_areas),  
               services: JSON.parse(this.profile.services),
-              products: JSON.parse(this.profile.products)
+              products: JSON.parse(products)
             }); 
 
           } 
@@ -381,12 +389,21 @@ export class ServiceAreasComponent implements OnInit {
         .subscribe((response: any) => {
 
           if (response.status == 200) {
-            if( !this.isStepsForm ){
-              this.toastr.success('Information saved successfully', 'Success !');  
-              this.router.navigate(['/my-account/user/me/about']);
-            }else{  
-              this.router.navigate(['/my-account/user/me/about']);
+
+            if(this.isAdmin){
+              this.toastr.success('Profile created successfully', 'Success !');  
+              this.router.navigate(['/admin/users']);
+            }else{
+
+              if( !this.isStepsForm ){
+                this.toastr.success('Information saved successfully', 'Success !');  
+                this.router.navigate(['/my-account/user/me/about']);
+              }else{  
+                this.router.navigate(['/my-account/user/me/about']);
+              }
+
             }
+           
           
             
           }else if (response.status == 401){

@@ -40,9 +40,8 @@ body{
 	font-style: normal;
 		
 	  
-	&.admin-layout{
-		
-		background-color: #F4F7FC;  
+	&.admin-layout{ 
+		background-color: #f2f2f2;  
 	  
 		.form-control, p{
 			font-weight: 400;
@@ -56,12 +55,44 @@ body{
 			}
 		}
 
+		.table-options{ 
+			margin-bottom: 1.5rem;
+
+			.form-check-inline{
+				margin-right: 1.5rem;
+				label{
+					font-size: 1.4rem;
+					font-family: inherit;
+				} 
+			}
+			
+		}
+
+		.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+		.mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element, .mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element{
+			background-color: $light-blue-color; 
+		}
+
+		.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+			border-color: $light-blue-color; 
+		} 
+		.mat-radio-button.mat-accent .mat-radio-inner-circle, 
+		.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple), 
+		.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple, 
+		.mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+			background-color: $light-blue-color; 
+		}
+
+		table.dataTable{
+			//font-family: $adminfont;
+		}
+		
 		table.dataTable thead th, table.dataTable tfoot th {
-			font-size: 1.4rem;
+			font-size: 1.35rem;
 		}
 
 		table.dataTable tbody th, table.dataTable tbody td{
-			font-size: 1.4rem;
+			font-size: 1.35rem;
 		}
 
 		div.dataTables_wrapper div.dataTables_info, div.dataTables_wrapper div.dataTables_paginate{
@@ -856,7 +887,7 @@ label{
 	background: $white;
 	border-radius: 5px;
 	@include box-shadow(0, 2px, 16px, -3px, rgba(0, 0, 0, 0.1));
-	min-height: 150px;
+	min-height: 15rem;
  
 }
 
@@ -873,7 +904,7 @@ table.dataTable{
 
 	tbody {
 		th, td{ 
-			padding: 0.85rem 1rem;
+			padding: 0.75rem 1rem;
 
 			a{
 				cursor: pointer; 

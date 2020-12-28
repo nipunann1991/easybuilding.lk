@@ -1,0 +1,18 @@
+
+
+.pull-right{
+    float: right;
+}
+
+.mat-checkbox{
+    margin-right: 1.5rem;
+}
+ 
+body.admin-layout .blacklist.mat-checkbox-checked.mat-accent .mat-checkbox-background,
+body.admin-layout .blacklist.mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element {
+    background-color: #e4000b !important;
+}
+
+.mat-checkbox-disabled { 
+    opacity: 0.5;
+}

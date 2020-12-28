@@ -308,8 +308,9 @@ class CommonController extends CI_Controller {
 	
 
 	public function sendResponse($data){
+ 
 
-		if(sizeof($data['data'] == -1)) {
+		if($data['data'] == -1) {
       		$output = array(
 				'status' => 401 ,
 				'data' => 'Unauthorized client. The auth token is invalid',

@@ -8,9 +8,8 @@ const routes: Routes = [
   { path: ':user/:provider_id', component: UserComponent, children: [ 
     { path: 'about', loadChildren: () => import("../../../../web/pages/my-account/about/about.module").then(m => m.AboutModule) }, 
     { path: 'projects', loadChildren: () => import('../../../../web/pages/my-account/projects/projects.module').then(m => m.ProjectsModule) },
-    { path: 'reviews', loadChildren: () => import('../../../../web/pages/my-account/reviews/reviews.module').then(m => m.ReviewsModule) },  
-     
-
+    { path: 'reviews/:id', loadChildren: () => import('../../../../web/pages/my-account/reviews/reviews.module').then(m => m.ReviewsModule) },  
+    { path: 'products', loadChildren: () => import('../../../../web/pages/my-account/products/products.module').then(m => m.ProductsModule) },
   ]}, 
   
 ];

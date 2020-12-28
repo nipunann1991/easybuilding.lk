@@ -129,22 +129,62 @@ class ProfileController extends CommonController {
 		
 	}
 
+
+
+	public function isFeaturedProfile(){   
+
+		$search_index = array(
+			'columns' => 'cc.company_id ,cc.featured, cc.status, cc.company_profile' ,   
+			'table' => 'user_sessions us, clients c, client_company cc',
+			'eq_table_col' => '1',
+			'data' => 'c.client_id = us.client_id AND c.client_id = cc.client_id AND c.provider_id= "'.$this->input->post('provider_id').'" AND c.client_id= "'.$this->input->post('client_id').'"', 
+		);
+ 
+		return $this->selectCustomData__($search_index); 
+		
+	}
+
  
 
 	public function getAccountDetails(){  
  
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+
 			$search_index = array(
 				'columns' => 'c.client_id, cc.company_id, c.first_name, c.last_name , cc.display_name, cc.prof_category, cc.br_no, cc.website, cc.description, cc.email, cc.company_profile' ,   
 				'table' => 'user_sessions us, clients c, client_company cc',
-				'eq_table_col' => '1',
+				'eq_table_col' => '1 ORDER BY cc.company_id DESC LIMIT 1',
 				'data' => 'us.auth_token= "'.$this->input->get('auth_token').'" AND c.client_id = us.client_id AND c.client_id = cc.client_id', 
 			);
+ 
 
 			return $this->selectCustomData__($search_index);
 
-		}else{
+		}else{ 
+
+			return $this->invalidSession(); 
+		}
+		
+	}
+
+
+	public function getAccountDetailsAdmin(){  
+ 
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+			$search_index = array(
+				'columns' => 'c.client_id, cc.company_id, c.first_name, c.last_name , cc.display_name, cc.prof_category, cc.br_no, cc.website, cc.description, cc.email, cc.company_profile' ,   
+				'table' => 'users us, clients c, client_company cc',
+				'eq_table_col' => '1',
+				'data' => 'us.auth_token= "'.$this->input->get('auth_token').'" AND c.client_id = us.client_id AND c.client_id = cc.client_id', 
+			);
+ 
+
+			return $this->selectCustomData__($search_index);
+
+		}else{ 
+
 			return $this->invalidSession(); 
 		}
 		
@@ -156,7 +196,7 @@ class ProfileController extends CommonController {
 			$search_index = array(
 				'columns' => 'c.client_id, c.email AS signup_email, cc.company_profile, cc.company_id, cc.address_line1, cc.address_line2, cc.city, cc.tel1, cc.tel2, cc.email' ,   
 				'table' => 'user_sessions us, clients c, client_company cc',
-				'eq_table_col' => '1',
+				'eq_table_col' => '1 ORDER BY cc.company_id DESC LIMIT 1',
 				'data' => 'us.auth_token= "'.$this->input->get('auth_token').'" AND c.client_id = us.client_id AND c.client_id = cc.client_id', 
 			);
 
@@ -175,7 +215,7 @@ class ProfileController extends CommonController {
 			$search_index = array(
 				'columns' => 'c.client_id, cc.company_id, cc.all_island, cc.service_areas, cc.service_dist, cc.services, cc.products' ,   
 				'table' => 'user_sessions us, clients c, client_company cc',
-				'eq_table_col' => '1',
+				'eq_table_col' => '1 ORDER BY cc.company_id DESC LIMIT 1',
 				'data' => 'us.auth_token= "'.$this->input->get('auth_token').'" AND c.client_id = us.client_id AND c.client_id = cc.client_id', 
 			);
 
@@ -750,6 +790,23 @@ class ProfileController extends CommonController {
 		$this->deleteData__('product_prices','product_id="'.$this->input->post('product_id').'"');
 		return $this->deleteData__('product','product_id="'.$this->input->post('product_id').'"');  
 	}
+
+
+	public function deleteProfile(){  
+
+	if (sizeof($this->isUserSessionValid()['data']) == 1) {
+
+		$this->deleteData__('clients','client_id="'.$this->input->post('client_id').'"');
+
+		return $this->deleteData__('client_company','client_id="'.$this->input->post('client_id').'"');  
+
+	}else{
+		return $this->invalidSession(); 
+	}  
+	
+	}
+
+	
 
 	public function fileUpload(){ 
 

@@ -1,5 +1,9 @@
 <div class="page-container animated fadeIn"> 
-
+    <div *ngIf="profileData.status == 0" class="blacklist-message">
+        <div class="container">
+            <p>This profile is blacklisted by easybuilding.lk</p>
+        </div>
+    </div>
     <input type="file" class="d-none" (change)="fileChangeEvent($event)" #fileInput />
 
     <modal #uploadCover> 
@@ -66,14 +70,13 @@
                             <li class="address" > 
                                 <p><span *ngIf="profileData.prof_category == 1">{{profile.address_line1}} {{profile.address_line2}} </span>{{profile.city}}</p> 
                             </li>
-                            <li class="reviews">  
+                            <li class="reviews" *ngIf="profileData.prof_category == 1">  
                                 <star-rating  
                                     starType="icon"  
                                     [showHalfStars]="true" 
                                     labelPosition="right" 
                                     [rating]="rating"
-                                    [readOnly]="true"
-                                    *ngIf="profileData.prof_category == 1"
+                                    [readOnly]="true" 
                                 ></star-rating>
                                 <span class="review-score">{{rating}} <a routerLink="reviews/1">( {{ totalReviews }} )</a></span>
                             </li>

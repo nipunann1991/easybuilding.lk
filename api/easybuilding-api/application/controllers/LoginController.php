@@ -25,6 +25,8 @@ class LoginController extends CommonController {
 			$dataset = $this->input->post(); 
 			unset($dataset['auth_token']); 
 			unset($dataset['password']); 
+			unset($dataset['is_admin']); 
+
 			 
 			$clientData = $this->insertRawData__('clients', $dataset);  
 
@@ -66,8 +68,9 @@ class LoginController extends CommonController {
 					'client_id' => $inputData->client_id,
 					'company_profile' => -1,
 
-				); 
+				);  
 				
+
 				$this->insertData__('client_company', $datasetCompany);
 				$this->updatePassword($inputData->client_id, $this->input->post('auth_token'), $this->input->post('password'));
 				$this->updateData__('clients', $dataset, 'client_id="'.$dataset['client_id'].'"');
@@ -78,22 +81,77 @@ class LoginController extends CommonController {
 			return $this->returnJSON($sessionData);
 	
 		}else{
- 
+
+
 			$sessionData = $this->updateUserSession($getClient->client_id, $this->input->post('auth_token'));    
 
 			$search_index = array(
 				'columns' => 'us.*, c.*, cc.profie_image as cpi, cc.company_id' ,      
 				'table' => 'user_sessions us, clients c, client_company cc',
-				'eq_table_col' => '1',
-				'data' => 'us.auth_token= "'.$this->input->post('auth_token').'" AND c.client_id=us.client_id AND c.client_id=cc.client_id ', 
+				'eq_table_col' => '1 ORDER BY cc.company_id DESC LIMIT 1',
+				'data' => 'us.auth_token= "'.$this->input->post('auth_token').'" AND c.client_id=us.client_id AND c.client_id=cc.client_id', 
 			);
 
-			$inputData  = $this->selectRawCustomData__($search_index)['data'][0]; 
+
+			$inputData = $this->selectRawCustomData__($search_index)['data'][0]; 
 
 			$sessionData['data'] = $this->setSessionData($sessionData, $inputData ,'Session updated');
 
 			return $this->returnJSON($sessionData);
 		}
+		
+ 
+	}
+
+	
+
+		public function onClientLoginAdmin(){    
+ 
+
+ 		$dataset = $this->input->post(); 
+		unset($dataset['auth_token']); 
+		unset($dataset['password']); 
+		unset($dataset['is_admin']); 
+
+		 
+		$clientData = $this->insertRawData__('clients', $dataset);  
+
+		$sessionData = $this->addUserSession($clientData['data']->insertedId, $this->input->post('auth_token'));
+
+		$search_index = array(
+			'columns' => 'us.*, c.*' ,   
+			'table' => 'user_sessions us, clients c',
+			'eq_table_col' => '1',
+			'data' => 'us.auth_token= "'.$this->input->post('auth_token').'" AND c.client_id=us.client_id AND c.client_id= "'. $clientData['data']->insertedId .'" ',
+			 
+		);
+
+		$inputData = $this->selectRawCustomData__($search_index)['data'][0];
+
+
+		$datasetCompany = array(   
+			'client_id' => $inputData->client_id,
+			'company_profile' => -1,
+		); 
+
+		$this->insertData__('client_company', $datasetCompany); 
+
+		$sessionData = $this->updateUserSession($inputData->client_id, $this->input->post('auth_token'));    
+
+		$search_index = array(
+			'columns' => 'us.*, c.*, cc.profie_image as cpi, cc.company_id' ,      
+			'table' => 'user_sessions us, clients c, client_company cc',
+			'eq_table_col' => '1 ORDER BY cc.company_id DESC LIMIT 1',
+			'data' => 'us.auth_token= "'.$this->input->post('auth_token').'" AND c.client_id=us.client_id AND c.client_id=cc.client_id', 
+		);
+
+
+		$inputData = $this->selectRawCustomData__($search_index)['data'][0]; 
+
+		$sessionData['data'] = $this->setSessionData($sessionData, $inputData ,'Session updated');
+
+		return $this->returnJSON($sessionData);
+		 
 		
  
 	}

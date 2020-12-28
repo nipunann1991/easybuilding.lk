@@ -4,7 +4,8 @@
         <li class="" *ngFor="let m of menu">
             <a mat-flat-button  routerLinkActive="active-link" 
                 [routerLinkActiveOptions]="{exact: false}" 
-                routerLink="{{m.link}}" 
+                [routerLink]="m.link" 
+                [queryParams]="m.qparams"
                 title="{{m.title}}"
                 *ngIf="m.permission == 0"
             >

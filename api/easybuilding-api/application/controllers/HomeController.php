@@ -50,7 +50,7 @@ class HomeController extends CommonController {
 			$search_index = array(
 				'columns' => 'cc.*, c.provider_id ' ,   
 				'table' => 'client_company cc, clients c',
-				'eq_table_col' => 'cc.company_profile = 1 Limit 8',
+				'eq_table_col' => 'cc.company_profile = 1 AND cc.status = 1 AND cc.featured = 1 Limit 8',
 				'data' => 'c.client_id = cc.client_id', 
 			);
 

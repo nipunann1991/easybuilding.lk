@@ -7,7 +7,7 @@
         </div>
         <div class="col-md-6">  
             <div class="form-group">
-                <label for="address_line1">Address Line 1 <span class="required-star">*</span></label> 
+                <label for="address_line1">Address Line 1 <span class="required-star" *ngIf="!isAdmin">*</span></label> 
                 <input id="address_line1" name="address_line1" formControlName="address_line1" type="text" class="form-control">
             </div>   
         </div>
@@ -43,7 +43,7 @@
         
         <div class="col-md-12">
             <div class="form-group">
-                <label for="email">{{ profileType }} Email Address <span class="required-star">*</span></label> 
+                <label for="email">{{ profileType }} Email Address <span class="required-star" *ngIf="!isAdmin">*</span></label> 
                 <input id="email" name="email" formControlName="email" type="text" class="form-control" >
             </div>
         </div>    

@@ -11,6 +11,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSliderModule} from '@angular/material/slider';
 import { MatDialogModule} from '@angular/material/dialog';  
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import {MatRadioModule} from '@angular/material/radio';
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 import { HttpClientModule } from '@angular/common/http'; 
 import { DataTablesModule } from 'angular-datatables';
@@ -57,6 +58,7 @@ import { RoundToDecimalPipe } from './pipes/round-to-decimal.pipe';
       MatDatepickerModule, 
       CKEditorModule,
       ImageCropperModule,
+      MatRadioModule,
       ModalModule,
       FileSaverModule,
       LoadingBarHttpClientModule,
@@ -88,6 +90,7 @@ import { RoundToDecimalPipe } from './pipes/round-to-decimal.pipe';
       ImageCropperModule, 
       LoadingBarHttpClientModule,
       ModalModule,
+      MatRadioModule,
       StarRatingModule,
       FileSaverModule,
       LoadingBarModule,

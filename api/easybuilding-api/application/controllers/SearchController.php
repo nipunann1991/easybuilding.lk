@@ -35,7 +35,7 @@ class SearchController extends CommonController {
 			'columns' => 'cc.*, c.provider_id',   
 			'table' => '`client_company` cc, `services_list` sl, clients c',
 			'eq_table_col' => '1 ORDER BY cc.client_id DESC '.$limit, 
-			'data' => 'cc.company_id=sl.company_id AND c.client_id=cc.client_id AND sl.cat_lvl2_id="'.$this->input->post('cat_lvl2_id').'"', 
+			'data' => 'cc.company_id=sl.company_id AND c.client_id=cc.client_id AND cc.status=1 AND sl.cat_lvl2_id="'.$this->input->post('cat_lvl2_id').'"', 
 		);
 
 		$start = $this->input->post('limit') * ($this->input->post('page_index') - 1) + 1;

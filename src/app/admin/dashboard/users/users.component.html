@@ -1,18 +1,29 @@
 <div class="right-container  animated fadeIn">
     <div class="title">
-        <h2><button mat-button class="transparent-btn back-btn"  ><i class="icon-left-arrow"></i></button> Users</h2> 
+        <h2><button mat-button class="transparent-btn back-btn"  ><i class="icon-left-arrow"></i></button> Profile</h2> 
+        <button mat-button name="button" type="button" class="btn btn-primary create-profile pull-right" [routerLink]="['./create-profile/create-account' ]">Create New Profile</button>
         <div class="clearfix"></div>
     </div>
     <div class="white-box-panel"> 
         <button id="refresh-btn" type="button" class="btn waves-effect waves-light blue d-none" (click)="rerender()">  Rerender  </button>
+        
+        <div class="table-options">  
+            <mat-radio-group aria-label="Select an option">
+              <ng-container *ngFor="let po of profileViewOptions" > 
+                <mat-radio-button [value]="po.value" [checked]="po.checked" (change)="onChange($event)">{{po.label}}</mat-radio-button> 
+              </ng-container> 
+            </mat-radio-group>
+        </div>
+       
+        
         <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="row-border hover">
             <thead>
               <tr>
                 <th>Client Id</th>
-                <th>Client Name</th>
+                <th>Company</th>
                 <th>Email</th> 
                 <th>Provider</th>
-                <th>Company</th>
+                <th>Client Name</th>
                 <th>Status</th>
                 <th></th>
               </tr>

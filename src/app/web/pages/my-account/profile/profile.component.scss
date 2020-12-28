@@ -1,5 +1,17 @@
 @import '../../../../../styles';
 
+
+.blacklist-message{
+    padding: 1rem;
+    background: $danger-color;
+    color: $white;
+    text-align: center;
+
+    p{
+        font-size: 1.7rem;
+    }
+}
+
 .profile-area{
     position: relative; 
     

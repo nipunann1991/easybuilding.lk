@@ -130,3 +130,18 @@
     } 
     
 }
+
+.flex-col-container{
+    display: flex;
+    margin: auto;
+
+    .column{
+        margin-left: 0;
+        display: flex;
+        margin: auto;
+
+        h3{
+            margin: 2.5rem 0;
+        }
+    }
+}

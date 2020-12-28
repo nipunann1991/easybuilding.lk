@@ -12,8 +12,8 @@ export class ClientsService {
   constructor(private http: HttpClient) { }
  
 
-  getClientDetailsDT(){  
-    let url = environment.baseUrl+'ClientController/getClientDetailsDT?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id; 
+  getClientDetailsDT(profile_type){  
+    let url = environment.baseUrl+'ClientController/getClientDetailsDT?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id+'&profile_type='+profile_type; 
    	return url;  
   }
  
@@ -24,4 +24,34 @@ export class ClientsService {
   }
 
 
+  isFeaturedProfile(postVals){
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ProfileController/isFeaturedProfile?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  }
+
+
+  updateProfileDetails(postVals){ 
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ProfileController/updateProfileDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  }
+
+
+  getProfileToken(postVals){   
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ClientController/getProfileToken?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+
+  }
+ 
 }

@@ -123,7 +123,8 @@ export class LoginComponent implements OnInit {
       profie_image: userDetails.photoUrl, 
       provider: userDetails.provider.charAt(0),
       provider_id: userDetails.id, 
-      auth_token:  userDetails.authToken 
+      auth_token:  userDetails.authToken,
+      is_admin: false 
     }
     
     this.login.onClientLogin(param)

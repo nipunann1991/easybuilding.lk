@@ -1,15 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs'
-import { RouterModule, ActivatedRoute, Routes, Router} from '@angular/router';
+import { RouterModule, ActivatedRoute, Routes, Router, NavigationEnd} from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ClientsService } from '../../api/clients.service'; 
+import { MyAccountService } from '../../api/frontend/my-account.service'; 
 import * as $ from 'jquery';
 declare const bootbox:any;
 
 @Component({
   selector: 'app-clients',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  styleUrls: ['./users.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class UsersComponent implements OnInit {
 
@@ -17,135 +20,207 @@ export class UsersComponent implements OnInit {
 
 	dtElement: DataTableDirective;
 	dtOptions: any = {};
-	dtTrigger: Subject<any> = new Subject();
+  dtTrigger: Subject<any> = new Subject();
+
+  profileType: any = -1;
+  profileViewOptions:any =[
+    {id: 0, label: "All Profiles", checked: true, value: -1},
+    {id: 1, label: "Company Profiles", checked: false, value: 1},
+    {id: 2, label: "Personal Profiles", checked: false, value: 0},
+    {id: 3, label: "Added by Admin", checked: false, value: 2},
+  ]
 
   constructor(
     private clients: ClientsService,
-    private router: Router
-  ) { }
+    private myaccount: MyAccountService,
+    private router: Router,
+    private toastr: ToastrService,
+    private route: ActivatedRoute,
+    public cdr: ChangeDetectorRef
+  ) { 
+ 
+
+  }
 
   ngOnInit(): void {
-
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      autoWidth: false, 
-      ajax: this.clients.getClientDetailsDT(), 
-      columns: [ 
-        { data: 'client_id' }
-      ],
-      columnDefs: [
-      {
-        targets: 1,
-        data: function( row ){    
-          return row.first_name+" "+ row.last_name
-        },
-        
-      },
-      {
-        targets: 2,
-        data: function( row ){    
-          return row.email 
-        },
-        
-      },
-      {
-        targets: 3,
-        data: function (row) { 
-          return row.provider;
-        },
-        
-      },
-      {
-        targets: 4,
-        data: function( row ){    
-          return  '<a class="view-client-data" data-id="' + row.client_id + '" data-provider-id="' + row.provider_id + '/about" title="View">' +   row.display_name  + '</i></a> ';
-        },
-        
-      },{
-        targets: 5,
-        data: function( row ){    
-          if(row.status == 0){
-            return '<span class="badge badge-danger">Inactive</span>';
-
-          }else if(row.status == 1){
-            return '<span class="badge badge-success">Active</span>';
-
-          }else if(row.status == 2){
-            return '<span class="badge badge-success">Active - A</span>';
-
-          }
-         
-        },
-        
-      },{
-        targets: 6,
-        data: function( row ){   
-
-          return ""
-            
-        }, 
-      }],
-      dom: 'lfrtip', 
-      buttons: [ 
-          {
-                extend:    'copyHtml5',
-                text:      '<i class="fa fa-files-o"></i> Copy',
-                titleAttr: 'Copy'
-            },
-            {
-                extend:    'excelHtml5',
-                text:      '<i class="fa fa-file-excel-o"></i> Excel',
-                titleAttr: 'Export to Excel'
-            },
-            {
-                extend:    'csvHtml5',
-                text:      '<i class="fa fa-file-text-o"></i> CSV',
-                titleAttr: 'Export to CSV'
-            },
-            {
-                extend:    'pdfHtml5',
-                text:      '<i class="fa fa-file-pdf-o"></i> PDF',
-                titleAttr: 'Export to PDF'
-            }
-      ],
-
-  };
+ 
+    this.tableOptions();
 
     const component1 = this;
 
-    $('html').on('click', 'a.delete-maincategory-data' , function(e1){ 
+    $('html').on('click', 'a.delete-profile-data' , function(e1){ 
       e1.preventDefault(); 
-      component1.openDeleteCustomerModal($(this).attr('data-id'));  
+      component1.openDeleteProfileModal($(this).attr('data-id'));  
       
     })
-    
 
+
+    
     $('html').on('click', 'a.view-client-data' , function(e1){ 
       e1.preventDefault(); 
       component1.viewClent($(this).attr('data-id'), $(this).attr('data-provider-id'));  
       
     })
-
+     
     
     const component = this;
 
-    $('html').on('click', 'a.edit-maincategory-data' , function(e){ 
+    $('html').on('click', 'a.edit-profile-data' , function(e){ 
       e.preventDefault();
-      component.editCategoryPage($(this).attr('data-id'));
+      component1.editClent($(this).attr('data-id'), $(this).attr('data-provider-id'));
       
     });
   }
 
 
-  viewClent(id, provider_id){
-    this.router.navigate(['admin/users/user/'+id+'/'+provider_id]);
-    //window.open('admin/users/user/'+id+'/'+provider_id, '_blank');
+  tableOptions(){ 
+
+    this.dtOptions = { 
+        pagingType: 'full_numbers',
+        pageLength: 10,
+        serverSide: true,
+        processing: true,
+        autoWidth: false,  
+        ajax: this.clients.getClientDetailsDT(this.profileType), 
+        
+        columns: [ 
+          { data: 'client_id' }
+        ],
+        columnDefs: [
+        {
+          targets: 1,
+          data: function( row ){    
+
+            if((row.first_name+" "+ row.last_name) ==  row.display_name ){
+              return  '<a class="view-client-data" data-id="' + row.client_id + '" data-provider-id="' + row.provider_id + '/about" title="View">-</i></a> ';
+            }else{
+              return  '<a class="view-client-data" data-id="' + row.client_id + '" data-provider-id="' + row.provider_id + '/about" title="View">' +   row.display_name  + '</i></a> ';
+            }
+           
+          },
+          
+        },
+        {
+          targets: 2,
+          data: function( row ){    
+            return row.email 
+          },
+          
+        },
+        {
+          targets: 3,
+          data: function (row) { 
+            return row.provider;
+          },
+          
+        },
+        {
+          targets: 4,
+          data: function( row ){    
+            return row.first_name+" "+ row.last_name
+          },
+          
+        },{
+          targets: 5,
+          data: function( row ){  
+            
+            let featured = ""
+            
+            if(row.company_status == 0){
+              return '<span class="badge badge-danger">Inactive</span>';
+
+            }else if(row.company_status == 1){ 
+
+              if(row.featured == 1){
+                featured = '<span class="badge badge-warning">F</span>';
+              }
+
+              return '<span class="badge badge-success">Active</span> '+featured;
+
+            }else if(row.company_status == 2){
+              return '<span class="badge badge-success">Active - A</span>';
+
+            }
+          
+          },
+          
+        },{
+          targets: 6,
+          data: function( row ){   
+
+            if(row.first_name == "Admin"){
+                return '<a class="edit-profile-data" data-id="'+row.client_id+'" data-provider-id="'+row.provider_id+'"  title="Edit"><i class="icon-pencil"></i></a> '+
+                '<a class="delete-profile-data" data-id="'+row.client_id+'" title="Edit"><i class="icon-bin"></i></a>'
+                
+            }else{
+              return '<a class="edit-profile-data" data-provider-id="'+row.provider_id+'" data-id="'+row.client_id+'" title="Edit"><i class="icon-pencil"></i></a> ';
+            }  
+          }, 
+        }],
+        dom: 'lfrtip', 
+        buttons: [ 
+            {
+                  extend:    'copyHtml5',
+                  text:      '<i class="fa fa-files-o"></i> Copy',
+                  titleAttr: 'Copy'
+              },
+              {
+                  extend:    'excelHtml5',
+                  text:      '<i class="fa fa-file-excel-o"></i> Excel',
+                  titleAttr: 'Export to Excel'
+              },
+              {
+                  extend:    'csvHtml5',
+                  text:      '<i class="fa fa-file-text-o"></i> CSV',
+                  titleAttr: 'Export to CSV'
+              },
+              {
+                  extend:    'pdfHtml5',
+                  text:      '<i class="fa fa-file-pdf-o"></i> PDF',
+                  titleAttr: 'Export to PDF'
+              }
+        ],
+
+    };
   }
 
-  ngAfterViewInit(): void {
+
+  viewClent(id, provider_id){
+    this.router.navigate(['admin/users/user/'+id+'/'+provider_id]); 
+  }
+
+  
+  editClent(id, provider_id){
+
+     let param = { client_id: id, provider_id: provider_id}
+     
+     this.clients.getProfileToken(param)
+         .subscribe((response: any) => {
+
+        if (response.status == 200) { 
+
+          let tokenUser = { 
+            auth_token: response.data[0].auth_token,
+            email: response.data[0].email,
+            provider_id: response.data[0].provider_id,
+            session_id: response.data[0].client_id 
+          }
+ 
+          localStorage.removeItem("tokenUser");
+          localStorage.setItem("tokenUser",  JSON.stringify(tokenUser));
+          this.router.navigate(['admin/users/create-profile/steps/account-info']); 
+
+         }else{
+             console.log(response)
+         }
+            
+     }); 
+
+    
+    
+  }
+
+  ngAfterViewInit(): void { 
     this.dtTrigger.next();
   }
 
@@ -155,49 +230,33 @@ export class UsersComponent implements OnInit {
   }
 
   rerender(){
+    
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         // Destroy the table first
+        this.tableOptions(); 
         dtInstance.destroy();
-        // Call the dtTrigger to rerender again
+        // Call the dtTrigger to rerender again  
         this.dtTrigger.next();
       });
   }
 
   editCategoryPage(pageId){
-		//this.router.navigate(['admin/categories/main-categories/'+pageId]); 
-  } 
-
- 
+	 
+  }  
 
   returnBack(): void{
-		//this.router.navigate(['admin/categories/main-categories']);
+		 
 	}
 
-  getSelectedMainCategory(): void{
-    // let param = { cat_id: this.param.params.id}
-     
-    //  this.categories.getSelectedMainCategory(param)
-    //      .subscribe((response: any) => {
-
-    //     if (response.status == 200) { 
-         
-    //       this.category = response.data[0];
-    //       this.formGroup.setValue({cat_name: this.category.cat_name});
-    //       //this.getSelectedParentCategory = parseInt(response.data[0].parent_cat_id); 
-
-    //      }else{
-    //          console.log(response)
-    //      }
-            
-    //  }); 
+  getSelectedMainCategory(): void{ 
 
    }
 
-  openDeleteCustomerModal(cat_id){ 
+  openDeleteProfileModal(client_id){ 
     const component = this;
     let dialog = bootbox.confirm({
-      title: "Delete Category",
-      message: "Are you sure you need to delete this?",
+      title: "Delete Profile",
+      message: "Are you sure you need to delete this profile?",
       buttons: {
         confirm: {
           label: 'Yes',  
@@ -211,7 +270,7 @@ export class UsersComponent implements OnInit {
       callback: function (result) {
         
         if(result){
-          component.deleteMainCategory(cat_id);
+          component.deleteProfile(client_id);
         }  
       } 
     });
@@ -227,22 +286,31 @@ export class UsersComponent implements OnInit {
     
   }
 
-  deleteMainCategory(cat_id){
+
+  onChange(event){ 
+    this.profileType = event.value;  
+    this.tableOptions();
+    this.cdr.detectChanges();
+    this.rerender();
+
+  }
+
+  deleteProfile(client_id){
  
-    // this.formGroup.value.cat_id = cat_id;
+    let param = { client_id: client_id}
     
-    // this.categories.deleteMainCategory(this.formGroup.value)
-    //   .subscribe((response: any) => {
+    this.myaccount.deleteProfile(param)
+      .subscribe((response: any) => {
 
-    //     if (response.status == 200) {
-    //       this.toastr.success('Category has been deleted successfully', 'Success !');  
-    //       $('#refresh-btn').trigger('click'); 
+        if (response.status == 200) {
+          this.toastr.success('Profile has been deleted successfully', 'Success !');  
+          $('#refresh-btn').trigger('click'); 
 
-    //     }else{
-    //         this.toastr.error('Category deleting failed. Please try again', 'Error !'); 
-    //     }
+        }else{
+            this.toastr.error('Profile deleting failed. Please try again', 'Error !'); 
+        }
           
-    //   });
+      });
 	   
 	}
 

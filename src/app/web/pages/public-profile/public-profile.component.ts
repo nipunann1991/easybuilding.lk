@@ -95,8 +95,7 @@ export class PublicProfileComponent implements OnInit {
     if(this.route.params !== null){
       
       this.route.params.subscribe( (routeParams) =>  {  
-        window.scroll(0,0); 
-        console.log(routeParams)
+        window.scroll(0,0);  
         this.getProfileDetails(routeParams);   
       });
 
@@ -118,7 +117,7 @@ export class PublicProfileComponent implements OnInit {
   }
  
   getProfileDetails(routeParams){ 
-      console.log(routeParams)
+      
     let params = {client_id: routeParams.user, provider_id: routeParams.provider_id }
 
     this.myaccount.getCustomProfileDetails(params) 
@@ -175,8 +174,9 @@ export class PublicProfileComponent implements OnInit {
 
     
     this.getServics( this.profileData.company_id); 
-       
-    if(this.profileData.steps < 4){
+       console.log(this.profileData);
+
+    if(this.profileData.steps < 4 && this.profileData.company_profile !== '0' ){
       this.profileCompleted = false;
       this.router.navigate(['/steps/account-info'], { relativeTo: this.route.parent });
     }else{

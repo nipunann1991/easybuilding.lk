@@ -26,8 +26,7 @@ export class StepsComponent implements OnInit {
         if(val instanceof NavigationEnd){
           let url = val.url; 
           let lastUrl = url.substr(url.lastIndexOf('/') + 1)
-          this.activeUrl(lastUrl);
-          console.log(lastUrl)
+          this.activeUrl(lastUrl); 
         } 
     });
   }

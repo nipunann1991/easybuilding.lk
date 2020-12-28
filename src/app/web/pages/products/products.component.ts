@@ -149,19 +149,20 @@ export class ProductsComponent implements OnInit {
   }
 
   getGridView(){ 
-    let storageData = JSON.parse(localStorage.getItem('token')); 
+    let storageData = JSON.parse(localStorage.getItem('isGridView')); 
 
-    if(typeof storageData.isGridView !== 'undefined' ){
-      this.isGridView = storageData.isGridView;
+   console.log(storageData)
+
+    if(typeof storageData !== 'undefined' ){
+      this.isGridView = storageData;
     }
      
   }
 
   setGridView(){ 
-    let storageData = JSON.parse(localStorage.getItem('token')); 
-    storageData.isGridView = this.isGridView; 
-    localStorage.setItem('token', JSON.stringify(storageData) );   
-
+    let storageData = JSON.parse(localStorage.getItem('token'));  
+    localStorage.setItem('isGridView', JSON.stringify(this.isGridView) ); 
+     
   }
 
   

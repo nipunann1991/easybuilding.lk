@@ -6,9 +6,7 @@ import { UsersComponent } from './users.component';
 const routes: Routes = [
   { path: '', component: UsersComponent },
   { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
-  // { path: 'user', loadChildren: () => import('../../../web/pages/public-profile/public-profile.module').then(m => m.PublicProfileModule) },
-  
-
+  { path: 'create-profile', loadChildren: () => import('./create-profile/create-profile.module').then(m => m.CreateProfileModule) }, 
 ];
 
 @NgModule({

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router,ActivatedRoute,  NavigationEnd } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -16,6 +16,7 @@ export class AccountInfoComponent implements OnInit {
   profile: any = {}
   isEmailDisabled: boolean = true;
   isStepsForm: boolean = false;
+  isAdmin: boolean = false;
   isCompanyProfile: boolean = false;
   formGroup: FormGroup;
   personalFormGroup: FormGroup;
@@ -39,7 +40,8 @@ export class AccountInfoComponent implements OnInit {
     private pf: ProfileService,
     private toastr: ToastrService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -88,22 +90,34 @@ export class AccountInfoComponent implements OnInit {
 
     });
 
-      if(this.router.url.includes("steps")){
-        this.isStepsForm = true;
-      }
-     
+    if(this.router.url.includes("steps")){
+      this.isStepsForm = true; 
+    } 
 
-    this.getAccountDetails()
+    if(this.router.url.includes("admin")){
+      this.isAdmin = true; 
+    } 
+    
+
+    this.getAccountDetails();
+    
+     
+  
   }
 
-  getAccountDetails(){
-
+  getAccountDetails(){ 
+    
     this.myaccount.getAccountDetails() 
       .subscribe((response: any) => {
         if (response.status == 200) {
-           
+            
           this.profile = response.data[0];  
+
           this.profileTypeSelectedVal = this.profile.company_profile
+          this.clientId = this.profile.client_id
+          this.companyId = this.profile.company_id;
+          this.profileType = this.profile.company_profile;  
+
           
           if(this.profileTypeSelectedVal == 0){
 
@@ -128,18 +142,21 @@ export class AccountInfoComponent implements OnInit {
                 website: this.profile.website
                 
             });
-
-           
-
+ 
           } 
          
 
-          this.clientId = this.profile.client_id
-          this.companyId = this.profile.company_id;
-          this.profileType = this.profile.company_profile; 
+          if(this.isAdmin){
+            this.profileType = -1;
+          }
+          
   
-        }else{
-            
+        }else if (response.status == 401) {
+
+          // if(this.isAdmin){
+          //   this.profileType = -1;
+          // }
+         
         }
           
       });

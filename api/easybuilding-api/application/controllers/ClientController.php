@@ -30,12 +30,24 @@ class ClientController extends CommonController {
 
 	     	$search_by_feilds = $this->searchFromColsDT($search_columns, $dt['search_val']); 
 			$selectedOrd = 'desc'; 
-			$orderedCol = $dt['get_column_name'];		
+			$orderedCol = $dt['get_column_name'];	
+
+			$profile_type = $this->input->get('profile_type');
+			$profile_type_val= "";
+
+			if ($profile_type != -1 && $profile_type != 2 ) {
+				$profile_type_val= "AND cc.company_profile='".$this->input->get('profile_type')."'";
+			}
+ 
+			if ($profile_type == 2 ) {
+				$profile_type_val= "AND c.first_name='Admin'";
+			}
+ 
 
 			$search1 = array(
-				'columns' => 'c.*, cc.display_name' ,   
+				'columns' => 'c.*, cc.display_name, cc.featured, cc.status AS company_status' ,   
 				'table' => 'clients c, client_company cc',
-				'data' => "cc.client_id=c.client_id AND (".$search_by_feilds.')  order by c.'. $orderedCol .' '.$selectedOrd.' LIMIT '.$dt['start'].','.$dt['length'].'  ',
+				'data' => "cc.client_id=c.client_id ".$profile_type_val." AND (".$search_by_feilds.')  order by c.'. $orderedCol .' '.$selectedOrd.' LIMIT '.$dt['start'].','.$dt['length'].'  ',
 				'eq_table_col' => ''
 			);  
 		
@@ -158,6 +170,25 @@ class ClientController extends CommonController {
 
 	public function deleteCustomer(){   
 		return $this->deleteData__('customers','customer_id="'.$this->input->post('customer_id').'"');  
+	}
+
+
+	public function getProfileToken(){   
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+			$search_index = array(
+				'columns' => 'c.*, us.auth_token' ,   
+				'table' => 'user_sessions us, clients c',
+				'eq_table_col' => '1',
+				'data' => 'c.client_id= "'.$this->input->post('client_id').'" AND c.provider_id= "'.$this->input->post('provider_id').'" AND c.client_id = us.client_id', 
+			);
+
+			return $this->selectCustomData__($search_index);
+
+		}else{
+			return $this->invalidSession(); 
+		}
+		
 	}
 
  

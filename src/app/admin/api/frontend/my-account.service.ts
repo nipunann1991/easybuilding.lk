@@ -8,6 +8,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 export class MyAccountService {
 
   token: any = JSON.parse(localStorage.getItem('token'));
+  tokenUser: any = JSON.parse(localStorage.getItem('tokenUser'));
 
   constructor(private http: HttpClient) { }
 
@@ -17,41 +18,78 @@ export class MyAccountService {
  
  
   getCustomProfileDetails(params){  
-    if( this.token == null){
-      this.token = JSON.parse(localStorage.getItem('tokenAdmin'));
-    }
+    // if( this.token == null){
+    //   this.token = JSON.parse(localStorage.getItem('tokenAdmin'));
+    // }
     return this.http.get(environment.baseUrl+'ProfileController/getCustomProfileDetails?client_id='+params.client_id+'&provider_id='+params.provider_id);
   }
 
   getAccountDetails(){  
-     
-    return this.http.get(environment.baseUrl+'ProfileController/getAccountDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+    
+    if(this.token !== null){
+      console.log('getAccountDetails', this.token )
+      return this.http.get(environment.baseUrl+'ProfileController/getAccountDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+    }else{ 
+      this.tokenUser = JSON.parse(localStorage.getItem('tokenUser'));
+      return this.http.get(environment.baseUrl+'ProfileController/getAccountDetails?auth_token='+this.tokenUser.auth_token+'&session_id='+this.tokenUser.session_id);
+    }
+    
   }
  
   getServiceDetails(){   
-    return this.http.get(environment.baseUrl+'ProfileController/getServiceDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+
+    if(this.token !== null){
+      return this.http.get(environment.baseUrl+'ProfileController/getServiceDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+    }else{
+      return this.http.get(environment.baseUrl+'ProfileController/getServiceDetails?auth_token='+this.tokenUser.auth_token+'&session_id='+this.tokenUser.session_id);
+    }
+   
   }
  
 
   getCities(){   
-    return this.http.get(environment.baseUrl+'ProfileController/getCities?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+
+    if(this.token !== null){
+      return this.http.get(environment.baseUrl+'ProfileController/getCities?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+    }else{
+      return this.http.get(environment.baseUrl+'ProfileController/getCities?auth_token='+this.tokenUser.auth_token+'&session_id='+this.tokenUser.session_id);
+    }
+    
   }
 
 
   getDistricts(){   
-    return this.http.get(environment.baseUrl+'ProfileController/getDistricts?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+
+    if(this.token !== null){
+      return this.http.get(environment.baseUrl+'ProfileController/getDistricts?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+    }else{
+      return this.http.get(environment.baseUrl+'ProfileController/getDistricts?auth_token='+this.tokenUser.auth_token+'&session_id='+this.tokenUser.session_id);
+    }
+   
   } 
 
   getAllCategoriesData(){   
     return this.http.get(environment.baseUrl+'ProfileController/getAllCategoriesData?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
   } 
 
-  getServiceCategories(){   
-    return this.http.get(environment.baseUrl+'ProfileController/getServiceCategories?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+  getServiceCategories(){ 
+    
+    if(this.token !== null){
+      return this.http.get(environment.baseUrl+'ProfileController/getServiceCategories?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+    }else{
+      return this.http.get(environment.baseUrl+'ProfileController/getServiceCategories?auth_token='+this.tokenUser.auth_token+'&session_id='+this.tokenUser.session_id);
+    }
+    
   }
 
   getProductCategories(){   
-    return this.http.get(environment.baseUrl+'ProfileController/getProductCategories?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+
+    if(this.token !== null){
+      return this.http.get(environment.baseUrl+'ProfileController/getProductCategories?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+    }else{
+      return this.http.get(environment.baseUrl+'ProfileController/getProductCategories?auth_token='+this.tokenUser.auth_token+'&session_id='+this.tokenUser.session_id);
+    }
+   
   }
   
   getServiceCitiesByCompany(postVals){   
@@ -134,8 +172,14 @@ export class MyAccountService {
   }
   
   getContactDetails(){  
+
+    if(this.token !== null){
+      return this.http.get(environment.baseUrl+'ProfileController/getContactDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+    }else{
+      return this.http.get(environment.baseUrl+'ProfileController/getContactDetails?auth_token='+this.tokenUser.auth_token+'&session_id='+this.tokenUser.session_id);
+    }
      
-    return this.http.get(environment.baseUrl+'ProfileController/getContactDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+    
   }
   
   updateProfileDetails(postVals){ 
@@ -144,7 +188,12 @@ export class MyAccountService {
       fromObject : postVals
     }); 
     
-    return this.http.post(environment.baseUrl+'ProfileController/updateProfileDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+    if(this.token !== null){
+      return this.http.post(environment.baseUrl+'ProfileController/updateProfileDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+    }else{
+      return this.http.post(environment.baseUrl+'ProfileController/updateProfileDetails?auth_token='+this.tokenUser.auth_token+'&session_id='+this.tokenUser.session_id, params);
+    }
+
   }
 
   updateProfileWithServiceArea(postVals){ 
@@ -152,8 +201,13 @@ export class MyAccountService {
     const params = new HttpParams({
       fromObject : postVals
     }); 
-    
-    return this.http.post(environment.baseUrl+'ProfileController/updateProfileWithServiceArea?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+
+    if(this.token !== null){
+      return this.http.post(environment.baseUrl+'ProfileController/updateProfileWithServiceArea?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+    }else{
+      return this.http.post(environment.baseUrl+'ProfileController/updateProfileWithServiceArea?auth_token='+this.tokenUser.auth_token+'&session_id='+this.tokenUser.session_id, params);
+    }
+     
   }
 
   
@@ -285,6 +339,16 @@ export class MyAccountService {
     headers.append('Content-Type', 'undefined');
 
     return this.http.post(environment.baseUrl+'ProfileController/uploadProductImages?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, formData , { headers: headers });
+  }
+
+
+  deleteProfile(postVals){ 
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ProfileController/deleteProfile?auth_token='+this.tokenUser.auth_token+'&session_id='+this.tokenUser.session_id, params);
   }
 
 

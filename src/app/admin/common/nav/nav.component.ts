@@ -41,19 +41,12 @@ export class NavComponent implements OnInit {
 				permission: 0,
 			},
 			{
-				title: 'Users',
-				icon: 'icon-users',
-				link: '/admin/users',
-				permission: 0,
-
-			}, 
-			{
 				title: 'Profiles',
 				icon: 'icon-users',
-				link: '/admin/profiles',
+				link: '/admin/users', 
 				permission: 0,
 
-			}, 
+			},  
 			{
 				title: 'Cities',
 				icon: 'icon-location',
