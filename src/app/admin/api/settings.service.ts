@@ -80,5 +80,36 @@ export class SettingsService {
     
     return this.http.post(environment.baseUrl+'SettingsController/deleteUser?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   }
+
+  uploadSliderImage(formData){
+     
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'undefined');
+
+    return this.http.post(environment.baseUrl+'SettingsController/uploadSliderImage?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, formData , { headers: headers });
+  }
+
+  addSliderDetails(postVals){
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'SettingsController/addSliderDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  }
+
+  editSliderDetails(postVals){
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'SettingsController/editSliderDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  } 
+
+  getSlides(){ 
+    return this.http.get(environment.baseUrl+'SettingsController/getSlides?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+
+  }
   
 }

@@ -146,9 +146,9 @@ export class AccountInfoComponent implements OnInit {
           } 
          
 
-          if(this.isAdmin){
-            this.profileType = -1;
-          }
+          // if(this.isAdmin){
+          //   this.profileType = -1;
+          // }
           
   
         }else if (response.status == 401) {

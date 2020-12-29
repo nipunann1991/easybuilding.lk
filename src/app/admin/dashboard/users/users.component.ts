@@ -3,8 +3,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs'
 import { RouterModule, ActivatedRoute, Routes, Router, NavigationEnd} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ClientsService } from '../../api/clients.service'; 
-import { MyAccountService } from '../../api/frontend/my-account.service'; 
+import { ClientsService } from '../../api/clients.service';  
 import * as $ from 'jquery';
 declare const bootbox:any;
 
@@ -32,7 +31,6 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private clients: ClientsService,
-    private myaccount: MyAccountService,
     private router: Router,
     private toastr: ToastrService,
     private route: ActivatedRoute,
@@ -47,29 +45,14 @@ export class UsersComponent implements OnInit {
     this.tableOptions();
 
     const component1 = this;
-
-    $('html').on('click', 'a.delete-profile-data' , function(e1){ 
-      e1.preventDefault(); 
-      component1.openDeleteProfileModal($(this).attr('data-id'));  
-      
-    })
-
-
+  
     
     $('html').on('click', 'a.view-client-data' , function(e1){ 
       e1.preventDefault(); 
       component1.viewClent($(this).attr('data-id'), $(this).attr('data-provider-id'));  
       
     })
-     
-    
-    const component = this;
-
-    $('html').on('click', 'a.edit-profile-data' , function(e){ 
-      e.preventDefault();
-      component1.editClent($(this).attr('data-id'), $(this).attr('data-provider-id'));
       
-    });
   }
 
 
@@ -149,11 +132,9 @@ export class UsersComponent implements OnInit {
           data: function( row ){   
 
             if(row.first_name == "Admin"){
-                return '<a class="edit-profile-data" data-id="'+row.client_id+'" data-provider-id="'+row.provider_id+'"  title="Edit"><i class="icon-pencil"></i></a> '+
-                '<a class="delete-profile-data" data-id="'+row.client_id+'" title="Edit"><i class="icon-bin"></i></a>'
-                
+                return '<a class="view-client-data" data-id="' + row.client_id + '" data-provider-id="' + row.provider_id + '/about" title="View"><i class="icon-view"></i> View</a> ';
             }else{
-              return '<a class="edit-profile-data" data-provider-id="'+row.provider_id+'" data-id="'+row.client_id+'" title="Edit"><i class="icon-pencil"></i></a> ';
+              return '<a class="view-client-data" data-id="' + row.client_id + '" data-provider-id="' + row.provider_id + '/about" title="View"><i class="icon-view"></i> View</a> ';
             }  
           }, 
         }],
@@ -214,9 +195,7 @@ export class UsersComponent implements OnInit {
              console.log(response)
          }
             
-     }); 
-
-    
+     });  
     
   }
 
@@ -252,41 +231,7 @@ export class UsersComponent implements OnInit {
 
    }
 
-  openDeleteProfileModal(client_id){ 
-    const component = this;
-    let dialog = bootbox.confirm({
-      title: "Delete Profile",
-      message: "Are you sure you need to delete this profile?",
-      buttons: {
-        confirm: {
-          label: 'Yes',  
-          className: 'btn-danger pull-left'
-        },
-        cancel: {
-          label: 'No', 
-          className: 'pull-right '
-        }
-      },
-      callback: function (result) {
-        
-        if(result){
-          component.deleteProfile(client_id);
-        }  
-      } 
-    });
-
-    dialog.init(function(){
-      $('html .modal-backdrop:not(:first)').remove();
-    })
-
-    dialog.on("shown.bs.modal", function() {  
-      $('html .bootbox.modal:not(:first)').remove(); 
-    });
- 
-    
-  }
-
-
+  
   onChange(event){ 
     this.profileType = event.value;  
     this.tableOptions();
@@ -295,23 +240,6 @@ export class UsersComponent implements OnInit {
 
   }
 
-  deleteProfile(client_id){
- 
-    let param = { client_id: client_id}
-    
-    this.myaccount.deleteProfile(param)
-      .subscribe((response: any) => {
 
-        if (response.status == 200) {
-          this.toastr.success('Profile has been deleted successfully', 'Success !');  
-          $('#refresh-btn').trigger('click'); 
-
-        }else{
-            this.toastr.error('Profile deleting failed. Please try again', 'Error !'); 
-        }
-          
-      });
-	   
-	}
 
 }

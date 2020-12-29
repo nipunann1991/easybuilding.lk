@@ -134,7 +134,7 @@ class ProfileController extends CommonController {
 	public function isFeaturedProfile(){   
 
 		$search_index = array(
-			'columns' => 'cc.company_id ,cc.featured, cc.status, cc.company_profile' ,   
+			'columns' => 'cc.company_id ,cc.featured, cc.status, cc.company_profile, c.first_name' ,   
 			'table' => 'user_sessions us, clients c, client_company cc',
 			'eq_table_col' => '1',
 			'data' => 'c.client_id = us.client_id AND c.client_id = cc.client_id AND c.provider_id= "'.$this->input->post('provider_id').'" AND c.client_id= "'.$this->input->post('client_id').'"', 

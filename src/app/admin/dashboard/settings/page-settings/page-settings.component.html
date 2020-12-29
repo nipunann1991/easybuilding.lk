@@ -1,0 +1,72 @@
+ 
+<div class="row">
+    <div class="col-md-8">
+        <div class="white-box-panel"> 
+ 
+            <div class="pane pane-1">
+                <div class="title-area">
+                    <h2>Home Page Slider</h2>
+                    <button mat-button name="button" type="button" class="btn btn-primary create-profile pull-right" (click)="openImgUpload(fileInput)">Add New Slide</button> 
+                    <input type="file" class="d-none" (change)="fileChangeEvent($event)" #fileInput />
+                </div> 
+                <div class="slider-body"> 
+
+                    <mat-accordion>
+                        <mat-expansion-panel hideToggle *ngFor="let sl of slideList; let i = index" [expanded]="slideList.length == (i + 1)">
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>Slider #{{ i + 1 }}</mat-panel-title> 
+                          </mat-expansion-panel-header>
+                          <div class="slider-item">
+                                <div class="slider-img" [ngStyle]="{'background-image': 'url('+ bgImagePath + sl.file_name + ')'}"></div> 
+                                <div class="slider-content">
+                                    <div class="form-group"> 
+                                        <input type="text" class="form-control" [(ngModel)]="sl.title" placeholder="Title"> 
+                                    </div>
+                                    <div class="form-group"> 
+                                        <textarea class="form-control" [(ngModel)]="sl.description" cols="30" rows="4"></textarea>
+                                    </div>  
+                                    <div class="form-group"> 
+                                        <button mat-button name="button" type="button" class="btn btn-primary btn-primary-transparent save-btn" (click)="getSlideData(i)">Save</button> 
+                                    </div>   
+                                </div> 
+                            </div>
+                        </mat-expansion-panel> 
+                    </mat-accordion>
+
+                    
+                    
+                    <!-- <i>No slides available.</i> -->
+                </div>
+            </div>
+ 
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="white-box-panel"> 
+            <p>page-settings works!</p>
+        </div>
+    </div>
+</div>  
+ 
+<modal #uploadCover> 
+    <modal-header> 
+        <h2>Upload {{modalTitle}} Image</h2>
+    </modal-header>
+    <modal-content> 
+        <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="aspectRatio.x / aspectRatio.y"
+            format="jpg"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()" 
+            (loadImageFailed)="loadImageFailed()"
+        ></image-cropper>
+        <!-- (cropperReady)="cropperReady()" -->
+    </modal-content>
+    <modal-footer> 
+        <button class="btn btn-primary" mat-button (click)="onSave()">Set Image</button> 
+        <button class="btn btn-primary-transparent close-btn" mat-button (click)="closeModal()">Close</button>
+    </modal-footer>
+</modal>

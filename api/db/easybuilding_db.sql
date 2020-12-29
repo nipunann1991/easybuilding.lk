@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2020 at 07:45 PM
+-- Generation Time: Dec 29, 2020 at 09:16 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -512,7 +512,9 @@ INSERT INTO `cites` (`city_id`, `district_id`, `city`) VALUES
 (1274, 8, 'Angoda'),
 (1275, 8, 'Kotikawatta'),
 (1276, 20, 'Tangalle'),
-(1277, 23, 'Thalawakale');
+(1277, 23, 'Thalawakale'),
+(1279, 10, 'Ragama'),
+(1280, 8, 'Mulleriyawa');
 
 -- --------------------------------------------------------
 
@@ -551,8 +553,10 @@ INSERT INTO `clients` (`client_id`, `first_name`, `last_name`, `company_name`, `
 (103, 'Mahela', 'Jayawardena', '', 'mahela.jay@gmail.com', '', 1, 'E', '1607286784483', 0, 0),
 (100, 'Nirmal', 'Nanayakkara', '', 'nirmalnipunananayakkara11@gmail.com', '1606156249prof.png', 1, 'F', '3184985174847762', 0, 0),
 (120, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1609095873650', 0, 0),
+(128, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1609216849000', 0, 0),
 (126, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1609153074082', 0, 0),
-(127, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1609179629143', 0, 0);
+(127, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1609179629143', 0, 0),
+(132, 'Kasuni', 'Perera', '', 'kasuni.perera@gmail.com', '', 1, 'E', '1609237765046', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -609,7 +613,9 @@ INSERT INTO `client_company` (`company_id`, `client_id`, `display_name`, `descri
 (30, 103, 'MJ', '<p>sfsf</p>', '', 'PV123', 'gdfg@gmail.com', '345 3453', '', 'ewr', '5345 345453', '', '', '', 1, 0, 0, 2, 0, 0, 0, 0x2222, 0x5b2231303734222c2231303731222c2231303732225d, 0x5b5d, 0x5b22434c3231303632222c22434c3231303538225d, 0, 0, 1, 0, 1),
 (68, 127, 'Pest Controllers - Ragama', '', '', '', '', '', '', 'Ragama', '0716345977', '', '', '', 2, 0, 0, 4, 0, 0, 0, 0x2222, 0x5b2231303934225d, 0x5b5d, 0x5b22434c3231303636225d, 0, 0, 1, 0, 1),
 (50, 120, 'Grass Cutters - Athurugiriya', '', '', '', '', '', '', 'Athurugiriya', '0786553219', '', '', '', 2, 0, 0, 4, 0, 0, 0, 0x2222, 0x5b2231303735225d, 0x5b5d, 0x5b22434c3231303537225d, 0, 0, 1, 0, 1),
-(67, 126, 'Gully bowser service', '', '', '', '', '', '', 'Piliyandala', '0715239985', '', '', '', 2, 0, 0, 4, 0, 0, 0, 0x2222, 0x5b5d, 0x5b2238225d, 0x5b22434c3231303639225d, 0, 0, 1, 0, 1);
+(69, 128, 'Grass Cutting Service ', '', '', '', '', '', '', 'Kaluthara', '07785423589', '', '', '', 2, 0, 0, 4, 0, 0, 0, 0x2222, 0x5b2231313532225d, 0x5b5d, 0x5b22434c3231303537225d, 0, 0, 1, 0, 1),
+(67, 126, 'Gully bowser service', '', '', '', '', '', '', 'Piliyandala', '0715239985', '', '', '', 2, 0, 0, 4, 0, 0, 0, 0x2222, 0x5b5d, 0x5b2238225d, 0x5b22434c3231303639225d, 0, 0, 1, 0, 1),
+(73, 132, 'San Readymix (Pvt) Ltd', '<p>San Readymix is operating their plant at Seeduwa with a high-capacity computerized Concrete Batching Plant, large fleet of Concrete Delivery Trucks, modern Mobile Concrete Pumps and a Concrete testing facility and it is known for Quality, Strength and Reliability.</p>', 'http://sanreadymix.com', 'PV10025488', 'sanreadymix@sanreadymix.com', 'No 55, Avissawella Road', 'Orugodawatta', 'Colombo 09', '0114962464', '', '', '', 2, 0, 0, 4, 0, 1, 0, 0x5b22434c3231303332225d, 0x5b5d, 0x5b5d, 0x2222, 0, 0, 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -638,7 +644,7 @@ CREATE TABLE `company_details` (
 --
 
 INSERT INTO `company_details` (`company_id`, `company_name`, `company_logo`, `company_desc`, `company_start_date`, `company_address`, `company_tel1`, `company_tel2`, `company_email`, `fb_url`, `twitter_url`, `youtube_url`, `linkedin_url`) VALUES
-(1, 'EasyBuilding.lk', '', '<p>EasyBuilding.lk is the Premier House and Building Construction Web Portal which is designed to cater all your construction requirements! We aim at finding a Reputed, Reliable, and Trustworthy local construction related partners for you just within a click.</p><p>&nbsp;</p><p>Our website forms an ideal platform through which client can connect with our reputed service providers, apply for quotation requests, create your own Bill of Quantities (BOQ), view our best deals and rates for your services, while also standing a chance to grasp some of the useful construction tips provided by us! &nbsp;</p><p>&nbsp;</p>', '05/08/2020', '70, Diyawanna Gardens, \nPalawatta, Battaramulla, \nSri Lanka', '011 2785843', '077 7269108', 'info@easybuilding.lk', 'https://www.facebook.com/ConstructionEasyBuilding/', 'https://twitter.com/EasybuildingLk', 'https://www.youtube.com/channel/UCY5nKYQ-Uiq9Zg2UyGKtvxQ', 'https://www.linkedin.com/company/easybuilding-lk-pvt-ltd/');
+(1, 'EasyBuilding.lk', '', '<p>EasyBuilding.lk is the Premier House and Building Construction Web Portal which is designed to cater all your construction requirements! We aim at finding a Reputed, Reliable, and Trustworthy local construction related partners for you just within a click.</p><p>&nbsp;</p><p>Our website forms an ideal platform through which client can connect with our reputed service providers, apply for quotation requests, create your own Bill of Quantities (BOQ), view our best deals and rates for your services, while also standing a chance to grasp some of the useful construction tips provided by us! &nbsp;</p><p>&nbsp;</p>', '05/08/2020', '70, Diyawanna Gardens, \nPalawatta, Battaramulla, \nSri Lanka', '077 7269108', '', 'info@easybuilding.lk', 'https://www.facebook.com/ConstructionEasyBuilding/', 'https://twitter.com/EasybuildingLk', 'https://www.youtube.com/channel/UCY5nKYQ-Uiq9Zg2UyGKtvxQ', 'https://www.linkedin.com/company/easybuilding-lk-pvt-ltd/');
 
 -- --------------------------------------------------------
 
@@ -680,6 +686,28 @@ INSERT INTO `districts` (`district_id`, `district_name`) VALUES
 (26, 'Ratnapura'),
 (27, 'Trincomalee'),
 (28, 'Vavuniya');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `home_slider`
+--
+
+CREATE TABLE `home_slider` (
+  `id` int(11) NOT NULL,
+  `file_name` varchar(500) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` varchar(1000) NOT NULL,
+  `img_order` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `home_slider`
+--
+
+INSERT INTO `home_slider` (`id`, `file_name`, `title`, `description`, `img_order`) VALUES
+(1, '1609268579blob.jpg', 'CM House', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 0),
+(2, '1609271413blob.jpg', 'Apartments ', 'National', 0);
 
 -- --------------------------------------------------------
 
@@ -915,7 +943,7 @@ INSERT INTO `services_list` (`id`, `cat_lvl2_id`, `company_id`) VALUES
 (300, 'CL21039', 1),
 (299, 'CL21021', 1),
 (248, 'CL21055', 29),
-(333, 'CL21066', 68),
+(336, 'CL21066', 68),
 (330, 'CL21049', 2),
 (240, 'CL21062', 28),
 (247, 'CL21062', 29),
@@ -933,7 +961,9 @@ INSERT INTO `services_list` (`id`, `cat_lvl2_id`, `company_id`) VALUES
 (317, 'CL21062', 66),
 (318, 'CL21069', 64),
 (320, 'CL21069', 67),
-(328, 'CL21014', 2);
+(328, 'CL21014', 2),
+(338, 'CL21057', 69),
+(339, 'CL21032', 73);
 
 -- --------------------------------------------------------
 
@@ -970,7 +1000,8 @@ INSERT INTO `service_areas` (`id`, `city_id`, `company_id`) VALUES
 (173, 1086, 62),
 (174, 7, 66),
 (175, 1086, 64),
-(178, 1094, 68);
+(183, 1152, 69),
+(181, 1094, 68);
 
 -- --------------------------------------------------------
 
@@ -1051,7 +1082,7 @@ INSERT INTO `user_sessions` (`session_id`, `client_id`, `auth_token`, `password`
 (57, 76, '24FLddcRPGKrZC91596897750977', '123456789'),
 (58, 77, 'sKj4LhVUde7wAal1598932425264', '123456789'),
 (48, 67, 'ya29.a0AfH6SMDlR8EQfsWChst7gWqk-x-b4iwAkPXE6WQ4IOxAXUbC1Q7TvUJ4jtmfuYKYKTV7h8T3W3jtb5bAysLjBiBH93cWFArWqzJ8GXDvd86foQXl62AYMmkhPyS1HOXSpyRrd02DTcIa_NnGza2YE5F4oPtcGDwanNbV927Sk_Rw9w', ''),
-(47, 66, 'EAAlrbREIkZCkBADELD1XSTu7y8CS3uMzcOG1kxlyJZCZCdG2Yi9nSToK2mWM5v5Ez7Igp1wv1WuzFcJHUKtQUxM00kuD9I8t4DZBaU5JXaqe2A1HqDpkJFCUqzeaGMFxKTwYfIhVkXCEpUqXmKC5nRR93e2foqMQcfZB49fLGVmPZAeOJzr7ov22cVHa5edd9lQrkHCpQJQAZDZD', ''),
+(47, 66, 'EAAlrbREIkZCkBAFgk0taUx6t0FInSB8IvqZB8EtHS1atkWltq8ktIVPidLjKILlZCjHG53ZBmWoh4VOCJY6bHTBlbQExx1RGT4FZCyQ7xXZB7CdLpeDhhM70nlZBQWvdYWLpFskMtQZBzqjxicbpXQBVpAdda4Gt9vIU2henxvvp4y5T6AZAqC4CesFYQJlEQZCoH22vJNC9gFMQZDZD', ''),
 (46, 65, 'EAAlrbREIkZCkBAOHVjjUZCBewHTfKUnqDc56JFkG7bKHsi9GQhxZCrm9tUY4ZBYg76zZB2xZC99j22HoU0AGkPOJuW0IxZAVd4hI96l4oQtG4saG6STgGKiCZCtvhPO5kGsMZAJYkdwpnpeQqFThhDFZCiZB5QarXXswuA4tXLyTdYQ1G01EAv25mS0ZA1eYTSJu6P8m7N8l9zuypCpY4T2roZBs3', ''),
 (59, 78, 'EAAlrbREIkZCkBAJNtFOvVAP1VGqwak3lphgAFWDScZBUbi1GbHwZCKDXyKxtjbxcDPeWoxqYquRGRd4Rvct7ejOpNsatyJRrPC9JZBEO0ooIjk9xljLvprIuQtwDE5EsU2sZAX52EmqS6fvQ5JIobqx6OILdkTe8nM53TrbXOmFPzNWe5x8POYA0V7onsTag3XDd55rE0bbGQ7IZBo7Ijr', ''),
 (60, 79, 'EAAlrbREIkZCkBALAXr92TgW2ZCdE4sudVz8RYEeLEuokzRQndiYz1qTRG5XOlVqmNi9oF4brljOEuAqPd8ulbHY36OAZBZBkrEePJb3ULvxjjIelnVq7UPjYkUZAZBztB37QNC2CyxuhmDTKhpHNK0UaKeXTIbGGc31z1OZAk1ZCt6Hiw7VCgUoJTdJmhWRHsPaJMLWuutiPm78lP4j9bm9z', ''),
@@ -1059,7 +1090,7 @@ INSERT INTO `user_sessions` (`session_id`, `client_id`, `auth_token`, `password`
 (62, 81, '12JeUFGFfk6a8RG1605355126371', '12345678'),
 (63, 82, 'fMpBshqWlwPeeeJ1605380324080', '12345678'),
 (64, 83, 'tqHhqcJy5wccBCv1605383015806', '12345678'),
-(65, 84, 'lJ2C1RTz9ZbQ4Ma1608405544659', '123456789'),
+(65, 84, 'fb9vjzOCbd9S4Ld1609181726979', '123456789'),
 (66, 85, 'NAvegHm9qKP8TTd1605501791505', '12345678'),
 (69, 88, 'xLNtreZWSlGqxVX1605859065550', ''),
 (80, 99, 'b0xHOrqQyTKjbvS1606156209733', '12345678'),
@@ -1086,7 +1117,12 @@ INSERT INTO `user_sessions` (`session_id`, `client_id`, `auth_token`, `password`
 (101, 124, '4QgbiYmzZVRHPfF1609132872509', ''),
 (102, 125, 'nqQCd3tzjgvBWFr1609133010533', ''),
 (103, 126, 'HM27FA5FsmwJ0231609153073902', ''),
-(104, 127, '4KOPaQtPjP1OVzG1609179628178', '');
+(104, 127, '4KOPaQtPjP1OVzG1609179628178', ''),
+(105, 128, 'zAOlY46j7v8XEvE1609216848148', ''),
+(106, 129, 'C2K1RD4EDkmu0Tg1609217366663', ''),
+(107, 130, 'CSYQ8UXcbUkOvYz1609226463610', ''),
+(108, 131, 'jChb9Gxe8JFSpGA1609228507393', ''),
+(109, 132, 'BgTLybHTuPIrhyV1609238404189', '12345678');
 
 --
 -- Indexes for dumped tables
@@ -1139,6 +1175,12 @@ ALTER TABLE `company_details`
 --
 ALTER TABLE `districts`
   ADD PRIMARY KEY (`district_id`);
+
+--
+-- Indexes for table `home_slider`
+--
+ALTER TABLE `home_slider`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `products`
@@ -1238,19 +1280,19 @@ ALTER TABLE `categories-level2`
 -- AUTO_INCREMENT for table `cites`
 --
 ALTER TABLE `cites`
-  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1279;
+  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1281;
 
 --
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
 
 --
 -- AUTO_INCREMENT for table `client_company`
 --
 ALTER TABLE `client_company`
-  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `company_details`
@@ -1263,6 +1305,12 @@ ALTER TABLE `company_details`
 --
 ALTER TABLE `districts`
   MODIFY `district_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT for table `home_slider`
+--
+ALTER TABLE `home_slider`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -1304,13 +1352,13 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `services_list`
 --
 ALTER TABLE `services_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=334;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=340;
 
 --
 -- AUTO_INCREMENT for table `service_areas`
 --
 ALTER TABLE `service_areas`
-  MODIFY `id` double NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
+  MODIFY `id` double NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=184;
 
 --
 -- AUTO_INCREMENT for table `service_districts`
@@ -1328,7 +1376,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_sessions`
 --
 ALTER TABLE `user_sessions`
-  MODIFY `session_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `session_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -55,6 +55,39 @@ body{
 			}
 		}
 
+		.mat-tab-header{
+			margin-bottom: 0.2rem;
+			border: 0;
+
+			.mat-tab-link{
+				font-family: $normal-font;
+				color: $body-text-color;
+				opacity: 1;
+				height: 4rem;
+				border-radius: 5px;
+				background-color: #e6e5e5;
+    			margin-left: 2px;
+
+				&.mat-tab-label-active{ 
+					background-color: rgba(35, 128, 248 , 0.10);
+					color: $base-bg-color;
+				}
+			}
+		}
+
+		.mat-expansion-panel-header-title, .mat-expansion-panel-header-description{
+			font-family: $bold-font;
+		}
+
+		.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{
+			display: none;
+		}
+
+		.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+			background-color: $base-bg-color;
+			height: 3px;
+		}
+
 		.table-options{ 
 			margin-bottom: 1.5rem;
 
@@ -107,6 +140,7 @@ body{
 			.image-edit-modal{
 				max-width: 110rem;
 				transform: translate(0, 0%);
+				top: 0;
 
 				.modal-header{
 					padding: 1.5rem;

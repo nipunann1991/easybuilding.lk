@@ -1,84 +1,102 @@
-<div class="white-box-panel">
+
+
   <form id="myform" class="wrapped-block animated fadeIn" [formGroup]="formGroup" (ngSubmit)="onSave()" novalidate="novalidate">
     <div class="row">
-        <div class="col-md-12">
-            <h2>General Information</h2>
-        </div>
-        <div class="col-md-6">  
-            <div class="form-group">
-                <label for="company_name">Company Name</label> 
-                <input id="company_name" name="company_name" formControlName="company_name" type="text" class="form-control">
-            </div>   
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="company_start_date">Company Start Date</label> 
-                <input id="company_start_date" name="company_start_date" formControlName="company_start_date" type="text" class="form-control">
-            </div>  
-        </div> 
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="description">Description</label>
-                <ckeditor [editor]="Editor" data="" formControlName="company_desc"></ckeditor>
-                <!-- <textarea name="description" class="form-control" formControlName="description" cols="30" rows="8"></textarea>  -->
-            </div>  
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="company_address">Company Address</label>
-                <textarea formControlName="company_address" type="text" class="form-control" cols="30" rows="5"></textarea>   
-            </div> 
-        </div>
-        <div class="col-md-6"> 
-              
-        </div>  
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="company_tel1">Contact No 1</label> 
-                <input id="company_tel1" name="company_tel1" formControlName="company_tel1" type="text" class="form-control">
-            </div>  
-        </div>
-        <div class="col-md-6"> 
-            <div class="form-group">
-                <label for="company_tel2">Contact No 2</label> 
-                <input id="company_tel2" name="company_tel2" formControlName="company_tel2" type="text" class="form-control" >
+        <div class="col-md-8">
+            <div class="white-box-panel">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>General Information</h2>
+                    </div>
+                    <div class="col-md-6">  
+                        <div class="form-group">
+                            <label for="company_name">Company Name</label> 
+                            <input id="company_name" name="company_name" formControlName="company_name" type="text" class="form-control">
+                        </div>   
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="company_start_date">Company Start Date</label> 
+                            <input id="company_start_date" name="company_start_date" formControlName="company_start_date" type="text" class="form-control">
+                        </div>  
+                    </div> 
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <ckeditor [editor]="Editor" data="" formControlName="company_desc"></ckeditor>
+                            <!-- <textarea name="description" class="form-control" formControlName="description" cols="30" rows="8"></textarea>  -->
+                        </div>  
+                    </div> 
+                    <div class="col-md-12"></div>
+                    <div class="col-md-12"> 
+                        <div class="form-group">
+                            <label for="fb_url">Facebook URL</label> 
+                            <input id="fb_url" name="fb_url" formControlName="fb_url" type="text" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="col-md-12"> 
+                        <div class="form-group">
+                            <label for="twitter_url">Twitter URL</label> 
+                            <input id="twitter_url" name="twitter_url" formControlName="twitter_url" type="text" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="col-md-12"> 
+                        <div class="form-group">
+                            <label for="youtube_url">Youtube URL</label> 
+                            <input id="youtube_url" name="youtube_url" formControlName="youtube_url" type="text" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="col-md-12"> 
+                        <div class="form-group">
+                            <label for="linkedin_url">LinkedIn URL</label> 
+                            <input id="linkedin_url" name="linkedin_url" formControlName="linkedin_url" type="text" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <button mat-button name="submit" type="submit" class="btn btn-primary">Save</button>
+                        <button mat-button type="button" class="btn btn-default close-btn">Close</button>
+                    </div> 
+                </div> 
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="company_email">Email</label> 
-                <input id="company_email" name="company_email" formControlName="company_email" type="text" class="form-control" >
-            </div> 
-        </div>
-        <div class="col-md-12"></div>
-        <div class="col-md-6"> 
-            <div class="form-group">
-                <label for="fb_url">Facebook URL</label> 
-                <input id="fb_url" name="fb_url" formControlName="fb_url" type="text" class="form-control" >
+        <div class="col-md-4">
+            <div class="white-box-panel">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Contact Information</h2>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="company_address">Company Address</label>
+                            <textarea formControlName="company_address" type="text" class="form-control" cols="30" rows="5"></textarea>   
+                        </div> 
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="company_tel1">Contact No 1</label> 
+                            <input id="company_tel1" name="company_tel1" formControlName="company_tel1" type="text" class="form-control">
+                        </div>  
+                    </div>
+                    <div class="col-md-12"> 
+                        <div class="form-group">
+                            <label for="company_tel2">Contact No 2</label> 
+                            <input id="company_tel2" name="company_tel2" formControlName="company_tel2" type="text" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="company_email">Email</label> 
+                            <input id="company_email" name="company_email" formControlName="company_email" type="text" class="form-control" >
+                        </div> 
+                    </div>
+                    <div class="col-md-12">
+                        <button mat-button name="submit" type="submit" class="btn btn-primary">Save</button>
+                        <button mat-button type="button" class="btn btn-default close-btn">Close</button>
+                    </div> 
+                </div>
             </div>
         </div>
-        <div class="col-md-6"> 
-            <div class="form-group">
-                <label for="twitter_url">Twitter URL</label> 
-                <input id="twitter_url" name="twitter_url" formControlName="twitter_url" type="text" class="form-control" >
-            </div>
-        </div>
-        <div class="col-md-6"> 
-            <div class="form-group">
-                <label for="youtube_url">Youtube URL</label> 
-                <input id="youtube_url" name="youtube_url" formControlName="youtube_url" type="text" class="form-control" >
-            </div>
-        </div>
-        <div class="col-md-6"> 
-            <div class="form-group">
-                <label for="linkedin_url">LinkedIn URL</label> 
-                <input id="linkedin_url" name="linkedin_url" formControlName="linkedin_url" type="text" class="form-control" >
-            </div>
-        </div>
-        <div class="col-md-12">
-            <button mat-button name="submit" type="submit" class="btn btn-primary">Save General Info</button>
-            <button mat-button type="button" class="btn btn-default close-btn">Close</button>
-        </div> 
     </div> 
   </form>
-</div>
+

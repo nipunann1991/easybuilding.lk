@@ -6,6 +6,19 @@
         <div class="pull-right">
           <mat-checkbox #blacklisted_cb class="blacklist" [checked]="isBlacklisted" (change)="setBlacklisted($event)">Blacklisted</mat-checkbox>
           <mat-checkbox *ngIf="!isPersonalProfile" [checked]="isFeatured" [disabled]="isBlacklisted" (change)="setFeatured($event)">Featured Profile</mat-checkbox> 
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="editClent()">
+              <mat-icon><i class="icon-pencil"></i></mat-icon>
+              <span>Edit Profile</span>
+            </button>
+            <button mat-menu-item (click)="openDeleteProfileModal()" [disabled]="!isProfileByAdmin"> 
+              <mat-icon><i class="icon-bin"></i></mat-icon>
+              <span>Delete Profile</span>
+            </button>  
+          </mat-menu>
         </div> 
         <div class="clearfix"></div>
       </div>

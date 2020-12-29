@@ -12,6 +12,9 @@ import {MatSliderModule} from '@angular/material/slider';
 import { MatDialogModule} from '@angular/material/dialog';  
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatExpansionModule} from '@angular/material/expansion';
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 import { HttpClientModule } from '@angular/common/http'; 
 import { DataTablesModule } from 'angular-datatables';
@@ -48,11 +51,14 @@ import { RoundToDecimalPipe } from './pipes/round-to-decimal.pipe';
       NgSelect2Module,
       MatButtonModule, 
       MatSlideToggleModule, 
+      MatExpansionModule,
+      MatTabsModule,
       MatSliderModule,
       MatIconModule,
       DragDropModule, 
       MatCheckboxModule, 
       MatNativeDateModule, 
+      MatMenuModule,
       MatDialogModule, 
       MatFormFieldModule, 
       MatDatepickerModule, 
@@ -77,9 +83,12 @@ import { RoundToDecimalPipe } from './pipes/round-to-decimal.pipe';
       DataTablesModule, 
       NgSelect2Module,
       MatButtonModule, 
+      MatTabsModule,
       MatSlideToggleModule, 
       MatSliderModule,
+      MatMenuModule,
       DragDropModule, 
+      MatExpansionModule,
       MatCheckboxModule, 
       MatNativeDateModule, 
       MatDialogModule, 

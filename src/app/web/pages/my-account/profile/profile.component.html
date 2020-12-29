@@ -85,7 +85,7 @@
                     </div> 
 
                     <button *ngIf="isBgImage && isProfImage && profileData.prof_category == 1" mat-button class="btn btn-primary share-fb" (click)="share()"><i class="icon-facebook"></i> Share</button>
-                    <button mat-button class="btn btn-primary edit-profile" *ngIf="profileData.prof_category != 1">Convert to Pro</button>
+                    <button mat-button class="btn btn-primary edit-profile" *ngIf="profileData.company_profile != 1">Convert to Pro</button>
                 </div>
         
             </div>

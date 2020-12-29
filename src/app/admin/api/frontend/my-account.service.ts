@@ -17,10 +17,7 @@ export class MyAccountService {
   }
  
  
-  getCustomProfileDetails(params){  
-    // if( this.token == null){
-    //   this.token = JSON.parse(localStorage.getItem('tokenAdmin'));
-    // }
+  getCustomProfileDetails(params){   
     return this.http.get(environment.baseUrl+'ProfileController/getCustomProfileDetails?client_id='+params.client_id+'&provider_id='+params.provider_id);
   }
 

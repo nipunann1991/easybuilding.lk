@@ -2,11 +2,13 @@
     <div class="title">
       <h2><button mat-button class="transparent-btn back-btn"  ><i class="icon-left-arrow"></i></button> Categories</h2> 
       <div class="clearfix"></div>
-    </div>
-    <div class="tab-btns"> 
-      <a mat-button routerLink="/admin/categories/main-categories" routerLinkActive="btn-primary-transparent"  class="btn btn-default-transparent"> Main Categories</a>
-      <a mat-button routerLink="/admin/categories/level1-category" routerLinkActive="btn-primary-transparent" class="btn btn-default-transparent">Level 1 Categories</a>  
-      <a mat-button routerLink="/admin/categories/level2-category" routerLinkActive="btn-primary-transparent" class="btn btn-default-transparent">Level 2 Categories</a> 
-    </div>
+    </div> 
+
+    <nav mat-tab-nav-bar>
+      <a mat-tab-link *ngFor="let link of links"
+      (click)="activeLink = link.id"
+      [active]="rla.isActive" [routerLink]="link.url" routerLinkActive #rla="routerLinkActive"> {{link.title}} </a>
+    </nav> 
     <router-outlet></router-outlet> 
+    
 </div>

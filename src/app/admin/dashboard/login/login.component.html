@@ -2,8 +2,8 @@
 	<div class="container inner">
 		
 		<div class="row inner">
-			<div class="col-md-6 ad-area flex-center">
-				<img src="../../../assets/images/login-img.jpg" alt="">
+			<div class="col-md-6 login-img-area flex-center">
+				<img src="../../../../assets/images/login-img.jpg" alt="">
 			</div>
 			
 			<div class="col-md-6 login-form flex-center">
@@ -11,30 +11,23 @@
 				<form class="app-form"  [formGroup]="formGroup" (ngSubmit)="onSubmit()">  
 					<div class="app-form-inner"> 
 
-						<h1>Login to Easybuilding Admin</h1>
+						<h1>Easybuilding Admin</h1>
 						<p *ngIf="noUserAvailable" class="error-names">Invalid Username or Password</p>
 					  	<div class="form-group">
-								<label for="">Email or Username</label>
+							<label for="">Email or Username</label>
 					    	<input placeholder="" formControlName="username" class="form-control" [(ngModel)]="userDetails.username" (ngModelChange)="clearFilter()" name="username" type="text"> 
-					    	 <!-- <bfv-messages></bfv-messages> -->
 					  	</div>
 					  	<div class="form-group">
-								<label for="">Password</label>
+							<label for="">Password</label>
 					    	<input placeholder="" formControlName="password" class="form-control" name="password" type="password" [(ngModel)]="userDetails.password" (ngModelChange)="clearFilter()">
-					    	 <!-- <bfv-messages></bfv-messages> -->
 					  	</div>
 					  	 
 						<button mat-button class="app-login" >Login</button> 
 						 
 					   
 					</div> 
-				</form>
-
-				<!-- <button mat-button  (click)="signInWithGoogle()" class="app-login" >Google</button> 
-				<button mat-button  (click)="signInWithFB()" class="app-login" >FB</button> 
-				<button mat-button  (click)="signOut()" class="app-login" >Sign Out</button> 
-				 -->
-
+				</form> 
+				 
 			</div>
 		</div>
 

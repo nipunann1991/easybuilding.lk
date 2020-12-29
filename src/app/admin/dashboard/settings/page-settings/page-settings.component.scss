@@ -1,0 +1,38 @@
+@import '../../../../../styles';
+
+.pane{
+    .title-area{
+        @include flex();
+ 
+        button.btn{
+            margin-left: auto;
+        }
+
+    }
+    .slider-body{
+        margin-top: 1.5rem;
+
+        .slider-item{
+            @include flex();
+            align-items: flex-start;
+            padding: 1.5rem 0;
+
+            .slider-img{
+                width: 20rem;
+                height: 12rem;
+                background-color: #eaeaea;
+                background-position: 50%;
+                background-size: 25rem;
+            }
+
+            .slider-content{
+                @include calc('width', "100% - 20rem");
+                padding-left: 1.5rem;
+
+                button.save-btn{
+                    line-height: 3rem;
+                }
+            }
+        }
+    }
+}

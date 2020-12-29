@@ -1,6 +1,6 @@
 @import '../../../../styles';
 
-.title-area{
+.page-title-area{
     padding: 3rem 0;
     @include box-shadow(0px, 3px, 8px, 1px, rgba(210, 210, 210, 0.4));
 
@@ -33,7 +33,7 @@
             border-top: 1px $border-gray solid; 
 
             label.lbl-title{
-                font-family: "Circular Std";
+                font-family: $bold-font;
                 font-weight: 500; 
                 margin-bottom: 1rem; 
                 color: $body-text-color;
@@ -138,8 +138,13 @@
                 background-repeat: no-repeat;
                 background-position: 50%;
                 background-size: 100%;
-            }
 
+                &.no-img{
+                    background-image: url('/assets/images/eb-default.png');
+                    background-size: 17rem;
+                }
+            }
+           
             .item-details{
                 padding: 1.5rem;
 

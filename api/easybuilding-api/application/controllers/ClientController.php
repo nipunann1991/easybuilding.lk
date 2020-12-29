@@ -44,7 +44,7 @@ class ClientController extends CommonController {
 			}
  
 
-			$search1 = array(
+			$searchData = array(
 				'columns' => 'c.*, cc.display_name, cc.featured, cc.status AS company_status' ,   
 				'table' => 'clients c, client_company cc',
 				'data' => "cc.client_id=c.client_id ".$profile_type_val." AND (".$search_by_feilds.')  order by c.'. $orderedCol .' '.$selectedOrd.' LIMIT '.$dt['start'].','.$dt['length'].'  ',
@@ -52,12 +52,12 @@ class ClientController extends CommonController {
 			);  
 		
 			$get_data = array(
-				'columns' => '*' ,   
-				'table' => 'clients',
-				'data' => '1',
+				'columns' => 'c.*, cc.display_name, cc.featured, cc.status AS company_status' ,   
+				'table' => 'clients c, client_company cc',
+				'data' => "cc.client_id=c.client_id ".$profile_type_val." AND (".$search_by_feilds.')  order by c.'. $orderedCol .' '.$selectedOrd.' ',
 			);  
 			  
-			$data = json_decode($this->selectCustomData__($search1)->final_output, true);
+			$data = json_decode($this->selectCustomData__($searchData)->final_output, true);
  
 	 		  
 			$result = (object) array(

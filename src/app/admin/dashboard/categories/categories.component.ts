@@ -5,11 +5,17 @@ import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common'
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.css']
+  styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent implements OnInit {
 
-  prevLocation: any;
+  prevLocation: any; 
+  links: any = [
+    { id: 0, title: "Main Categories", url: "/admin/categories/main-categories" },
+    { id: 1, title: "Level 1 Categories", url: "/admin/categories/level1-category" },
+    { id: 2, title: "Level 2 Categories", url: "/admin/categories/level2-category" },
+  ];
+    
   constructor(
     public router: Router,
     private route: ActivatedRoute,

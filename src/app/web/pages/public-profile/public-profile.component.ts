@@ -23,6 +23,7 @@ export class PublicProfileComponent implements OnInit {
   profileCompleted: boolean = false;
   isPublicProfile: boolean = false;
   isFullScreen: boolean = false;
+  isAdmin: boolean = false;
   serviceAreas: any = "";
   services: any = "";
   products: any = "";
@@ -47,13 +48,17 @@ export class PublicProfileComponent implements OnInit {
       if (event instanceof NavigationEnd) {   
 
           this.isFullScreen = false;
+
+          if(this.router.url.includes("admin")){
+            this.isAdmin = true; 
+          } 
  
         if(event.url === environment.profileUrl){   
           this.isEditableMode = false;
           let params = {user: 'me'};  
           this.getProfileDetails(params);  
           
-        }else{
+        }else{ 
 
           if(event.url.indexOf('/edit/') > -1 ){
             this.isEditableMode = true;  
@@ -170,19 +175,24 @@ export class PublicProfileComponent implements OnInit {
       this.getServiceCitiesByCompany( this.profileData.company_id);
       this.getServiceDistrictsByCompany( this.profileData.company_id); 
 
+    } 
+
+    this.getServics( this.profileData.company_id);  
+
+    if(!this.isAdmin){
+
+      if(this.profileData.steps < 4 && this.profileData.company_profile !== '0' ){
+        this.profileCompleted = false;
+        this.router.navigate(['/steps/account-info'], { relativeTo: this.route.parent });
+      }else{
+        this.profileCompleted = true;     
+      }
+
+    }else{
+      
     }
 
     
-    this.getServics( this.profileData.company_id); 
-       console.log(this.profileData);
-
-    if(this.profileData.steps < 4 && this.profileData.company_profile !== '0' ){
-      this.profileCompleted = false;
-      this.router.navigate(['/steps/account-info'], { relativeTo: this.route.parent });
-    }else{
-      this.profileCompleted = true;    
-      
-    }
   }
 
   getServiceCitiesByCompany(company_id){

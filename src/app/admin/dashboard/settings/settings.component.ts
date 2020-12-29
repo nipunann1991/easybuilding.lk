@@ -8,6 +8,12 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 })
 export class SettingsComponent implements OnInit {
 
+  links: any = [
+    { id: 0, title: "General Infomation", url: "/admin/settings/general" },
+    { id: 1, title: "Admin Users", url: "/admin/settings/users" },
+    { id: 2, title: "Page Settings", url: "/admin/settings/page-settings" },
+  ];
+
   constructor(
     public router: Router,
     private route: ActivatedRoute, 

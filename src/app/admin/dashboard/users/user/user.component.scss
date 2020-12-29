@@ -1,0 +1,38 @@
+
+@import '../../../../../styles';
+
+.pull-right{
+    float: right;
+}
+
+.mat-checkbox{
+    margin-right: 1.5rem;
+}
+ 
+body.admin-layout .blacklist.mat-checkbox-checked.mat-accent .mat-checkbox-background,
+body.admin-layout .blacklist.mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element {
+    background-color: #e4000b !important;
+}
+
+.mat-checkbox-disabled { 
+    opacity: 0.5;
+}
+
+.mat-menu-content{
+    .mat-menu-item{
+        line-height: 3.4rem;
+        height: inherit;
+        font-family: $normal-font;
+
+        .mat-icon{
+            height: 1.5rem;
+            width: 1.5rem;
+            font-size: 1.8rem;
+            line-height: 1.5rem;
+            position: relative;
+            top: -4px;
+        }
+
+    }
+    
+}
