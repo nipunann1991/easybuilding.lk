@@ -35,7 +35,7 @@ export class NavComponent implements OnInit {
 
   		this.menu = [ 
 			{
-				title: 'Home',
+				title: 'Dashboard',
 				icon: 'icon-dashboard',
 				link: '/admin/dashboard',
 				permission: 0,
@@ -47,6 +47,12 @@ export class NavComponent implements OnInit {
 				permission: 0,
 
 			},  
+			{
+				title: 'Images',
+				icon: 'icon-photo',
+				link: '/admin/photos',
+				permission: 0,
+			},
 			{
 				title: 'Cities',
 				icon: 'icon-location',
@@ -76,11 +82,7 @@ export class NavComponent implements OnInit {
 				permission: 0,
 
 			}, 
-			// {
-			// 	title: 'Reports',
-			// 	icon: 'icon-growth',
-			// 	link: '/admin/orders'
-			// },
+			
 			{
 				title: 'Settings',
 				icon: 'icon-settings',

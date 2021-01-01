@@ -1,12 +1,9 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, QueryList, ViewChildren, ElementRef } from '@angular/core';
 import { AppSEO } from "./../../../app.seo"; 
 import { HomepageService } from "../../../admin/api/frontend/homepage.service";
 import { environment } from "../../../../environments/environment";
-import { gsap,TweenMax, TimelineMax } from "gsap";  
-import * as ScrollMagic from "scrollmagic"; 
-import { ScrollMagicPluginGsap } from "scrollmagic-plugin-gsap";  
-import { ScrollScene, ScrollObserver  } from 'scrollscene'
-//const gsapStuff = [CSSPlugin];
+import { gsap, TweenMax,  TimelineMax } from "gsap";   
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 
 @Component({
@@ -16,17 +13,17 @@ import { ScrollScene, ScrollObserver  } from 'scrollscene'
 })
 export class HomeComponent implements OnInit {
   
+  @ViewChildren('banner') banner:QueryList<Element>;
   featuredProfList: any = [];
   featuredProdList: any = [];
-
-  
-  BannerImgs: any = this.getElement('banner') 
+  adSlides: any = [];
+  bgImagePath = environment.uploadPath+"admin/home-slider/" ;  
+  BannerImgs: any = "";
   BannerArray:any = [];
-  currBannerItem: number = -1;
-
+  currBannerItem: number = -1; 
   
   constructor(private seo: AppSEO, private homePage: HomepageService) {    
-    ScrollMagicPluginGsap(ScrollMagic, TweenMax, TimelineMax); 
+    gsap.registerPlugin(ScrollTrigger); 
     this.pageSEO();  
   }
  
@@ -75,14 +72,15 @@ export class HomeComponent implements OnInit {
     }]
 
 
-    this.BannerArray = [].slice.call(this.BannerImgs); 
-
     this.getConstructorList();
+    this.getAdSlides(); 
+    
   
   }
 
   ngAfterViewInit() {
-    this.pageAnimation(); 
+    //this.pageAnimation();   
+    
   }
 
 
@@ -114,145 +112,57 @@ export class HomeComponent implements OnInit {
           }
 
           this.featuredProfList.push(constructors)
+
+        
+
+            this.appAnimations.staggerIcons(".featured-item-wrapper", ".featured-item-wrapper");
           
         });
  
           
       }); 
   
-}
-    
+  }
 
-  pageAnimation(): void{ 
 
-    let appAnimations = {
-      controller: new ScrollMagic.Controller(),
+  getAdSlides(){ 
       
+    this.homePage.getAdSlides() 
+      .subscribe((response: any) => {
+ 
+        if (response.status == 200) { 
 
-      init: function(){
-        //appAnimations.parallaxBanner();
-        appAnimations.bannerAnims();
-        appAnimations.servicesAnims();
-        appAnimations.browseAnims();
-        appAnimations.featuredConstructorAnims();
-        appAnimations.featuredProductAnims();
-      },
+          this.adSlides = response.data;
 
-      parallaxBanner: () =>{
-        let elm = '.banner-area .bg';
-        let parallax = TweenMax.fromTo( elm, 1, {  backgroundPosition: '50% 100px' }, {  backgroundPosition: ' 50% 70%',   ease: Linear.easeNone  } );
+          let listElms = []; 
+
+          setTimeout(() => {  
+      
+            this.banner.toArray().forEach((element: any) => {
+              listElms.push(element.nativeElement)
+            });
        
-        new ScrollMagic.Scene({
-          triggerElement: elm, 
-          triggerHook: 1,
-          duration: '200%',
-        }).setTween( parallax ).addTo(appAnimations.controller);
-      },
+            this.BannerArray = [].slice.call(listElms);    
+            this.currBannerItem = -1;
+            this.nextBanner(); 
+           }); 
+          
 
-      bannerAnims:  () =>{ 
-        let elm = '.banner-area'; 
-        const domNode = document.querySelector(elm) 
-        const bannerAnimation = gsap.timeline({ paused: true });
+        }else{
+            
+        }
 
-        bannerAnimation
-          .from(elm+' h1', 0.4, { opacity: 0, ease: Power1.easeIn})
-          .from(elm+' p', 0.4, {y: 10, opacity: 0, ease: Power1.easeIn})
-          .from(elm+' .btn ', 0.4, {y: 10, opacity: 0, ease: Power1.easeIn}); 
- 
-        
-        appAnimations.scrollMagicInit(domNode, bannerAnimation, 0 );
-        
-      },
-
-      servicesAnims:  () =>{
-        let elm = '.services-list';
-        let elm1 = '.services-area';  
-        const dom_elm = document.querySelector(elm); 
-        const dom_elm1 = document.querySelector(elm1); 
-
-        const servicesAnims = gsap.timeline({ paused: true });
-        const servicesAnims1 = gsap.timeline({ paused: true });
-        
-        servicesAnims
-          .from(elm1+' h2', 0.3, {  opacity: 0, ease: Power1.easeIn })
-          .from(elm1+' p.text-center', 0.3, { opacity: 0, ease: Power1.easeIn }); 
-
-        appAnimations.scrollMagicInit(dom_elm, servicesAnims, 0);
-
-        servicesAnims1.from(elm+' li', 0.3, { autoAlpha: 0, y: 10, stagger: 0.2,  ease: Power1.easeOut } ); 
-        appAnimations.scrollMagicInit(dom_elm1, servicesAnims1, 400);
-         
-        
-      },
-
-      browseAnims:  () =>{
-
-        let elm = '.browse-item';
-        const dom_elm = document.querySelector(elm); 
- 
-        const browseAnimations1 = gsap.timeline({ paused: true });
-        const browseAnimations2 = gsap.timeline({ paused: true });
-
-        browseAnimations1.from(elm+'.item1', 0.4, { y: 20, opacity: 0, ease: Power1.easeIn }) 
-        appAnimations.scrollMagicInit(dom_elm, browseAnimations1, 200); 
-
-        browseAnimations2.from(elm+'.item2', 0.4, { y: 20, opacity: 0, ease: Power1.easeIn }) 
-        appAnimations.scrollMagicInit(dom_elm, browseAnimations2, 200);
-         
-      },
-
-      featuredConstructorAnims: ()=>{
-
-        let elm = ".fetured-area";
-        let elm1 = ".featured-list";
-
-        const dom_elm = document.querySelector(elm); 
-        const dom_elm1 = document.querySelector(elm1);  
-        const featuredAnim = gsap.timeline({ paused: true });
-        const featuredAnimBox = gsap.timeline({ paused: true });
-
-        featuredAnim.from(elm+' h2', 0.3, { opacity: 0, y: 10, ease: Power1.easeIn }) 
-        appAnimations.scrollMagicInit(dom_elm, featuredAnim);
-
-        featuredAnimBox.from(elm1+' .featured-item-wrapper', 0.3, { autoAlpha: 0, y: 10, stagger: 0.2, ease: Power1.easeOut });
-        appAnimations.scrollMagicInit(dom_elm1, featuredAnimBox); 
-
-      },
-
-      featuredProductAnims: ()=>{
-        let elm = ".fetured-products-area";
-        let elm1 = ".fetured-products-list";
-
-        const dom_elm = document.querySelector(elm); 
-        const dom_elm1 = document.querySelector(elm1);  
-        const featuredAnim = gsap.timeline({ repeat: 0, paused: true });
-        const featuredAnimBox = gsap.timeline({ paused: true }); 
-
-        featuredAnim.from(elm+' h2', 0.3, { opacity: 0, y: 10, ease: Power1.easeIn }) 
-        appAnimations.scrollMagicInit(dom_elm, featuredAnim);
-
-        featuredAnimBox.from(elm1+' .fetured-products-item-wrapper', 0.3, { autoAlpha: 0, y: 10, stagger: 0.2, ease: Power1.easeOut });
-        appAnimations.scrollMagicInit(dom_elm1, featuredAnimBox); 
-      },
-      
-      scrollMagicInit:  (domNode, tl, offset = 200) =>{ 
-
-        return  new ScrollObserver({ 
-          triggerElement: domNode, 
-          gsap: {
-            timeline: tl, 
-          }, 
-          useDuration: false,
-          offset: offset,  
-        }) 
-      }
-
-    }
+        ; 
+          
+      }); 
+  
+  }
     
 
-    //appAnimations.init();  
-
-    this.nextBanner(); 
+  
+  pageAnimation(): void{ 
+ 
+    this.appAnimations.init();   
     
   }
  
@@ -260,22 +170,15 @@ export class HomeComponent implements OnInit {
   nextBanner(){
 
     this.currBannerItem++;  
-     
-    if(this.currBannerItem == 0 ){ 
-      TweenMax.to(this.BannerArray[this.currBannerItem], 0.5, {autoAlpha:1,scale:1}); 
-
-    }else if(this.currBannerItem > 0 && this.currBannerItem !== (this.BannerArray.length)){ 
-
-      TweenMax.to(this.BannerArray[this.currBannerItem - 1], 0.5, {autoAlpha:0,scale:1});   
-      TweenMax.to(this.BannerArray[this.currBannerItem], 0.5, {autoAlpha:1, scale:1}); 
-
-    }else{
-        
-      TweenMax.to(this.BannerArray[this.currBannerItem - 1], 0.5, {autoAlpha:0,scale:1}); 
-      TweenMax.to(this.BannerArray[0], 0.5, {autoAlpha:1, scale:1});  
-      this.currBannerItem = -1;
-    }
     
+    if(this.currBannerItem > (this.BannerArray.length - 1)){
+      this.currBannerItem = 0;
+    }
+
+    console.log(this.currBannerItem)
+
+    this.navigateSlide(this.currBannerItem);
+      
     
   }
 
@@ -283,20 +186,19 @@ export class HomeComponent implements OnInit {
   prevBanner(){ 
  
     this.currBannerItem--;   
-     
-    if(this.currBannerItem >= 0 ){ 
 
-      TweenMax.to(this.BannerArray[this.currBannerItem+1], 0.5, {autoAlpha:0,scale:1});   
-      TweenMax.to(this.BannerArray[this.currBannerItem], 0.5, {autoAlpha:1, scale:1}); 
+    if(this.currBannerItem < 0){
+      this.currBannerItem = (this.BannerArray.length - 1); 
+    } 
 
-    }else{
+    this.navigateSlide(this.currBannerItem)
 
-      this.currBannerItem = ( this.BannerArray.length  - 1 ); 
-      TweenMax.to(this.BannerArray[0], 0.5, {autoAlpha:0,scale:1}); 
-      TweenMax.to(this.BannerArray[(this.currBannerItem)], 0.5, {autoAlpha:1, scale:1});   
+  }
 
-    }
-
+  navigateSlide(i){   
+    this.currBannerItem = i;
+    TweenMax.to(".banner", 0.5, {autoAlpha:0,scale:1});   
+    TweenMax.to(this.BannerArray[i], 0.5, {autoAlpha:1,scale:1}) 
   }
 
 
@@ -313,6 +215,80 @@ export class HomeComponent implements OnInit {
     }
 
     this.seo.setSEOData(seoData)
+  }
+
+  appAnimations = { 
+
+    init: function(){ 
+      this.fadeInQuick(".services-area h2.text-center");
+      this.fadeInQuick(".services-area p.text-center");
+      this.animLeft(".browse-wrapper.anim-left");
+      this.animRight(".browse-wrapper.anim-right");
+      this.staggerIcons(".services-list li", ".services-area");
+      // this.fadeUp(".fetured-area", ".fetured-area"); 
+    },
+
+    animLeft: (elm) => {
+
+      var imageBlocks = gsap.timeline({
+        scrollTrigger: {
+          trigger: elm,
+          start: "-50% center",  
+        }
+      });
+
+      imageBlocks.fromTo( elm , 0.4, { opacity: 0, x: -20, ease: Power0.easeOut }, { opacity: 1, x: 0, ease: Power0.easeOut } );
+   
+    },
+
+    animRight: (elm) => {
+
+      var imageBlocks = gsap.timeline({
+        scrollTrigger: {
+          trigger: elm,
+          start: "-50% center",  
+        }
+      });
+
+      imageBlocks.fromTo( elm , 0.4, { opacity: 0, x: 20, ease: Power0.easeOut }, { opacity: 1, x: 0, ease: Power0.easeOut } );
+   
+    },
+
+    fadeUpQuick: (elm) => { 
+      gsap.fromTo( elm , 1, { opacity: 0, y: 50, ease: Power0.easeOut }, { opacity: 1, y: 0, ease: Power0.easeOut } );
+    },
+
+    fadeInQuick: (elm) => { 
+      gsap.fromTo( elm , 1, { opacity: 0, ease: Power0.easeOut }, { opacity: 1, ease: Power0.easeOut } );
+   
+    }, 
+
+    fadeUp: (elm, triggerElm) => {
+
+      var imageBlocks = gsap.timeline({
+        scrollTrigger: {
+          trigger: triggerElm,
+          start: "-50% center",  
+        }
+      });
+
+      imageBlocks.fromTo( elm , 0.4, { opacity: 0, y: -120, ease: Power0.easeOut }, { opacity: 1, y: 0, ease: Power0.easeOut } );
+   
+    },
+
+    staggerIcons: (elm, triggerElm)=>{ 
+      
+      var t1 = gsap.timeline({
+        scrollTrigger: {
+          trigger: triggerElm,
+          start: "0% center",  
+        }
+      });
+
+      t1.fromTo(elm, 0.3, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1,  stagger: 0.4, duration: 1, ease:Power0.easeIn});
+       
+    }, 
+
   }
 
 }

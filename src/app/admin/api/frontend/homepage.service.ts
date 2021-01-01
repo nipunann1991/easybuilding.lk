@@ -24,5 +24,9 @@ export class HomepageService {
   getServicesMenuItems(){   
     return this.http.get(environment.baseUrl+'HomeController/getServicesMenuItems');
   }
+ 
+  getAdSlides(){   
+    return this.http.get(environment.baseUrl+'HomeController/getAdSlides');
+  }
 
 }

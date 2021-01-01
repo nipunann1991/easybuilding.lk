@@ -316,7 +316,7 @@ class CommonQueryModel extends CI_Model{
 
     public function getTotalCount($search_index){
  
-        $select_query = "SELECT COUNT(*) as count FROM `".$search_index['table']."` WHERE ".$search_index['data'] ;
+        $select_query = "SELECT COUNT(*) as count FROM ".$search_index['table']." WHERE ".$search_index['data'] ;
  
         $query = $this->db->query($select_query); 
 
@@ -331,6 +331,8 @@ class CommonQueryModel extends CI_Model{
 
        
     }
+
+
 
 
 

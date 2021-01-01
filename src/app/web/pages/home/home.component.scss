@@ -349,19 +349,7 @@
                 height: 100%;
                 background-color: rgba(0, 0, 0, 0.15); 
                 z-index: 2;
-            }
-
-            &:nth-child(1){
-                background-image: url("/assets/images/sample-featured-banner.jpg");
-            }
-
-            &:nth-child(2){
-                background-image: url("/assets/images/banner-image.jpg");
-            }
-
-            &:nth-child(3){
-                background-image: url("/assets/images/sample-featured-banner2.jpg");
-            }
+            } 
 
             .slider-content{
                 padding: 5rem;
@@ -400,6 +388,11 @@
             background-color: $white;
             margin-right: 2rem;
             cursor: pointer;
+
+
+            &.active-tab{
+                background: $base-bg-color;
+            }
         }
     }
 
@@ -409,12 +402,13 @@
         display: block;
         position: absolute;
         background-color: $white;
+        border: 1px $light-gray solid;
         top: 50%;
         border-radius: 50%;
         @include box-shadow(0px, 3px,8px, 1px, rgba(196,206,217,0.45)); 
         cursor: pointer;
         min-width: auto;
-        padding: 0;
+        padding: 0 !important;
         background-repeat: no-repeat;
         background-position: 50%; 
         z-index: 10;

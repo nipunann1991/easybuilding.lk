@@ -75,8 +75,15 @@ body{
 			}
 		}
 
+		.mat-expansion-panel:not([class*=mat-elevation-z]){
+			box-shadow: 0 2px 16px -3px rgba(0, 0, 0, 0.1);
+			border: 1px #eee solid;
+		}
+
 		.mat-expansion-panel-header-title, .mat-expansion-panel-header-description{
 			font-family: $bold-font;
+			margin-right: 0;
+			@include flex();
 		}
 
 		.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{

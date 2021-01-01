@@ -125,6 +125,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-fullscreen:before {
+  content: "\e91c";
+}
+.icon-photo:before {
+  content: "\e91d";
+}
 .icon-business-profile:before {
   content: "\e900";
 }

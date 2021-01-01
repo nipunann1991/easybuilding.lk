@@ -37,9 +37,9 @@
             </ul>
 
             <div class="browse-items-list row">  
-                <div class="col-md-6 browse-wrapper">
+                <div class="col-md-6 browse-wrapper anim-left">
                     <div class="browse-item item1">
-                        <div class="browse-content">
+                        <div class="browse-content ">
                             <div class="browse-content-inner">
                                 <h3>Browse Photos</h3>
                                 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore.</p>
@@ -51,7 +51,7 @@
                         </div>
                     </div> 
                 </div>
-                <div class="col-md-6 browse-wrapper">
+                <div class="col-md-6 browse-wrapper anim-right">
                     <div class="browse-item item2">
                         <div class="browse-content">
                             <div class="browse-content-inner"> 
@@ -68,7 +68,7 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid section fetured-area" *ngIf="featuredProfList.length > 0">
+    <div class="container-fluid section fetured-area" >
         <div class="container fetured-inner">
             <div class="title-area">
                 <h2>Featured Constructors / Professionals</h2>
@@ -109,30 +109,19 @@
     <div class="container-fluid fetured-banner-area">
         <div class="container fetured-inner">
 
-            <ul class="banner-list">
-                <li class="banner">
-                    <div class="slider-content">
-                        <h2>CM House</h2>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat culpa, rem ducimus illum deleniti molestias odio distinctio ipsam nostrum consequuntur perspiciatis. Deleniti dicta ipsum veniam cum magnam ducimus dolore blanditiis!</p>
-                    </div>
-                </li>
-                <li class="banner">
-                    <div class="slider-content">
-                        <h2>CM House #2</h2>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat culpa, rem ducimus illum deleniti molestias.</p>
-                    </div>
-                </li>
-                <li class="banner">
-                    <div class="slider-content">
-                        <h2>CM House #3</h2>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat culpa, rem ducimus illum deleniti molestias odio distinctio ipsam nostrum consequuntur perspiciatis. </p>
-                    </div>
-                </li> 
+            <ul class="banner-list"> 
+                 
+                <ng-container  *ngFor="let add of adSlides"> 
+                    <li #banner class="banner" [ngStyle]="{'background-image': 'url('+ bgImagePath + add.file_name + ')'}">
+                        <div class="slider-content">
+                            <h2>{{add.title}}</h2>
+                            <p [innerHTML]="add.description"></p>
+                        </div>
+                    </li>   
+                </ng-container>
             </ul>
             <ol class="silder-nav">
-                <li>1</li>
-                <li>1</li>
-                <li>1</li>
+                <li  *ngFor="let add of adSlides; let i = index;" (click)="navigateSlide(i)" [ngClass]="{'active-tab': currBannerItem == i }">{{i}}</li> 
             </ol>
             <button mat-button class="btn left" (click)="prevBanner()"></button>
             <button mat-button class="btn right" (click)="nextBanner()"></button>

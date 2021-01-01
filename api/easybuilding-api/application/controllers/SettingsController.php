@@ -212,6 +212,15 @@ class SettingsController extends CommonController {
 	} 
 
 
+	public function deleteSlider(){   
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+			return $this->deleteData__('home_slider','id="'.$this->input->post('id').'"');  
+		}else{
+			return $this->invalidSession(); 
+		}   
+	}
+
+
 	public function fileUpload(){ 
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {

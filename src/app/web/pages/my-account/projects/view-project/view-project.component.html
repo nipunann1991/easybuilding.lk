@@ -9,16 +9,13 @@
       <div class="view-project-main-img col-md-9">
         <div class="img-area" [ngStyle]="{'background-image': 'url('+ mainImg +')'}" >
             <span class="full-screen-mode">
-              <a href="javascript:void(0)" class="" (click)="openInFullScreen(openImageIndex)">Full Screen</a>
+              <a href="javascript:void(0)" class="" (click)="openInFullScreen(openImageIndex)"><i class="icon-fullscreen"></i>  Full Screen</a>
             </span> 
         </div>
         <div class="project-content"> 
           <div class="top-header">
             <div class="title">
-              <h1>{{projectData.project_name}}</h1>
-              <ul class="category-info">
-                <li *ngFor="let projectCategory of projectData.project_category"><span class="badge badge-secondary">{{projectCategory}}</span></li>
-              </ul>
+              <h1>{{projectData.project_name}}</h1> 
             </div>
              
             <ul class="design-info" *ngIf="projectData.architect != '' || projectData.contractor != '' || projectData.structural_engineer != ''">
@@ -26,6 +23,9 @@
               <li class="contractor" *ngIf="projectData.contractor != ''"><strong>Contractor :</strong>  {{projectData.contractor}}</li>
               <li class="engienner" *ngIf="projectData.structural_engineer != ''"><strong>Structural Engineer :</strong>  {{projectData.structural_engineer}}</li> 
             </ul>  
+            <ul class="category-info">
+              <li *ngFor="let projectCategory of projectData.project_category"><span class="badge badge-secondary">{{projectCategory}}</span></li>
+            </ul>
           </div> 
           <div class="project-details">
             <ul class="additional-info">

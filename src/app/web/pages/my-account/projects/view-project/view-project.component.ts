@@ -60,8 +60,7 @@ export class ViewProjectComponent implements OnInit {
     }); 
      
   }
-
-
+ 
   openInFullScreen(index: number) {
     this.lightbox.open(index, this.galleryId, {
       panelClass: 'fullscreen'

@@ -6,15 +6,18 @@
             <div class="pane pane-1">
                 <div class="title-area">
                     <h2>Home Page Slider</h2>
-                    <button mat-button name="button" type="button" class="btn btn-primary create-profile pull-right" (click)="openImgUpload(fileInput)">Add New Slide</button> 
+                    <button mat-button name="button" type="button" class="btn btn-primary create-profile pull-right" (click)="openImgUpload(fileInput)"><i class="icon-plus"></i> Add New Slide</button> 
                     <input type="file" class="d-none" (change)="fileChangeEvent($event)" #fileInput />
                 </div> 
                 <div class="slider-body"> 
 
                     <mat-accordion>
-                        <mat-expansion-panel hideToggle *ngFor="let sl of slideList; let i = index" [expanded]="slideList.length == (i + 1)">
+                        <mat-expansion-panel hideToggle *ngFor="let sl of slideList; let i = index" [expanded]="slideList.length == (i + 1) && isExpanded">
                           <mat-expansion-panel-header>
-                            <mat-panel-title>Slider #{{ i + 1 }}</mat-panel-title> 
+                            <mat-panel-title>
+                                <h4>Slider #{{ i + 1 }}</h4>
+                                <mat-icon class="delete-slide" (click)="deleteSlideModal(i)"><i class="icon-bin"></i></mat-icon>
+                            </mat-panel-title> 
                           </mat-expansion-panel-header>
                           <div class="slider-item">
                                 <div class="slider-img" [ngStyle]="{'background-image': 'url('+ bgImagePath + sl.file_name + ')'}"></div> 
@@ -31,9 +34,7 @@
                                 </div> 
                             </div>
                         </mat-expansion-panel> 
-                    </mat-accordion>
-
-                    
+                    </mat-accordion> 
                     
                     <!-- <i>No slides available.</i> -->
                 </div>

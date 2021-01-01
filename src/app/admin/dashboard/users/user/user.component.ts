@@ -35,8 +35,7 @@ export class UserComponent implements OnInit {
     private router: Router,
     private clients: ClientsService,
     private toastr: ToastrService,
-  ) { 
- 
+  ) {  
 
     this.route.params.subscribe( (routeParams) =>  {  
       window.scroll(0,0);    

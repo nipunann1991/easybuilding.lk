@@ -89,6 +89,11 @@ export class SettingsService {
     return this.http.post(environment.baseUrl+'SettingsController/uploadSliderImage?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, formData , { headers: headers });
   }
 
+  getSlides(){ 
+    return this.http.get(environment.baseUrl+'SettingsController/getSlides?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+
+  }
+
   addSliderDetails(postVals){
      
     const params = new HttpParams({
@@ -107,9 +112,17 @@ export class SettingsService {
     return this.http.post(environment.baseUrl+'SettingsController/editSliderDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   } 
 
-  getSlides(){ 
-    return this.http.get(environment.baseUrl+'SettingsController/getSlides?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
 
-  }
+  deleteSlider(postVals){
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'SettingsController/deleteSlider?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  } 
+  
+
+ 
   
 }

@@ -1,5 +1,56 @@
 <div class="right-container  animated fadeIn">
+
+     <div class="summery-boxes row">
+          <div class="box col-md-3" *ngFor="let dd of dashboardData; let i=index">
+               <div class="white-box-panel">
+                    <div class="icon-box"> 
+                         <i class="icon" [ngClass]="dd.icon"></i>
+                         <div class="information">
+                              <ul>
+                                   <li class="total">{{dd.total}}</li>
+                                   <li class="box-title">{{dd.title}}</li>
+                              </ul>
+                         </div>
+                    </div>
+               </div>
+          </div>
+            
+     </div>
+
      
-     <a routerLink="/">View Web</a><br/><br/>
-     <button id="sign-out-btn" class="btn btn-success" (click)="signOut()">Sign Out</button>
+
+     <div class="mid-boxes row">
+          <div class="box col-md-7">
+               <div class="white-box-panel">
+                    <h3>New Profiles Last 6 Months</h3>
+                    <canvas baseChart
+                         [datasets]="barChartData"
+                         [labels]="barChartLabels"
+                         [options]="barChartOptions" 
+                         [colors]="barChartColors"
+                         [legend]="barChartLegend"
+                         [chartType]="barChartType">
+                    </canvas>
+                
+               </div>
+          </div>
+          <div class="box col-md-5">
+               <div class="white-box-panel">
+                    <h3>Company Profiles vs Personal Profiles</h3>
+                    <canvas baseChart 
+                         [data]="pieChartData" 
+                         [labels]="pieChartLabels" 
+                         [chartType]="pieChartType"
+                         [options]="pieChartOptions"
+                         [plugins]="pieChartPlugins"
+                         [colors]="pieChartColors"
+                         [legend]="pieChartLegend">
+                    </canvas>
+               </div>
+          </div>
+     </div>
+
+    
+     <!-- <a routerLink="/">View Web</a><br/><br/>-->
+     <button id="sign-out-btn" class="btn btn-success" (click)="signOut()">Sign Out</button> 
 </div>

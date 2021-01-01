@@ -18,7 +18,7 @@ const routes: Routes = [
       { path: 'reviews', loadChildren: () => import('./../../../admin/dashboard/reviews/reviews.module').then(m => m.ReviewsModule) },
       { path: 'services', loadChildren: () => import('./../../../admin/dashboard/services/services.module').then(m => m.ServicesModule) },
       { path: 'profiles', loadChildren: () => import('./../../../admin/dashboard/client-profiles/client-profiles.module').then(m => m.ClientProfilesModule) },
-      //{ path: 'main-categories', loadChildren: () => import('./../../../admin/dashboard/categories/main-category/main-category.module').then(m => m.MainCategoryModule) },
+      { path: 'photos', loadChildren: () => import('./../../../admin/dashboard/photos/photos.module').then(m => m.PhotosModule) },
 	 
     ]
   },

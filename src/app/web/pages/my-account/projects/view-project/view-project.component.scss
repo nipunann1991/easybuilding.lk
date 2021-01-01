@@ -24,6 +24,19 @@
         a{
           position: relative;
           top: 1px;
+          @include flex();
+          color: $base-bg-color;
+          text-decoration: none;
+
+          &:hover{
+            color: $body-text-color;
+          }
+
+          i{
+            position: relative;
+            top: -1px;
+            margin-right: 8px;
+          }
         }
       }
     }
@@ -41,9 +54,9 @@
 
     h1{
       margin-bottom: 0;
-      font-size: 2.3rem;
-      float: left;
+      font-size: 2.3rem; 
       margin-right: 1rem;
+      margin-bottom: 0.5rem;
       overflow: hidden;
     }
 
@@ -105,6 +118,9 @@
     padding: 2.5rem 2.5rem;
 
     p{
+      font-size: 1.5rem;
+      line-height: 2.1rem;
+
       &:last-child(){
         margin-bottom: 0;
       }
@@ -119,7 +135,7 @@
     li{ 
       background-repeat: no-repeat; 
       padding-right: 1.5rem; 
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       letter-spacing: 0.02rem;
       float: left; 
       line-height: 2rem;
@@ -137,6 +153,7 @@
   }
 
   ul.category-info{ 
+    margin-top: 1.5rem;
     overflow: hidden;
 
     li{
@@ -146,6 +163,8 @@
       span.badge{
         padding: 5px 10px;
         border-radius: 0.5rem;
+        background: $base-bg-color;
+        font-size: 1.2rem;
       }
     }
   }

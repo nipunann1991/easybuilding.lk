@@ -89,6 +89,20 @@ class HomeController extends CommonController {
  
 		
 	} 
+
+
+	public function getAdSlides(){  
+   
+		$search_index = array(
+			'columns' => '*' ,   
+			'table' => 'home_slider',
+			'eq_table_col' => '1',
+			'data' => '1', 
+		);
+
+		return $this->selectCustomData__($search_index); 
+		
+	}
 	 
 
 	 

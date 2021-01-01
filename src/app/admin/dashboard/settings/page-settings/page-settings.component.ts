@@ -6,6 +6,8 @@ import { environment } from "../../../../../environments/environment";
 import { ImageCroppedEvent, Dimensions, ImageTransform } from 'ngx-image-cropper'; 
 import { ToastrService } from 'ngx-toastr';
 import { SettingsService } from '../../../../admin/api/settings.service'; 
+import * as $ from 'jquery';
+declare const bootbox:any;
 
 @Component({
   selector: 'app-page-settings',
@@ -24,8 +26,9 @@ export class PageSettingsComponent implements OnInit {
   isUploading: boolean = false;
   imageChangedEvent: any = '';
   croppedImage: any = '';
-  slideList:any = []
+  slideList:any = [];
   bgImagePath: string = "";
+  isExpanded: boolean = false;
   aspectRatio: any = {
     x: 1220,
     y: 600
@@ -255,13 +258,13 @@ export class PageSettingsComponent implements OnInit {
 
         this.toastr.success('Slider image updated successfully', 'Success !');   
         this.closeModal();
-        this.getSlides(); 
+        this.getSlides(true); 
   
       });
   
   }
 
-  getSlides(): void{ 
+  getSlides(isExpanded = false): void{ 
      
     this.settings.getSlides()
         .subscribe((response: any) => {
@@ -270,6 +273,7 @@ export class PageSettingsComponent implements OnInit {
         
           this.slideList = response.data
           this.bgImagePath = environment.uploadPath+"admin/home-slider/thumb/" ;  
+          this.isExpanded = isExpanded;
           
 
         }else{
@@ -279,6 +283,62 @@ export class PageSettingsComponent implements OnInit {
     }); 
 
  }
+
+ deleteSlideModal(i){
+
+  this.isExpanded = false; 
+  const component = this;
+    let dialog = bootbox.confirm({
+      title: "Delete Profile",
+      message: "Are you sure you need to delete this slider?",
+      buttons: {
+        confirm: {
+          label: 'Yes',  
+          className: 'btn-danger pull-left'
+        },
+        cancel: {
+          label: 'No', 
+          className: 'pull-right '
+        }
+      },
+      callback: function (result) {
+        
+        if(result){ 
+         component.deleteSlider(i);
+        }  
+      } 
+    });
+
+    dialog.init(function(){
+      $('html .modal-backdrop:not(:first)').remove();
+    })
+
+    dialog.on("shown.bs.modal", function() {  
+      $('html .bootbox.modal:not(:first)').remove(); 
+    });
+  
+ }
+
+
+ deleteSlider(i): void{ 
+    
+  let param = { id: this.slideList[i].id }
+
+  this.settings.deleteSlider(param)
+      .subscribe((response: any) => {
+
+     if (response.status == 200) {  
+      
+      this.toastr.success('Slider deleted successfully', 'Success !'); ;  
+      this.getSlides();
+
+      }else{
+          console.log(response)
+      }
+         
+  }); 
+
+}
 
  getSlideData(i){
 

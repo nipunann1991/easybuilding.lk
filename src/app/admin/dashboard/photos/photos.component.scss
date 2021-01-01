@@ -1,0 +1,16 @@
+@import '../../../../styles';
+
+.popup-wrapper{
+    @include flex();
+    align-items: flex-start; 
+    width: 100%;
+
+    .img-holder{
+        width: 75%; 
+    }
+
+    .action-area{
+        padding: 0 1.5rem;
+        width: 25%;
+    }
+}

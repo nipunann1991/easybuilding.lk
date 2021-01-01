@@ -12,6 +12,19 @@
     .slider-body{
         margin-top: 1.5rem;
 
+        h4{
+            margin-bottom: 0;
+        }
+
+        
+        mat-icon.delete-slide{
+            height: 1.5rem;
+            width: 1.5rem;
+            font-size: 1.5rem;
+            margin-left: auto;
+            color: $danger-color;
+        } 
+
         .slider-item{
             @include flex();
             align-items: flex-start;

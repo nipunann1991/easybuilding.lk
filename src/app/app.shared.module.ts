@@ -15,6 +15,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { ChartsModule } from 'ng2-charts';
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 import { HttpClientModule } from '@angular/common/http'; 
 import { DataTablesModule } from 'angular-datatables';
@@ -71,6 +72,7 @@ import { RoundToDecimalPipe } from './pipes/round-to-decimal.pipe';
       LoadingBarModule,
       GalleryModule,
       LightboxModule,
+      ChartsModule,
       StarRatingModule.forRoot(),
       NgBootstrapFormValidationModule.forRoot(), 
       FacebookModule.forRoot()
@@ -105,6 +107,7 @@ import { RoundToDecimalPipe } from './pipes/round-to-decimal.pipe';
       LoadingBarModule,
       GalleryModule,
       LightboxModule,
+      ChartsModule,
       NgBootstrapFormValidationModule,
       FirstLetterPipe,
       TruncateTextPipe,

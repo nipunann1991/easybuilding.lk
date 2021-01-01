@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 29, 2020 at 09:16 PM
+-- Generation Time: Jan 01, 2021 at 09:37 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -533,30 +533,31 @@ CREATE TABLE `clients` (
   `provider` varchar(1) NOT NULL,
   `provider_id` varchar(150) NOT NULL,
   `verified_email` int(11) NOT NULL DEFAULT 0,
-  `verify_code` int(11) NOT NULL
+  `verify_code` int(11) NOT NULL,
+  `created_date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `clients`
 --
 
-INSERT INTO `clients` (`client_id`, `first_name`, `last_name`, `company_name`, `email`, `profie_image`, `status`, `provider`, `provider_id`, `verified_email`, `verify_code`) VALUES
-(66, 'Nirmal', 'Nanayakkara', '', 'nirmalnipunananayakkara@gmail.com', '1592118606prof.png', 1, 'F', '3184985174847762', 0, 0),
-(67, 'Nipuna', 'Nanayakkara', '', 'nipunann0710@gmail.com', '1592233783prof.png', 1, 'G', '101780267759212434309', 0, 0),
-(68, 'Imali', 'Gunawardana', '', 'imaligunawardana1995@gmail.com', '1592412727prof.png', 1, 'G', '106207594050682912858', 0, 0),
-(76, 'Nishantha', 'Perera', '', 'nishanthaperera77@gmail.com', '', 1, 'E', '1596897751555', 0, 0),
-(75, 'Mahesh', 'Fernando', '', 'maheshfdo90@gmail.com', '', 1, 'E', '1596694098300', 0, 0),
-(77, 'Mithila', 'Samarasingha', '', 'mithila@gmail.com', '', 1, 'E', '1598932425341', 0, 0),
-(84, 'Imali', 'Gunawardena', '', 'imali.gunawardena@gmail.com', '', 1, 'E', '1605383438032', 0, 0),
-(85, 'Thilini', 'Perera', '', 'thilini.perera@gmail.com', '', 1, 'E', '1605501792378', 0, 0),
-(99, 'Roshan', 'Sameera', '', 'roshan@gmail.com', '', 1, 'E', '1605934289213', 0, 0),
-(103, 'Mahela', 'Jayawardena', '', 'mahela.jay@gmail.com', '', 1, 'E', '1607286784483', 0, 0),
-(100, 'Nirmal', 'Nanayakkara', '', 'nirmalnipunananayakkara11@gmail.com', '1606156249prof.png', 1, 'F', '3184985174847762', 0, 0),
-(120, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1609095873650', 0, 0),
-(128, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1609216849000', 0, 0),
-(126, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1609153074082', 0, 0),
-(127, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1609179629143', 0, 0),
-(132, 'Kasuni', 'Perera', '', 'kasuni.perera@gmail.com', '', 1, 'E', '1609237765046', 0, 0);
+INSERT INTO `clients` (`client_id`, `first_name`, `last_name`, `company_name`, `email`, `profie_image`, `status`, `provider`, `provider_id`, `verified_email`, `verify_code`, `created_date`) VALUES
+(66, 'Nirmal', 'Nanayakkara', '', 'nirmalnipunananayakkara@gmail.com', '1592118606prof.png', 1, 'F', '3184985174847762', 0, 0, '2020-06-15'),
+(67, 'Nipuna', 'Nanayakkara', '', 'nipunann0710@gmail.com', '1592233783prof.png', 1, 'G', '101780267759212434309', 0, 0, '2020-06-16'),
+(68, 'Imali', 'Gunawardana', '', 'imaligunawardana1995@gmail.com', '1592412727prof.png', 1, 'G', '106207594050682912858', 0, 0, '2020-07-02'),
+(76, 'Nishantha', 'Perera', '', 'nishanthaperera77@gmail.com', '', 1, 'E', '1596897751555', 0, 0, '2020-07-08'),
+(75, 'Mahesh', 'Fernando', '', 'maheshfdo90@gmail.com', '', 1, 'E', '1596694098300', 0, 0, '2020-07-16'),
+(77, 'Mithila', 'Samarasingha', '', 'mithila@gmail.com', '', 1, 'E', '1598932425341', 0, 0, '2020-07-16'),
+(84, 'Imali', 'Gunawardena', '', 'imali.gunawardena@gmail.com', '', 1, 'E', '1605383438032', 0, 0, '2020-07-17'),
+(85, 'Thilini', 'Perera', '', 'thilini.perera@gmail.com', '', 1, 'E', '1605501792378', 0, 0, '2020-12-26'),
+(99, 'Roshan', 'Sameera', '', 'roshan@gmail.com', '', 1, 'E', '1605934289213', 0, 0, '2020-08-24'),
+(103, 'Mahela', 'Jayawardena', '', 'mahela.jay@gmail.com', '', 1, 'E', '1607286784483', 0, 0, '2020-08-24'),
+(100, 'Nirmal', 'Nanayakkara', '', 'nirmalnipunananayakkara11@gmail.com', '1606156249prof.png', 1, 'F', '3184985174847762', 0, 0, '2020-10-21'),
+(120, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1609095873650', 0, 0, '2020-12-08'),
+(128, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1609216849000', 0, 0, '2020-12-09'),
+(126, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1609153074082', 0, 0, '2020-12-10'),
+(127, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1609179629143', 0, 0, '2020-12-19'),
+(132, 'Kasuni', 'Perera', '', 'kasuni.perera@gmail.com', '', 1, 'E', '1609237765046', 0, 0, '2020-12-19');
 
 -- --------------------------------------------------------
 
@@ -610,7 +611,7 @@ INSERT INTO `client_company` (`company_id`, `client_id`, `display_name`, `descri
 (26, 99, 'Roshan Furnitures', '<p>We are furniture suppliers.</p>', '', 'PV339021245', 'roshfurnitures@gmail.com', '298 Kandy Road', '', 'Pasyala', '0332278651', '', '', '', 3, 0, 0, 4, 0, 0, 0, 0x5b22434c3231313036222c22434c3231313033222c22434c3231313032222c22434c3231313034222c22434c3231313031225d, 0x5b5d, 0x5b2238222c223130225d, 0x5b22434c3231303336225d, 0, 0, 1, 0, 1),
 (16, 84, 'Imali Gunawardena', '<p>I love creative architecture.</p>', '', '', 'imali.gunawardena@gmail.com', '233, Sinhagiri', 'Welikanna', 'Waga', '0362289002', '', '1605692538blob.jpg', '1605386181blob.jpg', 0, 0, 0, 2, 0, 0, 0, '', '', '', '', 0, 0, 0, 0, 1),
 (27, 100, 'Business', '', '', '', 'businesscom@gmail.com', '22', '', 'Gampaha', '0332229266', '', '', '', 1, 0, 0, 4, 0, 0, 0, 0x7b2276616c7565223a5b5d7d, 0x5b5d, 0x5b2238222c2239222c223130225d, 0x5b22434c3231303632222c22434c3231303535225d, 0, 0, 1, 0, 1),
-(30, 103, 'MJ', '<p>sfsf</p>', '', 'PV123', 'gdfg@gmail.com', '345 3453', '', 'ewr', '5345 345453', '', '', '', 1, 0, 0, 2, 0, 0, 0, 0x2222, 0x5b2231303734222c2231303731222c2231303732225d, 0x5b5d, 0x5b22434c3231303632222c22434c3231303538225d, 0, 0, 1, 0, 1),
+(30, 103, 'MJ', '<p>sfsf</p>', '', 'PV123', 'gdfg@gmail.com', '345 3453', '', 'ewr', '5345 345453', '', '', '', 1, 0, 0, 2, 0, 0, 0, 0x2222, 0x5b2231303734222c2231303731222c2231303732225d, 0x5b5d, 0x5b22434c3231303632222c22434c3231303538225d, 0, 0, 1, 0, 0),
 (68, 127, 'Pest Controllers - Ragama', '', '', '', '', '', '', 'Ragama', '0716345977', '', '', '', 2, 0, 0, 4, 0, 0, 0, 0x2222, 0x5b2231303934225d, 0x5b5d, 0x5b22434c3231303636225d, 0, 0, 1, 0, 1),
 (50, 120, 'Grass Cutters - Athurugiriya', '', '', '', '', '', '', 'Athurugiriya', '0786553219', '', '', '', 2, 0, 0, 4, 0, 0, 0, 0x2222, 0x5b2231303735225d, 0x5b5d, 0x5b22434c3231303537225d, 0, 0, 1, 0, 1),
 (69, 128, 'Grass Cutting Service ', '', '', '', '', '', '', 'Kaluthara', '07785423589', '', '', '', 2, 0, 0, 4, 0, 0, 0, 0x2222, 0x5b2231313532225d, 0x5b5d, 0x5b22434c3231303537225d, 0, 0, 1, 0, 1),
@@ -706,8 +707,9 @@ CREATE TABLE `home_slider` (
 --
 
 INSERT INTO `home_slider` (`id`, `file_name`, `title`, `description`, `img_order`) VALUES
-(1, '1609268579blob.jpg', 'CM House', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 0),
-(2, '1609271413blob.jpg', 'Apartments ', 'National', 0);
+(2, '1609271413blob.jpg', 'Apartments ', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat culpa, rem ducimus illum deleniti molestias odio distinctio ipsam nostrum consequuntur perspiciatis. Deleniti dicta ipsum veniam cum magnam ducimus dolore blanditiis!', 0),
+(4, '1609309871blob.jpg', 'Master Class bedroom', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat culpa, rem ducimus illum deleniti molestias odio distinctio ipsam.', 0),
+(5, '1609353940blob.jpg', 'Better Lifestyle', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat culpa, rem ducimus illum deleniti molestias odio distinctio ipsam.', 0);
 
 -- --------------------------------------------------------
 
@@ -827,32 +829,34 @@ CREATE TABLE `project_images` (
   `img_id` int(11) NOT NULL,
   `project_id` int(11) NOT NULL,
   `file_name` varchar(1000) NOT NULL,
-  `description` varchar(1500) NOT NULL
+  `description` varchar(1500) NOT NULL,
+  `img_status` int(11) NOT NULL DEFAULT 1,
+  `approved` int(11) NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `project_images`
 --
 
-INSERT INTO `project_images` (`img_id`, `project_id`, `file_name`, `description`) VALUES
-(59, 31, '1595702837web_Changi-T4-Singapore-8-HR-Credit-Benoy.jpg', ''),
-(58, 31, '1595702738web_Changi-T4-Singapore-1-HR-Credit-Benoy.jpg', ''),
-(60, 31, '1595703353web_Changi-T4-Singapore-7-HR-Credit-Benoy.jpg', ''),
-(56, 31, '1595702732web_Changi-T4-Singapore-3-HR-Credit-Benoy.jpg', ''),
-(75, 38, '16065579620MGs93Y-switzerland-wallpaper.jpg', ''),
-(76, 38, '1606557962wallpaperflare.com_wallpaper_1_.jpg', ''),
-(86, 41, '1607335244vcACAV.jpg', ''),
-(52, 30, '1595702131226216186.jpg', ''),
-(53, 30, '1595702131Normanton-Avenue-3-1600x1068.jpg', ''),
-(54, 30, '1595702131lake-house-in-ascona-by-wespi-de-meuron-romeo-architects-051.jpg', ''),
-(85, 41, '1607335213zcaVAVAVb.jpg', ''),
-(80, 41, '1607334958slide_04.jpg', ''),
-(81, 41, '1607334958slide_03.jpg', ''),
-(82, 41, '1607334958slide_08.jpg', ''),
-(83, 41, '1607334958slide_06.jpg', ''),
-(84, 41, '1607334958slide_07.jpg', ''),
-(104, 43, '16073425768664.jpg', ''),
-(103, 43, '1607342555Modern-Home-Decorating-Pictures.jpg', '');
+INSERT INTO `project_images` (`img_id`, `project_id`, `file_name`, `description`, `img_status`, `approved`) VALUES
+(59, 31, '1595702837web_Changi-T4-Singapore-8-HR-Credit-Benoy.jpg', '', 1, 0),
+(58, 31, '1595702738web_Changi-T4-Singapore-1-HR-Credit-Benoy.jpg', '', 1, 0),
+(60, 31, '1595703353web_Changi-T4-Singapore-7-HR-Credit-Benoy.jpg', '', 1, 0),
+(56, 31, '1595702732web_Changi-T4-Singapore-3-HR-Credit-Benoy.jpg', '', 1, 0),
+(75, 38, '16065579620MGs93Y-switzerland-wallpaper.jpg', '', 1, 0),
+(76, 38, '1606557962wallpaperflare.com_wallpaper_1_.jpg', '', 1, 0),
+(86, 41, '1607335244vcACAV.jpg', '', 1, 0),
+(52, 30, '1595702131226216186.jpg', '', 1, 0),
+(53, 30, '1595702131Normanton-Avenue-3-1600x1068.jpg', '', 1, 0),
+(54, 30, '1595702131lake-house-in-ascona-by-wespi-de-meuron-romeo-architects-051.jpg', '', 1, 0),
+(85, 41, '1607335213zcaVAVAVb.jpg', '', 1, 0),
+(80, 41, '1607334958slide_04.jpg', '', 1, 0),
+(81, 41, '1607334958slide_03.jpg', '', 1, 0),
+(82, 41, '1607334958slide_08.jpg', '', 1, 0),
+(83, 41, '1607334958slide_06.jpg', '', 1, 0),
+(84, 41, '1607334958slide_07.jpg', '', 1, 0),
+(104, 43, '16073425768664.jpg', '', 1, 0),
+(103, 43, '1607342555Modern-Home-Decorating-Pictures.jpg', '', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -1082,7 +1086,7 @@ INSERT INTO `user_sessions` (`session_id`, `client_id`, `auth_token`, `password`
 (57, 76, '24FLddcRPGKrZC91596897750977', '123456789'),
 (58, 77, 'sKj4LhVUde7wAal1598932425264', '123456789'),
 (48, 67, 'ya29.a0AfH6SMDlR8EQfsWChst7gWqk-x-b4iwAkPXE6WQ4IOxAXUbC1Q7TvUJ4jtmfuYKYKTV7h8T3W3jtb5bAysLjBiBH93cWFArWqzJ8GXDvd86foQXl62AYMmkhPyS1HOXSpyRrd02DTcIa_NnGza2YE5F4oPtcGDwanNbV927Sk_Rw9w', ''),
-(47, 66, 'EAAlrbREIkZCkBAFgk0taUx6t0FInSB8IvqZB8EtHS1atkWltq8ktIVPidLjKILlZCjHG53ZBmWoh4VOCJY6bHTBlbQExx1RGT4FZCyQ7xXZB7CdLpeDhhM70nlZBQWvdYWLpFskMtQZBzqjxicbpXQBVpAdda4Gt9vIU2henxvvp4y5T6AZAqC4CesFYQJlEQZCoH22vJNC9gFMQZDZD', ''),
+(47, 66, 'EAAlrbREIkZCkBABZBpzzD70ns8LZCZCrE0gHZBdZBZA4ehBUaAjOIX6KHyxQDBQoOW0PYnDfz4Gz9RmVGUOdiEsKzBLYj5FYkShgchs7QHFouFj7eZC6CB5tO00nmk07Q3bSZCD297cYId6CfieVrqr2DaJ7JY4dFxR6EZAtanNAsA99NWCmgmxe8quRZCObAy48KZCy8MCYTXhFTwZDZD', ''),
 (46, 65, 'EAAlrbREIkZCkBAOHVjjUZCBewHTfKUnqDc56JFkG7bKHsi9GQhxZCrm9tUY4ZBYg76zZB2xZC99j22HoU0AGkPOJuW0IxZAVd4hI96l4oQtG4saG6STgGKiCZCtvhPO5kGsMZAJYkdwpnpeQqFThhDFZCiZB5QarXXswuA4tXLyTdYQ1G01EAv25mS0ZA1eYTSJu6P8m7N8l9zuypCpY4T2roZBs3', ''),
 (59, 78, 'EAAlrbREIkZCkBAJNtFOvVAP1VGqwak3lphgAFWDScZBUbi1GbHwZCKDXyKxtjbxcDPeWoxqYquRGRd4Rvct7ejOpNsatyJRrPC9JZBEO0ooIjk9xljLvprIuQtwDE5EsU2sZAX52EmqS6fvQ5JIobqx6OILdkTe8nM53TrbXOmFPzNWe5x8POYA0V7onsTag3XDd55rE0bbGQ7IZBo7Ijr', ''),
 (60, 79, 'EAAlrbREIkZCkBALAXr92TgW2ZCdE4sudVz8RYEeLEuokzRQndiYz1qTRG5XOlVqmNi9oF4brljOEuAqPd8ulbHY36OAZBZBkrEePJb3ULvxjjIelnVq7UPjYkUZAZBztB37QNC2CyxuhmDTKhpHNK0UaKeXTIbGGc31z1OZAk1ZCt6Hiw7VCgUoJTdJmhWRHsPaJMLWuutiPm78lP4j9bm9z', ''),
@@ -1310,7 +1314,7 @@ ALTER TABLE `districts`
 -- AUTO_INCREMENT for table `home_slider`
 --
 ALTER TABLE `home_slider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `products`
