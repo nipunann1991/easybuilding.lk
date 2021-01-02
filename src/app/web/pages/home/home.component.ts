@@ -113,10 +113,7 @@ export class HomeComponent implements OnInit {
 
           this.featuredProfList.push(constructors)
 
-        
-
-            this.appAnimations.staggerIcons(".featured-item-wrapper", ".featured-item-wrapper");
-          
+         
         });
  
           
@@ -162,7 +159,7 @@ export class HomeComponent implements OnInit {
   
   pageAnimation(): void{ 
  
-    this.appAnimations.init();   
+    //this.appAnimations.init();   
     
   }
  
@@ -178,8 +175,7 @@ export class HomeComponent implements OnInit {
     console.log(this.currBannerItem)
 
     this.navigateSlide(this.currBannerItem);
-      
-    
+       
   }
 
 
@@ -217,78 +213,6 @@ export class HomeComponent implements OnInit {
     this.seo.setSEOData(seoData)
   }
 
-  appAnimations = { 
-
-    init: function(){ 
-      this.fadeInQuick(".services-area h2.text-center");
-      this.fadeInQuick(".services-area p.text-center");
-      this.animLeft(".browse-wrapper.anim-left");
-      this.animRight(".browse-wrapper.anim-right");
-      this.staggerIcons(".services-list li", ".services-area");
-      // this.fadeUp(".fetured-area", ".fetured-area"); 
-    },
-
-    animLeft: (elm) => {
-
-      var imageBlocks = gsap.timeline({
-        scrollTrigger: {
-          trigger: elm,
-          start: "-50% center",  
-        }
-      });
-
-      imageBlocks.fromTo( elm , 0.4, { opacity: 0, x: -20, ease: Power0.easeOut }, { opacity: 1, x: 0, ease: Power0.easeOut } );
-   
-    },
-
-    animRight: (elm) => {
-
-      var imageBlocks = gsap.timeline({
-        scrollTrigger: {
-          trigger: elm,
-          start: "-50% center",  
-        }
-      });
-
-      imageBlocks.fromTo( elm , 0.4, { opacity: 0, x: 20, ease: Power0.easeOut }, { opacity: 1, x: 0, ease: Power0.easeOut } );
-   
-    },
-
-    fadeUpQuick: (elm) => { 
-      gsap.fromTo( elm , 1, { opacity: 0, y: 50, ease: Power0.easeOut }, { opacity: 1, y: 0, ease: Power0.easeOut } );
-    },
-
-    fadeInQuick: (elm) => { 
-      gsap.fromTo( elm , 1, { opacity: 0, ease: Power0.easeOut }, { opacity: 1, ease: Power0.easeOut } );
-   
-    }, 
-
-    fadeUp: (elm, triggerElm) => {
-
-      var imageBlocks = gsap.timeline({
-        scrollTrigger: {
-          trigger: triggerElm,
-          start: "-50% center",  
-        }
-      });
-
-      imageBlocks.fromTo( elm , 0.4, { opacity: 0, y: -120, ease: Power0.easeOut }, { opacity: 1, y: 0, ease: Power0.easeOut } );
-   
-    },
-
-    staggerIcons: (elm, triggerElm)=>{ 
-      
-      var t1 = gsap.timeline({
-        scrollTrigger: {
-          trigger: triggerElm,
-          start: "0% center",  
-        }
-      });
-
-      t1.fromTo(elm, 0.3, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1,  stagger: 0.4, duration: 1, ease:Power0.easeIn});
-       
-    }, 
-
-  }
+ 
 
 }

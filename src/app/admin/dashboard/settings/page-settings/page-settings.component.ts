@@ -46,13 +46,6 @@ export class PageSettingsComponent implements OnInit {
 
   }
 
-  openSliderDialog() {
-    const dialogRef = this.dialog.open(SliderContentDialog);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
 
   openImgUpload(fileInput:any){    
       fileInput.click();   
@@ -364,10 +357,3 @@ export class PageSettingsComponent implements OnInit {
 }
 
 
-
-
-@Component({
-  selector: 'slider-content-dialog',
-  templateUrl: 'slider-content-dialog.html',
-})
-export class SliderContentDialog {}

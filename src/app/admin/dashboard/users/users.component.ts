@@ -105,6 +105,12 @@ export class UsersComponent implements OnInit {
           
         },{
           targets: 5,
+          data: function( row ){    
+            return row.created_date;
+          },
+          
+        },{
+          targets: 6,
           data: function( row ){  
             
             let featured = ""
@@ -128,7 +134,7 @@ export class UsersComponent implements OnInit {
           },
           
         },{
-          targets: 6,
+          targets: 7,
           data: function( row ){   
 
             if(row.first_name == "Admin"){
