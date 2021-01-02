@@ -25,5 +25,44 @@ class SearchController extends CommonController {
 
 	} 
 
+
+	public function searchProducts(){  
+ 
+
+		$limit = "LIMIT ".$this->input->post('limit') * ($this->input->post('page_index') - 1) ." , ".$this->input->post('limit') .""; 
+   
+		$search_index = array(
+			'columns' => 'cc.*, c.provider_id',   
+			'table' => '`client_company` cc, `services_list` sl, clients c',
+			'eq_table_col' => '1 ORDER BY cc.client_id DESC '.$limit, 
+			'data' => 'cc.company_id=sl.company_id AND c.client_id=cc.client_id AND cc.status=1 AND sl.cat_lvl2_id="'.$this->input->post('cat_lvl2_id').'"', 
+		);
+
+		$start = $this->input->post('limit') * ($this->input->post('page_index') - 1) + 1;
+		$end = $this->input->post('limit') * ($this->input->post('page_index'));
+	  	$total_results = $this->CommonQueryModel->count_filtered($search_index);
+
+	  	if ($end > $total_results) {
+	  		$end = $total_results - $start + 1;
+	  	}
+
+	  	if ($total_results == 0 ) {
+	  		$start = 0;
+	  	}
+
+	  
+
+		$data = array( 
+			'status' => 200, 
+			'data' => $this->selectRawCustomData__($search_index)["data"], 
+			'start' =>  $start, 
+			'end' =>  $end,
+			'total_results' => $total_results
+		);
+		
+		return $this->returnJSON($data);  
+
+	} 
+
  
 }

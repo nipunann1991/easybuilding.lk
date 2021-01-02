@@ -30,6 +30,19 @@ class SettingsController extends CommonController {
 		
 	}
 
+
+	public function getSlides(){  
+   
+		$search_index = array(
+			'columns' => '*' ,   
+			'table' => 'home_slider',
+			'eq_table_col' => '1',
+			'data' => '1', 
+		);
+
+		return $this->selectCustomData__($search_index); 
+	}
+
 	
 	public function getSingleAdminUser(){  
  
@@ -174,6 +187,40 @@ class SettingsController extends CommonController {
 	}
 
 
+	public function addSliderDetails(){  
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+			$dataset = $this->input->post();
+			return $this->insertData__('home_slider', $dataset);  
+
+		}else{
+			return $this->invalidSession(); 
+		}
+		 
+	}
+
+
+	public function editSliderDetails(){ 
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+			$dataset = $this->input->post(); 
+			return $this->updateData__('home_slider', $dataset,'id="'.$this->input->post('id').'"');
+		}else{
+			return $this->invalidSession(); 
+		} 
+
+	} 
+
+
+	public function deleteSlider(){   
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+			return $this->deleteData__('home_slider','id="'.$this->input->post('id').'"');  
+		}else{
+			return $this->invalidSession(); 
+		}   
+	}
+
+
 	public function fileUpload(){ 
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
@@ -196,6 +243,18 @@ class SettingsController extends CommonController {
 		} 
 		
 	}
+
+
+	public function uploadSliderImage(){ 
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) { 
+			return $this->saveSliderImage__($_POST, $_FILES);
+		}else{
+			return $this->invalidSession(); 
+		}  
+ 
+	} 
+
 	 
  
 }

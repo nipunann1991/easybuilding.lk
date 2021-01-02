@@ -308,8 +308,9 @@ class CommonController extends CI_Controller {
 	
 
 	public function sendResponse($data){
+ 
 
-		if(sizeof($data['data'] == -1)) {
+		if($data['data'] == -1) {
       		$output = array(
 				'status' => 401 ,
 				'data' => 'Unauthorized client. The auth token is invalid',
@@ -533,9 +534,7 @@ class CommonController extends CI_Controller {
 		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/'.$client_id.'/';
 		
 		if (!file_exists($upload_dir)) {
-		    mkdir($upload_dir, 0777, true);
-		    // mkdir($upload_dir.'/thumb', 0777, true);
-		    // mkdir($upload_dir.'/xs-thumb', 0777, true); 
+		    mkdir($upload_dir, 0777, true); 
 		} 
 		   
 		file_put_contents($upload_dir.''.$img, file_get_contents($remoteUrl)); 
@@ -544,6 +543,38 @@ class CommonController extends CI_Controller {
 	}
 
 
+	public function saveSliderImage__($postVal, $fileVal){ 
+
+
+		$url=$this->config->base_url(); 
+		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/admin/home-slider/';
+
+		if (!file_exists($upload_dir)) {
+		    mkdir($upload_dir, 0777, true);
+		    mkdir($upload_dir.'/thumb', 0777, true);
+		} 
+
+     	$generatedFileName = basename(time().''.$_FILES["file"]["name"]).'.jpg';
+
+	    $target_file = $upload_dir . $generatedFileName;   
+
+	    $move_file = move_uploaded_file($_FILES["file"]["tmp_name"], $target_file); 
+
+	    $this->make_thumb($target_file, $upload_dir.'/thumb/'. $generatedFileName, 400);   
+
+	    $output = array(
+			'status' => 200 , 
+			'data' => (object) array(
+				'new_file'=> $generatedFileName, 
+				'target_file' => $url.'assets/uploads/admin/home-slider/'.$generatedFileName, 
+				'moved_path' => $move_file, 'temp_folder' => $_FILES["file"]["tmp_name"]
+			)  
+		);
+ 
+ 	    return $this->output->set_output(json_encode($output, JSON_PRETTY_PRINT));
+
+
+	}
 	 
 
 
