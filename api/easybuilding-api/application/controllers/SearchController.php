@@ -50,11 +50,22 @@ class SearchController extends CommonController {
 	  		$start = 0;
 	  	}
 
-	  
+	  	$searchResults = $this->selectRawCustomData__($search_index)['data'];
+
+	  	foreach ($searchResults as $key => $value) {
+	  		  
+	  		$serviceData = $this->getServics($value->company_id);
+
+	  		$value->services = $serviceData['services'];
+	  		$value->products = $serviceData['products']; 
+
+	  	}
+ 		
+
 
 		$data = array( 
 			'status' => 200, 
-			'data' => $this->selectRawCustomData__($search_index)["data"], 
+			'data' => $searchResults, 
 			'start' =>  $start, 
 			'end' =>  $end,
 			'total_results' => $total_results
@@ -63,6 +74,40 @@ class SearchController extends CommonController {
 		return $this->returnJSON($data);  
 
 	} 
+
+	public function getServics($company_id){    
+
+		 
+		$search_index = array(
+			'columns' => 'cl2.cat_lvl2_name, c.cat_id, c.cat_name' ,   
+			'table' => 'services_list sl, `categories-level2` cl2, `categories-level1` cl1, categories c',
+			'eq_table_col' => 'cl2.cat_lvl2_id = sl.cat_lvl2_id AND cl2.parent_cat_id = cl1.cat_lvl1_id AND cl1.parent_cat_id = c.cat_id ORDER BY c.cat_id ASC ',
+			'data' => 'sl.company_id= "'.$company_id.'"', 
+		);
+
+		$dataset = $this->selectRawCustomData__($search_index);
+
+		$services = array();
+		$products = array();
+
+		foreach ($dataset["data"] as $value) { 
+
+			if ($value->cat_id == "C1015") {
+				array_push($products, $value->cat_lvl2_name);
+			}else if ($value->cat_id == "C1019") {
+				array_push($services, $value->cat_lvl2_name);
+			} 
+			
+		}
+
+		$data = array(
+			'services' => $services, 
+			'products' => $products, 
+		);
+		
+		return $data;
+		
+	}
 
  
 }

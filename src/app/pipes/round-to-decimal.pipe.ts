@@ -5,9 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class RoundToDecimalPipe implements PipeTransform {
 
-  transform(value: any, precision: number): any {
-    
-    console.log(value, precision)
+  transform(value: any, precision: number): any { 
     var multiplier = Math.pow(10, precision || 0);
     return (Math.round(value * multiplier) / multiplier).toFixed(precision); 
     

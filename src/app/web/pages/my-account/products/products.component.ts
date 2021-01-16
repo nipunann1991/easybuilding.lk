@@ -21,7 +21,9 @@ export class ProductsComponent implements OnInit {
   product: any = "";
   imageURL: string = "";
   isEdit: boolean = false;
+  isEditAdmin: boolean = false;
   isProductsAvailable: boolean = false;
+  addNewProjectURL: string = "";
 
   constructor(
     private router: Router,
@@ -48,8 +50,15 @@ export class ProductsComponent implements OnInit {
       this.clientId  = this.profileData.client_id;  
       this.companyId = this.profileData.company_id;   
       this.isEdit = this.profileData.profile_editable;
-
+      this.isEditAdmin = this.profileData.admin_profile;  
+       
       this.imageURL = environment.uploadPath + this.clientId +'/'+ this.companyId +'/products/thumb/';
+
+      if(!this.isEditAdmin){
+        this.addNewProjectURL = environment.profileUrl.split('/').slice(0, -1).join('/') + "/products/upload-product/"+this.companyId;  
+      }else{ 
+        this.addNewProjectURL = "/admin/users/user/"+this.route.snapshot.params.user+"/"+this.route.snapshot.params.provider_id+ "/products/upload-product/"+this.companyId; 
+      }
 
       ( typeof this.itemLimit === 'undefined' )?  limit = -1 : limit = this.itemLimit  ; 
       

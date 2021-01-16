@@ -1,7 +1,12 @@
 <div class="page-container animated fadeIn"> 
-    <div *ngIf="profileData.status == 0" class="blacklist-message">
+    <div *ngIf="profileData.status == 0" class="top-message blacklist-message">
         <div class="container">
             <p>This profile is blacklisted by easybuilding.lk</p>
+        </div>
+    </div>
+    <div *ngIf="profile.admin_profile" class="top-message info-message">
+        <div class="container">
+            <p>You are logged in as admin. <a href="">Logout</a></p>
         </div>
     </div>
     <input type="file" class="d-none" (change)="fileChangeEvent($event)" #fileInput />
@@ -32,13 +37,13 @@
     <div class="profile-area">
         
         <div class="cover-image" [ngClass]="{ 'loader' : isUploading }"  >
-            <i *ngIf="isBgImage && profile.profile_editable" class="icon-bin" (click)="deleteImage(0)"></i>
+            <i *ngIf="isBgImage && profile.profile_editable  || isBgImage && profile.admin_profile" class="icon-bin" (click)="deleteImage(0)"></i>
             <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="openImgUpload(fileInput, 0)" 
             (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
                 
                 <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
                     <div *ngIf="!isBgImage" class="drop-template">  
-                        <a href="javascript:void(0)" class="upload-btn" title="Upload cover image" *ngIf="profile.profile_editable" (click)="openImgUpload(fileInput, 0)"> </a>
+                        <a href="javascript:void(0)" class="upload-btn" title="Upload cover image" *ngIf="profile.profile_editable || profile.admin_profile" (click)="openImgUpload(fileInput, 0)"> </a>
                     </div>
                     <div *ngIf="isBgImage" class="preview" [ngClass]="{'shadow': bgImage}" [ngStyle]="{'background-image':bgImage}"></div>
                     
@@ -49,10 +54,10 @@
             <div class="profile-details">
                 <div class="profile-img-wrapper">
                     <div class="profile-img" *ngIf="isProfImage" [ngStyle]="{'background-image': profImage}">
-                        <i class="icon-bin" *ngIf="isProfImage && profile.profile_editable" (click)="deleteImage(1)"></i>
+                        <i class="icon-bin" *ngIf="isProfImage && profile.profile_editable || isProfImage && profile.admin_profile" (click)="deleteImage(1)"></i>
                     </div>
-                    <div class="profile-img"  *ngIf="!isProfImage" [ngStyle]="{'background-image': transparent }">
-                        <a href="javascript:void(0)" *ngIf="profile.profile_editable" class="upload-btn" title="Upload profile image"  (click)="openImgUpload(fileInput, 1)"> </a>
+                    <div class="profile-img" *ngIf="!isProfImage" [ngClass]="{'no-img': !isProfImage}" [ngStyle]="{'background-image': transparent }">
+                        <a href="javascript:void(0)" *ngIf="profile.profile_editable || profile.admin_profile" class="upload-btn" title="Upload profile image"  (click)="openImgUpload(fileInput, 1)"> </a>
                     </div>
                     <ng-container>
                         <a mat-button class="btn btn-primary btn-contact" href="mailto:{{userEmail}}">Contact Me</a>
@@ -65,7 +70,7 @@
                             <li class="name">
                                 <h3 *ngIf="isDisplayNameNull">{{profile.first_name}} {{profile.last_name}}</h3>
                                 <h3 *ngIf="!isDisplayNameNull">{{profile.display_name}}</h3> 
-                                <a (click)="editProfile()" class="edit" *ngIf="profile.profile_editable && !isEditable" ><i class="icon-pencil"></i></a>
+                                <!-- <a (click)="editProfile()" class="edit" *ngIf="profile.profile_editable && !isEditable" ><i class="icon-pencil"></i></a> -->
                             </li> 
                             <li class="address" > 
                                 <p><span *ngIf="profileData.prof_category == 1">{{profile.address_line1}} {{profile.address_line2}} </span>{{profile.city}}</p> 

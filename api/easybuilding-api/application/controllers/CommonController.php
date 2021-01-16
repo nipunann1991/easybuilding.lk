@@ -417,7 +417,7 @@ class CommonController extends CI_Controller {
 		    mkdir($upload_dir.'/xs-thumb', 0777, true); 
 		} 
  
-     	$generatedFileName = basename(time().''.$_FILES["file"]["name"]);
+     	$generatedFileName = basename(time()).'.jpg';
 
 	    $target_file = $upload_dir . $generatedFileName;   
 
@@ -453,20 +453,23 @@ class CommonController extends CI_Controller {
 
 		$file_name = preg_replace("/\s+\(|\)/", "_", $_FILES["file"]["name"]);  
 		 
-     	$generatedFileName = basename(time().''.$file_name);
+     	$generatedFileName = basename(time()).'.jpg';
 
 	    $target_file = $upload_dir . $generatedFileName;   
 
 	    $move_file = move_uploaded_file($_FILES["file"]["tmp_name"], $target_file);
 
-	    $this->make_thumb($target_file, $upload_dir.'/thumb/'. $generatedFileName, 400);  
+	    $this->optimizeImg($target_file, $upload_dir.'/'. $generatedFileName, 1500);   
+
+	   	$this->make_thumb($target_file, $upload_dir.'/thumb/'. $generatedFileName, 400);  
 
 	    $output = array(
 			'status' => 200 , 
 			'data' => (object) array(
 				'new_file'=> $generatedFileName, 
 				'target_file' => $url.'assets/uploads/'.$client_id.'/'.$postVal['company_id'].'/'.$folder_name.'/'.$generatedFileName, 
-				'moved_path' => $move_file, 'temp_folder' => $_FILES["file"]["tmp_name"]
+				'moved_path' => $move_file, 
+				'temp_folder' => $_FILES["file"]["tmp_name"]
 			)  
 		);
  
@@ -476,6 +479,40 @@ class CommonController extends CI_Controller {
  	    }else{
  	    	return json_encode($output, JSON_PRETTY_PRINT);
  	    }
+
+
+	}
+
+
+	public function uploadProfileImage__($client_id, $postVal, $fileVal){ 
+
+
+		$url=$this->config->base_url(); 
+		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/'.$client_id.'/'.$postVal['company_id'].'/';
+
+		if (!file_exists($upload_dir)) {
+		    mkdir($upload_dir, 0777, true);
+		} 
+
+     	$generatedFileName = basename(time()).'.jpg';
+
+	    $target_file = $upload_dir . $generatedFileName;   
+
+	    $move_file = move_uploaded_file($_FILES["file"]["tmp_name"], $target_file); 
+
+	    $this->optimizeImg($target_file, $upload_dir.'/'. $generatedFileName, 800);   
+
+
+	    $output = array(
+			'status' => 200 , 
+			'data' => (object) array(
+				'new_file'=> $generatedFileName, 
+				'target_file' => $url.'assets/uploads/'.$client_id.'/'.$postVal['company_id'].'/'.$generatedFileName, 
+				'moved_path' => $move_file, 'temp_folder' => $_FILES["file"]["tmp_name"]
+			)  
+		);
+ 
+ 	    return $this->output->set_output(json_encode($output, JSON_PRETTY_PRINT));
 
 
 	}
@@ -491,11 +528,14 @@ class CommonController extends CI_Controller {
 		    mkdir($upload_dir, 0777, true);
 		} 
 
-     	$generatedFileName = basename(time().''.$_FILES["file"]["name"]).'.jpg';
+     	$generatedFileName = basename(time()).'.jpg';
 
 	    $target_file = $upload_dir . $generatedFileName;   
 
 	    $move_file = move_uploaded_file($_FILES["file"]["tmp_name"], $target_file); 
+
+	    $this->optimizeImg($target_file, $upload_dir.'/'. $generatedFileName, 2000);   
+
 
 	    $output = array(
 			'status' => 200 , 
@@ -554,7 +594,7 @@ class CommonController extends CI_Controller {
 		    mkdir($upload_dir.'/thumb', 0777, true);
 		} 
 
-     	$generatedFileName = basename(time().''.$_FILES["file"]["name"]).'.jpg';
+     	$generatedFileName = basename(time()).'.jpg';
 
 	    $target_file = $upload_dir . $generatedFileName;   
 
@@ -593,6 +633,40 @@ class CommonController extends CI_Controller {
 		
 		$width = imagesx($source_image);
 		$height = imagesy($source_image);
+		
+		/* find the "desired height" of this thumbnail, relative to the desired width  */
+		$desired_height = floor($height * ($desired_width / $width));
+		
+		/* create a new, "virtual" image */
+		$virtual_image = imagecreatetruecolor($desired_width, $desired_height);
+		
+		/* copy source image at a resized size */
+		imagecopyresampled($virtual_image, $source_image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
+		
+		/* create the physical thumbnail image to its destination */
+		imagejpeg($virtual_image, $dest);
+	}
+
+
+	public function optimizeImg($src, $dest, $desired_width) {
+
+		/* read the source image */
+
+		$extension = pathinfo($src, PATHINFO_EXTENSION);
+
+		if ($extension == 'jpg' || $extension == 'jpeg') { 
+		   $source_image = imagecreatefromjpeg($src);
+
+		}else if ($extension == 'png') {
+			$source_image = imagecreatefrompng($src);
+		}
+		
+		$width = imagesx($source_image);
+		$height = imagesy($source_image);
+
+		 if ($width < $desired_width) {
+		 	 $desired_width = $width;
+		 }
 		
 		/* find the "desired height" of this thumbnail, relative to the desired width  */
 		$desired_height = floor($height * ($desired_width / $width));

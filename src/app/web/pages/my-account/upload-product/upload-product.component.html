@@ -1,6 +1,6 @@
 <div class="back-to-area">
     <div class="container">
-        <a class="back-to" routerLink="/my-account/user/me/about">Back to Profile</a>
+        <a class="back-to" href="javascript:void(0);"  (click)="goBack();">Back to Profile</a>
     </div> 
 </div> 
 <div class="page-container animated fadeIn new-product">
@@ -20,8 +20,8 @@
               </div>
             <div class="offset-md-1 col-md-6"> 
                 <div class="uploaded-image-holder">
-                    <div *ngFor="let ui of uploadedImages" class="img-box"  [ngStyle]="{'background-image': 'url('+ ui +')'}">
-                         
+                    <div *ngFor="let ui of uploadedImages; let i = index;" class="img-box"  [ngStyle]="{'background-image': 'url('+ ui +')'}">
+                        <i class="icon-bin" (click)="deleteImage(i)"></i>
                     </div>  
                     <div class="clearfix"></div>
                 </div>

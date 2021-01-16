@@ -14,6 +14,7 @@ export class ContactInfoComponent implements OnInit {
   formGroup: FormGroup;
   clientId: any; companyId: any;
   profile: any = {}
+  nearestCity: any = [];
   isStepsForm: boolean = false; 
   isAdmin: boolean = false; 
   profileType: string = "";
@@ -26,7 +27,10 @@ export class ContactInfoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    this.getCities();
     this.getAccountDetails();
+    
     
     this.formGroup = new FormGroup({ 
       address_line1: new FormControl('', [
@@ -40,6 +44,10 @@ export class ContactInfoComponent implements OnInit {
         Validators.minLength(2),
         Validators.maxLength(100)
       ]),
+
+      city_id: new FormControl("", [
+        Validators.required
+      ]), 
 
       tel1: new FormControl('', [
         Validators.required,
@@ -91,13 +99,13 @@ export class ContactInfoComponent implements OnInit {
             this.formGroup.get("email").disable();
             email = this.profile.signup_email;
              
-          }    
-           
+          }     
          
           this.formGroup.setValue({
             address_line1: this.profile.address_line1, 
             address_line2: this.profile.address_line2,
             city: this.profile.city,
+            city_id: this.profile.city_id,
             tel1: this.profile.tel1,
             tel2: this.profile.tel2,
             email: email,
@@ -106,6 +114,21 @@ export class ContactInfoComponent implements OnInit {
           this.clientId = this.profile.client_id;
           this.companyId = this.profile.company_id;
   
+        }else{
+            
+        }
+          
+      });
+  }
+
+
+  getCities(){ 
+
+    this.myaccount.getCities() 
+      .subscribe((response: any) => {
+        if (response.status == 200) { 
+          this.nearestCity = response.data; 
+          
         }else{
             
         }

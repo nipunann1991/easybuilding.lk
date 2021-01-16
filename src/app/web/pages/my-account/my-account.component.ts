@@ -1,12 +1,14 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute, ActivationStart ,  RoutesRecognized,  NavigationEnd } from '@angular/router';
 import { AuthService as OAuth } from "angularx-social-login";
+import { Location } from '@angular/common';
 import { Globals } from "../../../app.global"
 import { AuthService as Auth } from '../../../admin/auth/auth.service';
 import { MyAccountService } from '../../../admin/api/frontend/my-account.service';
 import { ProfileService } from "../../../admin/api/frontend/profile.service";
 import { environment } from "../../../../environments/environment";
 import { map, filter } from "rxjs/operators";
+import { AppSEO } from "./../../../app.seo"; 
 
 @Component({
   selector: 'app-my-account',
@@ -30,7 +32,10 @@ export class MyAccountComponent implements OnInit {
   baseurl = "/my-account/user/me/";
   baseurlEdit = this.baseurl+"/edit/";
   _routeListener: any;
+  previousUrl = "";
+  currentUrl = "";
   x: any;
+
   constructor(
     private oauth: OAuth,
     private auth: Auth,
@@ -38,18 +43,19 @@ export class MyAccountComponent implements OnInit {
     private globals: Globals,
     private myaccount: MyAccountService,
     private profile: ProfileService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location,
+    private seo: AppSEO,
 
   ) {  
- 
+    
     this._routeListener = this.router.events.subscribe((event) => {
        
       if (event instanceof NavigationEnd) {   
 
-        this.isFullScreen = false;
+        this.isFullScreen = false; 
 
-        if(event.url === environment.profileUrl){  
-         // window.scroll(0,0); 
+        if(event.url === environment.profileUrl){   
           this.isEditableMode = false;
           let params = {user: 'me'};  
           this.getProfileDetails(params);  
@@ -60,23 +66,33 @@ export class MyAccountComponent implements OnInit {
             this.isEditableMode = true;  
             window.scrollTo(0,250)
             this.profileData.is_editable_btn = false; 
-            let params = {user: 'me' };  
+            let params = {user: 'me' };   
             this.getProfileDetails(params);  
 
           }else{
 
             if((event.url.indexOf('/view-project/') > -1 ) || (event.url.indexOf('/edit-project/') > -1 ) || (event.url.indexOf('/edit-product/') > -1 ) || (event.url.indexOf('/upload-project/') > -1 ) || (event.url.indexOf('/upload-product/') > -1 )){
               this.isFullScreen = true;
-            }
+            }  
             
             this.isEditableMode = false; 
-            this.profileData.is_editable_btn = false;
- 
+            this.profileData.is_editable_btn = false; 
             
           } 
         }  
       }
     });
+
+
+    // this.router.events.pipe(
+    //   filter((event) => event instanceof NavigationEnd)
+    //   ).subscribe((event: NavigationEnd) => {
+    //     this.previousUrl = this.currentUrl;
+    //     this.currentUrl = event.url;
+
+    //     console.log("prev", this.previousUrl, "curr", this.currentUrl, event)
+    //   });
+ 
      
   }
 
@@ -116,7 +132,7 @@ export class MyAccountComponent implements OnInit {
     console.log($event)
   }
  
-  getProfileDetails(routeParams){ 
+  getProfileDetails(routeParams, profile_editable = true){ 
      
       this.isPublicProfile = false;
 
@@ -125,12 +141,14 @@ export class MyAccountComponent implements OnInit {
           if (response.status == 200) {
             
             this.profileData = response.data[0];    
-            this.profileData.profile_editable = true;
+            this.profileData.profile_editable = profile_editable;
             this.profileData.is_editable_btn = false; 
             this.profile.setProfileData(this.profileData);
             
             ( this.profileData.company_profile == 0 )?  this.navItems[3].isPersonalProfile = true  : '';
 
+            console.log( this.profileData )
+            this.pageSEO();  
             this.getOtherProfileRelatedData();
             
           } 
@@ -179,6 +197,11 @@ export class MyAccountComponent implements OnInit {
       this.router.navigate(['/steps/account-info'], { relativeTo: this.route.parent });
     }else{
       this.profileCompleted = true;    
+
+      console.log(this.location)
+
+      // (this.previousUrl == "")? this.router.navigate(['/'])  : '';
+ 
       
     }
  
@@ -243,6 +266,18 @@ export class MyAccountComponent implements OnInit {
         localStorage.clear();  
         window.location.href = "login";
     });    
+  }
+
+  pageSEO() : void{
+    
+    let seoData = {
+      title: 'EasyBuilding.lk | My Profile',
+      keywords:  "",
+      description: "",
+      image: ''
+    }
+
+    this.seo.setSEOData(seoData)
   }
 
 }

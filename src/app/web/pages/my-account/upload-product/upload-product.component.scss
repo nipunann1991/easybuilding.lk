@@ -19,6 +19,39 @@
         display: inline-block;
         margin-right: 1rem; 
         background-size: cover;
+        position: relative;
+
+        &:before{
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          top: 0;
+          left: 0;
+          display: none;
+        }
+
+        i.icon-bin{
+          position: absolute;
+          right: 0.5rem;
+          top: 0.5rem;
+          display: none;
+          color: $white;
+          cursor: pointer;
+        }
+
+        &:hover{
+
+          &:before{
+            display: block;
+          }
+
+          i.icon-bin{
+            display: block;
+          }
+
+        }
       }
   
     }
@@ -41,7 +74,7 @@
             position: relative;
     
             &:before{
-              content: "Upload Image Files";
+              content: "Drag and drop image files here.";
               position: absolute;
               color: $dark-gray;
     

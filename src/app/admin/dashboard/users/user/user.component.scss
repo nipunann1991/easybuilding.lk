@@ -36,3 +36,10 @@ body.admin-layout .blacklist.mat-checkbox-checked:not(.mat-checkbox-disabled).ma
     }
     
 }
+
+
+.admin-layout{
+    .top-message{
+        display: none;
+    }
+}

@@ -12,8 +12,18 @@ export class MyAccountService {
 
   constructor(private http: HttpClient) { }
 
+  setTokenData(){
+    if(this.token !== null){
+      this.token = JSON.parse(localStorage.getItem('token'));
+      return '?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id;
+    }else{ 
+      this.tokenUser = JSON.parse(localStorage.getItem('tokenUser'));
+      return '?auth_token='+this.tokenUser.auth_token+'&session_id='+this.tokenUser.session_id;
+    }
+  }
+
   getProfileDetails(){   
-    return this.http.get(environment.baseUrl+'ProfileController/getProfileDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+    return this.http.get(environment.baseUrl+'ProfileController/getProfileDetails'+this.setTokenData());
   }
  
  
@@ -23,69 +33,48 @@ export class MyAccountService {
 
   getAccountDetails(){  
     
-    if(this.token !== null){
-      console.log('getAccountDetails', this.token )
-      return this.http.get(environment.baseUrl+'ProfileController/getAccountDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
-    }else{ 
-      this.tokenUser = JSON.parse(localStorage.getItem('tokenUser'));
-      return this.http.get(environment.baseUrl+'ProfileController/getAccountDetails?auth_token='+this.tokenUser.auth_token+'&session_id='+this.tokenUser.session_id);
-    }
+   
+      return this.http.get(environment.baseUrl+'ProfileController/getAccountDetails'+this.setTokenData());
+    
     
   }
  
   getServiceDetails(){   
 
-    if(this.token !== null){
-      return this.http.get(environment.baseUrl+'ProfileController/getServiceDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
-    }else{
-      return this.http.get(environment.baseUrl+'ProfileController/getServiceDetails?auth_token='+this.tokenUser.auth_token+'&session_id='+this.tokenUser.session_id);
-    }
+      return this.http.get(environment.baseUrl+'ProfileController/getServiceDetails'+this.setTokenData());
+   
    
   }
  
 
   getCities(){   
 
-    if(this.token !== null){
-      return this.http.get(environment.baseUrl+'ProfileController/getCities?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
-    }else{
-      return this.http.get(environment.baseUrl+'ProfileController/getCities?auth_token='+this.tokenUser.auth_token+'&session_id='+this.tokenUser.session_id);
-    }
+      return this.http.get(environment.baseUrl+'ProfileController/getCities'+this.setTokenData());
     
   }
 
 
   getDistricts(){   
 
-    if(this.token !== null){
-      return this.http.get(environment.baseUrl+'ProfileController/getDistricts?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
-    }else{
-      return this.http.get(environment.baseUrl+'ProfileController/getDistricts?auth_token='+this.tokenUser.auth_token+'&session_id='+this.tokenUser.session_id);
-    }
+    return this.http.get(environment.baseUrl+'ProfileController/getDistricts'+this.setTokenData());
    
   } 
 
   getAllCategoriesData(){   
-    return this.http.get(environment.baseUrl+'ProfileController/getAllCategoriesData?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+    return this.http.get(environment.baseUrl+'ProfileController/getAllCategoriesData'+this.setTokenData());
   } 
 
   getServiceCategories(){ 
     
-    if(this.token !== null){
-      return this.http.get(environment.baseUrl+'ProfileController/getServiceCategories?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
-    }else{
-      return this.http.get(environment.baseUrl+'ProfileController/getServiceCategories?auth_token='+this.tokenUser.auth_token+'&session_id='+this.tokenUser.session_id);
-    }
+    return this.http.get(environment.baseUrl+'ProfileController/getServiceCategories'+this.setTokenData());
+    
     
   }
 
   getProductCategories(){   
 
-    if(this.token !== null){
-      return this.http.get(environment.baseUrl+'ProfileController/getProductCategories?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
-    }else{
-      return this.http.get(environment.baseUrl+'ProfileController/getProductCategories?auth_token='+this.tokenUser.auth_token+'&session_id='+this.tokenUser.session_id);
-    }
+      return this.http.get(environment.baseUrl+'ProfileController/getProductCategories'+this.setTokenData());
+    
    
   }
   
@@ -170,11 +159,8 @@ export class MyAccountService {
   
   getContactDetails(){  
 
-    if(this.token !== null){
-      return this.http.get(environment.baseUrl+'ProfileController/getContactDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
-    }else{
-      return this.http.get(environment.baseUrl+'ProfileController/getContactDetails?auth_token='+this.tokenUser.auth_token+'&session_id='+this.tokenUser.session_id);
-    }
+      return this.http.get(environment.baseUrl+'ProfileController/getContactDetails'+this.setTokenData());
+   
      
     
   }
@@ -185,11 +171,8 @@ export class MyAccountService {
       fromObject : postVals
     }); 
     
-    if(this.token !== null){
-      return this.http.post(environment.baseUrl+'ProfileController/updateProfileDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
-    }else{
-      return this.http.post(environment.baseUrl+'ProfileController/updateProfileDetails?auth_token='+this.tokenUser.auth_token+'&session_id='+this.tokenUser.session_id, params);
-    }
+      return this.http.post(environment.baseUrl+'ProfileController/updateProfileDetails'+this.setTokenData(), params);
+    
 
   }
 
@@ -199,11 +182,8 @@ export class MyAccountService {
       fromObject : postVals
     }); 
 
-    if(this.token !== null){
-      return this.http.post(environment.baseUrl+'ProfileController/updateProfileWithServiceArea?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
-    }else{
-      return this.http.post(environment.baseUrl+'ProfileController/updateProfileWithServiceArea?auth_token='+this.tokenUser.auth_token+'&session_id='+this.tokenUser.session_id, params);
-    }
+      return this.http.post(environment.baseUrl+'ProfileController/updateProfileWithServiceArea'+this.setTokenData(), params);
+    
      
   }
 
@@ -213,8 +193,10 @@ export class MyAccountService {
      
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'undefined');
-
-    return this.http.post(environment.baseUrl+'ProfileController/fileUpload?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, formData , { headers: headers });
+ 
+      return this.http.post(environment.baseUrl+'ProfileController/fileUpload'+this.setTokenData(), formData , { headers: headers });
+    
+    
   }
 
   uploadProjectImages(formData){
@@ -222,7 +204,10 @@ export class MyAccountService {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'undefined');
 
-    return this.http.post(environment.baseUrl+'ProfileController/uploadProjectImages?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, formData , { headers: headers });
+      return this.http.post(environment.baseUrl+'ProfileController/uploadProjectImages'+this.setTokenData(), formData , { headers: headers });
+    
+
+    
   }
 
 
@@ -231,7 +216,9 @@ export class MyAccountService {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'undefined');
 
-    return this.http.post(environment.baseUrl+'ProfileController/uploadProjectImagesOnEdit?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, formData , { headers: headers });
+      return this.http.post(environment.baseUrl+'ProfileController/uploadProjectImagesOnEdit'+this.setTokenData(), formData , { headers: headers });
+    
+
   }
  
   addNewProjectDetails(postVals){ 
@@ -240,7 +227,9 @@ export class MyAccountService {
       fromObject : postVals
     }); 
     
-    return this.http.post(environment.baseUrl+'ProfileController/addNewProjectDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+      return this.http.post(environment.baseUrl+'ProfileController/addNewProjectDetails'+this.setTokenData(), params);
+    
+    
   }
 
   addNewProductDetails(postVals){ 
@@ -249,7 +238,7 @@ export class MyAccountService {
       fromObject : postVals
     }); 
     
-    return this.http.post(environment.baseUrl+'ProfileController/addNewProductDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+    return this.http.post(environment.baseUrl+'ProfileController/addNewProductDetails'+this.setTokenData(), params);
   }
   
 
@@ -258,8 +247,14 @@ export class MyAccountService {
     const params = new HttpParams({
       fromObject : postVals
     }); 
+
+    console.log(this.tokenUser)
     
-    return this.http.post(environment.baseUrl+'ProfileController/editProjectDetails?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+   
+      return this.http.post(environment.baseUrl+'ProfileController/editProjectDetails'+this.setTokenData(), params);
+    
+    
+    
   }
 
 
@@ -268,8 +263,12 @@ export class MyAccountService {
     const params = new HttpParams({
       fromObject : postVals
     }); 
+
+  
+      return this.http.post(environment.baseUrl+'ProfileController/deleteProject'+this.setTokenData(), params);
     
-    return this.http.post(environment.baseUrl+'ProfileController/deleteProject?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+    
+   
   }
 
 
@@ -279,7 +278,9 @@ export class MyAccountService {
       fromObject : postVals
     }); 
     
-    return this.http.post(environment.baseUrl+'ProfileController/deleteProductDB?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+      return this.http.post(environment.baseUrl+'ProfileController/deleteProductDB'+this.setTokenData(), params);
+   
+   
   }
 
   
@@ -289,7 +290,11 @@ export class MyAccountService {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'undefined');
 
-    return this.http.post(environment.baseUrl+'ProfileController/fileUpload?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, formData , { headers: headers });
+   
+      return this.http.post(environment.baseUrl+'ProfileController/saveProfileImage'+this.setTokenData(), formData , { headers: headers });
+   
+
+    
   }
 
   removeCoverImage(postVals){
@@ -298,7 +303,8 @@ export class MyAccountService {
        fromObject : postVals
     });
 
-    return this.http.post(environment.baseUrl+'ProfileController/removeCoverImage?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+      return this.http.post(environment.baseUrl+'ProfileController/removeCoverImage'+this.setTokenData(), params);
+   
   }
 
   removeProjectImages(postVals){
@@ -306,8 +312,21 @@ export class MyAccountService {
     const params = new HttpParams({
        fromObject : postVals
     });
+ 
+      return this.http.post(environment.baseUrl+'ProfileController/removeProjectImages'+this.setTokenData(), params);
+   
+    
+  }
 
-    return this.http.post(environment.baseUrl+'ProfileController/removeProjectImages?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  removeProductImages(postVals){
+
+    const params = new HttpParams({
+       fromObject : postVals
+    });
+ 
+    return this.http.post(environment.baseUrl+'ProfileController/removeProductImages'+this.setTokenData(), params);
+   
+    
   }
 
   addNewReview(postVals){ 
@@ -316,7 +335,7 @@ export class MyAccountService {
       fromObject : postVals
     }); 
     
-    return this.http.post(environment.baseUrl+'ProfileController/addNewReview?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+    return this.http.post(environment.baseUrl+'ProfileController/addNewReview'+this.setTokenData(), params);
   }
 
 
@@ -335,7 +354,8 @@ export class MyAccountService {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'undefined');
 
-    return this.http.post(environment.baseUrl+'ProfileController/uploadProductImages?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, formData , { headers: headers });
+      return this.http.post(environment.baseUrl+'ProfileController/uploadProductImages'+this.setTokenData(), formData , { headers: headers });
+ 
   }
 
 

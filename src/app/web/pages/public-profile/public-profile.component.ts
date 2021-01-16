@@ -4,9 +4,12 @@ import { AuthService as OAuth } from "angularx-social-login";
 import { Globals } from "../../../app.global"
 import { AuthService as Auth } from '../../../admin/auth/auth.service';
 import { MyAccountService } from '../../../admin/api/frontend/my-account.service';
+import { ClientsService } from '../../../admin/api/clients.service';  
 import { ProfileService } from "../../../admin/api/frontend/profile.service";
 import { environment } from "../../../../environments/environment";
 import { map, filter } from "rxjs/operators";
+import { AppSEO } from "./../../../app.seo"; 
+
 
 @Component({
   selector: 'app-public-profile',
@@ -37,9 +40,11 @@ export class PublicProfileComponent implements OnInit {
     private auth: Auth,
     private router: Router,
     private globals: Globals,
+    private clients: ClientsService,
     private myaccount: MyAccountService,
     private profile: ProfileService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private seo: AppSEO
   ) { 
  
 
@@ -48,15 +53,12 @@ export class PublicProfileComponent implements OnInit {
       if (event instanceof NavigationEnd) {   
 
           this.isFullScreen = false;
-
-          if(this.router.url.includes("admin")){
-            this.isAdmin = true; 
-          } 
- 
+          //window.scroll(0,0);
+         
         if(event.url === environment.profileUrl){   
           this.isEditableMode = false;
           let params = {user: 'me'};  
-          this.getProfileDetails(params);  
+          this.getProfileDetails(params);   
           
         }else{ 
 
@@ -65,13 +67,18 @@ export class PublicProfileComponent implements OnInit {
             window.scrollTo(0,250)
             this.profileData.is_editable_btn = false; 
             let params = {user: 'me' };  
-            this.getProfileDetails(params);  
+            this.getProfileDetails(params);   
 
           }else{ 
-            
-            if(event.url.indexOf('/view-project/') > -1 ){
+              
+            if((event.url.indexOf('/view-project/') > -1 ) || (event.url.indexOf('/edit-project/') > -1 ) || (event.url.indexOf('/edit-product/') > -1 ) || (event.url.indexOf('/upload-project/') > -1 ) || (event.url.indexOf('/upload-product/') > -1 )){
               this.isFullScreen = true;
             }
+
+            if(this.router.url.includes("admin")){
+              this.getProfileDetails(this.route.snapshot.params, true);  
+              this.isAdmin = true; 
+            }  
 
             this.isEditableMode = false; 
             this.profileData.is_editable_btn = false;
@@ -96,18 +103,16 @@ export class PublicProfileComponent implements OnInit {
     ];
     
     this.isAdminAccessible = this.auth.validateBackendUser();
-    
+      
     if(this.route.params !== null){
       
-      this.route.params.subscribe( (routeParams) =>  {  
-        window.scroll(0,0);  
-        this.getProfileDetails(routeParams);   
+      this.route.params.subscribe( (routeParams) =>  {   
+        (routeParams.user == 'me' || !this.router.url.includes("admin") )? this.getProfileDetails(routeParams): this.getProfileDetails(routeParams, true);
       });
 
-    }else{
-      window.scroll(0,0); 
-      this.getProfileDetails(this.getRouterParams);  
+    }else{ 
       
+      this.getProfileDetails(this.getRouterParams);   
     } 
 
   
@@ -121,7 +126,7 @@ export class PublicProfileComponent implements OnInit {
     console.log($event)
   }
  
-  getProfileDetails(routeParams){ 
+  getProfileDetails(routeParams, admin_profile = false){ 
       
     let params = {client_id: routeParams.user, provider_id: routeParams.provider_id }
 
@@ -130,13 +135,19 @@ export class PublicProfileComponent implements OnInit {
         if (response.status == 200 && response.data.length > 0 ) { 
           this.profileData = response.data[0];   
           this.profileData.profile_editable = false;
+          this.profileData.admin_profile = admin_profile; 
+
+          (this.profileData.admin_profile)? this.editClent(): "";
+
+          console.log(this.profileData);
+
           this.isPublicProfile = true; 
-          this.profile.setProfileData(this.profileData); 
-       
+          this.profile.setProfileData(this.profileData);  
           this.getOtherProfileRelatedData();
+          this.pageSEO();  
 
         }else{
-          //this.router.navigate(['/my-account/user/me/0']);
+          
         }
           
       }); 
@@ -147,6 +158,35 @@ export class PublicProfileComponent implements OnInit {
   isProfileEditable(value){ 
     this.isEditableMode = value; 
   }
+
+
+  editClent(){
+
+    let param = {client_id: this.route.snapshot.params.user, provider_id: this.route.snapshot.params.provider_id }
+    
+    this.clients.getProfileToken(param)
+        .subscribe((response: any) => {
+
+       if (response.status == 200) { 
+
+         let tokenUser = { 
+           auth_token: response.data[0].auth_token,
+           email: response.data[0].email,
+           provider_id: response.data[0].provider_id,
+           session_id: response.data[0].client_id 
+         }
+
+         localStorage.removeItem("tokenUser");
+         localStorage.setItem("tokenUser",  JSON.stringify(tokenUser)); 
+
+        }else{
+            console.log(response)
+        }
+           
+    });  
+   
+ }
+  
 
   setLargeImg(){
     
@@ -255,6 +295,17 @@ export class PublicProfileComponent implements OnInit {
         localStorage.clear();  
         window.location.href = "login";
     });    
+  }
+
+  pageSEO() : void{
+    let seoData = {
+      title: 'EasyBuilding.lk | '+ this.profileData.display_name,
+      keywords:  this.services +","+ this.products,
+      description: this.profileData.description,
+      image: '/easybuilding-api/assets/uploads/'+this.profileData.client_id+'/'+this.profileData.profie_image+'/'+this.profileData.profie_image
+    }
+
+    this.seo.setSEOData(seoData)
   }
 
 }

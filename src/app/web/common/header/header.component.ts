@@ -23,11 +23,19 @@ export class HeaderComponent implements OnInit {
   @Input() logoOnly: boolean =  false;
   showProducts: boolean = false;
   showServices: boolean = false;
-  profilrUrl: any = environment.profileUrl;
+  profilrUrl: string = environment.profileUrl;
+  uploadProductUrl: string = environment.profileUrl;
   totalLinks: number = 0;
   user: any = {
     first_name: '',
     profie_image: ''
+  }
+   
+
+  urls: any = {
+    profile: environment.profileUrl,
+    upload_product: environment.profileUrl.split('/').slice(0, -1).join('/') + "/products",
+    settings: environment.profileUrl.split('/').slice(0, -1).join('/') + "/edit/account-info"
   }
 
   constructor(
@@ -44,8 +52,7 @@ export class HeaderComponent implements OnInit {
   
   }
 
-  ngOnInit(): void {
-      console.log(this.logoOnly) 
+  ngOnInit(): void { 
       
     this.router.events.pipe( filter(e => e instanceof NavigationEnd )
     ).subscribe(e => { 
@@ -76,8 +83,7 @@ export class HeaderComponent implements OnInit {
     this.homePage.getServicesMenuItems() 
     .subscribe((response: any) => {
 
-      let menuArray = this.setMenuItems(response, false); 
-      console.log(menuArray);
+      let menuArray = this.setMenuItems(response, false);  
 
       this.menuItemsServices = this.generateMegaMenu(menuArray);
 
@@ -138,8 +144,9 @@ export class HeaderComponent implements OnInit {
     let lengthCount = 0;
     let totalCount = 0; 
     let column = 0; 
+    let totalCols = 3
 
-    let noOfItemsPerCol =  Math.round(this.totalLinks / 3); 
+    let noOfItemsPerCol =  Math.round(this.totalLinks / totalCols); 
 
     oldMenu.forEach((element, index) => { 
       
@@ -156,7 +163,7 @@ export class HeaderComponent implements OnInit {
       }  
 
       if(menuArray.length == (index + 1)){
-        (newMenu.length < 3)? newMenu.push(groupedMenu) : newMenu[2].push(...groupedMenu);
+        (newMenu.length < totalCols)? newMenu.push(groupedMenu) : newMenu[(totalCols - 1)].push(...groupedMenu);
       }
         
       lengthCount = lengthCount + element.children.length;
@@ -189,6 +196,7 @@ export class HeaderComponent implements OnInit {
     });    
   }
 
+  
   
 
 }

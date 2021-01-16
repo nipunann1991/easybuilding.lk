@@ -9,9 +9,9 @@ import { Router, ActivatedRoute, ActivationStart ,  RoutesRecognized,  Navigat
 export class StepsComponent implements OnInit {
 
   steps: any = [
-    { id: 1, title: "Business Information", active: true, completed: false },
-    { id: 2, title: "Contact Details", active: false, completed: false },
-    { id: 3, title: "Services", active: false, completed: false }, 
+    { id: 1, title: "Business Information", subtitle: "Let's get started by introducing your business.", icon: "icon-dashboard", active: true, completed: false },
+    { id: 2, title: "Contact Details", subtitle: "How can clients contact you via Easybuilding platform.",icon: "icon-profile", active: false, completed: false },
+    { id: 3, title: "Services", subtitle: "Setup your products or services and your service areas.",icon: "icon-tools", active: false, completed: false }, 
   ];
 
   _routeListener: any;

@@ -194,7 +194,7 @@ class ProfileController extends CommonController {
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
 			$search_index = array(
-				'columns' => 'c.client_id, c.email AS signup_email, cc.company_profile, cc.company_id, cc.address_line1, cc.address_line2, cc.city, cc.tel1, cc.tel2, cc.email' ,   
+				'columns' => 'c.client_id, c.email AS signup_email, cc.company_profile, cc.company_id, cc.address_line1, cc.address_line2, cc.city, cc.city_id, cc.tel1, cc.tel2, cc.email' ,   
 				'table' => 'user_sessions us, clients c, client_company cc',
 				'eq_table_col' => '1 ORDER BY cc.company_id DESC LIMIT 1',
 				'data' => 'us.auth_token= "'.$this->input->get('auth_token').'" AND c.client_id = us.client_id AND c.client_id = cc.client_id', 
@@ -819,6 +819,19 @@ class ProfileController extends CommonController {
 	} 
 
 
+	public function saveProfileImage(){ 
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) { 
+			return $this->uploadProfileImage__( $this->input->get('session_id'), $_POST, $_FILES);
+		}else{
+			return $this->invalidSession(); 
+		}  
+ 
+	} 
+
+
+
+
 	public function uploadProjectImages(){ 
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) { 
@@ -891,6 +904,25 @@ class ProfileController extends CommonController {
 		} 
 		
 	}
+
+	public function removeProductImages(){    
+		
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+			$file_name = $this->input->post('file_name'); 
+			$company_id = $this->input->post('company_id'); 
+			$client_id = $this->input->get('session_id'); 
+
+			$this->deleteData__('project_images','file_name="'.$file_name.'"');  
+
+			return $this->deleteProductImages($client_id, $company_id , $file_name); 
+
+		}else{
+			return $this->invalidSession(); 
+		} 
+		
+	}
+
+	
 
 
 	public function deleteProject(){   

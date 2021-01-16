@@ -94,6 +94,9 @@ export class EditProjectComponent implements OnInit {
 
     this.companyID = this.route.snapshot.params.company_id; 
     this.projectID = this.route.snapshot.params.project_id;
+
+    console.log(this.companyID, this.projectID, this.route.snapshot.params )
+    
     this.getServicsWithID(this.companyID);
     this.getProjectDetails(this.companyID, this.projectID);
     

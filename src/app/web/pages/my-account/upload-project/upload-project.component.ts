@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -6,6 +7,8 @@ import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 
 import { ImageCroppedEvent, Dimensions, ImageTransform } from 'ngx-image-cropper';
 import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
 import { Options } from 'select2';
+import * as $ from 'jquery';
+declare const bootbox:any;
 
 @Component({
   selector: 'app-upload-project',
@@ -26,11 +29,15 @@ export class UploadProjectComponent implements OnInit {
   uploadedImages: any = [];
   uploadedFileName: any = [];
   allServices: any = [];
+  projectImagesDeleted:any;
+  imageURLThumb: string = "";
+
 
   constructor(
     private myaccount: MyAccountService,
     private toastr: ToastrService,  
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) {  
     
     
@@ -81,16 +88,22 @@ export class UploadProjectComponent implements OnInit {
     });
 
     this.companyID = this.route.snapshot.params.company_id;
-    this.getServicsWithID(this.companyID);
+    this.getServicsWithID(this.companyID); 
+   
   }
 
   ngOnDestroy(){
-    //alert();
+    
   }
 
   openImgUpload(fileInput:any, profile_state){ 
 
     //fileInput.click();   
+  }
+
+  
+  goBack(){
+    this.location.back();
   }
 
   public dropped(files: NgxFileDropEntry[]) {
@@ -117,7 +130,9 @@ export class UploadProjectComponent implements OnInit {
                 
                 this.uploadedImages.push(response.data.target_file);
                 this.uploadedFileName.push(response.data.new_file);
-                resolve();
+
+                console.log( this.uploadedFileName )
+                //resolve();
 
               },
                 err => {
@@ -237,7 +252,7 @@ export class UploadProjectComponent implements OnInit {
       console.log(event);
     }
 
-    onSave(){
+    onSave(isOnImageUpload = false){
 
       if (!this.formGroup.invalid) {
         this.formGroup.value.images = JSON.stringify(this.uploadedFileName); 
@@ -252,7 +267,7 @@ export class UploadProjectComponent implements OnInit {
   
             if (response.status == 200) { 
               this.toastr.success('Project added successfully', 'Success !');  
-              window.history.back();
+              (!isOnImageUpload)? window.history.back() : "" ;
               
             }else if (response.status == 401){
               this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  
@@ -265,7 +280,57 @@ export class UploadProjectComponent implements OnInit {
   
     }
 
+    
+    deleteImage(index){ 
+
+      const that = this;
+      
+      let dialog = bootbox.confirm({
+        title: "Delete Image",
+        message: "Are you sure you need to delete this image? Please note after you proceed it can be undone.",
+        buttons: {
+          confirm: {
+            label: 'Yes, Delete',  
+            className: 'btn-danger pull-left'
+          },
+          cancel: {
+            label: 'No', 
+            className: 'pull-right '
+          }
+        },
+        callback: function (result) {
+          
+          if(result){  
+            that.projectImagesDeleted = that.uploadedFileName[index];
+
+            console.log(that.projectImagesDeleted);
+
+            that.uploadedFileName.splice(index, 1); 
+            that.uploadedImages.splice(index, 1) 
+
+
+            let param = { company_id: that.companyID, file_name: that.projectImagesDeleted }; 
+            that.myaccount.removeProjectImages(param).subscribe((response: any) => { 
+              that.projectImagesDeleted = "";
+
+            }); 
+
+            //that.onSave(true);
+            
+          }  
+        } 
+      });
+  
+      dialog.init(function(){
+        $('html .modal-backdrop:not(:first)').remove();
+      })
+  
+      dialog.on("shown.bs.modal", function() {  
+        $('html .bootbox.modal:not(:first)').remove(); 
+      });
+     
+    }
 
     
-
+ 
 }

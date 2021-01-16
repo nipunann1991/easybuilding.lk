@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop'; 
 import { ImageCroppedEvent, Dimensions, ImageTransform } from 'ngx-image-cropper';
 import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
-
+import * as $ from 'jquery';
+declare const bootbox:any;
 
 @Component({
   selector: 'app-upload-product',
@@ -23,11 +25,14 @@ export class UploadProductComponent implements OnInit {
   uploadedImages: any = [];
   uploadedFileName: any = [];
   allProducts: any = [];
+  projectImagesDeleted:any;
+  imageURLThumb: string = "";
 
   constructor(
     private myaccount: MyAccountService,
     private toastr: ToastrService,  
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) {  
     
     
@@ -65,7 +70,9 @@ export class UploadProductComponent implements OnInit {
     
   }
 
-
+  goBack(){
+    this.location.back();
+  }
 
   getProductsWithID(company_id){
 
@@ -115,7 +122,9 @@ export class UploadProductComponent implements OnInit {
                 
                 this.uploadedImages.push(response.data.target_file);
                 this.uploadedFileName.push(response.data.new_file);
-                resolve();
+
+                console.log(this.uploadedImages, this.uploadedFileName)
+                //resolve();
 
               },
                 err => {
@@ -243,6 +252,55 @@ export class UploadProductComponent implements OnInit {
         });
     }
 
+  }
+
+  deleteImage(index){ 
+
+    const that = this;
+    
+    let dialog = bootbox.confirm({
+      title: "Delete Image",
+      message: "Are you sure you need to delete this image? Please note after you proceed it can be undone.",
+      buttons: {
+        confirm: {
+          label: 'Yes, Delete',  
+          className: 'btn-danger pull-left'
+        },
+        cancel: {
+          label: 'No', 
+          className: 'pull-right '
+        }
+      },
+      callback: function (result) {
+        
+        if(result){  
+          that.projectImagesDeleted = that.uploadedFileName[index];
+
+          console.log(that.projectImagesDeleted);
+
+          that.uploadedFileName.splice(index, 1); 
+          that.uploadedImages.splice(index, 1) 
+
+          let param = { company_id: that.companyID, file_name: that.projectImagesDeleted }; 
+          that.myaccount.removeProductImages(param).subscribe((response: any) => { 
+            that.projectImagesDeleted = "";
+
+          }); 
+
+          //that.onSave(true);
+          
+        }  
+      } 
+    });
+
+    dialog.init(function(){
+      $('html .modal-backdrop:not(:first)').remove();
+    })
+
+    dialog.on("shown.bs.modal", function() {  
+      $('html .bootbox.modal:not(:first)').remove(); 
+    });
+   
   }
 
 }

@@ -9,22 +9,24 @@
                     <input type="text" class="form-control" placeholder="Search Photos, Products & More...">
                 </div>
                 <div class="cta-buttons" [ngClass]="{'short-btn-area': isLogged}" *ngIf="!logoOnly"> 
-                    <button mat-button routerLink="/login" *ngIf="!isLogged" class="login-btn btn btn-login mat-button" ><i class="icon-profile"></i> Login</button>
-                    <button mat-button  routerLink="/login" *ngIf="!isLogged" class="btn d-none btn-login mat-button"><i class="icon-profile"> </i>Login</button>    
-                    <button mat-button *ngIf="!isLogged" class="btn sign-up mat-button">Upload Product</button>   
+                    <a routerLink="/login" *ngIf="!isLogged" class="login-btn" >Login</a> 
+                    <!-- <i class="icon-profile"></i> -->
+                    <a routerLink="/create-account" *ngIf="!isLogged" class="login-btn" >Register</a> 
+                    <button [routerLink]="urls.upload_product" mat-button *ngIf="!isLogged" class="btn sign-up mat-button"><i class="icon-upload"></i> Upload Product/Service</button>   
                     
-                    <div class="user-account" routerLink="/my-account/user/me/about" *ngIf="isLogged">
-                       
-                        <div class="user-img" *ngIf="user.profie_image != ''" [ngStyle]="{'background-image': 'url('+ user.profie_image + ')'}"></div> 
-                        <div class="user-img" *ngIf="user.profie_image == ''"> <span>{{user.first_name | firstLetter }}</span> </div>
-                        
-                        <div class="user-name"><p>Hello, {{user.first_name}}</p></div> 
-                        <i class="icon-down-arrow"></i>
+                    <div class="user-account" *ngIf="isLogged"> 
+                        <div class="profile-acc" [routerLink]="urls.profile">
+                            <div class="user-img" *ngIf="user.profie_image != ''" [ngStyle]="{'background-image': 'url('+ user.profie_image + ')'}"></div> 
+                            <div class="user-img" *ngIf="user.profie_image == ''"> <span>{{user.first_name | firstLetter }}</span> </div>
+                            <div class="user-name"><p>Hello, {{user.first_name}}</p></div> 
+                            <i class="icon-down-arrow"></i>
+                        </div> 
                         
                         <div class="mini-menu">
                             <ul>
-                                <li><a routerLink="{{profilrUrl}}"><i class="icon-profile"></i> Profile</a></li>
-                                <li><a routerLink="{{profilrUrl}}"><i class="icon-upload"></i> Upload Products</a></li>
+                                <li><a [routerLink]="urls.profile"><i class="icon-profile"></i> Profile</a></li>
+                                <li><a [routerLink]="urls.upload_product"><i class="icon-upload"></i> Upload Products</a></li>
+                                <li><a [routerLink]="urls.settings"><i class="icon-settings"></i> Edit Account</a></li>
                                 <li><a (click)="signOut()" >Sign Out</a></li>
                             </ul>
                         </div>

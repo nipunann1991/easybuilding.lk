@@ -2,7 +2,7 @@
 <div class="container-fluid login-page">
   
   <div *ngIf="!isAdmin" class="container">
-      <h1>Create Account</h1>
+      <h1>Sign Up in Easybuilding</h1>
 
       <div class="column-container">
           <div class="column">
@@ -40,8 +40,8 @@
               <div class="login-wrapper"> 
                  
                   <div class="login-accounts" *ngIf="!isLoggedIn"> 
-                      <button mat-button class="btn btn-fb" (click)="signInWithFB()" ><img src="/assets/images/facebook.svg" alt=""> Login with Facebook</button> 
-                      <button mat-button class="btn btn-google"  (click)="signInWithGoogle()"  ><img src="/assets/images/google.svg" alt=""> Login with Google</button> 
+                      <button mat-button class="btn btn-fb" (click)="signInWithFB()" ><img src="/assets/images/facebook.svg" alt=""> Sign Up with Facebook</button> 
+                      <button mat-button class="btn btn-google"  (click)="signInWithGoogle()"  ><img src="/assets/images/google.svg" alt=""> Sign Up with Google</button> 
                   </div> 
                   <div class="login-accounts" *ngIf="isLoggedIn">
                       <h3>Please wait...</h3>
@@ -51,7 +51,7 @@
           
       </div> 
       <div class="bottom-container">
-         <p>Already Have an account? <a routerLink="/login" class="create-account" >Login</a> here.</p>
+         <p>Already have an account? <a routerLink="/login" class="create-account" >Login</a> here.</p>
       </div> 
   </div>  
   <div *ngIf="isAdmin" class="container">

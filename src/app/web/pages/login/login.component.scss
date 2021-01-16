@@ -2,7 +2,7 @@
 
 .container{
      
-    @include breakpoint($medium-desktop){
+    @include breakpoint($x-small-desktop){
         min-width: 700px;
         max-width: 800px;
     }

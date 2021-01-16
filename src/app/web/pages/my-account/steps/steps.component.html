@@ -1,10 +1,14 @@
 <div class="wrapper complete-steps">
   <div class="steps-header">
-    <div class="container">
-
-      <h2>Complete Your Profile</h2> 
+    <div class="container"> 
       <ul class="steps">
-        <li *ngFor="let s of steps" [ngClass]="{'active': s.active, 'completed': s.completed }"><span>{{s.title}}</span></li> 
+        <li *ngFor="let s of steps" [ngClass]="{'active': s.active, 'completed': s.completed }">
+          <span class="icon">
+            <i [ngClass]="s.icon"></i>
+          </span>
+          <span class="card-title">{{s.title}}</span>
+          <p>{{s.subtitle}}</p>
+        </li> 
       </ul> 
 
     </div> 

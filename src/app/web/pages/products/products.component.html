@@ -10,34 +10,31 @@
             <h2>Filters</h2>
             <div class="filter-item">
                 <label for="" class="lbl-title">Sort By:</label>
-                <div class="form-check" *ngFor="let sb of sortByFilter">
-                    <input class="form-check-input" type="radio" name="sort_by" id="{{sb.alias}}" value="{{sb.id}}" [checked]="sb.isChecked">
+                <div class="form-check" *ngFor="let sb of sortByFilter; let i = index;">
+                    <input class="form-check-input" type="radio" name="sort_by" id="{{sb.alias}}" value="{{sb.id}}" [checked]="sb.isChecked" (change)="sortChange(i)">
                     <label class="form-check-label" for="{{sb.alias}}">{{sb.option}}</label>
                 </div> 
             </div>
+             
             <div class="filter-item">
-                <label for="" class="lbl-title">Select by Category:</label>
-                <ng-select2 [data]="allServices" [options]="options" placeholder="Select Category Level 1" formControlName="services" class="select-fw mb-blk-5" >
-                </ng-select2>  
-                 
-            </div>
-            <div class="filter-item">
-                <label for="" class="lbl-title">Sort by Location:</label>
-                <div class="form-check" *ngFor="let sbl of sortByLocation">
-                    <input class="form-check-input" type="checkbox" name="sort_location" id="{{sbl.alias}}" value="{{sbl.id}}" [checked]="sbl.isChecked">
-                    <label class="form-check-label" for="{{sbl.alias}}">{{sbl.option}}</label>
-                </div> 
-                <ng-select2 [data]="allServices" [options]="options" placeholder="Search Location" formControlName="services" class="select-fw" >
-                </ng-select2> 
-            </div>
-            <div class="filter-item">
-                <label for="" class="lbl-title">By Rating:</label>
-                <div class="rating-range">
-                    <mat-slider [max]="5" [min]="0" [step]="1" [thumbLabel]="true"></mat-slider>
-                </div>
+                <label for="" class="lbl-title">Sort by Service Area:</label>
+                <ng-container *ngFor="let sbl of sortByLocation; let i = index;">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="sort_location" id="{{sbl.alias}}" value="{{sbl.id}}" [checked]="sbl.isChecked" (change)="sortByService(i)">
+                        <label class="form-check-label" for="{{sbl.alias}}">{{sbl.option}}</label>
+                    </div>  
+                    <!-- <ng-select2  *ngIf="(sbl.isChecked && sbl.id == 3) || (sbl.isChecked && sbl.id == 4)" [data]="allServices" [options]="options" placeholder="Search Location" formControlName="services" class="select-fw" >
+                    </ng-select2> -->
+                </ng-container>
                 
                  
             </div>
+            <!-- <div class="filter-item">
+                <label for="" class="lbl-title">By Rating:</label>
+                <div class="rating-range">
+                    <mat-slider [max]="5" [min]="0" [step]="1" [thumbLabel]="true"></mat-slider>
+                </div> 
+            </div> -->
         </div>
         <div class="right-content-search">
             <div class="page-top"> 
@@ -65,15 +62,29 @@
                                     [rating]="p.rating"
                                     [readOnly]="true" 
                                 ></star-rating> 
-                                    <!--  {{ fpl.rating | roundToDecimal:1  }}  <span class="no-of-reviews">( {{fpl.total_reviews}} Review )</span> -->
+                                {{ p.rating | roundToDecimal:1  }}  <span class="no-of-reviews">( {{p.total_reviews}} Review )</span>
                             </div>
                             <div class="description" *ngIf="isGridView" [innerHTML]="p.description | truncateText:[115] "></div>
                             <div class="description" *ngIf="!isGridView" [innerHTML]="p.description | truncateText:[250] "></div>
-                            <span class="badge badge-secondary">New</span> <span class="badge badge-secondary">Volupt atibus</span>
-                            <ul class="contact-details">
-                                <li class="address">{{p.contact.city}}</li>
-                                <li class="tel">{{p.contact.tel}}</li>
-                            </ul>  
+
+                            <div class="categories" *ngIf="!isGridView">
+                                <ng-container *ngFor="let sv of p.services">
+                                    <span class="badge badge-secondary">{{sv}}</span>
+                                </ng-container> 
+                            </div> 
+
+                            <div class="contact-details">
+                                <ul>
+                                    <li class="address">{{p.contact.city}}</li>
+                                    <li class="tel">{{p.contact.tel}}</li> 
+                                    <li *ngIf="!isGridView" class="email">{{p.contact.email}}</li> 
+                                </ul>  
+
+                                <div class="summery-area">
+                                    <span class="badge badge-secondary">S</span>
+                                    <span class="badge badge-secondary">P</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="clearfix"></div>
                     </div>

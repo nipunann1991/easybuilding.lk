@@ -10,6 +10,7 @@ import { Options } from 'select2';
   styleUrls: ['./products.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
+
 export class ProductsComponent implements OnInit {
 
   pageData: any = {};
@@ -19,7 +20,7 @@ export class ProductsComponent implements OnInit {
   sortByLocation: any = [];
   allServices: any = [];
   products: any = [];
-  isGridView: boolean = true;
+  isGridView: boolean = false;
   public options: Options;
 
   constructor(
@@ -27,9 +28,7 @@ export class ProductsComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) { 
-
-  
-
+ 
     this.router.events.subscribe((event) => {
 
       if (event instanceof NavigationEnd) { 
@@ -51,30 +50,31 @@ export class ProductsComponent implements OnInit {
     };
 
     this.sortByFilter = [
-      { id: 1, option: "Most Recent", alias: "most_recent", isChecked: true },
-      { id: 2, option: "Highest Ratings", alias: "hightest_ratings", isChecked: false },
+      { id: 1, option: "Highest Ratings", alias: "hightest_ratings", isChecked: false },
+      { id: 2, option: "Most Recent", alias: "most_recent", isChecked: false }, 
       { id: 3, option: "Most Reviewed", alias: "most_reviewed", isChecked: false },
     ];
 
     this.sortByRating = [
-      { id: 1, option: "All Ratings", alias: "allstar", isChecked: true },
+      { id: 1, option: "All Ratings", alias: "allstar", isChecked: false },
       { id: 2, option: "5 Star Ratings", alias: "5star", isChecked: false },
       { id: 3, option: "4 Star Ratings", alias: "4star", isChecked: false },
     ];
 
     this.sortByCategory = [
-      { id: 1, option: "Level 1", alias: "lvl1", isChecked: true },
+      { id: 1, option: "Level 1", alias: "lvl1", isChecked: false },
       { id: 2, option: "Level 2", alias: "lvl12", isChecked: false }, 
     ];
  
     this.sortByLocation = [
-      { id: 1, option: "Any Location", alias: "any", isChecked: true },
+      { id: 1, option: "Any", alias: "any", isChecked: false },
       { id: 2, option: "All Island", alias: "all", isChecked: false }, 
       { id: 3, option: "By District", alias: "district", isChecked: false }, 
       { id: 4, option: "By City", alias: "city", isChecked: false }, 
     ];
  
     this.getGridView();
+    this.initialSort(1)
 
   }
 
@@ -133,9 +133,12 @@ export class ProductsComponent implements OnInit {
             imgUrl: profileImg,
             rating:  elm.rating,
             total_reviews : elm.total_reviews,
+            services : elm.services,
+            products : elm.products,
             contact: {
               city : elm.city, 
-              tel : elm.tel1, 
+              tel : elm.tel1,
+              email : elm.email,  
             }
           }
 
@@ -177,4 +180,30 @@ export class ProductsComponent implements OnInit {
     this.setGridView(); 
   }
 
+  sortChange(i){
+    this.resetChecked(this.sortByFilter)
+    this.sortByFilter[i].isChecked = true;  
+  }
+
+
+  sortByService(i){
+    this.resetChecked(this.sortByLocation)
+    this.sortByLocation[i].isChecked = true; 
+  }
+
+  initialSort(i){
+    this.sortChange(i)
+    this.sortByService(i)
+  }
+
+  resetChecked(arr){
+    for (var key in arr) {
+      arr[key]["isChecked"] = false;
+    }
+
+    return arr;
+  }
+
 }
+
+
