@@ -16,6 +16,7 @@ html{
 
 	&.cdk-global-scrollblock{
 		height: auto;
+		position: inherit;
 		
 		body{
 			height: auto;

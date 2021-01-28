@@ -29,14 +29,37 @@ class SearchController extends CommonController {
 	public function searchProducts(){  
  
 
-		$limit = "LIMIT ".$this->input->post('limit') * ($this->input->post('page_index') - 1) ." , ".$this->input->post('limit') .""; 
-   
-		$search_index = array(
-			'columns' => 'cc.*, c.provider_id',   
-			'table' => '`client_company` cc, `services_list` sl, clients c',
-			'eq_table_col' => '1 ORDER BY cc.client_id DESC '.$limit, 
-			'data' => 'cc.company_id=sl.company_id AND c.client_id=cc.client_id AND cc.status=1 AND sl.cat_lvl2_id="'.$this->input->post('cat_lvl2_id').'"', 
-		);
+		$limit = "LIMIT ".$this->input->post('limit') * ($this->input->post('page_index') - 1) ." , ".$this->input->post('limit') ."";   
+
+		$sort_by = $this->getSortByFilter($this->input->post('sort_by')); 
+
+		$sort_by_service_area = $this->getSortByFilterServiceArea($this->input->post('sort_by_service_area'), $this->input->post('area'));
+		 
+ 
+	  	 if($this->input->post('sort_by_service_area') < 3){
+
+	  	 	$search_index = array(
+				'columns' => 'cc.*, c.provider_id',   
+				'table' => '`client_company` cc, `services_list` sl, clients c',
+				'eq_table_col' => '1 ORDER BY '.$sort_by.' '.$limit, 
+				'data' => 'cc.company_id=sl.company_id AND c.client_id=cc.client_id AND cc.status=1 AND sl.cat_lvl2_id="'.$this->input->post('cat_lvl2_id').'" AND '.$sort_by_service_area
+			);
+
+	  	 }else{
+
+	  	 	$search_index = array(
+				'columns' => 'cc.*, c.provider_id, sd.district_id',   
+				'table' => '`clients` c, `services_list` sl, `client_company` cc LEFT JOIN  '.$sort_by_service_area['table']." ON ".$sort_by_service_area['where'],
+				'eq_table_col' => '1 ORDER BY '.$sort_by.' '.$limit, 
+				'data' => 'cc.company_id=sl.company_id AND c.client_id=cc.client_id AND cc.status=1 AND sl.cat_lvl2_id="'.$this->input->post('cat_lvl2_id').'" AND (sd.district_id IS NULL AND cc.all_island=1 OR sd.district_id IS NOT NULL )'
+			);
+
+	  	 }
+		
+ 
+
+
+
 
 		$start = $this->input->post('limit') * ($this->input->post('page_index') - 1) + 1;
 		$end = $this->input->post('limit') * ($this->input->post('page_index'));
@@ -74,6 +97,54 @@ class SearchController extends CommonController {
 		return $this->returnJSON($data);  
 
 	} 
+
+
+	public function getSortByFilter($id){   
+
+		$query = "";
+
+		switch ($id) {
+			case '1':
+				$query = "cc.rating DESC"; 
+				break;
+			
+			case '2':
+				$query = "c.created_date ASC";
+				break;
+
+			case '3':
+				$query = "cc.total_reviews DESC";
+				break;
+
+				
+		}
+
+		return $query;
+	}
+
+
+	public function getSortByFilterServiceArea($id, $area = -1){   
+
+		$query = "1";
+
+		switch ($id) {
+			case '2':
+				$query = "cc.all_island = 1"; 
+				break;  
+
+			case '3':
+				$query = array(
+					'table' => 'service_districts sd', 
+					'where' => 'sd.company_id=cc.company_id AND sd.district_id='.$area.''
+				);
+
+				break;
+		}
+
+		return $query;
+	}
+
+
 
 	public function getServics($company_id){    
 

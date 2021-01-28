@@ -280,7 +280,7 @@ class CommonController extends CI_Controller {
 
 		$get_columns = array_keys($dataset);
 		$get_values = array_values($dataset);
-
+ 
 
 		foreach ($get_columns as $value) {
 			array_push($columns, "`".addslashes($value)."`");
@@ -417,7 +417,7 @@ class CommonController extends CI_Controller {
 		    mkdir($upload_dir.'/xs-thumb', 0777, true); 
 		} 
  
-     	$generatedFileName = basename(time()).'.jpg';
+     	$generatedFileName = basename(time().rand()).'.jpg';
 
 	    $target_file = $upload_dir . $generatedFileName;   
 
@@ -453,7 +453,7 @@ class CommonController extends CI_Controller {
 
 		$file_name = preg_replace("/\s+\(|\)/", "_", $_FILES["file"]["name"]);  
 		 
-     	$generatedFileName = basename(time()).'.jpg';
+     	$generatedFileName = basename(time().rand()).'.jpg';
 
 	    $target_file = $upload_dir . $generatedFileName;   
 
@@ -494,7 +494,7 @@ class CommonController extends CI_Controller {
 		    mkdir($upload_dir, 0777, true);
 		} 
 
-     	$generatedFileName = basename(time()).'.jpg';
+     	$generatedFileName = basename(time().rand()).'.jpg';
 
 	    $target_file = $upload_dir . $generatedFileName;   
 
@@ -528,7 +528,7 @@ class CommonController extends CI_Controller {
 		    mkdir($upload_dir, 0777, true);
 		} 
 
-     	$generatedFileName = basename(time()).'.jpg';
+     	$generatedFileName = basename(time().rand()).'.jpg';
 
 	    $target_file = $upload_dir . $generatedFileName;   
 
@@ -594,7 +594,7 @@ class CommonController extends CI_Controller {
 		    mkdir($upload_dir.'/thumb', 0777, true);
 		} 
 
-     	$generatedFileName = basename(time()).'.jpg';
+     	$generatedFileName = basename(time().rand()).'.jpg';
 
 	    $target_file = $upload_dir . $generatedFileName;   
 

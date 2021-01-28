@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 16, 2021 at 06:05 PM
+-- Generation Time: Jan 28, 2021 at 01:32 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -39,7 +39,8 @@ CREATE TABLE `categories` (
 
 INSERT INTO `categories` (`id`, `cat_id`, `cat_name`) VALUES
 (19, 'C1019', 'Services'),
-(15, 'C1015', 'Products');
+(15, 'C1015', 'Products'),
+(22, 'C1022', 'Images');
 
 -- --------------------------------------------------------
 
@@ -74,7 +75,10 @@ INSERT INTO `categories-level1` (`id`, `cat_lvl1_id`, `cat_lvl1_name`, `parent_c
 (29, 'CL11029', 'House Interior Deco ', 'C1015'),
 (30, 'CL11030', 'AC & Mechanical Systems ', 'C1015'),
 (31, 'CL11031', 'Kitchen ', 'C1015'),
-(32, 'CL11032', 'Machinery Tools and Vehicles ', 'C1015');
+(32, 'CL11032', 'Machinery Tools and Vehicles ', 'C1015'),
+(33, 'CL11033', 'House', 'C1022'),
+(34, 'CL11034', 'Building Materials', 'C1022'),
+(35, 'CL11035', 'Other Acesseries', 'C1022');
 
 -- --------------------------------------------------------
 
@@ -110,6 +114,7 @@ INSERT INTO `categories-level2` (`id`, `cat_lvl2_id`, `cat_lvl2_name`, `parent_c
 (23, 'CL21023', 'Metal', 'CL11018'),
 (24, 'CL21024', 'Blocks', 'CL11018'),
 (25, 'CL21025', 'Steel', 'CL11018'),
+(146, 'CL21146', 'House', 'CL11033'),
 (27, 'CL21027', 'Water Proofing Materials ', 'CL11018'),
 (28, 'CL21028', 'Glass', 'CL11018'),
 (29, 'CL21029', 'Door & Window Fittings ', 'CL11018'),
@@ -227,7 +232,25 @@ INSERT INTO `categories-level2` (`id`, `cat_lvl2_id`, `cat_lvl2_name`, `parent_c
 (142, 'CL21142', 'Furniture', 'CL11031'),
 (143, 'CL21143', 'Heavy Construction Machinery Suppliers', 'CL11032'),
 (144, 'CL21144', 'Construction Tool Suppliers', 'CL11032'),
-(145, 'CL21145', 'Material Handling Equipments ', 'CL11032');
+(145, 'CL21145', 'Material Handling Equipments ', 'CL11032'),
+(147, 'CL21147', 'Living', 'CL11033'),
+(148, 'CL21148', 'Bed Room & Closet', 'CL11033'),
+(149, 'CL21149', 'Kitchen & Pantry', 'CL11033'),
+(150, 'CL21150', 'Bathrooms', 'CL11033'),
+(151, 'CL21151', 'Landscaping', 'CL11033'),
+(152, 'CL21152', 'Pools', 'CL11033'),
+(153, 'CL21153', 'Fence', 'CL11033'),
+(154, 'CL21154', 'Lightfittings & Switches', 'CL11033'),
+(155, 'CL21155', 'Painting', 'CL11033'),
+(156, 'CL21156', 'Furniture', 'CL11033'),
+(157, 'CL21157', 'Bricks', 'CL11034'),
+(158, 'CL21158', 'Fences', 'CL11034'),
+(159, 'CL21159', 'Roofing Materials', 'CL11034'),
+(160, 'CL21160', 'Flooring', 'CL11034'),
+(161, 'CL21161', 'Bathroom fittings', 'CL11034'),
+(162, 'CL21162', 'AC', 'CL11035'),
+(163, 'CL21163', 'Solar', 'CL11035'),
+(164, 'CL21164', 'Arts and Crafts', 'CL11035');
 
 -- --------------------------------------------------------
 
@@ -608,16 +631,16 @@ INSERT INTO `client_company` (`company_id`, `client_id`, `display_name`, `descri
 (7, 75, 'Mahesh Steel Decos', '', '', '', 'maheshsteel@gmail.com', '248 Negambo Road', '', 'Wattala', 0, '01124456733', '', '1596706929blob.jpg', '', 1, 0, 0, 4, 0, 0, 0, '', 0x5b2231303837222c2231303938222c2231303939225d, 0x5b5d, 0x5b22434c3231303133225d, 1, 3, 1, 1, 1),
 (3, 68, 'Test Holdings', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p><p>tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p><p>quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p><p>consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse</p><p>cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non</p><p>proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '', 'nipunann07101@gmail.com', '275A Colombo Road, KIdagammulla', '', 'Gampaha', 0, '0716378515', '', '', '', 1, 0, 0, 4, 0, 0, 0, '', 0x5b2231323233225d, '', '', 0, 0, 1, 0, 1),
 (2, 67, 'JAT Living', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '', 'info@jatliving.lk', '141 Danister De Silva Mw,', 'Orion City,', 'Colombo 09', 0, '0112589963', '', '1607143260blob.jpg', '1607142780blob.jpg', 1, 0, 0, 4, 0, 1, 0, 0x5b5d, 0x5b5d, 0x5b5d, 0x5b22434c3231303134222c22434c3231303435222c22434c3231303439225d, 3, 4.66667, 1, 1, 1),
-(8, 76, 'Nishantha Constructions', '', '', 'PV58566101', 'info@nishconstructions.com', '89/4 Gampola Road', '', 'Peradeniya', 0, '0812265786', '', '', '', 2, 0, 0, 4, 0, 0, 0, '', 0x5b5d, 0x5b223134222c223135222c223139222c223233225d, 0x5b22434c3231303130222c22434c3231303131225d, 0, 0, 1, 0, 1),
+(8, 76, 'Nishantha Constructions', '', '', 'PV58566101', 'info@nishconstructions.com', '89/4 Gampola Road', '', 'Peradeniya', 0, '0812265786', '', '', '', 2, 0, 0, 4, 0, 0, 0, 0x5b5d, 0x5b5d, 0x5b223134222c223135222c223139222c223233225d, 0x5b22434c3231303130222c22434c3231303134222c22434c3231303131225d, 0, 0, 1, 0, 1),
 (26, 99, 'Roshan Furnitures', '<p>We are furniture suppliers.</p>', '', 'PV339021245', 'roshfurnitures@gmail.com', '298 Kandy Road', '', 'Pasyala', 0, '0332278651', '', '1610272285blob.jpg', '1610271352blob.jpg', 3, 0, 0, 4, 0, 0, 0, 0x5b22434c3231313036222c22434c3231313033222c22434c3231313032222c22434c3231313034222c22434c3231313031225d, 0x5b5d, 0x5b2238222c223130225d, 0x5b22434c3231303336225d, 0, 0, 1, 0, 1),
 (16, 84, 'Imali Gunawardena', '<p>I love creative architecture.</p>', '', '', 'imali.gunawardena@gmail.com', '233, Sinhagiri', 'Welikanna', 'Waga', 0, '0362289002', '', '1605692538blob.jpg', '1605386181blob.jpg', 0, 0, 0, 2, 0, 0, 0, '', '', '', '', 0, 0, 0, 0, 1),
-(27, 100, 'Business', '', '', '', 'businesscom@gmail.com', '22', '', 'Gampaha', 0, '0332229266', '', '', '', 1, 0, 0, 4, 0, 0, 0, 0x7b2276616c7565223a5b5d7d, 0x5b5d, 0x5b2238222c2239222c223130225d, 0x5b22434c3231303632222c22434c3231303535225d, 0, 0, 1, 0, 1),
+(27, 100, 'BT Holdings', '', '', '', 'businesscom@gmail.com', '22 Kandy Road', '', 'Kiribathgoda', 5, '011-2229267', '', '', '', 1, 0, 0, 4, 0, 0, 0, 0x7b2276616c7565223a5b5d7d, 0x5b5d, 0x5b2238222c223130225d, 0x5b22434c3231303632222c22434c3231303535222c22434c3231303134225d, 1, 4, 1, 0, 1),
 (30, 103, 'MJ', '<p>sfsf</p>', '', 'PV123', 'gdfg@gmail.com', '345 3453', '', 'ewr', 0, '5345 345453', '', '', '', 1, 0, 0, 2, 0, 0, 0, 0x2222, 0x5b2231303734222c2231303731222c2231303732225d, 0x5b5d, 0x5b22434c3231303632222c22434c3231303538225d, 0, 0, 1, 0, 0),
 (68, 127, 'Pest Controllers - Ragama', '', '', '', '', '', '', 'Ragama', 0, '0716345977', '', '', '', 2, 0, 0, 4, 0, 0, 0, 0x2222, 0x5b2231303934225d, 0x5b5d, 0x5b22434c3231303636225d, 0, 0, 1, 0, 1),
 (50, 120, 'Grass Cutters - Athurugiriya', '', '', '', '', '', '', 'Athurugiriya', 0, '0786553219', '', '', '', 2, 0, 0, 4, 0, 0, 0, 0x2222, 0x5b2231303735225d, 0x5b5d, 0x5b22434c3231303537225d, 0, 0, 1, 0, 1),
 (69, 128, 'Grass Cutting Service ', '', '', '', '', '', '', 'Kaluthara', 0, '07785423589', '', '', '', 2, 0, 0, 4, 0, 0, 0, 0x2222, 0x5b2231313532225d, 0x5b5d, 0x5b22434c3231303537225d, 0, 0, 1, 0, 1),
 (67, 126, 'Gully bowser service', '', '', '', '', '', '', 'Piliyandala', 0, '0715239985', '', '', '', 2, 0, 0, 4, 0, 0, 0, 0x2222, 0x5b5d, 0x5b2238225d, 0x5b22434c3231303639225d, 0, 0, 1, 0, 1),
-(73, 132, 'San Readymix (Pvt) Ltd', '<p>San Readymix is operating their plant at Seeduwa with a high-capacity computerized Concrete Batching Plant, large fleet of Concrete Delivery Trucks, modern Mobile Concrete Pumps and a Concrete testing facility and it is known for Quality, Strength and Reliability.</p>', 'http://sanreadymix.com', 'PV10025488', 'sanreadymix@sanreadymix.com', 'No 55, Avissawella Road', 'Orugodawatta', 'Colombo 09', 0, '0114962464', '', '', '1610270921blob.jpg', 2, 0, 0, 4, 0, 1, 0, 0x5b22434c3231303332225d, 0x5b5d, 0x5b5d, 0x2222, 0, 0, 1, 1, 1);
+(73, 132, 'San Readymix (Pvt) Ltd', '<p>San Readymix is operating their plant at Seeduwa with a high-capacity computerized Concrete Batching Plant, large fleet of Concrete Delivery Trucks, modern Mobile Concrete Pumps and a Concrete testing facility and it is known for Quality, Strength and Reliability.</p>', 'http://sanreadymix.com', 'PV10025488', 'sanreadymix@sanreadymix.com', 'No 55, Avissawella Road', 'Orugodawatta', 'Colombo 09', 0, '0114962464', '', '', '1610270921blob.jpg', 2, 0, 0, 4, 0, 1, 0, 0x5b22434c3231303139222c22434c3231303332225d, 0x5b5d, 0x5b5d, 0x2222, 0, 0, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -711,6 +734,30 @@ INSERT INTO `home_slider` (`id`, `file_name`, `title`, `description`, `img_order
 (2, '1609271413blob.jpg', 'Apartments ', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat culpa, rem ducimus illum deleniti molestias odio distinctio ipsam nostrum consequuntur perspiciatis. Deleniti dicta ipsum veniam cum magnam ducimus dolore blanditiis!', 0),
 (4, '1609309871blob.jpg', 'Master Class bedroom', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat culpa, rem ducimus illum deleniti molestias odio distinctio ipsam.', 0),
 (5, '1609353940blob.jpg', 'Better Lifestyle', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat culpa, rem ducimus illum deleniti molestias odio distinctio ipsam.', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `image_category_list`
+--
+
+CREATE TABLE `image_category_list` (
+  `id` int(11) NOT NULL,
+  `img_id` int(11) NOT NULL,
+  `cat_lvl2_id` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `image_category_list`
+--
+
+INSERT INTO `image_category_list` (`id`, `img_id`, `cat_lvl2_id`) VALUES
+(5, 84, 'CL21149'),
+(7, 103, 'CL21156'),
+(8, 103, 'CL21146'),
+(9, 103, 'CL21147'),
+(10, 104, 'CL21160'),
+(11, 104, 'CL21148');
 
 -- --------------------------------------------------------
 
@@ -838,6 +885,7 @@ CREATE TABLE `project_images` (
   `file_name` varchar(1000) NOT NULL,
   `description` varchar(1500) NOT NULL,
   `img_status` int(11) NOT NULL DEFAULT 1,
+  `photo_category` mediumblob NOT NULL,
   `approved` int(11) NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -845,30 +893,25 @@ CREATE TABLE `project_images` (
 -- Dumping data for table `project_images`
 --
 
-INSERT INTO `project_images` (`img_id`, `project_id`, `file_name`, `description`, `img_status`, `approved`) VALUES
-(59, 31, '1595702837web_Changi-T4-Singapore-8-HR-Credit-Benoy.jpg', '', 1, 0),
-(58, 31, '1595702738web_Changi-T4-Singapore-1-HR-Credit-Benoy.jpg', '', 1, 0),
-(60, 31, '1595703353web_Changi-T4-Singapore-7-HR-Credit-Benoy.jpg', '', 1, 0),
-(56, 31, '1595702732web_Changi-T4-Singapore-3-HR-Credit-Benoy.jpg', '', 1, 0),
-(75, 38, '16065579620MGs93Y-switzerland-wallpaper.jpg', '', 1, 0),
-(76, 38, '1606557962wallpaperflare.com_wallpaper_1_.jpg', '', 1, 0),
-(86, 41, '1607335244vcACAV.jpg', '', 1, 0),
-(52, 30, '1595702131226216186.jpg', '', 1, 0),
-(53, 30, '1595702131Normanton-Avenue-3-1600x1068.jpg', '', 1, 0),
-(54, 30, '1595702131lake-house-in-ascona-by-wespi-de-meuron-romeo-architects-051.jpg', '', 1, 0),
-(85, 41, '1607335213zcaVAVAVb.jpg', '', 1, 0),
-(80, 41, '1607334958slide_04.jpg', '', 1, 0),
-(81, 41, '1607334958slide_03.jpg', '', 1, 0),
-(82, 41, '1607334958slide_08.jpg', '', 1, 0),
-(83, 41, '1607334958slide_06.jpg', '', 1, 0),
-(84, 41, '1607334958slide_07.jpg', '', 1, 0),
-(104, 43, '16073425768664.jpg', '', 1, 0),
-(103, 43, '1607342555Modern-Home-Decorating-Pictures.jpg', '', 1, 0),
-(124, 43, '1610799305', '', 1, 0),
-(125, 43, '1610799527', '', 1, 0),
-(126, 43, '1610799550', '', 1, 0),
-(127, 43, '1610799616', '', 1, 0),
-(123, 43, '1610799284', '', 1, 0);
+INSERT INTO `project_images` (`img_id`, `project_id`, `file_name`, `description`, `img_status`, `photo_category`, `approved`) VALUES
+(59, 31, '1595702837web_Changi-T4-Singapore-8-HR-Credit-Benoy.jpg', '', 1, '', 0),
+(58, 31, '1595702738web_Changi-T4-Singapore-1-HR-Credit-Benoy.jpg', '', 1, '', 0),
+(60, 31, '1595703353web_Changi-T4-Singapore-7-HR-Credit-Benoy.jpg', '', 1, '', 0),
+(56, 31, '1595702732web_Changi-T4-Singapore-3-HR-Credit-Benoy.jpg', '', 1, '', 0),
+(75, 38, '16065579620MGs93Y-switzerland-wallpaper.jpg', '', 1, '', 0),
+(76, 38, '1606557962wallpaperflare.com_wallpaper_1_.jpg', '', 1, '', 0),
+(86, 41, '1607335244vcACAV.jpg', '', 1, '', 0),
+(52, 30, '1595702131226216186.jpg', '', 1, '', 0),
+(53, 30, '1595702131Normanton-Avenue-3-1600x1068.jpg', '', 1, '', 0),
+(54, 30, '1595702131lake-house-in-ascona-by-wespi-de-meuron-romeo-architects-051.jpg', '', 1, '', 0),
+(85, 41, '1607335213zcaVAVAVb.jpg', '', 1, '', 0),
+(80, 41, '1607334958slide_04.jpg', '', 1, '', 0),
+(81, 41, '1607334958slide_03.jpg', '', 1, '', 0),
+(82, 41, '1607334958slide_08.jpg', '', 1, '', 0),
+(83, 41, '1607334958slide_06.jpg', '', 1, '', 0),
+(84, 41, '1607334958slide_07.jpg', '', 1, 0x5b22434c3231313439225d, 0),
+(104, 43, '16073425768664.jpg', '', 1, 0x5b22434c3231313630222c22434c3231313438225d, 0),
+(103, 43, '1607342555Modern-Home-Decorating-Pictures.jpg', '', 1, 0x5b22434c3231313536222c22434c3231313436222c22434c3231313437225d, 0);
 
 -- --------------------------------------------------------
 
@@ -900,7 +943,8 @@ INSERT INTO `reviews` (`review_id`, `client_id`, `reviewer_id`, `reviewer_name`,
 (8, 67, 0, 'Nipuna Nanayakkara', 'Best quality products in Sri Lanka.', 5, NULL),
 (9, 67, 0, 'Thilini Perera', 'Nice collection of products found in Sri Lanka', 5, NULL),
 (10, 67, 0, 'Anil Ferdz', 'Mind-blowing extraordinary extravagant.The ambience what is created is classic.I have a beautiful house and it\'s my dream house  Touchwood as I keep admiring my house as it\'s beautiful adorned by usPerfectionist is What Milindji.and he has excellent team to be appreciated!!', 4, NULL),
-(12, 66, 0, 'Murali Vijay', 'Looking to use an icon or symbol in place of text for some pagination links? Be sure to provide proper screen reader support with aria attributes.', 3, NULL);
+(12, 66, 0, 'Murali Vijay', 'Looking to use an icon or symbol in place of text for some pagination links? Be sure to provide proper screen reader support with aria attributes.', 3, NULL),
+(13, 100, 0, 'Mohommad Bin', 'Good work and reasonable price', 4, NULL);
 
 -- --------------------------------------------------------
 
@@ -941,8 +985,8 @@ INSERT INTO `services_list` (`id`, `cat_lvl2_id`, `company_id`) VALUES
 (24, 'CL21013', 7),
 (174, 'CL21101', 26),
 (173, 'CL21104', 26),
-(28, 'CL21011', 8),
-(27, 'CL21010', 8),
+(346, 'CL21014', 8),
+(345, 'CL21010', 8),
 (31, 'CL21018', 14),
 (172, 'CL21102', 26),
 (305, 'CL21019', 1),
@@ -952,9 +996,9 @@ INSERT INTO `services_list` (`id`, `cat_lvl2_id`, `company_id`) VALUES
 (171, 'CL21103', 26),
 (170, 'CL21106', 26),
 (169, 'CL21036', 26),
-(183, '', 27),
-(182, 'CL21055', 27),
-(181, 'CL21062', 27),
+(388, '', 27),
+(387, 'CL21014', 27),
+(386, 'CL21055', 27),
 (301, 'CL21014', 1),
 (300, 'CL21039', 1),
 (299, 'CL21021', 1),
@@ -979,8 +1023,11 @@ INSERT INTO `services_list` (`id`, `cat_lvl2_id`, `company_id`) VALUES
 (320, 'CL21069', 67),
 (328, 'CL21014', 2),
 (338, 'CL21057', 69),
-(339, 'CL21032', 73),
-(340, 'CL21055', 74);
+(389, 'CL21019', 73),
+(340, 'CL21055', 74),
+(347, 'CL21011', 8),
+(385, 'CL21062', 27),
+(390, 'CL21032', 73);
 
 -- --------------------------------------------------------
 
@@ -1037,17 +1084,16 @@ CREATE TABLE `service_districts` (
 --
 
 INSERT INTO `service_districts` (`id`, `district_id`, `company_id`) VALUES
-(55, 23, 8),
-(54, 19, 8),
-(53, 15, 8),
-(52, 14, 8),
+(128, 23, 8),
+(127, 19, 8),
+(126, 15, 8),
+(125, 14, 8),
 (95, 8, 26),
 (122, 10, 1),
 (121, 4, 1),
 (96, 10, 26),
-(102, 10, 27),
-(101, 9, 27),
-(100, 8, 27),
+(160, 10, 27),
+(159, 8, 27),
 (124, 8, 74),
 (123, 8, 67);
 
@@ -1100,7 +1146,7 @@ INSERT INTO `user_sessions` (`session_id`, `client_id`, `auth_token`, `password`
 (57, 76, '24FLddcRPGKrZC91596897750977', '123456789'),
 (58, 77, 'sKj4LhVUde7wAal1598932425264', '123456789'),
 (48, 67, 'ya29.a0AfH6SMDlR8EQfsWChst7gWqk-x-b4iwAkPXE6WQ4IOxAXUbC1Q7TvUJ4jtmfuYKYKTV7h8T3W3jtb5bAysLjBiBH93cWFArWqzJ8GXDvd86foQXl62AYMmkhPyS1HOXSpyRrd02DTcIa_NnGza2YE5F4oPtcGDwanNbV927Sk_Rw9w', ''),
-(47, 66, 'EAAlrbREIkZCkBAAGbXOftWvbr7i2eb1g1zFrmZCZCzeZCKX5YJ9aRtU56ZChWCq1La6uZAkaeZAp9gTLRlpSIK04u3qsbgVHlErktWZAfUoUZCzrMXaeR4mhBB2vwZCxCnTHZCXhfOvEQBYaK67wWoY2YXnSxTJoNZACTIgxqkzXAn7ATLzXiQ3s97qNgHZAh98EZBquKGnLTL0hkDqQZDZD', ''),
+(47, 66, 'EAAlrbREIkZCkBALPjB9kFbVN0MngtdyBPta0WzbCWev0lMjMhcsnJgCclZCr20fwp8J1YGmAlKvYZCLIKOZBsdywc4vZAnAxI4JtueYeJZCZCqzDQAJ2zMwL5KluZBZAFaH8qz2SZAPx2ZBBX0ZCjTwZA9oGisFOZBt40jnEEXjMlJnqI4ibWJU0hq0X55YQhSQayWFU6z2xX21O3tzgZDZD', ''),
 (46, 65, 'EAAlrbREIkZCkBAOHVjjUZCBewHTfKUnqDc56JFkG7bKHsi9GQhxZCrm9tUY4ZBYg76zZB2xZC99j22HoU0AGkPOJuW0IxZAVd4hI96l4oQtG4saG6STgGKiCZCtvhPO5kGsMZAJYkdwpnpeQqFThhDFZCiZB5QarXXswuA4tXLyTdYQ1G01EAv25mS0ZA1eYTSJu6P8m7N8l9zuypCpY4T2roZBs3', ''),
 (59, 78, 'EAAlrbREIkZCkBAJNtFOvVAP1VGqwak3lphgAFWDScZBUbi1GbHwZCKDXyKxtjbxcDPeWoxqYquRGRd4Rvct7ejOpNsatyJRrPC9JZBEO0ooIjk9xljLvprIuQtwDE5EsU2sZAX52EmqS6fvQ5JIobqx6OILdkTe8nM53TrbXOmFPzNWe5x8POYA0V7onsTag3XDd55rE0bbGQ7IZBo7Ijr', ''),
 (60, 79, 'EAAlrbREIkZCkBALAXr92TgW2ZCdE4sudVz8RYEeLEuokzRQndiYz1qTRG5XOlVqmNi9oF4brljOEuAqPd8ulbHY36OAZBZBkrEePJb3ULvxjjIelnVq7UPjYkUZAZBztB37QNC2CyxuhmDTKhpHNK0UaKeXTIbGGc31z1OZAk1ZCt6Hiw7VCgUoJTdJmhWRHsPaJMLWuutiPm78lP4j9bm9z', ''),
@@ -1202,6 +1248,12 @@ ALTER TABLE `home_slider`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `image_category_list`
+--
+ALTER TABLE `image_category_list`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
@@ -1281,19 +1333,19 @@ ALTER TABLE `user_sessions`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `categories-level1`
 --
 ALTER TABLE `categories-level1`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `categories-level2`
 --
 ALTER TABLE `categories-level2`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
 
 --
 -- AUTO_INCREMENT for table `cites`
@@ -1332,6 +1384,12 @@ ALTER TABLE `home_slider`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `image_category_list`
+--
+ALTER TABLE `image_category_list`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
@@ -1359,19 +1417,19 @@ ALTER TABLE `project_category`
 -- AUTO_INCREMENT for table `project_images`
 --
 ALTER TABLE `project_images`
-  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `services_list`
 --
 ALTER TABLE `services_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=345;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=391;
 
 --
 -- AUTO_INCREMENT for table `service_areas`
@@ -1383,7 +1441,7 @@ ALTER TABLE `service_areas`
 -- AUTO_INCREMENT for table `service_districts`
 --
 ALTER TABLE `service_districts`
-  MODIFY `id` float NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `id` float NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
 
 --
 -- AUTO_INCREMENT for table `users`

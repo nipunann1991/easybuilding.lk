@@ -48,7 +48,7 @@ export class NavComponent implements OnInit {
 
 			},  
 			{
-				title: 'Images',
+				title: 'Photos',
 				icon: 'icon-photo',
 				link: '/admin/photos',
 				permission: 0,

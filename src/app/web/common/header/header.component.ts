@@ -18,11 +18,13 @@ export class HeaderComponent implements OnInit {
   editableMode: boolean = false; 
   menuItemsProduct: any = []; 
   menuItemsServices: any = []; 
+  menuItemsPhotos: any = []; 
   totalItemLengths: any = [];
   menuArray: any = [];
   @Input() logoOnly: boolean =  false;
   showProducts: boolean = false;
   showServices: boolean = false;
+  showPhotos: boolean = false;
   profilrUrl: string = environment.profileUrl;
   uploadProductUrl: string = environment.profileUrl;
   totalLinks: number = 0;
@@ -64,6 +66,8 @@ export class HeaderComponent implements OnInit {
 
     this.getProductsMenuItems();
     this.getServicesMenuItems();  
+    this.getPhotosMenuItems();
+
   }
 
 
@@ -77,7 +81,7 @@ export class HeaderComponent implements OnInit {
 
     }); 
   }
-
+ 
 
   getServicesMenuItems(){
     this.homePage.getServicesMenuItems() 
@@ -86,6 +90,18 @@ export class HeaderComponent implements OnInit {
       let menuArray = this.setMenuItems(response, false);  
 
       this.menuItemsServices = this.generateMegaMenu(menuArray);
+
+    }); 
+  }
+
+
+  getPhotosMenuItems(){
+    this.homePage.getPhotosMenuItems() 
+    .subscribe((response: any) => {
+
+      let menuArray = this.setMenuItems(response, false);  
+
+      this.menuItemsPhotos = this.generateMegaMenu(menuArray); 
 
     }); 
   }
@@ -144,27 +160,46 @@ export class HeaderComponent implements OnInit {
     let lengthCount = 0;
     let totalCount = 0; 
     let column = 0; 
-    let totalCols = 3
+    let totalCols = menuArray.length 
+    let maxCols = 3
 
-    let noOfItemsPerCol =  Math.round(this.totalLinks / totalCols); 
+    
+    console.log(menuArray, menuArray.length )
 
-    oldMenu.forEach((element, index) => { 
-      
-      if( lengthCount < noOfItemsPerCol && menuArray.length != (index + 1) ){ 
-        groupedMenu.push(element);
+    let noOfItemsPerCol =  Math.round(this.totalLinks / maxCols); 
 
-      }else{ 
+    oldMenu.forEach((element, index) => {  
+
+      if((totalCols <= maxCols)){
+
+        groupedMenu.push(element); 
         newMenu.push(groupedMenu); 
         groupedMenu = [];
         lengthCount = 0;
         column++;
-        groupedMenu.push(element); 
        
-      }  
 
-      if(menuArray.length == (index + 1)){
-        (newMenu.length < totalCols)? newMenu.push(groupedMenu) : newMenu[(totalCols - 1)].push(...groupedMenu);
+      }else{
+
+        if( lengthCount < noOfItemsPerCol && menuArray.length != (index + 1)){ 
+          groupedMenu.push(element);
+  
+        }else{ 
+          newMenu.push(groupedMenu); 
+          groupedMenu = [];
+          lengthCount = 0;
+          column++;
+          groupedMenu.push(element); 
+         
+        }  
+  
+        if(menuArray.length == (index + 1)){
+          (newMenu.length < maxCols)? newMenu.push(groupedMenu) : newMenu[(maxCols - 1)].push(...groupedMenu);
+        }
+
       }
+      
+      
         
       lengthCount = lengthCount + element.children.length;
       totalCount = totalCount + element.children.length; 

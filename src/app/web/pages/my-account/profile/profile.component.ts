@@ -91,12 +91,11 @@ export class ProfileComponent implements OnInit {
  
     const params: UIParams = {
       method: 'share',
-      href: '/user/'+this.profileData.client_id+'/'+this.profileData.provider_id+'/about',
+      href: environment.siteUrl+'user/'+this.profileData.client_id+'/'+this.profileData.provider_id+'/about',
       display: 'popup',
      
     };
 
-    alert('/user/'+this.profileData.client_id+'/'+this.profileData.provider_id+'/about');
    
     this.fb.ui(params)
       .then((res: UIResponse) => console.log(res))
@@ -265,7 +264,7 @@ validateFile(file){
           
           this.myaccount.removeCoverImage(param).subscribe((response: any) => { }); 
 
-            resolve();
+           // resolve();
         },
           err => {  reject(err);  }
         );
@@ -322,7 +321,7 @@ validateFile(file){
                 
             } 
 
-              resolve();
+              //resolve();
           },
             err => {
               
@@ -381,7 +380,7 @@ validateFile(file){
                 
             } 
 
-              resolve();
+            //  resolve();
           },
             err => {
               

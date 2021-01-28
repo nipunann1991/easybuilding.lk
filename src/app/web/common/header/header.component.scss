@@ -322,8 +322,9 @@
 
                 h3{
                     color: $light-blue-color;
-                    text-align: left;
-                    margin-bottom: 1.5rem;
+                    text-align: left; 
+                    margin-bottom: 1rem;
+                    font-size: 1.7rem;
                 }
 
                 ul{
@@ -334,7 +335,7 @@
                     }
 
                     li{
-                        margin: 8px 0; 
+                        margin: 5px 0; 
 
                         &:last-child{
                             margin-bottom: 0;
@@ -347,7 +348,7 @@
                         a{
                             padding: 0;
                             text-align: left;
-                            font-size: 1.4rem;
+                            font-size: 1.35rem;
                             line-height: 1.7rem;
                             font-family: $normal-font;
                             font-weight: normal;

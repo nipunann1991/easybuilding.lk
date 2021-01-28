@@ -34,10 +34,15 @@
             </div>
             <div class="column">
                 <div class="login-wrapper"> 
-                   
-                    <div class="login-accounts" *ngIf="!isLoggedIn"> 
+                    
+                    <div class="login-accounts" *ngIf="!isLoggedIn">  
                         <button mat-button class="btn btn-fb" (click)="signInWithFB()" ><img src="/assets/images/facebook.svg" alt=""> Login with Facebook</button> 
                         <button mat-button class="btn btn-google"  (click)="signInWithGoogle()"  ><img src="/assets/images/google.svg" alt=""> Login with Google</button> 
+                        
+                        <div class="sign-up-wrapper">
+                            <p>Don't have an account yet? </p>
+                        <button mat-button routerLink="/create-account" class="app-mail-link" >Create your account</button>  
+                        </div> 
                     </div> 
                     <div class="login-accounts" *ngIf="isLoggedIn">
                         <h3>Please wait...</h3>
@@ -46,9 +51,7 @@
             </div> 
             
         </div> 
-        <div class="bottom-container">
-           <p>Don't have an account yet? <a routerLink="/create-account" class="create-account" >Create your account</a></p>
-        </div>
+        
         
         <!-- <button mat-button *ngIf="isLoggedIn" (click)="signOut()" class="app-login" >Sign Out</button>  -->
     </div>  

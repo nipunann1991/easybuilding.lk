@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { SearchService } from "../../../admin/api/frontend/search.service";
+import { MyAccountService } from '../../../admin/api/frontend/my-account.service';
 import { environment } from "../../../../environments/environment";
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Options } from 'select2'; 
@@ -20,10 +22,21 @@ export class ProductsComponent implements OnInit {
   sortByLocation: any = [];
   allServices: any = [];
   products: any = [];
+  serviceAreaCities: any = []; 
+  serviceAreaDistricts: any = []; 
   isGridView: boolean = false;
+  area: number = -1;
+  searchParams = {
+    sortBy: "",
+    sortByServiceArea: ""
+  }
+
+  private prevParam: string = ""; 
   public options: Options;
+  formGroup: FormGroup;
 
   constructor(
+    private myaccount: MyAccountService,
     private search: SearchService,
     private router: Router,
     private activatedRoute: ActivatedRoute
@@ -32,22 +45,99 @@ export class ProductsComponent implements OnInit {
     this.router.events.subscribe((event) => {
 
       if (event instanceof NavigationEnd) { 
-        window.scroll(0,0);  
-        this.products = [];
-        this.getSelectedProductData();
-        this.searchProducts();
+        window.scroll(0,0);   
+       
+        
+        if(this.prevParam == "" || this.prevParam != this.activatedRoute.snapshot.params.id ){
+
+          this.prevParam = this.activatedRoute.snapshot.params.id;
+          this.getSelectedProductData();  
+          this.filterOptions();
+          this.initialSort(0)
+        }
+        
+        
       }
       
     })
   }
  
   ngOnInit(): void { 
- 
+  
+    this.formGroup = new FormGroup({   
+
+      services: new FormControl("", [
+        Validators.required
+      ]),  
+      
+    });
+
     this.options = {
-      multiple: true, 
+      multiple: false, 
       closeOnSelect: true, 
       tags: true 
     };
+ 
+    this.getGridView();
+    this.getDistricts();
+    this.getCities();
+     
+  }
+
+  getSelectedProductData(){ 
+    
+    let params = { cat_lvl2_id: this.activatedRoute.snapshot.params.id }; 
+
+    this.search.getSelectedProductData(params) 
+    .subscribe((response: any) => {
+
+      if (response.status == 200) {
+
+        let page = response.data[0]
+
+        this.pageData = {
+          parentCategory: page.cat_name,
+          categoryLevel1: page.cat_lvl1_name,
+          categoryLevel2: page.cat_lvl2_name
+        } 
+ 
+      }
+      
+    });
+ 
+  }
+
+  getCities(){ 
+
+    this.myaccount.getCities() 
+      .subscribe((response: any) => {
+        if (response.status == 200) {  
+          this.serviceAreaCities = response.data; 
+           
+        }else{
+            
+        }
+          
+      });
+  }
+
+
+  getDistricts(){ 
+
+    this.myaccount.getDistricts() 
+      .subscribe((response: any) => {
+        if (response.status == 200) {
+ 
+          this.serviceAreaDistricts = response.data;  
+  
+        }else{
+            
+        }
+          
+      });
+  }
+
+  filterOptions(){
 
     this.sortByFilter = [
       { id: 1, option: "Highest Ratings", alias: "hightest_ratings", isChecked: false },
@@ -73,42 +163,21 @@ export class ProductsComponent implements OnInit {
       { id: 4, option: "By City", alias: "city", isChecked: false }, 
     ];
  
-    this.getGridView();
-    this.initialSort(1)
-
-  }
-
-  getSelectedProductData(){
-    let params = { cat_lvl2_id: this.activatedRoute.snapshot.params.id }; 
-
-    this.search.getSelectedProductData(params) 
-    .subscribe((response: any) => {
-
-      if (response.status == 200) {
-
-        let page = response.data[0]
-
-        this.pageData = {
-          parentCategory: page.cat_name,
-          categoryLevel1: page.cat_lvl1_name,
-          categoryLevel2: page.cat_lvl2_name
-        } 
- 
-      }
-      
-    });
-
-    
   }
 
 
-  searchProducts(){
+  searchProducts(queryParams){
+
+    this.products = []; 
 
     let params = { 
       cat_lvl2_id: this.activatedRoute.snapshot.params.id, 
-      limit: this.activatedRoute.snapshot.queryParamMap.get('results'), 
-      page_index: this.activatedRoute.snapshot.queryParamMap.get('index') 
-    };   
+      limit: queryParams.results, 
+      page_index: queryParams.index,
+      sort_by: queryParams.sort_by,
+      sort_by_service_area: queryParams.sort_by_service_area,
+      area: queryParams.area
+    };  
 
     this.search.searchProducts(params) 
     .subscribe((response: any) => {
@@ -180,20 +249,61 @@ export class ProductsComponent implements OnInit {
     this.setGridView(); 
   }
 
-  sortChange(i){
+  sortChange(i, isInit = false){
     this.resetChecked(this.sortByFilter)
     this.sortByFilter[i].isChecked = true;  
+    this.searchParams.sortBy = this.sortByFilter[i].id
+    this.setURL(isInit);
   }
 
 
-  sortByService(i){
+  sortByService(i, isInit = false){
     this.resetChecked(this.sortByLocation)
     this.sortByLocation[i].isChecked = true; 
+    this.searchParams.sortByServiceArea = this.sortByLocation[i].id;
+    console.log(i)
+    if(i < 2 ){ 
+      this.area = -1;
+      this.setURL(isInit);
+    }
+    
+
   }
+
+  selectedDistricts(value){
+    this.area = value; 
+    this.setURL(true);
+  }
+
+  selectedCities(value){
+    this.area = value; 
+    this.setURL(true);
+  }
+  
 
   initialSort(i){
     this.sortChange(i)
-    this.sortByService(i)
+    this.sortByService(i, true)  
+  }
+
+  setURL(isInit = false){
+    let url =  this.router.url + this.searchParams.sortByServiceArea + this.searchParams.sortBy;
+     
+    let queryParams = { 
+      results: '10', 
+      index: '1',
+      sort_by: this.searchParams.sortBy,
+      sort_by_service_area: this.searchParams.sortByServiceArea,
+      area: this.area
+    };
+ 
+ 
+    this.router.navigate(['/products/'+this.activatedRoute.snapshot.params.id], { queryParams: queryParams });
+
+    if(isInit){
+      this.searchProducts(queryParams);
+    }
+  
   }
 
   resetChecked(arr){

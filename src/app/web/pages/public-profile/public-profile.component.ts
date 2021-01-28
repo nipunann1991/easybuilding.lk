@@ -302,7 +302,8 @@ export class PublicProfileComponent implements OnInit {
       title: 'EasyBuilding.lk | '+ this.profileData.display_name,
       keywords:  this.services +","+ this.products,
       description: this.profileData.description,
-      image: '/easybuilding-api/assets/uploads/'+this.profileData.client_id+'/'+this.profileData.profie_image+'/'+this.profileData.profie_image
+      image: environment.uploadPath+''+this.profileData.client_id+'/'+this.profileData.company_id+'/'+this.profileData.profie_image,
+      
     }
 
     this.seo.setSEOData(seoData)

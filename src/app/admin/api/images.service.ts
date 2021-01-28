@@ -17,4 +17,33 @@ export class ImagesService {
    	return url;  
   }
 
+  
+
+  getImageCategories(){ 
+    return this.http.get(environment.baseUrl+'ImagesController/getImageCategories?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+  }
+
+
+  saveImageCategories(postVals){   
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ImagesController/saveImageCategories?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+
+  }
+  
+
+  getSingleImageCategory(postVals){   
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ImagesController/getSingleImageCategory?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+
+  }
+
+  
 }

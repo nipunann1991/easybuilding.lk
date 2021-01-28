@@ -61,6 +61,109 @@ class ImagesController extends CommonController {
 		
 	}
 
+
+	public function getImageCategories(){  
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+
+			$search_lvl1 = array(
+				'columns' => 'cat_lvl1_id, cat_lvl1_name' ,   
+				'table' => '`categories-level1`',
+				'eq_table_col' => '1 order by cat_lvl1_name ASC',
+				'data' => 'parent_cat_id="C1022"', 
+			);
+
+			$dataset = $this->selectRawCustomData__($search_lvl1);
+			$all_categories = array(); 
+
+			foreach ($dataset["data"] as $value) {   
+
+				$search_lvl2 = array(
+					'columns' => 'cat_lvl2_id AS id, cat_lvl2_name AS text' ,   
+					'table' => '`categories-level2`',
+					'eq_table_col' => '1 order by cat_lvl2_name ASC',
+					'data' => 'parent_cat_id="'.$value->cat_lvl1_id.'"', 
+				);
+
+				$dataset_lvl2 = $this->selectRawCustomData__($search_lvl2);
+
+				$sub_categories = array(
+					'id' => $value->cat_lvl1_id , 
+					'text' => $value->cat_lvl1_name , 
+					'children' => $dataset_lvl2['data'] 
+				);
+
+				array_push($all_categories, $sub_categories);
+				
+			}
+			
+			$data = array( 
+				'status' => 200, 
+				'data' => $all_categories, 
+			);
+			
+			return $this->returnJSON($data);   
+			
+
+		}else{
+			return $this->invalidSession(); 
+		}
+		
+	}
+
+
+	public function saveImageCategories(){ 
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+			$dataset = $this->input->post(); 
+  
+			$photo_category = json_decode($dataset['photo_category']); 
+
+			$img_id = $dataset['img_id']; 
+
+			$this->deleteData__('image_category_list', 'img_id="'.$this->input->post('img_id').'"') ;
+ 
+			if (!empty($photo_category)) {
+				$this->insertImageCategory($photo_category, $img_id);
+			}
+			 
+			return $this->updateData__('project_images', $dataset, 'img_id="'.$this->input->post('img_id').'"');
+
+		}else{
+			return $this->invalidSession(); 
+		} 
+
+	} 
+
+
+	public function insertImageCategory($photo_category, $img_id){  
+
+ 		foreach ($photo_category as $value) {
+
+			$dataset = array(
+				'cat_lvl2_id' => $value , 
+				'img_id' => $img_id , 
+			); 
+
+			$this->insertData__('image_category_list', $dataset);
+		    	
+		} 
+	}
+
+
+	public function getSingleImageCategory(){  
+   
+		$search_index = array(
+			'columns' => 'photo_category' ,   
+			'table' => 'project_images',
+			'eq_table_col' => '1',
+			'data' => 'img_id= "'.$this->input->post('img_id').'"', 
+		);
+ 
+
+		return $this->selectCustomData__($search_index); 
+		
+	}
  
 
  

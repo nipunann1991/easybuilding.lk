@@ -91,6 +91,21 @@ class HomeController extends CommonController {
 	} 
 
 
+	public function getPhotosMenuItems(){  
+   
+			$search_index = array(
+				'columns' => 'c2.*, c1.cat_lvl1_name' ,   
+				'table' => '`categories-level2` c2, `categories-level1` c1, categories c',
+				'eq_table_col' => '1 order by c1.cat_lvl1_name, c2.cat_lvl2_name ASC',
+				'data' => 'c2.parent_cat_id=c1.cat_lvl1_id AND c1.parent_cat_id=c.cat_id AND c.cat_id="C1022"', 
+			);
+		 
+			return $this->selectCustomData__($search_index);
+ 
+		
+	} 
+
+
 	public function getAdSlides(){  
    
 		$search_index = array(
