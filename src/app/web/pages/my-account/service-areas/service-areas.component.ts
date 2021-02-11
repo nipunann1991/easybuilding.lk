@@ -442,7 +442,10 @@ export class ServiceAreasComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.formGroup.value.services = result;
+      console.log(this.formGroup.value.services, result)
+
+      this.formGroup.get('services').setValue(result);
     });
   }
 
