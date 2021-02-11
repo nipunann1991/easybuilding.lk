@@ -35,6 +35,7 @@ import { GalleryModule } from  'ng-gallery';
 import { LightboxModule } from  'ng-gallery/lightbox';
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { RoundToDecimalPipe } from './pipes/round-to-decimal.pipe';
+import { OverlayscrollbarsModule } from "overlayscrollbars-ngx";
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { RoundToDecimalPipe } from './pipes/round-to-decimal.pipe';
       GalleryModule,
       LightboxModule,
       ChartsModule,
+      OverlayscrollbarsModule,
       StarRatingModule.forRoot(),
       NgBootstrapFormValidationModule.forRoot(), 
       FacebookModule.forRoot()
@@ -108,6 +110,7 @@ import { RoundToDecimalPipe } from './pipes/round-to-decimal.pipe';
       GalleryModule,
       LightboxModule,
       ChartsModule,
+      OverlayscrollbarsModule,
       NgBootstrapFormValidationModule,
       FirstLetterPipe,
       TruncateTextPipe,

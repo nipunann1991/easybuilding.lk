@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router,ActivatedRoute,  NavigationEnd } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
+import {MatDialog} from '@angular/material/dialog';
+import { HomepageService } from "../../../../admin/api/frontend/homepage.service";
+import { ServicesDialogBoxComponent } from "./services-dialog-box/services-dialog-box.component";
 import { Options } from 'select2'; 
 
 @Component({
@@ -32,12 +35,15 @@ export class ServiceAreasComponent implements OnInit {
   allProducts: any = [];
   allServicesWithParentCategory: any = [];
   linkCount:any = [];
+  getServicesItems: any;
 
   constructor(
     private myaccount: MyAccountService,
     private toastr: ToastrService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog,
+    private homePage: HomepageService
   ) { }
 
   ngOnInit(): void {
@@ -78,8 +84,13 @@ export class ServiceAreasComponent implements OnInit {
     this.getProductCategories();
     this.select2Order();
     this.getServiceDetails();
+    this.getServicesMenuItems()
   }
 
+
+  openDialog() {
+    
+  }
 
   getServiceDetails(){
 
@@ -421,6 +432,28 @@ export class ServiceAreasComponent implements OnInit {
 
   previousLink(){ 
     this.router.navigate(["../contact-info"], { relativeTo: this.route.parent });
+  }
+
+
+  openServiceAreaModal(){
+    const dialogRef = this.dialog.open(ServicesDialogBoxComponent, {
+      width: '1000px',
+      data: {view_id: 1, data: this.getServicesItems, selected: this.formGroup.value.services  }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+
+  getServicesMenuItems(){
+    this.homePage.getServicesMenuItems() 
+    .subscribe((response: any) => {
+
+      this.getServicesItems = response;
+
+    }); 
   }
 
 }

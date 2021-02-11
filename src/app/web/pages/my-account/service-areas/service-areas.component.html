@@ -7,11 +7,13 @@
         <div class="col-md-12 "> 
             <div class="form-group" >
                 <label for="servic e_areas">Service Categories</label> 
+                <a href="javascript:void(0)" (click)="openServiceAreaModal()">Add New</a>  
                 <ng-select2 [data]="allServices" [options]="options" formControlName="services" class="select-fw" >
                 </ng-select2>  
             </div> 
             <div class="form-group" >
                 <label for="servic e_areas">Product Categories</label> 
+                <a href="javascript:void(0)" (click)="openServiceAreaModal()">Add New</a>  
                 <ng-select2 [data]="allProducts" [options]="options" formControlName="products" class="select-fw" >
                 </ng-select2>  
             </div>

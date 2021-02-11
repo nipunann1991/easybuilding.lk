@@ -1,0 +1,35 @@
+@import '../../../../../../styles';
+
+.mat-dialog-content{
+    overflow: hidden;
+
+    overlay-scrollbars{
+        height: 50rem;
+
+        h3{
+            font-family: $bold-font;  
+            line-height: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        ul{
+            margin-bottom: 1.5rem;
+        }
+
+        .form-check{  
+            margin-bottom: 1rem;
+
+            input[type=checkbox], input[type=radio]{
+                margin-right: 1rem;
+            }
+            
+            .form-check-label{
+                cursor: pointer;
+                margin-left: 1rem;
+            }
+
+        }
+        
+    }
+
+}
