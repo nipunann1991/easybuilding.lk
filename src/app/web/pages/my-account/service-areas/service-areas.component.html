@@ -6,19 +6,19 @@
         </div>
         <div class="col-md-12 "> 
             <div class="form-group" >
-                <label for="servic e_areas">Service Categories</label> 
-                <a href="javascript:void(0)" (click)="openServiceAreaModal()">Add New</a>  
-                <ng-select2 [data]="allServices" [options]="options" formControlName="services" class="select-fw" >
+                <label for="servic e_areas">Service Categories</label>&nbsp; 
+                <ng-select2 [data]="allServices" [options]="options" formControlName="services" class="select-fw select-service" *ngIf="profile.services != '[]' || formGroup.get('services').value != ''" >
                 </ng-select2>  
+                <a href="javascript:void(0)" (click)="openServiceAreaModal()" class="service-dialog"><i class="icon-plus"></i> Select Service Categories</a>  
             </div> 
             <div class="form-group" >
-                <label for="servic e_areas">Product Categories</label> 
-                <a href="javascript:void(0)" (click)="openServiceAreaModal()">Add New</a>  
-                <ng-select2 [data]="allProducts" [options]="options" formControlName="products" class="select-fw" >
+                <label for="servic e_areas">Product Categories</label>
+                <ng-select2 [data]="allProducts" [options]="options" formControlName="products" class="select-fw select-service" *ngIf="profile.products != '[]' || formGroup.get('products').value != ''" >
                 </ng-select2>  
+                <a href="javascript:void(0)" (click)="openProductsAreaModal()" class="service-dialog"><i class="icon-plus"></i> Select Product Categories</a> 
             </div>
         </div> 
-        <div class="col-md-12">
+        <div class="col-md-12 service-areas">
             <h2>Service Areas</h2>
         </div>
         <div class="col-md-12">

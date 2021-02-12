@@ -76,13 +76,9 @@ export class EditProjectComponent implements OnInit {
         Validators.maxLength(1000)
       ]),
 
-      project_year: new FormControl('',[
-        Validators.required
-      ]),
+      project_year: new FormControl(''),
 
-      project_cost: new FormControl('',[
-        Validators.required
-      ]), 
+      project_cost: new FormControl(''), 
 
       architect: new FormControl(''),
 

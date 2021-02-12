@@ -1,6 +1,6 @@
 
 
-<h2 mat-dialog-title>Select Your {{ title }}s</h2>
+<h2 mat-dialog-title>Select Your {{ title }}</h2>
 <mat-dialog-content class="mat-typography" >
     <overlay-scrollbars>
         <div class="row">
@@ -28,7 +28,7 @@
     </overlay-scrollbars>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="selectedVals" cdkFocusInitial class="btn btn-next">Set Services</button>
+<mat-dialog-actions align="end"> 
+  <button mat-button (click)="onConfirm()" class="btn btn-next">Set {{ title }}</button>
+  <button mat-button (click)="onDismiss()" class="btn btn-prev">Close</button>
 </mat-dialog-actions>

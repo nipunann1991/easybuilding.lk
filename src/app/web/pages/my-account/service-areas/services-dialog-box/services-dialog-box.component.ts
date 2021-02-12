@@ -24,9 +24,7 @@ export class ServicesDialogBoxComponent implements OnInit {
       let menuArray = this.setMenuItems(this.popupData.data, 20)
       this.menuItems = this.generateMegaMenu(menuArray);
       this.selectedVals = this.popupData.selected;
-
-      console.log(data)
-       
+ 
   }
     
   ngOnInit(): void {
@@ -34,7 +32,7 @@ export class ServicesDialogBoxComponent implements OnInit {
   }
 
   onConfirm(): void { 
-    this.dialogRef.close(true);
+    this.dialogRef.close(this.selectedVals);
   }
 
   onDismiss(): void { 
@@ -56,9 +54,7 @@ export class ServicesDialogBoxComponent implements OnInit {
       
       if(breakLine){
         isLineBreak = (count >= maxLength )
-      }
-
-      console.log(elm)
+      } 
 
       if(parentCat != elm.parent_cat_id || isLineBreak || res.data.length == (index + 1)){ 
         parentCat = elm.parent_cat_id;  

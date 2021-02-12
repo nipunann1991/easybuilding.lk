@@ -36,6 +36,10 @@ export class ServiceAreasComponent implements OnInit {
   allServicesWithParentCategory: any = [];
   linkCount:any = [];
   getServicesItems: any;
+  getProductsItems: any;
+  selectedServicesItems: any;
+  selectedProductsItems: any;
+  
 
   constructor(
     private myaccount: MyAccountService,
@@ -75,16 +79,15 @@ export class ServiceAreasComponent implements OnInit {
       this.isAdmin = true; 
     }
 
-   
-   
     this.getCities();  
     this.getDistricts();
-    //this.getAllCategoriesData();
+    this.getServicesMenuItems();
+    this.getProductsMenuItems();
     this.getServiceCategories();
     this.getProductCategories();
     this.select2Order();
     this.getServiceDetails();
-    this.getServicesMenuItems()
+  
   }
 
 
@@ -119,6 +122,11 @@ export class ServiceAreasComponent implements OnInit {
           let products = "[]";
           this.clientId = this.profile.client_id;
           this.companyId = this.profile.company_id; 
+
+          console.log(this.profile.services);
+
+          this.selectedServicesItems = JSON.parse(this.profile.services);
+          this.selectedProductsItems = JSON.parse(this.profile.products);
 
           if(this.profile.products != ''){
             products = this.profile.products
@@ -314,17 +322,8 @@ export class ServiceAreasComponent implements OnInit {
   }
 
   checkBoxChange(event){
-    
-    if(event.srcElement.checked){
-      
-     
-      this.formGroup.value.services.push(event.srcElement.defaultValue)
-      console.log(this.formGroup.value.services )
-      //JSON.parse(this.profile.services).push(event.srcElement.defaultValue ), 
-    }else{
-
-    }
-    
+    (event.srcElement.checked)? this.formGroup.value.services.push(event.srcElement.defaultValue) : "";
+    this.selectedServicesItems = this.formGroup.value.services;
   }
   
   changeStatus(event){ 
@@ -435,27 +434,51 @@ export class ServiceAreasComponent implements OnInit {
   }
 
 
-  openServiceAreaModal(){
+  openServiceAreaModal(){ 
+
     const dialogRef = this.dialog.open(ServicesDialogBoxComponent, {
       width: '1000px',
-      data: {view_id: 1, data: this.getServicesItems, selected: this.formGroup.value.services  }
+      data: {view_id: 1, data: this.getServicesItems, selected: this.selectedServicesItems  }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.formGroup.value.services = result;
-      console.log(this.formGroup.value.services, result)
-
-      this.formGroup.get('services').setValue(result);
+      if(result != false){
+        this.formGroup.value.services = result; 
+        this.formGroup.get('services').setValue(result);
+      }
+      
     });
   }
 
 
+  openProductsAreaModal(){ 
+
+    const dialogRef = this.dialog.open(ServicesDialogBoxComponent, {
+      width: '1000px',
+      data: {view_id: 2, data: this.getProductsItems, selected: this.selectedProductsItems  }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result != false){
+        this.formGroup.value.products = result; 
+        this.formGroup.get('products').setValue(result);
+        console.log(this.formGroup.get('products'))
+      }
+      
+    });
+  }
+
+  getProductsMenuItems(){
+    this.homePage.getProductsMenuItems() 
+    .subscribe((response: any) => { 
+      this.getProductsItems = response; 
+    }); 
+  }
+
   getServicesMenuItems(){
     this.homePage.getServicesMenuItems() 
-    .subscribe((response: any) => {
-
-      this.getServicesItems = response;
-
+    .subscribe((response: any) => { 
+      this.getServicesItems = response; 
     }); 
   }
 

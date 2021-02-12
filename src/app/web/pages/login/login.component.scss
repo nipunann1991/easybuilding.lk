@@ -96,6 +96,11 @@
                 margin-bottom: 0;
                 
             }
+
+            &.btn-create-account{
+                background: $price-footer-color;
+                color: $white;
+            }
         }
 
         .login-wrapper{ 

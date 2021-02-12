@@ -290,8 +290,9 @@ ul{
 
 		.select2-selection--multiple{
 			.select2-selection__choice{
-				padding: 3px 5px;
+				padding: 5px 10px;
 				background: $body-bg;
+				border: 1px solid #c8c8c8;
 			}
 			
 			.select2-selection__choice__remove{
@@ -312,6 +313,16 @@ ul{
 			}
 		}
 	}
+}
+
+.select-service .select2-container--default .select2-selection--single, 
+.select-service .select2-container--default .select2-selection--multiple{
+  border: 0;
+}
+
+.select-service .select2-container--default .select2-selection--single .select2-selection__rendered, 
+.select-service .select2-container--default .select2-selection--multiple .select2-selection__rendered{ 
+	padding: 0;
 }
 
 .back-to-area{

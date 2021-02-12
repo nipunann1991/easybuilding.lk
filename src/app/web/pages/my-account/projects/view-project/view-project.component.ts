@@ -81,7 +81,12 @@ export class ViewProjectComponent implements OnInit {
           this.imageURL = environment.uploadPath + this.clientId +'/'+ this.companyID +'/projects/';
           this.imageURLThumb = environment.uploadPath + this.clientId +'/'+ this.companyID +'/projects/thumb/';
           this.projectImages = JSON.parse(this.projectData.images);
-         
+          
+          this.projectData.architect =  (this.projectData.architect == "")? "N/A" : this.projectData.architect ;
+          this.projectData.contractor =  (this.projectData.contractor == "")? "N/A" : this.projectData.contractor ;
+          this.projectData.structural_engineer =  (this.projectData.structural_engineer == "")? "N/A" : this.projectData.structural_engineer ;
+          this.projectData.project_year =  (this.projectData.project_year == "")? "N/A" : this.projectData.project_year ;
+          this.projectData.project_cost =  (this.projectData.project_cost == "")? "N/A" : this.projectData.project_cost ;
 
           this.projectImages.forEach(element => { 
             this.images.push(new ImageItem({ src: this.imageURL+element, thumb: this.imageURLThumb+element }));
