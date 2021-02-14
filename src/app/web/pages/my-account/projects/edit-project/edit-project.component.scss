@@ -82,7 +82,18 @@
           content: "Drag and drop images here.";
           position: absolute;
           color: $dark-gray;
+          margin-top: 4rem; 
+        }
 
+        button.upload-img-btn{
+          border: 1px solid #ced4da;
+          margin-bottom: 4rem;
+          font-family: $normal-font;
+
+          i{
+            font-size: 2rem;
+            margin-right: 0.3rem;
+          }
         }
       }
     }

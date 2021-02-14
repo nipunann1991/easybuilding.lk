@@ -73,9 +73,16 @@
         padding-left: 3rem;
         position: relative;
 
+        &.photo-search, &.full-page-search{
+            width: 100%;
+            min-height: 50rem;
+        }
+
         &.no-results{
             &::before{
                 content: "No results found";
+                font-family: $bold-font;
+	            font-weight: bold; 
                 position: absolute;
                 top: 50%; 
                 left: calc(50% - 10rem);
@@ -102,7 +109,7 @@
 
             p{
                 font-size: 1.45rem;
-                margin-top: 1.5rem;
+                margin-top: 0;
             }
 
             ul.view-option{ 
@@ -191,6 +198,20 @@
                     background-image: url('/assets/images/eb-default.png');
                     background-size: 17rem;
                 }
+ 
+            }
+
+            &.img-search{
+
+                .item-image{
+                    height: 26rem;
+                    background-size: cover;
+                }
+
+                .item-details{
+                    padding: 1.5rem; 
+                }
+                
             }
            
             .item-details{
@@ -200,6 +221,19 @@
                 h3{
                     font-size: 1.6rem;
                     margin-bottom: 0;
+                }
+
+                .project-and-company{
+                    h3{
+                        font-size: 1.6rem;
+                        margin-bottom: 0;
+                    }
+
+                    a{
+                        font-size: 1.3rem;
+                        margin-top: 0.5rem;
+                        color: $base-color;
+                    }
                 }
 
                 .ratings-holder{

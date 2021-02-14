@@ -28,9 +28,7 @@ h1, h2, h3, h4{
 	font-family: $bold-font;
 	font-weight: bold; 
 }
-
  
-
 
 body{   
 	font-size: 1.6rem;	  
@@ -821,7 +819,7 @@ form select.ng-invalid.ng-touched {
 }
 
 .cdk-overlay-dark-backdrop {
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(0, 0, 0, 0.85);
 }
 
 
@@ -1198,4 +1196,55 @@ button.dt-button{
 
 .clearboth{
   clear: both;
+}
+
+.g-backdrop {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.fullscreen lightbox{
+	padding: 3rem;
+}
+
+.popup-wrapper{ 
+
+	.popup-header{
+		border-bottom: 1px #d0d0d0 solid;
+		padding-bottom: 1.5rem; 
+		@include flex();
+
+		h2{ 
+			font-weight: 900;
+			line-height: 1.1;
+			margin: 0;
+			padding: 0;
+			text-transform: capitalize;
+		}
+
+		button.close{
+			font-size: 2.5rem;
+			margin-left: auto;
+            outline: 0;
+            padding: 0;
+		} 
+	}
+
+	form.form{ 
+        padding-top: 1.5rem; 
+        
+		button.btn-primary{
+			margin-right: 1rem;
+		}
+    }
+    
+    button{ 
+        margin-right: 1rem;
+        padding: 0 3rem;
+    }
+
+	.popup-body{ 
+        padding-bottom: 1.5rem;
+        padding-top: 1.5rem; 
+		margin-bottom: 1.5rem;
+	}
 }

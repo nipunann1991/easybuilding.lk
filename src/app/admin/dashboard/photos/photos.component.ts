@@ -37,7 +37,7 @@ export class PhotosComponent implements OnInit {
   imagePath: string = ""
   animal: string;
   name: string;  
-  DTlist = [];
+  DTlist = []; 
 
   constructor(
     public gallery: Gallery,
@@ -67,6 +67,7 @@ export class PhotosComponent implements OnInit {
         serverSide: true,
         processing: true,
         autoWidth: false, 
+        bStateSave: true,
         ajax: this.imageservice.getImageDetailsDT(), 
         columns: [ 
           { data: 'img_id' },{ data: 'display_name' }, { data: 'project_name' },{ data: 'project_id' } 
@@ -76,15 +77,20 @@ export class PhotosComponent implements OnInit {
         data: function( row, index ){      
 
           let imgURL = environment.uploadPath +row.client_id+"/"+row.company_id+"/projects/"
-          let imgURLThumb = imgURL +"thumb/"
-            
- 
-          return '<a class="view-image" title="Edit" data-id="'+index+'" data-image-photo_category=\`'+row.photo_category+'\` data-image-display_name="'+row.display_name+'"   data-image-project_name="'+row.project_name+'" data-client-id="'+row.client_id+'" data-image-id="'+row.img_id+'" data-company-id="'+row.company_id+'"  data-file="'+row.file_name+'" ><img width="90" src="'+ environment.uploadPath +"/"+row.client_id+"/"+row.company_id+"/projects/thumb/" +row.file_name+'" ></i></a> '; 
+          let imgURLThumb = imgURL +"thumb/" 
+
+          return '<a class="view-image" title="Edit" data-id="'+index+'" data-image-photo_category=\`'+row.photo_category+'\` data-image-display_name="'+row.display_name+'"   data-image-project_name="'+row.project_name+'" data-client-id="'+row.client_id+'" data-approved="'+row.approved+'" data-image-id="'+row.img_id+'" data-company-id="'+row.company_id+'"  data-file="'+row.file_name+'" ><img width="90" src="'+ environment.uploadPath +"/"+row.client_id+"/"+row.company_id+"/projects/thumb/" +row.file_name+'" ></i></a> '; 
         }
       },{
         targets: 5,
         data: function( row ){    
-          return "";
+          
+          if(row.approved == 0){
+            return "<span class='badge badge-warning'>Pending</span>";
+          }else if(row.approved == 1){
+            return "<span class='badge badge-success'>Approved</span>";
+          }
+         
             
         },
     
@@ -134,7 +140,8 @@ export class PhotosComponent implements OnInit {
       let fileName = $(this).attr('data-file');
       let project_name = $(this).attr('data-image-project_name');
       let display_name = $(this).attr('data-image-display_name');
-
+      let approved = $(this).attr('data-approved');
+      
       let imgURL = environment.uploadPath +client_id+"/"+company_id+"/projects/"
       let imgURLThumb = imgURL +"thumb/" 
 
@@ -147,7 +154,7 @@ export class PhotosComponent implements OnInit {
       let imgData = {
         src: imgURL+fileName,
         thumb: imgURLThumb+fileName,
-        img_details: { display_name: display_name, project_name: project_name, img_id: img_id }
+        img_details: { display_name: display_name, project_name: project_name, img_id: img_id, approved: approved }
       }    
       
       component.openDialog(imgData) 
@@ -167,13 +174,14 @@ export class PhotosComponent implements OnInit {
 
   openDialog(imgData): void {
     const dialogRef = this.dialog.open(imageModalDialog, {
-      width: '1200px',
+      width: '90%',
       data: {name: imgData.src, img_details: imgData.img_details  }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
+      if(result){
+        this.rerender();
+      }
     });
   }
 
@@ -215,6 +223,7 @@ export class imageModalDialog {
   categories: any = []; 
   formGroup: FormGroup;
   public options: Options;
+  isApproved: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<imageModalDialog>,
@@ -290,8 +299,13 @@ export class imageModalDialog {
       });
   }
 
-  closeDialog(): void {
-    this.dialogRef.close();
+  closeDialog(response = false): void {
+    this.dialogRef.close(response);
+  }
+
+
+  setApproved(event){  
+    this.isApproved = event.checked 
   }
 
   onSave(){
@@ -300,15 +314,16 @@ export class imageModalDialog {
 
       this.formGroup.value.img_id = this.imgDetails.img_id; 
       this.formGroup.value.photo_category = JSON.stringify(this.formGroup.value.photo_category);  
- 
-       
+      
+      (this.isApproved)? this.formGroup.value.approved = 1 : this.formGroup.value.approved = 0 ;
+  
       this.imageservice.saveImageCategories(this.formGroup.value)
         .subscribe((response: any) => {
 
           if (response.status == 200) {
 
             this.toastr.success('Image category updated successfully', 'Success !');  
-            this.closeDialog();
+            this.closeDialog(true);
             
           }else if (response.status == 401){
             this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  

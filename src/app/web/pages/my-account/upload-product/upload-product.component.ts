@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop'; 
 import { ImageCroppedEvent, Dimensions, ImageTransform } from 'ngx-image-cropper';
 import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
+import { Globals } from "../../../../app.global";
 import * as $ from 'jquery';
 declare const bootbox:any;
 
@@ -32,7 +33,8 @@ export class UploadProductComponent implements OnInit {
     private myaccount: MyAccountService,
     private toastr: ToastrService,  
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private globals: Globals,
   ) {  
     
     
@@ -256,50 +258,33 @@ export class UploadProductComponent implements OnInit {
 
   deleteImage(index){ 
 
-    const that = this;
-    
-    let dialog = bootbox.confirm({
+    const dialogRef = this.globals.confirmDialogBox({ 
       title: "Delete Image",
       message: "Are you sure you need to delete this image? Please note after you proceed it can be undone.",
-      buttons: {
-        confirm: {
-          label: 'Yes, Delete',  
-          className: 'btn-danger pull-left'
-        },
-        cancel: {
-          label: 'No', 
-          className: 'pull-right '
-        }
-      },
-      callback: function (result) {
-        
-        if(result){  
-          that.projectImagesDeleted = that.uploadedFileName[index];
+      isDelete: true,
+      confirmBtn: "Yes, Delete",
+      cancelBtn: 'No'
+    });
+     
+    dialogRef.afterClosed().subscribe(result => { 
 
-          console.log(that.projectImagesDeleted);
-
-          that.uploadedFileName.splice(index, 1); 
-          that.uploadedImages.splice(index, 1) 
-
-          let param = { company_id: that.companyID, file_name: that.projectImagesDeleted }; 
-          that.myaccount.removeProductImages(param).subscribe((response: any) => { 
-            that.projectImagesDeleted = "";
-
-          }); 
-
-          //that.onSave(true);
+        if(result){
           
+          this.projectImagesDeleted = this.uploadedFileName[index]; 
+
+          this.uploadedFileName.splice(index, 1); 
+          this.uploadedImages.splice(index, 1) 
+
+          let param = { company_id: this.companyID, file_name: this.projectImagesDeleted }; 
+
+          this.myaccount.removeProductImages(param).subscribe((response: any) => { 
+            this.projectImagesDeleted = ""; 
+          }); 
         }  
-      } 
+      
     });
 
-    dialog.init(function(){
-      $('html .modal-backdrop:not(:first)').remove();
-    })
-
-    dialog.on("shown.bs.modal", function() {  
-      $('html .bootbox.modal:not(:first)').remove(); 
-    });
+     
    
   }
 

@@ -37,8 +37,15 @@ export class ServiceAreasComponent implements OnInit {
   linkCount:any = [];
   getServicesItems: any;
   getProductsItems: any;
-  selectedServicesItems: any;
-  selectedProductsItems: any;
+  selectedServicesItems: any = [];
+  selectedProductsItems: any = [];
+
+  product_services = {
+    products: "[]",
+    services: "[]",
+    service_areas: "[]",
+    service_dist: "[]",
+  }
   
 
   constructor(
@@ -119,26 +126,43 @@ export class ServiceAreasComponent implements OnInit {
             }  
           }
            
-          let products = "[]";
+      
+ 
+
           this.clientId = this.profile.client_id;
           this.companyId = this.profile.company_id; 
+ 
 
-          console.log(this.profile.services);
+          if(this.profile.service_areas != ''){
+            this.product_services.service_areas = this.profile.service_areas 
+          }
 
-          this.selectedServicesItems = JSON.parse(this.profile.services);
-          this.selectedProductsItems = JSON.parse(this.profile.products);
+          if(this.profile.service_dist != ''){
+            this.product_services.service_dist = this.profile.service_dist 
+          }
+          
+
+          if(this.profile.services != ''){
+            this.product_services.services = this.profile.services
+            this.selectedServicesItems = JSON.parse(this.profile.services);
+
+            console.log(this.selectedServicesItems);
+          }
+          
 
           if(this.profile.products != ''){
-            products = this.profile.products
+            this.product_services.products = this.profile.products
+            this.selectedProductsItems = JSON.parse(this.profile.products);
+ 
           }
  
 
           if(this.isDistricts){
 
             this.formGroup.setValue({
-              service_areas: JSON.parse(this.profile.service_dist),  
-              services: JSON.parse(this.profile.services),
-              products: JSON.parse(products)
+              service_areas: JSON.parse(this.product_services.service_dist),  
+              services: JSON.parse(this.product_services.services),
+              products: JSON.parse(this.product_services.products)
             });
 
           }
@@ -146,9 +170,9 @@ export class ServiceAreasComponent implements OnInit {
           if(this.isCities){
 
             this.formGroup.setValue({
-              service_areas: JSON.parse(this.profile.service_areas),  
-              services: JSON.parse(this.profile.services),
-              products: JSON.parse(products)
+              service_areas: JSON.parse(this.product_services.service_areas),  
+              services: JSON.parse(this.product_services.services),
+              products: JSON.parse(this.product_services.products)
 
             }); 
 
@@ -158,9 +182,9 @@ export class ServiceAreasComponent implements OnInit {
           if(this.all_island){
 
             this.formGroup.setValue({
-              service_areas: JSON.parse(this.profile.service_areas),  
-              services: JSON.parse(this.profile.services),
-              products: JSON.parse(products)
+              service_areas: JSON.parse(this.product_services.service_areas),  
+              services: JSON.parse(this.product_services.services),
+              products: JSON.parse(this.product_services.products)
             }); 
 
           } 
@@ -443,7 +467,7 @@ export class ServiceAreasComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result != false){
-        this.formGroup.value.services = result; 
+        this.selectedServicesItems = this.formGroup.value.services = result; 
         this.formGroup.get('services').setValue(result);
       }
       
@@ -460,9 +484,9 @@ export class ServiceAreasComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result != false){
-        this.formGroup.value.products = result; 
+        this.selectedProductsItems = this.formGroup.value.products = result; 
         this.formGroup.get('products').setValue(result);
-        console.log(this.formGroup.get('products'))
+         
       }
       
     });

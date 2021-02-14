@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, Inject, EventEmitter, Input, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { environment } from "../../../../../environments/environment";
@@ -12,6 +12,7 @@ import { FileSaverService, } from 'ngx-filesaver';
 import { FacebookService, InitParams, UIParams, UIResponse } from 'ngx-facebook';
 import { FileSaverOptions, saveA, ResponseContentType  } from 'file-saver';
 import { Globals } from "../../../../app.global";
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as $ from 'jquery'; 
 declare const bootbox:any;
 
@@ -69,7 +70,9 @@ export class ProfileComponent implements OnInit {
     private modalService: ModalManager,
     private httpClient: HttpClient,
     private fileSaverService: FileSaverService,
-    private fb: FacebookService
+    private fb: FacebookService, 
+    public confirmBox: MatDialog
+    
   ) {  
 
     const initParams: InitParams = {
@@ -193,46 +196,34 @@ validateFile(file){
     console.log(event);
   }
 
+
+  openDeleteDialog(): void {
+   console.log()
+  } 
+
   deleteImage(index){ 
-    const component = this; 
+
     this.deleteStatus = parseInt(index);
     let title = "";
 
-    if(this.deleteStatus == 1){
-      title = "profile"
-    }else{
-      title = "cover"
-    }
-
-    let dialog = bootbox.confirm({
-      title: "Delete "+ title +" Image",
-      message: "Are you sure you need to delete the "+ title +"  image? Please note after you proceed it can be undone.",
-      buttons: {
-        confirm: {
-          label: 'Yes, Delete',  
-          className: 'btn-danger pull-left'
-        },
-        cancel: {
-          label: 'No', 
-          className: 'pull-right '
-        }
-      },
-      callback: function (result) {
-        
+    (this.deleteStatus == 1)? title = "profile" : title = "cover";
+ 
+    const dialogRef = this.globals.confirmDialogBox({ 
+      title: "Delete "+ title +" Image", 
+      message: "Are you sure you need to delete the "+ title +"  image? Please note after you proceed it can be undone.", 
+      isDelete: true,
+      confirmBtn: "Yes, Delete",
+      cancelBtn: 'No'
+    });
+     
+    dialogRef.afterClosed().subscribe(result => {
+         
         if(result){
-          component.deleteImgFromServer();
+          this.deleteImgFromServer();
         }  
-      } 
+      
     });
-
-    dialog.init(function(){
-      $('html .modal-backdrop:not(:first)').remove();
-    })
-
-    dialog.on("shown.bs.modal", function() {  
-      $('html .bootbox.modal:not(:first)').remove(); 
-    });
-  
+     
 
   }
 

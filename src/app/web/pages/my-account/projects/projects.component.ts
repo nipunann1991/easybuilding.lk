@@ -105,8 +105,28 @@ export class ProjectsComponent implements OnInit {
     this.router.navigate(["view-project/"+company_id+"/"+Project_id+"/"], {relativeTo: this.route.parent} ); 
   }
 
-  deleteProject(index, company_id, project_id){
+  openDeleteProject(index, company_id, project_id){
 
+    const dialogRef = this.globals.confirmDialogBox({ 
+      title: "Delete Project", 
+      message: "Are you sure you need to delete the project? Please note after you proceed it can be undone.", 
+      isDelete: true,
+      confirmBtn: "Yes, Delete",
+      cancelBtn: 'No'
+    });
+     
+    dialogRef.afterClosed().subscribe(result => {
+         
+        if(result){
+          this.deleteProject(index, company_id, project_id);
+        }  
+      
+    });
+  }
+
+
+  deleteProject(index, company_id, project_id){
+ 
     let params = { company_id: company_id, project_id: project_id }; 
 
     this.myaccount.deleteProject(params) 

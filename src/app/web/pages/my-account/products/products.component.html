@@ -8,7 +8,7 @@
       <a class="dot-menu dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" #dotmenu><span>Menu</span></a>
       <ul class="dropdown-menu mini-nav" aria-labelledby="dropdownMenuButton">
         <li><a routerLink="edit-product/{{companyId}}/{{p.product_id}}"><i class="icon-pencil"></i> Edit</a></li>
-        <li><a href="javascript:void(0)" (click)="deleteProduct(i, companyId, p.product_id)"><i class="icon-bin"></i> Delete</a></li>
+        <li><a href="javascript:void(0)" (click)="openDeleteProduct(i, companyId, p.product_id)"><i class="icon-bin"></i> Delete</a></li>
       </ul>
     </div>
     <div class="product-content"  (click)="openProject(companyId, p.project_id)">    

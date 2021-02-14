@@ -1,5 +1,7 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';   
 import { Subject } from 'rxjs'
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfimDialogBoxComponent } from "../app/web/common/confim-dialog-box/confim-dialog-box.component";
 
 
 @Injectable()
@@ -30,11 +32,12 @@ export class Globals {
         first_name: '',
         profie_image: ''
     }
- 
-
+  
     itemsEditable: Subject<boolean> = new Subject<boolean>();
 
-     constructor()  {  
+    
+
+     constructor( public confirmBox: MatDialog )  {  
 
      	this.itemsEditable.subscribe((value) => {
             this.isItemsEditable = value;
@@ -44,11 +47,16 @@ export class Globals {
 
         
    
+    } 
+    
+    confirmDialogBox(data): any{  
+        return this.confirmBox.open(ConfimDialogBoxComponent, {
+            width: '450px',
+            data: data  
+        });
     }
 
     
-
-	
        
 
 	

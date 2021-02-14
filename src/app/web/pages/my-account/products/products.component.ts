@@ -92,7 +92,25 @@ export class ProductsComponent implements OnInit {
 
   }
 
- 
+  openDeleteProduct(index, company_id, project_id){
+
+    const dialogRef = this.globals.confirmDialogBox({ 
+      title: "Delete Product", 
+      message: "Are you sure you need to delete the product? Please note after you proceed it can be undone.", 
+      isDelete: true,
+      confirmBtn: "Yes, Delete",
+      cancelBtn: 'No'
+    });
+     
+    dialogRef.afterClosed().subscribe(result => {
+         
+        if(result){
+          this.deleteProduct(index, company_id, project_id);
+        }  
+      
+    });
+  }
+
   deleteProduct(index, company_id, product_id){
 
     let params = { company_id: company_id, product_id: product_id }; 

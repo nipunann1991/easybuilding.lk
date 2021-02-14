@@ -48,3 +48,12 @@
         }
     }
 }
+
+.badge-warning {
+    color: $white; 
+}
+
+body.admin-layout .approve.mat-checkbox-checked.mat-accent .mat-checkbox-background,
+body.admin-layout .approve.mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element {
+    background-color: $base-bg-color !important;
+}

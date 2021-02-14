@@ -1,0 +1,16 @@
+<div class="popup-wrapper">
+    <div class="popup-header">
+        <h2>{{ popupData.title }}</h2>
+        
+        <button type="button" class="close" aria-label="Close" (click)="onDismiss()">
+            <span aria-hidden="true">×</span>
+          </button>
+    </div> 
+    <div class="popup-body">
+        {{ popupData.message }} 
+    </div>
+
+    <button mat-raised-button (click)="onConfirm()" class="btn btn-danger">{{ popupData.confirmBtn }}</button>
+    <button mat-raised-button (click)="onDismiss()" class="btn">{{ popupData.cancelBtn }}</button>
+</div>
+<!-- popupData.isDelete -->

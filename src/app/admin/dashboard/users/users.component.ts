@@ -64,6 +64,7 @@ export class UsersComponent implements OnInit {
         serverSide: true,
         processing: true,
         autoWidth: false,  
+        bStateSave: true,
         ajax: this.clients.getClientDetailsDT(this.profileType), 
         
         columns: [ 

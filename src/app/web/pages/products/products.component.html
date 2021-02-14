@@ -1,7 +1,7 @@
  
 <div class="products-wrapper container-fluid">
     <div class="container products-wrapper-inner">
-        <div class="left-nav-sort">
+        <div class="left-nav-sort" *ngIf="!isFullPageSearch">
             <h2>Filters</h2>
             <div class="filter-item">
                 <label for="" class="lbl-title">Sort By:</label>
@@ -37,8 +37,8 @@
                     <mat-slider [max]="5" [min]="0" [step]="1" [thumbLabel]="true"></mat-slider>
                 </div> 
             </div> -->
-        </div>
-        <div class="right-content-search" [ngClass]="{'no-results': pageData.start == 0 }">  
+        </div>  
+        <div class="right-content-search" [ngClass]="{'no-results': (pageData.start == 0 && !isFullPageSearch) , 'full-page-search': isFullPageSearch }">  
             <div class="page-top"> 
                 <div class="right-header">
                     <p>{{ pageData.parentCategory }} / {{ pageData.categoryLevel1 }} </p>
@@ -54,7 +54,7 @@
                     <p *ngIf="pageData.start > 0">Showing {{ pageData.start }} – {{ pageData.end }} results from {{ pageData.total_results }} profiles</p>
                 </div>
             </div> 
-            <div class="row">  
+            <div class="row search-results" *ngIf="!isFullPageSearch">  
                 <div class="item-block-wrapper" *ngFor="let p of products" [ngClass]="(isGridView)? 'col-md-4' : 'col-md-12 list_view'" >
                     <div class="item-block" [routerLink]="p.profileLink">
                         <div class="item-image" *ngIf="p.imgUrl !== ''" [ngStyle]="{'background-image': 'url('+ p.imgUrl + ')'}" [ngClass]="{'no-img': p.imgUrl === ''}"></div>
@@ -100,8 +100,23 @@
                     </div>
                      
                 </div>
+ 
+            </div>
 
-                 
+
+            <div class="row categories-wrapper" *ngIf="isFullPageSearch"> 
+
+                <div class="category-holder col-md-12" *ngFor="let cl of categoriesList">
+                    <h2>{{ cl.title }}</h2>
+
+                    <ul>
+                        <li *ngFor="let categories of cl.children">
+                            <a [routerLink]="categories.url">{{ categories.title }}</a>
+                        </li>
+                    </ul>
+
+                </div>
+
             </div>
 
         </div>

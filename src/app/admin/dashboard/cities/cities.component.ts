@@ -67,6 +67,7 @@ export class CitiesComponent implements OnInit {
       serverSide: true,
       processing: true,
       autoWidth: false, 
+      bStateSave: true,
       ajax: this.cities.getCitiesDT(), 
       columns: [ 
         { data: 'city_id' },{ data: 'district_name' },{ data: 'city' }
@@ -150,6 +151,7 @@ export class CitiesComponent implements OnInit {
   
   onSubmit() { 
 
+    const that = this;
     if (!this.formGroup.invalid) {
   
       this.cities.addCity(this.formGroup.value)
@@ -158,7 +160,7 @@ export class CitiesComponent implements OnInit {
           if (response.status == 200) {
             this.toastr.success('New city has been added successfully', 'Success !');  
             this.formGroup.reset();
-            $('#refresh-btn').trigger('click');
+            that.rerender(); 
  
           }else{
               this.toastr.error('New city adding failed. Please try again', 'Error !'); 
@@ -171,7 +173,7 @@ export class CitiesComponent implements OnInit {
   }
 
   onUpdate(){
-    
+    const that = this;
     if (!this.formGroup.invalid) {
       this.formGroup.value.city_id = this.param.params.id;
 
@@ -181,7 +183,7 @@ export class CitiesComponent implements OnInit {
           if (response.status == 200) {
             this.toastr.success('City has been edited successfully', 'Success !');  
             this.formGroup.reset();
-            $('#refresh-btn').trigger('click');
+            that.rerender(); 
             this.returnBack();
 
           }else if (response.status == 401){

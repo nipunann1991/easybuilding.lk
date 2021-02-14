@@ -15,6 +15,7 @@
                 (onFileOver)="fileOver($event)" (onFileDrop)="dropped($event)"  (onFileLeave)="fileLeave($event)"> 
                     <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
                         <div class="drop-template"></div> 
+                        <button mat-flat-button type="button" (click)="openFileSelector()" class="upload-img-btn"><i class="icon-upload"></i> Browse Images</button>
                     </ng-template>
                 </ngx-file-drop> 
               </div>
@@ -36,7 +37,7 @@
                       </div>
                       <div class="col-md-12">
                         <div class="form-group" >
-                            <label for="service_areas">Select Project Category<span class="required-star">*</span></label> 
+                            <label for="service_areas">Select Product Category<span class="required-star">*</span></label> 
                             <ng-select2 [data]="allProducts" formControlName="product_category" class="select-fw" >
                             </ng-select2> 
                         </div> 
@@ -49,7 +50,7 @@
                       </div>  
                       <div class="col-md-6">
                           <div class="form-group">
-                              <label for="project_cost">Project Cost (Rs.)<span class="required-star">*</span></label> 
+                              <label for="project_cost">Product Cost (Rs.)<span class="required-star">*</span></label> 
                               <input id="project_cost" name="project_cost" formControlName="product_price" type="number" class="form-control">
                           </div>  
                       </div> 

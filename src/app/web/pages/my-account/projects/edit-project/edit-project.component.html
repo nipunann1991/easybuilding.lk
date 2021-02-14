@@ -16,6 +16,7 @@
       (onFileOver)="fileOver($event)" (onFileDrop)="dropped($event)"  (onFileLeave)="fileLeave($event)"> 
           <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
               <div class="drop-template"></div> 
+              <button mat-flat-button type="button" (click)="openFileSelector()" class="upload-img-btn"><i class="icon-upload"></i> Browse Images</button>
           </ng-template>
       </ngx-file-drop> 
     </div>

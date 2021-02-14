@@ -7,20 +7,23 @@
         <h2>Image Details</h2>
         <ul class="project-image-details">
             <li>
-                <p><strong>Company Name: </strong> {{ imgDetails.display_name }}</p>
+                <p><strong>Company Name </strong> {{ imgDetails.display_name }}</p>
             </li>
             <li>
-                <p><strong>Project: </strong> {{ imgDetails.project_name }}</p>
+                <p><strong>Project </strong> {{ imgDetails.project_name }}</p>
             </li>
         </ul>
         
         <form id="myform" class="wrapped-block" [formGroup]="formGroup" (ngSubmit)="onSave()" novalidate="novalidate">
             <div class="form-group" >
-                <strong>Image Categories: </strong>
+                <strong>Image Categories </strong>
                 <ng-select2 [data]="categories" [options]="options" formControlName="photo_category" class="select-fw" >
                 </ng-select2>  
             </div>
-
+            <div class="form-group" >
+                <mat-checkbox #blacklisted_cb class="approve" [checked]="imgDetails.approved" (change)="setApproved($event)">Approved</mat-checkbox>
+            </div>
+            
             <button mat-button name="submit" type="submit" class="btn btn-primary">Save</button>
             <button mat-button type="button" class="btn btn-default" (click)="closeDialog()">Close</button>
         </form>

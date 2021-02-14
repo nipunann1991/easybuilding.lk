@@ -26,7 +26,7 @@ export class ViewProjectComponent implements OnInit {
   profileURL: string = "";
   openImageIndex: number = 0;
   galleryId = 'myLightbox';
- 
+  galleryRef = this.gallery.ref(this.galleryId)
 
   // gallery images
   images: GalleryItem[] = [ ];
@@ -49,14 +49,14 @@ export class ViewProjectComponent implements OnInit {
     this.companyID = this.route.snapshot.params.company_id;
     this.projectID = this.route.snapshot.params.project_id; 
     this.getProjectDetails(this.companyID, this.projectID);
+ 
 
-    const galleryRef = this.gallery.ref(this.galleryId)
-
-    galleryRef.load(this.images);
-
-    galleryRef.setConfig({
+    this.galleryRef.setConfig({
       thumbPosition: 'right',
-      imageSize: 'cover'
+      imageSize: 'cover', 
+      loop: true,
+      thumb: true,
+      thumbMode: "free"
     }); 
      
   }
@@ -91,6 +91,9 @@ export class ViewProjectComponent implements OnInit {
           this.projectImages.forEach(element => { 
             this.images.push(new ImageItem({ src: this.imageURL+element, thumb: this.imageURLThumb+element }));
           });
+
+
+          this.galleryRef.load(this.images);
   
           this.mainImg = this.imageURL + this.projectData.primary_img;
           this.profileImg = environment.uploadPath + this.clientId +'/'+ this.companyID +'/'+ this.projectData.profie_image;

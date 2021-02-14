@@ -70,7 +70,7 @@
                             <li class="name">
                                 <h3 *ngIf="isDisplayNameNull">{{profile.first_name}} {{profile.last_name}}</h3>
                                 <h3 *ngIf="!isDisplayNameNull">{{profile.display_name}}</h3> 
-                                <!-- <a (click)="editProfile()" class="edit" *ngIf="profile.profile_editable && !isEditable" ><i class="icon-pencil"></i></a> -->
+                                <a (click)="editProfile()" class="edit" *ngIf="profile.profile_editable && !isEditable" ><i class="icon-pencil"></i> Edit Profile</a>
                             </li> 
                             <li class="address" > 
                                 <p><span *ngIf="profileData.prof_category == 1">{{profile.address_line1}} {{profile.address_line2}} </span>{{profile.city}}</p> 

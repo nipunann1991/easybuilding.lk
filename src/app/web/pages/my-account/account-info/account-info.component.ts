@@ -31,8 +31,10 @@ export class AccountInfoComponent implements OnInit {
 
   professionalCategory: any = [
     {  id: 1, text: "Skilled Proffessional" },
-    {  id: 2, text: "Showroom/ Local retailer" },
-    {  id: 3, text: "Manufacture/ Brand" }
+    {  id: 2, text: "Professional Service provider" },
+    {  id: 3, text: "Service provider" },
+    {  id: 4, text: "Product Sale/Brand" },
+    {  id: 5, text: "Show room/Local Retailer" }
   ]
 
   constructor(

@@ -26,4 +26,13 @@ export class SearchService {
     
     return this.http.post(environment.baseUrl+'SearchController/searchProducts', params); 
   }
+
+  searchImages(postVals){  
+    
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'SearchController/searchImages', params); 
+  }
 }

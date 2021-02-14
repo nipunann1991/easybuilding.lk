@@ -99,7 +99,7 @@ export class HeaderComponent implements OnInit {
     this.homePage.getPhotosMenuItems() 
     .subscribe((response: any) => {
 
-      let menuArray = this.setMenuItems(response, false);  
+      let menuArray = this.setMenuItems(response, false, "image-search");  
 
       this.menuItemsPhotos = this.generateMegaMenu(menuArray); 
 
@@ -107,7 +107,7 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  setMenuItems(res, breakLine = true): any{
+  setMenuItems(res, breakLine = true, folderUrl = "products"): any{
     let parentCat = ""
     let parentCatName = ""
     let menuItem = [];
@@ -142,7 +142,7 @@ export class HeaderComponent implements OnInit {
 
       parentCatName = elm.cat_lvl1_name;  
        
-      menuItem.push({ id: elm.id ,title: elm.cat_lvl2_name, url: "products/"+elm.cat_lvl2_id });
+      menuItem.push({ id: elm.id ,title: elm.cat_lvl2_name, url: folderUrl+"/"+elm.cat_lvl2_id });
       count++;   
 
     }); 

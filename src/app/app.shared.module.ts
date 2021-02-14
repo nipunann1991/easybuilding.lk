@@ -36,13 +36,15 @@ import { LightboxModule } from  'ng-gallery/lightbox';
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { RoundToDecimalPipe } from './pipes/round-to-decimal.pipe';
 import { OverlayscrollbarsModule } from "overlayscrollbars-ngx";
+import { ConfimDialogBoxComponent } from './web/common/confim-dialog-box/confim-dialog-box.component';
 
 @NgModule({
   declarations: [
     reviewDialog,
     FirstLetterPipe,
     TruncateTextPipe,
-    RoundToDecimalPipe
+    RoundToDecimalPipe,
+    ConfimDialogBoxComponent
   ],
   imports: [ 
       FormsModule,
@@ -117,7 +119,8 @@ import { OverlayscrollbarsModule } from "overlayscrollbars-ngx";
       RoundToDecimalPipe
   ],
   entryComponents: [
-    reviewDialog
+    reviewDialog,
+    ConfimDialogBoxComponent
   ]
 })
 export class AppSharedModule {}

@@ -3,18 +3,17 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { SearchService } from "../../../admin/api/frontend/search.service";
 import { MyAccountService } from '../../../admin/api/frontend/my-account.service';
 import { environment } from "../../../../environments/environment";
-import { HomepageService } from "../../../admin/api/frontend/homepage.service"; 
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Options } from 'select2'; 
+import { Gallery, GalleryItem, ImageItem } from 'ng-gallery'; 
+import { Lightbox } from 'ng-gallery/lightbox';
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  selector: 'app-image-search',
+  templateUrl: './image-search.component.html',
+  styleUrls: ['../products/products.component.scss'], 
 })
-
-export class ProductsComponent implements OnInit {
+export class ImageSearchComponent implements OnInit {
 
   pageData: any = {};
   sortByFilter: any = [];
@@ -22,31 +21,34 @@ export class ProductsComponent implements OnInit {
   sortByCategory: any = [];
   sortByLocation: any = [];
   allServices: any = [];
-  products: any = [];
+  imageSearch: any = [];
   serviceAreaCities: any = []; 
   serviceAreaDistricts: any = []; 
   isGridView: boolean = false;
   area: number = -1;
-  menuArray: any = [];
-  categoriesList: any = [];
-  totalLinks: number = 0;
-  isFullPageSearch: boolean = false;
   searchParams = {
     sortBy: "",
     sortByServiceArea: ""
   }
 
+  openImageIndex: number = 0;
+  galleryId = 'myLightbox';
+ 
 
+  // gallery images
+  imagesResults: GalleryItem[] = [];
   private prevParam: string = ""; 
   public options: Options;
   formGroup: FormGroup;
+  private galleryRef = this.gallery.ref(this.galleryId)
 
   constructor(
     private myaccount: MyAccountService,
     private search: SearchService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private homePage: HomepageService
+    public gallery: Gallery, 
+    private lightbox: Lightbox
   ) { 
  
     this.router.events.subscribe((event) => {
@@ -56,8 +58,8 @@ export class ProductsComponent implements OnInit {
        
         
         if(this.prevParam == "" || this.prevParam != this.activatedRoute.snapshot.params.id ){
-
-          this.prevParam = this.activatedRoute.snapshot.params.id; 
+          this.isGridView = true; 
+          this.prevParam = this.activatedRoute.snapshot.params.id;
           this.getSelectedProductData();  
           this.filterOptions();
           this.initialSort(0)
@@ -79,15 +81,21 @@ export class ProductsComponent implements OnInit {
       
     });
 
+    
+    this.galleryRef.setConfig({
+      thumbPosition: 'bottom',
+      imageSize: 'cover',
+      loop: true,
+      thumb: false,
+      thumbMode: "free"
+    }); 
+
     this.options = {
       multiple: false, 
       closeOnSelect: true, 
       tags: true 
     };
- 
-    this.getGridView();
-    this.getDistricts();
-    this.getCities();
+   
      
   }
 
@@ -95,145 +103,30 @@ export class ProductsComponent implements OnInit {
     
     let params = { cat_lvl2_id: this.activatedRoute.snapshot.params.id }; 
 
-    if(params.cat_lvl2_id == 1){
-      this.isFullPageSearch = true;
-      this.pageData = {
-        parentCategory: "Search",
-        categoryLevel1: "Products",
-        categoryLevel2: "Products"
-      } 
-      this.getProductsMenuItems()
+    this.search.getSelectedProductData(params) 
+    .subscribe((response: any) => {
 
-    }else if(params.cat_lvl2_id == 2){
-      this.isFullPageSearch = true;
+      if (response.status == 200) {
 
-      this.pageData = {
-        parentCategory: "Search",
-        categoryLevel1: "Services",
-        categoryLevel2: "Services"
-      } 
+        let page = response.data[0]
 
-      this.getServicesMenuItems()
+        this.pageData = {
+          parentCategory: page.cat_name,
+          categoryLevel1: page.cat_lvl1_name,
+          categoryLevel2: page.cat_lvl2_name
+        } 
  
-
-    }else{
-
-      this.isFullPageSearch = false;
-
-      this.search.getSelectedProductData(params) 
-        .subscribe((response: any) => {
-
-          if (response.status == 200) {
-
-            let page = response.data[0]
-
-            this.pageData = {
-              parentCategory: page.cat_name,
-              categoryLevel1: page.cat_lvl1_name,
-              categoryLevel2: page.cat_lvl2_name
-            } 
-    
-          }
-          
-        }); 
-    } 
- 
-  }
-
-  setMenuItems(res, breakLine = true, folderUrl = "products"): any{
-    let parentCat = ""
-    let parentCatName = ""
-    let menuItem = [];
-    let menuArray = []; 
-    let breapoint = true;
-    let count = 1; 
-    let maxLength = 10; 
-    let isLineBreak = false; 
-    this.totalLinks = 0;
-
-    res.data.forEach((elm, index) => {  
-      
-      if(breakLine){
-        isLineBreak = (count >= maxLength )
       }
-
-      if(parentCat != elm.parent_cat_id || isLineBreak || res.data.length == (index + 1)){ 
-        parentCat = elm.parent_cat_id;  
-         
-        (menuItem.length != 0)? menuArray.push({ 
-          id: this.menuArray.length, 
-          title: parentCatName, 
-          break: breapoint,
-          children: menuItem 
-        }) : '';
-        
-        this.totalLinks =  this.totalLinks + menuItem.length ;
-        
-        menuItem = []; 
-        count = 1;
-      } 
-
-      parentCatName = elm.cat_lvl1_name;  
-       
-      menuItem.push({ id: elm.id ,title: elm.cat_lvl2_name, url: "/"+folderUrl+"/"+elm.cat_lvl2_id });
-      count++;   
-
-    }); 
-
-    return menuArray;
-
-  }
-
-
-  getProductsMenuItems(){
-    this.homePage.getProductsMenuItems() 
-    .subscribe((response: any) => {
-       
-     this.categoriesList = this.setMenuItems(response)
-     
-
-    }); 
-  }
-
-
-  getServicesMenuItems(){
-    this.homePage.getServicesMenuItems() 
-    .subscribe((response: any) => {
-
-      this.categoriesList = this.setMenuItems(response, false);  
+      
+    });
  
-
-    }); 
   }
-
-  getCities(){ 
-
-    this.myaccount.getCities() 
-      .subscribe((response: any) => {
-        if (response.status == 200) {  
-          this.serviceAreaCities = response.data; 
-           
-        }else{
-            
-        }
-          
-      });
-  }
-
-
-  getDistricts(){ 
-
-    this.myaccount.getDistricts() 
-      .subscribe((response: any) => {
-        if (response.status == 200) {
- 
-          this.serviceAreaDistricts = response.data;  
   
-        }else{
-            
-        }
-          
-      });
+
+  openInFullScreen(index: number) {
+    this.lightbox.open(index, this.galleryId, {
+     
+    });
   }
 
   filterOptions(){
@@ -265,9 +158,10 @@ export class ProductsComponent implements OnInit {
   }
 
 
-  searchProducts(queryParams){
+  searchImages(queryParams){
 
-    this.products = []; 
+    this.imageSearch = []; 
+    this.imagesResults = [];
 
     let params = { 
       cat_lvl2_id: this.activatedRoute.snapshot.params.id, 
@@ -278,42 +172,46 @@ export class ProductsComponent implements OnInit {
       area: queryParams.area
     };  
 
-    this.search.searchProducts(params) 
+    this.search.searchImages(params) 
     .subscribe((response: any) => {
 
       if (response.status == 200) {
-
+        
         this.pageData.start = response.start;
         this.pageData.end = response.end;
         this.pageData.total_results = response.total_results;
-
+        
         response.data.forEach(elm => {
          
-          let profileImg = environment.uploadPath + elm.client_id +'/'+ elm.company_id +'/';
-
-          (elm.profie_image == '')?  profileImg = ''  : profileImg = profileImg + elm.profie_image  ;
+          let profileImgThumb = environment.uploadPath + elm.client_id +'/'+ elm.company_id +'/projects/thumb/';
+          let profileImg = environment.uploadPath + elm.client_id +'/'+ elm.company_id +'/projects/';
+ 
+          if (elm.file_name == ''){
+            profileImgThumb = '';
+            profileImg = "";
+            
+          }else{
+            profileImgThumb = profileImgThumb + elm.file_name
+            profileImg = profileImg + elm.file_name;
+          }
 
           let constructors = {
             id: elm.client_id,
             title: elm.display_name, 
-            description: elm.description,
+            project_name: elm.project_name, 
             profileLink: '/user/'+ elm.client_id +'/'+ elm.provider_id +'/about', 
-            imgUrl: profileImg,
-            rating:  elm.rating,
-            total_reviews : elm.total_reviews,
-            services : elm.services,
-            products : elm.products,
-            contact: {
-              city : elm.city, 
-              tel : elm.tel1,
-              email : elm.email,  
-            }
+            imgUrl: profileImgThumb,  
+            imgUrlFull: profileImg,  
           }
 
-          this.products.push(constructors)
+          this.imagesResults.push(new ImageItem({ src: profileImg, thumb: profileImgThumb }));
+          this.galleryRef.load(this.imagesResults);
+          
+          this.imageSearch.push(constructors)
           
         }); 
- 
+        
+       
       }
       
     });
@@ -322,7 +220,7 @@ export class ProductsComponent implements OnInit {
   getGridView(){ 
     let storageData = JSON.parse(localStorage.getItem('isGridView')); 
 
-   console.log(storageData)
+   
 
     if(typeof storageData !== 'undefined' ){
       this.isGridView = storageData;
@@ -390,17 +288,15 @@ export class ProductsComponent implements OnInit {
      
     let queryParams = { 
       results: '10', 
-      index: '1',
-      sort_by: this.searchParams.sortBy,
-      sort_by_service_area: this.searchParams.sortByServiceArea,
-      area: this.area
+      index: '1', 
     };
  
  
-    this.router.navigate(['/products/'+this.activatedRoute.snapshot.params.id], { queryParams: queryParams });
+    this.router.navigate(['/image-search/'+this.activatedRoute.snapshot.params.id], { queryParams: queryParams });
+   
 
     if(isInit){
-      this.searchProducts(queryParams);
+      this.searchImages(queryParams);
     }
   
   }
@@ -414,5 +310,3 @@ export class ProductsComponent implements OnInit {
   }
 
 }
-
-

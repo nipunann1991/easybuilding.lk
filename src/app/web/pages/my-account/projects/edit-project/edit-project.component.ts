@@ -8,6 +8,7 @@ import { MyAccountService } from '../../../../../admin/api/frontend/my-account.s
 import { ProfileService } from "../../../../../admin/api/frontend/profile.service";
 import { environment } from "../../../../../../environments/environment";
 import { Options } from 'select2';
+import { Globals } from "../../../../../app.global";
 import * as $ from 'jquery';
 declare const bootbox:any;
 
@@ -44,6 +45,7 @@ export class EditProjectComponent implements OnInit {
     private toastr: ToastrService,  
     private route: ActivatedRoute,
     private profile: ProfileService,
+    private globals: Globals,
   ) { }
 
   ngOnInit(): void {
@@ -136,7 +138,7 @@ export class EditProjectComponent implements OnInit {
                 
                 this.uploadedImages.push(response.data.target_file);
                 this.uploadedFileName.push(response.data.new_file);
-                resolve();
+                //resolve();
 
               },
                 err => {
@@ -330,59 +332,44 @@ export class EditProjectComponent implements OnInit {
     }
 
 
-    deleteImage(index){ 
-
-      const that = this;
-      
-      let dialog = bootbox.confirm({
+    deleteImage(index){  
+   
+      const dialogRef = this.globals.confirmDialogBox({ 
         title: "Delete Image",
         message: "Are you sure you need to delete this image? Please note after you proceed it can be undone.",
-        buttons: {
-          confirm: {
-            label: 'Yes, Delete',  
-            className: 'btn-danger pull-left'
-          },
-          cancel: {
-            label: 'No', 
-            className: 'pull-right '
-          }
-        },
-        callback: function (result) {
-          
-          if(result){  
-            that.projectImagesDeleted = that.uploadedFileName[index];
-            that.uploadedFileName.splice(index, 1); 
-            that.uploadedImages = [];
+        isDelete: true,
+        confirmBtn: "Yes, Delete",
+        cancelBtn: 'No'
+      });
+       
+      dialogRef.afterClosed().subscribe(result => {
+           
+          if(result){
 
-            console.log( that.projectImagesDeleted );
+            this.projectImagesDeleted = this.uploadedFileName[index];
+            this.uploadedFileName.splice(index, 1); 
+            this.uploadedImages = [];
+  
+            this.uploadedFileName.forEach(element => {  
+              this.uploadedImages.push(this.imageURLThumb + element); 
+            });  
+
+            let param = { company_id: this.companyID, file_name: this.projectImagesDeleted }; 
+
+            this.myaccount.removeProjectImages(param).subscribe((response: any) => { 
+              this.projectImagesDeleted = ""; 
+            }); 
+
+            this.onSave(true);
              
-            that.uploadedFileName.forEach(element => {  
-              that.uploadedImages.push(that.imageURLThumb + element); 
-            }); 
-
-
-            let param = { company_id: that.companyID, file_name: that.projectImagesDeleted }; 
-            that.myaccount.removeProjectImages(param).subscribe((response: any) => { 
-              that.projectImagesDeleted = "";
-
-            }); 
-
-            that.onSave(true);
-            
           }  
-        } 
+        
       });
-  
-      dialog.init(function(){
-        $('html .modal-backdrop:not(:first)').remove();
-      })
-  
-      dialog.on("shown.bs.modal", function() {  
-        $('html .bootbox.modal:not(:first)').remove(); 
-      });
-    
+       
   
     }
+
+   
 
     goBack(){
       window.history.back();

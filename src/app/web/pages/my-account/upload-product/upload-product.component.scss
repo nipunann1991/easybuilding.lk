@@ -60,7 +60,7 @@
     
         .ngx-file-drop__drop-zone{
           margin-top: 3rem;
-          height: 70% !important;
+          height: 80% !important;
           border-radius: 1rem;
     
           &.ngx-file-drop__drop-zone--over{
@@ -74,10 +74,21 @@
             position: relative;
     
             &:before{
-              content: "Drag and drop image files here.";
+              content: "Drag and drop images here.";
               position: absolute;
               color: $dark-gray;
+              margin-top: 4rem; 
+            }
     
+            button.upload-img-btn{
+              border: 1px solid #ced4da;
+              margin-bottom: 4rem;
+              font-family: $normal-font;
+    
+              i{
+                font-size: 2rem;
+                margin-right: 0.3rem;
+              }
             }
           }
         }

@@ -1,0 +1,41 @@
+ 
+<div class="products-wrapper container-fluid">
+    <div class="container products-wrapper-inner"> 
+        <div class="right-content-search photo-search" [ngClass]="{'no-results': pageData.start == 0 }">  
+            <div class="page-top"> 
+                <div class="right-header">
+                    <p>{{ pageData.parentCategory }} / {{ pageData.categoryLevel1 }} </p>
+                    <h1>{{ pageData.categoryLevel2 }}</h1>  
+                </div>
+                <ul class="view-option">
+                    <li [ngClass]="{'active': isGridView }"><a href="javascipt:void(0)" (click)="gridView()"><i class="icon-grid"></i></a></li> 
+                </ul>
+            </div>
+            <div class="row mid-row">
+                <div class="col-md-12">
+                    <p *ngIf="pageData.start > 0">Showing {{ pageData.start }} – {{ pageData.end }} results from {{ pageData.total_results }} profiles</p>
+                </div>
+            </div> 
+            <div class="row">  
+                <div class="item-block-wrapper" *ngFor="let img of imageSearch; let i=index" [ngClass]="(isGridView)? 'col-md-4' : 'col-md-12 list_view'" >
+                    <div class="item-block img-search">
+                        <div class="item-image" *ngIf="img.imgUrl !== ''" [ngStyle]="{'background-image': 'url('+ img.imgUrl + ')'}" [ngClass]="{'no-img': img.imgUrl === ''}" (click)="openInFullScreen(i)"></div> 
+                        <div class="item-details">
+                            <div class="project-and-company">
+                                <h3>{{img.project_name}}</h3> 
+                                <a [routerLink]="img.profileLink">By {{ img.title }} </a>
+                            </div>  
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                     
+                </div>
+
+                 
+            </div>
+
+        </div>
+      
+        
+    </div>
+</div>

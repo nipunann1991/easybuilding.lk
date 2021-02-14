@@ -23,8 +23,7 @@ export class ServicesDialogBoxComponent implements OnInit {
       this.title = (this.popupData.view_id == 1)? "Service" : 'Products';
       let menuArray = this.setMenuItems(this.popupData.data, 20)
       this.menuItems = this.generateMegaMenu(menuArray);
-      this.selectedVals = this.popupData.selected;
- 
+      this.selectedVals = this.popupData.selected; 
   }
     
   ngOnInit(): void {
