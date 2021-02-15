@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
+import { PlatformLocation } from '@angular/common'
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { SearchService } from "../../../admin/api/frontend/search.service";
 import { MyAccountService } from '../../../admin/api/frontend/my-account.service';
@@ -6,6 +7,7 @@ import { environment } from "../../../../environments/environment";
 import { HomepageService } from "../../../admin/api/frontend/homepage.service"; 
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Options } from 'select2'; 
+import { Globals } from "../../../app.global"
 
 @Component({
   selector: 'app-products',
@@ -31,13 +33,18 @@ export class ProductsComponent implements OnInit {
   categoriesList: any = [];
   totalLinks: number = 0;
   isFullPageSearch: boolean = false;
+  queryParams: any;
   searchParams = {
     sortBy: "",
     sortByServiceArea: ""
   }
 
+  
+  slideConfig = {"slidesToShow": 5, "slidesToScroll": 5,  infinite: false,};
 
   private prevParam: string = ""; 
+  private prevQueryParam: any = ""; 
+  
   public options: Options;
   formGroup: FormGroup;
 
@@ -46,27 +53,34 @@ export class ProductsComponent implements OnInit {
     private search: SearchService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private homePage: HomepageService
+    private homePage: HomepageService,
+    private platformLocation: PlatformLocation,
+    private globals: Globals,
   ) { 
- 
+    
+    this.queryParams = this.globals.defaultQueryParams;
     this.router.events.subscribe((event) => {
 
       if (event instanceof NavigationEnd) { 
         window.scroll(0,0);   
-       
         
-        if(this.prevParam == "" || this.prevParam != this.activatedRoute.snapshot.params.id ){
-
-          this.prevParam = this.activatedRoute.snapshot.params.id; 
+        if(this.prevParam == "" || this.prevQueryParam == "" || this.prevParam != this.activatedRoute.snapshot.params.id ||  JSON.stringify(this.prevParam) != JSON.stringify(this.activatedRoute.snapshot.queryParams)  ){
+           
+          this.prevParam = this.activatedRoute.snapshot.params.id;
+          this.prevQueryParam = this.activatedRoute.snapshot.queryParams;  
           this.getSelectedProductData();  
-          this.filterOptions();
-          this.initialSort(0)
-        }
-        
+          this.filterOptions(); 
+          (JSON.stringify(this.activatedRoute.snapshot.queryParams) !==  '{}')? this.searchProducts(this.activatedRoute.snapshot.queryParams, true) : "";  
+          
+        }  
         
       }
       
     })
+
+    platformLocation.onPopState(() => { 
+      (JSON.stringify(this.activatedRoute.snapshot.queryParams) !==  '{}')? this.searchProducts(this.activatedRoute.snapshot.queryParams, true) : "";  
+    });
   }
  
   ngOnInit(): void { 
@@ -85,11 +99,15 @@ export class ProductsComponent implements OnInit {
       tags: true 
     };
  
+    
     this.getGridView();
     this.getDistricts();
     this.getCities();
      
   }
+
+
+  
 
   getSelectedProductData(){ 
     
@@ -97,11 +115,13 @@ export class ProductsComponent implements OnInit {
 
     if(params.cat_lvl2_id == 1){
       this.isFullPageSearch = true;
+      
       this.pageData = {
         parentCategory: "Search",
         categoryLevel1: "Products",
         categoryLevel2: "Products"
       } 
+
       this.getProductsMenuItems()
 
     }else if(params.cat_lvl2_id == 2){
@@ -265,7 +285,7 @@ export class ProductsComponent implements OnInit {
   }
 
 
-  searchProducts(queryParams){
+  searchProducts(queryParams, firstAttempt = false ){
 
     this.products = []; 
 
@@ -277,6 +297,14 @@ export class ProductsComponent implements OnInit {
       sort_by_service_area: queryParams.sort_by_service_area,
       area: queryParams.area
     };  
+
+    if(firstAttempt){
+      this.sortByFilter[queryParams.sort_by - 1].isChecked = true;  
+      this.sortByLocation[queryParams.sort_by_service_area - 1].isChecked = true; 
+      this.searchParams.sortBy = this.sortByFilter[queryParams.sort_by - 1].id 
+      this.searchParams.sortByServiceArea = this.sortByLocation[queryParams.sort_by_service_area - 1].id;
+    }
+    
 
     this.search.searchProducts(params) 
     .subscribe((response: any) => {
@@ -301,6 +329,7 @@ export class ProductsComponent implements OnInit {
             imgUrl: profileImg,
             rating:  elm.rating,
             total_reviews : elm.total_reviews,
+            isAllIsland : elm.all_island,
             services : elm.services,
             products : elm.products,
             contact: {
@@ -321,9 +350,7 @@ export class ProductsComponent implements OnInit {
 
   getGridView(){ 
     let storageData = JSON.parse(localStorage.getItem('isGridView')); 
-
-   console.log(storageData)
-
+ 
     if(typeof storageData !== 'undefined' ){
       this.isGridView = storageData;
     }
@@ -360,7 +387,7 @@ export class ProductsComponent implements OnInit {
     this.resetChecked(this.sortByLocation)
     this.sortByLocation[i].isChecked = true; 
     this.searchParams.sortByServiceArea = this.sortByLocation[i].id;
-    console.log(i)
+    
     if(i < 2 ){ 
       this.area = -1;
       this.setURL(isInit);
@@ -378,15 +405,9 @@ export class ProductsComponent implements OnInit {
     this.area = value; 
     this.setURL(true);
   }
-  
+   
 
-  initialSort(i){
-    this.sortChange(i)
-    this.sortByService(i, true)  
-  }
-
-  setURL(isInit = false){
-    let url =  this.router.url + this.searchParams.sortByServiceArea + this.searchParams.sortBy;
+  setURL(isInit = false){ 
      
     let queryParams = { 
       results: '10', 
@@ -399,9 +420,9 @@ export class ProductsComponent implements OnInit {
  
     this.router.navigate(['/products/'+this.activatedRoute.snapshot.params.id], { queryParams: queryParams });
 
-    if(isInit){
-      this.searchProducts(queryParams);
-    }
+    // if(isInit){
+    //   this.searchProducts(queryParams);
+    // }
   
   }
 
@@ -411,6 +432,31 @@ export class ProductsComponent implements OnInit {
     }
 
     return arr;
+  }
+
+
+  addSlide() {
+     
+  }
+  
+  removeSlide() {
+    
+  }
+  
+  slickInit(e) {
+    console.log('slick initialized');
+  }
+  
+  breakpoint(e) {
+    console.log('breakpoint');
+  }
+  
+  afterChange(e) {
+    console.log('afterChange');
+  }
+  
+  beforeChange(e) {
+    console.log('beforeChange');
   }
 
 }

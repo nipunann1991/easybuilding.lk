@@ -11,7 +11,16 @@ export class Globals {
 	isItemsEditable: boolean = false; 
     editable: boolean = true; 
     isAdminToken: any ="21232f297a57a5a743894a0e4a801fc3";
-    isManagerToken: any ="1d0258c2440a8d19e716292b231e3190";
+    isManagerToken: any ="1d0258c2440a8d19e716292b231e3190"; 
+
+    defaultQueryParams = { 
+        results: '10', 
+        index: '1',
+        sort_by: '1',
+        sort_by_service_area: '1',
+        area: '-1'
+   };
+    
     token: any = {
         auth_token: '',
         provider_id: '',
@@ -44,9 +53,7 @@ export class Globals {
             console.log(value)
             
         });
-
-        
-   
+ 
     } 
     
     confirmDialogBox(data): any{  
@@ -55,10 +62,5 @@ export class Globals {
             data: data  
         });
     }
-
-    
-       
-
-	
-
+ 
 }

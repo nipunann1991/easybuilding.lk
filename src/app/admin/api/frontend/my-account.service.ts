@@ -48,15 +48,20 @@ export class MyAccountService {
  
 
   getCities(){   
+      return this.http.get(environment.baseUrl+'ProfileController/getCities');
+  
+   }
 
-      return this.http.get(environment.baseUrl+'ProfileController/getCities'+this.setTokenData());
-    
+
+  getCitiesByDistrict(){    
+    return this.http.get(environment.baseUrl+'ProfileController/getCitiesByDistrict');
+  
   }
 
 
   getDistricts(){   
 
-    return this.http.get(environment.baseUrl+'ProfileController/getDistricts'+this.setTokenData());
+    return this.http.get(environment.baseUrl+'ProfileController/getDistricts');
    
   } 
 

@@ -1,5 +1,5 @@
  
-<div class="products-wrapper container-fluid">
+<div class="products-wrapper container-fluid  animated fadeIn">
     <div class="container products-wrapper-inner">
         <div class="left-nav-sort" *ngIf="!isFullPageSearch">
             <h2>Filters</h2>
@@ -18,7 +18,7 @@
                         <input class="form-check-input" type="radio" name="sort_location" id="{{sbl.alias}}" value="{{sbl.id}}" [checked]="sbl.isChecked" (change)="sortByService(i, true)">
                         <label class="form-check-label" for="{{sbl.alias}}">{{sbl.option}}</label>
                     </div>  
-                    <form id="myform" [formGroup]="formGroup" novalidate="novalidate">
+                    <form [formGroup]="formGroup" novalidate="novalidate">
                         <ng-select2  *ngIf="(sbl.isChecked && sbl.id == 3)" [data]="serviceAreaDistricts" [options]="options" placeholder="Search Location" formControlName="services" (ngModelChange)="selectedDistricts($event)" class="select-fw select-service" >
                         </ng-select2>
                         <ng-select2  *ngIf="(sbl.isChecked && sbl.id == 4)" [data]="serviceAreaCities" [options]="options" placeholder="Search Location" formControlName="services" (ngModelChange)="selectedCities($event)" class="select-fw select-service" >
@@ -39,26 +39,31 @@
             </div> -->
         </div>  
         <div class="right-content-search" [ngClass]="{'no-results': (pageData.start == 0 && !isFullPageSearch) , 'full-page-search': isFullPageSearch }">  
-            <div class="page-top"> 
+            <div class="page-top" *ngIf="!isFullPageSearch"> 
                 <div class="right-header">
                     <p>{{ pageData.parentCategory }} / {{ pageData.categoryLevel1 }} </p>
                     <h1>{{ pageData.categoryLevel2 }}</h1>  
                 </div>
-                <ul class="view-option">
+                <ul class="view-option"  *ngIf="!isFullPageSearch">
                     <li [ngClass]="{'active': isGridView }"><a href="javascipt:void(0)" (click)="gridView()"><i class="icon-grid"></i></a></li>
                     <li [ngClass]="{'active': !isGridView }"><a href="javascipt:void(0)" (click)="listView()"><i class="icon-list"></i></a></li>
                 </ul>
             </div>
-            <div class="row mid-row">
+            <div class="row mid-row" *ngIf="!isFullPageSearch">
                 <div class="col-md-12">
                     <p *ngIf="pageData.start > 0">Showing {{ pageData.start }} – {{ pageData.end }} results from {{ pageData.total_results }} profiles</p>
                 </div>
             </div> 
             <div class="row search-results" *ngIf="!isFullPageSearch">  
                 <div class="item-block-wrapper" *ngFor="let p of products" [ngClass]="(isGridView)? 'col-md-4' : 'col-md-12 list_view'" >
-                    <div class="item-block" [routerLink]="p.profileLink">
-                        <div class="item-image" *ngIf="p.imgUrl !== ''" [ngStyle]="{'background-image': 'url('+ p.imgUrl + ')'}" [ngClass]="{'no-img': p.imgUrl === ''}"></div>
-                        <div class="item-image" *ngIf="p.imgUrl == ''" [ngClass]="{'no-img': p.imgUrl === ''}"></div> 
+                  
+                    <div class="item-block animated fadeIn" [routerLink]="p.profileLink">
+                        <div class="item-image-wrapper"> 
+                            <span *ngIf="p.isAllIsland == 1" class="badge badge-primary">All Island</span>
+                            <div class="item-image" *ngIf="p.imgUrl !== ''" [ngStyle]="{'background-image': 'url('+ p.imgUrl + ')'}" [ngClass]="{'no-img': p.imgUrl === ''}"></div>
+                            <div class="item-image" *ngIf="p.imgUrl == ''" [ngClass]="{'no-img': p.imgUrl === ''}"></div>
+                        </div>
+                         
                         <div class="item-details">
                             <div class="title-and-rating">
                                 <h3>{{p.title}}</h3>
@@ -104,17 +109,33 @@
             </div>
 
 
-            <div class="row categories-wrapper" *ngIf="isFullPageSearch"> 
+            <div class="categories-wrapper" *ngIf="isFullPageSearch"> 
+                
+                <h1>{{ pageData.categoryLevel2 }}</h1>  
 
-                <div class="category-holder col-md-12" *ngFor="let cl of categoriesList">
-                    <h2>{{ cl.title }}</h2>
+                <div class="category-holder" *ngFor="let cl of categoriesList">
+                    <h2>{{ cl.title }}</h2> 
 
-                    <ul>
-                        <li *ngFor="let categories of cl.children">
-                            <a [routerLink]="categories.url">{{ categories.title }}</a>
-                        </li>
-                    </ul>
+                    <ngx-slick-carousel class="carousel" 
+                        #slickModal="slick-carousel" 
+                        [config]="slideConfig" 
+                        (init)="slickInit($event)"
+                        (breakpoint)="breakpoint($event)"
+                        (afterChange)="afterChange($event)"
+                        (beforeChange)="beforeChange($event)">
+                        
+                        <div ngxSlickItem *ngFor="let categories of cl.children" class="slide">
+                            <div class="category-item" [routerLink]="categories.url" [queryParams]="queryParams">
+                                <div class="category-bg-img"></div>
+                                <div class="category-footer">
+                                    {{ categories.title }} 
+                                </div>
+                            </div> 
+                        </div>
+                        
+                    </ngx-slick-carousel>
 
+                     
                 </div>
 
             </div>

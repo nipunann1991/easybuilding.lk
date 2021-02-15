@@ -36,6 +36,7 @@ import { LightboxModule } from  'ng-gallery/lightbox';
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { RoundToDecimalPipe } from './pipes/round-to-decimal.pipe';
 import { OverlayscrollbarsModule } from "overlayscrollbars-ngx";
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ConfimDialogBoxComponent } from './web/common/confim-dialog-box/confim-dialog-box.component';
 
 @NgModule({
@@ -77,6 +78,7 @@ import { ConfimDialogBoxComponent } from './web/common/confim-dialog-box/confim-
       LightboxModule,
       ChartsModule,
       OverlayscrollbarsModule,
+      SlickCarouselModule,
       StarRatingModule.forRoot(),
       NgBootstrapFormValidationModule.forRoot(), 
       FacebookModule.forRoot()
@@ -112,6 +114,7 @@ import { ConfimDialogBoxComponent } from './web/common/confim-dialog-box/confim-
       GalleryModule,
       LightboxModule,
       ChartsModule,
+      SlickCarouselModule,
       OverlayscrollbarsModule,
       NgBootstrapFormValidationModule,
       FirstLetterPipe,

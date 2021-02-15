@@ -47,7 +47,7 @@
                                 
                                     <h3>{{photo.title}}</h3>
                                     <ul>
-                                        <li *ngFor="let misc1 of photo.children"  (click)="showPhotos=false"><a routerLink="{{misc1.url}}">{{misc1.title}}</a></li>
+                                        <li *ngFor="let misc1 of photo.children"  (click)="showPhotos=false"><a [routerLink]="misc1.url" >{{misc1.title}}</a></li>
                                     </ul>  
 
                                 </ng-container> 
@@ -65,7 +65,7 @@
                                 
                                     <h3>{{prod.title}}</h3>
                                     <ul>
-                                        <li *ngFor="let misc of prod.children" (click)="showProducts=false"><a routerLink="{{misc.url}}" >{{misc.title}}</a></li>
+                                        <li *ngFor="let misc of prod.children" (click)="showProducts=false"><a [routerLink]="misc.url" [queryParams]="queryParams" >{{misc.title}}</a></li>
                                     </ul>  
 
                                 </ng-container> 
@@ -83,7 +83,7 @@
                                 
                                     <h3>{{service.title}}</h3>
                                     <ul>
-                                        <li *ngFor="let misc1 of service.children"  (click)="showServices=false"><a routerLink="{{misc1.url}}">{{misc1.title}}</a></li>
+                                        <li *ngFor="let misc1 of service.children"  (click)="showServices=false"><a [routerLink]="misc1.url" [queryParams]="queryParams" >{{misc1.title}}</a></li>
                                     </ul>  
 
                                 </ng-container> 

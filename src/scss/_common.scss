@@ -1248,3 +1248,31 @@ button.dt-button{
 		margin-bottom: 1.5rem;
 	}
 }
+
+.slick-prev, .slick-next{
+	@include calc("top", "50% - 3.5rem");
+	z-index: 100;
+	
+	&.slick-disabled{
+		&:before, &:before {
+			opacity: 1;
+			color: $mid-gray;
+		}
+	}
+	&:before, &:before {
+		color: $body-text-color;
+		font-size: 3rem;
+		opacity: 1;
+	}
+
+}
+
+ 
+
+.slick-prev{
+	left: 0px
+}
+
+.slick-next {
+    right: 1rem;
+}

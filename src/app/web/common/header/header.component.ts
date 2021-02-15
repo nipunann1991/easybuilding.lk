@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit {
   profilrUrl: string = environment.profileUrl;
   uploadProductUrl: string = environment.profileUrl;
   totalLinks: number = 0;
+  queryParams: any;
   user: any = {
     first_name: '',
     profie_image: ''
@@ -40,6 +41,8 @@ export class HeaderComponent implements OnInit {
     settings: environment.profileUrl.split('/').slice(0, -1).join('/') + "/edit/account-info"
   }
 
+  
+
   constructor(
     private authservice: Auth,
     private oauth: OAuth,
@@ -50,7 +53,7 @@ export class HeaderComponent implements OnInit {
 
     this.isAccessed();
     this.user = this.globals.user;  
-    
+    this.queryParams = this.globals.defaultQueryParams;
   
   }
 
@@ -161,11 +164,7 @@ export class HeaderComponent implements OnInit {
     let totalCount = 0; 
     let column = 0; 
     let totalCols = menuArray.length 
-    let maxCols = 3
-
-    
-    console.log(menuArray, menuArray.length )
-
+    let maxCols = 3; 
     let noOfItemsPerCol =  Math.round(this.totalLinks / maxCols); 
 
     oldMenu.forEach((element, index) => {  
