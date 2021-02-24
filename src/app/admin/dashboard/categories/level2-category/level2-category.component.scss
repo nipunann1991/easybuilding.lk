@@ -20,3 +20,50 @@ table.lvl2-table{
         }
     }
 }
+
+
+.upload-image{
+    width: 15rem;
+    height: 12rem;
+    margin-top: 1.5rem;
+    background: #eeeeee;
+    background-size: cover;
+    position: relative;
+    @include flex();
+    justify-content: center;
+
+    &:before{
+        position: absolute;
+        opacity: 0;
+        content: "";
+        width: 100%;
+        height: 100%;
+        left: 0;
+        right: 0; 
+        z-index: 10;
+        @include background-opacity($base-color, 0.5);
+    }
+
+    i.delete{
+        cursor: pointer;
+        color: $white;
+        font-size: 2rem;
+        position: relative;
+        z-index: 100;
+        opacity: 0;
+
+        &:hover{
+            color: $danger-color;
+        }
+    }
+
+    &:hover{
+        &:before{
+            opacity: 1;
+        }
+
+        i.delete{
+            opacity: 1;
+        }
+    }
+}

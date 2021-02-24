@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2021 at 08:42 PM
+-- Generation Time: Feb 24, 2021 at 09:37 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -90,167 +90,169 @@ CREATE TABLE `categories-level2` (
   `id` int(11) NOT NULL,
   `cat_lvl2_id` varchar(100) NOT NULL,
   `cat_lvl2_name` varchar(100) NOT NULL,
-  `parent_cat_id` varchar(100) NOT NULL
+  `parent_cat_id` varchar(100) NOT NULL,
+  `file_name` varchar(100) NOT NULL,
+  `featured` int(11) NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `categories-level2`
 --
 
-INSERT INTO `categories-level2` (`id`, `cat_lvl2_id`, `cat_lvl2_name`, `parent_cat_id`) VALUES
-(10, 'CL21010', 'House Construction Contractors', 'CL11015'),
-(11, 'CL21011', 'Architects', 'CL11016'),
-(12, 'CL21012', 'Interior Designers', 'CL11016'),
-(13, 'CL21013', 'Interior Work, Partition Work & Ceiling work Contractors', 'CL11017'),
-(14, 'CL21014', 'Interior Designers', 'CL11017'),
-(15, 'CL21015', 'Plumbing Accessories, Pipes & Waste Removal', 'CL11018'),
-(16, 'CL21016', 'Cement', 'CL11018'),
-(17, 'CL21017', 'Sand ', 'CL11018'),
-(18, 'CL21018', 'Ready Mix Concrete', 'CL11018'),
-(19, 'CL21019', 'Bricks', 'CL11018'),
-(20, 'CL21020', 'Adhesive, Grout and Sealant', 'CL11018'),
-(21, 'CL21021', 'Commercial Building Contraction Contractors ', 'CL11015'),
-(22, 'CL21022', 'Structural Engineers & Consultants', 'CL11016'),
-(23, 'CL21023', 'Metal', 'CL11018'),
-(24, 'CL21024', 'Blocks', 'CL11018'),
-(25, 'CL21025', 'Steel', 'CL11018'),
-(146, 'CL21146', 'House', 'CL11033'),
-(27, 'CL21027', 'Water Proofing Materials ', 'CL11018'),
-(28, 'CL21028', 'Glass', 'CL11018'),
-(29, 'CL21029', 'Door & Window Fittings ', 'CL11018'),
-(30, 'CL21030', 'Hardware Stores', 'CL11018'),
-(31, 'CL21031', 'Pavers', 'CL11018'),
-(32, 'CL21032', 'Concrete Products', 'CL11018'),
-(33, 'CL21033', 'Timber Supplier & Saw Mills', 'CL11018'),
-(34, 'CL21034', 'Titanium, Terrazzo & Tiling Contractors ', 'CL11017'),
-(35, 'CL21035', 'Pantry Cupboard and Kitchen Accessory Makers', 'CL11017'),
-(36, 'CL21036', 'Furniture and Wood Workers ', 'CL11017'),
-(37, 'CL21037', 'Carpeting, Wood Flooring , Artificial Flooring Contractors ', 'CL11017'),
-(38, 'CL21038', 'House Cleaners', 'CL11017'),
-(39, 'CL21039', 'CCTV & Home Security Systems', 'CL11017'),
-(40, 'CL21040', 'Aluminum and Glass Contractors', 'CL11017'),
-(41, 'CL21041', 'Arts & Craft', 'CL11017'),
-(42, 'CL21042', 'Interior Deco, Curtains, Wall Papers and Window Films', 'CL11017'),
-(43, 'CL21043', 'Quantity Surveyors (QS)', 'CL11016'),
-(44, 'CL21044', 'Land Surveyors', 'CL11016'),
-(45, 'CL21045', 'Draftsmen', 'CL11016'),
-(46, 'CL21046', 'Electrical Engineers', 'CL11016'),
-(47, 'CL21047', 'MEP Engineers', 'CL11016'),
-(48, 'CL21048', 'Air condition Engineers & Consultants', 'CL11016'),
-(49, 'CL21049', 'Energy Consultants', 'CL11016'),
-(50, 'CL21050', '3D Image  Makers', 'CL11016'),
-(51, 'CL21051', 'Home Valuers', 'CL11016'),
-(52, 'CL21052', 'Project Managers', 'CL11016'),
-(53, 'CL21053', 'Steel Building Contractors', 'CL11015'),
-(54, 'CL21054', 'Road & Infrastructure Building Contractors', 'CL11015'),
-(55, 'CL21055', 'Building Painters', 'CL11015'),
-(56, 'CL21056', 'Landscaping & Paving Contractors', 'CL11015'),
-(57, 'CL21057', 'Grass Cutters & Tree Cutters', 'CL11015'),
-(58, 'CL21058', 'Carpenters & Wood workers', 'CL11015'),
-(59, 'CL21059', 'Plumbing Contractors', 'CL11015'),
-(60, 'CL21060', 'Water Proofing Contractors', 'CL11015'),
-(61, 'CL21061', 'Soil & Concrete testing Contractors', 'CL11015'),
-(62, 'CL21062', 'Aluminum and Glass Contractors', 'CL11015'),
-(63, 'CL21063', 'Masons', 'CL11015'),
-(64, 'CL21064', 'Steel Fences, Steel Gate  Contractors & Welders', 'CL11015'),
-(65, 'CL21065', 'Titanium, Terrazzo & Tiling Contractors', 'CL11015'),
-(66, 'CL21066', 'Pest Controllers', 'CL11015'),
-(67, 'CL21067', 'Roller Gates & Roller Door Makers', 'CL11015'),
-(68, 'CL21068', 'Swimming Pool Makers', 'CL11015'),
-(69, 'CL21069', 'Gully Bowsers & West Removal', 'CL11015'),
-(70, 'CL21070', 'House Wiring Electricians', 'CL11021'),
-(71, 'CL21071', 'Electrical Supply & Installation Contractors', 'CL11021'),
-(72, 'CL21072', 'Electrical Engineers', 'CL11021'),
-(73, 'CL21073', 'AC Supply and Installation Contractors', 'CL11021'),
-(74, 'CL21074', 'AC Technicians', 'CL11021'),
-(75, 'CL21075', 'Solar Power Suppliers & Installers', 'CL11021'),
-(76, 'CL21076', 'Lift, Elevator & Hoist Suppliers & Makers', 'CL11021'),
-(77, 'CL21077', 'Steel Fences, Steel Gate  Contractors & Welders', 'CL11021'),
-(78, 'CL21078', 'Generator Suppliers & Installations', 'CL11021'),
-(79, 'CL21079', 'Titanium Products', 'CL11022'),
-(80, 'CL21080', 'Tiles', 'CL11022'),
-(81, 'CL21081', 'Timber & Wooden Flooring', 'CL11022'),
-(82, 'CL21082', 'Carpets', 'CL11022'),
-(83, 'CL21083', 'Epoxy and Floor Paints', 'CL11022'),
-(84, 'CL21084', 'Artificial Flooring', 'CL11022'),
-(85, 'CL21085', 'Wall Paints', 'CL11023'),
-(86, 'CL21086', 'Wood Care Coatings', 'CL11023'),
-(87, 'CL21087', 'Epoxy and Floor Paints', 'CL11023'),
-(88, 'CL21088', 'Water Proofing Materials', 'CL11023'),
-(89, 'CL21089', 'Primers & Under coats', 'CL11023'),
-(90, 'CL21090', 'Steel & Metal Care Coatings', 'CL11023'),
-(91, 'CL21091', 'Light Fittings', 'CL11024'),
-(92, 'CL21092', 'Wires & Cables', 'CL11024'),
-(93, 'CL21093', 'Electrical Switches & Sockets', 'CL11024'),
-(94, 'CL21094', 'Electrical Conduits, Trunkings & Fittings', 'CL11024'),
-(95, 'CL21095', 'Solar Power Systems', 'CL11024'),
-(96, 'CL21096', 'Electrical Panels Boards, Breakers', 'CL11024'),
-(97, 'CL21097', 'Generators', 'CL11024'),
-(98, 'CL21098', 'Roller Doors, Gates & Auto Mated Doors', 'CL11024'),
-(99, 'CL21099', 'Sofas', 'Furniture'),
-(100, 'CL21100', 'Living Room Furniture', 'Furniture'),
-(101, 'CL21101', 'Sofa', 'CL11025'),
-(102, 'CL21102', 'Living Room Furniture', 'CL11025'),
-(103, 'CL21103', 'Dining Room Furniture', 'CL11025'),
-(104, 'CL21104', 'Office Furniture', 'CL11025'),
-(105, 'CL21105', 'Specialized Furniture', 'CL11025'),
-(106, 'CL21106', 'Bed Room Furniture', 'CL11025'),
-(107, 'CL21107', 'Outdoor', 'CL11025'),
-(108, 'CL21108', 'Kitchen', 'CL11025'),
-(110, 'CL21110', 'Floor Tiles', 'CL11026'),
-(111, 'CL21111', 'Wall Tiles', 'CL11026'),
-(112, 'CL21112', 'Bathroom Fittings', 'CL11026'),
-(113, 'CL21113', 'Plumbing Accessories, Pipes & Waste Removal', 'CL11026'),
-(114, 'CL21114', 'Showers, Taps & Accessories', 'CL11026'),
-(115, 'CL21115', 'Mirrors', 'CL11026'),
-(116, 'CL21116', 'Roofing Tiles', 'CL11027'),
-(117, 'CL21117', 'Roofing Sheets', 'CL11027'),
-(118, 'CL21118', 'Sandwich Roofing Sheets', 'CL11027'),
-(119, 'CL21119', 'Sandwich Roofing Sheets', 'CL11027'),
-(120, 'CL21120', 'Sky Lights', 'CL11027'),
-(121, 'CL21121', 'CCTV Suppliers', 'CL11028'),
-(122, 'CL21122', 'Fire Protection Systems', 'CL11028'),
-(123, 'CL21123', 'Home Security Systems', 'CL11028'),
-(124, 'CL21124', 'PA Systems', 'CL11028'),
-(125, 'CL21125', 'Network & Data Systems', 'CL11028'),
-(126, 'CL21126', 'Accesses Control', 'CL11028'),
-(127, 'CL21127', 'Blinds & Curtains', 'CL11029'),
-(128, 'CL21128', 'Arts & Crafts', 'CL11029'),
-(129, 'CL21129', 'Wall Papers', 'CL11029'),
-(130, 'CL21130', 'Plywood, Partition & Cladding', 'CL11029'),
-(131, 'CL21131', 'Home Improvement Products', 'CL11029'),
-(132, 'CL21132', 'AC Unit Suppliers', 'CL11030'),
-(133, 'CL21133', 'Chillers', 'CL11030'),
-(134, 'CL21134', 'Boilers', 'CL11030'),
-(135, 'CL21135', 'Lifts, Escalators & Hoists', 'CL11030'),
-(136, 'CL21136', 'Fans, Exhaust Fans &  Air Extractors', 'CL11030'),
-(137, 'CL21137', 'Sky Lights', 'CL11030'),
-(138, 'CL21138', 'Pantry Cupboards', 'CL11031'),
-(139, 'CL21139', 'Cooking Equipments ', 'CL11031'),
-(140, 'CL21140', 'Kitchen Accessories', 'CL11031'),
-(141, 'CL21141', 'Water Filter', 'CL11031'),
-(142, 'CL21142', 'Furniture', 'CL11031'),
-(143, 'CL21143', 'Heavy Construction Machinery Suppliers', 'CL11032'),
-(144, 'CL21144', 'Construction Tool Suppliers', 'CL11032'),
-(145, 'CL21145', 'Material Handling Equipments ', 'CL11032'),
-(147, 'CL21147', 'Living', 'CL11033'),
-(148, 'CL21148', 'Bed Room & Closet', 'CL11033'),
-(149, 'CL21149', 'Kitchen & Pantry', 'CL11033'),
-(150, 'CL21150', 'Bathrooms', 'CL11033'),
-(151, 'CL21151', 'Landscaping', 'CL11033'),
-(152, 'CL21152', 'Pools', 'CL11033'),
-(153, 'CL21153', 'Fence', 'CL11033'),
-(154, 'CL21154', 'Lightfittings & Switches', 'CL11033'),
-(155, 'CL21155', 'Painting', 'CL11033'),
-(156, 'CL21156', 'Furniture', 'CL11033'),
-(157, 'CL21157', 'Bricks', 'CL11034'),
-(158, 'CL21158', 'Fences', 'CL11034'),
-(159, 'CL21159', 'Roofing Materials', 'CL11034'),
-(160, 'CL21160', 'Flooring', 'CL11034'),
-(161, 'CL21161', 'Bathroom fittings', 'CL11034'),
-(162, 'CL21162', 'AC', 'CL11035'),
-(163, 'CL21163', 'Solar', 'CL11035'),
-(164, 'CL21164', 'Arts and Crafts', 'CL11035');
+INSERT INTO `categories-level2` (`id`, `cat_lvl2_id`, `cat_lvl2_name`, `parent_cat_id`, `file_name`, `featured`) VALUES
+(10, 'CL21010', 'House Construction Contractors', 'CL11015', '', 0),
+(11, 'CL21011', 'Architects', 'CL11016', '', 0),
+(12, 'CL21012', 'Interior Designers', 'CL11016', '', 0),
+(13, 'CL21013', 'Interior Work, Partition Work & Ceiling work Contractors', 'CL11017', '', 0),
+(14, 'CL21014', 'Interior Designers', 'CL11017', '', 0),
+(15, 'CL21015', 'Plumbing Accessories, Pipes & Waste Removal', 'CL11018', '', 0),
+(16, 'CL21016', 'Cement', 'CL11018', '', 0),
+(17, 'CL21017', 'Sand ', 'CL11018', '', 0),
+(18, 'CL21018', 'Ready Mix Concrete', 'CL11018', '', 0),
+(19, 'CL21019', 'Bricks', 'CL11018', '16141978071874268860.jpg', 0),
+(20, 'CL21020', 'Adhesive, Grout and Sealant', 'CL11018', '', 0),
+(21, 'CL21021', 'Commercial Building Contraction Contractors ', 'CL11015', '', 0),
+(22, 'CL21022', 'Structural Engineers & Consultants', 'CL11016', '', 0),
+(23, 'CL21023', 'Metal', 'CL11018', '', 0),
+(24, 'CL21024', 'Blocks', 'CL11018', '', 0),
+(25, 'CL21025', 'Steel', 'CL11018', '', 0),
+(146, 'CL21146', 'House', 'CL11033', '', 0),
+(27, 'CL21027', 'Water Proofing Materials ', 'CL11018', '', 0),
+(28, 'CL21028', 'Glass', 'CL11018', '', 0),
+(29, 'CL21029', 'Door & Window Fittings ', 'CL11018', '', 0),
+(30, 'CL21030', 'Hardware Stores', 'CL11018', '', 0),
+(31, 'CL21031', 'Pavers', 'CL11018', '', 0),
+(32, 'CL21032', 'Concrete Products', 'CL11018', '', 0),
+(33, 'CL21033', 'Timber Supplier & Saw Mills', 'CL11018', '', 0),
+(34, 'CL21034', 'Titanium, Terrazzo & Tiling Contractors ', 'CL11017', '', 0),
+(35, 'CL21035', 'Pantry Cupboard and Kitchen Accessory Makers', 'CL11017', '', 0),
+(36, 'CL21036', 'Furniture and Wood Workers ', 'CL11017', '', 0),
+(37, 'CL21037', 'Carpeting, Wood Flooring , Artificial Flooring Contractors ', 'CL11017', '', 0),
+(38, 'CL21038', 'House Cleaners', 'CL11017', '', 0),
+(39, 'CL21039', 'CCTV & Home Security Systems', 'CL11017', '', 0),
+(40, 'CL21040', 'Aluminum and Glass Contractors', 'CL11017', '', 0),
+(41, 'CL21041', 'Arts & Craft', 'CL11017', '', 0),
+(42, 'CL21042', 'Interior Deco, Curtains, Wall Papers and Window Films', 'CL11017', '', 0),
+(43, 'CL21043', 'Quantity Surveyors (QS)', 'CL11016', '', 0),
+(44, 'CL21044', 'Land Surveyors', 'CL11016', '', 0),
+(45, 'CL21045', 'Draftsmen', 'CL11016', '', 0),
+(46, 'CL21046', 'Electrical Engineers', 'CL11016', '', 0),
+(47, 'CL21047', 'MEP Engineers', 'CL11016', '', 0),
+(48, 'CL21048', 'Air condition Engineers & Consultants', 'CL11016', '', 0),
+(49, 'CL21049', 'Energy Consultants', 'CL11016', '', 0),
+(50, 'CL21050', '3D Image  Makers', 'CL11016', '', 0),
+(51, 'CL21051', 'Home Valuers', 'CL11016', '', 0),
+(52, 'CL21052', 'Project Managers', 'CL11016', '', 0),
+(53, 'CL21053', 'Steel Building Contractors', 'CL11015', '', 0),
+(54, 'CL21054', 'Road & Infrastructure Building Contractors', 'CL11015', '', 0),
+(55, 'CL21055', 'Building Painters', 'CL11015', '', 0),
+(56, 'CL21056', 'Landscaping & Paving Contractors', 'CL11015', '', 0),
+(57, 'CL21057', 'Grass Cutters & Tree Cutters', 'CL11015', '', 0),
+(58, 'CL21058', 'Carpenters & Wood workers', 'CL11015', '', 0),
+(59, 'CL21059', 'Plumbing Contractors', 'CL11015', '', 0),
+(60, 'CL21060', 'Water Proofing Contractors', 'CL11015', '', 0),
+(61, 'CL21061', 'Soil & Concrete testing Contractors', 'CL11015', '', 0),
+(62, 'CL21062', 'Aluminum and Glass Contractors', 'CL11015', '', 0),
+(63, 'CL21063', 'Masons', 'CL11015', '', 0),
+(64, 'CL21064', 'Steel Fences, Steel Gate  Contractors & Welders', 'CL11015', '', 0),
+(65, 'CL21065', 'Titanium, Terrazzo & Tiling Contractors', 'CL11015', '', 0),
+(66, 'CL21066', 'Pest Controllers', 'CL11015', '', 0),
+(67, 'CL21067', 'Roller Gates & Roller Door Makers', 'CL11015', '', 0),
+(68, 'CL21068', 'Swimming Pool Makers', 'CL11015', '', 0),
+(69, 'CL21069', 'Gully Bowsers & West Removal', 'CL11015', '', 0),
+(70, 'CL21070', 'House Wiring Electricians', 'CL11021', '', 0),
+(71, 'CL21071', 'Electrical Supply & Installation Contractors', 'CL11021', '', 0),
+(72, 'CL21072', 'Electrical Engineers', 'CL11021', '', 0),
+(73, 'CL21073', 'AC Supply and Installation Contractors', 'CL11021', '', 0),
+(74, 'CL21074', 'AC Technicians', 'CL11021', '', 0),
+(75, 'CL21075', 'Solar Power Suppliers & Installers', 'CL11021', '', 0),
+(76, 'CL21076', 'Lift, Elevator & Hoist Suppliers & Makers', 'CL11021', '', 0),
+(77, 'CL21077', 'Steel Fences, Steel Gate  Contractors & Welders', 'CL11021', '', 0),
+(78, 'CL21078', 'Generator Suppliers & Installations', 'CL11021', '', 0),
+(79, 'CL21079', 'Titanium Products', 'CL11022', '', 0),
+(80, 'CL21080', 'Tiles', 'CL11022', '', 0),
+(81, 'CL21081', 'Timber & Wooden Flooring', 'CL11022', '', 0),
+(82, 'CL21082', 'Carpets', 'CL11022', '', 0),
+(83, 'CL21083', 'Epoxy and Floor Paints', 'CL11022', '', 0),
+(84, 'CL21084', 'Artificial Flooring', 'CL11022', '', 0),
+(85, 'CL21085', 'Wall Paints', 'CL11023', '', 0),
+(86, 'CL21086', 'Wood Care Coatings', 'CL11023', '', 0),
+(87, 'CL21087', 'Epoxy and Floor Paints', 'CL11023', '', 0),
+(88, 'CL21088', 'Water Proofing Materials', 'CL11023', '', 0),
+(89, 'CL21089', 'Primers & Under coats', 'CL11023', '', 0),
+(90, 'CL21090', 'Steel & Metal Care Coatings', 'CL11023', '', 0),
+(91, 'CL21091', 'Light Fittings', 'CL11024', '', 0),
+(92, 'CL21092', 'Wires & Cables', 'CL11024', '', 0),
+(93, 'CL21093', 'Electrical Switches & Sockets', 'CL11024', '', 0),
+(94, 'CL21094', 'Electrical Conduits, Trunkings & Fittings', 'CL11024', '', 0),
+(95, 'CL21095', 'Solar Power Systems', 'CL11024', '', 0),
+(96, 'CL21096', 'Electrical Panels Boards, Breakers', 'CL11024', '', 0),
+(97, 'CL21097', 'Generators', 'CL11024', '', 0),
+(98, 'CL21098', 'Roller Doors, Gates & Auto Mated Doors', 'CL11024', '', 0),
+(99, 'CL21099', 'Sofas', 'Furniture', '', 0),
+(100, 'CL21100', 'Living Room Furniture', 'Furniture', '', 0),
+(101, 'CL21101', 'Sofa', 'CL11025', '', 0),
+(102, 'CL21102', 'Living Room Furniture', 'CL11025', '', 0),
+(103, 'CL21103', 'Dining Room Furniture', 'CL11025', '', 0),
+(104, 'CL21104', 'Office Furniture', 'CL11025', '', 0),
+(105, 'CL21105', 'Specialized Furniture', 'CL11025', '', 0),
+(106, 'CL21106', 'Bed Room Furniture', 'CL11025', '', 0),
+(107, 'CL21107', 'Outdoor', 'CL11025', '', 0),
+(108, 'CL21108', 'Kitchen', 'CL11025', '', 0),
+(110, 'CL21110', 'Floor Tiles', 'CL11026', '', 0),
+(111, 'CL21111', 'Wall Tiles', 'CL11026', '', 0),
+(112, 'CL21112', 'Bathroom Fittings', 'CL11026', '', 0),
+(113, 'CL21113', 'Plumbing Accessories, Pipes & Waste Removal', 'CL11026', '', 0),
+(114, 'CL21114', 'Showers, Taps & Accessories', 'CL11026', '', 0),
+(115, 'CL21115', 'Mirrors', 'CL11026', '', 0),
+(116, 'CL21116', 'Roofing Tiles', 'CL11027', '', 0),
+(117, 'CL21117', 'Roofing Sheets', 'CL11027', '', 0),
+(118, 'CL21118', 'Sandwich Roofing Sheets', 'CL11027', '', 0),
+(119, 'CL21119', 'Sandwich Roofing Sheets', 'CL11027', '', 0),
+(120, 'CL21120', 'Sky Lights', 'CL11027', '', 0),
+(121, 'CL21121', 'CCTV Suppliers', 'CL11028', '', 0),
+(122, 'CL21122', 'Fire Protection Systems', 'CL11028', '', 0),
+(123, 'CL21123', 'Home Security Systems', 'CL11028', '', 0),
+(124, 'CL21124', 'PA Systems', 'CL11028', '', 0),
+(125, 'CL21125', 'Network & Data Systems', 'CL11028', '', 0),
+(126, 'CL21126', 'Accesses Control', 'CL11028', '', 0),
+(127, 'CL21127', 'Blinds & Curtains', 'CL11029', '', 0),
+(128, 'CL21128', 'Arts & Crafts', 'CL11029', '', 0),
+(129, 'CL21129', 'Wall Papers', 'CL11029', '', 0),
+(130, 'CL21130', 'Plywood, Partition & Cladding', 'CL11029', '', 0),
+(131, 'CL21131', 'Home Improvement Products', 'CL11029', '', 0),
+(132, 'CL21132', 'AC Unit Suppliers', 'CL11030', '1614198867847554997.jpg', 0),
+(133, 'CL21133', 'Chillers', 'CL11030', '', 0),
+(134, 'CL21134', 'Boilers', 'CL11030', '', 0),
+(135, 'CL21135', 'Lifts, Escalators & Hoists', 'CL11030', '', 0),
+(136, 'CL21136', 'Fans, Exhaust Fans &  Air Extractors', 'CL11030', '', 0),
+(137, 'CL21137', 'Sky Lights', 'CL11030', '', 0),
+(138, 'CL21138', 'Pantry Cupboards', 'CL11031', '', 0),
+(139, 'CL21139', 'Cooking Equipments ', 'CL11031', '', 0),
+(140, 'CL21140', 'Kitchen Accessories', 'CL11031', '', 0),
+(141, 'CL21141', 'Water Filter', 'CL11031', '', 0),
+(142, 'CL21142', 'Furniture', 'CL11031', '', 0),
+(143, 'CL21143', 'Heavy Construction Machinery Suppliers', 'CL11032', '', 0),
+(144, 'CL21144', 'Construction Tool Suppliers', 'CL11032', '', 0),
+(145, 'CL21145', 'Material Handling Equipments ', 'CL11032', '', 0),
+(147, 'CL21147', 'Living', 'CL11033', '', 0),
+(148, 'CL21148', 'Bed Room & Closet', 'CL11033', '', 0),
+(149, 'CL21149', 'Kitchen & Pantry', 'CL11033', '', 0),
+(150, 'CL21150', 'Bathrooms', 'CL11033', '', 0),
+(151, 'CL21151', 'Landscaping', 'CL11033', '', 0),
+(152, 'CL21152', 'Pools', 'CL11033', '', 0),
+(153, 'CL21153', 'Fence', 'CL11033', '', 0),
+(154, 'CL21154', 'Lightfittings & Switches', 'CL11033', '', 0),
+(155, 'CL21155', 'Painting', 'CL11033', '', 0),
+(156, 'CL21156', 'Furniture', 'CL11033', '', 0),
+(157, 'CL21157', 'Bricks', 'CL11034', '1614197612232774682.jpg', 0),
+(158, 'CL21158', 'Fences', 'CL11034', '', 0),
+(159, 'CL21159', 'Roofing Materials', 'CL11034', '', 0),
+(160, 'CL21160', 'Flooring', 'CL11034', '', 0),
+(161, 'CL21161', 'Bathroom fittings', 'CL11034', '', 0),
+(162, 'CL21162', 'AC', 'CL11035', '', 0),
+(163, 'CL21163', 'Solar', 'CL11035', '', 0),
+(164, 'CL21164', 'Arts and Crafts', 'CL11035', '', 0);
 
 -- --------------------------------------------------------
 
@@ -586,8 +588,7 @@ INSERT INTO `clients` (`client_id`, `first_name`, `last_name`, `company_name`, `
 (136, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1612613689940', 0, 0, '2021-02-06'),
 (137, 'Dilan', 'Gunasekara', '', 'dkavinda90@gmail.com', '1612673141prof.png', 1, 'G', '118193087047669896944', 0, 0, '2021-02-07'),
 (138, 'Mithila', 'Samarasinghe', '', 'easybuilding.lk@gmail.com', '1612673723prof.png', 1, 'F', '837638230296010', 0, 0, '2021-02-07'),
-(139, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1612674324188', 0, 0, '2021-02-07'),
-(140, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1612674338079', 0, 0, '2021-02-07');
+(139, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1612674324188', 0, 0, '2021-02-07');
 
 -- --------------------------------------------------------
 
@@ -653,8 +654,7 @@ INSERT INTO `client_company` (`company_id`, `client_id`, `display_name`, `descri
 (77, 136, 'Rukmal Indrajith Kasthiriarchchi', '<p>Architectural Designs - House, Private residencies and Commercial building Architectural Designing and Interior Designing</p>', '', '', '', '107/11', 'Salawa Road', 'Mirihana', 1071, '0112834684', '', '1612614044669515687.jpg', '16126140621767506695.jpg', 1, 0, 0, 4, 0, 0, 0, 0x2222, 0x5b5d, 0x5b2238225d, 0x5b22434c3231303131222c22434c3231303132225d, 0, 0, 1, 1, 1),
 (78, 137, '', '', '', '', '', '', '', '', 0, '', '', '', '', 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0, 0, -1, 0, 1),
 (79, 138, 'XYZ ', '<p>landscaping, cleaning, gully work, cutting trees&nbsp;</p>', '', '', '', '', '', '', 0, '', '', '', '', 1, 0, 0, 0, 0, 0, 0, '', '', '', '', 0, 0, 1, 0, 1),
-(80, 139, '', '', '', '', '', '', '', '', 0, '', '', '', '', 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0, 0, -1, 0, 1),
-(81, 140, '', '', '', '', 'info@easybuilding.lk', '34', 'south lane ', 'battaramulla', 0, '0112785843', '', '', '', 0, 0, 0, 4, 0, 0, 0, 0x5b22434c3231313333222c22434c3231313335225d, 0x5b2231313030225d, 0x5b5d, 0x5b22434c3231303539222c22434c3231303630225d, 0, 0, -1, 0, 1);
+(80, 139, '', '', '', '', '', '', '', '', 0, '', '', '', '', 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0, 0, -1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -788,7 +788,13 @@ INSERT INTO `image_category_list` (`id`, `img_id`, `cat_lvl2_id`) VALUES
 (54, 82, 'CL21161'),
 (55, 82, 'CL21150'),
 (56, 82, 'CL21146'),
-(57, 155, 'CL21151');
+(57, 155, 'CL21151'),
+(60, 173, 'CL21146'),
+(61, 173, 'CL21147'),
+(62, 174, 'CL21148'),
+(63, 174, 'CL21146'),
+(64, 175, 'CL21148'),
+(65, 175, 'CL21146');
 
 -- --------------------------------------------------------
 
@@ -966,7 +972,7 @@ INSERT INTO `project_images` (`img_id`, `project_id`, `file_name`, `description`
 (82, 41, '1607334958slide_08.jpg', '', 1, 0x5b22434c3231313631222c22434c3231313530222c22434c3231313436225d, 1),
 (83, 41, '1607334958slide_06.jpg', '', 1, '', 0),
 (84, 41, '1607334958slide_07.jpg', '', 1, 0x5b22434c3231313436222c22434c3231313439225d, 1),
-(175, 43, '16133239831323936696.jpg', '', 1, '', 0),
+(175, 43, '16133239831323936696.jpg', '', 1, 0x5b22434c3231313438222c22434c3231313436225d, 1),
 (144, 52, '16108264611906249668.jpg', '', 1, '', 0),
 (143, 52, '1610826460774831492.jpg', '', 1, '', 0),
 (142, 52, '1610826460572408292.jpg', '', 1, '', 0),
@@ -999,8 +1005,8 @@ INSERT INTO `project_images` (`img_id`, `project_id`, `file_name`, `description`
 (169, 56, '161261409930250072.jpg', '', 1, 0x5b22434c3231313436222c22434c3231313437225d, 1),
 (170, 56, '1612614099520067509.jpg', '', 1, '', 0),
 (171, 56, '16126140991332309261.jpg', '', 1, 0x5b22434c3231313537222c22434c3231313436225d, 1),
-(173, 43, '16133237911685572477.jpg', '', 1, '', 0),
-(174, 43, '16133238282034174565.jpg', '', 1, '', 0);
+(173, 43, '16133237911685572477.jpg', '', 1, 0x5b22434c3231313436222c22434c3231313437225d, 1),
+(174, 43, '16133238282034174565.jpg', '', 1, 0x5b22434c3231313438222c22434c3231313436225d, 1);
 
 -- --------------------------------------------------------
 
@@ -1242,7 +1248,7 @@ INSERT INTO `user_sessions` (`session_id`, `client_id`, `auth_token`, `password`
 (57, 76, '24FLddcRPGKrZC91596897750977', '123456789'),
 (58, 77, 'sKj4LhVUde7wAal1598932425264', '123456789'),
 (48, 67, 'ya29.a0AfH6SMCTPDMiHzMyDswtJClvUzyw7esJu4ITq3dgNhopdw1iiRyR-igSE3Gr5FfwewzqzKiD-NQBxvDAi2q-st3iahVXp25H5C16oHKwfJ2fra0t_vMRPnmah2phnNAzNtToWa9Yhb1pcCUAUz29ZsIi6Y4E-KTAItPkXYQDGVFq1g', ''),
-(47, 66, 'EAAlrbREIkZCkBACxFCg17rqj0zcILQsbSVdLlOWBIc5sf72pkVJLrt1qKx7MDxN624hAlsUUMOp8fSZAccrAUDUEh4aXrsbsdf5m5LqsLZALkmrXR1Nuk6nlILurhZCTGVkQxvupuA7GDQvEvh6liY0TunNvcCkNrkuL98GcefJ0sFPZB2reZA37dPrYU4sfKVmqJaXPEQZCgZDZD', ''),
+(47, 66, 'EAAlrbREIkZCkBANNPvXZCfWA4EauvnzH8NhbsXydz92hF4ssvc5WebI8i3h2JKkGnUaFpiadTIRZBeLp8nJ2YeNPiznfP0vJZBJldl6zz1uSinZCfHZCo8ZAHtRcxARsIhxowijfZAXViZCt8ICMhArtrSMcP1ZAPVY8WZBgKq00kSOZAdPvNVfldris3dKzy2CNfZAijsfI2qZBBnJQZDZD', ''),
 (46, 65, 'EAAlrbREIkZCkBAOHVjjUZCBewHTfKUnqDc56JFkG7bKHsi9GQhxZCrm9tUY4ZBYg76zZB2xZC99j22HoU0AGkPOJuW0IxZAVd4hI96l4oQtG4saG6STgGKiCZCtvhPO5kGsMZAJYkdwpnpeQqFThhDFZCiZB5QarXXswuA4tXLyTdYQ1G01EAv25mS0ZA1eYTSJu6P8m7N8l9zuypCpY4T2roZBs3', ''),
 (59, 78, 'EAAlrbREIkZCkBAJNtFOvVAP1VGqwak3lphgAFWDScZBUbi1GbHwZCKDXyKxtjbxcDPeWoxqYquRGRd4Rvct7ejOpNsatyJRrPC9JZBEO0ooIjk9xljLvprIuQtwDE5EsU2sZAX52EmqS6fvQ5JIobqx6OILdkTe8nM53TrbXOmFPzNWe5x8POYA0V7onsTag3XDd55rE0bbGQ7IZBo7Ijr', ''),
 (60, 79, 'EAAlrbREIkZCkBALAXr92TgW2ZCdE4sudVz8RYEeLEuokzRQndiYz1qTRG5XOlVqmNi9oF4brljOEuAqPd8ulbHY36OAZBZBkrEePJb3ULvxjjIelnVq7UPjYkUZAZBztB37QNC2CyxuhmDTKhpHNK0UaKeXTIbGGc31z1OZAk1ZCt6Hiw7VCgUoJTdJmhWRHsPaJMLWuutiPm78lP4j9bm9z', ''),
@@ -1290,7 +1296,8 @@ INSERT INTO `user_sessions` (`session_id`, `client_id`, `auth_token`, `password`
 (114, 137, '0ksF5tmjPPDdEqD1613199590856', ''),
 (115, 138, 'EAAQPlMeiuc0BAOZCIvmacGZBB7vYPJxEkVZAwX5BwwZBiXh9eAEv335I4vm0qokXbZAMjCev3o9NSZAsmO4RzaEEAKLNVk3ZAbOeS5LRTbZAFgNkGGQZAJzvVilAIZBF5VtZAnaZCMgYMode8JKR8p2KJAMuI0aNIHNxLZCraxsZANbgC2yu7sJ3fl7DFI9nYhM8ZADyNoZD', ''),
 (116, 139, 'Gph615dTTdRnInm1612674323834', ''),
-(117, 140, 'cSBLSMbacheHEql1612674337103', '');
+(117, 140, 'cSBLSMbacheHEql1612674337103', ''),
+(118, 141, 'glvdTx9WkLxbSYu1613449925022', '');
 
 --
 -- Indexes for dumped tables
@@ -1436,37 +1443,37 @@ ALTER TABLE `user_sessions`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `categories-level1`
 --
 ALTER TABLE `categories-level1`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `categories-level2`
 --
 ALTER TABLE `categories-level2`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
 
 --
 -- AUTO_INCREMENT for table `cites`
 --
 ALTER TABLE `cites`
-  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1281;
+  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1282;
 
 --
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
+  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
 
 --
 -- AUTO_INCREMENT for table `client_company`
 --
 ALTER TABLE `client_company`
-  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `company_details`
@@ -1490,7 +1497,7 @@ ALTER TABLE `home_slider`
 -- AUTO_INCREMENT for table `image_category_list`
 --
 ALTER TABLE `image_category_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -1556,7 +1563,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_sessions`
 --
 ALTER TABLE `user_sessions`
-  MODIFY `session_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
+  MODIFY `session_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

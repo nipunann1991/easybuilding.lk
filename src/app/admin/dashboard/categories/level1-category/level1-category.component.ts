@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { RouterModule, ActivatedRoute, Routes, Router} from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs'
+import { Globals } from "../../../../app.global";
 import { CategoriesService } from '../../../../admin/api/categories.service'; 
 import * as $ from 'jquery';
 declare const bootbox:any;
@@ -15,9 +16,7 @@ declare const bootbox:any;
 })
 export class Level1CategoryComponent implements OnInit {
 
-  @ViewChild(DataTableDirective, {static: false})
-
-	dtElement: DataTableDirective;
+  @ViewChild(DataTableDirective, {static: false}) dtElement: DataTableDirective;
 	dtOptions: any = {};
 	dtTrigger: Subject<any> = new Subject();
   formGroup: FormGroup;
@@ -31,6 +30,7 @@ export class Level1CategoryComponent implements OnInit {
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private router: Router, 
+    private globals: Globals,
   ) { }
 
   ngOnInit(): void {
@@ -75,7 +75,7 @@ export class Level1CategoryComponent implements OnInit {
       data: function( row ){   
 
         return '<a class="edit-lvl1category-data" data-id="'+row.cat_lvl1_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
-          '<a class="delete-lvl1category-data" data-id="'+row.cat_lvl1_id+'" title="Edit"><i class="icon-bin"></i></a>'
+          '<a class="delete-lvl1category-data" onclick="a()" data-id="'+row.cat_lvl1_id+'" title="Edit"><i class="icon-bin"></i></a>'
           
       },
   
@@ -120,11 +120,10 @@ export class Level1CategoryComponent implements OnInit {
       e.preventDefault();
       component.editCategoryLvl1Page($(this).attr('data-id'));
       
-    });
-
+    }); 
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit(): void { 
     this.dtTrigger.next();
   }
 
@@ -146,6 +145,10 @@ export class Level1CategoryComponent implements OnInit {
 		this.router.navigate(['admin/categories/level1-category/'+pageId]); 
   }
   
+
+  a(){
+    alert();
+  }
   
   onSubmit() { 
 
@@ -156,7 +159,7 @@ export class Level1CategoryComponent implements OnInit {
           if (response.status == 200) {
             this.toastr.success('New category has been added successfully', 'Success !');  
             this.formGroup.reset();
-            $('#refresh-btn').trigger('click');
+            this.rerender();
 
           }else{
               this.toastr.error('New category adding failed. Please try again', 'Error !'); 
@@ -176,7 +179,7 @@ export class Level1CategoryComponent implements OnInit {
           if (response.status == 200) {
             this.toastr.success('Category level 1 has been edited successfully', 'Success !');  
             this.formGroup.reset();
-            $('#refresh-btn').trigger('click');
+            this.rerender();
             this.returnBack();
 
           }else if (response.status == 401){
@@ -214,36 +217,22 @@ export class Level1CategoryComponent implements OnInit {
    }
 
   openDeleteLvl1Modal(cat_id){ 
-    const component = this;
-    let dialog = bootbox.confirm({
-      title: "Delete Category Level 1",
-      message: "Are you sure you need to delete this?",
-      buttons: {
-        confirm: {
-          label: 'Yes',  
-          className: 'btn-danger pull-left'
-        },
-        cancel: {
-          label: 'No', 
-          className: 'pull-right '
-        }
-      },
-      callback: function (result) {
-        
-        if(result){
-          component.deleteLvl1Category(cat_id);
-        }  
-      } 
-    });
-
-    dialog.init(function(){
-      $('html .modal-backdrop:not(:first)').remove();
-    })
-
-    dialog.on("shown.bs.modal", function() {  
-      $('html .bootbox.modal:not(:first)').remove(); 
-    });
  
+    const dialogRef = this.globals.confirmDialogBox({ 
+      title: "Category Level 1", 
+      message: "Are you sure you need to delete this?", 
+      isDelete: true,
+      confirmBtn: "Yes, Delete",
+      cancelBtn: 'No'
+    });
+     
+    dialogRef.afterClosed().subscribe(result => {
+         
+        if(result){
+          this.deleteLvl1Category(cat_id); 
+        }  
+      
+    }); 
     
   }
 
@@ -256,7 +245,7 @@ export class Level1CategoryComponent implements OnInit {
 
         if (response.status == 200) {
           this.toastr.success('Category level 1 has been deleted successfully', 'Success !');  
-          $('#refresh-btn').trigger('click'); 
+          this.rerender();
 
         }else{
             this.toastr.error('Category level 1 deleting failed. Please try again', 'Error !'); 

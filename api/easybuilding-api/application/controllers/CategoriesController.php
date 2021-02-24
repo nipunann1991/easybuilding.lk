@@ -369,12 +369,65 @@ class CategoriesController extends CommonController {
 	public function deleteLvl2Category(){   
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+
+			$files = $this->getCategoryImages(); 
+
+			foreach ($files["data"] as $image) {  
+				if ($image->file_name != "") {
+					$this->deleteCategoryImages($image->file_name);
+				}
+				  
+			}  
+
 			return $this->deleteData__('`categories-level2`','cat_lvl2_id="'.$this->input->post('cat_lvl2_id').'"');
 		}else{
 			return $this->invalidSession(); 
 		} 
 		  
 	}
+
+
+	public function getCategoryImages(){   
+
+		$search_index = array(
+			'columns' => 'file_name' ,   
+			'table' => '`categories-level2`',
+			'eq_table_col' => '1',
+			'data' => 'cat_lvl2_id= "'.$this->input->post('cat_lvl2_id').'"', 
+		);
+
+		return $this->selectRawCustomData__($search_index); 
+		
+	}
+
+
+	public function fileUpload(){ 
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) { 
+			return $this->saveCategoryImage__( $this->input->get('session_id'), $_POST, $_FILES);
+		}else{
+			return $this->invalidSession(); 
+		}  
+ 
+	} 
+
+
+	public function removeCategoryImages(){    
+		
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+			$file_name = $this->input->post('file_name'); 
+   
+			$dataset = array('cat_lvl2_id' => $this->input->post('cat_lvl2_id'), 'file_name' => '' ); 
+			$this->updateData__('`categories-level2`', $dataset,'cat_lvl2_id="'.$this->input->post('cat_lvl2_id').'"');
+
+			return $this->deleteCategoryImages($file_name); 
+
+		}else{
+			return $this->invalidSession(); 
+		} 
+		
+	}
+ 
 
  
 }

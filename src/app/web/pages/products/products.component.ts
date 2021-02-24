@@ -194,8 +194,11 @@ export class ProductsComponent implements OnInit {
       } 
 
       parentCatName = elm.cat_lvl1_name;  
+
+      let bgImage = ""; 
+      (elm.file_name != '')?  bgImage ='url('+ environment.uploadPath+"admin/category/thumb/"+elm.file_name : bgImage = '';
        
-      menuItem.push({ id: elm.id ,title: elm.cat_lvl2_name, url: "/"+folderUrl+"/"+elm.cat_lvl2_id });
+      menuItem.push({ id: elm.id ,title: elm.cat_lvl2_name, url: "/"+folderUrl+"/"+elm.cat_lvl2_id, file_name: bgImage });
       count++;   
 
     }); 

@@ -36,7 +36,16 @@ export class CategoriesService {
   getParentLvl1Categories(){ 
     return this.http.get(environment.baseUrl+'CategoriesController/getParentLvl1Categories?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
   }
+  
+  uploadCoverImage(formData){
+     
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'undefined');
  
+      return this.http.post(environment.baseUrl+'CategoriesController/fileUpload?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, formData , { headers: headers });
+     
+  }
+
 
   addMainCategory(postVals){
      
@@ -148,6 +157,16 @@ export class CategoriesService {
     }); 
     
     return this.http.post(environment.baseUrl+'CategoriesController/deleteLvl2Category?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  }
+
+
+  removeCategoryImages(postVals){
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'CategoriesController/removeCategoryImages?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   }
 
   

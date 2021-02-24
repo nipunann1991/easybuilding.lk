@@ -615,6 +615,40 @@ class CommonController extends CI_Controller {
 
 
 	}
+
+
+	public function saveCategoryImage__($postVal, $fileVal){ 
+
+
+		$url=$this->config->base_url(); 
+		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/admin/category/';
+
+		if (!file_exists($upload_dir)) {
+		    mkdir($upload_dir, 0777, true);
+		    mkdir($upload_dir.'/thumb', 0777, true);
+		} 
+
+     	$generatedFileName = basename(time().rand()).'.jpg';
+
+	    $target_file = $upload_dir . $generatedFileName;   
+
+	    $move_file = move_uploaded_file($_FILES["file"]["tmp_name"], $target_file); 
+
+	    $this->make_thumb($target_file, $upload_dir.'/thumb/'. $generatedFileName, 400);   
+
+	    $output = array(
+			'status' => 200 , 
+			'data' => (object) array(
+				'new_file'=> $generatedFileName, 
+				'target_file' => $url.'assets/uploads/admin/category/'.$generatedFileName, 
+				'moved_path' => $move_file, 'temp_folder' => $_FILES["file"]["tmp_name"]
+			)  
+		);
+ 
+ 	    return $this->output->set_output(json_encode($output, JSON_PRETTY_PRINT));
+
+
+	}
 	 
 
 
@@ -711,6 +745,18 @@ class CommonController extends CI_Controller {
 	public function deleteProductImages($client_id, $company_id, $file){ 
 		
 		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/'.$client_id.'/'.$company_id.'/products/';
+		
+		unlink($upload_dir.''.$file); 
+		unlink($upload_dir.'thumb/'.$file); 
+
+		return 'file removed';
+
+	}
+
+
+	public function deleteCategoryImages($file){ 
+		
+		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/admin/category/';
 		
 		unlink($upload_dir.''.$file); 
 		unlink($upload_dir.'thumb/'.$file); 

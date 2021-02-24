@@ -2,10 +2,16 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { RouterModule, ActivatedRoute, Routes, Router} from '@angular/router';
+import { environment } from "../../../../../environments/environment";
 import { DataTableDirective } from 'angular-datatables';
 import { Options } from 'select2';
 import { Subject } from 'rxjs'
 import { CategoriesService } from '../../../../admin/api/categories.service'; 
+import { Globals } from "../../../../app.global";
+import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop'; 
+import { ImageCroppedEvent, Dimensions, ImageTransform } from 'ngx-image-cropper';
+import { FileSaverService, } from 'ngx-filesaver'; 
+import { ModalManager } from 'ngb-modal';
 import * as $ from 'jquery';
 declare const bootbox:any;
 
@@ -17,9 +23,11 @@ declare const bootbox:any;
 })
 export class Level2CategoryComponent implements OnInit {
 
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective, {static: false}) dtElement: DataTableDirective;
+  @ViewChild('uploadCover') uploadCover;
+  @ViewChild('fileInput') fileInput;
 
-	dtElement: DataTableDirective;
+
 	dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject();
   select2Options: Options;
@@ -28,12 +36,36 @@ export class Level2CategoryComponent implements OnInit {
   param: any = {};
   category: any = [];
   parentCategory: any = [];
+  bgImage: any = "transparent";
+  isBgImage: boolean = false;
+
+  public files: NgxFileDropEntry[] = []; 
+  private modalRef;
+  isProfImage: boolean = false;
+  isUploading: boolean = false;
+  categoryImage: any = "";
+  profileImage: any = "";
+  ClientId: any;
+  companyId: any;
+  userEmail: any = ""
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+  modalTitle: any = '';
+  optimizedImg: any;
+  uploadStatus: number = 0;
+  deleteStatus: number = 0; 
+  aspectRatio: any = {
+    x: 800,
+    y: 600
+  };
 
   constructor(
     private categories: CategoriesService,
+    private modalService: ModalManager,
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private router: Router, 
+    private globals: Globals,
   ) { }
 
   ngOnInit(): void {
@@ -144,30 +176,32 @@ export class Level2CategoryComponent implements OnInit {
 
   rerender(){
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        // Destroy the table first
-        dtInstance.destroy();
-        // Call the dtTrigger to rerender again
-        this.dtTrigger.next();
-      });
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
   }
 
   editCategoryLvl2Page(pageId){
 		this.router.navigate(['admin/categories/level2-category/'+pageId]); 
   }
   
+
   
   onSubmit() { 
 
     if (!this.formGroup.invalid) {
-
-      console.log(this.formGroup.value);
+ 
+      this.formGroup.value.file_name = this.categoryImage;
 
       this.categories.addLvl2Category(this.formGroup.value)
         .subscribe((response: any) => {
           if (response.status == 200) {
-            this.toastr.success('New category has been added successfully', 'Success !');  
-            //this.formGroup.reset();
-            $('#refresh-btn').trigger('click');
+            this.isBgImage = false;
+            this.toastr.success('New category has been added successfully', 'Success !');   
+            this.rerender();
+            
 
 
           }else{
@@ -183,14 +217,17 @@ export class Level2CategoryComponent implements OnInit {
   onUpdate(){
     if (!this.formGroup.invalid) {
       this.formGroup.value.cat_lvl2_id = this.param.params.id;
+      this.formGroup.value.file_name = this.categoryImage;
       this.categories.editLvl2Category(this.formGroup.value)
         .subscribe((response: any) => {
 
           if (response.status == 200) {
+            this.isBgImage = false;
             this.toastr.success('Category level 2 has been edited successfully', 'Success !');  
             this.formGroup.reset();
-            $('#refresh-btn').trigger('click');
+            this.rerender();
             this.returnBack();
+           
 
           }else if (response.status == 401){
             this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  
@@ -216,7 +253,9 @@ export class Level2CategoryComponent implements OnInit {
          
           this.category = response.data[0];
           this.formGroup.setValue({cat_lvl2_name: this.category.cat_lvl2_name, parent_cat_id: this.category.parent_cat_id});
-          //this.getSelectedParentCategory = parseInt(response.data[0].parent_cat_id); 
+          this.bgImage = 'url('+ environment.uploadPath+"admin/category/thumb/"+this.category.file_name +')' ;
+          this.categoryImage = this.category.file_name; 
+          (this.categoryImage !== "")? this.isBgImage = true : this.isBgImage = false; 
 
          }else{
              console.log(response)
@@ -227,34 +266,43 @@ export class Level2CategoryComponent implements OnInit {
    }
 
   openDeleteLvl2Modal(cat_id){ 
-    const component = this;
-    let dialog = bootbox.confirm({
-      title: "Delete Category Level 2",
-      message: "Are you sure you need to delete this?",
-      buttons: {
-        confirm: {
-          label: 'Yes',  
-          className: 'btn-danger pull-left'
-        },
-        cancel: {
-          label: 'No', 
-          className: 'pull-right '
-        }
-      },
-      callback: function (result) {
-        
-        if(result){
-          component.deleteLvl2Category(cat_id);
-        }  
-      } 
+
+    const dialogRef = this.globals.confirmDialogBox({ 
+      title: " Category Level 2", 
+      message: "Are you sure you need to delete this?", 
+      isDelete: true,
+      confirmBtn: "Yes, Delete",
+      cancelBtn: 'No'
     });
+     
+    dialogRef.afterClosed().subscribe(result => {
+         
+        if(result){
+          this.deleteLvl2Category(cat_id); 
+        }  
+      
+    });
+ 
+    
+  }
 
-    dialog.init(function(){
-      $('html .modal-backdrop:not(:first)').remove();
-    })
 
-    dialog.on("shown.bs.modal", function() {  
-      $('html .bootbox.modal:not(:first)').remove(); 
+  openDeleteLvl2Image(file){ 
+
+    const dialogRef = this.globals.confirmDialogBox({ 
+      title: "Delete Image", 
+      message: "Are you sure you need to delete this image?", 
+      isDelete: true,
+      confirmBtn: "Yes, Delete",
+      cancelBtn: 'No'
+    });
+     
+    dialogRef.afterClosed().subscribe(result => {
+         
+        if(result){
+          this.removeCategoryImages(file)
+        }  
+      
     });
  
     
@@ -269,7 +317,7 @@ export class Level2CategoryComponent implements OnInit {
 
         if (response.status == 200) {
           this.toastr.success('Category level 1 has been deleted successfully', 'Success !');  
-          $('#refresh-btn').trigger('click'); 
+          this.rerender();
 
         }else{
             this.toastr.error('Category level 1 deleting failed. Please try again', 'Error !'); 
@@ -277,10 +325,8 @@ export class Level2CategoryComponent implements OnInit {
           
       });
 	   
-	}
-
+	} 
  
-
   getParentLvl1Category(): void{
  
     this.categories.getParentLvl1Categories()
@@ -308,5 +354,235 @@ export class Level2CategoryComponent implements OnInit {
 
   }
 
+
+  removeCategoryImages(file_name){
+ 
+    let param = {
+      cat_lvl2_id: this.param.params.id,
+      file_name: file_name
+    }
+    
+    this.categories.removeCategoryImages(param)
+      .subscribe((response: any) => {
+
+        if (response.status == 200) {
+          this.toastr.success('Category image has been deleted successfully', 'Success !');  
+          this.getSelectedLvl2Category();  
+
+        }else{
+            this.toastr.error('Category image deleting failed. Please try again', 'Error !'); 
+        }
+          
+      });
+     
+  }
+
+
+
+  openImgUpload(fileInput:any, profile_state){
+    this.uploadStatus = profile_state;
+
+    if(this.uploadStatus == 1){
+      this.modalTitle = "Profile";
+      this.aspectRatio = { x: 450, y: 450 }; 
+    }else{
+      this.modalTitle = "Cover";
+      this.aspectRatio = { x: 800, y: 450 };
+    }
+
+    fileInput.click();   
+  }
+
+  fileChangeEvent(event: any): void { 
+    this.imageChangedEvent = event;     
+    let files =  this.imageChangedEvent.srcElement.files; 
+    this.files = files;
+    this.isUploading = true;
+    for (const droppedFile of files) { 
+
+      if (this.validateFile(droppedFile)) { 
+        this.openModal();
+      }else{
+        this.isUploading = false;
+      }
+    } 
+  }
+
+  validateFileExtention(file_name){
+
+  let validFileExtensions = [".jpg", ".jpeg", ".png"]; 
+  let isValid = false;
+
+      for (var j = 0; j < validFileExtensions.length; j++) {
+          var sCurExtension = validFileExtensions[j];
+          if (file_name.substr(file_name.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+              
+              isValid = true; 
+              break;
+          }
+      }
+
+      return isValid;
+}
+
+validateFile(file){
+
+  let isValid = true;
+
+  if (!this.validateFileExtention(file.name)) {
+        this.toastr.error('Invalid image extention. Please upload an image only with jpg, jpeg or png extentions.', 'Upload Error !');   
+    isValid = false;
+  }else if(file.size > 1024000){
+      this.toastr.info('Optimizing the file since sile size is too large.', 'Uploading');    
+    // isValid = false;
+
+  }
+
+  return isValid;
+
+}
+
+  imageCropped(event: ImageCroppedEvent) {
+      this.croppedImage = event.base64; 
+  }
+ 
+
+  imageLoaded() {
+      // show cropper
+  }
+  cropperReady(sourceImageDimensions: Dimensions) { 
+      console.log('Cropper ready', sourceImageDimensions);
+  }
+  loadImageFailed() {
+      // show message
+  }
+
+  saveImage(){
+    console.log(this.croppedImage)
+  }
+
+  openModal(){
+    this.modalRef = this.modalService.open(this.uploadCover, {
+        size: "lg",
+        modalClass: 'image-edit-modal',
+        hideCloseButton: false,
+        centered: true,
+        backdrop: true,
+        animation: true,
+        keyboard: false,
+        closeOnOutsideClick: false,
+        backdropClass: "modal-backdrop"
+    }) 
+ 
+
+  }
+ 
+  closeModal(){
+    this.isUploading = false;
+    this.fileInput.nativeElement.value = "";
+    this.modalService.close(this.modalRef); 
+  }
+
+  
+  onSave() {  
+    let blob = this.dataURItoBlob(this.croppedImage); 
+    this.optimizedImg = this.generateCanvas(blob);  
+  }
+
+  
+  dataURItoBlob(dataURI) {
+    
+    var byteString = atob(dataURI.split(',')[1]); 
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0] 
+    var ab = new ArrayBuffer(byteString.length); 
+    var ia = new Uint8Array(ab);
+   
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+   
+    var blob = new Blob([ab], {type: "image/jpeg"}); 
+
+    return blob 
+  
+  }
+
+  generateCanvas(blob){
+     
+    window.URL = window.URL || window.webkitURL;
+    var blobURL = window.URL.createObjectURL(blob);  
+
+    var image = new Image();
+    image.src = blobURL;
+
+    const that = this;
+    let resizeMeToblob;
+
+    return image.onload = function() { 
+       that.resizeMe(image);
+    }
+
+  }
+
+ 
+
+  resizeMe(img) {
+     
+    var canvas = document.createElement('canvas');
+
+    var width = img.width;
+    var height = img.height; 
+    
+    canvas.width = width;
+    canvas.height = height;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, width, height);
+
+    canvas.toBlob(blob => {   
+      this.uploadCategoryImage(blob)
+
+    },"image/jpeg", 0.9); 
+ 
+  }
+
+  uploadCategoryImage(blob){
+    
+    this.isUploading = true;
+    var formData = new FormData();
+    formData.append("file", blob);
+    formData.append('name', "test");
+    formData.append('company_id', this.companyId); 
+
+     const promise = new Promise((resolve, reject) => { 
+      
+        this.categories.uploadCoverImage(formData)
+          .toPromise()
+          .then((response: any) => {
+            
+            if (response.status == 200) {   
+               
+              this.bgImage = 'url('+response.data.target_file+')' ;
+              this.isBgImage = true;
+              this.isUploading = false;
+
+              this.categoryImage = response.data.new_file;
+ 
+              this.closeModal(); 
+
+            }else{
+                
+            } 
+
+            //  resolve();
+          },
+            err => {
+              
+              reject(err);
+            }
+          );
+      });
+
+      return promise;
+  }
 
 }

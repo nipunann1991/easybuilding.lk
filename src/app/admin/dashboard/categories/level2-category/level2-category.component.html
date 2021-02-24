@@ -1,8 +1,7 @@
 <div class="row">
     <div class="col-md-8"> 
         <div class="white-box-panel">
-            <h3 class="title">Level 2 Categories List</h3>
-            <button id="refresh-btn" type="button" class="btn waves-effect waves-light blue d-none" (click)="rerender()">  Rerender  </button>
+            <h3 class="title">Level 2 Categories List</h3> 
             <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="row-border hover lvl2-table">
                 <thead>
                 <tr>   
@@ -21,7 +20,7 @@
             <h3 class="title">Add Level 2 Category</h3>
             <form id="myform" class="wrapped-block" [formGroup]="formGroup" (ngSubmit)="onSubmit()" novalidate="novalidate">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12"> 
                         <div class="form-group">
                             <label for="customer_nic">Parent Category</label> 
                             <ng-select2 [data]="parentCategory" [options]="select2Options" formControlName="parent_cat_id" class="select-fw" >
@@ -33,6 +32,13 @@
                             <label for="cat_lvl2_name">Category Name</label> 
                             <input id="cat_lvl2_name" name="cat_lvl2_name" formControlName="cat_lvl2_name" type="text" class="form-control">
                         </div>  
+                        <div class="form-group">
+                            <label for="upload" *ngIf="!isBgImage">Upload Image</label> 
+                            <input id="upload" *ngIf="!isBgImage" name="upload_image" (change)="fileChangeEvent($event)" type="file" class="form-control" #fileInput>
+                            <div class="upload-image" *ngIf="isBgImage" [ngStyle]="{'background-image':bgImage }">
+                                <i class="delete icon-bin" (click)="openDeleteLvl2Image(categoryImage)"></i>
+                            </div>
+                        </div>
                     </div>
                         
                     <div class="col-md-12">
@@ -42,7 +48,7 @@
                 </div> 
             </form>
         </div> 
-
+ 
         <div *ngIf="isEditableRoute" class="white-box-panel">
             <h3 class="title">Edit Level 2 Category</h3>
             <form id="myform" class="wrapped-block" [formGroup]="formGroup" (ngSubmit)="onUpdate()" novalidate="novalidate">
@@ -57,6 +63,14 @@
                             <label for="cat_lvl2_name">Category Name</label> 
                             <input id="cat_lvl2_name" name="cat_lvl2_name" formControlName="cat_lvl2_name" type="text" class="form-control">
                         </div>  
+                        <div class="form-group">
+                            <label for="upload" *ngIf="!isBgImage">Upload Image</label> 
+                            <input id="upload" *ngIf="!isBgImage" name="upload_image" (change)="fileChangeEvent($event)" type="file" class="form-control" #fileInput>
+                            <div class="upload-image" *ngIf="isBgImage" [ngStyle]="{'background-image': bgImage }">
+                                <i class="delete icon-bin" (click)="openDeleteLvl2Image(categoryImage )"></i>
+                            </div>
+                           
+                        </div>
                     </div>
                         
                     <div class="col-md-12">
@@ -72,3 +86,25 @@
     
     
 </div>
+
+<modal #uploadCover> 
+    <modal-header> 
+        <h2>Upload {{modalTitle}} Image</h2>
+    </modal-header>
+    <modal-content> 
+        <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="aspectRatio.x / aspectRatio.y"
+            format="jpg"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()" 
+            (loadImageFailed)="loadImageFailed()"
+        ></image-cropper>
+        <!-- (cropperReady)="cropperReady()" -->
+    </modal-content>
+    <modal-footer> 
+        <button class="btn btn-primary" mat-button (click)="onSave()">Set {{modalTitle}} Image</button> 
+        <button class="btn btn-primary-transparent close-btn" mat-button (click)="closeModal()">Close</button>
+    </modal-footer>
+</modal>
