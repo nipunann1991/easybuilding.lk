@@ -354,7 +354,7 @@ class ProfileController extends CommonController {
 			$search_index = array(
 				'columns' => 'cl2.cat_lvl2_id AS id, cl2.cat_lvl2_name AS text' ,   
 				'table' => 'services_list sl, `categories-level2` cl2, `categories-level1` cl1, categories c',
-				'eq_table_col' => 'cl2.cat_lvl2_id = sl.cat_lvl2_id  AND cl2.parent_cat_id = cl1.cat_lvl1_id AND cl1.parent_cat_id = c.cat_id AND c.cat_id="C1015" ',
+				'eq_table_col' => 'cl2.cat_lvl2_id = sl.cat_lvl2_id  AND cl2.parent_cat_id = cl1.cat_lvl1_id AND cl1.parent_cat_id = c.cat_id AND c.cat_id="C1015"',
 				'data' => 'sl.company_id= "'.$this->input->post('company_id').'"', 
 			);
  
@@ -396,6 +396,20 @@ class ProfileController extends CommonController {
 		);
 		
 		return $this->returnJSON($data);   
+		
+	}
+
+
+	public function getProductDetails(){   
+
+		$search_index = array(
+			'columns' => 'p.*, cc.client_id, cc.display_name, cl2.cat_lvl2_name, cc.total_reviews, cc.profie_image, c.provider_id' ,   
+			'table' => 'products p, client_company cc, clients c, `categories-level2` cl2 ',
+			'eq_table_col' => '1',
+			'data' => 'p.company_id= "'.$this->input->post('company_id').'" AND p.product_id= "'.$this->input->post('product_id').'" AND cc.company_id=p.company_id AND cc.client_id=c.client_id AND p.product_category=cl2.cat_lvl2_id ', 
+		);
+
+		return $this->selectCustomData__($search_index);  
 		
 	}
 
@@ -791,6 +805,21 @@ class ProfileController extends CommonController {
 			}  
 
 			return $this->updateData__('project', $dataset, 'project_id="'.$this->input->post('project_id').'"'); 
+			 
+		}else{
+			return $this->invalidSession(); 
+		} 
+
+	} 
+
+
+	public function editProductDetails(){ 
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+			$dataset = $this->input->post();  
+			$product_id = $this->input->post('product_id');   
+
+			return $this->updateData__('products', $dataset, 'product_id="'.$this->input->post('product_id').'"'); 
 			 
 		}else{
 			return $this->invalidSession(); 

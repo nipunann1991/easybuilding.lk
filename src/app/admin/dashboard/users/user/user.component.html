@@ -1,12 +1,13 @@
 
 <div class="right-container animated fadeIn">
     <div class="title">
-        <h2><button mat-button class="transparent-btn backto-btn" (click)="backToClients()" ><i class="icon-left-arrow"></i></button>View Client</h2> 
+        <h2><button mat-button class="transparent-btn backto-btn" (click)="backToClients()" ><i class="icon-left-arrow"></i></button>Back</h2> 
         
         <div class="pull-right">
-          <mat-checkbox #blacklisted_cb class="blacklist" [checked]="isBlacklisted" (change)="setBlacklisted($event)">Blacklisted</mat-checkbox>
-          <mat-checkbox *ngIf="!isPersonalProfile" [checked]="isFeatured" [disabled]="isBlacklisted" (change)="setFeatured($event)">Featured Profile</mat-checkbox> 
-          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-checkbox #blacklisted_cb *ngIf="forProfileOnly" class="blacklist" [checked]="isBlacklisted" (change)="setBlacklisted($event)">Blacklisted</mat-checkbox>
+          <mat-checkbox *ngIf="!isPersonalProfile && forProfileOnly" [checked]="isFeatured" [disabled]="isBlacklisted" (change)="setFeatured($event)">Featured Profile</mat-checkbox> 
+          <mat-checkbox *ngIf="!forProfileOnly" [checked]="isFeaturedProduct" (change)="setFeaturedProduct($event)">Featured Product</mat-checkbox> 
+          <button mat-icon-button *ngIf="forProfileOnly" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">

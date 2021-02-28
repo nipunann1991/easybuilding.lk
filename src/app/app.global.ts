@@ -41,6 +41,15 @@ export class Globals {
         first_name: '',
         profie_image: ''
     }
+
+
+    unitList = [
+        {id: "1", text: "Piece"},
+        {id: "2", text: "Unit"},
+        {id: "3", text: "Sq. Ft"},
+        {id: "4", text: "Sq. Meter"},
+        {id: "5", text: "Block"},
+    ]
   
     itemsEditable: Subject<boolean> = new Subject<boolean>();
 

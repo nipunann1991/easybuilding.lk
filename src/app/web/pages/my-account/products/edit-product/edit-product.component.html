@@ -1,1 +1,77 @@
-<p>edit-product works!</p>
+<div class="back-to-area">
+    <div class="container">
+        <a class="back-to" href="javascript:void(0);"  (click)="goBack();">Back to Profile</a>
+    </div> 
+</div> 
+<div class="page-container animated fadeIn new-product">
+    <div class="container"> 
+        <div class="row"> 
+            <div class="col-md-12"> 
+              <h2>Edit Product</h2>
+              <p>A product is a collection of photos of your products.</p>
+            </div>
+            <div class="col-md-5"> 
+                <ngx-file-drop dropZoneLabel="Drop files here" 
+                (onFileOver)="fileOver($event)" (onFileDrop)="dropped($event)"  (onFileLeave)="fileLeave($event)"> 
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                        <div class="drop-template"></div> 
+                        <button mat-flat-button type="button" (click)="openFileSelector()" class="upload-img-btn"><i class="icon-upload"></i> Browse Images</button>
+                    </ng-template>
+                </ngx-file-drop> 
+              </div>
+            <div class="offset-md-1 col-md-6"> 
+                <div class="uploaded-image-holder">
+                    <div *ngFor="let ui of uploadedImages; let i = index;" class="img-box"  [ngStyle]="{'background-image': 'url('+ ui +')'}">
+                        <i class="icon-bin" (click)="deleteImage(i)"></i>
+                    </div>  
+                    <div class="clearfix"></div>
+                </div>
+        
+                <form id="myform" class="wrapped-block animated fadeIn" [formGroup]="formGroup" (ngSubmit)="onSave()" novalidate="novalidate">
+                  <div class="row"> 
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <label for="project_name">Product Name<span class="required-star">*</span></label> 
+                              <input id="project_name" name="project_name" formControlName="product_name" type="text" class="form-control">
+                          </div>  
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group" >
+                            <label for="service_areas">Select Product Category<span class="required-star">*</span></label> 
+                            <ng-select2 [data]="allProducts" formControlName="product_category" class="select-fw" >
+                            </ng-select2> 
+                        </div> 
+                    </div>
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <label for="project_description">Product Description<span class="required-star">*</span></label>
+                              <ckeditor [editor]="Editor" data="" formControlName="product_desc"></ckeditor>
+                              <!-- <textarea name="description" class="form-control" formControlName="product_desc" cols="10" rows="3"></textarea> -->
+                          </div>  
+                      </div>  
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label for="project_cost">Product Cost (Rs.)<span class="required-star">*</span></label> 
+                              <input id="project_cost" name="project_cost" formControlName="product_price" type="number" class="form-control">
+                          </div>  
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="project_cost">Unit<span class="required-star">*</span></label> 
+                            <ng-select2 [data]="allUnits" formControlName="product_unit" class="select-fw" >
+                            </ng-select2> 
+                        </div>  
+                    </div> 
+                      <div class="col-md-12">
+                          <ng-container>
+                              <button mat-button name="submit" type="submit" class="btn btn-primary">Edit Product</button>
+                              <button mat-button type="button" class="btn btn-default close-btn">Close</button>
+                          </ng-container> 
+                      </div> 
+                  </div> 
+              </form>
+              
+            </div>
+        </div> 
+    </div>
+</div>

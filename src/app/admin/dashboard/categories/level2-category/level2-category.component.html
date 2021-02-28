@@ -1,18 +1,22 @@
 <div class="row">
     <div class="col-md-8"> 
         <div class="white-box-panel">
-            <h3 class="title">Level 2 Categories List</h3> 
+            <div class="title-area">
+                <h3 class="title">Level 2 Categories List</h3> 
+                <mat-checkbox #blacklisted_cb class="approve" [checked]="isFeaturedCatFiltered" (change)="filterFeatured($event)">Filter by Featured Category</mat-checkbox> 
+            </div> 
             <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="row-border hover lvl2-table">
                 <thead>
                 <tr>   
                     <th>Category Id</th>   
                     <th>Category Level 2</th> 
-                    <th>Parent Category</th>   
+                    <th>Parent Category</th>    
                     <th></th> 
                 </tr>
                 </thead>
                 
             </table>
+ 
         </div>
     </div>  
     <div class="col-md-4">
@@ -31,13 +35,16 @@
                         <div class="form-group">
                             <label for="cat_lvl2_name">Category Name</label> 
                             <input id="cat_lvl2_name" name="cat_lvl2_name" formControlName="cat_lvl2_name" type="text" class="form-control">
-                        </div>  
+                        </div>   
                         <div class="form-group">
                             <label for="upload" *ngIf="!isBgImage">Upload Image</label> 
                             <input id="upload" *ngIf="!isBgImage" name="upload_image" (change)="fileChangeEvent($event)" type="file" class="form-control" #fileInput>
                             <div class="upload-image" *ngIf="isBgImage" [ngStyle]="{'background-image':bgImage }">
                                 <i class="delete icon-bin" (click)="openDeleteLvl2Image(categoryImage)"></i>
                             </div>
+                        </div> 
+                        <div class="form-group" >
+                            <mat-checkbox #blacklisted_cb class="approve" [checked]="isFeatured" (change)="setFeatured($event)">Featured Category</mat-checkbox>
                         </div>
                     </div>
                         
@@ -62,14 +69,16 @@
                         <div class="form-group">
                             <label for="cat_lvl2_name">Category Name</label> 
                             <input id="cat_lvl2_name" name="cat_lvl2_name" formControlName="cat_lvl2_name" type="text" class="form-control">
-                        </div>  
+                        </div>   
                         <div class="form-group">
                             <label for="upload" *ngIf="!isBgImage">Upload Image</label> 
                             <input id="upload" *ngIf="!isBgImage" name="upload_image" (change)="fileChangeEvent($event)" type="file" class="form-control" #fileInput>
                             <div class="upload-image" *ngIf="isBgImage" [ngStyle]="{'background-image': bgImage }">
                                 <i class="delete icon-bin" (click)="openDeleteLvl2Image(categoryImage )"></i>
-                            </div>
-                           
+                            </div> 
+                        </div>
+                        <div class="form-group" >
+                            <mat-checkbox #blacklisted_cb class="approve" [checked]="isFeatured" (change)="setFeatured($event)">Featured Category</mat-checkbox>
                         </div>
                     </div>
                         

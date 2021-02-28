@@ -4,78 +4,46 @@ import { HomepageService } from "../../../admin/api/frontend/homepage.service";
 import { environment } from "../../../../environments/environment";
 import { gsap, TweenMax,  TimelineMax } from "gsap";   
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+import { Globals } from "../../../app.global";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'], 
+  styleUrls: ['./home.component.scss'],  
 })
 export class HomeComponent implements OnInit {
   
   @ViewChildren('banner') banner:QueryList<Element>;
   featuredProfList: any = [];
   featuredProdList: any = [];
+  featuredProductsCategories: any = [];
   adSlides: any = [];
-  bgImagePath = environment.uploadPath+"admin/home-slider/" ;  
+  bgImagePath = environment.uploadPath + "admin/home-slider/" ;  
+  bgImageCatPath = environment.uploadPath + "admin/category/thumb/"
   BannerImgs: any = "";
   BannerArray:any = [];
   currBannerItem: number = -1; 
+  slideConfig = {"slidesToShow": 5, "slidesToScroll": 5,  infinite: false,};
+  queryParams =  { results: '10',  index: '1'}; 
   
-  constructor(private seo: AppSEO, private homePage: HomepageService) {    
+  constructor(
+    private seo: AppSEO, 
+    private homePage: HomepageService,
+    private globals: Globals,
+    ) {    
     gsap.registerPlugin(ScrollTrigger); 
     this.pageSEO();  
   }
  
   ngOnInit(): void { 
     
-    window.scroll(0,0); 
-      
-
-    this.featuredProdList = [{
-      id: 1,
-      title: "Modern Pool #1",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "./assets/images/products1.png",
-    },
-    {
-      id: 2,
-      title: "Modern Pool #2",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "./assets/images/products2.png",
-    },{
-      id: 3,
-      title: "Modern Pool #3",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "./assets/images/products3.png",
-    },{
-      id: 4,
-      title: "Modern Pool #4",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "./assets/images/products4.png",
-    },{
-      id: 5,
-      title: "Modern Pool #5",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "./assets/images/products5.png",
-    },
-    {
-      id: 6,
-      title: "Modern Pool #6",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "./assets/images/products6.png",
-    },{
-      id: 7,
-      title: "Modern Pool #7",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto error quod vitae illum magnam aperiam dolor quis.",
-      imgUrl: "./assets/images/products7.png",
-    }]
-
+    window.scroll(0,0);  
 
     this.getConstructorList();
     this.getAdSlides(); 
-    
-  
+    this.getFeaturedProductsCategories();
+    this.getFeaturedProducts();
+
   }
 
   ngAfterViewInit() {
@@ -84,7 +52,21 @@ export class HomeComponent implements OnInit {
   }
 
 
+  slickInit(e) {
+    console.log('slick initialized');
+  }
   
+  breakpoint(e) {
+    console.log('breakpoint');
+  }
+  
+  afterChange(e) {
+    console.log('afterChange');
+  }
+  
+  beforeChange(e) {
+    console.log('beforeChange');
+  }
 
   getConstructorList(){ 
       
@@ -155,7 +137,67 @@ export class HomeComponent implements OnInit {
   
   }
     
+  getFeaturedProductsCategories(){
 
+    this.homePage.getFeaturedProductsCategories() 
+      .subscribe((response: any) => {
+ 
+        if (response.status == 200) {   
+          this.featuredProductsCategories = response.data;
+
+        }else{
+            
+        }
+  
+      }); 
+  }
+
+
+  getFeaturedProducts(){
+
+    this.homePage.getFeaturedProducts() 
+      .subscribe((response: any) => {
+ 
+        if (response.status == 200) {   
+
+          response.data.forEach(elm => {
+         
+            let profileImg = environment.uploadPath + elm.client_id +'/'+ elm.company_id +'/';
+  
+            (elm.primary_img == '')?  profileImg = ''  : profileImg = profileImg + "products/thumb/" + elm.primary_img  ;
+  
+            let featuredProducts = {
+              id: elm.client_id,
+              product_name: elm.product_name, 
+              product_desc: elm.product_desc,
+              profileLink: '/user/'+ elm.client_id +'/'+ elm.provider_id +'/products', 
+              imgUrl: profileImg, 
+              display_name: elm.display_name,
+              price: elm.product_price,
+              currency: this.globals.currencyAlias,
+              unit: this.globals.unitList[elm.product_unit - 1].text
+            }
+  
+            this.featuredProdList.push(featuredProducts);
+  
+           
+          });
+
+          console.log(this.featuredProdList)
+ 
+         // this.featuredProductsCategories = response.data;
+
+        }else{
+            
+        }
+  
+      }); 
+  }
+
+
+  getFeaturedProductsImageURL(): string{
+    return 
+  }
   
   pageAnimation(): void{ 
  

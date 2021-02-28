@@ -7,6 +7,7 @@ import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 
 import { ImageCroppedEvent, Dimensions, ImageTransform } from 'ngx-image-cropper';
 import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
 import { Globals } from "../../../../app.global";
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as $ from 'jquery';
 declare const bootbox:any;
 
@@ -17,6 +18,7 @@ declare const bootbox:any;
   encapsulation: ViewEncapsulation.None
 })
 export class UploadProductComponent implements OnInit {
+  public Editor = ClassicEditor;
   formGroup: FormGroup;
   companyID:any;
   public files: NgxFileDropEntry[] = []; 
@@ -28,6 +30,7 @@ export class UploadProductComponent implements OnInit {
   allProducts: any = [];
   projectImagesDeleted:any;
   imageURLThumb: string = "";
+  allUnits: any = this.globals.unitList;
 
   constructor(
     private myaccount: MyAccountService,
@@ -59,6 +62,10 @@ export class UploadProductComponent implements OnInit {
         Validators.required
       ]),
 
+      product_unit: new FormControl('',[
+        Validators.required
+      ]),
+
       product_desc: new FormControl('',[
         Validators.required,
         Validators.minLength(2),
@@ -86,6 +93,26 @@ export class UploadProductComponent implements OnInit {
           
           console.log( response )  
           this.allProducts = response.data
+          this.getServicsWithID(company_id);
+
+        }else{
+          
+        }
+          
+      });
+  }
+
+
+  getServicsWithID(company_id){
+
+    let params = { company_id: company_id }
+
+    this.myaccount.getServicsWithID(params) 
+      .subscribe((response: any) => {
+        if (response.status == 200 && response.data.length > 0 ) {
+          
+          var newArray = this.allProducts.concat(response.data)
+          this.allProducts = newArray; 
 
         }else{
           
@@ -282,9 +309,7 @@ export class UploadProductComponent implements OnInit {
           }); 
         }  
       
-    });
-
-     
+    }); 
    
   }
 

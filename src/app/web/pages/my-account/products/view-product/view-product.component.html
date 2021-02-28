@@ -1,0 +1,49 @@
+<div class="back-to-area">
+    <div class="container">
+        <a class="back-to" href="javascript:void(0)" (click)="goBack()">Back to Profile</a>
+    </div> 
+  </div>
+  <div class="page-container animated fadeIn  view-project">
+    <div class="container">  
+      <div class="row">
+        <div class="view-project-main-img col-md-6">
+          <div class="img-area sml-img" [ngStyle]="{'background-image': 'url('+ mainImg +')'}" >
+              <!-- <span class="full-screen-mode">
+                <a href="javascript:void(0)" class="" (click)="openInFullScreen(openImageIndex)"><i class="icon-fullscreen"></i>  Full Screen</a>
+              </span>  -->
+          </div>
+          <div class="project-content"> 
+            <div class="top-header">
+              <div class="title">
+                <h1>{{projectData.product_name}}</h1> 
+              </div> 
+              <ul class="category-info">
+                <li ><span class="badge badge-secondary">{{projectData.cat_lvl2_name}}</span></li>
+              </ul> 
+            </div> 
+            <div class="product-details">
+              <ul class="additional-info"> 
+                <li class="photos"><strong>Price Range</strong> {{projectData.product_price | currency: globals.currencyAlias }} / {{ unit }}</li> 
+              </ul> 
+            </div>  
+            <div class="project-desc"> 
+              <p [innerHTML]="projectData.product_desc"></p>
+            </div>
+          </div> 
+          <div class="user-profile-details">
+            <div class="profile-image" (click)="gotoProfile()" [ngStyle]="{'background-image': 'url('+ profileImg +')'}"></div>
+            <div class="user-details">
+              <h3>{{projectData.display_name}}</h3>
+              <span>{{projectData.total_reviews}} Reviews</span> 
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-md-3"> 
+   
+        
+        </div>
+      </div>
+      
+    </div>
+  </div>

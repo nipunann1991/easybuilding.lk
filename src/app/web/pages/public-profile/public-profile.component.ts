@@ -71,7 +71,7 @@ export class PublicProfileComponent implements OnInit {
 
           }else{ 
               
-            if((event.url.indexOf('/view-project/') > -1 ) || (event.url.indexOf('/edit-project/') > -1 ) || (event.url.indexOf('/edit-product/') > -1 ) || (event.url.indexOf('/upload-project/') > -1 ) || (event.url.indexOf('/upload-product/') > -1 )){
+            if((event.url.indexOf('/view-project/') > -1 ) || (event.url.indexOf('/view-product/') > -1 ) || (event.url.indexOf('/edit-project/') > -1 ) || (event.url.indexOf('/edit-product/') > -1 ) || (event.url.indexOf('/upload-project/') > -1 ) || (event.url.indexOf('/upload-product/') > -1 )){
               this.isFullScreen = true;
             }
 

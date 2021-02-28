@@ -47,7 +47,7 @@
                                 
                                     <h3>{{photo.title}}</h3>
                                     <ul>
-                                        <li *ngFor="let misc1 of photo.children"  (click)="showPhotos=false"><a [routerLink]="misc1.url" >{{misc1.title}}</a></li>
+                                        <li *ngFor="let misc1 of photo.children"  (click)="showPhotos=false"><a [routerLink]="misc1.url" [queryParams]="queryParamsImg" >{{misc1.title}}</a></li>
                                     </ul>  
 
                                 </ng-container> 

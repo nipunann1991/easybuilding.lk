@@ -16,8 +16,7 @@ export class ConfimDialogBoxComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: ConfimDialogBoxComponent) {
       this.popupData = data;  
       this.isDelete = data.isDelete;
-
-      console.log(this.popupData, this.isDelete)
+ 
     }
 
 

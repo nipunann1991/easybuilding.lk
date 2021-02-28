@@ -266,18 +266,25 @@ class CategoriesController extends CommonController {
 	public function getLvl2CategoriesDT(){   
   
 		if (sizeof($this->isUserSessionValid()['data']) == 1) { 
+
+
  
 			$dt = $this->dataTableInitialValues(); 
 			$search_columns = array('cl.cat_lvl2_id', 'cl.cat_lvl2_name', 'c.cat_lvl1_name'); 
 
 	     	$search_by_feilds = $this->searchFromColsDT($search_columns, $dt['search_val']); 
 			$selectedOrd = 'desc'; //$dt['get_order'];
-			$orderedCol = $dt['get_column_name'];		
+			$orderedCol = $dt['get_column_name'];	
+			$featured = "";	
+
+			if ($this->input->get('featured') == 1) {
+				$featured = " AND cl.featured='".$this->input->get('featured')."' ";	
+			}	
 
 			$search1 = array(
 				'columns' => 'cl.*, c.cat_lvl1_name' ,   
 				'table' => '`categories-level2` cl, `categories-level1` c ',
-				'data' => 'c.cat_lvl1_id=cl.parent_cat_id AND ('.$search_by_feilds.') order by '. $orderedCol .' '.$selectedOrd.' LIMIT '.$dt['start'].','.$dt['length'].'  ',
+				'data' => 'c.cat_lvl1_id=cl.parent_cat_id '.$featured.' AND ('.$search_by_feilds.') order by '. $orderedCol .' '.$selectedOrd.' LIMIT '.$dt['start'].','.$dt['length'].'  ',
 				'eq_table_col' => ''
 			); 
 
@@ -285,7 +292,7 @@ class CategoriesController extends CommonController {
 			$get_data = array(
 				'columns' => 'cl.*, c.cat_lvl1_name' ,   
 				'table' => '`categories-level2` cl, `categories-level1` c',
-				'data' => 'c.cat_lvl1_id=cl.parent_cat_id AND ('.$search_by_feilds.') order by '. $orderedCol .' '.$selectedOrd.' ',
+				'data' => 'c.cat_lvl1_id=cl.parent_cat_id '.$featured.' AND ('.$search_by_feilds.') order by '. $orderedCol .' '.$selectedOrd.' ',
 			); 
 
 			  

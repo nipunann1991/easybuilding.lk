@@ -1,5 +1,18 @@
 @import '../../../../../styles';
 
+.title-area{
+    @include flex(); 
+    margin-bottom: 2rem;
+
+    h3{
+        margin-bottom: 0;
+    }
+
+    .mat-checkbox {
+        font-size: 1.4rem;
+        margin-left: auto;
+    }
+}
 table.lvl2-table{ 
 
     thead{

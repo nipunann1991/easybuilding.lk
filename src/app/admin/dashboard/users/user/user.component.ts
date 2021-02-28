@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute, ActivationStart ,  RoutesRecognized,  NavigationEnd } from '@angular/router';
+import { Location } from '@angular/common';
 import { ClientsService } from '../../../api/clients.service'; 
 import { MyAccountService } from '../../../api/frontend/my-account.service'; 
 import { ToastrService } from 'ngx-toastr';
@@ -22,17 +23,22 @@ export class UserComponent implements OnInit {
   isFeatured:boolean = false;
   isBlacklisted:boolean = false;
   isPersonalProfile:boolean = false;
+  forProfileOnly:boolean = true;
   isFeaturedVal:number = 0;
+  isFeaturedProcuctVal:number = 0;
   isBlacklistVal:number = 0;
   clientID: number
   companyID: number
   routeParams: any;
   isProfileByAdmin: boolean = false;
+  isFeaturedProduct: boolean = false;
+  productID: string = ""
   
   constructor(
     private route: ActivatedRoute, 
     private myaccount: MyAccountService,
     private router: Router,
+    private location: Location,
     private clients: ClientsService,
     private toastr: ToastrService,
   ) {  
@@ -42,8 +48,23 @@ export class UserComponent implements OnInit {
       this.routeParams = routeParams;
       this.isFeaturedProfile(this.routeParams);  
       this.clientID = this.routeParams.user; 
+      
+     
+    }); 
+    this.router.events.subscribe((event) => {
+       
+      if (event instanceof NavigationEnd) {  
+
+          if((event.url.indexOf('/view-project/') > -1 ) || (event.url.indexOf('/view-product/') > -1 ) || (event.url.indexOf('/edit-project/') > -1 ) || (event.url.indexOf('/edit-product/') > -1 ) || (event.url.indexOf('/upload-project/') > -1 ) || (event.url.indexOf('/upload-product/') > -1 )){
+             this.forProfileOnly = false;
+             let routeURL = event.url.split('/');
+             this.productID = routeURL[routeURL.length - 1]; 
+          }     
+      }
+
     });
- 
+    
+
   }
     
   ngOnInit(): void {
@@ -52,7 +73,7 @@ export class UserComponent implements OnInit {
   }
 
   backToClients(){
-    this.router.navigate(['/admin/users']);
+    this.location.back();
   }
 
 
@@ -72,11 +93,9 @@ export class UserComponent implements OnInit {
           
           console.log(response.data[0].status, this.isBlacklisted);
 
-        }else{
-
-
-        }
+        }else{ 
           
+        } 
           
       }); 
       
@@ -92,6 +111,31 @@ export class UserComponent implements OnInit {
     }
 
     this.updateProfileDetails(params);
+  }
+  
+
+  setFeaturedProduct(event){
+    (event.checked)? this.isFeaturedProcuctVal = 1:  this.isFeaturedProcuctVal = 0 ;
+
+    let params = { 
+      product_id: this.productID,
+      featured: this.isFeaturedProcuctVal
+    }
+
+    this.clients.editProductDetails(params)
+        .subscribe((response: any) => {
+
+          if (response.status == 200) {  
+            this.toastr.success('Product updated', 'Success !');  
+            
+          }else if (response.status == 401){
+            this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  
+
+          }else{
+            this.toastr.error('Information saving failed. Please try again', 'Error !'); 
+
+          }
+        });
   }
 
   setBlacklisted(event){ 

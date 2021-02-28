@@ -76,6 +76,37 @@ class HomeController extends CommonController {
 	} 
 
 
+	public function getFeaturedProductsCategories(){  
+   
+			$search_index = array(
+				'columns' => 'c2.*, c1.cat_lvl1_name' ,   
+				'table' => '`categories-level2` c2, `categories-level1` c1, categories c',
+				'eq_table_col' => '1 order by c1.cat_lvl1_name, c2.cat_lvl2_name ASC',
+				'data' => 'c2.parent_cat_id=c1.cat_lvl1_id AND c1.parent_cat_id=c.cat_id AND c2.featured=1', 
+			);
+		 
+			return $this->selectCustomData__($search_index);
+ 
+		
+	} 
+
+
+
+	public function getFeaturedProducts(){  
+   
+		$search_index = array(
+			'columns' => 'p.*, cc.display_name, c.provider_id, cc.client_id' ,   
+			'table' => 'client_company cc, clients c, products p',
+			'eq_table_col' => '1 order by p.product_id DESC LIMIT 8',
+			'data' => 'cc.company_id=p.company_id AND cc.client_id=c.client_id AND p.featured=1', 
+		);
+	 
+		return $this->selectCustomData__($search_index); 
+		
+	} 
+
+
+
 	public function getServicesMenuItems(){  
    
 			$search_index = array(

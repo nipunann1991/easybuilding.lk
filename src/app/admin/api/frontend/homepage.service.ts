@@ -31,6 +31,19 @@ export class HomepageService {
   
   getAdSlides(){   
     return this.http.get(environment.baseUrl+'HomeController/getAdSlides');
+  } 
+  
+  getFeaturedProductsCategories(){   
+    return this.http.get(environment.baseUrl+'HomeController/getFeaturedProductsCategories');
   }
+
+  getFeaturedProducts(){   
+    return this.http.get(environment.baseUrl+'HomeController/getFeaturedProducts');
+  }
+
+  
+
+
+  
 
 }

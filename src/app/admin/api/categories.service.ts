@@ -23,8 +23,8 @@ export class CategoriesService {
    	return url;  
   }
 
-  getLvl2CategoriesDT(){  
-    let url = environment.baseUrl+'CategoriesController/getLvl2CategoriesDT?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id; 
+  getLvl2CategoriesDT(featured){  
+    let url = environment.baseUrl+'CategoriesController/getLvl2CategoriesDT?featured='+featured+'&auth_token='+this.token.auth_token+'&session_id='+this.token.session_id; 
    	return url;  
   }
   

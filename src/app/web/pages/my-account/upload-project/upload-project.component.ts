@@ -84,7 +84,7 @@ export class UploadProjectComponent implements OnInit {
     });
 
     this.companyID = this.route.snapshot.params.company_id;
-    this.getServicsWithID(this.companyID); 
+    this.getProductsWithID(this.companyID); 
    
   }
 
@@ -166,7 +166,24 @@ export class UploadProjectComponent implements OnInit {
     } 
   }
 
+  getProductsWithID(company_id){
 
+    let params = { company_id: company_id }
+
+    this.myaccount.getProductsWithID(params) 
+      .subscribe((response: any) => {
+        if (response.status == 200 && response.data.length > 0 ) {
+          
+          console.log( response )  
+          this.allServices = response.data
+          this.getServicsWithID(company_id);
+          
+        }else{
+          
+        }
+          
+      });
+  }
 
   getServicsWithID(company_id){
 
@@ -174,10 +191,10 @@ export class UploadProjectComponent implements OnInit {
 
     this.myaccount.getServicsWithID(params) 
       .subscribe((response: any) => {
-        if (response.status == 200 && response.data.length > 0 ) {
-          
-          console.log( response )  
-          this.allServices = response.data
+        if (response.status == 200 ) {
+           
+          var newArray = this.allServices.concat(response.data)
+          this.allServices = newArray; 
 
         }else{
           

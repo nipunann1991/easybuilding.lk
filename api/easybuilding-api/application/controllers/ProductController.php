@@ -31,6 +31,54 @@ class ProductController extends CommonController {
 	}
 
 
+	public function getProductsDT(){  
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+
+			$dt = $this->dataTableInitialValues(); 
+			$search_columns = array('p.product_id', 'p.product_name', 'p.product_price'); 
+
+	     	$search_by_feilds = $this->searchFromColsDT($search_columns, $dt['search_val']); 
+			$selectedOrd = 'desc'; //$dt['get_order'];
+			$orderedCol = $dt['get_column_name'];		
+
+			$search1 = array(
+				'columns' => 'p.*, cc.company_id, cc.display_name, cc.client_id, c.provider_id, cl2.cat_lvl2_name' ,   
+				'table' => 'products p , client_company cc, clients c, `categories-level2` cl2 ',
+				'data' => 'p.company_id=cc.company_id AND p.product_category=cl2.cat_lvl2_id AND c.client_id=cc.client_id AND ('.$search_by_feilds.') order by '. $orderedCol .' '.$selectedOrd.' LIMIT '.$dt['start'].','.$dt['length'].'  ',
+				'eq_table_col' => ''
+			); 
+
+		  
+			$get_data = array(
+				'columns' => 'p.*, cc.company_id, cc.display_name, cc.client_id, cl2.cat_lvl2_name' ,   
+				'table' => 'products p , client_company cc, `categories-level2` cl2 ',
+				'data' => 'p.company_id=cc.company_id AND p.product_category=cl2.cat_lvl2_id AND ('.$search_by_feilds.') order by '. $orderedCol .' '.$selectedOrd.' LIMIT '.$dt['start'].','.$dt['length'].'  ',
+				'eq_table_col' => ''
+			); 
+
+			  
+			$data = json_decode($this->selectCustomData__($search1)->final_output, true);
+	  
+	  
+			$result = (object) array(
+				'draw' => intval($this->input->get('draw')),
+				'recordsTotal' => $this->CommonQueryModel->count_filtered($get_data),
+				'recordsFiltered' => $this->CommonQueryModel->count_filtered($get_data),
+				"data" => $data['data'] 
+
+			);  
+	   		
+	   		return $this->returnJSON($result);
+
+		}else{
+			return $this->invalidSession(); 
+		}
+		
+	}
+
+
+
 	public function addNewCategory(){  
 		$dataset = $this->input->post();
 		return $this->insertData__('product_categories', $dataset);  

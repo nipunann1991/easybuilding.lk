@@ -29,6 +29,12 @@ export class HeaderComponent implements OnInit {
   uploadProductUrl: string = environment.profileUrl;
   totalLinks: number = 0;
   queryParams: any;
+
+  queryParamsImg = { 
+    results: '12', 
+    index: '1', 
+  };
+
   user: any = {
     first_name: '',
     profie_image: ''

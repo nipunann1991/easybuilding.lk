@@ -95,7 +95,7 @@ export class EditProjectComponent implements OnInit {
 
     console.log(this.companyID, this.projectID, this.route.snapshot.params )
     
-    this.getServicsWithID(this.companyID);
+    this.getProductsWithID(this.companyID);
     this.getProjectDetails(this.companyID, this.projectID);
     
   }
@@ -238,7 +238,25 @@ export class EditProjectComponent implements OnInit {
       console.log(event);
     }
     
+    getProductsWithID(company_id){
+
+      let params = { company_id: company_id }
   
+      this.myaccount.getProductsWithID(params) 
+        .subscribe((response: any) => {
+          if (response.status == 200 && response.data.length > 0 ) {
+            
+            console.log( response )  
+            this.allServices = response.data
+            this.getServicsWithID(company_id);
+            
+          }else{
+            
+          }
+            
+        });
+    }
+
     getServicsWithID(company_id){
 
       let params = { company_id: company_id }
@@ -247,8 +265,8 @@ export class EditProjectComponent implements OnInit {
         .subscribe((response: any) => {
           if (response.status == 200 && response.data.length > 0 ) {
             
-            console.log( response )  
-            this.allServices = response.data
+            var newArray = this.allServices.concat(response.data)
+            this.allServices = newArray; 
   
           }else{
             

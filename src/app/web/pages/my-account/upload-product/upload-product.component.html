@@ -54,6 +54,13 @@
                               <input id="project_cost" name="project_cost" formControlName="product_price" type="number" class="form-control">
                           </div>  
                       </div> 
+                      <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="project_cost">Unit<span class="required-star">*</span></label> 
+                            <ng-select2 [data]="allUnits" formControlName="product_unit" class="select-fw" >
+                            </ng-select2> 
+                        </div>  
+                    </div> 
                       <div class="col-md-12">
                           <ng-container>
                               <button mat-button name="submit" type="submit" class="btn btn-primary">Upload & Save</button>

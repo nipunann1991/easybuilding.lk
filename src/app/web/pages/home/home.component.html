@@ -36,6 +36,32 @@
                 </li>
             </ul>
 
+            <div class="categories-wrapper featured-products-categories" *ngIf="featuredProductsCategories.length > 0">  
+                <h2>Browse ideas by category </h2>
+
+                <div class="category-holder">
+                    <ngx-slick-carousel class="carousel" 
+                        #slickModal="slick-carousel" 
+                        [config]="slideConfig" 
+                        (init)="slickInit($event)"
+                        (breakpoint)="breakpoint($event)"
+                        (afterChange)="afterChange($event)"
+                        (beforeChange)="beforeChange($event)">
+                        
+                        <div ngxSlickItem *ngFor="let categories of featuredProductsCategories" class="slide">
+                            <div class="category-item" routerLink="/image-search/{{categories.cat_lvl2_id}}" [queryParams]="queryParams">
+                                <div class="category-bg-img" *ngIf="categories.file_name != ''" [ngStyle]="{'background-image':  'url('+ bgImageCatPath + categories.file_name + ')' , 'background-size': 'cover' }"> </div>
+                                <div class="category-bg-img" *ngIf="categories.file_name == ''"> </div>
+                                <div class="category-footer">
+                                    {{ categories.cat_lvl2_name }}
+                                </div>
+                            </div> 
+                        </div>
+                        
+                    </ngx-slick-carousel>
+                </div> 
+            </div>
+
             <div class="browse-items-list row">  
                 <div class="col-md-6 browse-wrapper anim-left">
                     <div class="browse-item item1">
@@ -139,13 +165,14 @@
 
             <div class="fetured-products-list row">
                 <div class="col-lg-3 col-md-6 col-sm-6 fetured-products-item-wrapper" *ngFor="let fp of featuredProdList">
-                    <div class="featured-item">
-                        <div class="item-img" [ngStyle]="{'background-image': 'url('+ fp.imgUrl + ')'}">
+                    <div class="featured-item" [routerLink]="fp.profileLink">
+                        <div class="item-img" [ngStyle]="{'background-image': 'url(' + fp.imgUrl + ')'}">
 
                         </div>
                         <div class="item-desc">
-                            <h4>{{fp.title}}</h4>
-                            <p>{{fp.description}}</p>                        
+                            <h4>{{fp.product_name}}</h4>
+                            <p>By {{fp.display_name}}</p>
+                            <span class="price">{{fp.price | currency: fp.currency }} / {{fp.unit}}</span>
                         </div>
                     </div>
                 </div> 

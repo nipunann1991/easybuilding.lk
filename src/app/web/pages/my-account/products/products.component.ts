@@ -24,7 +24,8 @@ export class ProductsComponent implements OnInit {
   isEditAdmin: boolean = false;
   isProductsAvailable: boolean = false;
   addNewProjectURL: string = "";
-
+  allUnits: any = this.globals.unitList;
+  
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -38,6 +39,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scroll(0,0); 
     this.getProfileDetails();
   }
 
@@ -68,6 +70,10 @@ export class ProductsComponent implements OnInit {
   
   }
 
+
+  openProduct(company_id, Project_id){
+    this.router.navigate(["view-product/"+company_id+"/"+Project_id+"/"], {relativeTo: this.route.parent} ); 
+  }
 
   getMinimalProductDetails(company_id, limit){
 

@@ -60,9 +60,12 @@ export class ImageSearchComponent implements OnInit {
         if(this.prevParam == "" || this.prevParam != this.activatedRoute.snapshot.params.id ){
           this.isGridView = true; 
           this.prevParam = this.activatedRoute.snapshot.params.id;
-          this.getSelectedProductData();  
-          this.filterOptions();
-          this.initialSort(0)
+
+          this.getSelectedProductData(); 
+          this.searchImages(this.activatedRoute.snapshot.queryParams); 
+          //this.filterOptions();
+          //(JSON.stringify(this.activatedRoute.snapshot.queryParams) !==  '{}')? this.searchProducts(this.activatedRoute.snapshot.queryParams, true) : "";  
+         // this.initialSort(0)
         }
         
         

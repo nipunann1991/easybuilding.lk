@@ -143,6 +143,14 @@ export class MyAccountService {
   }
 
   
+  getProductDetails(postVals){   
+
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ProfileController/getProductDetails', params);
+  }
 
   getMinimalProjectDetails(postVals){   
 
@@ -253,15 +261,21 @@ export class MyAccountService {
       fromObject : postVals
     }); 
 
-    console.log(this.tokenUser)
-    
-   
-      return this.http.post(environment.baseUrl+'ProfileController/editProjectDetails'+this.setTokenData(), params);
-    
-    
-    
+    return this.http.post(environment.baseUrl+'ProfileController/editProjectDetails'+this.setTokenData(), params);
+ 
   }
 
+
+  editProductDetails(postVals){ 
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+ 
+    return this.http.post(environment.baseUrl+'ProfileController/editProductDetails'+this.setTokenData(), params);
+ 
+  }
+   
 
   deleteProject(postVals){ 
      

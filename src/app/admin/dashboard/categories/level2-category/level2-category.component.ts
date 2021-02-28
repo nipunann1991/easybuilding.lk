@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core'; 
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core'; 
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { RouterModule, ActivatedRoute, Routes, Router} from '@angular/router';
@@ -33,6 +33,9 @@ export class Level2CategoryComponent implements OnInit {
   select2Options: Options;
   formGroup: FormGroup;
   isEditableRoute: boolean = false;
+  isFeatured: boolean = false;
+  isFeaturedCatFiltered: boolean = false;
+  isFeaturedCatFilteredVal: number = 1;
   param: any = {};
   category: any = [];
   parentCategory: any = [];
@@ -66,6 +69,7 @@ export class Level2CategoryComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router, 
     private globals: Globals,
+    public cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -99,52 +103,8 @@ export class Level2CategoryComponent implements OnInit {
       }
          
     });
-
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      autoWidth: false, 
-      ajax: this.categories.getLvl2CategoriesDT(), 
-      columns: [ 
-        { data: 'cat_lvl2_id' },{ data: 'cat_lvl2_name' },{ data: 'cat_lvl1_name' }
-      ],
-      columnDefs: [{
-      targets: 3,
-      data: function( row ){   
-
-        return '<a class="edit-lvl2category-data" data-id="'+row.cat_lvl2_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
-          '<a class="delete-lvl2category-data" data-id="'+row.cat_lvl2_id+'" title="Edit"><i class="icon-bin"></i></a>'
-          
-      },
-  
-    }],
-    dom: 'lfrtip', 
-    buttons: [ 
-        {
-              extend:    'copyHtml5',
-              text:      '<i class="fa fa-files-o"></i> Copy',
-              titleAttr: 'Copy'
-          },
-          {
-              extend:    'excelHtml5',
-              text:      '<i class="fa fa-file-excel-o"></i> Excel',
-              titleAttr: 'Export to Excel'
-          },
-          {
-              extend:    'csvHtml5',
-              text:      '<i class="fa fa-file-text-o"></i> CSV',
-              titleAttr: 'Export to CSV'
-          },
-          {
-              extend:    'pdfHtml5',
-              text:      '<i class="fa fa-file-pdf-o"></i> PDF',
-              titleAttr: 'Export to PDF'
-          }
-    ],
-
-  };
+ 
+    this.generateTable();
 
     const component1 = this;
 
@@ -164,6 +124,69 @@ export class Level2CategoryComponent implements OnInit {
 
   }
 
+
+  generateTable(){
+    (this.isFeaturedCatFiltered)? this.isFeaturedCatFilteredVal = 1 : this.isFeaturedCatFilteredVal = 0;
+ 
+      this.dtOptions = {
+        pagingType: 'full_numbers',
+        pageLength: 10,
+        serverSide: true,
+        processing: true,
+        autoWidth: false, 
+        ajax: this.categories.getLvl2CategoriesDT(this.isFeaturedCatFilteredVal), 
+        columns: [ 
+          { data: 'cat_lvl2_id' },
+        ],
+        columnDefs: [{
+          targets: 1,
+          data: function( row ){    
+            let badge = "";
+            (row.featured == 1)? badge = '<span class="badge badge-warning">F</span>' : '';  
+            
+            return row.cat_lvl2_name + " "+ badge;
+          },
+      
+        },{
+          targets: 2,
+          data: function( row ){    
+            return row.cat_lvl1_name
+          },
+      
+        },{
+        targets: 3,
+        data: function( row ){    
+          return '<a class="edit-lvl2category-data" data-id="'+row.cat_lvl2_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
+            '<a class="delete-lvl2category-data" data-id="'+row.cat_lvl2_id+'" title="Edit"><i class="icon-bin"></i></a>' 
+        },
+    
+      }],
+      dom: 'lfrtip', 
+      buttons: [ 
+          {
+                extend:    'copyHtml5',
+                text:      '<i class="fa fa-files-o"></i> Copy',
+                titleAttr: 'Copy'
+            },
+            {
+                extend:    'excelHtml5',
+                text:      '<i class="fa fa-file-excel-o"></i> Excel',
+                titleAttr: 'Export to Excel'
+            },
+            {
+                extend:    'csvHtml5',
+                text:      '<i class="fa fa-file-text-o"></i> CSV',
+                titleAttr: 'Export to CSV'
+            },
+            {
+                extend:    'pdfHtml5',
+                text:      '<i class="fa fa-file-pdf-o"></i> PDF',
+                titleAttr: 'Export to PDF'
+            }
+      ],
+
+    };
+  }
 
   ngAfterViewInit(): void {
     this.dtTrigger.next();
@@ -192,6 +215,8 @@ export class Level2CategoryComponent implements OnInit {
   onSubmit() { 
 
     if (!this.formGroup.invalid) {
+      
+      (this.isFeatured)? this.formGroup.value.featured = 1 : this.formGroup.value.featured = 0 ;
  
       this.formGroup.value.file_name = this.categoryImage;
 
@@ -216,17 +241,24 @@ export class Level2CategoryComponent implements OnInit {
 
   onUpdate(){
     if (!this.formGroup.invalid) {
-      this.formGroup.value.cat_lvl2_id = this.param.params.id;
-      this.formGroup.value.file_name = this.categoryImage;
-      this.categories.editLvl2Category(this.formGroup.value)
+        
+        (this.isFeatured)? this.formGroup.value.featured = 1 : this.formGroup.value.featured = 0 ;
+        this.formGroup.value.cat_lvl2_id = this.param.params.id;
+        this.formGroup.value.file_name = this.categoryImage;
+
+        this.categories.editLvl2Category(this.formGroup.value)
         .subscribe((response: any) => {
 
           if (response.status == 200) {
             this.isBgImage = false;
             this.toastr.success('Category level 2 has been edited successfully', 'Success !');  
             this.formGroup.reset();
-            this.rerender();
-            this.returnBack();
+            // this.rerender();
+            // this.returnBack();
+
+            this.generateTable();
+            this.cdr.detectChanges();
+            this.rerender(); 
            
 
           }else if (response.status == 401){
@@ -255,7 +287,8 @@ export class Level2CategoryComponent implements OnInit {
           this.formGroup.setValue({cat_lvl2_name: this.category.cat_lvl2_name, parent_cat_id: this.category.parent_cat_id});
           this.bgImage = 'url('+ environment.uploadPath+"admin/category/thumb/"+this.category.file_name +')' ;
           this.categoryImage = this.category.file_name; 
-          (this.categoryImage !== "")? this.isBgImage = true : this.isBgImage = false; 
+          (parseInt(this.category.featured) == 1 )? this.isFeatured = true : this.isFeatured = false ; 
+          (this.categoryImage !== "")? this.isBgImage = true : this.isBgImage = false;  
 
          }else{
              console.log(response)
@@ -377,7 +410,23 @@ export class Level2CategoryComponent implements OnInit {
      
   }
 
+  
+  setFeatured(event){  
+    this.isFeatured = event.checked  
+  }
 
+
+  filterFeatured(event: any){   
+
+    let checked = event.checked;
+    this.isFeaturedCatFiltered = checked; 
+    
+    this.generateTable();
+    this.cdr.detectChanges();
+    this.rerender(); 
+
+  }
+  
 
   openImgUpload(fileInput:any, profile_state){
     this.uploadStatus = profile_state;

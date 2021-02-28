@@ -1,6 +1,6 @@
 <div class="products-item-wrapper">
   <div *ngFor="let p of product; let i = index;" class="product-block" > 
-    <div class="product-img" [ngStyle]="{'background-image': 'url('+ imageURL + p.primary_img +')'}"  (click)="openProject(companyId, p.project_id)">
+    <div class="product-img" [ngStyle]="{'background-image': 'url('+ imageURL + p.primary_img +')'}" (click)="openProduct(companyId, p.product_id)">
      
     </div> 
   
@@ -11,11 +11,11 @@
         <li><a href="javascript:void(0)" (click)="openDeleteProduct(i, companyId, p.product_id)"><i class="icon-bin"></i> Delete</a></li>
       </ul>
     </div>
-    <div class="product-content"  (click)="openProject(companyId, p.project_id)">    
+    <div class="product-content" (click)="openProduct(companyId, p.product_id)">    
        <h3>{{p.product_name}}</h3> 
-       <p>{{ p.product_desc }}</p>
+       <p [innerHTML]="p.product_desc"></p>
        <ul>
-         <li class="price" title="Project Year">Rs.{{p.product_price}} / Piece</li> 
+         <li class="price" title="Project Year">{{p.product_price | currency: globals.currencyAlias }} / {{ allUnits[p.product_unit - 1].text }}</li> 
        </ul>  
     </div>
   </div>
@@ -23,7 +23,7 @@
     <div class="add-new-product" *ngIf="isEdit || isEditAdmin" [routerLink]="addNewProjectURL">
       <div class="inner">
         <span class="plus"></span>
-        <h3>Add New Products</h3>
+        <h3>Add New Products/<br/> Services</h3>
       </div>
     </div>
   
