@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { AuthService as Auth } from '../../../admin/auth/auth.service';
 import { AuthService as OAuth } from "angularx-social-login";
-import { Router, NavigationEnd, RouterEvent } from "@angular/router";
+import { Router, ActivatedRoute, NavigationEnd, RouterEvent } from "@angular/router";
 import { filter } from 'rxjs/operators';
 import { Globals } from "../../../app.global"
 import { environment } from "../../../../environments/environment";
@@ -29,6 +29,7 @@ export class HeaderComponent implements OnInit {
   uploadProductUrl: string = environment.profileUrl;
   totalLinks: number = 0;
   queryParams: any;
+  hideNav: boolean = false;
 
   queryParamsImg = { 
     results: '12', 
@@ -53,6 +54,7 @@ export class HeaderComponent implements OnInit {
     private authservice: Auth,
     private oauth: OAuth,
     private router: Router,
+    private route: ActivatedRoute,
     private globals: Globals,
     private homePage: HomepageService
   ) { 
@@ -69,18 +71,34 @@ export class HeaderComponent implements OnInit {
     ).subscribe(e => { 
       
       if(e instanceof NavigationEnd &&  !e.url.includes("admin")){
+        //(e.url.includes("user/me"))? this.hideNav = true : '' ;
+        this.hideNavigation(e.url);
+       
+        
         this.isAccessed(); 
-     }
+      }  
+     
     });
+ 
 
     this.getProductsMenuItems();
     this.getServicesMenuItems();  
     this.getPhotosMenuItems();
 
+    this.hideNavigation();
+
   }
 
 
-  
+  hideNavigation(url = window.location.href){
+
+    if(url.includes("user/me")){
+      this.hideNav = true
+    }else{
+      this.hideNav = false
+    }
+
+  }
  
   getProductsMenuItems(){
     this.homePage.getProductsMenuItems() 

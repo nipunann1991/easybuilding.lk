@@ -1280,13 +1280,7 @@ button.dt-button{
 }
 
 
-.featured-products-categories{
-	.slick-prev, .slick-next{
-		@include calc("top", "50% - 2rem");
-	}
-	
-}
- 
+
 
 .slick-prev{
 	left: 0px;

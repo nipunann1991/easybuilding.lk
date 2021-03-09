@@ -1,0 +1,123 @@
+@import '../../../../styles';
+
+.page-title-area{
+    padding: 3rem 0;
+   
+    @include box-shadow(0px, 3px, 8px, 1px, rgba(210, 210, 210, 0.4));
+
+    h1{
+        margin-bottom: 0;
+    }
+
+    p{
+        color: $base-color;
+    }
+}
+ 
+.boq-wrapper{
+    padding: 3rem 0 2rem 0; 
+    height: 100%;
+
+    .boq-wrapper-inner{
+       
+
+        .page-top{
+            width: 100%;
+            padding-bottom: 2rem;
+            border-bottom: 1px $border-gray solid; 
+        }
+
+        .boq-content-area{
+            padding: 3rem 0;
+
+            .boq-item{
+                @include flex;
+                border-bottom: 1px $border-gray solid; 
+                padding-bottom: 1.5rem; 
+                margin-bottom: 1.5rem;
+
+                input, select{ 
+
+                }
+
+                select{
+                    min-width: 18rem;
+                }
+
+                .level-img{
+                    padding-right: 5rem;
+                }
+
+                .boq-item-right{
+                    width: 100%;
+
+                    .top{
+                        @include flex;  
+                        padding-bottom: 1.5rem; 
+
+                        .house-area-input{ 
+                            @include flex;  
+                            padding-right: 5rem;
+                            position: relative;
+        
+                            &:before{
+                                content: "";
+                                position: absolute;
+                                width: 1px;
+                                height: 65%;
+                                top: 25%;
+                                right: 0;
+                                background: $border-gray; 
+                            }
+        
+                            .form-group{
+                                margin-right: 2.5rem;
+        
+                                &:last-child{
+                                    margin-right: 0;
+                                }
+                            }
+                        }
+        
+                        .area-input{
+                            @include flex; 
+                            padding: 0 2.5rem;
+                            padding-left: 5rem;
+        
+                            .form-group{
+                                margin-right: 2.5rem;
+        
+                                &:last-child{
+                                    margin-right: 0;
+                                }
+                            }
+                        }
+                    }
+
+                    .bottom{
+
+                        .area-additional-options{
+                            @include flex;  
+        
+                            .form-group{
+                                margin-right: 2.5rem;
+        
+                                &:last-child{
+                                    margin-right: 0;
+                                }
+                            }
+                        }
+                    }
+
+                    .total{
+                        padding: 1.5rem 0;
+
+                        h3{
+                            margin-bottom: 0;
+                        }
+                    }
+                } 
+            }
+        }
+    }
+}

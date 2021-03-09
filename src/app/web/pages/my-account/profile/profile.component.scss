@@ -26,10 +26,26 @@
         background: $danger-color;
     }
 
+
+    &.error-message{
+        background: $danger-color;
+
+        p{
+            font-size: 1.5rem;
+            letter-spacing: 0.03rem;
+        }
+    }
+
+    &.top{
+        position: fixed;
+        z-index: 1001;
+        top: 0;
+        width: 100%;
+        z-index: 0;  
+    }
+
 }
-
-
-
+ 
 .profile-area{
     position: relative; 
     

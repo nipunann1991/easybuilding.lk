@@ -1,4 +1,4 @@
-<div class="page-container animated fadeIn"> 
+<div class="profile-page-container page-container animated fadeIn"> 
     <div *ngIf="profileData.status == 0" class="top-message blacklist-message">
         <div class="container">
             <p>This profile is blacklisted by easybuilding.lk</p>
@@ -9,6 +9,12 @@
             <p>You are logged in as admin. <a href="">Logout</a></p>
         </div>
     </div>
+    <div *ngIf="profile.verified_email == 0 && profile.profile_editable" class="top-message error-message">
+        <div class="container">
+            <p>Please verify your email. We have sent you a verification link to the given mail address. <a href="">Resend Verification</a></p>
+        </div>
+    </div>
+    
     <input type="file" class="d-none" (change)="fileChangeEvent($event)" #fileInput />
 
     <modal #uploadCover> 

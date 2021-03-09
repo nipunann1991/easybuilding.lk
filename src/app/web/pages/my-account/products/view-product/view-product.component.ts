@@ -23,7 +23,8 @@ export class ViewProductComponent implements OnInit {
   profileURL: string = "";
   mainImg: string = ""; 
   units = this.globals.unitList
-  unit: string = ""
+  unit: string = "";
+  currency = this.globals.currencyAlias;
 
   constructor(
     private myaccount: MyAccountService, 

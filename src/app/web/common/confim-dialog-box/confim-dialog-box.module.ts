@@ -7,13 +7,12 @@ import { AppSharedModule } from 'src/app/app.shared.module';
 
 
 @NgModule({
-  declarations: [ConfimDialogBoxComponent],
   imports: [
     CommonModule,  
     ConfimDialogBoxRoutingModule,
     AppSharedModule,
   ],
   
- exports: [ConfimDialogBoxComponent]
+ 
 })
 export class ConfimDialogBoxModule { }

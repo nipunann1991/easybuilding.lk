@@ -1,12 +1,12 @@
 <div class="header-wrapper"> 
-    <div class="container-fluid header-area" [ngClass]="{'login-border': (logoOnly === true) }" >
+    <div class="container-fluid header-area" [ngClass]="{'login-border': (logoOnly === true), 'in-profile': hideNav }" >
         <div class="container">
             <div class="content-area">
                 <div class="logo">
                     <a routerLink="/"><img src="./assets/images/easybuilding-logo.png" alt="Wasybuilding Logo"></a>
                 </div>
                 <div class="search-box" *ngIf="!logoOnly">
-                    <input type="text" class="form-control" placeholder="Search Photos, Products & More...">
+                    <input *ngIf="!hideNav" type="text" class="form-control" placeholder="Search Photos, Products & More...">
                 </div>
                 <div class="cta-buttons" [ngClass]="{'short-btn-area': isLogged}" *ngIf="!logoOnly"> 
                     <a routerLink="/login" *ngIf="!isLogged" class="login-btn" >Login</a> 
@@ -35,10 +35,10 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid nav-area" *ngIf="!logoOnly">
+    <div class="container-fluid nav-area" *ngIf="!logoOnly && !hideNav">
         <div class="container">
             <ul class="nav-item-list">
-                <li (mouseover)="showPhotos=true" (mouseout)="showPhotos=false">
+                <li (mouseover)="showPhotos=true" (mouseout)="showPhotos=false" (click)="showPhotos=false">
                     <a routerLink="/login"><i class="photo-img"></i>Photos</a> 
                     <div class="mega-menu" [ngClass]="{'active': showPhotos}">
                         <div class="row">
@@ -55,7 +55,7 @@
                         </div> 
                     </div>
                 </li>
-                <li (mouseover)="showProducts=true" (mouseout)="showProducts=false">
+                <li (mouseover)="showProducts=true" (mouseout)="showProducts=false" (click)="showProducts=false">
                     <a routerLink="/products/1"><i class="products-img"></i>Products</a>
                     <div class="mega-menu" [ngClass]="{'active': showProducts}" >
                         <div class="row">
@@ -74,7 +74,7 @@
                        </div>
                     </div>
                 </li>
-                <li (mouseover)="showServices=true" (mouseout)="showServices=false">
+                <li (mouseover)="showServices=true" (mouseout)="showServices=false" (click)="showServices=false">
                     <a routerLink="/products/2"><i class="shop-img"></i>Services</a>
                     <div class="mega-menu" [ngClass]="{'active': showServices}">
                         <div class="row">
@@ -91,7 +91,7 @@
                         </div> 
                     </div>
                 </li>
-                <li><a routerLink="/login"><i class="blog-img"></i>BOQ</a></li> 
+                <li><a routerLink="/create-boq"><i class="blog-img"></i>BOQ</a></li> 
                 <li><a routerLink="/contact"><i class="photo-img"></i>Contact</a></li>
             </ul>
         </div>

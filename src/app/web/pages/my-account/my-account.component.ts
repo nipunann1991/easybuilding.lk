@@ -81,18 +81,7 @@ export class MyAccountComponent implements OnInit {
           } 
         }  
       }
-    });
-
-
-    // this.router.events.pipe(
-    //   filter((event) => event instanceof NavigationEnd)
-    //   ).subscribe((event: NavigationEnd) => {
-    //     this.previousUrl = this.currentUrl;
-    //     this.currentUrl = event.url;
-
-    //     console.log("prev", this.previousUrl, "curr", this.currentUrl, event)
-    //   });
- 
+    }); 
      
   }
 

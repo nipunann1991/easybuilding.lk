@@ -13,18 +13,14 @@ import { Globals } from "../../../app.global";
 })
 export class HomeComponent implements OnInit {
   
-  @ViewChildren('banner') banner:QueryList<Element>;
-  featuredProfList: any = [];
-  featuredProdList: any = [];
-  featuredProductsCategories: any = [];
+  @ViewChildren('banner') banner:QueryList<Element>; 
+  
   adSlides: any = [];
-  bgImagePath = environment.uploadPath + "admin/home-slider/" ;  
-  bgImageCatPath = environment.uploadPath + "admin/category/thumb/"
+  bgImagePath = environment.uploadPath + "admin/home-slider/" ;   
   BannerImgs: any = "";
   BannerArray:any = [];
-  currBannerItem: number = -1; 
-  slideConfig = {"slidesToShow": 5, "slidesToScroll": 5,  infinite: false,};
-  queryParams =  { results: '10',  index: '1'}; 
+  currBannerItem: number = -1;  
+  
   
   constructor(
     private seo: AppSEO, 
@@ -37,73 +33,11 @@ export class HomeComponent implements OnInit {
  
   ngOnInit(): void { 
     
-    window.scroll(0,0);  
-
-    this.getConstructorList();
-    this.getAdSlides(); 
-    this.getFeaturedProductsCategories();
-    this.getFeaturedProducts();
-
-  }
-
-  ngAfterViewInit() {
-    //this.pageAnimation();   
+    window.scroll(0,0);    
+    this.getAdSlides();  
     
   }
-
-
-  slickInit(e) {
-    console.log('slick initialized');
-  }
   
-  breakpoint(e) {
-    console.log('breakpoint');
-  }
-  
-  afterChange(e) {
-    console.log('afterChange');
-  }
-  
-  beforeChange(e) {
-    console.log('beforeChange');
-  }
-
-  getConstructorList(){ 
-      
-    this.homePage.getConstructors() 
-      .subscribe((response: any) => {
-
-        response.data.forEach(elm => {
-         
-          let profileImg = environment.uploadPath + elm.client_id +'/'+ elm.company_id +'/';
-
-          (elm.profie_image == '')?  profileImg = ''  : profileImg = profileImg + elm.profie_image  ;
-
-          let constructors = {
-            id: elm.client_id,
-            title: elm.display_name, 
-            description: elm.description,
-            profileLink: '/user/'+ elm.client_id +'/'+ elm.provider_id +'/about', 
-            imgUrl: profileImg,
-            rating:  elm.rating,
-            total_reviews : elm.total_reviews,
-            contact: {
-              city : elm.city, 
-              tel : elm.tel1, 
-            }
-          }
-
-          this.featuredProfList.push(constructors)
-
-         
-        });
- 
-          
-      }); 
-  
-  }
-
-
   getAdSlides(){ 
       
     this.homePage.getAdSlides() 
@@ -129,82 +63,16 @@ export class HomeComponent implements OnInit {
 
         }else{
             
-        }
-
-        ; 
+        } 
           
       }); 
   
   }
     
-  getFeaturedProductsCategories(){
-
-    this.homePage.getFeaturedProductsCategories() 
-      .subscribe((response: any) => {
- 
-        if (response.status == 200) {   
-          this.featuredProductsCategories = response.data;
-
-        }else{
-            
-        }
-  
-      }); 
-  }
-
-
-  getFeaturedProducts(){
-
-    this.homePage.getFeaturedProducts() 
-      .subscribe((response: any) => {
- 
-        if (response.status == 200) {   
-
-          response.data.forEach(elm => {
-         
-            let profileImg = environment.uploadPath + elm.client_id +'/'+ elm.company_id +'/';
-  
-            (elm.primary_img == '')?  profileImg = ''  : profileImg = profileImg + "products/thumb/" + elm.primary_img  ;
-  
-            let featuredProducts = {
-              id: elm.client_id,
-              product_name: elm.product_name, 
-              product_desc: elm.product_desc,
-              profileLink: '/user/'+ elm.client_id +'/'+ elm.provider_id +'/products', 
-              imgUrl: profileImg, 
-              display_name: elm.display_name,
-              price: elm.product_price,
-              currency: this.globals.currencyAlias,
-              unit: this.globals.unitList[elm.product_unit - 1].text
-            }
-  
-            this.featuredProdList.push(featuredProducts);
-  
-           
-          });
-
-          console.log(this.featuredProdList)
- 
-         // this.featuredProductsCategories = response.data;
-
-        }else{
-            
-        }
-  
-      }); 
-  }
-
-
-  getFeaturedProductsImageURL(): string{
-    return 
-  }
-  
+   
   pageAnimation(): void{ 
- 
-    //this.appAnimations.init();   
-    
-  }
- 
+  
+  } 
 
   nextBanner(){
 

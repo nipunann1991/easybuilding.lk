@@ -1,0 +1,25 @@
+<div class="container-fluid section fetured-products-area">
+    <div class="container fetured-inner">
+        <div class="title-area">
+            <h2>Featured Products </h2>
+            <a class="read-more-link" routerLink="/">View More</a>
+        </div>
+        
+
+        <div class="fetured-products-list row">
+            <div class="col-lg-3 col-md-6 col-sm-6 fetured-products-item-wrapper" *ngFor="let fp of featuredProdList">
+                <div class="featured-item" [routerLink]="fp.profileLink">
+                    <div class="item-img" [ngStyle]="{'background-image': 'url(' + fp.imgUrl + ')'}">
+
+                    </div>
+                    <div class="item-desc">
+                        <h4>{{fp.product_name}}</h4>
+                        <p>By {{fp.display_name}}</p>
+                        <span class="price">{{fp.price | currency: fp.currency }} / {{fp.unit}}</span>
+                    </div>
+                </div>
+            </div> 
+
+        </div>
+    </div>
+</div>
