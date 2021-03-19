@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2021 at 09:33 PM
+-- Generation Time: Mar 19, 2021 at 08:11 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -634,7 +634,7 @@ CREATE TABLE `client_company` (
 --
 
 INSERT INTO `client_company` (`company_id`, `client_id`, `display_name`, `description`, `website`, `br_no`, `email`, `address_line1`, `address_line2`, `city`, `city_id`, `tel1`, `tel2`, `profie_image`, `cover_img`, `prof_category`, `verified_email`, `verify_code`, `steps`, `parent`, `all_island`, `service`, `products`, `service_areas`, `service_dist`, `services`, `total_reviews`, `rating`, `company_profile`, `featured`, `status`) VALUES
-(1, 66, 'UK Livings (Pvt) Ltd', '<p>Milind Pai - Architect &amp; Interior Designers was established in 1987. Since then we have evolved into a dedicated team of professionals committed to designing excellence and offering comprehensive service in Interior Designing and Project Consultation.</p><p>&nbsp;</p><p>&nbsp;In this firm the Architects &amp; the Interior Designers work in close collaboration with other experts including Engineers, Graphic Designers, Artists, Sculptures, Landscape Designers, Lighting &amp; Acoustic Specialists. We work on various verticals like Luxury Residential, Commercial, Boutique Retail, Institutional, Medical and Boutique Hospitality. Our well-trained design team undertakes professional designing job &amp; implement them in close co-ordination with various agencies engaged for the job. The site work is closely monitored by the site associates &amp; site supervisors designated for the particular site &amp; the total co-ordination job between the client &amp; the agencies is taken care of.&nbsp;</p><p>&nbsp;</p><p>Besides Mumbai we have executed projects in more than 30 Indian cities like Delhi, Surat, Pune, Bangalore, Nagpur, Indore, Hyderabad, Kolkatta, Guwahti, Pondicherry, Jodhpur, Bhubaneshwar, Raipur etc. and also International Cities like Dubai, Singapore and Muscat. Now we are also exploring more projects in the USA.</p>', 'https://oozmm.com', 'PV263644577', 'info@n3holdings.com', '275A Colombo Road  ', 'Kidagammulla', 'Gampaha', 1086, '033-2228887', '071-6378515', '16133228721553740896.jpg', '16133229241715444161.jpg', 1, 0, 0, 4, 0, 0, 0, 0x5b22434c3231303139222c22434c3231313231222c22434c3231303136225d, 0x5b5d, 0x5b2234222c223130225d, 0x5b22434c3231303339222c22434c3231303134222c22434c3231303131222c22434c3231303536225d, 6, 4, 1, 1, 1),
+(1, 66, 'UK Livings (Pvt) Ltd', '<p>Milind Pai - Architect &amp; Interior Designers was established in 1987. Since then we have evolved into a dedicated team of professionals committed to designing excellence and offering comprehensive service in Interior Designing and Project Consultation.</p><p>&nbsp;</p><p>&nbsp;In this firm the Architects &amp; the Interior Designers work in close collaboration with other experts including Engineers, Graphic Designers, Artists, Sculptures, Landscape Designers, Lighting &amp; Acoustic Specialists. We work on various verticals like Luxury Residential, Commercial, Boutique Retail, Institutional, Medical and Boutique Hospitality. Our well-trained design team undertakes professional designing job &amp; implement them in close co-ordination with various agencies engaged for the job. The site work is closely monitored by the site associates &amp; site supervisors designated for the particular site &amp; the total co-ordination job between the client &amp; the agencies is taken care of.&nbsp;</p><p>&nbsp;</p><p>Besides Mumbai we have executed projects in more than 30 Indian cities like Delhi, Surat, Pune, Bangalore, Nagpur, Indore, Hyderabad, Kolkatta, Guwahti, Pondicherry, Jodhpur, Bhubaneshwar, Raipur etc. and also International Cities like Dubai, Singapore and Muscat. Now we are also exploring more projects in the USA.</p>', 'https://oozmm.com', 'PV263644577', 'info@n3holdings.com', '275A Colombo Road  ', 'Kidagammulla', 'Gampaha', 1086, '033-2228887', '071-6378515', '16133228721553740896.jpg', '16133229241715444161.jpg', 1, 1, 0, 4, 0, 0, 0, 0x5b22434c3231303139222c22434c3231313231222c22434c3231303136225d, 0x5b5d, 0x5b2234222c223130225d, 0x5b22434c3231303339222c22434c3231303134222c22434c3231303131222c22434c3231303536225d, 6, 4, 1, 1, 1),
 (7, 75, 'Mahesh Steel Decos', '', '', '', 'maheshsteel@gmail.com', '248 Negambo Road', '', 'Wattala', 0, '01124456733', '', '1596706929blob.jpg', '', 1, 0, 0, 4, 0, 0, 0, '', 0x5b2231303837222c2231303938222c2231303939225d, 0x5b5d, 0x5b22434c3231303133225d, 1, 3, 1, 1, 1),
 (3, 68, 'Test Holdings', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p><p>tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p><p>quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p><p>consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse</p><p>cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non</p><p>proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '', 'nipunann07101@gmail.com', '275A Colombo Road, KIdagammulla', '', 'Gampaha', 0, '0716378515', '', '', '', 1, 0, 0, 4, 0, 0, 0, '', 0x5b2231323233225d, '', '', 0, 0, 1, 0, 1),
 (2, 67, 'JAT Living', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '', 'info@jatliving.lk', '141 Danister De Silva Mw,', 'Orion City,', 'Colombo 09', 0, '0112589963', '', '1607143260blob.jpg', '1607142780blob.jpg', 1, 0, 0, 4, 0, 1, 0, 0x5b22434c3231313130222c22434c3231313132222c22434c3231303832222c22434c3231303830222c22434c3231313131222c22434c3231313134222c22434c3231303739225d, 0x5b5d, 0x5b5d, 0x5b22434c3231303134222c22434c3231303435222c22434c3231303439225d, 3, 4.66667, 1, 1, 1),
@@ -746,6 +746,79 @@ INSERT INTO `home_slider` (`id`, `file_name`, `title`, `description`, `img_order
 (2, '1609271413blob.jpg', 'Apartments ', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat culpa, rem ducimus illum deleniti molestias odio distinctio ipsam nostrum consequuntur perspiciatis. Deleniti dicta ipsum veniam cum magnam ducimus dolore blanditiis!', 0),
 (4, '1609309871blob.jpg', 'Master Class bedroom', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat culpa, rem ducimus illum deleniti molestias odio distinctio ipsam.', 0),
 (5, '1609353940blob.jpg', 'Better Lifestyle', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat culpa, rem ducimus illum deleniti molestias odio distinctio ipsam.', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `house_area`
+--
+
+CREATE TABLE `house_area` (
+  `id` int(11) NOT NULL,
+  `house_area_id` varchar(10) NOT NULL,
+  `house_area` varchar(75) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `house_area`
+--
+
+INSERT INTO `house_area` (`id`, `house_area_id`, `house_area`) VALUES
+(2, 'H1002', 'Entrance'),
+(3, 'H1003', 'Living room'),
+(6, 'H1006', 'Master Bedroom'),
+(7, 'H1007', 'Other Bedroom'),
+(8, 'H1008', 'Dinning area');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `house_surfaces`
+--
+
+CREATE TABLE `house_surfaces` (
+  `id` int(11) NOT NULL,
+  `surface_type` varchar(50) NOT NULL,
+  `surface_type_id` varchar(10) NOT NULL,
+  `featured` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `house_surfaces`
+--
+
+INSERT INTO `house_surfaces` (`id`, `surface_type`, `surface_type_id`, `featured`) VALUES
+(1, 'Floor', 'S1001', 1),
+(2, 'Wall', 'S1002', 1),
+(3, 'Ceiling', 'S1003', 1),
+(4, 'Roof', 'S1004', 1),
+(6, 'Electrical', 'S1006', 0),
+(7, 'Furniture', 'S1007', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `house_surfaces_type`
+--
+
+CREATE TABLE `house_surfaces_type` (
+  `id` int(11) NOT NULL,
+  `house_surfaces_type_id` varchar(10) NOT NULL,
+  `surface_type_id` varchar(10) NOT NULL,
+  `house_surfaces_type` varchar(70) NOT NULL,
+  `value` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `house_surfaces_type`
+--
+
+INSERT INTO `house_surfaces_type` (`id`, `house_surfaces_type_id`, `surface_type_id`, `house_surfaces_type`, `value`) VALUES
+(2, 'ST1002', 'S1001', 'Tiles 4 by 4', 420),
+(3, 'ST1003', 'S1002', 'Brick', 150),
+(5, 'ST1005', 'S1003', 'Gupsym 2 by 2', 250),
+(6, 'ST1006', 'S1004', 'Tiles', 160),
+(7, 'ST1007', 'S1001', 'Tile 2 by 2', 270);
 
 -- --------------------------------------------------------
 
@@ -1274,7 +1347,7 @@ INSERT INTO `user_sessions` (`session_id`, `client_id`, `auth_token`, `password`
 (57, 76, '24FLddcRPGKrZC91596897750977', '123456789'),
 (58, 77, 'sKj4LhVUde7wAal1598932425264', '123456789'),
 (48, 67, 'ya29.A0AfH6SMD74yKeEJcB3kUN7fT0Q67pWxMBJTXMd1DoqjSWJTd8CMH8eP75IRMxnxi-4KABFtS1EiI1YCZqgPVB98Ovt1b8ub6Sjpb1PcBjpFnNMwg1LTAggQhhxFDC3grYJY2g3QLf0sI6QMYnfTm35VrYIPJBhw4', ''),
-(47, 66, 'EAAlrbREIkZCkBAPkZAU8Ootm1LixYPZBelWeSlw42ieXvbl4nj7F6hkHxfxE0S9jwOnq7Nn9W6r5YcuEXB4GoJEkncIEOz7PXoYHS9Kt7jKtUychHaSzbdDrsHSVI1td7hLprgQivEmzkaOt4QtSmqbGjKHVTJfSTKVvTZCGazUCUZBzasOgPRZBXCrCw8CVmWNK80eG4KZAAZDZD', ''),
+(47, 66, 'EAAlrbREIkZCkBABEBgt8JjCrH2erZC84SCohJyC0v68nkIz0WeYYBv3YlHxLp57hHSd2gw85RZAzszeZAQR5Pvxll2ZBYLw4KprurORdvR1lCGEQ4kf3eN4YvbFqwuSKeCbrvWoMqGm0DDMwKuR2yGRZAhGMzGzo6RHM1ZB7AcyEaAkcmO2gXZCeCcV4MN4tAqAQ6RZAaPvKpHgZDZD', ''),
 (46, 65, 'EAAlrbREIkZCkBAOHVjjUZCBewHTfKUnqDc56JFkG7bKHsi9GQhxZCrm9tUY4ZBYg76zZB2xZC99j22HoU0AGkPOJuW0IxZAVd4hI96l4oQtG4saG6STgGKiCZCtvhPO5kGsMZAJYkdwpnpeQqFThhDFZCiZB5QarXXswuA4tXLyTdYQ1G01EAv25mS0ZA1eYTSJu6P8m7N8l9zuypCpY4T2roZBs3', ''),
 (59, 78, 'EAAlrbREIkZCkBAJNtFOvVAP1VGqwak3lphgAFWDScZBUbi1GbHwZCKDXyKxtjbxcDPeWoxqYquRGRd4Rvct7ejOpNsatyJRrPC9JZBEO0ooIjk9xljLvprIuQtwDE5EsU2sZAX52EmqS6fvQ5JIobqx6OILdkTe8nM53TrbXOmFPzNWe5x8POYA0V7onsTag3XDd55rE0bbGQ7IZBo7Ijr', ''),
 (60, 79, 'EAAlrbREIkZCkBALAXr92TgW2ZCdE4sudVz8RYEeLEuokzRQndiYz1qTRG5XOlVqmNi9oF4brljOEuAqPd8ulbHY36OAZBZBkrEePJb3ULvxjjIelnVq7UPjYkUZAZBztB37QNC2CyxuhmDTKhpHNK0UaKeXTIbGGc31z1OZAk1ZCt6Hiw7VCgUoJTdJmhWRHsPaJMLWuutiPm78lP4j9bm9z', ''),
@@ -1381,6 +1454,24 @@ ALTER TABLE `districts`
 -- Indexes for table `home_slider`
 --
 ALTER TABLE `home_slider`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `house_area`
+--
+ALTER TABLE `house_area`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `house_surfaces`
+--
+ALTER TABLE `house_surfaces`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `house_surfaces_type`
+--
+ALTER TABLE `house_surfaces_type`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1518,6 +1609,24 @@ ALTER TABLE `districts`
 --
 ALTER TABLE `home_slider`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `house_area`
+--
+ALTER TABLE `house_area`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `house_surfaces`
+--
+ALTER TABLE `house_surfaces`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `house_surfaces_type`
+--
+ALTER TABLE `house_surfaces_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `image_category_list`
