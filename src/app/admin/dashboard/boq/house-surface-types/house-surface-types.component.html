@@ -1,0 +1,84 @@
+<div class="row">
+    <div class="col-md-8"> 
+        <div class="white-box-panel">
+            <div class="title-area">
+                <h3 class="title">Surface Types List</h3>  
+            </div> 
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="row-border hover lvl2-table">
+                <thead>
+                <tr>   
+                    <th>House Surface Type Id</th>   
+                    <th>House Surface</th>    
+                    <th>House Surface Type</th>    
+                    <th>Price Per Sq Ft</th> 
+                    <th></th> 
+                </tr>
+                </thead>
+                
+            </table>
+ 
+        </div>
+    </div>  
+    <div class="col-md-4">
+        <div *ngIf="!isEditableRoute" class="white-box-panel">
+            <h3 class="title">Surface Types</h3>
+            <form id="myform" class="wrapped-block" [formGroup]="formGroup" (ngSubmit)="onSubmit()" novalidate="novalidate">
+                <div class="row">
+                    <div class="col-md-12"> 
+                        <div class="form-group">
+                            <label for="customer_nic">Surface Category</label> 
+                            <ng-select2 [data]="surfaceCategory" [options]="select2Options" formControlName="surface_type_id" class="select-fw" >
+                            </ng-select2>  
+                        </div>
+                        <div class="form-group">
+                            <label for="cat_lvl2_name">Surface Type</label> 
+                            <input id="house_surfaces_type" name="house_surfaces_type" formControlName="house_surfaces_type" type="text" class="form-control">
+                        </div>   
+                        <div class="form-group">
+                            <label for="value">Price Per Sq Ft</label> 
+                            <input id="value" name="value" formControlName="value" type="text" class="form-control">
+                        </div>
+                       
+                    </div>
+                        
+                    <div class="col-md-12">
+                        <button mat-button name="submit" type="submit" class="btn btn-primary">Add Surface Type</button>
+                        <button mat-button type="button" class="btn btn-default clear-btn">Clear</button>
+                    </div> 
+                </div> 
+            </form>
+        </div> 
+ 
+        <div *ngIf="isEditableRoute" class="white-box-panel">
+            <h3 class="title">Edit Level 2 Category</h3>
+            <form id="myform" class="wrapped-block" [formGroup]="formGroup" (ngSubmit)="onUpdate()" novalidate="novalidate">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="customer_nic">Surface Category</label> 
+                            <ng-select2 [data]="surfaceCategory" [options]="select2Options" formControlName="surface_type_id" class="select-fw" >
+                            </ng-select2>  
+                        </div>
+                        <div class="form-group">
+                            <label for="cat_lvl2_name">Surface Type</label> 
+                            <input id="house_surfaces_type" name="house_surfaces_type" formControlName="house_surfaces_type" type="text" class="form-control">
+                        </div>   
+                        <div class="form-group">
+                            <label for="value">Price Per Sq Ft</label> 
+                            <input id="value" name="value" formControlName="value" type="text" class="form-control">
+                        </div>
+                    </div>
+                        
+                    <div class="col-md-12">
+                        <button mat-button name="submit" type="submit" class="btn btn-primary"> <i class="icon-pencil"></i> Edit Surface Type</button>
+                        <button mat-button type="button" class="btn btn-default close-btn">Close</button>
+                    </div> 
+                </div> 
+            </form>
+        </div>
+        
+    </div>
+
+    
+    
+</div>

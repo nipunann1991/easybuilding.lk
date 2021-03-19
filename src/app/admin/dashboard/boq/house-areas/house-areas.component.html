@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-md-8"> 
+        <div class="white-box-panel">
+            <h3 class="title">House Area List</h3>
+            <button id="refresh-btn" type="button" class="btn waves-effect waves-light blue d-none" (click)="rerender()">  Rerender  </button>
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="row-border hover">
+                <thead>
+                <tr>   
+                    <th>House Id</th>   
+                    <th>House Area</th>  
+                    <th></th> 
+                </tr>
+                </thead>
+                
+            </table>
+        </div>
+    </div>
+      
+    <div class="col-md-4">
+        <div *ngIf="!isEditableRoute" class="white-box-panel">
+            <h3 class="title">Add House Area</h3>
+            <form id="myform" class="wrapped-block" [formGroup]="formGroup" (ngSubmit)="onSubmit()" novalidate="novalidate">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="house_area">House Area Name</label> 
+                            <input id="house_area" name="house_area" formControlName="house_area" type="text" class="form-control">
+                        </div> 
+                    </div>
+                        
+                    <div class="col-md-12">
+                        <button mat-button name="submit" type="submit" class="btn btn-primary">Add House Area</button>
+                        <button mat-button type="button" class="btn btn-default close-btn" (click)="returnBack()">Clear</button>
+                    </div> 
+                </div> 
+            </form>
+        </div> 
+
+        <div *ngIf="isEditableRoute" class="white-box-panel">
+            <h3 class="title">Edit House Area</h3>
+            <form id="myform" class="wrapped-block" [formGroup]="formGroup" (ngSubmit)="onUpdate()" novalidate="novalidate">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="house_area">Category Name</label> 
+                            <input id="house_area" name="house_area" formControlName="house_area" type="text" class="form-control">
+                        </div> 
+                    </div>
+                        
+                    <div class="col-md-12">
+                        <button mat-button name="submit" type="submit" class="btn btn-primary"> <i class="icon-pencil"></i> Edit House Area</button>
+                        <button mat-button type="button" class="btn btn-default close-btn" (click)="returnBack()">Close</button>
+                    </div> 
+                </div> 
+            </form>
+        </div>
+        
+    </div> 
+    
+</div>

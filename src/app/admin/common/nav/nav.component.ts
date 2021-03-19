@@ -17,18 +17,18 @@ export class NavComponent implements OnInit {
   	constructor(private globals: Globals, private router: Router) { 
   		  router.events.subscribe( (event) => {
 
-  		  	if (event instanceof NavigationEnd) { 
-                if($('html .left-nav').hasClass('open-nav')){
-                	$("html .right-container").addClass('open-nav'); 
-                }
- 
-            }
-  		  	
-				});
-				
-				if (this.globals.isAdminToken == this.tokenAdmin.provider_id	){
-					this.accessAll = 0;
+				if (event instanceof NavigationEnd) { 
+					if($('html .left-nav').hasClass('open-nav')){
+						$("html .right-container").addClass('open-nav'); 
+					}
+	
 				}
+  		  	
+			});
+			
+			if (this.globals.isAdminToken == this.tokenAdmin.provider_id){
+				this.accessAll = 0;
+			}
   	} 
 
   	ngOnInit() {
@@ -71,6 +71,14 @@ export class NavComponent implements OnInit {
 				title: 'Products',
 				icon: 'icon-upload',
 				link: '/admin/products',
+				permission: 0,
+
+			},
+
+			{
+				title: 'BOQ',
+				icon: 'icon-business-profile',
+				link: '/admin/boq',
 				permission: 0,
 
 			},

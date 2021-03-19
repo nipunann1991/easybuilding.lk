@@ -19,7 +19,8 @@ const routes: Routes = [
       { path: 'services', loadChildren: () => import('./../../../admin/dashboard/services/services.module').then(m => m.ServicesModule) },
       { path: 'profiles', loadChildren: () => import('./../../../admin/dashboard/client-profiles/client-profiles.module').then(m => m.ClientProfilesModule) },
       { path: 'photos', loadChildren: () => import('./../../../admin/dashboard/photos/photos.module').then(m => m.PhotosModule) },
-	 
+      { path: 'boq', loadChildren: () => import('./../../../admin/dashboard/boq/boq.module').then(m => m.BoqModule) },
+  
     ]
   },
   { path: 'login', loadChildren: () => import('./../../../admin/dashboard/login/login.module').then(m => m.LoginModule) },

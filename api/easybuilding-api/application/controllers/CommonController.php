@@ -766,6 +766,24 @@ class CommonController extends CI_Controller {
 	}
 
 
+	public function smtpConfig(){
+		// Load PHPMailer library
+        $this->load->library('phpmailer_lib'); 
+        $mail = $this->phpmailer_lib->load();
+ 
+		 // SMTP configuration
+        $mail->isSMTP();
+        $mail->SMTPAuth = true;
+        $mail->SMTPSecure = 'ssl';
+        $mail->Host     = 'mail.botransports.com' ; //'mail.botransports.com'
+        $mail->Port     = 465;
+        $mail->Username = 'info@botransports.com'; // 'info@botransports.com'
+        $mail->Password =  '4y9?E6H{lb_;' ; // '4y9?E6H{lb_;'
+
+        return $mail;
+	} 
+
+
 
 
 }

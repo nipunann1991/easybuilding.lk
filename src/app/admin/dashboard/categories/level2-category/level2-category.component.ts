@@ -108,7 +108,8 @@ export class Level2CategoryComponent implements OnInit {
 
     const component1 = this;
 
-    $('html').on('click', 'a.delete-lvl2category-data' , function(e1){ 
+    $('html').unbind("click").on('click', 'a.delete-lvl2category-data' , function(e1){ 
+      e1.stopImmediatePropagation();
       e1.preventDefault(); 
       component1.openDeleteLvl2Modal($(this).attr('data-id'));  
       
@@ -117,6 +118,7 @@ export class Level2CategoryComponent implements OnInit {
     const component = this;
 
     $('html').on('click', 'a.edit-lvl2category-data' , function(e){ 
+      e.stopImmediatePropagation();
       e.preventDefault();
       component.editCategoryLvl2Page($(this).attr('data-id'));
       

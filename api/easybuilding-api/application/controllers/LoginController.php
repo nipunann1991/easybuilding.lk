@@ -289,6 +289,32 @@ class LoginController extends CommonController {
 
 		return $this->updateRawData__('user_sessions', $dataset, 'client_id="'.$dataset['client_id'].'" AND auth_token="'.$dataset['auth_token'].'"');  
 	}
- 
+ 	
+
+ 	public function sendRegistration(){   
+
+ 		$mail = $this->smtpConfig();
+ 		$msg = $this->load->view('mail-templates/registration', '', TRUE);
+
+ 		$mail->setFrom('no-reply@easybuilding.lk', 'Easybuilding.lk - Registration'); 
+ 		
+ 		// Add a recipient
+ 		$mail->addAddress('nipunann0710@gmail.com' , "Nipuna"); 
+
+ 		// Email subject
+        $mail->Subject = "Test Sample EB";
+
+        // Set email format to HTML
+        $mail->isHTML(true);
+
+        // Email body content
+        $mailContent = $msg; 
+
+        $mail->Body = $mailContent;
+
+        $mail->send(); 
+
+        echo "mail sent";
+ 	}
  
 }

@@ -8,70 +8,71 @@
             </div> 
         </div>
         <div class="boq-content-area">
-            <div class="boq-item">
+            <form class="boq-item"  [formGroup]="formGroup" (ngSubmit)="onSubmit()">
                 <div class="level-img">
                     <img src="/assets/images/single-level.jpg" alt="">
                 </div>
                 <div class="boq-item-right">
                     <div class="top">
                         <div class="house-area-input">
-                            <div class="form-group">
+                            <div class="form-group select-area">
                                 <label>House Area</label>
-                                <select name="" class="form-control">
-                                    <option value="">Select Option</option>
-                                </select>
+                                <ng-select2 [data]="houseArea" [options]="select2Options"  formControlName="house_area" class="select-fw" (ngModelChange)="houseAreaSelected($event)" >
+                                </ng-select2>  
                             </div> 
                         </div>
                         <div class="area-input">
                             <div class="form-group">
                                 <label>Width (Feet)</label>
-                                <input type="text" class="form-control">
+                                <input type="text" formControlName="width" [(ngModel)]="areaCount.width" (ngModelChange)="valueChangeFn($event)" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Height (Feet)</label>
-                                <input type="text" class="form-control">
+                                <input type="text" formControlName="height" [(ngModel)]="areaCount.height" (ngModelChange)="valueChangeFn($event)" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Area (Sq. Feet)</label>
-                                <input type="text" class="form-control" disabled>
+                                <input type="text" class="form-control"  [value]="houseAreaSqFt" disabled>
                             </div>
                         </div>
                     </div>
-                    <div class="bottom">
+                    <div class="bottom" *ngIf="selectedHouseArea != '' && houseAreaSqFt > 0">
                         <div class="area-additional-options">
-                            <div class="form-group">
-                                <label>Floor</label>
-                                <select name="" class="form-control">
-                                    <option value="">Select Option</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Wall</label>
-                                <select name="" class="form-control">
-                                    <option value="">Select Option</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Ceiling</label>
-                                <select name="" class="form-control">
-                                    <option value="">Select Option</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Roof</label>
-                                <select name="" class="form-control">
-                                    <option value="">Select Option</option>
-                                </select>
-                            </div>
+                            <div class="form-group" *ngFor="let sf of surfaces; let i = index">
+                                <label>{{sf.surface_type}}</label>
+                                <ng-select2 [data]="sf.children" [options]="select2Options" [ngModelOptions]="{standalone: true}" [(ngModel)]="value[i]" (ngModelChange)="selectedItem($event)"  class="select-fw" >
+                                </ng-select2>  
+                            </div> 
                         </div>
                     </div>
                     <div class="total">
-                        <button mat-button type="submit" class="btn btn-primary">Generate Estimate</button>
+                        <button mat-button type="submit" class="btn btn-primary">Estimate <span *ngIf="selectedHouseArea != ''">for  {{selectedHouseArea}}</span></button>
                         <!-- <h3>Estimated Cost: 600,000.00</h3> -->
                     </div>
-                </div>
-                
-                
+                </div> 
+            </form>
+
+            <div class="generated-estimate" *ngIf="tableCols.length > 0">
+                <h2>Estimated BOQ</h2>
+                <table class="table table-striped">
+                    <thead>
+                      <tr> 
+                        <th *ngFor="let tblHeader of tableHeaderCols" scope="col">{{tblHeader}}</th> 
+                        <td></td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let col of tableCols; let i = index">
+                        <td *ngFor="let text of col.selectedText; let j = index" >
+                            <span *ngIf="col.selectedText.length != (j + 1)">{{text}}</span>
+                            <span *ngIf="col.selectedText.length == (j + 1)">{{ text  | currency : currency }}</span>
+                        </td>   
+                        <td><a href="javascript:void(0)" (click)="removeField(i)"><i class="icon-bin"></i></a></td>
+                      </tr> 
+                    </tbody>
+                </table>
+
+                <h3>Total Cost: {{ totalCost | currency: currency }}</h3>
             </div>
             
         </div>
