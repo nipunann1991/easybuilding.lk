@@ -168,7 +168,7 @@ export class BoqService {
 
 
   getSelectedHouseSurfaceTypeList(){
-    return this.http.get(environment.baseUrl+'BOQController/getSelectedHouseSurfaceTypeList?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+    return this.http.get(environment.baseUrl+'BOQController/getSelectedHouseSurfaceTypeList');
   }
   
 }

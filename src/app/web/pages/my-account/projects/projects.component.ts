@@ -33,7 +33,8 @@ export class ProjectsComponent implements OnInit {
   isEditAdmin: boolean = false;
   isMenuOpen: boolean;
   isProjectsAvailable: boolean = false;
-  addNewProjectURL: string = "";
+  isShowHeader: boolean = false;
+  addNewProjectURL: string = ""; 
 
   constructor(
     private router: Router,
@@ -70,7 +71,14 @@ export class ProjectsComponent implements OnInit {
         this.addNewProjectURL = "/admin/users/user/"+this.route.snapshot.params.user+"/"+this.route.snapshot.params.provider_id+ "/projects/upload-project/"+this.companyId; 
       }
 
-      ( typeof this.itemLimit === 'undefined' )?  limit = -1 : limit = this.itemLimit  ; 
+      if( typeof this.itemLimit === 'undefined' ){
+        limit = -1;
+        this.isShowHeader = true;
+      }else{
+        limit = this.itemLimit 
+        this.isShowHeader = false;
+
+      }
       
     });
 

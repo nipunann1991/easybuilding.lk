@@ -51,11 +51,15 @@
     
 
     .cover-image{
-        height: 35rem;
+        height: 23rem;
         background-color: #eeeeee;
         background-image: url(/assets/images/picture.png);
         background-repeat: no-repeat;
         background-position: 50% 50%; 
+
+        @include breakpoint($tablet){
+            height: 35rem;
+        }
 
         @include breakpoint($x-large-desktop){
             height: 40rem;
@@ -92,15 +96,27 @@
         position: relative;
 
         .profile-details{
-            position: absolute;
+            position: relative;
             width: 100%;
-            bottom: -7rem;
-            @include flex();  
+            top: -6rem;
+             
+            @include breakpoint($tablet){
+                position: absolute;
+                @include flex();  
+                bottom: -7rem; 
+                top: inherit;
+            }
             
             .profile-img-wrapper{
-                width: 25rem;
-                height: 27rem;
-                margin-left: 2rem;
+                width: 15rem;
+                height: 15rem; 
+                margin: auto;
+
+                @include breakpoint($tablet){
+                    width: 25rem;
+                    height: 27rem;
+                    margin-left: 2rem;
+                }
                 
                 .profile-img{
                     width: 100%;
@@ -140,17 +156,30 @@
                 a.btn-contact{
                     width: 100%;
                     margin-top: 1.5rem;
+                    display: none;
+
+                    @include breakpoint($tablet){
+                        display: block;
+                    }
                 } 
             }
     
             .details-wrapper{
-                @include flex();
-                @include calc("width", "100% - 28.5rem");
-                margin-bottom: 0rem;
-                padding: 0rem 2.5rem 0 4rem;
+                margin-top: 1.5rem;
+
+                @include breakpoint($tablet){
+                    @include flex();
+                    @include calc("width", "100% - 28.5rem");
+                    margin-bottom: 0rem;
+                    padding: 0rem 2.5rem 0 4rem;
+                    margin-top: 0;
+                }
     
                 .details{  
-                    color: $white;
+                     
+                    @include breakpoint($tablet){
+                        color: $white;
+                    }
                     
                     &.no-img{
                         color: inherit;
@@ -203,10 +232,18 @@
 
                                 .star-container{
                                     .star{
-                                        margin-right: 3px;
+                                        width: 1.7rem;
+                                        height: 1.7rem;;
+
+                                        @include breakpoint($tablet){
+                                            width: 2rem;
+                                            height: 2rem;
+                                        }
+
 
                                         i{
                                             color: $yellow !important;
+                                            font-size: 2rem;
                                         }
                                     }
                                 }
@@ -214,12 +251,23 @@
     
                             &.name{
                                 @include extra-bold;
+                                text-align: center;
+
+                                @include breakpoint($tablet){
+                                    text-align: left;
+                                }
+
                             }
     
                             &.address{
                                 background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAARCAYAAADtyJ2fAAAABHNCSVQICAgIfAhkiAAAATFJREFUKFONk8FRAkEQRd/3gjcxAvck3CwisCYCIQIlAkyBCMQIxAhcE2A3BI6LHtwMxJseoK3ZYreGAcE+7czv3/33d48IoptZYjAS9IFkA+UG6cLpMcxVfehmdgc8hWD0Xa5g8O409/cV8R+kqobBUtArnEp5ecDHgU4xlBdOTp3MJoJRiJrxJZEatAU3MXMFPXVnViIuatCTfkRSOi0P/MbYS7Wo4nPh5I1qYl+OOjNbSpw1HeF14eTHUUWSWfsUPqPiYy81R1xHwLBwmm5ID8CWAmDopR6b347h33AuX7VllKHcI6OpPKgW4DKz/gm8HJtl6Hi4clPg9hB5DYM3p7RZuTq5M7O5xNUf5MqwGms61ta3jHwPeYu00zGY2ySQvUPaS2xkZ3a/hrx+RrH8X8N8eavnE3bmAAAAAElFTkSuQmCC');
                                 background-repeat: no-repeat;
                                 padding-left: 2.5rem;
+                                display: none;
+
+                                @include breakpoint($tablet){
+                                    display: block;
+                                }
     
                                 p{
                                     font-style: 1.6rem;
@@ -228,15 +276,25 @@
 
                             &.reviews{
                                 display: flex;
+                                justify-content: center;
+
+                                @include breakpoint($tablet){
+                                    justify-content: left;
+                                }
 
                                 span.review-score{
                                     line-height: 2.3rem;
 
                                     a{
-                                        color: $light-gray;
+                                        color: $darker-gray;
                                         margin-left: 5px;
                                         font-size: 1.4rem;
 
+                                        @include breakpoint($tablet){
+                                            color: $light-gray;
+                                        }
+
+                                        
                                         &:hover{
                                             color: $mid-gray;
                                         }
@@ -245,26 +303,36 @@
                             }
     
                             h3{
-                                font-size: 3rem;
+                                font-size: 2.3rem;
                                 margin-bottom: 0;
                                 color: inherit;
-                                display: inline-block;
+                                display: inline-block; 
+
+                                @include breakpoint($tablet){
+                                    font-size: 3rem; 
+                                }
                             }
     
                             a.edit{
                                 position: relative;
-                                top: -0.5rem;
-                                margin-left: 1.5rem;
+                                top: -0.5rem; 
                                 cursor: pointer;
-                                font-size: 1.4rem;
+                                font-size: 0;
                                 font-weight: 400;
                                 padding: 0.5rem 1rem; 
                                 border-radius: 0.5rem;
+
+                                @include breakpoint($tablet){
+                                    font-size: 1.4rem;
+                                    margin-left: 1.5rem;
+                                }
 
                                 i{
                                     position: relative;
                                     top: 0.2rem;
                                     margin-right: 0.2rem;
+                                    font-size: 1.4rem;
+ 
                                 }
                             }
             
@@ -281,6 +349,12 @@
                     margin-left: auto;
                     background: #1877f2;
                     line-height: 3rem;
+                    display: block;
+                    margin: auto;
+
+                    @include breakpoint($tablet){
+                        margin-left: auto;
+                    }
                     
                     i.icon-facebook{
                         background: #fff;

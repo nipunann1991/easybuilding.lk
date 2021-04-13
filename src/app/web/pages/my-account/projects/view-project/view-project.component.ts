@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild  } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener  } from '@angular/core';
 import { Router, ActivatedRoute, ActivationStart ,  RoutesRecognized,  NavigationEnd } from '@angular/router';
 import { MyAccountService } from '../../../../../admin/api/frontend/my-account.service';
 import { ProfileService } from "../../../../../admin/api/frontend/profile.service";
@@ -49,16 +49,13 @@ export class ViewProjectComponent implements OnInit {
     this.companyID = this.route.snapshot.params.company_id;
     this.projectID = this.route.snapshot.params.project_id; 
     this.getProjectDetails(this.companyID, this.projectID);
- 
-
-    this.galleryRef.setConfig({
-      thumbPosition: 'right',
-      imageSize: 'cover', 
-      loop: true,
-      thumb: true,
-      thumbMode: "free"
-    }); 
+    this.setImageConfig();  
      
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) { 
+    this.setImageConfig(); 
   }
  
   openInFullScreen(index: number) {
@@ -128,5 +125,28 @@ export class ViewProjectComponent implements OnInit {
     this.router.navigate([this.profileURL], { relativeTo: this.route.parent });
   }
 
+  setImageConfig(){
 
+    if(window.innerWidth < 768){
+      
+      this.galleryRef.setConfig({
+        thumbPosition: 'bottom',
+        imageSize: 'contain', 
+        loop: true,
+        thumb: true,
+        thumbMode: "free"
+      });
+      
+    }else{
+
+      this.galleryRef.setConfig({
+        thumbPosition: 'right',
+        imageSize: 'cover', 
+        loop: true,
+        thumb: true,
+        thumbMode: "free"
+      }); 
+
+    }
+  }
 }

@@ -39,7 +39,11 @@
         width: 100%;
         height: 100%;
         z-index: 0;
-        background-size: 100%;
+        background-size: cover;
+
+        @include breakpoint($tablet){
+            background-size: 100%;
+        }
     }
 
     &::before{
@@ -66,8 +70,12 @@
         z-index: 12;
 
         h1{ 
-            font-size: 4rem;
+            font-size: 3.5rem;
             margin-bottom: 1rem;
+
+            @include breakpoint($tablet){
+                font-size: 4rem;
+            }
         }
 
         p{
@@ -110,9 +118,18 @@
             justify-content: center; 
             width: 100%;
             list-style: none;
+            margin-bottom: 2.5rem;
+
+            @include breakpoint($tablet){
+               margin-bottom: 0;
+            }
               
             img{
-                width: 7rem;
+                width: 5rem;
+
+                @include breakpoint($tablet){
+                    width: 7rem;
+                }
             }
 
             .service-desc{
@@ -120,7 +137,10 @@
                
                 h3{
                     font-size: 1.8rem;
-                    margin-bottom: 1rem;
+                     
+                    @include breakpoint($tablet){
+                        margin-bottom: 1rem;
+                    }
                 }
 
                 p{
@@ -131,7 +151,11 @@
     }
 
     .browse-items-list{
-        padding-top: 8rem;
+        padding-top: 4rem;
+
+        @include breakpoint($tablet){
+            padding-top: 8rem;
+        }
 
         .browse-wrapper{
             
@@ -140,14 +164,21 @@
                 height: 26rem;
                 overflow: hidden;
                 position: relative;
+                cursor: pointer;
 
                 &.item1{
                     background: #bee3fe;
+                    margin-bottom: 2.5rem;
+
+                    @include breakpoint($tablet){
+                        margin-bottom: 0;
+                    }
 
                     .content-img{
                         position: absolute;
                         top: 3rem;
                         right: -28rem;
+                        z-index: 1;
 
                         img{
                             width: 60%;
@@ -164,6 +195,7 @@
                         position: absolute;
                         top: -2rem;
                         right: 7rem; 
+                        z-index: 1;
 
                         img{
                             width: 14rem;
@@ -177,7 +209,7 @@
                     a.read-more-link{
                         color: #27BBFF;
                         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAKCAYAAABi8KSDAAAABHNCSVQICAgIfAhkiAAAAJpJREFUGFeNkbENwlAMRO8gqWkZgM+nzAhJkznCJDACG7AC9U/BCtAGCkag/s2hLyEUTAi4s/xO9vkIUy6oILGJGda3ivf+mBZetCqnwFHCKeao+oIPOIldUDMh9lYwCH8TcNnqQGBmz0m9hDmIlYTrpaajD9oBKEZgD6Dravp/zjjHHGUy+svgC0ybx173Bg7Cz1C2MUNjQ3kAVcdSCxFOIj0AAAAASUVORK5CYII=');
-
+                        
                     }
 
                    
@@ -188,6 +220,8 @@
                     justify-content: center;
                     width: 60%;
                     height: 100%; 
+                    z-index: 10;
+                    position: relative;
     
                     h3{
                         font-size: 2.5rem;

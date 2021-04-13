@@ -11,7 +11,15 @@
 }
 
 html{
-	font-size: 62.5%;
+	font-size: 52%;
+
+	@include breakpoint($tablet) { 
+		font-size: 55%;
+	}
+
+	@include breakpoint($small-desktop) { 
+		font-size: 62.5%;
+	}
 	
 
 	&.cdk-global-scrollblock{
@@ -266,7 +274,7 @@ ul{
 	background-repeat: no-repeat;
 	background-position: 100% 50%; 
 	width: auto;
-	padding-right: 2rem;
+	padding-right: 2rem; 
 }
 
 .select-fw{
@@ -1280,7 +1288,18 @@ button.dt-button{
 }
 
 
+.sm-hidden{
+	display: none;
 
+	@include breakpoint($tablet){
+		display: block;
+	}
+
+}
+
+.highlighted{
+	background: yellow;
+}
 
 .slick-prev{
 	left: 0px;

@@ -30,8 +30,8 @@
         .boq-content-area{
             padding: 3rem 0;
 
-            .boq-item{
-                @include flex;
+            .boq-item{ 
+                display: flex;
                 border-bottom: 1px $border-gray solid; 
                 padding-bottom: 1.5rem; 
                 margin-bottom: 1.5rem;
@@ -56,9 +56,22 @@
                 .boq-item-right{
                     width: 100%;
 
+                    .description{ 
+                       p{
+                            font-size: 1.8rem;
+                            margin-bottom: 1.5rem;
+                       }
+                    }
+
                     .top{
                         @include flex;  
+                        display: flex;
                         padding-bottom: 1.5rem; 
+
+                        label{
+                            font-size: 1.6rem;
+                            margin: 0;
+                        }
 
                         .house-area-input{ 
                             @include flex;  
@@ -77,11 +90,12 @@
         
                             .form-group{
                                 margin-right: 2.5rem;
-        
+                                 
                                 &:last-child{
                                     margin-right: 0;
                                 }
                             }
+                            
                         }
         
                         .area-input{

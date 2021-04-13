@@ -14,7 +14,27 @@ export class IdeasCategoryComponent implements OnInit {
   bgImageCatPath = environment.uploadPath + "admin/category/thumb/";
   featuredProductsCategories: any = [];
   queryParams =  { results: '10',  index: '1'}; 
-  slideConfig = {"slidesToShow": 5, "slidesToScroll": 5,  infinite: false,};
+  slideConfig = {
+    slidesToShow: 5, 
+    slidesToScroll: 5,  
+    infinite: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4, 
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2, 
+        }
+      }, 
+    ]
+  };
 
   constructor(
     private homePage: HomepageService,

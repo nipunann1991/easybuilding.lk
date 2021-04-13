@@ -4,14 +4,54 @@
     padding: 4rem 0 2rem 0;
     background: #092048; // #04142f; // $form-control-gray; 
 
-    .flex-wrapper{ 
+    .flex-wrapper{   
         @include flex();
+        padding-bottom: 4rem;
         align-items: baseline;
         justify-content: space-between;
-        padding-bottom: 4rem;
+
+        @include breakpoint($tablet){   
+            flex-direction: row;
+        }
+
          
         .columns{ 
             padding-right: 1.5rem; 
+            margin-bottom: 4.5rem;
+
+            @include breakpointMax($tablet){
+                width: 33.33%;
+                float: left;
+            }
+            
+            &:first-child{ 
+                @include breakpointMax($tablet){
+                    display: none;
+                }
+            }
+
+            // &:first-child{ 
+            //     @include breakpointMax($tablet){
+            //         width: 70%;
+            //     }
+                
+            //     img{ 
+            //         @include breakpointMax($tablet){
+            //             width: 70%;
+            //         }
+            //     }
+            // }
+
+            // &:nth-child(2){ 
+            //     @include breakpointMax($tablet){
+            //         width: 30%;
+            //     } 
+            // }
+
+
+            @include breakpoint($tablet){
+                margin-bottom: 0;
+            }
 
             h3{
                 color: #c6cfe6;
@@ -42,9 +82,13 @@
                     }
                 }
 
-                li{
-                    margin-bottom: 1.5rem;
+                li{ 
                     line-height: 2.2rem;
+                    margin-bottom: 0.5rem;
+
+                    @include breakpoint($tablet){
+                        margin-bottom: 1.5rem;
+                    }
 
                     &:last-child{
                         margin-bottom: 0;

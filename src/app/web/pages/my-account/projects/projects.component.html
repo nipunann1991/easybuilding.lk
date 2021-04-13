@@ -1,4 +1,8 @@
-<div class="projects-wrapper">
+<div class="projects-wrapper" > 
+  <div class="total-projects" *ngIf="isShowHeader">
+    <h2>Projects ({{project.length}})</h2>
+    <button *ngIf="isEdit || isEditAdmin" mat-button class="btn btn-transparent btn-review" [routerLink]="addNewProjectURL">Add New Project</button>
+  </div> 
   <div *ngFor="let p of project; let i = index;" class="project-block" >
     <!-- routerLink="view-project/{{companyId}}/{{p.project_id}}" -->
     <div class="project-img" [ngStyle]="{'background-image': 'url('+ imageURL + p.primary_img +')'}"  (click)="openProject(companyId, p.project_id)">

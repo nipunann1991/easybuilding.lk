@@ -1,5 +1,37 @@
 @import '../../../../../styles';
-  
+
+.total-projects{
+  padding-bottom: 3rem;
+  justify-content: center; 
+  text-align: left; 
+  @include flex();
+  overflow: hidden;
+
+  h2{
+    margin: 0;
+    margin-right: auto;
+  }
+
+  .btn-review{
+    margin-left: auto;
+    background-color: transparent;
+    color: $base-color;
+    border: 1px $base-color solid;
+    padding: 0rem 2rem !important;
+    font-weight: 500;
+    line-height: 3.5rem;
+
+    @include breakpoint($tablet){ 
+      line-height: auto;
+    }
+
+    &:hover{
+      background-color: transparent;
+      color: $base-color;
+    }
+  }
+}
+
 .add-new-product{
     @include calc("width","33.33% - 1.5rem");
     height: 27.8rem;
@@ -8,6 +40,16 @@
     text-align: center; 
     @include flex();
     cursor: pointer;
+    display: none;
+
+    @include breakpoint($tablet){
+      @include flex();
+      @include calc("width","50% - 1.5rem");
+    }
+
+    @include breakpoint($x-small-desktop){
+      @include calc("width","33.33% - 1.5rem");
+    }
   
     &:hover{
       border: 2px $base-bg-color dashed;
@@ -44,20 +86,34 @@
 
 .product-block{
   position: relative;
-  @include calc("width","33.33% - 2rem");
+  width: 100%;
   float: left;
   margin-right: 2rem;
   margin-bottom: 2rem;
   box-shadow: 0px 3px 8px 1px rgba(196, 206, 217, 0.25);
   cursor: pointer;
   border: 1px #ededed solid;
-  border-radius: 0.5rem;
+  border-radius: 0.5rem; 
+
+  @include breakpoint($tablet){
+    @include calc("width","50% - 2rem");
+    margin-right: 2rem;
+  }
+
+  @include breakpoint($x-small-desktop){
+    @include calc("width","33.33% - 2rem");
+    margin-right: 2rem;
+  }
   
   .product-img{
-    height: 20rem;
+    height: 24rem;
     width: 100%;
     background-color: $light-gray;
     background-size: cover;
+
+    @include breakpoint($tablet){
+      height: 20rem;
+    }
 
     a.edit-product{
       color: $white;

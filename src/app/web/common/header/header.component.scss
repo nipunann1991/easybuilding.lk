@@ -12,12 +12,14 @@
             position: fixed;
             background: $white;
             width: 100%;
+            margin: 0;
             @include box-shadow(0px, 3px,8px, 1px, rgba(196,206,217,0.25)); 
             z-index: 1001; 
         }
     }
 }
 .header-area{
+    padding: 0;
 
     &.login-border{
         border-bottom: 1px $border-gray solid;
@@ -25,13 +27,30 @@
 
     &.in-profile{
         .content-area{
-            padding-bottom: 1.5rem;
+           // padding-bottom: 1.5rem;
         } 
     }
 
+    .mobile-menu{
+        float: left; 
+        display: block;
+
+        @include breakpoint($tablet){
+            display: none;
+        }
+
+        img{
+            width: 3rem !important;
+        }
+    }
+
     .content-area{
-        padding: 1.5rem 0 1rem 0;
+        padding: 1.5rem 0 1.5rem 0;
         @include flex(); 
+
+        @include breakpoint($tablet){
+            padding: 1.5rem 0 1rem 0;
+        }
 
         img{
             width: 18rem;
@@ -41,6 +60,12 @@
     .search-box{ 
         width: 100%;
         margin: 0 4.5rem 0 5.5rem;
+        position: relative;
+        display: none;
+
+        @include breakpoint($tablet){
+            display: block;
+        }
 
         input{
             width: 100%;
@@ -57,19 +82,55 @@
                 line-height: 6rem;;
             }
         }
+        
+        .search-item{
+            position: absolute;
+            width: 100%;
+            background: $white;
+            
+            z-index: 100;
+            box-shadow: 0px 3px 8px 1px rgba(196, 206, 217, 0.25);
+            border: 1px #eee solid;
+
+            ul{
+                li{
+                    padding: 1rem 1.5rem;
+                    color: $darker-gray;
+                    cursor: pointer;
+                    border-bottom: 1px #eee solid;
+
+                    span.search-bold-text{
+                        @include bold;
+                    }
+
+                    &:hover{
+                        background: $light-gray;
+                    }
+
+                    &:last-child{
+                        border-bottom: 0;
+                    }
+                }
+            }
+        }
     }
 
     .cta-buttons{ 
         padding-left: 0;
         margin: 0; 
-        width: 83rem;
+        margin-left: auto;
+        @include flex(); 
  
         @include breakpoint($medium-desktop){
             width: 74rem;
         }
 
         &.short-btn-area{
-            width: 30rem;
+            width: 45rem;
+
+            @include breakpoint($tablet-medium){
+                width: 30rem;
+            }
         }
 
         a.login-btn{
@@ -104,6 +165,11 @@
             &.sign-up{
                 margin-left: 0.5rem;
                 background: $base-bg-color;
+                display: none;
+
+                @include breakpoint($tablet){
+                    display: block;
+                }
 
                 i{
                     font-size: 2rem;
@@ -121,6 +187,12 @@
             cursor: pointer;
             outline: 0;
             position: relative;
+            margin-left: auto;
+            margin-right: 1.5rem;
+
+            @include breakpoint($tablet){
+                margin: 0;
+            }
 
             .profile-acc{
                 @include flex(); 
@@ -142,6 +214,12 @@
 
             .user-name{
                 margin-left: 1.2rem;
+                display: none;
+
+                @include breakpoint($tablet){
+                    display: block;
+                }
+
                 p{
                     margin-bottom: 0;
                 }
@@ -150,6 +228,15 @@
             i{
                 color: $dark-gray;
                 margin-left: 1.5rem;
+
+                &.icon-down-arrow{
+                    display: none;
+
+                    @include breakpoint($tablet){
+                        display: block;
+                    }
+                }
+                
  
             }
 
@@ -215,11 +302,21 @@
 }
 
 .nav-area{
+    display: none;
+
+    @include breakpoint($tablet){
+        display: block;
+    }
+
     ul.nav-item-list{
         padding-left: 0; 
         @include flex();  
         position: relative;  
-        padding: 0 10%;
+       
+
+        @include breakpoint($small-desktop) { 
+            padding: 0 10%;
+        }
         
 
         li{

@@ -5,9 +5,18 @@
                 <div class="logo">
                     <a routerLink="/"><img src="./assets/images/easybuilding-logo.png" alt="Wasybuilding Logo"></a>
                 </div>
-                <div class="search-box" *ngIf="!logoOnly">
-                    <input *ngIf="!hideNav" type="text" class="form-control" placeholder="Search Photos, Products & More...">
+                <!--  *ngIf="!hideNav" -->
+                <div class="search-box" *ngIf="!logoOnly" (click)="isSearchOpened = true">
+                    <input type="text" class="form-control" [(ngModel)]="searchText" (ngModelChange)="searchTextChangeFn($event)" placeholder="Search Photos, Products & More...">
+                    <div #toggleButton  class="search-item" *ngIf="searchText != '' && isSearchOpened">
+                        <ul>
+                            <li (click)="searchPhotos()" ><span class="search-bold-text">{{searchText}}</span> in Photos</li>
+                            <li (click)="searchItems('services')" ><span class="search-bold-text">{{searchText}}</span> in Services</li>
+                            <li (click)="searchItems('products')"><span class="search-bold-text">{{searchText}}</span> in Products</li>
+                        </ul>
+                    </div>
                 </div>
+                
                 <div class="cta-buttons" [ngClass]="{'short-btn-area': isLogged}" *ngIf="!logoOnly"> 
                     <a routerLink="/login" *ngIf="!isLogged" class="login-btn" >Login</a> 
                     <!-- <i class="icon-profile"></i> -->
@@ -32,10 +41,15 @@
                         </div>
                     </div> 
                 </div>
+
+                <a  *ngIf="!logoOnly" class="mobile-menu" href="javascript:void(0)">
+                    <img src="/assets/images/menu.svg" alt="">
+                </a>
+
             </div>
         </div>
     </div>
-    <div class="container-fluid nav-area" *ngIf="!logoOnly && !hideNav">
+    <div class="container-fluid nav-area" *ngIf="!logoOnly">
         <div class="container">
             <ul class="nav-item-list">
                 <li (mouseover)="showPhotos=true" (mouseout)="showPhotos=false" (click)="showPhotos=false">

@@ -38,6 +38,7 @@ import { RoundToDecimalPipe } from './pipes/round-to-decimal.pipe';
 import { OverlayscrollbarsModule } from "overlayscrollbars-ngx";
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ConfimDialogBoxComponent } from './web/common/confim-dialog-box/confim-dialog-box.component';
+import { HighlightTextPipe } from './pipes/highlight-text.pipe';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ConfimDialogBoxComponent } from './web/common/confim-dialog-box/confim-
     FirstLetterPipe,
     TruncateTextPipe,
     RoundToDecimalPipe,
-    ConfimDialogBoxComponent
+    ConfimDialogBoxComponent,
+    HighlightTextPipe
   ],
   imports: [ 
       FormsModule,
@@ -119,7 +121,8 @@ import { ConfimDialogBoxComponent } from './web/common/confim-dialog-box/confim-
       NgBootstrapFormValidationModule,
       FirstLetterPipe,
       TruncateTextPipe,
-      RoundToDecimalPipe
+      RoundToDecimalPipe,
+      HighlightTextPipe
   ],
   entryComponents: [
     reviewDialog,

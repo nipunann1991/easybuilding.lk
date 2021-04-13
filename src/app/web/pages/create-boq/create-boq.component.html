@@ -13,7 +13,10 @@
                     <img src="/assets/images/single-level.jpg" alt="">
                 </div>
                 <div class="boq-item-right">
-                    <div class="top">
+                   <div class="description">
+                    <p>Select and input values to create your BOQ in few easy steps.</p>
+                   </div>
+                    <div class="top"> 
                         <div class="house-area-input">
                             <div class="form-group select-area">
                                 <label>House Area</label>
@@ -36,7 +39,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bottom" *ngIf="selectedHouseArea != '' && houseAreaSqFt > 0">
+                    <div class="bottom" *ngIf="selectedHouseArea != '' && houseAreaSqFt > 0" > 
                         <div class="area-additional-options">
                             <div class="form-group" *ngFor="let sf of surfaces; let i = index">
                                 <label>{{sf.surface_type}}</label>

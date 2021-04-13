@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, Input, HostListener, ElementRef } from '@angular/core';
 import { AuthService as Auth } from '../../../admin/auth/auth.service';
 import { AuthService as OAuth } from "angularx-social-login";
 import { Router, ActivatedRoute, NavigationEnd, RouterEvent } from "@angular/router";
@@ -13,6 +13,8 @@ import { HomepageService } from "../../../admin/api/frontend/homepage.service";
   styleUrls: ['./header.component.scss'], 
 })
 export class HeaderComponent implements OnInit {
+
+  @ViewChild('toggleButton', { static: false }) toggleButton?: ElementRef;
 
   isLogged: boolean = false; 
   editableMode: boolean = false; 
@@ -30,7 +32,9 @@ export class HeaderComponent implements OnInit {
   totalLinks: number = 0;
   queryParams: any;
   hideNav: boolean = false;
-
+  searchText: string = "";
+  isSearchOpened: boolean = false;
+  
   queryParamsImg = { 
     results: '12', 
     index: '1', 
@@ -47,8 +51,7 @@ export class HeaderComponent implements OnInit {
     upload_product: environment.profileUrl.split('/').slice(0, -1).join('/') + "/products",
     settings: environment.profileUrl.split('/').slice(0, -1).join('/') + "/edit/account-info"
   }
-
-  
+ 
 
   constructor(
     private authservice: Auth,
@@ -56,7 +59,8 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private globals: Globals,
-    private homePage: HomepageService
+    private homePage: HomepageService,
+    private eRef: ElementRef
   ) { 
 
     this.isAccessed();
@@ -88,6 +92,17 @@ export class HeaderComponent implements OnInit {
     this.hideNavigation();
 
   }
+
+
+  // @HostListener('document:click', ['$event'])
+  // clickout(event) {
+  //   if(event.target !== this.toggleButton.nativeElement) {
+  //    console.log("inside")
+  //   } else {
+  //    console.log("outside")
+      
+  //   }
+  // }
 
 
   hideNavigation(url = window.location.href){
@@ -254,7 +269,45 @@ export class HeaderComponent implements OnInit {
     });    
   }
 
+  searchTextChangeFn(event){
+     
+  }
+
+  searchItems(type){
+
+    let queryParams = { 
+      string: this.searchText,
+      results: '12', 
+      type: type,
+      index: '1', 
+      sort_by: '1',
+      sort_by_service_area: '1',
+      area: '1',
+      
+    };
+    
+    this.isSearchOpened = false;
+    this.searchText = "";
+    console.log(this.searchText, this.isSearchOpened)
+ 
+    this.router.navigate(['/products/search'], { queryParams: queryParams });
   
+  }
+
+  searchPhotos(){
+    let queryParams = { 
+      string: this.searchText,
+      results: '12', 
+      index: '1', 
+    };
+    
+    this.isSearchOpened = false;
+    this.searchText = "";
+    console.log(this.searchText, this.isSearchOpened)
+ 
+    this.router.navigate(['/image-search/search'], { queryParams: queryParams });
+ 
+  }
   
 
 }

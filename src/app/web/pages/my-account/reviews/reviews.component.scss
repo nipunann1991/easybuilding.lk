@@ -15,6 +15,11 @@
     border: 1px $base-color solid;
     padding: 0rem 2rem !important;
     font-weight: 500;
+    line-height: 3.5rem;
+
+    @include breakpoint($tablet){ 
+      line-height: auto;
+    }
 
     &:hover{
       background-color: transparent;

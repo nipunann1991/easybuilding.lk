@@ -33,7 +33,9 @@ export class ImageSearchComponent implements OnInit {
 
   openImageIndex: number = 0;
   galleryId = 'myLightbox';
- 
+  paginations: Array<number> = []; 
+  paramIndex: number;
+  searchParam: string = "";
 
   // gallery images
   imagesResults: GalleryItem[] = [];
@@ -55,18 +57,15 @@ export class ImageSearchComponent implements OnInit {
 
       if (event instanceof NavigationEnd) { 
         window.scroll(0,0);   
-       
         
-        if(this.prevParam == "" || this.prevParam != this.activatedRoute.snapshot.params.id ){
+        //if(this.prevParam == "" || this.prevParam != this.activatedRoute.snapshot.params.id ){
           this.isGridView = true; 
           this.prevParam = this.activatedRoute.snapshot.params.id;
+          this.paramIndex = parseInt(this.activatedRoute.snapshot.queryParams.index);
 
           this.getSelectedProductData(); 
-          this.searchImages(this.activatedRoute.snapshot.queryParams); 
-          //this.filterOptions();
-          //(JSON.stringify(this.activatedRoute.snapshot.queryParams) !==  '{}')? this.searchProducts(this.activatedRoute.snapshot.queryParams, true) : "";  
-         // this.initialSort(0)
-        }
+      
+       // }
         
         
       }
@@ -98,30 +97,49 @@ export class ImageSearchComponent implements OnInit {
       closeOnSelect: true, 
       tags: true 
     };
+
+    
    
      
   }
 
-  getSelectedProductData(){ 
-    
-    let params = { cat_lvl2_id: this.activatedRoute.snapshot.params.id }; 
+  getSelectedProductData(){  
 
-    this.search.getSelectedProductData(params) 
-    .subscribe((response: any) => {
+    if( this.activatedRoute.snapshot.queryParams["string"] === undefined) {
 
-      if (response.status == 200) {
+      let params = { cat_lvl2_id: this.activatedRoute.snapshot.params.id }; 
 
-        let page = response.data[0]
+      this.search.getSelectedProductData(params) 
+      .subscribe((response: any) => {
 
-        this.pageData = {
-          parentCategory: page.cat_name,
-          categoryLevel1: page.cat_lvl1_name,
-          categoryLevel2: page.cat_lvl2_name
-        } 
- 
-      }
+        if (response.status == 200) {
+
+          let page = response.data[0]
+
+          this.pageData = {
+            parentCategory: page.cat_name,
+            categoryLevel1: page.cat_lvl1_name,
+            categoryLevel2: page.cat_lvl2_name
+          } 
+  
+        }
+        
+      });
+  
+    }else{ 
+
+      this.searchParam = this.activatedRoute.snapshot.queryParams["string"];
       
-    });
+      this.pageData = {
+        parentCategory: "Photos",
+        categoryLevel1: "Search Results",
+        categoryLevel2: "Search '"+ this.searchParam +"'"
+      }  
+
+    }
+
+    this.searchImages(this.activatedRoute.snapshot.queryParams); 
+    
  
   }
   
@@ -130,36 +148,7 @@ export class ImageSearchComponent implements OnInit {
     this.lightbox.open(index, this.galleryId, {
      
     });
-  }
-
-  filterOptions(){
-
-    this.sortByFilter = [
-      { id: 1, option: "Highest Ratings", alias: "hightest_ratings", isChecked: false },
-      { id: 2, option: "Most Recent", alias: "most_recent", isChecked: false }, 
-      { id: 3, option: "Most Reviewed", alias: "most_reviewed", isChecked: false },
-    ];
-
-    this.sortByRating = [
-      { id: 1, option: "All Ratings", alias: "allstar", isChecked: false },
-      { id: 2, option: "5 Star Ratings", alias: "5star", isChecked: false },
-      { id: 3, option: "4 Star Ratings", alias: "4star", isChecked: false },
-    ];
-
-    this.sortByCategory = [
-      { id: 1, option: "Level 1", alias: "lvl1", isChecked: false },
-      { id: 2, option: "Level 2", alias: "lvl12", isChecked: false }, 
-    ];
- 
-    this.sortByLocation = [
-      { id: 1, option: "Any", alias: "any", isChecked: false },
-      { id: 2, option: "All Island", alias: "all", isChecked: false }, 
-      { id: 3, option: "By District", alias: "district", isChecked: false }, 
-      { id: 4, option: "By City", alias: "city", isChecked: false }, 
-    ];
- 
-  }
-
+  } 
 
   searchImages(queryParams){
 
@@ -172,7 +161,8 @@ export class ImageSearchComponent implements OnInit {
       page_index: queryParams.index,
       sort_by: queryParams.sort_by,
       sort_by_service_area: queryParams.sort_by_service_area,
-      area: queryParams.area
+      area: queryParams.area,
+      searchString: queryParams.string
     };  
 
     this.search.searchImages(params) 
@@ -183,6 +173,16 @@ export class ImageSearchComponent implements OnInit {
         this.pageData.start = response.start;
         this.pageData.end = response.end;
         this.pageData.total_results = response.total_results;
+
+        let totalPages = Math.floor(this.pageData.total_results / queryParams.results);
+        let remainingElms = this.pageData.total_results % queryParams.results;
+          
+
+        if( remainingElms != 0){
+          this.paginations = Array(totalPages + 1).fill(0).map((x,i)=>i + 1);
+        }else{
+          this.paginations =  Array(totalPages).fill(0).map((x,i)=>i + 1);
+        } 
         
         response.data.forEach(elm => {
          
@@ -290,12 +290,11 @@ export class ImageSearchComponent implements OnInit {
     let url =  this.router.url + this.searchParams.sortByServiceArea + this.searchParams.sortBy;
      
     let queryParams = { 
-      results: '10', 
+      results: '12', 
       index: '1', 
     };
- 
- 
-    this.router.navigate(['/image-search/'+this.activatedRoute.snapshot.params.id], { queryParams: queryParams });
+
+    
    
 
     if(isInit){
@@ -310,6 +309,13 @@ export class ImageSearchComponent implements OnInit {
     }
 
     return arr;
+  }
+
+  navigateToNextPage(pageID){
+    
+    let queryParams =  {...this.activatedRoute.snapshot.queryParams};
+    queryParams['index'] = pageID;
+    this.router.navigate(['/image-search/'+this.activatedRoute.snapshot.params.id], { queryParams: queryParams });
   }
 
 }

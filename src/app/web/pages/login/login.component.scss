@@ -8,24 +8,34 @@
     }
 
     .column{
-        width: 50%;
-        padding-right: 5rem; 
+        width: 100%;
         position: relative;
 
-        &:before{
-            content: '';
-            background: $border-gray;
-            width: 1px;
-            height: 90%;
-            position: absolute;
-            right: 0;
+        @include breakpoint($tablet-medium){
+            width: 50%; 
+            padding-right: 5rem; 
+        }
+
+        &:before{ 
+
+            @include breakpoint($tablet-medium){
+                content: '';
+                background: $border-gray;
+                width: 1px;
+                height: 90%;
+                position: absolute;
+                right: 0; 
+            }
         }
 
 
-        &:last-child{
-            padding-left: 5rem;
+        &:last-child{ 
             padding-right: 0;
             border-right: 0;
+
+            @include breakpoint($tablet-medium){
+                padding-left: 5rem;
+            }
 
             &:before{
                 display: none;
@@ -34,7 +44,10 @@
     }
     
     .column-container{
-        @include flex(); 
+         
+        @include breakpoint($tablet-medium){
+            @include flex();
+        }
 
         form{
             label{
@@ -111,6 +124,7 @@
 
             .login-accounts{
                 width: 100%;
+                margin-top: 5rem;
             }
 
             .sign-up-wrapper{
@@ -135,9 +149,16 @@
     }
 }
 
-.login-page{ 
-    @include calc('height', '100% - 65px');
-    @include flex(); 
+.login-page{  
+    padding: 3rem 0; 
+    max-width: 42rem;
+
+    @include breakpoint($tablet-medium){
+        padding: 0;
+        min-width: 100%;
+        @include calc('height', '100% - 65px');
+        @include flex();  
+    }
 
     h1{
         font-size: 3rem;

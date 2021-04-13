@@ -8,6 +8,7 @@ import { HomepageService } from "../../../admin/api/frontend/homepage.service";
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Options } from 'select2'; 
 import { Globals } from "../../../app.global"
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products',
@@ -34,13 +35,34 @@ export class ProductsComponent implements OnInit {
   totalLinks: number = 0;
   isFullPageSearch: boolean = false;
   queryParams: any;
+  searchParam: string = "";
+  paginations: Array<number> = [];
+  paramIndex: number; 
   searchParams = {
     sortBy: "",
     sortByServiceArea: ""
   }
 
   
-  slideConfig = {"slidesToShow": 5, "slidesToScroll": 5,  infinite: false,};
+  slideConfig = {
+    slidesToShow: 5, slidesToScroll: 5,  infinite: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4, 
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2, 
+        }
+      }, 
+    ]
+  };
 
   private prevParam: string = ""; 
   private prevQueryParam: any = ""; 
@@ -59,24 +81,20 @@ export class ProductsComponent implements OnInit {
   ) { 
     
     this.queryParams = this.globals.defaultQueryParams;
-    this.router.events.subscribe((event) => {
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
+    
+        window.scroll(0,0);    
+        this.prevParam = this.activatedRoute.snapshot.params.id; 
+        this.prevQueryParam = this.activatedRoute.snapshot.queryParams;  
+        this.paramIndex = parseInt(this.activatedRoute.snapshot.queryParams.index);
+        this.getSelectedProductData();  
+        this.filterOptions(); 
+        
 
-      if (event instanceof NavigationEnd) { 
-        window.scroll(0,0);   
-        
-        if(this.prevParam == "" || this.prevQueryParam == "" || this.prevParam != this.activatedRoute.snapshot.params.id ||  JSON.stringify(this.prevParam) != JSON.stringify(this.activatedRoute.snapshot.queryParams)  ){
-           
-          this.prevParam = this.activatedRoute.snapshot.params.id;
-          this.prevQueryParam = this.activatedRoute.snapshot.queryParams;  
-          this.getSelectedProductData();  
-          this.filterOptions(); 
-          (JSON.stringify(this.activatedRoute.snapshot.queryParams) !==  '{}')? this.searchProducts(this.activatedRoute.snapshot.queryParams, true) : "";  
-          
-        }  
-        
-      }
-      
-    })
+        (JSON.stringify(this.activatedRoute.snapshot.queryParams) !==  '{}')? this.searchProducts(this.activatedRoute.snapshot.queryParams, true) : "";  
+         
+    });
+     
 
     platformLocation.onPopState(() => { 
       (JSON.stringify(this.activatedRoute.snapshot.queryParams) !==  '{}')? this.searchProducts(this.activatedRoute.snapshot.queryParams, true) : "";  
@@ -136,23 +154,34 @@ export class ProductsComponent implements OnInit {
       this.getServicesMenuItems()
  
 
-    }else{
+    }else if(params.cat_lvl2_id == 'search'){
 
       this.isFullPageSearch = false;
+      this.searchParam = this.activatedRoute.snapshot.queryParams["string"];
 
+      this.pageData = {
+        parentCategory: this.activatedRoute.snapshot.queryParams["type"] ,
+        categoryLevel1: "Search Results",
+        categoryLevel2: "Search '"+ this.searchParam +"'"
+      }  
+
+
+    }else{
+
+      this.isFullPageSearch = false; 
+       
       this.search.getSelectedProductData(params) 
         .subscribe((response: any) => {
 
           if (response.status == 200) {
-
-            let page = response.data[0]
-
-            this.pageData = {
-              parentCategory: page.cat_name,
-              categoryLevel1: page.cat_lvl1_name,
-              categoryLevel2: page.cat_lvl2_name
-            } 
-    
+  
+              let page = response.data[0];
+              this.pageData = {
+                parentCategory: page.cat_name,
+                categoryLevel1: page.cat_lvl1_name,
+                categoryLevel2: page.cat_lvl2_name
+              } 
+  
           }
           
         }); 
@@ -207,6 +236,9 @@ export class ProductsComponent implements OnInit {
 
   }
 
+  capitalizeString(name): string{
+    return name.charAt(0).toUpperCase() + name.slice(1)
+  }
 
   getProductsMenuItems(){
     this.homePage.getProductsMenuItems() 
@@ -292,13 +324,16 @@ export class ProductsComponent implements OnInit {
 
     this.products = []; 
 
+     
+
     let params = { 
       cat_lvl2_id: this.activatedRoute.snapshot.params.id, 
       limit: queryParams.results, 
       page_index: queryParams.index,
       sort_by: queryParams.sort_by,
       sort_by_service_area: queryParams.sort_by_service_area,
-      area: queryParams.area
+      area: queryParams.area,
+      searchString: queryParams.string || ''
     };  
 
     if(firstAttempt){
@@ -317,6 +352,17 @@ export class ProductsComponent implements OnInit {
         this.pageData.start = response.start;
         this.pageData.end = response.end;
         this.pageData.total_results = response.total_results;
+
+        
+        let totalPages = Math.floor(this.pageData.total_results / queryParams.results);
+        let remainingElms = this.pageData.total_results % queryParams.results;
+          
+
+        if( remainingElms != 0){
+          this.paginations = Array(totalPages + 1).fill(0).map((x,i)=>i + 1);
+        }else{
+          this.paginations =  Array(totalPages).fill(0).map((x,i)=>i + 1);
+        } 
 
         response.data.forEach(elm => {
          
@@ -390,7 +436,7 @@ export class ProductsComponent implements OnInit {
     this.resetChecked(this.sortByLocation)
     this.sortByLocation[i].isChecked = true; 
     this.searchParams.sortByServiceArea = this.sortByLocation[i].id;
-    
+      
     if(i < 2 ){ 
       this.area = -1;
       this.setURL(isInit);
@@ -417,15 +463,14 @@ export class ProductsComponent implements OnInit {
       index: '1',
       sort_by: this.searchParams.sortBy,
       sort_by_service_area: this.searchParams.sortByServiceArea,
-      area: this.area
+      area: this.area, 
     };
- 
- 
+    
+    if(this.router.url.includes('string=')){
+      queryParams["string"] = this.activatedRoute.snapshot.queryParams.string
+    }
+  
     this.router.navigate(['/products/'+this.activatedRoute.snapshot.params.id], { queryParams: queryParams });
-
-    // if(isInit){
-    //   this.searchProducts(queryParams);
-    // }
   
   }
 
@@ -437,6 +482,13 @@ export class ProductsComponent implements OnInit {
     return arr;
   }
 
+
+  navigateToNextPage(pageID){
+    
+    let queryParams =  {...this.activatedRoute.snapshot.queryParams};
+    queryParams['index'] = pageID;
+    this.router.navigate(['/products/'+this.activatedRoute.snapshot.params.id], { queryParams: queryParams });
+  }
 
   addSlide() {
      

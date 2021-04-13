@@ -6,13 +6,14 @@
             </div> 
             <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="row-border hover lvl2-table">
                 <thead>
-                <tr>   
-                    <th>House Surface Type Id</th>   
-                    <th>House Surface</th>    
-                    <th>House Surface Type</th>    
-                    <th>Price Per Sq Ft</th> 
-                    <th></th> 
-                </tr>
+                    <tr>   
+                        <th>House Surface Type Id</th> 
+                        <th>Level</th>   
+                        <th>House Surface</th>    
+                        <th>House Surface Type</th>    
+                        <th>Price Per Sq Ft</th> 
+                        <th></th> 
+                    </tr>
                 </thead>
                 
             </table>
@@ -31,6 +32,11 @@
                             </ng-select2>  
                         </div>
                         <div class="form-group">
+                            <label for="customer_nic">Level</label> 
+                            <ng-select2 [data]="level" [options]="select2Options" formControlName="level" class="select-fw" >
+                            </ng-select2>  
+                        </div>
+                        <div class="form-group">
                             <label for="cat_lvl2_name">Surface Type</label> 
                             <input id="house_surfaces_type" name="house_surfaces_type" formControlName="house_surfaces_type" type="text" class="form-control">
                         </div>   
@@ -43,7 +49,7 @@
                         
                     <div class="col-md-12">
                         <button mat-button name="submit" type="submit" class="btn btn-primary">Add Surface Type</button>
-                        <button mat-button type="button" class="btn btn-default clear-btn">Clear</button>
+                        <button mat-button type="button" routerLink="/admin/boq/house-surface-types" class="btn btn-default clear-btn">Clear</button>
                     </div> 
                 </div> 
             </form>
@@ -60,6 +66,11 @@
                             </ng-select2>  
                         </div>
                         <div class="form-group">
+                            <label for="customer_nic">Level</label> 
+                            <ng-select2 [data]="level" [options]="select2Options" formControlName="level" class="select-fw" >
+                            </ng-select2>  
+                        </div>
+                        <div class="form-group">
                             <label for="cat_lvl2_name">Surface Type</label> 
                             <input id="house_surfaces_type" name="house_surfaces_type" formControlName="house_surfaces_type" type="text" class="form-control">
                         </div>   
@@ -71,7 +82,7 @@
                         
                     <div class="col-md-12">
                         <button mat-button name="submit" type="submit" class="btn btn-primary"> <i class="icon-pencil"></i> Edit Surface Type</button>
-                        <button mat-button type="button" class="btn btn-default close-btn">Close</button>
+                        <button mat-button type="button" routerLink="/admin/boq/house-surface-types" class="btn btn-default close-btn">Close</button>
                     </div> 
                 </div> 
             </form>

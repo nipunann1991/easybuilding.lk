@@ -31,6 +31,7 @@ export class HouseSurfaceTypesComponent implements OnInit {
   param: any = {};
   surfaceCategory: any = [];
   houseArea: any = []
+  level: any = [1,2]
 
 
   constructor( 
@@ -58,6 +59,9 @@ export class HouseSurfaceTypesComponent implements OnInit {
           Validators.required, 
       ]),
       
+      level: new FormControl('', [ 
+          Validators.required, 
+      ]),
       
       value: new FormControl('', [ 
         Validators.required, 
@@ -84,10 +88,10 @@ export class HouseSurfaceTypesComponent implements OnInit {
         autoWidth: false, 
         ajax: this.boq.getHouseSurfaceTypeDT(), 
         columns: [ 
-          { data: 'house_surfaces_type_id' },{ data: 'surface_type' },{ data: 'house_surfaces_type' }, {data: 'value'}
+          { data: 'house_surfaces_type_id' }, { data: 'level' },{ data: 'surface_type' },{ data: 'house_surfaces_type' }, {data: 'value'}
         ],
         columnDefs: [{
-        targets: 4,
+        targets: 5,
         data: function( row ){   
 
           return '<a class="edit-boq-st-data" data-id="'+row.house_surfaces_type_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
@@ -298,6 +302,7 @@ export class HouseSurfaceTypesComponent implements OnInit {
       
           this.formGroup.setValue({ 
             house_surfaces_type: this.houseArea.house_surfaces_type,
+            level: this.houseArea.level,
             surface_type_id: this.houseArea.surface_type_id,
             value: this.houseArea.value  
           }); 

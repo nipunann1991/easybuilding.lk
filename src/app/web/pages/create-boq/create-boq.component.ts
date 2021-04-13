@@ -114,34 +114,53 @@ export class CreateBoqComponent implements OnInit {
           this.tableHeaderCols = [...this.tableHeaderCols, ...this.surfacesCol, 'Total']
           console.log( this.tableHeaderCols );
 
-          response.data.forEach( (value, index) => {   
-            console.log(value);
+          let surfaceData =  response.data;
 
-            if(surface_type == "" || ( surface_type != value.surface_type)){
+          let surfaceTypeList = surfaceData.reduce(function (r, a) {
+              r[a.surface_type] = r[a.surface_type] || [];
+              r[a.surface_type].push({id: [a.value, a.house_surfaces_type], text: a.house_surfaces_type });
+              return r;
+          }, Object.create(null));
 
-              surface_type = value.surface_type; 
+          
+          let surfaceType =  surfaceData.map(item => item.surface_type).filter((value, index, self) => self.indexOf(value) === index)
+    
+          surfaceType.forEach( (value, index) => {   
+            console.log(surfaceTypeList[value]); 
+            this.surfaces.push({ 
+              surface_type: value,
+              children: surfaceTypeList[value]   
+            });
+          });
 
-              this.surfaces.push({ 
-                surface_type: value.surface_type, 
-                children: [{id: [value.value, value.house_surfaces_type], text: value.house_surfaces_type }]  
-              });
+          // response.data.forEach( (value, index) => {   
+ 
+          //   if(index == 0 || surface_type != value.surface_type_id){  
+          //     surface_type = value.surface_type_id; 
 
-              this.formGroup.addControl(this.surfaces[count].surface_type , new FormControl('', Validators.required));
+          //     this.surfaces.push({ 
+          //       surface_type: value.surface_type, 
+          //       children: [{id: [value.value, value.house_surfaces_type], text: value.house_surfaces_type }]  
+          //     });
 
-              if( surface_type != value.surface_type){
-                count++; 
-              }
+          //     this.formGroup.addControl(this.surfaces[count].surface_type, new FormControl('', Validators.required));
 
-            }else if( surface_type == value.surface_type){
-              this.surfaces[count].children.push({id: [value.value, value.house_surfaces_type], text: value.house_surfaces_type })
+          //     if( surface_type != value.surface_type_id){
+          //       count++; 
+          //     }
+
+          //   }else if( surface_type == value.surface_type_id){ 
+          //     this.surfaces[count].children.push({id: [value.value, value.house_surfaces_type], text: value.house_surfaces_type })
             
-            }else{
+          //   }else{
  
 
-            }
+          //   }
              
             
-          });
+          // });
+
+          console.log(this.surfaces)
 
 
           
@@ -150,6 +169,9 @@ export class CreateBoqComponent implements OnInit {
         }
            
     }); 
+
+    
+  
 
  }
 

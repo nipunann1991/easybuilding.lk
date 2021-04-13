@@ -25,6 +25,7 @@ export class ProductsComponent implements OnInit {
   isProductsAvailable: boolean = false;
   addNewProjectURL: string = "";
   allUnits: any = this.globals.unitList;
+  isShowHeader: boolean = false;
   
   constructor(
     private router: Router,
@@ -62,8 +63,16 @@ export class ProductsComponent implements OnInit {
         this.addNewProjectURL = "/admin/users/user/"+this.route.snapshot.params.user+"/"+this.route.snapshot.params.provider_id+ "/products/upload-product/"+this.companyId; 
       }
 
-      ( typeof this.itemLimit === 'undefined' )?  limit = -1 : limit = this.itemLimit  ; 
-      
+       
+      if( typeof this.itemLimit === 'undefined' ){
+        limit = -1;
+        this.isShowHeader = true;
+      }else{
+        limit = this.itemLimit 
+        this.isShowHeader = false;
+
+      }
+
     });
 
     this.getMinimalProductDetails( this.companyId, limit );
