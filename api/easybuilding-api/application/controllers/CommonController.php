@@ -596,7 +596,9 @@ class CommonController extends CI_Controller {
 
      	$generatedFileName = basename(time().rand()).'.jpg';
 
-	    $target_file = $upload_dir . $generatedFileName;   
+	    $target_file = $upload_dir . $generatedFileName;  
+	    $this->optimizeImg($target_file, $upload_dir.'/'. $generatedFileName, 2000);   
+	     
 
 	    $move_file = move_uploaded_file($_FILES["file"]["tmp_name"], $target_file); 
 
@@ -775,10 +777,10 @@ class CommonController extends CI_Controller {
         $mail->isSMTP();
         $mail->SMTPAuth = true;
         $mail->SMTPSecure = 'ssl';
-        $mail->Host     = 'mail.botransports.com' ; //'mail.botransports.com'
+        $mail->Host     = 'mail.easybuilding.biz' ; //'mail.botransports.com'
         $mail->Port     = 465;
-        $mail->Username = 'info@botransports.com'; // 'info@botransports.com'
-        $mail->Password =  '4y9?E6H{lb_;' ; // '4y9?E6H{lb_;'
+        $mail->Username = 'no-reply@easybuilding.biz'; // 'info@botransports.com'
+        $mail->Password =  '3=Bazh15{4z=' ; // '4y9?E6H{lb_;'
 
         return $mail;
 	} 

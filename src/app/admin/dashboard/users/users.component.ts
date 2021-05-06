@@ -24,9 +24,9 @@ export class UsersComponent implements OnInit {
   profileType: any = -1;
   profileViewOptions:any =[
     {id: 0, label: "All Profiles", checked: true, value: -1},
-    {id: 1, label: "Company Profiles", checked: false, value: 1},
+    {id: 1, label: "Business Profiles", checked: false, value: 1},
     {id: 2, label: "Personal Profiles", checked: false, value: 0},
-    {id: 3, label: "Added by Admin", checked: false, value: 2},
+    {id: 3, label: "Created by Admin", checked: false, value: 2},
   ]
 
   constructor(

@@ -13,9 +13,9 @@
             </span> 
         </div>
         <div class="project-content"> 
-          <div class="top-header">
+          <div class="top-header"> 
             <div class="title">
-              <h1>{{projectData.project_name}}</h1> 
+              <h1>{{projectData.project_name}} <a *ngIf="isEdiatable" title="Edit Project" class="edit" [routerLink]="ediatableURL"><i class="icon-pencil"></i></a>   <span *ngIf="projectData.approved == '0'" class="badge badge-warning">Pending Approval</span></h1> 
             </div>
              
             <ul class="design-info">
@@ -52,7 +52,8 @@
 
         <div class="row gallery-images">
           <div class="image"
-           *ngFor="let item of images ; let i = index" (click)="viewImage(i)" [ngStyle]="{'background-image': 'url('+ item.data.thumb  +')'}" > 
+           *ngFor="let item of images ; let i = index" (click)="viewImage(i)" [ngStyle]="{'background-image': 'url('+ item.thumb  +')'}" > 
+            <span *ngIf="item.approved == '0'" class="badge badge-warning">Pending Approval</span>
           
           </div>
         </div> 

@@ -4,7 +4,7 @@
     padding: 6rem 0;
 
     h2{
-        font-size: 2.8rem;
+        font-size: 2.5rem;
         margin-bottom: 1.5rem; 
     }
 
@@ -15,7 +15,7 @@
 
         h2{
             font-size: 2.3rem;
-            margin-bottom: 0;
+            margin-bottom: 0; 
         }
 
         a.read-more-link{
@@ -27,8 +27,12 @@
 
 .banner-area{
     position: relative;
-    height: 45rem; 
+    height: 48rem; 
     overflow: hidden;
+
+    @include breakpoint($tablet){
+        height: 40rem; 
+    }
 
     .bg{
         position: absolute;
@@ -79,25 +83,83 @@
         }
 
         p{
-            font-size: 2rem;
+            font-size: 1.8rem;
             line-height: 2.4rem;
-            margin-bottom: 5rem;
+            margin-bottom: 3rem;
+            margin-top: 0.5rem;
             color: $white;
         }
 
-        button.get-started{
-            font-family: $normal-font;
-            font-size: 2rem;
-            line-height: 3.4rem;
-            padding: 1rem 6rem !important;
-            font-weight: normal;
-  	        font-style: normal;
+        .banner-button{
+             
+            @include breakpoint($tablet){
+                @include flex();
+                align-items: center;
+            }
+
+
+
+            button{
+                margin-right: 2.5rem;
+                font-size: 1.8rem;
+                line-height: 3.4rem;
+                padding: 0.6rem 3.5rem 0.6rem 6rem !important;
+                background-repeat: no-repeat;
+                background-position: 20px 50%;
+                background-size: 2rem;
+                font-weight: normal;
+                font-style: normal;
+
+                &.products-btn{
+                    background-image: url("/assets/images/product-white.png");
+                }
+
+                &.services-btn{
+                    margin-right: 0;
+                    background-image: url("/assets/images/storage-white.png");
+                }
+
+
+                &.upload-btn{ 
+                    margin-top: 1.5rem;
+                    background: rgba(0, 0, 0, 0.3);
+                    border: 1px solid;
+                    padding: 0.6rem 3rem !important;
+                    width: 36rem;
+                    
+                    i{
+                        position: relative;
+                        left: -8px;
+                        top: -2px;
+                        font-size: 19px;
+                    }
+
+                     
+
+                }
+
+                &:last-child{
+                    margin-right: 0;
+                }
+
+                &.get-started{
+                    font-family: $normal-font;
+                    font-size: 2rem;
+                    line-height: 3.4rem;
+                    padding: 1rem 6rem !important;
+                    font-weight: normal;
+                    font-style: normal;
+                }
+            }
         }
+
+       
         
     }
 }
 
 .services-area{
+    padding-top: 4rem;
 
     h2{
         text-transform: capitalize;
@@ -111,7 +173,7 @@
 
     ul.services-list{
         @include flex(); 
-        margin-top: 6rem;
+        margin-top: 3rem;
 
         li{
             @include flex();
@@ -119,6 +181,8 @@
             width: 100%;
             list-style: none;
             margin-bottom: 2.5rem;
+            cursor: pointer;
+ 
 
             @include breakpoint($tablet){
                margin-bottom: 0;
@@ -137,9 +201,10 @@
                
                 h3{
                     font-size: 1.8rem;
+                    text-transform: capitalize;
                      
                     @include breakpoint($tablet){
-                        margin-bottom: 1rem;
+                        margin-bottom: 0.5rem;
                     }
                 }
 
@@ -161,10 +226,15 @@
             
             .browse-item{
                 padding: 2rem 3.5rem; 
-                height: 26rem;
+                height: 22rem;
                 overflow: hidden;
                 position: relative;
                 cursor: pointer;
+
+
+                @include breakpoint($tablet){
+                    height: 26rem;
+                }
 
                 &.item1{
                     background: #bee3fe;
@@ -179,6 +249,11 @@
                         top: 3rem;
                         right: -28rem;
                         z-index: 1;
+                        opacity: 0.5;
+
+                        @include breakpoint($tablet){
+                            opacity: 1;
+                        }
 
                         img{
                             width: 60%;
@@ -196,6 +271,11 @@
                         top: -2rem;
                         right: 7rem; 
                         z-index: 1;
+                        opacity: 0.5;
+
+                        @include breakpoint($tablet){
+                            opacity: 1;
+                        }
 
                         img{
                             width: 14rem;
@@ -218,13 +298,17 @@
                 .browse-content{ 
                     @include flex-column(); 
                     justify-content: center;
-                    width: 60%;
+                    width: 100%;
                     height: 100%; 
                     z-index: 10;
                     position: relative;
+
+                    @include breakpoint($tablet){
+                        width: 60%;
+                    }
     
                     h3{
-                        font-size: 2.5rem;
+                        font-size: 2.1rem;
                         margin-bottom: 1.5rem;
                     }
                 }  
@@ -292,17 +376,23 @@
                 position: absolute;
                 width: 100%;
                 height: 100%;
-                background-color: rgba(0, 0, 0, 0.15); 
+                background-color: rgba(0, 0, 0, 0.25); 
                 z-index: 2;
             } 
 
             .slider-content{
                 padding: 5rem;
                 padding-bottom: 7rem;
-                width: 70%;
+                width: 100%;
+                height: 90%;
                 color: $white;
                 position: relative;
                 z-index: 3; 
+
+                @include breakpoint($tablet){
+                    width: 70%;
+                    height: auto;
+                }
 
                 h2{
                     color: inherit;

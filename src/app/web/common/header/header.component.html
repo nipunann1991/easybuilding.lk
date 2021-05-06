@@ -1,4 +1,4 @@
-<div class="header-wrapper"> 
+<div class="header-wrapper" [ngClass]="{'sticky': isSticky}"> 
     <div class="container-fluid header-area" [ngClass]="{'login-border': (logoOnly === true), 'in-profile': hideNav }" >
         <div class="container">
             <div class="content-area">
@@ -6,13 +6,13 @@
                     <a routerLink="/"><img src="./assets/images/easybuilding-logo.png" alt="Wasybuilding Logo"></a>
                 </div>
                 <!--  *ngIf="!hideNav" -->
-                <div class="search-box" *ngIf="!logoOnly" (click)="isSearchOpened = true">
+                <div class="search-box" [ngClass]="{'opened': mobileSearchOpen}" *ngIf="!logoOnly" (click)="isSearchOpened = true">
                     <input type="text" class="form-control" [(ngModel)]="searchText" (ngModelChange)="searchTextChangeFn($event)" placeholder="Search Photos, Products & More...">
-                    <div #toggleButton  class="search-item" *ngIf="searchText != '' && isSearchOpened">
+                    <div #toggleButton  class="search-item" *ngIf="searchText != '' && isSearchOpened" >
                         <ul>
-                            <li (click)="searchPhotos()" ><span class="search-bold-text">{{searchText}}</span> in Photos</li>
-                            <li (click)="searchItems('services')" ><span class="search-bold-text">{{searchText}}</span> in Services</li>
-                            <li (click)="searchItems('products')"><span class="search-bold-text">{{searchText}}</span> in Products</li>
+                            <li (click)="searchPhotos(); mobileSearchOpen=false" ><span class="search-bold-text">{{searchText}}</span> in Photos</li>
+                            <li (click)="searchItems('services'); mobileSearchOpen=false" ><span class="search-bold-text">{{searchText}}</span> in Services</li>
+                            <li (click)="searchItems('products'); mobileSearchOpen=false"><span class="search-bold-text">{{searchText}}</span> in Products</li>
                         </ul>
                     </div>
                 </div>
@@ -42,18 +42,22 @@
                     </div> 
                 </div>
 
-                <a  *ngIf="!logoOnly" class="mobile-menu" href="javascript:void(0)">
-                    <img src="/assets/images/menu.svg" alt="">
+                <a *ngIf="!logoOnly" class="search-panel" href="javascript:void(0)" (click)="toggleMobileSearch()">
+                    <img src="/assets/images/search.svg" alt="" > 
                 </a>
-
+                <a  *ngIf="!logoOnly" class="mobile-menu" href="javascript:void(0)" (click)="toggleMobileMenu()">  
+                    <img src="/assets/images/menu.svg" alt="" *ngIf="!mobileMenuOpen"> 
+                    <img src="/assets/images/close.svg" alt="" *ngIf="mobileMenuOpen">  
+                </a>
+ 
             </div>
         </div>
     </div>
-    <div class="container-fluid nav-area" *ngIf="!logoOnly">
+    <div class="container-fluid nav-area" *ngIf="!logoOnly" [ngClass]="{'opened': mobileMenuOpen}"  (click)="mobileMenuOpen=false"> 
         <div class="container">
-            <ul class="nav-item-list">
+            <ul class="nav-item-list" [ngClass]="{'mega-menu-opened': showPhotos || showProducts || showServices}" >
                 <li (mouseover)="showPhotos=true" (mouseout)="showPhotos=false" (click)="showPhotos=false">
-                    <a routerLink="/login"><i class="photo-img"></i>Photos</a> 
+                    <a routerLink="/photos/3"><i class="photo-img"></i>Photos</a> 
                     <div class="mega-menu" [ngClass]="{'active': showPhotos}">
                         <div class="row">
                              <div class="col-md-4" *ngFor="let photo_col of menuItemsPhotos">
@@ -89,7 +93,7 @@
                     </div>
                 </li>
                 <li (mouseover)="showServices=true" (mouseout)="showServices=false" (click)="showServices=false">
-                    <a routerLink="/products/2"><i class="shop-img"></i>Services</a>
+                    <a routerLink="/services/2"><i class="shop-img"></i>Services</a>
                     <div class="mega-menu" [ngClass]="{'active': showServices}">
                         <div class="row">
                              <div class="col-md-4" *ngFor="let serv_col of menuItemsServices">

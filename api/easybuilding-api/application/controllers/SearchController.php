@@ -34,15 +34,23 @@ class SearchController extends CommonController {
 		$sort_by = $this->getSortByFilter($this->input->post('sort_by')); 
 
 		$sort_by_service_area = $this->getSortByFilterServiceArea($this->input->post('sort_by_service_area'), $this->input->post('area'));
+
+		$search = 'sl.cat_lvl2_id="'.$this->input->post('cat_lvl2_id').'"';
+		$distinct = "";
+
+		if($this->input->post('searchString') != ''){
+			$distinct = "DISTINCT";
+			$search = '(cc.display_name LIKE "%'.$this->input->post('searchString').'%" OR CONVERT( cl2.cat_lvl2_name USING latin1) LIKE "%'.$this->input->post('searchString').'%" )';
+		}
 		 
  
 	  	 if($this->input->post('sort_by_service_area') < 3){
 
 	  	 	$search_index = array(
-				'columns' => 'cc.*, c.provider_id',   
-				'table' => '`client_company` cc, `services_list` sl, clients c',
+				'columns' => $distinct.' cc.*, c.provider_id',   
+				'table' => '`client_company` cc, `services_list` sl, clients c, `categories-level2` cl2 ',
 				'eq_table_col' => '1 ORDER BY '.$sort_by.' '.$limit, 
-				'data' => 'cc.company_id=sl.company_id AND c.client_id=cc.client_id AND cc.status=1 AND sl.cat_lvl2_id="'.$this->input->post('cat_lvl2_id').'" AND '.$sort_by_service_area
+				'data' => 'cc.company_id=sl.company_id AND cl2.cat_lvl2_id=sl.cat_lvl2_id  AND c.client_id=cc.client_id AND cc.status=1 AND '. $search.' AND '.$sort_by_service_area 
 			);
 
 	  	 }else{
@@ -50,7 +58,7 @@ class SearchController extends CommonController {
 	  	 	if($this->input->post('sort_by_service_area') == 4){
 
 	  	 		$search_index = array(
-					'columns' => 'd.district_id' ,   
+					'columns' =>  $distinct.' d.district_id' ,   
 					'table' => 'cites c, districts d',
 					'eq_table_col' => '1 order by c.city ASC',
 					'data' => 'c.district_id=d.district_id AND c.city_id="'.$this->input->post('area').'"', 
@@ -61,20 +69,20 @@ class SearchController extends CommonController {
 				$area = $this->selectRawCustomData__($search_index)["data"][0]->district_id;
 
 				$search_index = array(
-					'columns' => 'cc.*, c.provider_id, sd.district_id',   
-					'table' => '`clients` c, `services_list` sl, `client_company` cc LEFT JOIN  '.$sort_by_service_area['table']." ON sd.company_id=cc.company_id AND sd.district_id='".$area."'",
+					'columns' =>  $distinct.' cc.*, c.provider_id, sd.district_id',   
+					'table' => '`clients` c, `services_list` sl, `categories-level2` cl2, `client_company` cc LEFT JOIN  '.$sort_by_service_area['table']." ON sd.company_id=cc.company_id AND sd.district_id='".$area."'",
 
 					'eq_table_col' => '1 ORDER BY '.$sort_by.' '.$limit, 
-					'data' => 'cc.company_id=sl.company_id AND c.client_id=cc.client_id AND cc.status=1 AND sl.cat_lvl2_id="'.$this->input->post('cat_lvl2_id').'" AND ( sd.district_id='. $area .' OR cc.all_island = 1 )'
+					'data' => 'cc.company_id=sl.company_id AND cl2.cat_lvl2_id=sl.cat_lvl2_id AND c.client_id=cc.client_id AND cc.status=1 '. $search.' AND ( sd.district_id='. $area .' OR cc.all_island = 1 )'
 				);
 
 	  	 	}else{
 
 	  	 		$search_index = array(
-					'columns' => 'cc.*, c.provider_id, sd.district_id',   
-					'table' => '`clients` c, `services_list` sl, `client_company` cc LEFT JOIN  '.$sort_by_service_area['table']." ON ".$sort_by_service_area['where'],
+					'columns' => $distinct.' cc.*, c.provider_id, sd.district_id',   
+					'table' => '`clients` c, `services_list` sl, `categories-level2` cl2, `client_company` cc LEFT JOIN  '.$sort_by_service_area['table']." ON ".$sort_by_service_area['where'],
 					'eq_table_col' => '1 ORDER BY '.$sort_by.' '.$limit, 
-					'data' => 'cc.company_id=sl.company_id AND c.client_id=cc.client_id AND cc.status=1 AND sl.cat_lvl2_id="'.$this->input->post('cat_lvl2_id').'" AND ( sd.district_id='.$this->input->post('area').' OR cc.all_island = 1 )'
+					'data' => 'cc.company_id=sl.company_id AND cl2.cat_lvl2_id=sl.cat_lvl2_id AND c.client_id=cc.client_id AND cc.status=1 AND '. $search.' AND ( sd.district_id='.$this->input->post('area').' OR cc.all_island = 1 )'
 				);
 
 	  	 	}
@@ -132,17 +140,30 @@ class SearchController extends CommonController {
 
 		$limit = "LIMIT ".$this->input->post('limit') * ($this->input->post('page_index') - 1) ." , ".$this->input->post('limit') ."";   
 
-		$sort_by = ""; //$this->getSortByFilter($this->input->post('sort_by')); 
-
-		//$sort_by_service_area = ""; $this->getSortByFilterServiceArea($this->input->post('sort_by_service_area'), $this->input->post('area'));
+		$sort_by = ""; 
+		$search_index = "";
 		 
- 
-  	   	$search_index = array(
-			'columns' => 'pi.*, p.project_name, cc.display_name, cc.client_id, cc.company_id, c.provider_id',   
-			'table' => '`project_images` pi, `project` p, client_company cc, clients c, image_category_list icl',
-			'eq_table_col' => '1 '.$limit, 
-			'data' => 'pi.project_id=p.project_id AND p.company_id=cc.company_id AND icl.img_id=pi.img_id AND c.client_id=cc.client_id AND cc.status=1 AND icl.cat_lvl2_id="'.$this->input->post('cat_lvl2_id').'"  ' 
-		);
+
+		if($this->input->post('cat_lvl2_id') == 'search'){
+
+			$search_index = array(
+				'columns' => 'DISTINCT pi.*, p.project_name, cc.display_name, cc.client_id, cc.company_id, c.provider_id, icl.*, cl2.cat_lvl2_name',   
+				'table' => '`project_images` pi, `project` p, client_company cc, clients c, image_category_list icl, `categories-level2` cl2',
+				'eq_table_col' => '1 '.$limit, 
+				'data' => 'pi.project_id=p.project_id AND p.company_id=cc.company_id AND icl.img_id=pi.img_id AND c.client_id=cc.client_id AND cl2.cat_lvl2_id=icl.cat_lvl2_id AND cc.status=1 AND ( p.project_name LIKE "%'.$this->input->post('searchString').'%" OR cl2.cat_lvl2_name LIKE "%'.$this->input->post('searchString').'%")' 
+			);
+		}else{
+
+			$search_index = array(
+				'columns' => 'pi.*, p.project_name, cc.display_name, cc.client_id, cc.company_id, c.provider_id',   
+				'table' => '`project_images` pi, `project` p, client_company cc, clients c, image_category_list icl',
+				'eq_table_col' => '1 '.$limit, 
+				'data' => 'pi.project_id=p.project_id AND p.company_id=cc.company_id AND icl.img_id=pi.img_id AND c.client_id=cc.client_id AND cc.status=1 AND icl.cat_lvl2_id="'.$this->input->post('cat_lvl2_id').'"  ' 
+			);
+
+		}
+ 	
+  	   	
 		 
 
 		$start = $this->input->post('limit') * ($this->input->post('page_index') - 1) + 1;

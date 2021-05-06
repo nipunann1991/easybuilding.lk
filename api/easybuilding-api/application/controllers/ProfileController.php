@@ -296,39 +296,38 @@ class ProfileController extends CommonController {
 
 
 	public function getServics(){    
-
 		 
-			$search_index = array(
-				'columns' => 'cl2.cat_lvl2_name, c.cat_id, c.cat_name' ,   
-				'table' => 'services_list sl, `categories-level2` cl2, `categories-level1` cl1, categories c',
-				'eq_table_col' => 'cl2.cat_lvl2_id = sl.cat_lvl2_id AND cl2.parent_cat_id = cl1.cat_lvl1_id AND cl1.parent_cat_id = c.cat_id ORDER BY c.cat_id ASC ',
-				'data' => 'sl.company_id= "'.$this->input->post('company_id').'"', 
-			);
- 
-			$dataset = $this->selectRawCustomData__($search_index);
- 
-			$services = array();
-			$products = array();
+		$search_index = array(
+			'columns' => 'cl2.cat_lvl2_name, c.cat_id, c.cat_name' ,   
+			'table' => 'services_list sl, `categories-level2` cl2, `categories-level1` cl1, categories c',
+			'eq_table_col' => 'cl2.cat_lvl2_id = sl.cat_lvl2_id AND cl2.parent_cat_id = cl1.cat_lvl1_id AND cl1.parent_cat_id = c.cat_id ORDER BY c.cat_id ASC ',
+			'data' => 'sl.company_id= "'.$this->input->post('company_id').'"', 
+		);
 
-			foreach ($dataset["data"] as $value) { 
+		$dataset = $this->selectRawCustomData__($search_index);
 
-				if ($value->cat_id == "C1015") {
-					array_push($products, $value->cat_lvl2_name);
-				}else if ($value->cat_id == "C1019") {
-					array_push($services, $value->cat_lvl2_name);
-				} 
-				
-			}
+		$services = array();
+		$products = array();
 
-			$data = array( 
-				'status' => 200, 
-				'data' =>  array(
-					'services' => implode(", " , $services), 
-					'products' => implode(", " , $products), 
-				), 
-			);
+		foreach ($dataset["data"] as $value) { 
+
+			if ($value->cat_id == "C1015") {
+				array_push($products, $value->cat_lvl2_name);
+			}else if ($value->cat_id == "C1019") {
+				array_push($services, $value->cat_lvl2_name);
+			} 
 			
-			return $this->returnJSON($data);  
+		}
+
+		$data = array( 
+			'status' => 200, 
+			'data' =>  array(
+				'services' => implode(", " , $services), 
+				'products' => implode(", " , $products), 
+			), 
+		);
+		
+		return $this->returnJSON($data);  
 		
 	}
 
@@ -363,7 +362,9 @@ class ProfileController extends CommonController {
 	}
 	
 
-	public function getProjectDetails(){   
+	public function getProjectDetails(){    
+ 		
+ 		//print_r(sizeof($this->isUserSessionValid()['data']));
 
 		$search_index = array(
 			'columns' => 'p.*, cc.client_id, cc.display_name, cc.total_reviews, cc.profie_image, c.provider_id' ,   
@@ -380,6 +381,22 @@ class ProfileController extends CommonController {
 			'eq_table_col' => 'pc.cat_lvl2_id = cl2.cat_lvl2_id ',
 			'data' => 'pc.project_id= "'.$this->input->post('project_id').'"', 
 		);
+
+		$getProjectImage = array(
+			'columns' => 'img_id, file_name, approved' ,   
+			'table' => 'project_images',
+			'eq_table_col' => '1',
+			'data' => 'project_id= "'.$this->input->post('project_id').'"', 
+		);
+ 
+		$imageList=array();
+
+		foreach ($this->selectRawCustomData__($getProjectImage)["data"] as $value) {  
+			array_push($imageList, $value);
+		}
+
+  
+		$data["data"][0]->images = $imageList; 
 
 		$getProjectCat = $this->selectRawCustomData__($getProjectCat);
 		$project_category = array();
@@ -442,19 +459,23 @@ class ProfileController extends CommonController {
 
 
 	public function getMinimalProjectDetails(){  
-  
-
+  		 
 		$limit = "";
+		$approved = ""; 
+
+		if( $this->input->post('isUserProfile') == 'false'){
+			$approved = " AND approved=1"; 
+  		}
 
 		if ($this->input->post('limit') != -1) {
 			$limit = 'Limit '.$this->input->post('limit').'';
 		}
 
 		$search_index = array(
-			'columns' => 'project_id, project_name, project_year, primary_img, total_imgs' ,   
+			'columns' => 'project_id, project_name, project_year, primary_img, total_imgs, approved' ,   
 			'table' => 'project',
 			'eq_table_col' => '1 order by project_id DESC '.$limit,
-			'data' => 'company_id= "'.$this->input->post('company_id').'"', 
+			'data' => 'company_id= "'.$this->input->post('company_id').'" '.$approved, 
 		);
 
 		return $this->selectCustomData__($search_index);

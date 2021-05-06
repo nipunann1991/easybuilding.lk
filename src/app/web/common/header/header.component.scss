@@ -5,6 +5,21 @@
 .header-wrapper{
     border-bottom: 1px #f2f2f2 solid;
     background: $white; 
+    z-index: 1001;
+
+    &.sticky{
+        position: fixed;
+        top: 0;
+        width: 100%;
+
+        .nav-area{ 
+            overflow: hidden;
+
+            @include breakpoint($tablet){
+                height: 0; 
+            }
+        }
+    }
     //@include box-shadow(0px, 3px, 8px, 1px, rgba(210, 210, 210, 0.4));
     
     &.fixed-header{ 
@@ -19,7 +34,7 @@
     }
 }
 .header-area{
-    padding: 0;
+    padding: 0; 
 
     &.login-border{
         border-bottom: 1px $border-gray solid;
@@ -31,7 +46,7 @@
         } 
     }
 
-    .mobile-menu{
+    .mobile-menu, .search-panel{
         float: left; 
         display: block;
 
@@ -42,6 +57,10 @@
         img{
             width: 3rem !important;
         }
+    }
+
+    .search-panel{
+        margin-right: 1.5rem;
     }
 
     .content-area{
@@ -62,6 +81,21 @@
         margin: 0 4.5rem 0 5.5rem;
         position: relative;
         display: none;
+
+        @include breakpointMax(767px){
+            position: absolute;
+            background: $white;
+            top: 6.7rem;
+            z-index: 100;
+            left: 0;
+            margin: 0;
+            padding: 1.5rem;
+        }
+
+        &.opened{
+            display: block;
+        }
+        
 
         @include breakpoint($tablet){
             display: block;
@@ -86,9 +120,8 @@
         .search-item{
             position: absolute;
             width: 100%;
-            background: $white;
-            
-            z-index: 100;
+            background: $white; 
+            z-index: 1002;
             box-shadow: 0px 3px 8px 1px rgba(196, 206, 217, 0.25);
             border: 1px #eee solid;
 
@@ -302,39 +335,73 @@
 }
 
 .nav-area{
-    display: none;
+    position: fixed;
+    z-index: 100; 
+    background: $white; 
+    width: 23rem; 
+    padding: 0;
+    height: 100%;
+    right: -23rem; 
+    top: 6.7rem;
+    transition: 0.3s all ease; 
 
-    @include breakpoint($tablet){
+    &.opened{
+        @include box-shadow(0px, 3px, 8px, 1px, rgba(210, 210, 210, 0.4));
+        right: 0;
+    }
+
+    @include breakpoint($tablet){  
+        transition: 0s all ease;
+        right: 0;
+        top: 0;
+        position: relative;
         display: block;
+        width: 100%;
     }
 
     ul.nav-item-list{
-        padding-left: 0; 
-        @include flex();  
+        padding-left: 0;  
         position: relative;  
-       
+        overflow: hidden;
 
+        &.mega-menu-opened{
+            overflow: initial;
+        }
+
+
+        @include breakpoint($tablet){
+            @include flex(); 
+        }
+        
         @include breakpoint($small-desktop) { 
             padding: 0 10%;
         }
         
 
         li{
-            width: 100%;
-            text-align: center;
+            width: 100%; 
+            text-align: left;
             list-style: none;
+
+            @include breakpoint($tablet){
+                text-align: center;
+            }
  
 
             a{
                 font-family: $bold-font;
                 font-weight: bold; 
-                font-size: 1.4rem;
-                color: $base-color;
-                padding: 1rem 1.5rem 1.5rem 1.5rem;
+                font-size: 1.4rem; 
+                padding: 1rem 0;
                 letter-spacing: 0.05rem;
                 display: block;
                 text-transform: uppercase;
                 position: relative; 
+                color: $base-color;
+
+                @include breakpoint($tablet){ 
+                    padding: 1rem 1.5rem 1.5rem 1.5rem;
+                }
 
                 i{ 
                     width: 2rem;
@@ -384,6 +451,11 @@
                     position: absolute;
                     right: 0;
                     top: 25%;
+                    display: none;
+
+                    @include breakpoint($tablet){
+                        display: block;
+                    }
                     
                 }
                 
@@ -410,6 +482,11 @@
                 z-index: -1;
                 opacity: 0;
                 transition: 0.4s all ease;
+                display: none;
+
+                @include breakpoint($tablet){
+                    display: block;
+                }
 
                 &.active{ 
                     z-index: 20;
@@ -459,7 +536,8 @@
                             font-weight: normal;
                             font-style: normal;
                             text-transform: capitalize;
-                            letter-spacing: 0rem;
+                            letter-spacing: 0rem; 
+                            
 
                             &::before, &:after{
                                 display: none;

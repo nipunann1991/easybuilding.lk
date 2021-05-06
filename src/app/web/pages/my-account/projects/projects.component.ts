@@ -67,8 +67,10 @@ export class ProjectsComponent implements OnInit {
 
       if(!this.isEditAdmin){
         this.addNewProjectURL = environment.profileUrl.split('/').slice(0, -1).join('/') + "/projects/upload-project/"+this.companyId;  
+       
       }else{ 
         this.addNewProjectURL = "/admin/users/user/"+this.route.snapshot.params.user+"/"+this.route.snapshot.params.provider_id+ "/projects/upload-project/"+this.companyId; 
+        this.isEdit = true;
       }
 
       if( typeof this.itemLimit === 'undefined' ){
@@ -81,16 +83,17 @@ export class ProjectsComponent implements OnInit {
       }
       
     });
+ 
 
-    this.getMinimalProjectDetails( this.companyId, limit );
+    this.getMinimalProjectDetails( this.companyId, limit, this.isEdit);
   
   }
  
  
-  getMinimalProjectDetails(company_id, limit){
+  getMinimalProjectDetails(company_id, limit, isUserProfile){
 
     this.project = [];
-    let params = { company_id: company_id, limit: limit }
+    let params = { company_id: company_id, limit: limit, isUserProfile: isUserProfile }
 
     this.myaccount.getMinimalProjectDetails(params) 
       .subscribe((response: any) => {
@@ -149,7 +152,7 @@ export class ProjectsComponent implements OnInit {
             let limit = 0;
             ( typeof this.itemLimit === 'undefined' )?  limit = -1 : limit = this.itemLimit  ; 
             this.project.splice(index, 1); 
-            this.getMinimalProjectDetails( this.companyId, limit ); 
+            this.getMinimalProjectDetails( this.companyId, limit, true ); 
             
           }else if (response.status == 401){
             this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  

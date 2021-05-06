@@ -383,7 +383,7 @@ class BOQController extends CommonController {
 		$search_index = array(
 			'columns' => 'hst.*, hs.*' , 
 			'table' => 'house_surfaces_type hst, house_surfaces hs',
-			'eq_table_col' => '1',
+			'eq_table_col' => '1 ORDER BY hst.surface_type_id',
 			'data' => 'hst.surface_type_id=hs.surface_type_id', 
 		); 
 

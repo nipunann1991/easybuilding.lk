@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, Inject, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { RouterModule, ActivatedRoute, Routes, Router, NavigationEnd} from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { ImagesService } from '../../../admin/api/images.service';
 import { ToastrService } from 'ngx-toastr';
@@ -41,6 +42,7 @@ export class PhotosComponent implements OnInit {
 
   constructor(
     public gallery: Gallery,
+    private router: Router,
     private imageservice: ImagesService,
     private lightbox: Lightbox,
     public dialog: MatDialog
@@ -49,6 +51,10 @@ export class PhotosComponent implements OnInit {
   ngOnInit(): void { 
  
     const that = this; 
+
+    this.tableOptions();
+
+  
 
     const galleryRef = this.gallery.ref(this.galleryId)
 
@@ -59,75 +65,27 @@ export class PhotosComponent implements OnInit {
       imageSize: 'cover'
     }); 
 
-    
-
-    this.dtOptions = {
-        pagingType: 'full_numbers',
-        pageLength: 10,
-        serverSide: true,
-        processing: true,
-        autoWidth: false, 
-        bStateSave: true,
-        ajax: this.imageservice.getImageDetailsDT(), 
-        columns: [ 
-          { data: 'img_id' },{ data: 'display_name' }, { data: 'project_name' },{ data: 'project_id' } 
-        ],
-        columnDefs: [{
-        targets: 4,
-        data: function( row, index ){      
-
-          let imgURL = environment.uploadPath +row.client_id+"/"+row.company_id+"/projects/"
-          let imgURLThumb = imgURL +"thumb/" 
-
-          return '<a class="view-image" title="Edit" data-id="'+index+'" data-image-photo_category=\`'+row.photo_category+'\` data-image-display_name="'+row.display_name+'"   data-image-project_name="'+row.project_name+'" data-client-id="'+row.client_id+'" data-approved="'+row.approved+'" data-image-id="'+row.img_id+'" data-company-id="'+row.company_id+'"  data-file="'+row.file_name+'" ><img width="90" src="'+ environment.uploadPath +"/"+row.client_id+"/"+row.company_id+"/projects/thumb/" +row.file_name+'" ></i></a> '; 
-        }
-      },{
-        targets: 5,
-        data: function( row ){    
-          
-          if(row.approved == 0){
-            return "<span class='badge badge-warning'>Pending</span>";
-          }else if(row.approved == 1){
-            return "<span class='badge badge-success'>Approved</span>";
-          }
-         
-            
-        },
-    
-      }
-    ],
-      dom: 'lfrtip', 
-      buttons: [ 
-        {
-            extend:    'copyHtml5',
-            text:      '<i class="fa fa-files-o"></i> Copy',
-            titleAttr: 'Copy'
-        },
-        {
-            extend:    'excelHtml5',
-            text:      '<i class="fa fa-file-excel-o"></i> Excel',
-            titleAttr: 'Export to Excel'
-        },
-        {
-            extend:    'csvHtml5',
-            text:      '<i class="fa fa-file-text-o"></i> CSV',
-            titleAttr: 'Export to CSV'
-        },
-        {
-            extend:    'pdfHtml5',
-            text:      '<i class="fa fa-file-pdf-o"></i> PDF',
-            titleAttr: 'Export to PDF'
-        }
-      ],
-
-    };
-
-
+     
     const component = this; 
-    let count = 0
+    let count = 0 
+    
 
-    $('html').unbind("click").on('click', 'a.view-image' , function(e){ 
-      e.preventDefault();  
+    
+ 
+    $('html').on('click', '.view-client-data' , function(e){ 
+      e.preventDefault();   
+      component.viewClent($(this).attr('data-id'), $(this).attr('data-provider-id'));    
+      return false;
+    });
+
+    $('html').on('click', '.view-project-data' , function(e){ 
+      e.preventDefault();   
+      component.viewProject($(this).attr('data-id'), $(this).attr('data-provider-id'), $(this).attr('data-company-id'), $(this).attr('data-project-id'));    
+      return false;
+    });
+
+    $('html').on('click', 'a.view-image' , function(e1){ 
+      e1.preventDefault();  
 
       count++
 
@@ -139,6 +97,7 @@ export class PhotosComponent implements OnInit {
       let photo_category = [];
       let fileName = $(this).attr('data-file');
       let project_name = $(this).attr('data-image-project_name');
+      let project_id = $(this).attr('data-project-id');
       let display_name = $(this).attr('data-image-display_name');
       let approved = $(this).attr('data-approved');
       
@@ -154,28 +113,124 @@ export class PhotosComponent implements OnInit {
       let imgData = {
         src: imgURL+fileName,
         thumb: imgURLThumb+fileName,
-        img_details: { display_name: display_name, project_name: project_name, img_id: img_id, approved: approved }
+        img_details: { display_name: display_name, project_name: project_name, project_id: project_id, img_id: img_id, approved: approved }
       }    
       
       component.openDialog(imgData) 
+ 
       
     });
  
   }
 
-  
+  tableOptions(){ 
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      autoWidth: false, 
+      bStateSave: true,
+      ajax: this.imageservice.getImageDetailsDT(), 
+      columns: [ 
+        { data: 'img_id' }
+      ],
+      
+      columnDefs: [
+        {
+          targets: 1,
+          data: function( row ){    
+            return  '<a class="view-client-data" data-id="' + row.client_id + '" data-provider-id="' + row.provider_id + '/about" title="View">' +   row.display_name  + '</a> ';
+          }
+        },
+        {
+          targets: 2,
+          data: function( row ){     
  
+            return  '<a class="view-project-data" data-id="' + row.client_id + '" data-company-id="' + row.company_id + '" data-project-id="' + row.project_id + '" data-provider-id="' + row.provider_id + '" title="View">' +   row.project_name   + '</a> ';
+ 
+          }
+      
+        },{
+          targets: 3,
+          data: function( row ){    
+            return row.project_id
+          },
+      
+        },{
+        targets: 4,
+        data: function( row, index ){      
+
+          let imgURL = environment.uploadPath +row.client_id+"/"+row.company_id+"/projects/"
+          let imgURLThumb = imgURL +"thumb/"
+          
+          console.log(row)
+
+          return '<a class="view-image" title="Edit" data-id="'+index+'" data-image-photo_category=\`'+row.photo_category+'\` data-image-display_name="'+row.display_name+'" data-project-id="'+row.project_id+'"  data-image-project_name="'+row.project_name+'" data-client-id="'+row.client_id+'" data-approved="'+row.approved+'" data-image-id="'+row.img_id+'" data-company-id="'+row.company_id+'"  data-file="'+row.file_name+'" ><img width="90" src="'+ environment.uploadPath +"/"+row.client_id+"/"+row.company_id+"/projects/thumb/" +row.file_name+'" ></i></a> '; 
+        }
+      },{
+        targets: 5,
+        data: function( row ){    
+          
+          if(row.approved == 0){
+            return "<span class='badge badge-warning'>Pending</span>";
+          }else if(row.approved == 1){
+            return "<span class='badge badge-success'>Approved</span>";
+          }
+        
+            
+        },
+    
+      }
+  ],
+    dom: 'lfrtip', 
+    buttons: [ 
+      {
+          extend:    'copyHtml5',
+          text:      '<i class="fa fa-files-o"></i> Copy',
+          titleAttr: 'Copy'
+      },
+      {
+          extend:    'excelHtml5',
+          text:      '<i class="fa fa-file-excel-o"></i> Excel',
+          titleAttr: 'Export to Excel'
+      },
+      {
+          extend:    'csvHtml5',
+          text:      '<i class="fa fa-file-text-o"></i> CSV',
+          titleAttr: 'Export to CSV'
+      },
+      {
+          extend:    'pdfHtml5',
+          text:      '<i class="fa fa-file-pdf-o"></i> PDF',
+          titleAttr: 'Export to PDF'
+      }
+    ],
+
+  };
+
+ 
+     
+  }
+  
+  viewClent(id, provider_id){
+    this.router.navigate(['admin/users/user/'+id+'/'+provider_id]); 
+  }
+
+  viewProject(id, provider_id, company_id, project_id){ 
+    this.router.navigate(['admin/users/user/'+id+'/'+provider_id+'/projects/view-project/'+ company_id +'/'+project_id]); 
+  }
+
 
   ngAfterViewInit(): void {
-    this.dtTrigger.next(); 
+    this.dtTrigger.next();   
   }
 
  
-
   openDialog(imgData): void {
     const dialogRef = this.dialog.open(imageModalDialog, {
       width: '90%',
-      data: {name: imgData.src, img_details: imgData.img_details  }
+      data: {name: imgData.src, img_details: imgData.img_details }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -191,12 +246,14 @@ export class PhotosComponent implements OnInit {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {  
       dtInstance.destroy();  
     });
+
+    $('html').off('click');
   }
 
   rerender(){ 
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => { 
         dtInstance.destroy(); 
-        this.dtTrigger.next();
+        this.dtTrigger.next(); 
       });
   }
 
@@ -204,6 +261,9 @@ export class PhotosComponent implements OnInit {
     console.log(this.images)
     this.lightbox.open(index);
   }
+
+ 
+
 
 }
 
@@ -313,6 +373,7 @@ export class imageModalDialog {
     if (!this.formGroup.invalid) {
 
       this.formGroup.value.img_id = this.imgDetails.img_id; 
+      this.formGroup.value.project_id = this.imgDetails.project_id; 
       this.formGroup.value.photo_category = JSON.stringify(this.formGroup.value.photo_category);  
       
       (this.isApproved)? this.formGroup.value.approved = 1 : this.formGroup.value.approved = 0 ;

@@ -1,6 +1,6 @@
 <div class="products-item-wrapper">
   <div class="total-projects" *ngIf="isShowHeader">
-    <h2>Projects ({{product.length}})</h2>
+    <h2>Products/ Services ({{product.length}})</h2>
     <button *ngIf="isEdit || isEditAdmin" mat-button class="btn btn-transparent btn-review" [routerLink]="addNewProjectURL">Add New Products/ Services</button>
   </div> 
   <div *ngFor="let p of product; let i = index;" class="product-block" > 

@@ -83,13 +83,13 @@ export class NavComponent implements OnInit {
 
 			},
 			
-			{
-				title: 'Certification',
-				icon: 'icon-certificate',
-				link: '/admin/certification',
-				permission: 0,
+			// {
+			// 	title: 'Certification',
+			// 	icon: 'icon-certificate',
+			// 	link: '/admin/certification',
+			// 	permission: 0,
 
-			}, 
+			// }, 
 			
 			{
 				title: 'Settings',

@@ -1,0 +1,37 @@
+<div class="policy-wrapper container-fluid  animated fadeIn">
+    <div class="container policy-wrapper-inner">
+         
+        <div class="page-top"> 
+            <div class="right-header">
+                <p>Home / Privacy Policy </p>
+                <h1>EasyBuilding.lk Privacy Policy</h1>   
+            </div> 
+        </div>
+        <div class="policy-content-area">
+            <p>The contents of this webpage, hereinafter referred to as the Terms and Conditions document, articulates the Terms and Conditions to which any user of EasyBuilding.lk, the online portal of EasyBuilding (Pvt)., and Kiosks, Showrooms and other physical facilities that bear the brand name EasyBuilding.lk should agree to be subjected to and thus would be subjected to.</p><br/>
+            <p>Please read the below contents carefully before you access, browse, search, use, , interact with or interacting with EasyBuilding.lk or use any EasyBuilding.lk facilities, including but not limited to EasyBuilding.lk online portal accessible through the URL: www. EasyBuilding.lk. By accessing the services provided by EasyBuilding.lk you agree to the collection and use of your account information and other related information, by EasyBuilding.lk and/or its affiliates and other such similar entities in the manner provided in this Terms and Conditions document.</p>
+            <br/> 
+            
+            <div id="accordion" class="policy-accordion">
+                <div class="card" *ngFor="let pp of privacyPolicyContent; let i = index">
+                  <div class="card-header" id="heading{{pp.id}}">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapse' + pp.id"  [attr.aria-expanded]="i == 0"  aria-controls="collapse{{pp.id}}">
+                        {{pp.id}}. {{pp.title}}
+                      </button>
+                    </h5>
+                  </div>
+              
+                  <div id="collapse{{pp.id}}" class="collapse" aria-labelledby="heading{{pp.id}}" data-parent="#accordion">
+                    <div class="card-body">
+                        <p [innerHTML]="pp.description"></p>
+                    </div>
+                  </div>
+                </div>
+              
+              </div>
+        
+        </div>
+       
+    </div>
+</div>

@@ -1310,3 +1310,7 @@ button.dt-button{
     right: 0px;
 	background-image: url("/assets/images/next.png") !important;
 }
+
+.cdk-overlay-container{
+	z-index: 10003;
+}

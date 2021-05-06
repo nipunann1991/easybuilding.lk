@@ -26,10 +26,14 @@ export class ViewProjectComponent implements OnInit {
   profileURL: string = "";
   openImageIndex: number = 0;
   galleryId = 'myLightbox';
+  isEdiatable:boolean = false;
+  isImageEditalbe :boolean = false;
+  ediatableURL = "";
   galleryRef = this.gallery.ref(this.galleryId)
 
   // gallery images
-  images: GalleryItem[] = [ ];
+  imagesGallery: GalleryItem[] = [ ];
+  images = [ ];
 
   constructor(
     private route: ActivatedRoute,
@@ -42,6 +46,8 @@ export class ViewProjectComponent implements OnInit {
     
   ) { 
     this.profile.setfullScreenView(true);
+    
+    
   }
 
   ngOnInit(): void {
@@ -49,7 +55,7 @@ export class ViewProjectComponent implements OnInit {
     this.companyID = this.route.snapshot.params.company_id;
     this.projectID = this.route.snapshot.params.project_id; 
     this.getProjectDetails(this.companyID, this.projectID);
-    this.setImageConfig();  
+    this.setImageConfig();    
      
   }
 
@@ -77,32 +83,45 @@ export class ViewProjectComponent implements OnInit {
           this.clientId =  this.projectData.client_id;
           this.imageURL = environment.uploadPath + this.clientId +'/'+ this.companyID +'/projects/';
           this.imageURLThumb = environment.uploadPath + this.clientId +'/'+ this.companyID +'/projects/thumb/';
-          this.projectImages = JSON.parse(this.projectData.images);
+          this.projectImages = this.projectData.images;
           
           this.projectData.architect =  (this.projectData.architect == "")? "N/A" : this.projectData.architect ;
           this.projectData.contractor =  (this.projectData.contractor == "")? "N/A" : this.projectData.contractor ;
           this.projectData.structural_engineer =  (this.projectData.structural_engineer == "")? "N/A" : this.projectData.structural_engineer ;
           this.projectData.project_year =  (this.projectData.project_year == "")? "N/A" : this.projectData.project_year ;
           this.projectData.project_cost =  (this.projectData.project_cost == "")? "N/A" : this.projectData.project_cost ;
-
-          this.projectImages.forEach(element => { 
-            this.images.push(new ImageItem({ src: this.imageURL+element, thumb: this.imageURLThumb+element }));
-          });
-
-
-          this.galleryRef.load(this.images);
-  
-          this.mainImg = this.imageURL + this.projectData.primary_img;
-          this.profileImg = environment.uploadPath + this.clientId +'/'+ this.companyID +'/'+ this.projectData.profie_image;
-         
+ 
 
           if( parseInt(this.projectData.client_id)  ==  parseInt(this.globals.token.session_id)){
             this.profileURL = "/my-account/user/me/about";
+            this.isEdiatable = true;
+            this.ediatableURL = this.profileURL + "/edit-project/" + this.companyID + "/" +  this.projectID
           }else{
             this.profileURL = "/user/"+this.projectData.client_id+"/"+this.projectData.provider_id+"/about"; 
+            this.isEdiatable = false;
           }
 
+          let approvedImagesOnly = [];
+          let primaryImage = this.projectData.primary_img;
+ 
+
+          if(!this.router.url.includes('/user/me/')){
+            approvedImagesOnly = this.projectImages.filter(x => x.approved == 1);
+            primaryImage = approvedImagesOnly[0]?.file_name;
+
+          }else{
+            approvedImagesOnly = this.projectImages; 
+          }
+          
            
+          approvedImagesOnly.forEach(element => {  
+            this.imagesGallery.push(new ImageItem({  src: this.imageURL+element.file_name, thumb: this.imageURLThumb+element.file_name }));
+            this.images.push({ src: this.imageURL+element.file_name, thumb: this.imageURLThumb+element.file_name, approved: element.approved });
+          });
+          
+          this.galleryRef.load(this.imagesGallery); 
+          this.mainImg = this.imageURL + primaryImage;
+          this.profileImg = environment.uploadPath + this.clientId +'/'+ this.companyID +'/'+ this.projectData.profie_image;
 
         }else{
           
@@ -113,8 +132,8 @@ export class ViewProjectComponent implements OnInit {
   }
 
   viewImage(i){
-    this.mainImg = this.imageURL + this.projectImages[i]; 
-    this.openImageIndex = i;
+    this.mainImg = this.imageURL + this.projectImages[i].file_name; 
+    this.openImageIndex = i; 
   }
 
   goBack(){ 

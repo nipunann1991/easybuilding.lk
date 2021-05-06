@@ -34,6 +34,7 @@ export class ProductsComponent implements OnInit {
   categoriesList: any = [];
   totalLinks: number = 0;
   isFullPageSearch: boolean = false;
+  isFilterOpen: boolean = false;
   queryParams: any;
   searchParam: string = "";
   paginations: Array<number> = [];
@@ -116,8 +117,7 @@ export class ProductsComponent implements OnInit {
       closeOnSelect: true, 
       tags: true 
     };
- 
-    
+  
     this.getGridView();
     this.getDistricts();
     this.getCities();
@@ -152,6 +152,18 @@ export class ProductsComponent implements OnInit {
       } 
 
       this.getServicesMenuItems()
+ 
+
+    }else if(params.cat_lvl2_id == 3){
+      this.isFullPageSearch = true;
+
+      this.pageData = {
+        parentCategory: "Search",
+        categoryLevel1: "Photos",
+        categoryLevel2: "Photos"
+      } 
+
+      this.getPhotosMenuItems()
  
 
     }else if(params.cat_lvl2_id == 'search'){
@@ -255,9 +267,18 @@ export class ProductsComponent implements OnInit {
     this.homePage.getServicesMenuItems() 
     .subscribe((response: any) => {
 
-      this.categoriesList = this.setMenuItems(response, false);  
- 
+      this.categoriesList = this.setMenuItems(response, false, "services");   
 
+    }); 
+  }
+
+
+  getPhotosMenuItems(){
+    this.homePage.getPhotosMenuItems() 
+    .subscribe((response: any) => {
+
+      this.categoriesList = this.setMenuItems(response, false, "image-search");   
+      
     }); 
   }
 
@@ -488,6 +509,10 @@ export class ProductsComponent implements OnInit {
     let queryParams =  {...this.activatedRoute.snapshot.queryParams};
     queryParams['index'] = pageID;
     this.router.navigate(['/products/'+this.activatedRoute.snapshot.params.id], { queryParams: queryParams });
+  }
+
+  toggleFilterArea(){
+    this.isFilterOpen = !this.isFilterOpen;
   }
 
   addSlide() {

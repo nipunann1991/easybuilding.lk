@@ -109,6 +109,14 @@
     width: 100%;
     background-color: $light-gray;
     background-size: cover;
+    position: relative;
+
+    .badge{
+      color: $white;
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+    }
 
     @include breakpoint($tablet){
       height: 20rem;

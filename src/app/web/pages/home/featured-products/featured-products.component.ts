@@ -49,11 +49,8 @@ export class FeaturedProductsComponent implements OnInit {
             this.featuredProdList.push(featuredProducts);
   
            
-          });
-
-          console.log(this.featuredProdList)
+          }); 
  
-         // this.featuredProductsCategories = response.data;
 
         }else{
             

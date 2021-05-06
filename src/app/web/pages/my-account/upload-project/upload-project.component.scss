@@ -63,9 +63,13 @@
   ngx-file-drop{ 
 
     .ngx-file-drop__drop-zone{
-      margin-top: 3rem;
-      height: 70% !important;
-      border-radius: 1rem;
+      margin-top: 3rem; 
+      border-radius: 1rem; 
+      height: 25rem !important;
+            
+      @include breakpoint($tablet){
+        height: 70% !important;
+      }
 
       &.ngx-file-drop__drop-zone--over{
         background: $light-gray;

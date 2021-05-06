@@ -150,11 +150,7 @@ export class PageSettingsComponent implements OnInit {
     if (!this.validateFileExtention(file.name)) {
           this.toastr.error('Invalid image extention. Please upload an image only with jpg, jpeg or png extentions.', 'Upload Error !');   
       isValid = false;
-    }else if(file.size > 1024000){
-          this.toastr.error('Fle size too large. Please upload an image less than 1MB.', 'Upload Error !');    
-      isValid = false;
-  
-    }
+    } 
   
     return isValid;
   

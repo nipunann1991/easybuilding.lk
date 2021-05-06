@@ -34,7 +34,9 @@ export class HeaderComponent implements OnInit {
   hideNav: boolean = false;
   searchText: string = "";
   isSearchOpened: boolean = false;
-  
+  mobileMenuOpen: boolean = false;
+  mobileSearchOpen: boolean = false;
+  isSticky: boolean = false;
   queryParamsImg = { 
     results: '12', 
     index: '1', 
@@ -94,15 +96,10 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  // @HostListener('document:click', ['$event'])
-  // clickout(event) {
-  //   if(event.target !== this.toggleButton.nativeElement) {
-  //    console.log("inside")
-  //   } else {
-  //    console.log("outside")
-      
-  //   }
-  // }
+  @HostListener('window:scroll', ['$event'])
+  checkScroll() {
+    this.isSticky = window.pageYOffset >= 50;
+  }
 
 
   hideNavigation(url = window.location.href){
@@ -129,7 +126,7 @@ export class HeaderComponent implements OnInit {
     this.homePage.getServicesMenuItems() 
     .subscribe((response: any) => {
 
-      let menuArray = this.setMenuItems(response, false);  
+      let menuArray = this.setMenuItems(response, false, 'services');  
 
       this.menuItemsServices = this.generateMegaMenu(menuArray);
 
@@ -308,6 +305,19 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/image-search/search'], { queryParams: queryParams });
  
   }
+
+
+  toggleMobileMenu(){
+    this.mobileSearchOpen = false;
+    this.mobileMenuOpen = !this.mobileMenuOpen
+  }
+
+  toggleMobileSearch(){
+    this.mobileMenuOpen = false;
+    this.mobileSearchOpen = !this.mobileSearchOpen
+  }
+
+  
   
 
 }

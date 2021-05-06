@@ -1,10 +1,16 @@
 @import '../../../../../styles';
 
 .fetured-area{
-    padding-top: 4rem; 
+    padding-top: 0rem; 
+
+    .fetured-inner{  
+        @include breakpointMax(767px){ 
+            padding: 0;
+        }
+    }
 
     h2{
-        font-size: 2.8rem;
+        font-size: 2.5rem;
         margin-bottom: 1.5rem; 
     }
 
@@ -16,6 +22,12 @@
         h2{
             font-size: 2.3rem;
             margin-bottom: 0;
+
+            @include breakpointMax(767px){
+                display: block;
+                text-align: center;
+                width: 100%;
+            }
         }
 
         a.read-more-link{
@@ -27,6 +39,7 @@
 
     .featured-list{
         margin-top: 5rem;
+        margin-bottom: 2rem;
 
         .featured-item-wrapper{
 
@@ -39,6 +52,12 @@
                 overflow: hidden;
                 position: relative;
                 transition: 0.5s all ease;
+
+                @include breakpointMax(767px){
+                    width: 75%;
+                    margin-left: auto;
+                    margin-right: auto
+                }
                 
                 &:focus{
                     outline: 0;

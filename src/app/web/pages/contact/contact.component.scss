@@ -10,13 +10,31 @@
     border-bottom: 1px $light-gray solid;
 
     ul.contact-details{
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-around;;
+        display: block;
+
+        @include breakpoint($tablet){ 
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-around;;
+        }
 
         li{
             text-align: center;
             font-size: 1.4rem;
+            margin-bottom: 2rem;
+
+            @include breakpoint($tablet){ 
+                margin-bottom: 0;
+            }
+            
+            img{
+                width: 6rem;
+
+                @include breakpoint($tablet){ 
+                    width: auto;
+                }
+            }
+
             h3{
                 margin-top: 2rem;
                 font-size: 1.6rem;
@@ -33,8 +51,12 @@
     padding: 5rem 0 8rem 0;
 
     .contact-form{
-        width: 75%;
+        width: 100%;
         margin: auto;
+
+        @include breakpoint($tablet){ 
+            width: 75%;
+        }
     }
 
     h2{

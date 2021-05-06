@@ -4,45 +4,52 @@
         <div class="container banner-inner"> 
             <h1>One click to building construction world</h1>
             <p>We are a leading online House and Building construction marketplace<br class="sm-hidden"/> connecting with quality and reliable construction companies and individuals.</p>
-            <!-- <button mat-button class="btn btn-primary get-started">Get Started</button> -->
+            
+            <div class="banner-button">
+                <button mat-button class="btn btn-primary products-btn" routerLink="/products/1">Products</button>
+                <button mat-button class="btn btn-primary services-btn" routerLink="/services/2">Services</button>  
+            </div>
+            <div class="banner-button">
+                <button mat-button class="btn btn-primary upload-btn" routerLink="/login"><i class="icon-upload"></i> Upload Product/Service</button>
+            </div>
+            
         </div>
     </div>
     <div class="container-fluid section services-area">
         <div class="container">
-            <h2 class="text-center">Services we provide for you</h2>
-            <p class="text-center">We provide a reliable and trustworthy 24*7 service of reputed contractors and material <br class="sm-hidden"/> suppliers as listed in our website with easy guiding tools and accessories.</p>
+            <app-ideas-category></app-ideas-category> 
             
             <ul class="services-list row">
-                <li class="col-md-4">
+                <li class="col-md-4" routerLink="/photos/3">
                     <img src="./assets/images/design.png" alt="">
                     <div class="service-desc">
-                        <h3>Discover design ideas</h3>
+                        <h3>Design ideas</h3>
                         <p>Browse more than 20 million photos and filter based on your taste.</p>
                     </div> 
                 </li>
-                <li class="col-md-4">
-                    <img src="./assets/images/professional.png" alt="">
+                <li class="col-md-4" routerLink="/services/2">
+                    <img src="./assets/images/architect.png" alt="">
                     <div class="service-desc">
-                    <h3>Find home professionals</h3>
+                    <h3>Contractors</h3>
                     <p>Connect with local professionals who can help with your project.</p>
                     </div>
                 </li>
-                <li class="col-md-4">
-                    <img src="./assets/images/architect.png" alt="">
+                <li class="col-md-4" routerLink="/products/1">
+                    <img src="./assets/images/professional.png" alt=""> 
                     <div class="service-desc">
-                    <h3>Shop for your home</h3>
+                    <h3>Products</h3>
                     <p>Decorate and design with products from our curated collection.</p>
                     </div>
                 </li>
             </ul>
-            <app-ideas-category></app-ideas-category> 
+            
             <div class="browse-items-list row">  
                 <div class="col-md-6 browse-wrapper anim-left">
-                    <div class="browse-item item1">
-                        <div class="browse-content ">
+                    <div class="browse-item item1"  routerLink="/photos/3">
+                        <div class="browse-content">
                             <div class="browse-content-inner">
-                                <h3>Browse Photos</h3>
-                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore.</p>
+                                <h3>Find House Designs</h3>
+                                <p>Pictures of the best house and building construction, interior designs, landscaping and all associated construction images.</p>
                                 <a href="javascript:void(0)" class="read-more-link">View more</a>
                             </div> 
                         </div>
@@ -55,8 +62,8 @@
                     <div class="browse-item item2" routerLink="/products/1">
                         <div class="browse-content">
                             <div class="browse-content-inner"> 
-                                <h3>Browse Products</h3>
-                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore.</p>
+                                <h3>Find Products</h3>
+                                <p>Pictures of the best products for home and building construction, Electrical installation, Air condition and machinery usage.</p>
                                 <a routerLink="/products/1" class="read-more-link">View more</a>
                             </div>
                         </div> 
@@ -70,7 +77,8 @@
     </div>
     <app-featured-professionals></app-featured-professionals> 
 
-    <div class="container-fluid fetured-banner-area">
+    <div class="container-fluid fetured-banner-area" *ngIf="adSlides.length > 0">
+      
         <div class="container fetured-inner">
 
             <ul class="banner-list"> 

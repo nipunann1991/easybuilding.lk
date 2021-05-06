@@ -1,8 +1,8 @@
  
 <div class="products-wrapper container-fluid  animated fadeIn">
     <div class="container products-wrapper-inner">
-        <div class="left-nav-sort" *ngIf="!isFullPageSearch">
-            <h2>Filters</h2>
+        <div class="left-nav-sort" [ngClass]="{'opened': isFilterOpen}" *ngIf="!isFullPageSearch">
+            <h2>Filters <i class="icon-close close-filter" (click)="toggleFilterArea()"></i></h2>
             <div class="filter-item">
                 <label for="" class="lbl-title">Sort By:</label>
                 <div class="form-check" *ngFor="let sb of sortByFilter; let i = index;">
@@ -29,7 +29,7 @@
         </div>  
         <div class="right-content-search" [ngClass]="{'no-results': (pageData.start == 0 && !isFullPageSearch) , 'full-page-search': isFullPageSearch }">  
             <div class="page-top" *ngIf="!isFullPageSearch"> 
-                <div class="right-header">
+                <div class="right-header"> 
                     <p>{{ pageData.parentCategory }} / {{ pageData.categoryLevel1 }} </p>
                     <h1>{{ pageData.categoryLevel2 }}</h1>  
                 </div>
@@ -40,7 +40,11 @@
             </div>
             <div class="row mid-row" *ngIf="!isFullPageSearch">
                 <div class="col-md-12">
-                    <p *ngIf="pageData.start > 0">Showing {{ pageData.start }} – {{ pageData.end }} results from {{ pageData.total_results }} profiles</p>
+                    <p *ngIf="pageData.start > 0">
+                        <span class="filter-mobile" (click)="toggleFilterArea()">
+                            <i class="icon-filter"></i> Filter
+                        </span> 
+                        Showing {{ pageData.start }} – {{ pageData.end }} results from {{ pageData.total_results }} profiles</p>
                 </div>
             </div> 
             <div class="row search-results" *ngIf="!isFullPageSearch">  
@@ -86,13 +90,7 @@
                                     <span class="badge badge-secondary">{{sv}}</span>
                                 </ng-container> 
                             </div> 
-
-                            <!-- <div>  
-                                <div class="summery-area">
-                                    <span class="badge badge-secondary">S</span>
-                                    <span class="badge badge-secondary">P</span>
-                                </div>
-                            </div> -->
+ 
                         </div>
                         <div class="clearfix"></div>
                     </div>
