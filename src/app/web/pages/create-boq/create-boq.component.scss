@@ -46,7 +46,7 @@
 
 
                 .select-area{
-                    width: 20rem;
+                    width: 15rem;
                 }
 
                 select{
@@ -81,7 +81,7 @@
 
                         .house-area-input{ 
                             @include flex;  
-                            padding-right: 5rem;
+                            padding-right: 4rem;
                             position: relative;
         
                             &:before{
@@ -114,7 +114,7 @@
 
                             @include breakpoint($tablet){
                                 padding: 0 2.5rem; 
-                                padding-left: 5rem;   
+                                padding-left: 4rem;   
                             }
         
                             .form-group{

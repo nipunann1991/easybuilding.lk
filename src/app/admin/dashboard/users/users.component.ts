@@ -11,7 +11,7 @@ declare const bootbox:any;
   selector: 'app-clients',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
-  encapsulation: ViewEncapsulation.None
+  //encapsulation: ViewEncapsulation.None
 })
 export class UsersComponent implements OnInit {
 

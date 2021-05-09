@@ -137,9 +137,7 @@ export class PublicProfileComponent implements OnInit {
           this.profileData.profile_editable = false;
           this.profileData.admin_profile = admin_profile; 
 
-          (this.profileData.admin_profile)? this.editClent(): "";
-
-          console.log(this.profileData);
+          (this.profileData.admin_profile)? this.editClent(): ""; 
 
           this.isPublicProfile = true; 
           this.profile.setProfileData(this.profileData);  

@@ -4,10 +4,14 @@
   background-color: #f2f2f2; 
   padding-bottom: 8rem;
 
-  .steps-header{
-    padding: 5rem 3rem 3rem 3rem; 
+  .steps-header{ 
+    padding: 5rem 0 3rem;
     text-align: center;    
     position: relative;
+
+    @include breakpoint($tablet){
+      padding: 5rem 3rem 3rem 3rem; 
+    }
   
     h2{
       font-size: 2.5rem;
@@ -15,17 +19,26 @@
       z-index: 1; 
       margin-bottom: 4rem;
       letter-spacing: 0.08rem;
+      margin-bottom: 1rem;
+
+      @include breakpoint($tablet){
+        margin-bottom: 0;
+      }
     }
 
-    ul.steps{
-      display: flex; 
-      width: 80%;
+    ul.steps{ 
+      width: 100%;
       margin: auto;
       margin-top: 2rem; 
       z-index: 1;
 
+      @include breakpoint($tablet){
+        display: flex; 
+        width: 80%;
+      }
+
       li{
-        @include calc('width', '33.33% - 0rem');
+        width: 100%;
         position: relative;
         border-radius: 5px; 
         padding: 2.5rem;
@@ -33,6 +46,12 @@
         background: $white;  
         color: darken($mid-gray, 15%);
         @include box-shadow( 0px, 3px, 8px, 1px, rgba(211, 211, 211, 0.25));
+        display: none;
+
+        @include breakpoint($tablet){
+          display: block;
+          @include calc('width', '33.33% - 0rem');
+        }
 
         &:last-child{
           margin-right: 0;
@@ -57,6 +76,7 @@
         &.active{
           border: 1px $base-bg-color solid;
           color: $base-bg-color;
+          display: block;
 
           span.icon{
             color: $white;
@@ -81,6 +101,11 @@
         &.completed{ 
           border-color: lighten($mid-gray, 5%);  
           color: darken($darker-gray, 15%);
+          display: none;
+
+          @include breakpoint($tablet){
+            display: block; 
+          }
 
           span.icon{
             color: $white;
@@ -141,17 +166,24 @@
       }
     }
   }
+
   .steps-form{ 
-    width: 80%;
+    width: 100%;
     margin: 0 auto; 
     padding: 4rem 4rem;
     border-radius: 3px;
     @include box-shadow( 0px, 3px, 8px, 1px, rgba(211, 211, 211, 0.25)); 
     border: 1px $light-gray solid;
     background: $white;
+
+    @include breakpoint($tablet){
+      width: 80%;
+    }
     
     label{
       @include bold;
     }
   }
 }
+
+ 

@@ -285,7 +285,9 @@ export class EditProjectComponent implements OnInit {
              
   
             this.projectData = response.data;
-            this.projectImages = JSON.parse(this.projectData.images);
+            this.projectImages = this.projectData.images;
+
+            console.log(this.projectData)
 
             this.clientId = this.projectData.client_id;
             this.imageURL = environment.uploadPath + this.clientId +'/'+ this.companyID +'/projects/';
@@ -306,10 +308,9 @@ export class EditProjectComponent implements OnInit {
             });
 
             this.uploadedFileName =  this.projectImages;
- 
-
+  
             this.projectImages.forEach(element => {  
-              this.uploadedImages.push(this.imageURLThumb + element); 
+              this.uploadedImages.push(this.imageURLThumb + element.file_name); 
             });
  
   

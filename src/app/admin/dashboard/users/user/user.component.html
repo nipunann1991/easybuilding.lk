@@ -15,7 +15,8 @@
               <mat-icon><i class="icon-pencil"></i></mat-icon>
               <span>Edit Profile</span>
             </button>
-            <button mat-menu-item (click)="openDeleteProfileModal()" [disabled]="!isProfileByAdmin"> 
+            <button mat-menu-item (click)="openDeleteProfileModal()" > 
+              <!-- [disabled]="!isProfileByAdmin" -->
               <mat-icon><i class="icon-bin"></i></mat-icon>
               <span>Delete Profile</span>
             </button>  

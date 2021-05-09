@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute, ActivationStart ,  RoutesRecognized,  NavigationEnd } from '@angular/router';
 import { AuthService as OAuth } from "angularx-social-login";
 import { Location } from '@angular/common';
@@ -39,6 +40,7 @@ export class MyAccountComponent implements OnInit {
   constructor(
     private oauth: OAuth,
     private auth: Auth,
+    private toastr: ToastrService, 
     private router: Router,
     private globals: Globals,
     private myaccount: MyAccountService,
@@ -86,7 +88,8 @@ export class MyAccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
+     
   
     this.navItems = [
       { title: "Home", url: this.baseurl+"about", icon: "", isPersonalProfile: false},
@@ -120,6 +123,8 @@ export class MyAccountComponent implements OnInit {
   onOpen($event){
     console.log($event)
   }
+
+  
  
   getProfileDetails(routeParams, profile_editable = true){ 
      
@@ -133,10 +138,11 @@ export class MyAccountComponent implements OnInit {
             this.profileData.profile_editable = profile_editable;
             this.profileData.is_editable_btn = false; 
             this.profile.setProfileData(this.profileData);
+      
             
             ( this.profileData.company_profile == 0 )?  this.navItems[3].isPersonalProfile = true  : '';
 
-            console.log( this.profileData )
+      
             this.pageSEO();  
             this.getOtherProfileRelatedData();
             
@@ -236,9 +242,8 @@ export class MyAccountComponent implements OnInit {
         .subscribe((response: any) => {
           
         if (response.status == 200 ) {  
-          this.services = response.data.services;  
-          this.products = response.data.products; //.split(",");  
- 
+          this.services = response.data.services.split(",");  
+          this.products = response.data.products.split(","); 
           
         }else{
           

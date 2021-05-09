@@ -66,8 +66,12 @@
 
             span.badge-gray{
                 background: #F0F0F0;
-                padding: 0.2rem;
+                padding: 0.5rem 1rem;
                 border-radius: 2rem;
+                font-size: 1.35rem;
+                display: inline-block;
+                line-height: 1.5rem;
+                margin: 0 0.5rem 0.5rem 0;
             }
         
             li{

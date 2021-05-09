@@ -19,12 +19,17 @@
                     <div class="top"> 
                         <div class="house-area-input">
                             <div class="form-group select-area">
-                                <label>House Area</label>
-                                <ng-select2 [data]="houseArea" [options]="select2Options"  formControlName="house_area" class="select-fw" (ngModelChange)="houseAreaSelected($event)" >
+                                <label>House Level</label>
+                                <ng-select2 [data]="houseLevel" [options]="select2Options"  formControlName="house_level" class="select-fw" (ngModelChange)="houseLevelSelected($event)" >
                                 </ng-select2>  
                             </div> 
                         </div>
                         <div class="area-input">
+                            <div class="form-group select-area">
+                                <label>House Area</label>
+                                <ng-select2 [data]="houseArea" [options]="select2Options"  formControlName="house_area" class="select-fw" (ngModelChange)="houseAreaSelected($event)" >
+                                </ng-select2>  
+                            </div> 
                             <div class="form-group">
                                 <label>Width (Feet)</label>
                                 <input type="text" formControlName="width" [(ngModel)]="areaCount.width" (ngModelChange)="valueChangeFn($event)" class="form-control">

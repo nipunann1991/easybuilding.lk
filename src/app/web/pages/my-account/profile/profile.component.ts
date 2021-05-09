@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild, Inject, EventEmitter, Input, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from "../../../../../environments/environment";
 import { HttpClient } from '@angular/common/http';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop'; 
@@ -71,6 +71,7 @@ export class ProfileComponent implements OnInit {
     private httpClient: HttpClient,
     private fileSaverService: FileSaverService,
     private fb: FacebookService, 
+    private route: ActivatedRoute,
     public confirmBox: MatDialog
     
   ) {  
@@ -118,9 +119,7 @@ export class ProfileComponent implements OnInit {
       this.isEditable = this.profileData.is_editable_btn;
       this.userEmail = this.profileData.email;
       this.totalReviews = this.profile.total_reviews + " Reviews";
-      this.rating = parseFloat(this.profile.rating).toFixed(1); 
-
-      console.log( this.profileData )
+      this.rating = parseFloat(this.profile.rating).toFixed(1);  
 
       if(this.profileData.cover_img == "" ){
         this.isBgImage = false;
@@ -147,6 +146,8 @@ export class ProfileComponent implements OnInit {
       }
   
      });
+
+     this.checkVerification();
 
     
 
@@ -200,6 +201,41 @@ validateFile(file){
   openDeleteDialog(): void {
    console.log()
   } 
+
+  checkVerification(){
+
+    let verifyData = this.route.snapshot.queryParams; 
+
+    if( Object.keys(verifyData).length !== 0 && this.profile.verified_email == 0){
+
+      let mailToken = this.globals.token.session_id+verifyData.verify+this.globals.token.session_id; 
+
+      if(mailToken == this.globals.token.provider_id){
+ 
+      let param = { verified_email: 1, company_id: this.profileData.company_id}
+      this.myaccount.updateProfileDetails(param)
+        .subscribe((response: any) => {
+
+          if (response.status == 200) {
+            this.toastr.success('Your profile verification is successful.', 'Success !');
+            this.profile.verified_email = 1;  
+            this.router.navigate(['/my-account']);
+           
+          }else if (response.status == 401){
+            this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  
+          }else{
+            this.toastr.error('Information saving failed. Please try again', 'Error !'); 
+          }
+            
+        });
+
+      }
+       
+    }else{
+      //this.router.navigate(['/my-account']);
+    }
+
+  }
 
   deleteImage(index){ 
 

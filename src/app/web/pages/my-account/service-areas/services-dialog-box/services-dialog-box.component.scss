@@ -36,4 +36,13 @@
 
 .mat-dialog-actions{
     padding: 1.5rem 0; 
+
+    button{ 
+
+        @include breakpointMax(767px){
+            width: 100%;
+            margin: 0; 
+            margin-bottom: 1.5rem;
+        }
+    }
 }

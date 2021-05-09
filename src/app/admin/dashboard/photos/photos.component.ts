@@ -22,8 +22,7 @@ export interface DialogData {
 @Component({
   selector: 'app-photos',
   templateUrl: './photos.component.html',
-  styleUrls: ['./photos.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./photos.component.scss'], 
 })
 export class PhotosComponent implements OnInit {
 
@@ -162,9 +161,7 @@ export class PhotosComponent implements OnInit {
         data: function( row, index ){      
 
           let imgURL = environment.uploadPath +row.client_id+"/"+row.company_id+"/projects/"
-          let imgURLThumb = imgURL +"thumb/"
-          
-          console.log(row)
+          let imgURLThumb = imgURL +"thumb/" 
 
           return '<a class="view-image" title="Edit" data-id="'+index+'" data-image-photo_category=\`'+row.photo_category+'\` data-image-display_name="'+row.display_name+'" data-project-id="'+row.project_id+'"  data-image-project_name="'+row.project_name+'" data-client-id="'+row.client_id+'" data-approved="'+row.approved+'" data-image-id="'+row.img_id+'" data-company-id="'+row.company_id+'"  data-file="'+row.file_name+'" ><img width="90" src="'+ environment.uploadPath +"/"+row.client_id+"/"+row.company_id+"/projects/thumb/" +row.file_name+'" ></i></a> '; 
         }
@@ -230,6 +227,7 @@ export class PhotosComponent implements OnInit {
   openDialog(imgData): void {
     const dialogRef = this.dialog.open(imageModalDialog, {
       width: '90%',
+      id: "image-dialog",
       data: {name: imgData.src, img_details: imgData.img_details }
     });
 

@@ -102,17 +102,17 @@ export class ViewProjectComponent implements OnInit {
           }
 
           let approvedImagesOnly = [];
-          let primaryImage = this.projectData.primary_img;
- 
+          let primaryImage = this.projectData.primary_img; 
 
-          if(!this.router.url.includes('/user/me/')){
+          if(!this.router.url.includes('/user/me/') && !this.router.url.includes('/admin/users/')){
             approvedImagesOnly = this.projectImages.filter(x => x.approved == 1);
-            primaryImage = approvedImagesOnly[0]?.file_name;
+            primaryImage = approvedImagesOnly[0]?.file_name; 
 
           }else{
             approvedImagesOnly = this.projectImages; 
+           
           }
-          
+  
            
           approvedImagesOnly.forEach(element => {  
             this.imagesGallery.push(new ImageItem({  src: this.imageURL+element.file_name, thumb: this.imageURLThumb+element.file_name }));
@@ -122,6 +122,8 @@ export class ViewProjectComponent implements OnInit {
           this.galleryRef.load(this.imagesGallery); 
           this.mainImg = this.imageURL + primaryImage;
           this.profileImg = environment.uploadPath + this.clientId +'/'+ this.companyID +'/'+ this.projectData.profie_image;
+
+          console.log(this.mainImg,100000000)
 
         }else{
           
@@ -153,7 +155,8 @@ export class ViewProjectComponent implements OnInit {
         imageSize: 'contain', 
         loop: true,
         thumb: true,
-        thumbMode: "free"
+        thumbMode: "free",
+        
       });
       
     }else{

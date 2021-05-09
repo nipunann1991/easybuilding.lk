@@ -59,7 +59,7 @@ export class ProductsComponent implements OnInit {
           let imgURL = environment.uploadPath +row.client_id+"/"+row.company_id+"/products/"
           let imgURLThumb = imgURL +"thumb/" 
 
-          return '<a class="view-image" title="Edit" ><img width="90" src="'+ imgURLThumb + row.primary_img+'" ></i></a> '; 
+          return '<a class="view-image" data-client-id="' + row.client_id + '" data-company-id="' + row.company_id + '" data-provider-id="' + row.provider_id + '" data-product-id="' + row.product_id + '" title="Edit" ><img width="90" src="'+ imgURLThumb + row.primary_img+'" ></i></a> '; 
         }
       },{
         targets: 7,

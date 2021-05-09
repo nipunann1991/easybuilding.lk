@@ -54,9 +54,13 @@
 
             label.form-check-label {
                 margin-left: 0;
-                padding: 3rem;
+                padding: 2rem;
                 border: 2px solid;
                 border-radius: 5px; 
+
+                @include breakpoint($tablet){
+                    padding: 3rem;
+                }
             }
         }
     }

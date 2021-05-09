@@ -26,9 +26,12 @@ export class CreateBoqComponent implements OnInit {
   surfacesCol: any = []
   tableHeaderCols: any = ['House Area', 'Width', 'Height', 'Area'];
   tableCols: any = [];
+  houseLevel = [{ id: 1, text: "Downstairs"}, { id: 2, text: "Upstairs"}]
   houseAreaSqFt: number = 0;
   totalCost: number = 0;
   currency = this.globals.currencyAlias;
+  surfaceData: any;
+  surfaceTypeList: any;
   areaCount = {
     width: 0,
     height: 0
@@ -46,6 +49,11 @@ export class CreateBoqComponent implements OnInit {
     this.getSelectedHouseSurfaceTypeList();
 
     this.formGroup = new FormGroup({ 
+
+      house_level: new FormControl('', [
+        Validators.required, 
+      ]),
+
       house_area: new FormControl('', [
         Validators.required, 
       ]),
@@ -112,66 +120,41 @@ export class CreateBoqComponent implements OnInit {
           this.surfacesCol = response.data.map(elm => elm.surface_type ).filter((value, index, self) => (self.indexOf(value) === index))
           
           this.tableHeaderCols = [...this.tableHeaderCols, ...this.surfacesCol, 'Total']
-          console.log( this.tableHeaderCols );
-
-          let surfaceData =  response.data;
-
-          let surfaceTypeList = surfaceData.reduce(function (r, a) {
-              r[a.surface_type] = r[a.surface_type] || [];
-              r[a.surface_type].push({id: [a.value, a.house_surfaces_type], text: a.house_surfaces_type });
-              return r;
-          }, Object.create(null));
-
           
-          let surfaceType =  surfaceData.map(item => item.surface_type).filter((value, index, self) => self.indexOf(value) === index)
-    
-          surfaceType.forEach( (value, index) => {   
-            console.log(surfaceTypeList[value]); 
-            this.surfaces.push({ 
-              surface_type: value,
-              children: surfaceTypeList[value]   
-            });
-          });
 
-          // response.data.forEach( (value, index) => {   
+          this.surfaceData =  response.data;
  
-          //   if(index == 0 || surface_type != value.surface_type_id){  
-          //     surface_type = value.surface_type_id; 
-
-          //     this.surfaces.push({ 
-          //       surface_type: value.surface_type, 
-          //       children: [{id: [value.value, value.house_surfaces_type], text: value.house_surfaces_type }]  
-          //     });
-
-          //     this.formGroup.addControl(this.surfaces[count].surface_type, new FormControl('', Validators.required));
-
-          //     if( surface_type != value.surface_type_id){
-          //       count++; 
-          //     }
-
-          //   }else if( surface_type == value.surface_type_id){ 
-          //     this.surfaces[count].children.push({id: [value.value, value.house_surfaces_type], text: value.house_surfaces_type })
-            
-          //   }else{
- 
-
-          //   }
-             
-            
-          // });
-
-          console.log(this.surfaces)
-
-
           
         }else{
             
         }
            
-    }); 
+    });   
 
-    
-  
+ }
+
+  filterSurcfaceType(i){
+    this.surfaces =[];
+
+    let surfaceData =  this.surfaceData.filter(x => x.level == i );
+
+
+    this.surfaceTypeList =  surfaceData.reduce(function (r, a) {
+      r[a.surface_type] = r[a.surface_type] || [];
+      r[a.surface_type].push({id: [a.value, a.house_surfaces_type], text: a.house_surfaces_type });
+      return r;
+  }, Object.create(null));
+   
+
+    let surfaceType =  surfaceData.map(item => item.surface_type).filter((value, index, self) => self.indexOf(value) === index)
+
+    console.log(this.surfaceTypeList)
+    surfaceType.forEach( (value, index) => {    
+      this.surfaces.push({ 
+        surface_type: value,
+        children: this.surfaceTypeList[value]   
+      });
+    });
 
  }
 
@@ -196,6 +179,8 @@ export class CreateBoqComponent implements OnInit {
       this.value  = ['0','0','0','0']; 
       this.selectedHouseArea = "";
       this.areaCount = { width: 0, height: 0 };
+      this.resetFieldValues()
+
  
     }else{
       this.toastr.error('House area should not be 0', 'Error !'); 
@@ -218,6 +203,20 @@ export class CreateBoqComponent implements OnInit {
     this.selectedHouseArea = e;
     this.areaSelected = true
   } 
+
+
+  houseLevelSelected(index){ 
+    this.selectedHouseArea = index;   
+    this.resetFieldValues()
+    this.filterSurcfaceType(index);
+  } 
+
+  resetFieldValues(){
+    this.formGroup.controls["house_area"].setValue("");
+    this.formGroup.controls["house_area"].validator = null;
+    this.formGroup.controls["width"].setValue(0);
+    this.formGroup.controls["height"].setValue(0);
+  }
 
   removeField(i){ 
     this.tableCols.splice(i, 1)
