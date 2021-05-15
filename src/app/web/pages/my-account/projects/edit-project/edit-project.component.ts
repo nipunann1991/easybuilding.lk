@@ -39,6 +39,7 @@ export class EditProjectComponent implements OnInit {
   projectImagesDeleted:any;
   imageURLThumb: string = "";
   allServices: any = [];
+  nearestCity: any = [];
 
   constructor(
     private myaccount: MyAccountService,
@@ -72,6 +73,10 @@ export class EditProjectComponent implements OnInit {
         Validators.required
       ]), 
 
+      project_address: new FormControl('',[
+        Validators.required
+      ]), 
+
       project_description: new FormControl('',[
         Validators.required,
         Validators.minLength(2),
@@ -97,6 +102,7 @@ export class EditProjectComponent implements OnInit {
     
     this.getProductsWithID(this.companyID);
     this.getProjectDetails(this.companyID, this.projectID);
+    this.getCities();
     
   }
 
@@ -300,6 +306,7 @@ export class EditProjectComponent implements OnInit {
               services: JSON.parse(this.projectData.services), 
               project_description: this.projectData.project_description, 
               project_year: this.projectData.project_year,
+              project_address: this.projectData.project_address,
               project_cost: this.projectData.project_cost, 
               architect: this.projectData.architect, 
               contractor: this.projectData.contractor, 
@@ -327,10 +334,12 @@ export class EditProjectComponent implements OnInit {
       if (!this.formGroup.invalid) {
         this.formGroup.value.images = JSON.stringify(this.uploadedFileName); 
         this.formGroup.value.company_id = this.companyID; 
-        this.formGroup.value.primary_img = this.uploadedFileName[0]; 
-        this.formGroup.value.total_imgs = this.uploadedFileName.length; 
+        this.formGroup.value.primary_img = this.uploadedFileName[0].file_name; 
+        this.formGroup.value.total_imgs = this.uploadedFileName.length;  
+        
         this.formGroup.value.project_id = this.projectID; 
         this.formGroup.value.services = JSON.stringify(this.formGroup.value.services); 
+        console.log(this.formGroup.value)
         
         this.myaccount.editProjectDetails(this.formGroup.value)
           .subscribe((response: any) => {
@@ -388,7 +397,19 @@ export class EditProjectComponent implements OnInit {
   
     }
 
-   
+    getCities(){ 
+
+      this.myaccount.getCities() 
+        .subscribe((response: any) => {
+          if (response.status == 200) { 
+            this.nearestCity = response.data; 
+            console.log(this.nearestCity)
+          }else{
+              
+          }
+            
+        });
+    }
 
     goBack(){
       window.history.back();

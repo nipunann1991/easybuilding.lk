@@ -1,18 +1,20 @@
 <form id="myform" class="wrapped-block animated fadeIn" [formGroup]="formGroup" (ngSubmit)="onSave()" novalidate="novalidate">
   <div class="row">
         <div class="col-md-12 block-title" [ngClass]="{'title-only': !isStepsForm}">
-            <h2>Products & Services</h2>
+            <h2>Offered Products/ Services</h2>
             <p>Tell your clients what products or services you provide and your service areas.</p>
         </div>
-        <div class="col-md-12 "> 
+        <div class="col-md-6"> 
             <div class="form-group" >
-                <label for="servic e_areas">Service Categories {{ selectedServicesItems }}</label>&nbsp; 
+                <label for="servic e_areas">Service Categories</label>&nbsp; 
                 <ng-select2 [data]="allServices" [options]="options" formControlName="services" class="select-fw select-service" *ngIf="product_services.services != '[]' || selectedServicesItems != ''" >
                 </ng-select2>  
                 <a href="javascript:void(0)" (click)="openServiceAreaModal()" class="service-dialog"><i class="icon-plus"></i> Select Service Categories</a>  
             </div> 
+        </div>
+        <div class="col-md-6"> 
             <div class="form-group" >
-                <label for="servic e_areas">Product Categories {{ selectedProductsItems }}</label>
+                <label for="service_areas">Product Categories</label>
                 <ng-select2 [data]="allProducts" [options]="options" formControlName="products" class="select-fw select-service" *ngIf="product_services.products != '[]' || selectedProductsItems != '' " >
                 </ng-select2>  
                 <a href="javascript:void(0)" (click)="openProductsAreaModal()" class="service-dialog"><i class="icon-plus"></i> Select Product Categories</a> 

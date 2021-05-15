@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { SettingsService } from '../../../../admin/api/settings.service';
+import { Globals } from "../../../../app.global";
 import * as $ from 'jquery'; 
 import { AuthService as Auth } from '../../../auth/auth.service';
  
@@ -32,6 +33,7 @@ export class UsersComponent implements OnInit {
     private route: ActivatedRoute,
     private toastr: ToastrService,
     private authservice: Auth,
+    private globals: Globals,
   ) { }
 
   ngOnInit(): void {
@@ -147,35 +149,22 @@ export class UsersComponent implements OnInit {
   }
 
   openDeleteUserModal(cat_id){ 
-    const component = this;
-    let dialog = bootbox.confirm({
-      title: "Delete User",
-      message: "Are you sure you need to delete this user?",
-      buttons: {
-        confirm: {
-          label: 'Yes',  
-          className: 'btn-danger pull-left'
-        },
-        cancel: {
-          label: 'No', 
-          className: 'pull-right '
-        }
-      },
-      callback: function (result) {
-        
-        if(result){
-          component.deleteUser(cat_id);
-        }  
-      } 
+
+    const dialogRef = this.globals.confirmDialogBox({ 
+      title: "Delete User", 
+      message: "Are you sure you need to delete this user?", 
+      isDelete: true,
+      confirmBtn: "Yes, Delete",
+      cancelBtn: 'No'
     });
-
-    dialog.init(function(){
-      $('html .modal-backdrop:not(:first)').remove();
-    })
-
-    dialog.on("shown.bs.modal", function() {  
-      $('html .bootbox.modal:not(:first)').remove(); 
-    }); 
+     
+    dialogRef.afterClosed().subscribe(result => {
+         
+        if(result){
+          this.deleteUser(cat_id); 
+        }  
+      
+    });  
     
   }
 
@@ -187,11 +176,11 @@ export class UsersComponent implements OnInit {
       .subscribe((response: any) => {
 
         if (response.status == 200) {
-          this.toastr.success('City has been deleted successfully', 'Success !');  
+          this.toastr.success('User has been deleted successfully', 'Success !');  
           $('#refresh-btn').trigger('click'); 
 
         }else{
-            this.toastr.error('City deleting failed. Please try again', 'Error !'); 
+            this.toastr.error('User deleting failed. Please try again', 'Error !'); 
         }
           
       });
@@ -282,7 +271,7 @@ export class UsersComponent implements OnInit {
           this.formGroup.setValue({
             role_id: data.role_id, 
             user_email: data.user_email,
-            password: data.password
+            password: ""
           });
  
          }else{
@@ -301,7 +290,8 @@ export class UsersComponent implements OnInit {
       let param = { 
         user_id: this.param.params.id,
         user_email: this.formGroup.value.user_email,
-        role_id: this.formGroup.value.role_id
+        role_id: this.formGroup.value.role_id,
+        password: this.formGroup.value.password
       }
 
       this.settings.editAdminUser(param)

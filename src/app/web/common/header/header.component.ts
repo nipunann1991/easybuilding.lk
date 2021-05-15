@@ -256,8 +256,9 @@ export class HeaderComponent implements OnInit {
 
   signOut(): void {
     this.oauth.signOut().then( (userDetails) =>{  
-      localStorage.clear();  
+      localStorage.clear();   
       this.router.navigate(['/']); 
+      location.reload();
 
     }).catch((e)=>{
         localStorage.clear();  

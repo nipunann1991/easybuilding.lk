@@ -170,6 +170,7 @@ class SettingsController extends CommonController {
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
 			$dataset = $this->input->post(); 
+			$dataset['password'] = md5($this->input->post('password'));
 			return $this->updateData__('users', $dataset,'user_id="'.$this->input->post('user_id').'"');
 		}else{
 			return $this->invalidSession(); 
@@ -214,7 +215,20 @@ class SettingsController extends CommonController {
 
 	public function deleteSlider(){   
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
-			return $this->deleteData__('home_slider','id="'.$this->input->post('id').'"');  
+
+			$search_index = array(
+				'columns' => '*' ,   
+				'table' => 'home_slider',
+				'eq_table_col' => '1',
+				'data' => 'id="'.$this->input->post('id').'"', 
+			);
+
+			$file_name =  $this->selectRawCustomData__($search_index)["data"][0]->file_name;
+
+			$this->deleteUploadedFile("admin","home-slider",$file_name);
+
+			return $this->deleteData__('home_slider','id="'.$this->input->post('id').'"');   
+
 		}else{
 			return $this->invalidSession(); 
 		}   

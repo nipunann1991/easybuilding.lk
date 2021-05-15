@@ -31,7 +31,7 @@ export class UploadProjectComponent implements OnInit {
   allServices: any = [];
   projectImagesDeleted:any;
   imageURLThumb: string = "";
-
+  nearestCity: any = [];
 
   constructor(
     private myaccount: MyAccountService,
@@ -71,6 +71,10 @@ export class UploadProjectComponent implements OnInit {
         Validators.maxLength(1000)
       ]),
 
+      project_address: new FormControl('',[
+        Validators.required
+      ]),
+
       project_year: new FormControl(''),
 
       project_cost: new FormControl(''),
@@ -85,6 +89,7 @@ export class UploadProjectComponent implements OnInit {
 
     this.companyID = this.route.snapshot.params.company_id;
     this.getProductsWithID(this.companyID); 
+    this.getCities();
    
   }
 
@@ -345,5 +350,17 @@ export class UploadProjectComponent implements OnInit {
     }
 
     
- 
+    getCities(){ 
+
+      this.myaccount.getCities() 
+        .subscribe((response: any) => {
+          if (response.status == 200) { 
+            this.nearestCity = response.data; 
+            console.log(this.nearestCity)
+          }else{
+              
+          }
+            
+        });
+    }
 }

@@ -6,6 +6,7 @@ import { environment } from "../../../../../environments/environment";
 import { ImageCroppedEvent, Dimensions, ImageTransform } from 'ngx-image-cropper'; 
 import { ToastrService } from 'ngx-toastr';
 import { SettingsService } from '../../../../admin/api/settings.service'; 
+import { Globals } from "../../../../app.global";
 import * as $ from 'jquery';
 declare const bootbox:any;
 
@@ -38,7 +39,8 @@ export class PageSettingsComponent implements OnInit {
     public dialog: MatDialog,
     private toastr: ToastrService, 
     private modalService: ModalManager,
-    private settings: SettingsService
+    private settings: SettingsService,
+    private globals: Globals,
   ) { }
 
   ngOnInit(): void {
@@ -276,35 +278,22 @@ export class PageSettingsComponent implements OnInit {
  deleteSlideModal(i){
 
   this.isExpanded = false; 
-  const component = this;
-    let dialog = bootbox.confirm({
-      title: "Delete Profile",
-      message: "Are you sure you need to delete this slider?",
-      buttons: {
-        confirm: {
-          label: 'Yes',  
-          className: 'btn-danger pull-left'
-        },
-        cancel: {
-          label: 'No', 
-          className: 'pull-right '
-        }
-      },
-      callback: function (result) {
-        
-        if(result){ 
-         component.deleteSlider(i);
-        }  
-      } 
-    });
 
-    dialog.init(function(){
-      $('html .modal-backdrop:not(:first)').remove();
-    })
-
-    dialog.on("shown.bs.modal", function() {  
-      $('html .bootbox.modal:not(:first)').remove(); 
-    });
+  const dialogRef = this.globals.confirmDialogBox({ 
+    title: "Delete Slider", 
+    message: "Are you sure you need to delete this slider?", 
+    isDelete: true,
+    confirmBtn: "Yes, Delete",
+    cancelBtn: 'No'
+  });
+   
+  dialogRef.afterClosed().subscribe(result => {
+       
+      if(result){
+        this.deleteSlider(i); 
+      }  
+    
+  });  
   
  }
 

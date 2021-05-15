@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'; 
-import { Globals } from "../../../app.global" 
+import { Globals } from "../../../app.global" ;
+import { Router } from '@angular/router';
 import * as $ from 'jquery';
 
 @Component({
@@ -15,7 +16,8 @@ export class HeaderComponent implements OnInit {
     profie_image: ''
   }
   constructor(
-    private globals: Globals
+    private globals: Globals,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -31,5 +33,11 @@ export class HeaderComponent implements OnInit {
   hideNav(){
     $("html .left-nav, html .right-container").removeClass('open-nav'); 
   }
+
+
+  signOut(){
+    localStorage.clear();
+    this.router.navigate(['admin/login']);
+  } 
 
 }

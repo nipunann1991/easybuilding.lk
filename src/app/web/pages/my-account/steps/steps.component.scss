@@ -38,7 +38,7 @@
       }
 
       li{
-        width: 100%;
+        width: 65%;
         position: relative;
         border-radius: 5px; 
         padding: 2.5rem;
@@ -77,6 +77,10 @@
           border: 1px $base-bg-color solid;
           color: $base-bg-color;
           display: block;
+         
+          @include breakpointMax(767px){
+            margin: auto; 
+          }
 
           span.icon{
             color: $white;

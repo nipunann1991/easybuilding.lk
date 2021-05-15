@@ -63,6 +63,10 @@ export class EditProductComponent implements OnInit {
         Validators.required
       ]),
 
+      project_address: new FormControl('',[
+        Validators.required
+      ]), 
+
       product_price: new FormControl('',[
         Validators.required
       ]),

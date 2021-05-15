@@ -112,6 +112,18 @@ body{
 					font-family: inherit;
 				} 
 			}
+
+			.mat-radio-container{
+				top: -1px;
+				transform: scale(0.8);
+			}
+
+			.mat-radio-label-content{
+				padding-left: 0;
+				margin-left: 0.5rem;
+				margin-right: 1rem;
+				font-size: 1.5rem;
+			}
 			
 		}
 
@@ -322,8 +334,10 @@ ul{
 }
 
 .select-service .select2-container--default .select2-selection--single, 
-.select-service .select2-container--default .select2-selection--multiple{
-  border: 0;
+.select-service .select2-container--default .select2-selection--multiple{ 
+  min-height: 10rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .select-service .select2-container--default .select2-selection--single .select2-selection__rendered, 
@@ -339,9 +353,9 @@ ul{
 		background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgNDkwLjc4NyA0OTAuNzg3IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0OTAuNzg3IDQ5MC43ODc7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIHN0eWxlPSJmaWxsOiNGNDQzMzY7IiBkPSJNMzYyLjY3MSw0OTAuNzg3Yy0yLjgzMSwwLjAwNS01LjU0OC0xLjExNS03LjU1Mi0zLjExNUwxMjAuNDUyLDI1My4wMDYNCgljLTQuMTY0LTQuMTY1LTQuMTY0LTEwLjkxNywwLTE1LjA4M0wzNTUuMTE5LDMuMjU2YzQuMDkzLTQuMjM3LDEwLjg0NS00LjM1NCwxNS4wODMtMC4yNjJjNC4yMzcsNC4wOTMsNC4zNTQsMTAuODQ1LDAuMjYyLDE1LjA4Mw0KCWMtMC4wODYsMC4wODktMC4xNzMsMC4xNzYtMC4yNjIsMC4yNjJMMTQzLjA4NywyNDUuNDU0bDIyNy4xMzYsMjI3LjExNWM0LjE3MSw0LjE2LDQuMTc5LDEwLjkxNCwwLjAxOSwxNS4wODUNCglDMzY4LjIzNiw0ODkuNjY0LDM2NS41MTEsNDkwLjc5MiwzNjIuNjcxLDQ5MC43ODd6Ii8+DQo8cGF0aCBkPSJNMzYyLjY3MSw0OTAuNzg3Yy0yLjgzMSwwLjAwNS01LjU0OC0xLjExNS03LjU1Mi0zLjExNUwxMjAuNDUyLDI1My4wMDZjLTQuMTY0LTQuMTY1LTQuMTY0LTEwLjkxNywwLTE1LjA4M0wzNTUuMTE5LDMuMjU2DQoJYzQuMDkzLTQuMjM3LDEwLjg0NS00LjM1NCwxNS4wODMtMC4yNjJjNC4yMzcsNC4wOTMsNC4zNTQsMTAuODQ1LDAuMjYyLDE1LjA4M2MtMC4wODYsMC4wODktMC4xNzMsMC4xNzYtMC4yNjIsMC4yNjINCglMMTQzLjA4NywyNDUuNDU0bDIyNy4xMzYsMjI3LjExNWM0LjE3MSw0LjE2LDQuMTc5LDEwLjkxNCwwLjAxOSwxNS4wODVDMzY4LjIzNiw0ODkuNjY0LDM2NS41MTEsNDkwLjc5MiwzNjIuNjcxLDQ5MC43ODd6Ii8+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8L3N2Zz4NCg==");
 		color: $base-color;
 		background-size: 1.2rem;
-    background-repeat: no-repeat;
-    background-position: 0 35%;
-    padding-left: 1.8rem;
+		background-repeat: no-repeat;
+		background-position: 0 35%;
+		padding-left: 1.8rem;
 	}
 }
 
@@ -498,12 +512,7 @@ ul{
  form{
  	small{
  		color: #fd1717;
- 	}
-
- 	.ng-invalid.ng-touched{
- 		border: 1px #ff051c solid; 
  	} 
-
  }
 
 .datepicker td, .datepicker th{
@@ -1199,6 +1208,79 @@ button.dt-button{
     			z-index: 1;
     		}
     	}
+	}
+}
+
+.page-top{
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	overflow: hidden; 
+	margin-bottom: 3.5rem; 
+	padding-bottom: 1.5rem;
+	border-bottom: 1px #eee solid;
+ 
+
+	h1{
+		margin-bottom: 0; 
+		line-height: 3.5rem;
+		font-size: 2.8rem;
+		text-transform: uppercase;
+	}
+
+	p{
+		font-size: 1.45rem;
+		margin-top: 0;
+		margin-bottom: 0.2rem;
+	}
+
+	.left-text{
+		text-align: left;
+
+		h1{  
+			font-size: 2.5rem;
+			text-transform: capitalize;
+		}
+	}
+
+	ul.view-option{ 
+		margin-left: auto;
+
+		li{
+			float: left;   
+			margin-right: 5px;
+
+			&:first-child{
+				display: none;
+
+				@include breakpoint($tablet){
+					display: block;
+				}
+
+			}
+			
+			a{
+				text-align: left;
+				width: 100%;
+				font-size: 2rem;
+				line-height: 1rem;
+				border-radius: 3px;
+				padding: 6px;
+				border: 1px $body-text-color solid;
+				color: $body-text-color;
+				text-decoration: none;
+				display: block;
+			}
+
+			&.active{
+				a{
+					color: $base-bg-color; 
+					border-color: $base-bg-color;
+				}
+			}
+		}
 	}
 }
 

@@ -6,6 +6,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Options } from 'select2';
 import { Subject } from 'rxjs'
 import { CitiesService } from '../../../admin/api/cities.service'; 
+import { Globals } from "../../../app.global";
 import * as $ from 'jquery';
 declare const bootbox:any;
 
@@ -34,6 +35,7 @@ export class CitiesComponent implements OnInit {
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private router: Router, 
+    private globals: Globals,
   ) { }
 
   ngOnInit(): void {
@@ -220,36 +222,22 @@ export class CitiesComponent implements OnInit {
    }
 
   openDeleteCityModal(cat_id){ 
-    const component = this;
-    let dialog = bootbox.confirm({
-      title: "Delete City",
-      message: "Are you sure you need to delete this?",
-      buttons: {
-        confirm: {
-          label: 'Yes',  
-          className: 'btn-danger pull-left'
-        },
-        cancel: {
-          label: 'No', 
-          className: 'pull-right '
-        }
-      },
-      callback: function (result) {
-        
+
+    const dialogRef = this.globals.confirmDialogBox({ 
+      title: "Delete City", 
+      message: "Are you sure you need to delete this?", 
+      isDelete: true,
+      confirmBtn: "Yes, Delete",
+      cancelBtn: 'No'
+    });
+     
+    dialogRef.afterClosed().subscribe(result => {
+         
         if(result){
-          component.deleteCity(cat_id);
+          this.deleteCity(cat_id); 
         }  
-      } 
-    });
-
-    dialog.init(function(){
-      $('html .modal-backdrop:not(:first)').remove();
-    })
-
-    dialog.on("shown.bs.modal", function() {  
-      $('html .bootbox.modal:not(:first)').remove(); 
-    });
- 
+      
+    });  
     
   }
 

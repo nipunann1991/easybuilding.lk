@@ -5,6 +5,7 @@ import { ClientsService } from '../../../api/clients.service';
 import { MyAccountService } from '../../../api/frontend/my-account.service'; 
 import { ToastrService } from 'ngx-toastr';
 import { MatCheckbox } from '@angular/material/checkbox';
+import { Globals } from "../../../../app.global";
 import * as $ from 'jquery';
 
 declare const bootbox:any;
@@ -41,6 +42,7 @@ export class UserComponent implements OnInit {
     private location: Location,
     private clients: ClientsService,
     private toastr: ToastrService,
+    private globals: Globals,
   ) {  
 
     this.route.params.subscribe( (routeParams) =>  {  
@@ -141,64 +143,53 @@ export class UserComponent implements OnInit {
   setBlacklisted(event){ 
      
     let dialog_text = ""
+    let btn_text = ""
 
     if(event.checked){
       dialog_text = "Are you sure you need to blacklist this account?"
+      btn_text = "Blacklist"
     }else{
       dialog_text = "Are you sure you need to undo this account from blacklist ?"
+      btn_text = "Undo Blacklist"
     }
 
     const that = this;
-    let dialog = bootbox.confirm({
-      title: "Blacklist Account",
-      message: dialog_text,
-      buttons: {
-        confirm: {
-          label: 'Yes',  
-          className: 'btn-danger pull-left'
-        },
-        cancel: {
-          label: 'No', 
-          className: 'pull-right '
-        }
-      },
-      callback: function (result) {
-        
-        if(result){
-          
-          that.isBlacklisted = event.checked;  
+    const dialogRef = this.globals.confirmDialogBox({ 
+      title: "Blacklist Account", 
+      message: dialog_text, 
+      isDelete: true,
+      confirmBtn: "Yes, "+btn_text,
+      cancelBtn: 'No'
+    });
+     
+    dialogRef.afterClosed().subscribe(result => {
+         
+      if(result){ 
+        that.isBlacklisted = event.checked;  
 
-          if(event.checked){
-            that.isBlacklistVal = 0  
-            that.isFeatured = false; 
-          }else{
-            that.isBlacklistVal = 1 ; 
-          } 
-
-          let params = {
-            client_id: that.clientID,
-            company_id: that.companyID,
-            featured: that.isFeaturedVal,
-            status: that.isBlacklistVal
-          }
-      
-          that.updateProfileDetails(params, true);
-
+        if(event.checked){
+          that.isBlacklistVal = 0  
+          that.isFeatured = false; 
         }else{
-          that.isBlacklisted = false;
-          that.blacklisted_cb.checked = false;
+          that.isBlacklistVal = 1 ; 
+        } 
+
+        let params = {
+          client_id: that.clientID,
+          company_id: that.companyID,
+          featured: that.isFeaturedVal,
+          status: that.isBlacklistVal
         }
-      } 
-    });
-
-    dialog.init(function(){
-      $('html .modal-backdrop:not(:first)').remove();
-    })
-
-    dialog.on("shown.bs.modal", function() {  
-      $('html .bootbox.modal:not(:first)').remove(); 
-    });
     
+        that.updateProfileDetails(params, true);
+
+      }else{
+        that.isBlacklisted = false;
+        that.blacklisted_cb.checked = false;
+      }
+      
+    }); 
+ 
   }
  
 
@@ -267,36 +258,22 @@ export class UserComponent implements OnInit {
 
 
  openDeleteProfileModal(){ 
-    const component = this;
-    let dialog = bootbox.confirm({
-      title: "Delete Profile",
-      message: "Are you sure you need to delete this profile?",
-      buttons: {
-        confirm: {
-          label: 'Yes',  
-          className: 'btn-danger pull-left'
-        },
-        cancel: {
-          label: 'No', 
-          className: 'pull-right '
-        }
-      },
-      callback: function (result) {
+ 
+    const dialogRef = this.globals.confirmDialogBox({ 
+      title: "Delete Profile", 
+      message: "Are you sure you need to delete this profile?", 
+      isDelete: true,
+      confirmBtn: "Yes, Delete",
+      cancelBtn: 'No'
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
         
         if(result){
-          component.deleteProfile(component.clientID);
+          this.deleteProfile(this.clientID);
         }  
-      } 
-    });
-
-    dialog.init(function(){
-      $('html .modal-backdrop:not(:first)').remove();
-    })
-
-    dialog.on("shown.bs.modal", function() {  
-      $('html .bootbox.modal:not(:first)').remove(); 
-    });
-
+      
+    });  
     
   }
 

@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+define('LOCAL_PROFILE_URL', 'https://localhost:4200/my-account/user/me/about');
+define('LIVE_PROFILE_URL', 'https://easybuilding.biz/my-account/user/me/about');
 /*
 |--------------------------------------------------------------------------
 | Display Debug backtrace
@@ -12,6 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 defined('SHOW_DEBUG_BACKTRACE') OR define('SHOW_DEBUG_BACKTRACE', TRUE);
+define('MPwd','JKqm5%N}._?)');
 
 /*
 |--------------------------------------------------------------------------

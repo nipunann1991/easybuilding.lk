@@ -444,16 +444,18 @@ class CommonController extends CI_Controller {
 
 		$url=$this->config->base_url();  
 		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/'.$client_id.'/'.$postVal['company_id'].'/'.$folder_name.'/';
-
  
+		
+
 		if (!file_exists($upload_dir)) {
 		    mkdir($upload_dir, 0777, true); 
 		    mkdir($upload_dir.'/thumb', 0777, true);
 		} 
 
 		$file_name = preg_replace("/\s+\(|\)/", "_", $_FILES["file"]["name"]);  
-		 
-     	$generatedFileName = basename(time().rand()).'.jpg';
+		$ext = pathinfo($file_name, PATHINFO_EXTENSION);
+ 		 
+     	$generatedFileName = basename(time().rand()).'.'.$ext;
 
 	    $target_file = $upload_dir . $generatedFileName;   
 
@@ -596,9 +598,7 @@ class CommonController extends CI_Controller {
 
      	$generatedFileName = basename(time().rand()).'.jpg';
 
-	    $target_file = $upload_dir . $generatedFileName;  
-	    $this->optimizeImg($target_file, $upload_dir.'/'. $generatedFileName, 2000);   
-	     
+	    $target_file = $upload_dir . $generatedFileName;   
 
 	    $move_file = move_uploaded_file($_FILES["file"]["tmp_name"], $target_file); 
 
@@ -664,7 +664,7 @@ class CommonController extends CI_Controller {
 		   $source_image = imagecreatefromjpeg($src);
 
 		}else if ($extension == 'png') {
-			$source_image = imagecreatefrompng($src);
+			$source_image = imagecreatefromstring(file_get_contents($src)); //imagecreatefrompng($src);
 		}
 		
 		$width = imagesx($source_image);
@@ -694,7 +694,7 @@ class CommonController extends CI_Controller {
 		   $source_image = imagecreatefromjpeg($src);
 
 		}else if ($extension == 'png') {
-			$source_image = imagecreatefrompng($src);
+			$source_image = imagecreatefromstring(file_get_contents($src));
 		}
 		
 		$width = imagesx($source_image);
@@ -723,7 +723,7 @@ class CommonController extends CI_Controller {
 		$upload_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/'.$client_id.'/'.$company_id.'/';
 		
 		unlink($upload_dir.''.$file);
-		// unlink($upload_dir.'thumb/'.$file);
+		unlink($upload_dir.'thumb/'.$file);
 		// unlink($upload_dir.'xs-thumb/'.$file); 
 
 		return 'file removed';
@@ -767,6 +767,28 @@ class CommonController extends CI_Controller {
 
 	}
 
+	public function removeDirectory($dir){ 
+		
+		$remove_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/'.$dir;
+
+		 $this->rmdir_recursive($remove_dir);
+
+	    return 'dir removed';
+  
+
+	}
+
+
+	public function rmdir_recursive($dir) {
+	    foreach(scandir($dir) as $file) {
+	        if ('.' === $file || '..' === $file) continue;
+	        if (is_dir("$dir/$file")) $this->rmdir_recursive("$dir/$file");
+	        else unlink("$dir/$file");
+	    }
+	    rmdir($dir);
+	}
+
+
 
 	public function smtpConfig(){
 		// Load PHPMailer library
@@ -777,10 +799,10 @@ class CommonController extends CI_Controller {
         $mail->isSMTP();
         $mail->SMTPAuth = true;
         $mail->SMTPSecure = 'ssl';
-        $mail->Host     = 'mail.easybuilding.biz' ; //'mail.botransports.com'
+        $mail->Host     = 'easybuilding.biz' ; 
         $mail->Port     = 465;
-        $mail->Username = 'no-reply@easybuilding.biz'; // 'info@botransports.com'
-        $mail->Password =  '3=Bazh15{4z=' ; // '4y9?E6H{lb_;'
+        $mail->Username = 'no-reply@easybuilding.biz';
+        $mail->Password =  constant("MPwd") ;
 
         return $mail;
 	} 

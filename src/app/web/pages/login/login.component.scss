@@ -60,9 +60,9 @@
                 border-color: $border-gray;
                 height: 4rem;
 
-                &.ng-invalid.ng-touched{
-                    border-color: $danger-color;
-                }
+                // &.ng-invalid.ng-touched{
+                //     border-color: $danger-color;
+                // }
             }
 
             .form-check{

@@ -48,11 +48,7 @@ export class DashboardComponent implements OnInit {
     this.newProfilesBarChart()
     this.profileDataPieChart();
   }
-
-  signOut(){
-      localStorage.clear();
-      this.router.navigate(['admin/login']);
-  } 
+ 
   
   newProfilesBarChart(){
  

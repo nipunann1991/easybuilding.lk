@@ -48,6 +48,13 @@
                       <textarea name="description" class="form-control" formControlName="project_description" cols="10" rows="5"></textarea>
                   </div>  
               </div> 
+              <div class="col-md-12">
+                <div class="form-group">
+                    <label for="city_id">Project Location<span class="required-star">*</span></label> 
+                    <ng-select2 [data]="nearestCity"  formControlName="project_address"  class="select-fw" >
+                    </ng-select2> 
+                </div>  
+            </div> 
               <div class="col-md-6"> 
                   <div class="form-group">
                       <label for="project_year">Project Year</label> 

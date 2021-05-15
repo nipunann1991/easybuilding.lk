@@ -13,12 +13,14 @@ class LoginController extends CommonController {
   
 	public function onClientLogin(){    
 
+		$email = $this->input->post('email');
+
 		$search_index = array(  
 			'table' => 'clients',
 			'columns' => 'COUNT(*) as count, first_name, profie_image, client_id, provider_id, status', 
-			'data' => 'email= "'.$this->input->post('email').'"' 
+			'data' => 'email= "'. $email .'" ' 
 		);
-		
+		 
 		$getClient = $this->getTotalRows__($search_index)['data'][0]; 
 
 		if ( $getClient->count == 0) {
@@ -26,11 +28,13 @@ class LoginController extends CommonController {
 			unset($dataset['auth_token']); 
 			unset($dataset['password']); 
 			unset($dataset['is_admin']); 
+			$dataset['created_date'] = date("Y-m-d");
 
 			 
 			$clientData = $this->insertRawData__('clients', $dataset);  
 
 			$sessionData = $this->addUserSession($clientData['data']->insertedId, $this->input->post('auth_token'));
+ 
 
 			$search_index = array(
 				'columns' => 'us.*, c.*' ,   
@@ -44,6 +48,8 @@ class LoginController extends CommonController {
 
 			 
 			if ($inputData->provider == "G" || $inputData->provider == "F" ) {
+
+			
 				 
 				$dataset = array(  
 					'profie_image' => $this->saveProfileImage__($inputData->client_id, $inputData->profie_image, $inputData->provider),
@@ -57,7 +63,10 @@ class LoginController extends CommonController {
 
 				$this->insertData__('client_company', $datasetCompany);
 				$this->updateData__('clients', $dataset, 'client_id="'.$dataset['client_id'].'"');
+
 			}else{
+
+
 
 				$dataset = array(  
 					'profie_image' => '',
@@ -75,9 +84,10 @@ class LoginController extends CommonController {
 				$this->updatePassword($inputData->client_id, $this->input->post('auth_token'), $this->input->post('password'));
 				$this->updateData__('clients', $dataset, 'client_id="'.$dataset['client_id'].'"');
 			}
-		 
-			$sessionData['data'] = $this->setNewUserSessionData($sessionData, $inputData,'Session inserted');  
 
+		 	
+			$sessionData['data'] = $this->setNewUserSessionData($sessionData, $inputData,'Session inserted');
+ 			$this->sendRegistration($inputData);
 			return $this->returnJSON($sessionData);
 	
 		}else{
@@ -291,18 +301,28 @@ class LoginController extends CommonController {
 	}
  	
 
- 	public function sendRegistration(){   
+ 	public function sendRegistration($inputData){   
+ 
+		(ENVIRONMENT !== 'production')? $profileURL = constant("LOCAL_PROFILE_URL") : $profileURL = constant("LIVE_PROFILE_URL") ; 
+
+ 		$data = array(
+			'verifycode' => $inputData->provider_id,  
+			'profileURL' => $profileURL ,
+			'email' => $inputData->email,
+			'name' => $inputData->first_name,
+		);
+ 
 
  		$mail = $this->smtpConfig();
- 		$msg = $this->load->view('mail-templates/registration', '', TRUE);
+ 		$msg = $this->load->view('mail-templates/registration', $data, TRUE);
 
- 		$mail->setFrom('no-reply@easybuilding.lk', 'Easybuilding.lk - Registration'); 
+ 		$mail->setFrom('no-reply@easybuilding.biz', 'Easybuilding.lk - Registration'); 
  		
  		// Add a recipient
- 		$mail->addAddress('nipunann0710@gmail.com' , "Nipuna"); 
+ 		$mail->addAddress($inputData->email , "Nipuna"); 
 
  		// Email subject
-        $mail->Subject = "Test Sample EB";
+        $mail->Subject = "Welcome to Easybuilding";
 
         // Set email format to HTML
         $mail->isHTML(true);
@@ -314,7 +334,22 @@ class LoginController extends CommonController {
 
         $mail->send(); 
 
-        echo "mail sent";
+       
+ 	}
+
+
+ 	public function viewMailTemplate(){   
+ 
+ 	 	(ENVIRONMENT !== 'ENVIRONMENT')? $profileURL = constant("LOCAL_PROFILE_URL") : $profileURL = constant("LOCAL_PROFILE_URL") ; 
+
+ 		$data = array(
+			'verifycode' => "1000",  
+			'profileURL' => $profileURL, 
+			'email' => "nipunann0710@gmail.com",
+			'name' => "Nipuna Nanayakkara",
+		);
+
+ 		$this->load->view('mail-templates/registration', $data);
  	}
  
 }

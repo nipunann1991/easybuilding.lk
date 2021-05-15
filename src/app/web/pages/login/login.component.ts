@@ -126,6 +126,8 @@ export class LoginComponent implements OnInit {
       auth_token:  userDetails.authToken,
       is_admin: false 
     }
+
+    console.log(param)
     
     this.login.onClientLogin(param)
       .subscribe((response: any) => {

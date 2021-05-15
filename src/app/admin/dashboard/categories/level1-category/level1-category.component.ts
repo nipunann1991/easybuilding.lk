@@ -221,7 +221,7 @@ export class Level1CategoryComponent implements OnInit {
   openDeleteLvl1Modal(cat_id){ 
  
     const dialogRef = this.globals.confirmDialogBox({ 
-      title: "Category Level 1", 
+      title: "Delete Category Level 1", 
       message: "Are you sure you need to delete this?", 
       isDelete: true,
       confirmBtn: "Yes, Delete",

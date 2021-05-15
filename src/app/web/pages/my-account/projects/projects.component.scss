@@ -7,18 +7,18 @@
   justify-content: center; 
   text-align: left; 
   @include flex();
-  flex-direction: column;
+  flex-direction: row; 
   overflow: hidden;
 
   @include breakpoint($tablet){
-    flex-direction: row; 
+   
   }
 
   h2{
-    margin: 0;
+    margin-right: auto;
     
     @include breakpoint($tablet){
-      margin-right: auto;
+      
     }
   }
 
@@ -29,12 +29,11 @@
     padding: 0rem 2rem !important;
     font-weight: 500;
     line-height: 3.5rem;
-    margin-top: 1rem;
+    margin-top: 0; 
+    margin-left: auto;
 
-    @include breakpoint($tablet){ 
-      margin-top: 0;
+    @include breakpoint($tablet){  
       line-height: auto;
-      margin-left: auto;
     }
 
     &:hover{

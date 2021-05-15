@@ -138,6 +138,26 @@ class SearchController extends CommonController {
 	public function searchImages(){  
  
 
+		$searchString = $this->input->post('searchString');
+
+		$searchWord = ["at", "in"];
+		$searchArray = [];
+
+		
+
+		foreach ($searchWord as $sw) {
+			$breakWord = " ". $sw ." "; 
+
+		  	if(strpos($searchString, $sw) !== false){
+			    $searchArray = explode($breakWord, $searchString);
+			    break;
+			}   
+		}
+
+		if (empty($searchArray)) {
+			 array_push($searchArray, $searchString); 
+		}
+	 
 		$limit = "LIMIT ".$this->input->post('limit') * ($this->input->post('page_index') - 1) ." , ".$this->input->post('limit') ."";   
 
 		$sort_by = ""; 
@@ -150,7 +170,7 @@ class SearchController extends CommonController {
 				'columns' => 'DISTINCT pi.*, p.project_name, cc.display_name, cc.client_id, cc.company_id, c.provider_id, icl.*, cl2.cat_lvl2_name',   
 				'table' => '`project_images` pi, `project` p, client_company cc, clients c, image_category_list icl, `categories-level2` cl2',
 				'eq_table_col' => '1 '.$limit, 
-				'data' => 'pi.project_id=p.project_id AND p.company_id=cc.company_id AND icl.img_id=pi.img_id AND c.client_id=cc.client_id AND cl2.cat_lvl2_id=icl.cat_lvl2_id AND cc.status=1 AND ( p.project_name LIKE "%'.$this->input->post('searchString').'%" OR cl2.cat_lvl2_name LIKE "%'.$this->input->post('searchString').'%")' 
+				'data' => 'pi.project_id=p.project_id AND p.company_id=cc.company_id AND icl.img_id=pi.img_id AND c.client_id=cc.client_id AND cl2.cat_lvl2_id=icl.cat_lvl2_id AND cc.status=1 AND ( p.project_name LIKE "%'.$searchArray[0].'%" OR cl2.cat_lvl2_name LIKE "%'.$searchArray[0].'%")' 
 			);
 		}else{
 
@@ -191,7 +211,17 @@ class SearchController extends CommonController {
 		
 		return $this->returnJSON($data);  
 
+		 
+		 
 	} 
+
+
+	public function plural( $amount, $singular = '', $plural = 's' ) {
+	    if ( $amount === 1 ) {
+	        return $singular;
+	    }
+	    return $plural;
+	}
 	
 
 

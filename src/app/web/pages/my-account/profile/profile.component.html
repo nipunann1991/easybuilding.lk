@@ -13,32 +13,7 @@
         <div class="container">
             <p>Please verify your email. We have sent you a verification link to the given mail address. <a href="">Resend Verification</a></p>
         </div>
-    </div>
-    
-    <input type="file" class="d-none" (change)="fileChangeEvent($event)" #fileInput />
-
-    <modal #uploadCover> 
-        <modal-header> 
-            <h2>Upload {{modalTitle}} Image</h2>
-        </modal-header>
-        <modal-content> 
-            <image-cropper
-                [imageChangedEvent]="imageChangedEvent"
-                [maintainAspectRatio]="true"
-                [aspectRatio]="aspectRatio.x / aspectRatio.y"
-                format="jpg"
-                (imageCropped)="imageCropped($event)"
-                (imageLoaded)="imageLoaded()" 
-                (loadImageFailed)="loadImageFailed()"
-            ></image-cropper>
-            <!-- (cropperReady)="cropperReady()" -->
-        </modal-content>
-        <modal-footer> 
-            <button class="btn btn-primary" mat-button (click)="onSave()">Set {{modalTitle}} Image</button> 
-            <button class="btn btn-primary-transparent close-btn" mat-button (click)="closeModal()">Close</button>
-        </modal-footer>
-    </modal>
-
+    </div> 
 
     <div class="profile-area">
         
@@ -48,8 +23,9 @@
             (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
                 
                 <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                   
                     <div *ngIf="!isBgImage" class="drop-template">  
-                        <a href="javascript:void(0)" class="upload-btn" title="Upload cover image" *ngIf="profile.profile_editable || profile.admin_profile" (click)="openImgUpload(fileInput, 0)"> </a>
+                        <a href="javascript:void(0)" class="upload-btn upload-cover" title="Upload cover image" *ngIf="profile.profile_editable || profile.admin_profile" (click)="openImgUpload(fileInput, 0)"></a>
                     </div>
                     <div *ngIf="isBgImage" class="preview" [ngClass]="{'shadow': bgImage}" [ngStyle]="{'background-image':bgImage}"></div>
                     
@@ -58,7 +34,7 @@
         </div>
         <div class="profile-details-wrapper container">
             <div class="profile-details">
-                <div class="profile-img-wrapper">
+                <div class="profile-img-wrapper"> 
                     <div class="profile-img" *ngIf="isProfImage" [ngStyle]="{'background-image': profImage}">
                         <i class="icon-bin" *ngIf="isProfImage && profile.profile_editable || isProfImage && profile.admin_profile" (click)="deleteImage(1)"></i>
                     </div>
@@ -104,3 +80,26 @@
     </div>
 </div>  
 
+<input type="file" class="d-none" (change)="fileChangeEvent($event)" #fileInput />
+
+<modal #uploadCover> 
+    <modal-header> 
+        <h2>Upload {{modalTitle}} Image</h2>
+    </modal-header>
+    <modal-content> 
+        <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="aspectRatio.x / aspectRatio.y"
+            format="jpg"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()" 
+            (loadImageFailed)="loadImageFailed()"
+        ></image-cropper>
+        <!-- (cropperReady)="cropperReady()" -->
+    </modal-content>
+    <modal-footer> 
+        <button class="btn btn-primary" mat-button (click)="onSave()">Set {{modalTitle}} Image</button> 
+        <button class="btn btn-primary-transparent close-btn" mat-button (click)="closeModal()">Close</button>
+    </modal-footer>
+</modal>

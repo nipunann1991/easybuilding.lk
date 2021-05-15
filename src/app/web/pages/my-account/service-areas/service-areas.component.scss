@@ -73,12 +73,22 @@ label.service-label{
 .service-areas{
   h2{
     border-top: 1px solid #ced4da;
-    padding-top: 1.5rem;
+    padding-top: 2rem;
+    margin-bottom: 1.5rem;
   }
 }
 
+.form-check-inline .form-check-input{
+  margin-right: 0.7rem;
+}
+
 a.service-dialog{
-  display: block;
   text-decoration: none;
-  margin-bottom: 3rem;
+  margin-bottom: 0;
+  font-size: 1.4rem;
+  margin-left: 0.5rem;
+}
+
+.select2-container{
+  display: none;
 }

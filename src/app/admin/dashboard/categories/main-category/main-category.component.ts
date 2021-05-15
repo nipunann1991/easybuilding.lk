@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { ToastrService } from 'ngx-toastr';
 import { RouterModule, ActivatedRoute, Routes, Router} from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
-import { Subject } from 'rxjs'
+import { Subject } from 'rxjs';
+import { Globals } from "../../../../app.global";
 import { CategoriesService } from '../../../../admin/api/categories.service'; 
 import * as $ from 'jquery';
 declare const bootbox:any;
@@ -29,6 +30,7 @@ export class MainCategoryComponent implements OnInit {
     private categories: CategoriesService,
     private toastr: ToastrService,
     private route: ActivatedRoute,
+    private globals: Globals,
     private router: Router, 
   ) { }
 
@@ -103,7 +105,7 @@ export class MainCategoryComponent implements OnInit {
 
 		$('html').on('click', 'a.delete-maincategory-data' , function(e1){ 
 			e1.preventDefault(); 
-			component1.openDeleteCustomerModal($(this).attr('data-id'));  
+			component1.openDeleteMainCategoryModal($(this).attr('data-id'));  
 			
     })
     
@@ -139,6 +141,26 @@ export class MainCategoryComponent implements OnInit {
 		this.router.navigate(['admin/categories/main-categories/'+pageId]); 
   } 
 
+
+  openDeleteMainCategoryModal(cat_id){ 
+ 
+    const dialogRef = this.globals.confirmDialogBox({ 
+      title: "Delete Main Category", 
+      message: "Are you sure you need to delete this?", 
+      isDelete: true,
+      confirmBtn: "Yes, Delete",
+      cancelBtn: 'No'
+    });
+     
+    dialogRef.afterClosed().subscribe(result => {
+         
+        if(result){
+          this.deleteMainCategory(cat_id); 
+        }  
+      
+    }); 
+    
+  }
 
   onSubmit() { 
 
@@ -206,39 +228,7 @@ export class MainCategoryComponent implements OnInit {
 
   }
 
-  openDeleteCustomerModal(cat_id){ 
-    const component = this;
-    let dialog = bootbox.confirm({
-      title: "Delete Category",
-      message: "Are you sure you need to delete this?",
-      buttons: {
-        confirm: {
-          label: 'Yes',  
-          className: 'btn-danger pull-left'
-        },
-        cancel: {
-          label: 'No', 
-          className: 'pull-right '
-        }
-      },
-      callback: function (result) {
-        
-        if(result){
-          component.deleteMainCategory(cat_id);
-        }  
-      } 
-    });
-
-    dialog.init(function(){
-      $('html .modal-backdrop:not(:first)').remove();
-    })
-
-    dialog.on("shown.bs.modal", function() {  
-      $('html .bootbox.modal:not(:first)').remove(); 
-    });
  
-    
-  }
 
   deleteMainCategory(cat_id){
  

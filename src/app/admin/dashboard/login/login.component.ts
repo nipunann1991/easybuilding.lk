@@ -122,7 +122,7 @@ export class LoginComponent implements OnInit {
            
           localStorage.setItem('tokenAdmin', JSON.stringify(token) );  
           this.isLoggedIn = true; 
-          this.router.navigate(['/admin/dashboard']);
+          window.location.reload();
 
         }else{
           this.noUserAvailable = true;

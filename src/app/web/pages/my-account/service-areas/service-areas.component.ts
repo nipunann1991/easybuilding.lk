@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router,ActivatedRoute,  NavigationEnd } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -7,11 +7,14 @@ import {MatDialog} from '@angular/material/dialog';
 import { HomepageService } from "../../../../admin/api/frontend/homepage.service";
 import { ServicesDialogBoxComponent } from "./services-dialog-box/services-dialog-box.component";
 import { Options } from 'select2'; 
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-service-areas',
   templateUrl: './service-areas.component.html',
-  styleUrls: ['./service-areas.component.scss']
+  styleUrls: ['./service-areas.component.scss'],
+  encapsulation: ViewEncapsulation.None
+
 })
 export class ServiceAreasComponent implements OnInit {
 
@@ -77,6 +80,8 @@ export class ServiceAreasComponent implements OnInit {
       closeOnSelect: true, 
       tags: true 
     };
+
+    $("html .select2-container--open").hide()
 
     if(this.router.url.includes("steps")){
       this.isStepsForm = true; 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2021 at 10:21 PM
+-- Generation Time: May 15, 2021 at 11:05 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -539,7 +539,8 @@ INSERT INTO `cites` (`city_id`, `district_id`, `city`) VALUES
 (1276, 20, 'Tangalle'),
 (1277, 23, 'Thalawakale'),
 (1279, 10, 'Ragama'),
-(1280, 8, 'Mulleriyawa');
+(1280, 8, 'Mulleriyawa'),
+(0, 8, 'Colombo');
 
 -- --------------------------------------------------------
 
@@ -559,7 +560,7 @@ CREATE TABLE `clients` (
   `provider_id` varchar(150) NOT NULL,
   `verified_email` int(11) NOT NULL DEFAULT 0,
   `verify_code` int(11) NOT NULL,
-  `created_date` date NOT NULL DEFAULT current_timestamp()
+  `created_date` date NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -585,9 +586,7 @@ INSERT INTO `clients` (`client_id`, `first_name`, `last_name`, `company_name`, `
 (132, 'Kasuni', 'Perera', '', 'kasuni.perera@gmail.com', '', 1, 'E', '1609237765046', 0, 0, '2020-12-19'),
 (134, 'Alwis', 'Sam', '', 'mithilas@easybuilding.lk', '1610983878prof.png', 1, 'F', '10159177211081419', 0, 0, '2021-01-18'),
 (135, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1612607512083', 0, 0, '2021-02-06'),
-(136, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1612613689940', 0, 0, '2021-02-06'),
-(137, 'Dilan', 'Gunasekara', '', 'dkavinda90@gmail.com', '1612673141prof.png', 1, 'G', '118193087047669896944', 0, 0, '2021-02-07'),
-(138, 'Mithila', 'Samarasinghe', '', 'easybuilding.lk@gmail.com', '1612673723prof.png', 1, 'F', '837638230296010', 0, 0, '2021-02-07');
+(136, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1612613689940', 0, 0, '2021-02-06');
 
 -- --------------------------------------------------------
 
@@ -636,7 +635,7 @@ CREATE TABLE `client_company` (
 --
 
 INSERT INTO `client_company` (`company_id`, `client_id`, `display_name`, `description`, `website`, `br_no`, `email`, `address_line1`, `address_line2`, `city`, `city_id`, `tel1`, `tel2`, `profie_image`, `cover_img`, `prof_category`, `verified_email`, `verify_code`, `steps`, `parent`, `all_island`, `service`, `products`, `product_string`, `service_areas`, `service_dist`, `services`, `services_string`, `total_reviews`, `rating`, `company_profile`, `featured`, `status`) VALUES
-(1, 66, 'UK Livings (Pvt) Ltd', '<p>Milind Pai - Architect &amp; Interior Designers was established in 1987. Since then we have evolved into a dedicated team of professionals committed to designing excellence and offering comprehensive service in Interior Designing and Project Consultation.</p><p>&nbsp;</p><p>&nbsp;In this firm the Architects &amp; the Interior Designers work in close collaboration with other experts including Engineers, Graphic Designers, Artists, Sculptures, Landscape Designers, Lighting &amp; Acoustic Specialists. We work on various verticals like Luxury Residential, Commercial, Boutique Retail, Institutional, Medical and Boutique Hospitality. Our well-trained design team undertakes professional designing job &amp; implement them in close co-ordination with various agencies engaged for the job. The site work is closely monitored by the site associates &amp; site supervisors designated for the particular site &amp; the total co-ordination job between the client &amp; the agencies is taken care of.&nbsp;</p><p>&nbsp;</p><p>Besides Mumbai we have executed projects in more than 30 Indian cities like Delhi, Surat, Pune, Bangalore, Nagpur, Indore, Hyderabad, Kolkatta, Guwahti, Pondicherry, Jodhpur, Bhubaneshwar, Raipur etc. and also International Cities like Dubai, Singapore and Muscat. Now we are also exploring more projects in the USA.</p>', 'https://oozmm.com', 'PV263644577', 'info@n3holdings.com', '275A Colombo Road  ', 'Kidagammulla', 'Gampaha', 1086, '033-2228887', '071-6378515', '16133228721553740896.jpg', '16133229241715444161.jpg', 1, 1, 0, 4, 0, 0, 0, 0x5b22434c3231303139222c22434c3231313231222c22434c3231303136225d, '', 0x5b5d, 0x5b2234222c223130225d, 0x5b22434c3231303339222c22434c3231303134222c22434c3231303131222c22434c3231303536225d, '', 6, 4, 1, 1, 1),
+(1, 66, 'UK Livings (Pvt) Ltd', '<p>Milind Pai - Architect &amp; Interior Designers was established in 1987. Since then we have evolved into a dedicated team of professionals committed to designing excellence and offering comprehensive service in Interior Designing and Project Consultation.</p><p>&nbsp;</p><p>&nbsp;In this firm the Architects &amp; the Interior Designers work in close collaboration with other experts including Engineers, Graphic Designers, Artists, Sculptures, Landscape Designers, Lighting &amp; Acoustic Specialists. We work on various verticals like Luxury Residential, Commercial, Boutique Retail, Institutional, Medical and Boutique Hospitality. Our well-trained design team undertakes professional designing job &amp; implement them in close co-ordination with various agencies engaged for the job. The site work is closely monitored by the site associates &amp; site supervisors designated for the particular site &amp; the total co-ordination job between the client &amp; the agencies is taken care of.&nbsp;</p><p>&nbsp;</p><p>Besides Mumbai we have executed projects in more than 30 Indian cities like Delhi, Surat, Pune, Bangalore, Nagpur, Indore, Hyderabad, Kolkatta, Guwahti, Pondicherry, Jodhpur, Bhubaneshwar, Raipur etc. and also International Cities like Dubai, Singapore and Muscat. Now we are also exploring more projects in the USA.</p>', 'https://oozmm.com', 'PV263644577', 'info@n3holdings.com', '275A Colombo Road  ', 'Kidagammulla', 'Gampaha', 1086, '033-2228887', '071-6378515', '16133228721553740896.jpg', '16133229241715444161.jpg', 1, 0, 0, 4, 0, 0, 0, 0x5b22434c3231303139222c22434c3231313231222c22434c3231303136225d, '', 0x5b5d, 0x5b2234222c223130225d, 0x5b22434c3231303339222c22434c3231303134222c22434c3231303131222c22434c3231303536225d, '', 6, 4, 1, 1, 1),
 (7, 75, 'Mahesh Steel Decos', '', '', '', 'maheshsteel@gmail.com', '248 Negambo Road', '', 'Wattala', 0, '01124456733', '', '1596706929blob.jpg', '', 1, 0, 0, 4, 0, 0, 0, '', '', 0x5b2231303837222c2231303938222c2231303939225d, 0x5b5d, 0x5b22434c3231303133225d, '', 1, 3, 1, 1, 1),
 (3, 68, 'Test Holdings', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p><p>tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p><p>quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p><p>consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse</p><p>cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non</p><p>proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '', 'nipunann07101@gmail.com', '275A Colombo Road, KIdagammulla', '', 'Gampaha', 0, '0716378515', '', '', '', 1, 0, 0, 4, 0, 0, 0, '', '', 0x5b2231323233225d, '', '', '', 0, 0, 1, 0, 1),
 (2, 67, 'JAT Living', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '', 'info@jatliving.lk', '141 Danister De Silva Mw,', 'Orion City,', 'Colombo 09', 0, '0112589963', '', '1607143260blob.jpg', '1607142780blob.jpg', 1, 0, 0, 4, 0, 1, 0, 0x5b22434c3231313130222c22434c3231313132222c22434c3231303832222c22434c3231303830222c22434c3231313131222c22434c3231313134222c22434c3231303739225d, '', 0x5b5d, 0x5b5d, 0x5b22434c3231303134222c22434c3231303435222c22434c3231303439225d, '', 3, 4.66667, 1, 1, 1),
@@ -652,9 +651,7 @@ INSERT INTO `client_company` (`company_id`, `client_id`, `display_name`, `descri
 (73, 132, 'San Readymix (Pvt) Ltd', '<p>San Readymix is operating their plant at Seeduwa with a high-capacity computerized Concrete Batching Plant, large fleet of Concrete Delivery Trucks, modern Mobile Concrete Pumps and a Concrete testing facility and it is known for Quality, Strength and Reliability.</p>', 'http://sanreadymix.com', 'PV10025488', 'sanreadymix@sanreadymix.com', 'No 55, Avissawella Road', 'Orugodawatta', 'Colombo 09', 0, '0114962464', '', '', '1610270921blob.jpg', 2, 0, 0, 4, 0, 1, 0, 0x5b22434c3231303139222c22434c3231303332225d, '', 0x5b5d, 0x5b5d, 0x2222, '', 0, 0, 1, 1, 1),
 (75, 134, 'Easybuilding.lk Factory Building Consultation ', '', 'www.easybuilding.lk', '', 'mithilas@easybuilding.lk', '70, diyawanna Gardens', 'palawatta', 'battaramulla', 0, '0777269108', '', '16109842542053945949.jpg', '1610984288551452794.jpg', 1, 0, 0, 4, 0, 0, 0, 0x2222, '', 0x5b5d, 0x5b2238222c2239222c223134225d, 0x5b22434c3231303532225d, '', 0, 0, 1, 0, 1),
 (76, 135, 'SMS Holdings (Pvt) Ltd', '<p><strong>AS SRI LANKA’S LARGEST MANUFACTURER AND SUPPLIER OF PAVING BRICKS, WE ARE PASSIONATE ABOUT WHERE YOU WALK. SINCE 2001, WE’VE PAVED THE WAY FOR MANY LEADING BUSINESSES, NOTABLE PUBLIC SPACES AS WELL AS RESIDENTIAL AREAS TO EXPAND AND THRIVE IN.</strong></p>', 'http://smspavers.com/', '', 'info@smspavers.com', '622', 'E.W Perera mawatha,', 'Ethulkotte ', 1069, '011 281 3787', '011 534 2414', '16126087391285042574.jpg', '1612610128815593078.jpg', 3, 0, 0, 4, 0, 1, 0, 0x5b22434c3231303331222c22434c3231303137225d, '', 0x5b5d, 0x5b5d, 0x5b22434c3231303536225d, '', 0, 0, 1, 1, 1),
-(77, 136, 'Rukmal Indrajith Kasthiriarchchi', '<p>Architectural Designs - House, Private residencies and Commercial building Architectural Designing and Interior Designing</p>', '', '', '', '107/11', 'Salawa Road', 'Mirihana', 1071, '0112834684', '', '1612614044669515687.jpg', '16126140621767506695.jpg', 1, 0, 0, 4, 0, 0, 0, 0x2222, '', 0x5b5d, 0x5b2238225d, 0x5b22434c3231303131222c22434c3231303132225d, '', 0, 0, 1, 1, 1),
-(78, 137, '', '', '', '', '', '', '', '', 0, '', '', '', '', 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '', 0, 0, -1, 0, 1),
-(79, 138, 'XYZ ', '<p>landscaping, cleaning, gully work, cutting trees&nbsp;</p>', '', '', '', '', '', '', 0, '', '', '', '', 1, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '', 0, 0, 1, 0, 1);
+(77, 136, 'Rukmal Indrajith Kasthiriarchchi', '<p>Architectural Designs - House, Private residencies and Commercial building Architectural Designing and Interior Designing</p>', '', '', '', '107/11', 'Salawa Road', 'Mirihana', 1071, '0112834684', '', '1612614044669515687.jpg', '16126140621767506695.jpg', 1, 0, 0, 4, 0, 0, 0, 0x2222, '', 0x5b5d, 0x5b2238225d, 0x5b22434c3231303131222c22434c3231303132225d, '', 0, 0, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -745,8 +742,8 @@ CREATE TABLE `home_slider` (
 --
 
 INSERT INTO `home_slider` (`id`, `file_name`, `title`, `description`, `img_order`) VALUES
-(6, '16199440101163201843.jpg', 'wqe', 'qwe', 0),
-(7, '16199440401510835733.jpg', '', '', 0);
+(12, '16208444791908855062.jpg', 'Luxury Villas - Thalawathugoda', 'Luxury villas for sale in the heart of Colombo\nCall us on 077 7789560', 0),
+(16, '16211065661773384491.jpg', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -823,7 +820,8 @@ INSERT INTO `house_surfaces_type` (`id`, `level`, `house_surfaces_type_id`, `sur
 (7, 1, 'ST1007', 'S1001', 'Tile 2 by 2', 270),
 (8, 1, 'ST1008', 'S1002', 'Block', 250),
 (9, 1, 'ST1009', 'S1003', 'Superflex', 450),
-(10, 1, 'ST1010', 'S1004', 'Asbastos', 150);
+(10, 1, 'ST1010', 'S1004', 'Asbastos', 150),
+(11, 2, 'ST1011', 'S1001', 'Tiles 4 by 4', 300);
 
 -- --------------------------------------------------------
 
@@ -865,12 +863,8 @@ INSERT INTO `image_category_list` (`id`, `img_id`, `cat_lvl2_id`) VALUES
 (55, 82, 'CL21150'),
 (56, 82, 'CL21146'),
 (57, 155, 'CL21151'),
-(60, 173, 'CL21146'),
-(61, 173, 'CL21147'),
 (62, 174, 'CL21148'),
 (63, 174, 'CL21146'),
-(64, 175, 'CL21148'),
-(65, 175, 'CL21146'),
 (66, 83, 'CL21148'),
 (67, 81, 'CL21156'),
 (68, 81, 'CL21146'),
@@ -880,7 +874,17 @@ INSERT INTO `image_category_list` (`id`, `img_id`, `cat_lvl2_id`) VALUES
 (74, 157, 'CL21151'),
 (88, 176, 'CL21161'),
 (89, 177, 'CL21161'),
-(90, 177, 'CL21158');
+(90, 177, 'CL21158'),
+(104, 80, 'CL21156'),
+(105, 80, 'CL21146'),
+(106, 80, 'CL21147'),
+(110, 59, 'CL21160'),
+(111, 59, 'CL21156'),
+(112, 59, 'CL21146'),
+(115, 173, 'CL21146'),
+(116, 173, 'CL21147'),
+(119, 175, 'CL21148'),
+(120, 175, 'CL21146');
 
 -- --------------------------------------------------------
 
@@ -965,7 +969,7 @@ CREATE TABLE `project` (
   `project_description` varchar(1000) NOT NULL,
   `project_year` varchar(10) NOT NULL,
   `project_cost` varchar(100) NOT NULL,
-  `project_address` varchar(500) NOT NULL,
+  `project_address` varchar(500) NOT NULL DEFAULT '0',
   `company_id` int(11) NOT NULL,
   `services` mediumblob NOT NULL,
   `images` mediumblob NOT NULL,
@@ -982,16 +986,16 @@ CREATE TABLE `project` (
 --
 
 INSERT INTO `project` (`project_id`, `project_name`, `project_description`, `project_year`, `project_cost`, `project_address`, `company_id`, `services`, `images`, `architect`, `contractor`, `structural_engineer`, `primary_img`, `total_imgs`, `approved`) VALUES
-(31, 'Katunayaka Airport Project', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. \n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '2020', '10B', '', 2, '', 0x5b22313539353730323733327765625f4368616e67692d54342d53696e6761706f72652d332d48522d4372656469742d42656e6f792e6a7067222c22313539353730323733387765625f4368616e67692d54342d53696e6761706f72652d312d48522d4372656469742d42656e6f792e6a7067222c22313539353730323833377765625f4368616e67692d54342d53696e6761706f72652d382d48522d4372656469742d42656e6f792e6a7067222c22313539353730333335337765625f4368616e67692d54342d53696e6761706f72652d372d48522d4372656469742d42656e6f792e6a7067225d, '', '0', '0', '1595702732web_Changi-T4-Singapore-3-HR-Credit-Benoy.jpg', 4, 1),
-(30, 'Homagama Housing Project', 'Homagama Housing Project - The traditional beige two-story wood exterior home idea in Boston with a shingle roof uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non.', '2020', '30M', '', 1, 0x5b22434c3231303131225d, 0x5b22313539353730323133313232363231363138362e6a7067222c22313539353730323133314e6f726d616e746f6e2d4176656e75652d332d3136303078313036382e6a7067222c22313539353730323133316c616b652d686f7573652d696e2d6173636f6e612d62792d77657370692d64652d6d6575726f6e2d726f6d656f2d617263686974656374732d3035312e6a7067225d, 'Amal Fernando', 'R&D Constructions', 'Nirmal Perera', '1595702131226216186.jpg', 3, 1),
-(38, 'Switzerland landscape project', 'Switzerland landscape project ', '2018', '', '', 1, 0x5b22434c3231303134225d, 0x5b2231363036353537393632304d47733933592d737769747a65726c616e642d77616c6c70617065722e6a7067222c223136303635353739363277616c6c7061706572666c6172652e636f6d5f77616c6c70617065725f315f2e6a7067225d, '', '', '', '16065579620MGs93Y-switzerland-wallpaper.jpg', 2, 1),
-(41, '96 Residencies', 'A 12 story Condominium, Offering 54 Contemporary, Luxury Apartments, 96 residencies is set to become the landmark that will redefine the suburb of pagoda. Sri Jayawardenepura Kotte is a planned urban site with government offices and residential housing. 96 Residencies is destined to elevate the lifestyles of those seeking a new home in the modern Suburb Kotte. The 12-story tower, inclusive of 3 levels of car park and a range of opulent amenities, features 54 two- and three bedroom apartments.', '2019', '22.5M', '', 2, 0x5b22434c3231303134225d, 0x5b2231363037333334393538736c6964655f30342e6a7067222c2231363037333334393538736c6964655f30332e6a7067222c2231363037333334393538736c6964655f30382e6a7067222c2231363037333334393538736c6964655f30362e6a7067222c2231363037333334393538736c6964655f30372e6a7067222c22313630373333353231337a63615641564156622e6a7067222c22313630373333353234347663414341562e6a7067225d, ' I. W. Architects', 'JAT Homes', 'Michelle Rodrigo', '1607334958slide_04.jpg', 7, 1),
-(43, 'The Mount', 'Ensuring maximum natural light to come in through seamless environment friendly architectural design, this complex will be a unique piece in the Mt. Lavinia neighborhood with its green balconies overlooking the sea view, making this a wise investment.\n\nTHE MOUNT is centrally located in Mount Lavinia on Old Quarry Road within 150 meters to Galle Road, leading to the city of Colombo and the south with access to prominent routes. With the completion of the Marine Drive project, owners will have the privilege to reach Colombo in a few minutes.\n', '2020', '28M', '', 1, 0x5b22434c3231303131222c22434c3231303134225d, 0x5b2231363133333233373931313638353537323437372e6a7067222c2231363133333233383238323033343137343536352e6a7067222c2231363133333233393833313332333933363639362e6a7067225d, 'Mount Archs', 'L.H. Company (Pvt) Ltd', 'Mount Archs', '16133237911685572477.jpg', 3, 1),
-(53, 'Commercial Credit - Borella', 'Paving at Borella Commercial credit building', '2015', '1.5M', '', 76, 0x5b22434c3231303536225d, 0x5b22313631323630393038333934383134363630322e6a7067222c2231363132363039303937313437363439373130342e6a7067222c2231363132363039313030313735353139303130322e6a7067222c22313631323630393130323730323432343339302e6a7067222c2231363132363039313033313534393434323435372e6a7067222c2231363132363039313034313738373434373033302e6a7067225d, '', '', '', '1612609083948146602.jpg', 6, 1),
-(54, 'Maga NSBM Homagama', 'Maga NSBM Homagama Project ', '2018', '7.7', '', 76, 0x5b22434c3231303536225d, 0x5b2231363132363039323737313136333031393432342e6a7067222c2231363132363039323737323036373735393434342e6a7067222c22313631323630393237383831303134333534342e6a7067222c2231363132363039323738313530303434343934372e6a7067222c223136313236303932373835323530363237352e6a7067222c22313631323630393237393431313335313532342e6a7067225d, '', '', '', '16126092771163019424.jpg', 6, 1),
-(55, 'St Mary\'s Church', 'St Mary\'s Church ', '2016', '3.2 M', '', 76, 0x5b22434c3231303536225d, 0x5b2231363132363039333935313738383438393736332e6a7067222c2231363132363039333935313533313739303830312e6a7067222c2231363132363039333936313532393237353933332e6a7067222c22313631323630393339363431363635313735362e6a7067222c223136313236303933393631303035363835352e6a7067222c2231363132363039333936313238383537323938342e6a7067225d, '', '', '', '16126093951788489763.jpg', 6, 1),
-(56, 'Individual House In Palawatta', 'House architect and interior designing ', '2012', '17M', '', 77, 0x5b22434c3231303131225d, 0x5b2231363132363134303937313433393039383630322e6a7067222c2231363132363134303937313632313432303430332e6a7067222c22313631323631343039383930363536373539382e6a7067222c2231363132363134303939313736333633353437372e6a7067222c223136313236313430393933303235303037322e6a7067222c22313631323631343039393532303036373530392e6a7067222c2231363132363134303939313333323330393236312e6a7067225d, 'Rukmal  Indrajith Kathriarachchi', '', '', '16126140971439098602.jpg', 7, 1),
-(59, '1# Project Colombo', 'test', '', '', '', 1, 0x5b22434c3231303136225d, 0x5b22313632303233303937363330383832353238352e6a7067222c2231363230323338353136313132363330303438332e6a7067225d, '', '', '', '1620230976308825285.jpg', 2, 1);
+(31, 'Katunayaka Airport Project', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. \n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '2020', '10B', '1042', 2, 0x5b22434c3231303134225d, 0x5b7b22696d675f6964223a223539222c2266696c655f6e616d65223a22313539353730323833377765625f4368616e67692d54342d53696e6761706f72652d382d48522d4372656469742d42656e6f792e6a7067222c22617070726f766564223a2231227d2c7b22696d675f6964223a223538222c2266696c655f6e616d65223a22313539353730323733387765625f4368616e67692d54342d53696e6761706f72652d312d48522d4372656469742d42656e6f792e6a7067222c22617070726f766564223a2231227d2c7b22696d675f6964223a223630222c2266696c655f6e616d65223a22313539353730333335337765625f4368616e67692d54342d53696e6761706f72652d372d48522d4372656469742d42656e6f792e6a7067222c22617070726f766564223a2231227d2c7b22696d675f6964223a223536222c2266696c655f6e616d65223a22313539353730323733327765625f4368616e67692d54342d53696e6761706f72652d332d48522d4372656469742d42656e6f792e6a7067222c22617070726f766564223a2231227d5d, '', '', '', '1595702837web_Changi-T4-Singapore-8-HR-Credit-Benoy.jpg', 4, 1),
+(30, 'Homagama Housing Project', 'Homagama Housing Project - The traditional beige two-story wood exterior home idea in Boston with a shingle roof uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non.', '2020', '30M', '0', 1, 0x5b22434c3231303131225d, 0x5b22313539353730323133313232363231363138362e6a7067222c22313539353730323133314e6f726d616e746f6e2d4176656e75652d332d3136303078313036382e6a7067222c22313539353730323133316c616b652d686f7573652d696e2d6173636f6e612d62792d77657370692d64652d6d6575726f6e2d726f6d656f2d617263686974656374732d3035312e6a7067225d, 'Amal Fernando', 'R&D Constructions', 'Nirmal Perera', '1595702131226216186.jpg', 3, 1),
+(38, 'Switzerland landscape project', 'Switzerland landscape project ', '2018', '', '0', 1, 0x5b22434c3231303134225d, 0x5b2231363036353537393632304d47733933592d737769747a65726c616e642d77616c6c70617065722e6a7067222c223136303635353739363277616c6c7061706572666c6172652e636f6d5f77616c6c70617065725f315f2e6a7067225d, '', '', '', '16065579620MGs93Y-switzerland-wallpaper.jpg', 2, 1),
+(41, '96 Residencies', 'A 12 story Condominium, Offering 54 Contemporary, Luxury Apartments, 96 residencies is set to become the landmark that will redefine the suburb of pagoda. Sri Jayawardenepura Kotte is a planned urban site with government offices and residential housing. 96 Residencies is destined to elevate the lifestyles of those seeking a new home in the modern Suburb Kotte. The 12-story tower, inclusive of 3 levels of car park and a range of opulent amenities, features 54 two- and three bedroom apartments.', '2019', '22.5M', '1068', 2, 0x5b22434c3231303134225d, 0x5b7b22696d675f6964223a223836222c2266696c655f6e616d65223a22313630373333353234347663414341562e6a7067222c22617070726f766564223a2231227d2c7b22696d675f6964223a223835222c2266696c655f6e616d65223a22313630373333353231337a63615641564156622e6a7067222c22617070726f766564223a2231227d2c7b22696d675f6964223a223830222c2266696c655f6e616d65223a2231363037333334393538736c6964655f30342e6a7067222c22617070726f766564223a2231227d2c7b22696d675f6964223a223831222c2266696c655f6e616d65223a2231363037333334393538736c6964655f30332e6a7067222c22617070726f766564223a2231227d2c7b22696d675f6964223a223832222c2266696c655f6e616d65223a2231363037333334393538736c6964655f30382e6a7067222c22617070726f766564223a2231227d2c7b22696d675f6964223a223833222c2266696c655f6e616d65223a2231363037333334393538736c6964655f30362e6a7067222c22617070726f766564223a2231227d2c7b22696d675f6964223a223834222c2266696c655f6e616d65223a2231363037333334393538736c6964655f30372e6a7067222c22617070726f766564223a2231227d5d, ' I. W. Architects', 'JAT Homes', 'Michelle Rodrigo', '1607335244vcACAV.jpg', 7, 1),
+(43, 'The Mount', 'Ensuring maximum natural light to come in through seamless environment friendly architectural design, this complex will be a unique piece in the Mt. Lavinia neighborhood with its green balconies overlooking the sea view, making this a wise investment.\n\nTHE MOUNT is centrally located in Mount Lavinia on Old Quarry Road within 150 meters to Galle Road, leading to the city of Colombo and the south with access to prominent routes. With the completion of the Marine Drive project, owners will have the privilege to reach Colombo in a few minutes.\n', '2020', '28M', '0', 1, 0x5b22434c3231303131222c22434c3231303134225d, 0x5b2231363133333233373931313638353537323437372e6a7067222c2231363133333233383238323033343137343536352e6a7067222c2231363133333233393833313332333933363639362e6a7067225d, 'Mount Archs', 'L.H. Company (Pvt) Ltd', 'Mount Archs', '16133237911685572477.jpg', 3, 1),
+(53, 'Commercial Credit - Borella', 'Paving at Borella Commercial credit building', '2015', '1.5M', '0', 76, 0x5b22434c3231303536225d, 0x5b22313631323630393038333934383134363630322e6a7067222c2231363132363039303937313437363439373130342e6a7067222c2231363132363039313030313735353139303130322e6a7067222c22313631323630393130323730323432343339302e6a7067222c2231363132363039313033313534393434323435372e6a7067222c2231363132363039313034313738373434373033302e6a7067225d, '', '', '', '1612609083948146602.jpg', 6, 1),
+(54, 'Maga NSBM Homagama', 'Maga NSBM Homagama Project ', '2018', '7.7', '0', 76, 0x5b22434c3231303536225d, 0x5b2231363132363039323737313136333031393432342e6a7067222c2231363132363039323737323036373735393434342e6a7067222c22313631323630393237383831303134333534342e6a7067222c2231363132363039323738313530303434343934372e6a7067222c223136313236303932373835323530363237352e6a7067222c22313631323630393237393431313335313532342e6a7067225d, '', '', '', '16126092771163019424.jpg', 6, 1),
+(55, 'St Mary\'s Church', 'St Mary\'s Church ', '2016', '3.2 M', '0', 76, 0x5b22434c3231303536225d, 0x5b2231363132363039333935313738383438393736332e6a7067222c2231363132363039333935313533313739303830312e6a7067222c2231363132363039333936313532393237353933332e6a7067222c22313631323630393339363431363635313735362e6a7067222c223136313236303933393631303035363835352e6a7067222c2231363132363039333936313238383537323938342e6a7067225d, '', '', '', '16126093951788489763.jpg', 6, 1),
+(56, 'Individual House In Palawatta', 'House architect and interior designing ', '2012', '17M', '0', 77, 0x5b22434c3231303131225d, 0x5b2231363132363134303937313433393039383630322e6a7067222c2231363132363134303937313632313432303430332e6a7067222c22313631323631343039383930363536373539382e6a7067222c2231363132363134303939313736333633353437372e6a7067222c223136313236313430393933303235303037322e6a7067222c22313631323631343039393532303036373530392e6a7067222c2231363132363134303939313333323330393236312e6a7067225d, 'Rukmal  Indrajith Kathriarachchi', '', '', '16126140971439098602.jpg', 7, 1),
+(64, 'Test 100', 'Test 100', '2015', '', '0', 118, 0x5b22434c3231313337225d, 0x5b22313632313130323334383633313036303738332e6a7067222c22313632313130323335393234343432343237332e706e67222c2231363231313032333730323134333535363433392e6a7067225d, '', '', '', '1621102348631060783.jpg', 3, 0);
 
 -- --------------------------------------------------------
 
@@ -1014,7 +1018,6 @@ INSERT INTO `project_category` (`project_cat_id`, `project_id`, `cat_lvl2_id`) V
 (9, 30, 'CL21011'),
 (12, 0, 'CL21014'),
 (13, 40, 'CL21021'),
-(18, 41, 'CL21014'),
 (25, 42, 'CL21011'),
 (26, 42, 'CL21021'),
 (47, 44, 'CL21057'),
@@ -1035,7 +1038,15 @@ INSERT INTO `project_category` (`project_cat_id`, `project_id`, `cat_lvl2_id`) V
 (85, 58, 'CL21014'),
 (90, 43, 'CL21011'),
 (91, 43, 'CL21014'),
-(96, 59, 'CL21016');
+(96, 59, 'CL21016'),
+(97, 60, 'CL21014'),
+(98, 61, 'CL21019'),
+(99, 62, 'CL21011'),
+(100, 63, 'CL21019'),
+(101, 63, 'CL21121'),
+(116, 41, 'CL21014'),
+(121, 31, 'CL21014'),
+(122, 64, 'CL21137');
 
 -- --------------------------------------------------------
 
@@ -1058,7 +1069,7 @@ CREATE TABLE `project_images` (
 --
 
 INSERT INTO `project_images` (`img_id`, `project_id`, `file_name`, `description`, `img_status`, `photo_category`, `approved`) VALUES
-(59, 31, '1595702837web_Changi-T4-Singapore-8-HR-Credit-Benoy.jpg', '', 1, '', 1),
+(59, 31, '1595702837web_Changi-T4-Singapore-8-HR-Credit-Benoy.jpg', '', 1, 0x5b22434c3231313630222c22434c3231313536222c22434c3231313436225d, 1),
 (58, 31, '1595702738web_Changi-T4-Singapore-1-HR-Credit-Benoy.jpg', '', 1, '', 1),
 (60, 31, '1595703353web_Changi-T4-Singapore-7-HR-Credit-Benoy.jpg', '', 1, '', 1),
 (56, 31, '1595702732web_Changi-T4-Singapore-3-HR-Credit-Benoy.jpg', '', 1, '', 1),
@@ -1069,12 +1080,12 @@ INSERT INTO `project_images` (`img_id`, `project_id`, `file_name`, `description`
 (53, 30, '1595702131Normanton-Avenue-3-1600x1068.jpg', '', 1, 0x5b22434c3231313439225d, 1),
 (54, 30, '1595702131lake-house-in-ascona-by-wespi-de-meuron-romeo-architects-051.jpg', '', 1, 0x5b22434c3231313630222c22434c3231313539225d, 1),
 (85, 41, '1607335213zcaVAVAVb.jpg', '', 1, 0x5b22434c3231313630222c22434c3231313436225d, 1),
-(80, 41, '1607334958slide_04.jpg', '', 1, '', 1),
+(80, 41, '1607334958slide_04.jpg', '', 1, 0x5b22434c3231313536222c22434c3231313436222c22434c3231313437225d, 1),
 (81, 41, '1607334958slide_03.jpg', '', 1, 0x5b22434c3231313536222c22434c3231313436222c22434c3231313437225d, 1),
 (82, 41, '1607334958slide_08.jpg', '', 1, 0x5b22434c3231313631222c22434c3231313530222c22434c3231313436225d, 1),
 (83, 41, '1607334958slide_06.jpg', '', 1, 0x5b22434c3231313438225d, 1),
 (84, 41, '1607334958slide_07.jpg', '', 1, 0x5b22434c3231313436222c22434c3231313439225d, 1),
-(175, 43, '16133239831323936696.jpg', '', 1, 0x5b22434c3231313438222c22434c3231313436225d, 1),
+(175, 43, '16133239831323936696.jpg', '', 1, 0x5b22434c3231313438222c22434c3231313436225d, 0),
 (144, 52, '16108264611906249668.jpg', '', 1, '', 1),
 (143, 52, '1610826460774831492.jpg', '', 1, '', 1),
 (142, 52, '1610826460572408292.jpg', '', 1, '', 1),
@@ -1109,8 +1120,9 @@ INSERT INTO `project_images` (`img_id`, `project_id`, `file_name`, `description`
 (171, 56, '16126140991332309261.jpg', '', 1, 0x5b22434c3231313537222c22434c3231313436225d, 1),
 (173, 43, '16133237911685572477.jpg', '', 1, 0x5b22434c3231313436222c22434c3231313437225d, 1),
 (174, 43, '16133238282034174565.jpg', '', 1, 0x5b22434c3231313438222c22434c3231313436225d, 1),
-(176, 59, '1620230976308825285.jpg', '', 1, 0x5b22434c3231313631225d, 0),
-(177, 59, '16202385161126300483.jpg', '', 1, 0x5b22434c3231313631222c22434c3231313538225d, 1);
+(182, 64, '1621102348631060783.jpg', '', 1, '', 0),
+(183, 64, '1621102359244424273.png', '', 1, '', 0),
+(184, 64, '16211023702143556439.jpg', '', 1, '', 0);
 
 -- --------------------------------------------------------
 
@@ -1241,7 +1253,18 @@ INSERT INTO `services_list` (`id`, `cat_lvl2_id`, `company_id`) VALUES
 (514, 'CL21080', 2),
 (515, 'CL21111', 2),
 (516, 'CL21114', 2),
-(517, 'CL21079', 2);
+(517, 'CL21079', 2),
+(518, 'CL21132', 85),
+(519, 'CL21112', 89),
+(521, 'CL21112', 90),
+(522, 'CL21060', 113),
+(523, 'CL21014', 113),
+(524, 'CL21110', 113),
+(525, 'CL21112', 113),
+(526, 'CL21043', 116),
+(527, 'CL21052', 116),
+(528, 'CL21137', 118),
+(529, 'CL21135', 118);
 
 -- --------------------------------------------------------
 
@@ -1309,7 +1332,15 @@ INSERT INTO `service_districts` (`id`, `district_id`, `company_id`) VALUES
 (160, 10, 27),
 (159, 8, 27),
 (124, 8, 74),
-(123, 8, 67);
+(123, 8, 67),
+(203, 8, 85),
+(204, 8, 89),
+(206, 10, 90),
+(209, 8, 91),
+(210, 8, 112),
+(211, 8, 113),
+(212, 8, 116),
+(213, 9, 117);
 
 -- --------------------------------------------------------
 
@@ -1332,7 +1363,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_email`, `client_id`, `password`, `role_id`, `auth_token`, `status`) VALUES
-(9, 'manager@easybuilding.com', 0, '25d55ad283aa400af464c76d713c07ad', 3, '6SLYLQA7Z895UE2Y0YR88NX5A1HYSX3EOCTQPHTYUEFCU6YHMMNLUTJIWTS3T8Q099H2WQ4UKB1XW8.0914E2THJRJ.B7M5FTZ5I', 1),
+(9, 'manager@easybuilding.com', 0, '25f9e794323b453885f5181f1b624d0b', 3, '6SLYLQA7Z895UE2Y0YR88NX5A1HYSX3EOCTQPHTYUEFCU6YHMMNLUTJIWTS3T8Q099H2WQ4UKB1XW8.0914E2THJRJ.B7M5FTZ5I', 1),
 (7, 'nipunann0710@gmail.com', 0, 'f6fdffe48c908deb0f4c3bd36c032e72', 2, '50WNHBUTVETA0C8JXR3GFWHD4F76A3HF7Q49.76AIGKOCLI43JCPS775OW8DOM344A46M2WBTOJ687TYDWK.4.XWTJK40SSIEETI', 1);
 
 -- --------------------------------------------------------
@@ -1354,13 +1385,13 @@ CREATE TABLE `user_sessions` (
 
 INSERT INTO `user_sessions` (`session_id`, `client_id`, `auth_token`, `password`) VALUES
 (56, 75, 'DUAUWiVL7oFkNfZ1597291624296', '123456789'),
-(49, 68, 'ya29.a0AfH6SMBOtHqXoOMrDPi0KQBpa_kH4zb_BblRmBGas0Mm2PyMhnB01FaSW-TBa8iijdnJRsRV8fu2ziBml-tHqYuimqr97-JbnUP6Miw2IlMWiDuxzW9Xx7hoKVy42DHHWLcgTMDskZHv7eCNo1xnMgq9-J2L-xV52Aom1A', ''),
+(49, 68, 'TLLkJcJF1KuWI621620401511189', '123456789'),
 (50, 69, 'EAAlrbREIkZCkBADIzYv4TSZC9sqnIwzMgKM7lYQCYFvlatZB53BcU6h61OWTfAiPZAZCGAC8MEwkmgLxZBYONS17uVUlYPSL7KFq7tU6i9hc0sggFdUPndHFrcZASazH1JfOtlyunu5tI6EZBGjE454ikaCEpsYM2ZBlmZCEhZAMRp31e2HmaFAZANf93yNZBgabg2rP5lFW4KddRp4Oac8PKgzy4', ''),
 (51, 70, 'ya29.a0AfH6SMC5P51k_otbDQ2N-XPWyrg7JMJW7pfp_8sGW--8V7d0WhSAEvxK30wZPkmVQbS_eklU4mtNLwX-gcIdNG7b62QE59XIwCmubHoLJhQcqLMWH8VO4uXVYBRfa0pg2exfB3c1uYU-_YN_RGgVCu_E5CG1AwTAULpNUQ', ''),
 (57, 76, '24FLddcRPGKrZC91596897750977', '123456789'),
 (58, 77, 'sKj4LhVUde7wAal1598932425264', '123456789'),
-(48, 67, 'ya29.a0AfH6SMDxtookcfjP4ggkVzyb_eIr-Ds_UAqb3-im6ocSesCNZxYOmD6rusI70k_lXJu569NyenoKsb3_nZjAmi1jtJgCcxBuSLstzhOc6Lia1AU12sHJtsmGl7o4ZwJnha1MfNpMxxj92KTLhcziMaOnWpJRk_s', ''),
-(47, 66, 'EAAlrbREIkZCkBAIWmUUEng0RxiEwDbLfeBbehEZACYesdoNCFw8UtRaIvYWfZATb3lZAVRkx7gUjudRTyZAh9DXauM4rU79ZBf3kGpEYiiXZAvjNqEeRpXi9Dm0WyyLR3AVZB9w3e3R3dMBKOFZCSTFjfR4oZCBmzKZC4x9BrTwbxZCYZCSr4EitWyNSKDGPmYnGvQPCpg2WEDlvUfgZDZD', ''),
+(48, 67, 'ya29.a0AfH6SMDC5J_lx85NBzdsIdmsp86RfZLkVZQX67AO8Zq8ayNpczkPr2Z2uBbuKkZi6TI7xmLl8d3eeL3KGJ7LO9fdDjJvRl60mJdJRxbJWzB8t_yqjBB6rUK8908hoPQ3r-eBb1OQCzQPv55q_3PF2JW_FHGCt4k', ''),
+(47, 66, 'EAAlrbREIkZCkBAJDPuiaMZAArJzqZAn0cLDLnbM1RoIwZBdNEgUdVEwp35QEFG8tW0xsGoeUEWwjcLFPATsIggUvlQYIyAaCAEzZC9N9OWzEYzKEL1FEHbuDjYqkqB3brvJMXHFl6tuROxJAmfUtcskI5J3fwAgrzCS4QLgHAhHRwjQjso6TPKMlzWbNJTfDc89Haxy2XP06KmgdeTwZCb', ''),
 (46, 65, 'EAAlrbREIkZCkBAOHVjjUZCBewHTfKUnqDc56JFkG7bKHsi9GQhxZCrm9tUY4ZBYg76zZB2xZC99j22HoU0AGkPOJuW0IxZAVd4hI96l4oQtG4saG6STgGKiCZCtvhPO5kGsMZAJYkdwpnpeQqFThhDFZCiZB5QarXXswuA4tXLyTdYQ1G01EAv25mS0ZA1eYTSJu6P8m7N8l9zuypCpY4T2roZBs3', ''),
 (59, 78, 'EAAlrbREIkZCkBAJNtFOvVAP1VGqwak3lphgAFWDScZBUbi1GbHwZCKDXyKxtjbxcDPeWoxqYquRGRd4Rvct7ejOpNsatyJRrPC9JZBEO0ooIjk9xljLvprIuQtwDE5EsU2sZAX52EmqS6fvQ5JIobqx6OILdkTe8nM53TrbXOmFPzNWe5x8POYA0V7onsTag3XDd55rE0bbGQ7IZBo7Ijr', ''),
 (60, 79, 'EAAlrbREIkZCkBALAXr92TgW2ZCdE4sudVz8RYEeLEuokzRQndiYz1qTRG5XOlVqmNi9oF4brljOEuAqPd8ulbHY36OAZBZBkrEePJb3ULvxjjIelnVq7UPjYkUZAZBztB37QNC2CyxuhmDTKhpHNK0UaKeXTIbGGc31z1OZAk1ZCt6Hiw7VCgUoJTdJmhWRHsPaJMLWuutiPm78lP4j9bm9z', ''),
@@ -1368,7 +1399,7 @@ INSERT INTO `user_sessions` (`session_id`, `client_id`, `auth_token`, `password`
 (62, 81, '12JeUFGFfk6a8RG1605355126371', '12345678'),
 (63, 82, 'fMpBshqWlwPeeeJ1605380324080', '12345678'),
 (64, 83, 'tqHhqcJy5wccBCv1605383015806', '12345678'),
-(65, 84, 'fb9vjzOCbd9S4Ld1609181726979', '123456789'),
+(65, 84, 'mL8IyteBUOJICWg1620401576138', '123456789'),
 (66, 85, 'NAvegHm9qKP8TTd1605501791505', '12345678'),
 (111, 134, 'hqGwvhe3uTCM8xP1613199512046', ''),
 (69, 88, 'xLNtreZWSlGqxVX1605859065550', ''),
@@ -1411,7 +1442,40 @@ INSERT INTO `user_sessions` (`session_id`, `client_id`, `auth_token`, `password`
 (117, 140, 'cSBLSMbacheHEql1612674337103', ''),
 (119, 142, 'WdzLSLFo513mtaP1619899192653', ''),
 (118, 141, 'glvdTx9WkLxbSYu1613449925022', ''),
-(120, 143, '5E9Ln3BXT5KeRjr1619899203581', '');
+(120, 143, '5E9Ln3BXT5KeRjr1619899203581', ''),
+(123, 146, 'EAAlrbREIkZCkBACYSML3BEkdP85mSAU3paGsfcxntnWVgUDRrgkBSoCvK0qSRdZBdSQX6z53A3M3GMbRGGkXUOyCFgWLJoknurI95hODlpTsNvIIhwUJJZBGKj0QAfHUz19JGkGkbZCgk3HQa5HJl96ZAZBAib4iMGwTYh1CnO0NqaDOrwGCYoLQ6wHsbp5A8j1k8cOpyJ0FReWPRGbVgZA', ''),
+(122, 145, 'EAAlrbREIkZCkBAJtZBlDcpHAWvKl55qaYDJrZBXSpraZCZBcZB4J8CdIsKoQuyKVtwDAJZA3TPkgwoS2HAMcH7x38AGNvpyaexvfrpLLEWKYsi1jSq0m7HBL1DvvZAXVhgjvwZADjjbdOesBApsw9B7yUuWzmymgdG51u0XZAax474xHilVABe6hGDZB3vJ5MDaOLrjnBQNOGVIAkZC8m9ul5qDi', ''),
+(124, 147, 'EAAlrbREIkZCkBAJkOvBUqZBMdPmvZCKhiFkN6TDteQYMTyXUrjEu5x4S7lFxz2tIfr6MbueLtUFO7ZBVhMcm8FIytiS7ymGV9OEsiqrhv2KwyrdN565hnChIGuGrY5ZBaGDnl7eZCK2xoi2S9cWr2oZBp3wHBi7VdWZBlbqbVk4rB6k5yJ4v1KZAXcIfww1rkL3ALZAXqZCrM5hgnLeHcoxrmSW', ''),
+(125, 148, 'EAAlrbREIkZCkBAFPlHdJ3kf25ZB1wegpZCmZCGkJdfBAIzCU5va9Qkk0RNslY8OF9ZCAM6aoLeJ11yWoAkmCznTQAqSdwujEW1utAx3lXrZBxnFGihJtkfZBaq518tF4rBirsTlSeL4GvbTudPbrmIpRkilXVEd9ZB2ZBhyIeHGzPKSESL1MMbTUMpra3mxy6pH8xxbC79PKMOrolvL1IgsJY', ''),
+(126, 149, 'EAAlrbREIkZCkBAIi5N2YdnInUrQN9PG6XVT2QAxbEtacBB0RfuHVL5KmqVK5SjTZB6KZByleTpSo8yCB5cYmFFDBeJRYayRYFboZBaswLX5UanSVKE8GuI4BNOq45ZCA9v9ZCXi1zulO51wvnxUDT0RkiMZCbHqDUR2tGgsmQ2IRnxIFHWIvnPZBsPwRHkc9188ZD', ''),
+(127, 150, 'EAAlrbREIkZCkBACCbvrvBzJDZBbWyDmO8uXgk44YhGIUMAAnNZBbB2PFqCJq7HFqIqaxXkP5xmqubfLPkiG9tgiVMLUOWRJPLfcxhI4r12ZCabQZBTK7Bxca9ymMDmheqJfoyN707reHkAHZAjzxVTD7BTGlXYOKw5ZBe7gJbx3UZAcZBHusJQMkilazxumz9JH8QIU0ZBkN9ve01pkKHtYPND', ''),
+(128, 151, 'EAAlrbREIkZCkBAH101aRW2cqVHfqZCRfbnyato9jjALhGoLZA3jovaZAzYd4mCDTZBUx5BgzjrpfNXex1kZCs95bYULAfvUUrP57aMXJOC7J03s6W4MdCdV1amCVWTaWIHgNYkjsqFnwq43Dh9z6aTAGs7G8YkmAHbNNBxQmJvWzHfBqXVeCKot3svZCNqSSj17HZCY1Sv7Yyasujzj5AoGq', ''),
+(129, 152, 'EAAlrbREIkZCkBAKWpzJvOZBmjDSKxMcJyppQt0qE1o1SugZBYlmFSgKTLLU2XAJXIU2xw2i7LxJzSkL3q6s2NpzPQmXQ8Jnxw6hnuwZAitu6SujyI9sryhube81Gkcp2xKdwjSOFnemtB0yUIuoAs7YNZB5HZB1ZCDilI6sZBY6G2vRCKi89wiGDZAapySkVFnUBm0qM1ZCKJf4PbeyLwtpEuZB', ''),
+(130, 153, 'EAAlrbREIkZCkBAEtts441ketandqSaCP2EPGfxAZA29y8NSI6ax5ZAOF6biLfZC4ZAXZCKIHvi061AIW5jyjMGRUbdZCbbmwyAJIWo6s5QaDmv8NZBN3VAtzlNUSpZC8uRp9Tdfhl9sEiecTyBh4Rhs9nDcIhtRr24gfiftoGB1DZAqyJzm3OCGe27ZBskv90y0QOkJlPWpNthSvTfxTikAom4x', ''),
+(131, 154, 'EAAlrbREIkZCkBAFQtYEZAixB1woAm2mhJypdryX0zRJWlUbz7pUGG2oqgAyB2w05ZAoLbqh0lJCMdZCV6B8XrdhFRGuANrRWTSOZC77S0DznthS7OdPN7jK1tu6J8wLz5MdRI49OcEa1GWbSJS03tLzYu6QrzLXZBImIg8rxD7b8fkQXqWZBRKZCOxOiszLy0qG2TffLeFAvgb3UWQ7GvxcH', ''),
+(132, 155, 'EAAlrbREIkZCkBAAywfA01FQ5lJ00gKDpX9DGomp0PCnrOFsM1rUQukSbZA40fYIDhF0Oh6xik1cIuMtGIIEe6RIXKYfg9SQGizKO16Y0qKBZAqBLAAiZC1Rh4608W8wt65mMtrCeacjg0ZC6cEdEGkMbpEOyK7p3tbdpBN1uLTIbGuwBqbpZCcAA4oRBnbqZBkL5XivFmtZArJKL1gnLZBKDG', ''),
+(133, 156, 'EAAlrbREIkZCkBAIEmL7TBPtZCqfWZCHk94pQQKtZAjHkTRsGStLKSbZANhLeFZC5FA5QpPepb5Cu2PluvzZCzZCAffCQXBH4hhjuRy7c5m8O4gnJ4xMMjyTMj9tn7Kbu0pZC9VbKBLJq3xEa5k7t8Gc3xSe8xpTYM5u3tYCmEVUMLPqR0ZAZBjRnujMg3ZC7MT4dnKeD8MgW6Qp1xaPvashmpEq7', ''),
+(134, 157, 'EAAlrbREIkZCkBAEkhO1HLAMky6n71nk8hGN6Vt56mI9choH1zoWNgB9e0w9cSqoQkxfZAmtZBEs9NDuda0y2akB3d4qfTfDYlIam8nv54F1ZCO6mVNhs3ZC9nmJqdl26ZACZCTZAqiWbIUDHr4N8yIVzopQTXEmihViXxLQ2FLy8IOBh1pHiiV2oFxMOiVRYUURbgQ37lZAnW4e2UUTZCVJ98G', ''),
+(135, 158, 'EAAlrbREIkZCkBAJuD7Mj3pVzslVmDzDFj577vKOruGTfZCmcdPAHwvKLmDIEUD56iUdZCq9ZC2T6ZAmUKIdbppRc3O0nboCk7XkxQswsKZBfy7tZBF59MgJ6PzAxjJrNj0o3YGsFVNUXVEsmC9w5QoQmbvbw2ZC1XTJvGEN1t7ZCCZCzjLwOhzQs6rTvnHX9Fy8rQAi13eKJWjpvUaUbNDewdB', ''),
+(136, 159, 'EAAlrbREIkZCkBAH6irg5jAZCM4SKPg6QH5ZA1cQf4MieH9SzZCDxQVZCnm4sMRpZClCFC2vZCXDc8WXQpiRe1xYr61ANWjPO3vaihwoFjhoxSpCxLbND4wRRM4FZARQ0CXJj0t0tfY8QZBlMrhgvfaA9sU3XXJaaOKXbaLqk5DyrMCxsIKuUtgiNoRFEQXde52TxbB8BIbPDrqy2ZC582gyZByj', ''),
+(137, 160, 'EAAlrbREIkZCkBAOQuLUsNZAVR2m3DFpa6d7zrpqy6NX0e0ivXgPJcuCieGdAkfdnuL9HyNS3R1ZCE8QqlvgjEBwTQCT9l2UoZAR1kk2d4Cx3zSTvGQu6bowjqWZC7ckB4OE2PIo5MwybHalQ7Rycs1RIuYkqKHwp618dKhWA3UURlZCcXmh2sQZCZAABWIaQEt2WzXEHJwBSC6rSolJHXrI7', ''),
+(138, 161, 'EAAlrbREIkZCkBAKBXRdXItRcQzM28sSZBG2GCC7igbb1QFG84d6GVfiUZAZCKHbDKtJrViBjUqOY2xd7ZCRuZAipNupFSF44eqqrKdxc16mEVFaTulH8b8rVTHsq0h7phRFF5YRZBXQHUL9ST7hdYHzFOx5R24TgBRGtNlzj90vVEQMyOONJb262F1SX889iGbcpVZCJ7AkZCor495p8tdA1z', ''),
+(139, 162, 'EAAlrbREIkZCkBAHBvkhd2c7X0ZBNvlj1S28QSCtVAaHC51B2YY0Dqvfdyhlpjd8KWFbHxTS2WbZBJlXeXngtRzDZAOIJZAnOIl6GLZCgzcs3QNeUwuooZAPGeSXdWl4ZArv8ax60x1TEd4qd2GQ5TslZBFa2av9bnbgqpjP0gOc0web17ajB9YFYZAtoZBV6oBBP8oKT2EHC9XyY2ZBwZCqIin84T', ''),
+(140, 163, 'EAAlrbREIkZCkBANlhZCKOeuzsOgzz8qElpZAho4pJhAiABOgvv7xUnkDfHPZAw0bTu0VaL8jXPWO3Ncd8OZCme6jaDa0jhBpZBFzJwbmavG5rWKeZCsAUmCF7WZB4CVDsuiGNKLGGTUn1JABLEladiJHQHWGgYCZCnKmfJ2DzhhS14BDWo4DzGrp8L5ZC0iRgSZCsvu2ZCqrbsiIwWZAo2JSm8ZB2n', ''),
+(141, 164, 'EAAlrbREIkZCkBAKb7azUGZCriUCGGH1BGrAvAHN1ZBFEXsAAeJj1aRtSEWxgTN2Apg51uy1yaGP8YzIN7fsP7hH4U9ZAQCyyTarNGUMjr7JmKlInpCGZCgkwV7UzUpbzI5CH6N1fOgSP1ZCH6TsCWYsaSjPlK0rCyKsZCWCqX3ZB9XOCAUz94TljyvJJRozOcXwPUvZAv285ZCiw6MaBVmFYpp', ''),
+(142, 165, 'EAAlrbREIkZCkBANFjByk9qF3F76oQpNWpSh05ZC2p8C0xpGsO87YsdbK4fpTrkfDXxpVzu45DxC9omzHrPYjM0Fc7C01uxSsWxmALyUZBGAmhD8aU3SLYxZBPdY3VWzarQge7Q99IIjHZB7OLbR0SOzp6oN5krgCBkW4ZA4B9ckiJkwowT0WudenPzLNh75sxeyNaU6yVbvioPiuU6Npy6', ''),
+(143, 166, 'EAAlrbREIkZCkBAJuA2jQ464mW3yw4axBej112RDYg9ZBpfn5gDZCU9CdqmfSsHjVXCBc8aCItlht1O9lQtcqhfFWEJuHZC2Kg5UYxH3awxy8nDKcYxjZB0HsTl8tJqLEzHxwDtbZCemiOJYwZA0q3Sr4nqZCd9rzHyogzVS2yDWZCWtdkI9ZBNv97pzzc2NZB2secR2a1MDWF4PcHGXX73UvbKX', ''),
+(144, 167, 'EAAlrbREIkZCkBAEvWmMlI0d9COiHttc9O1aDGjtYOpbsGwbqJa5kEb8kRAI2vArQay1Q7CPJbIFR2Mck6r5uxtCDH7mTsQd2YwB7GgRYQIqsmI13lOmKQOy3U4R3ZCRojtF47KxGK6uGNI80D0N5ZC4qQEijT4GF9G3knwebVhFtM0Bh5vy7cP0MT0pweEfsG6ZB4zGcMHfYVdaLfdSq', ''),
+(145, 168, 'EAAlrbREIkZCkBALZCrZAPcWyZCsWZCE9AUIKZCvtcw7F1CXSeNfMo6utbJVqBsRTIZBqk0m6v0twyESHSquWkaeQ2WKCbnOIGkbYgK7rX0m7FHZCEfyeS23ZCm7jz5DKZBBId990GiZB6ccRG3hszJ97wZAxs6lxVFWj2bRetUfVTOD7GV15oj1qYRJTH1fpRsACc35kEh7rGg5zYfH0Nw35DGmK', ''),
+(146, 169, 'EAAlrbREIkZCkBADsrxnwP0EjvmOaZANsf396mGN94XYmddXpOhPRpzfHXabbcPsxegrHw1znhi17ko5lMDfTKVJS3WqyL1t7hx8utEBZCN6KzlluDfWZBil1NOtipkxZArPL8WsNAa3ZAX7AktjZBBbGuqrwYA8sLNHwo6Ovti7AClbRkIdvYTQusHZCiQ9PH4ENmJF2MvUvkRH3atn5Ooom', ''),
+(147, 170, 'EAAlrbREIkZCkBAKJTAyQL00mgPZBZB2Wuz6x650pspyuogbQKuFsyreYEoFlVIhtenZAWFZBHPsaxg9ZCZBxUcZAnDAD5Pu6osYgjMXbQqBDJ2lyU76Hk7ctL15yqvPFhYgw72lkXm4QLh49O1kN4ZB5DLHpTQas1iq6eRxTR4BUp1bIVPZALmqLjTGOnvMlx3BNoDaTnd9Da1r3sW4tpRZBMQP', ''),
+(148, 171, 'EAAlrbREIkZCkBAGZBJp28OlsMxiNvkR0VeonTwpg5WUxCTT6ANyzmc38vJM2XXq9iHQ7UmcxzbPi8lhhhIV1pn35UrF2GtDSuJt3APHoD1YFfKm3ZCmRYUZBXi9B0CX9U9doMdjrs5hXLS5FaTaKflDm8ZBBZC6kj4hq0jWMBJvan2JX0GwpQLy6JS50edkPV2iBRDagSJ2j53Eq8ZBairN', ''),
+(149, 172, 'EAAlrbREIkZCkBAEiz0S4vNu2FQLTZB5fyn4Adxmp4u9SGnMeNguSt9vzHGBbjsfW8itY7vk3zkTGZBkugl7NpWCV0Ne17994FTsKd5HvmqCFsL2RuNIJuDRnwhiXVxWP4LIC3nR8oRmmDj4RLuhJViAdvSFO9uqPG0mCrEmZB05o0XqL8FwoDVrEPp8U7cbGy85pQyn5ze8SPZBSjjdg5', ''),
+(150, 173, 'BTbgoChZFM6wCX71621060042431', ''),
+(151, 174, 'EAAlrbREIkZCkBALynD9bUO7GApFHdNKgeGagglJGSZBF42DVRDfLDgmZAx4ve8kp2lhWimnrw0NjPfCopicLDF6OfbZCdeduecCeaSHlZCC3dKv6KCvIsB3yF33bdfm9kckzEVomcWZBJwj2P8avjrDIlQ5ZAC4CWM9JopEFAEvifvvHneWUKoZAzujci5br4cDm4BmrEIspImtMBJZC48yAa', '12345679'),
+(152, 175, 'qpQdjtxdYgpd2xi1621093713287', ''),
+(153, 176, 'EISg9hmdUjmz0rA1621099994558', ''),
+(154, 177, 'yV7j7TBadFRqXbg1621101820935', '');
 
 --
 -- Indexes for dumped tables
@@ -1575,7 +1639,7 @@ ALTER TABLE `user_sessions`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `categories-level1`
@@ -1593,19 +1657,19 @@ ALTER TABLE `categories-level2`
 -- AUTO_INCREMENT for table `cites`
 --
 ALTER TABLE `cites`
-  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1282;
+  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1283;
 
 --
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
+  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
 
 --
 -- AUTO_INCREMENT for table `client_company`
 --
 ALTER TABLE `client_company`
-  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
 
 --
 -- AUTO_INCREMENT for table `company_details`
@@ -1623,7 +1687,7 @@ ALTER TABLE `districts`
 -- AUTO_INCREMENT for table `home_slider`
 --
 ALTER TABLE `home_slider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `house_area`
@@ -1641,13 +1705,13 @@ ALTER TABLE `house_surfaces`
 -- AUTO_INCREMENT for table `house_surfaces_type`
 --
 ALTER TABLE `house_surfaces_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `image_category_list`
 --
 ALTER TABLE `image_category_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -1665,19 +1729,19 @@ ALTER TABLE `product_images`
 -- AUTO_INCREMENT for table `project`
 --
 ALTER TABLE `project`
-  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `project_category`
 --
 ALTER TABLE `project_category`
-  MODIFY `project_cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `project_cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 
 --
 -- AUTO_INCREMENT for table `project_images`
 --
 ALTER TABLE `project_images`
-  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=185;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -1689,7 +1753,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `services_list`
 --
 ALTER TABLE `services_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=518;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=530;
 
 --
 -- AUTO_INCREMENT for table `service_areas`
@@ -1701,19 +1765,19 @@ ALTER TABLE `service_areas`
 -- AUTO_INCREMENT for table `service_districts`
 --
 ALTER TABLE `service_districts`
-  MODIFY `id` float NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
+  MODIFY `id` float NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=214;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `user_sessions`
 --
 ALTER TABLE `user_sessions`
-  MODIFY `session_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `session_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

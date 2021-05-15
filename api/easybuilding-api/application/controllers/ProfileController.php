@@ -367,10 +367,10 @@ class ProfileController extends CommonController {
  		//print_r(sizeof($this->isUserSessionValid()['data']));
 
 		$search_index = array(
-			'columns' => 'p.*, cc.client_id, cc.display_name, cc.total_reviews, cc.profie_image, c.provider_id' ,   
-			'table' => 'project p, client_company cc, clients c',
+			'columns' => 'p.*, cc.client_id, cc.display_name, cc.total_reviews, cc.profie_image, c.provider_id, l.city ' ,   
+			'table' => 'project p, client_company cc, clients c, cites l',
 			'eq_table_col' => '1',
-			'data' => 'p.company_id= "'.$this->input->post('company_id').'" AND p.project_id= "'.$this->input->post('project_id').'" AND cc.company_id=p.company_id AND cc.client_id=c.client_id', 
+			'data' => 'p.company_id= "'.$this->input->post('company_id').'" AND p.project_id= "'.$this->input->post('project_id').'" AND cc.company_id=p.company_id AND cc.client_id=c.client_id AND l.city_id=p.project_address', 
 		);
 
 		$data = $this->selectRawCustomData__($search_index); 
@@ -857,18 +857,20 @@ class ProfileController extends CommonController {
 
 	public function deleteProfile(){  
 
-	if (sizeof($this->isUserSessionValid()['data']) == 1) {
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
 
-		$this->deleteData__('clients','client_id="'.$this->input->post('client_id').'"');
+			$this->deleteData__('clients','client_id="'.$this->input->post('client_id').'"');
 
-		return $this->deleteData__('client_company','client_id="'.$this->input->post('client_id').'"');  
+			$this->removeDirectory($this->input->post('client_id'));
 
-	}else{
-		return $this->invalidSession(); 
-	}  
+			return $this->deleteData__('client_company','client_id="'.$this->input->post('client_id').'"');  
+
+		}else{
+			return $this->invalidSession(); 
+		}  
 	
 	}
-
+	
 	
 
 	public function fileUpload(){ 

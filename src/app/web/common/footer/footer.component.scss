@@ -17,37 +17,19 @@
          
         .columns{ 
             padding-right: 1.5rem; 
-            margin-bottom: 4.5rem;
-
+           
             @include breakpointMax($tablet){
-                width: 33.33%;
+                max-width: 33.33%;
                 float: left;
+                margin-bottom: 4.5rem;
+
             }
             
             &:first-child{ 
                 @include breakpointMax($tablet){
                     display: none;
                 }
-            }
-
-            // &:first-child{ 
-            //     @include breakpointMax($tablet){
-            //         width: 70%;
-            //     }
-                
-            //     img{ 
-            //         @include breakpointMax($tablet){
-            //             width: 70%;
-            //         }
-            //     }
-            // }
-
-            // &:nth-child(2){ 
-            //     @include breakpointMax($tablet){
-            //         width: 30%;
-            //     } 
-            // }
-
+            } 
 
             @include breakpoint($tablet){
                 margin-bottom: 0;
