@@ -360,28 +360,25 @@
     }
 }
 
+
 :host ::ng-deep star-rating{
-    display: block;
-    position: relative;
-    top: 1px;
-    margin-right: 5px;
- 
-    .rating{ 
-        outline: 0;
+    .rating.medium{ 
 
         .star-container{
-            margin: 0;
-    
+            margin-left: 0;
+            margin-top: 3px;
+
             .star{
-                width: 1.3rem;
-                height: 1.3rem;
+                width: 1.5rem;
+                height: 1.5rem;
     
                 i{
-                    font-size: 1.5rem;
-                    color: #FFC107 !important
+                    color: #FFC107 !important;
+                    font-size: 1.3rem;
+                    line-height: 1.7rem;
                 }
             }
-        } 
+        }
     }
 }
 

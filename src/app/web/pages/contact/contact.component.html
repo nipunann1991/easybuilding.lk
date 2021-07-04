@@ -13,7 +13,7 @@
                 <li>
                     <img src="./assets/images/phone.png" alt="">
                     <h3>Phone Number</h3>
-                    <p>{{companyData.company_tel1}}, {{companyData.company_tel2}}</p>
+                    <p>{{companyData.company_tel1}} <span *ngIf="companyData.company_tel2 != ''">, {{companyData.company_tel2}}</span></p>
                 </li>
                 <li>
                     <img src="./assets/images/email.png" alt="">

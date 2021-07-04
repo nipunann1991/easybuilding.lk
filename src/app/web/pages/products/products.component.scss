@@ -28,9 +28,8 @@
     .left-nav-sort{
         width: 27rem; 
         position: fixed;
-        height: inherit; 
+        @include calc("height", "100vh - 16rem");
         padding: 2.5rem;
-        min-height: 62rem;
         background: $light-gray;
         border-radius: 5px; 
         left: -27rem;
