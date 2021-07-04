@@ -28,12 +28,13 @@ export class UserComponent implements OnInit {
   isFeaturedVal:number = 0;
   isFeaturedProcuctVal:number = 0;
   isBlacklistVal:number = 0;
-  clientID: number
-  companyID: number
+  clientID: number;
+  companyID: number; 
   routeParams: any;
   isProfileByAdmin: boolean = false;
   isFeaturedProduct: boolean = false;
-  productID: string = ""
+  productID: number;
+  isManager: boolean = this.globals.isManagerLogin();
   
   constructor(
     private route: ActivatedRoute, 
@@ -49,10 +50,9 @@ export class UserComponent implements OnInit {
       window.scroll(0,0);    
       this.routeParams = routeParams;
       this.isFeaturedProfile(this.routeParams);  
-      this.clientID = this.routeParams.user; 
-      
-     
+      this.clientID = this.routeParams.user;  
     }); 
+
     this.router.events.subscribe((event) => {
        
       if (event instanceof NavigationEnd) {  
@@ -60,24 +60,37 @@ export class UserComponent implements OnInit {
           if((event.url.indexOf('/view-project/') > -1 ) || (event.url.indexOf('/view-product/') > -1 ) || (event.url.indexOf('/edit-project/') > -1 ) || (event.url.indexOf('/edit-product/') > -1 ) || (event.url.indexOf('/upload-project/') > -1 ) || (event.url.indexOf('/upload-product/') > -1 )){
              this.forProfileOnly = false;
              let routeURL = event.url.split('/');
-             this.productID = routeURL[routeURL.length - 1]; 
-          }     
+             this.productID = parseInt(routeURL[routeURL.length - 1]); 
+ 
+             this.getProductData(event);
+             
+          }else{
+            this.forProfileOnly = true;
+          }  
       }
 
     });
-    
-
+     
   }
     
   ngOnInit(): void {
- 
+     
     
   }
 
   backToClients(){
     this.location.back();
   }
+  
 
+  getProductData(event){
+    let data =  event.url.split('/')
+
+    this.companyID = parseInt(data[data.length - 2]);
+    this.productID = parseInt(data[data.length - 1]);  
+    this.isFeaturedProductData();
+
+  }
 
   isFeaturedProfile(routeParams){ 
       
@@ -92,8 +105,7 @@ export class UserComponent implements OnInit {
           (response.data[0].status == 0)? this.isBlacklisted = true  : this.isBlacklisted = false; 
           (response.data[0].company_profile == 0)? this.isPersonalProfile = true  : this.isPersonalProfile = false; 
           (response.data[0].first_name == "Admin")? this.isProfileByAdmin = true  : this.isProfileByAdmin = false; 
-          
-          console.log(response.data[0].status, this.isBlacklisted);
+        
 
         }else{ 
           
@@ -101,6 +113,25 @@ export class UserComponent implements OnInit {
           
       }); 
       
+  }
+
+
+  isFeaturedProductData(){
+
+    let params = {company_id: this.companyID, product_id: this.productID }
+
+    this.clients.isFeaturedProduct(params) 
+      .subscribe((response: any) => {
+        if (response.status == 200 ) { 
+           
+          (response.data[0]?.featured == 1)? this.isFeaturedProduct = true : this.isFeaturedProduct = false;
+           
+        }else{ 
+          
+        } 
+          
+      }); 
+
   }
 
   setFeatured(event){
@@ -246,7 +277,7 @@ export class UserComponent implements OnInit {
 
          localStorage.removeItem("tokenUser");
          localStorage.setItem("tokenUser",  JSON.stringify(tokenUser));
-         this.router.navigate(['admin/users/create-profile/steps/account-info']); 
+         this.router.navigate(['admin/users/user/'+param.client_id+'/'+param.provider_id+'/edit/account-info']); 
 
         }else{
             console.log(response)

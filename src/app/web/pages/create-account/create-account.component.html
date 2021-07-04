@@ -1,13 +1,13 @@
 <app-header *ngIf="!isAdmin"  [logoOnly]="islogoOnly" ></app-header>
-<div class="container-fluid login-page">
+<div class="container-fluid login-page" [ngClass]="{'sign-up': formGroup.touched && formGroup.invalid}">
   
   <div *ngIf="!isAdmin" class="container">
-      <h1>Sign Up in Easybuilding</h1>
+      <h1>Sign Up in Easybuilding.lk</h1> 
 
       <div class="column-container">
           <div class="column">
             <form class="app-form"  [formGroup]="formGroup" (ngSubmit)="onSubmit()">  
-              <div class="app-form-inner"> 
+              <div class="app-form-inner" *ngIf="!isLoggedInForm"> 
                 <!-- <p *ngIf="noUserAvailable" class="error-names">Invalid Username or Password</p> -->
                 <div class="row">
                   <div class="form-group col-md-12">
@@ -28,12 +28,22 @@
                       <input placeholder="" formControlName="password" class="form-control" name="password" type="password" >
                       <!-- <bfv-messages></bfv-messages> -->
                   </div>
+
+                  <div class="form-group col-md-12">
+                    <label for="">Retype Password</label>
+                    <input placeholder="" formControlName="retype_password" class="form-control" name="retype_password" type="password" > 
+                    <span class="invalid-feedback">Retype Password don't matches the Password</span> 
+                  </div>
                   
                   <div class="form-group col-md-12">
                       <button mat-button class="app-sign-in" >Sign Up</button> 
                   </div>
-                </div> 
+                </div>  
               </div> 
+              <div class="login-accounts" *ngIf="isLoggedInForm">
+                <img src="/assets/images/loader1.svg" width="80" alt="">
+                <h3>Please wait...</h3>
+              </div>
             </form>
           </div>
           <div class="column">
@@ -48,6 +58,7 @@
                       </div> 
                   </div> 
                   <div class="login-accounts" *ngIf="isLoggedIn">
+                      <img src="/assets/images/loader1.svg" width="80" alt="">
                       <h3>Please wait...</h3>
                   </div>
               </div>

@@ -17,26 +17,26 @@
     padding: 2rem 0 5rem 0;   
 
     .products-wrapper-inner{
-        display: flex;
-        min-height: 50rem;
-        overflow: hidden;
+        // display: flex; 
+        //overflow: hidden;
 
         @include breakpoint($tablet){
             min-height: inherit;
-        }
+        } 
     }
 
     .left-nav-sort{
-        width: 27rem;
+        width: 27rem; 
         position: fixed;
         height: inherit; 
         padding: 2.5rem;
-        min-height: 50rem;
+        min-height: 62rem;
         background: $light-gray;
         border-radius: 5px; 
         left: -27rem;
         transition: 0.5s all ease;
         z-index: 100;
+        float: left;
 
         &.opened{  
             height: 100%; 
@@ -57,7 +57,13 @@
         @include breakpoint($tablet){
             display: block;
             position: relative;
-            left: 0;
+            left: 0; 
+            position: sticky;
+            top: 8rem;
+
+            .left-nav-sticky{
+                
+            }
         }
 
         .filter-item{
@@ -90,16 +96,22 @@
                 label{
                     cursor: pointer;
                     margin-left: 10px;
-                } 
+                }  
             }
+
+           
 
             .select-service{
                 display: block;
                 margin: 1rem 0; 
 
-                .select2-selection__rendered{
-                    padding-left: 1.5rem;
-                }
+                .select2-selection--single{
+                    min-height: 4.2rem;
+    
+                    .select2-selection__rendered{
+                        line-height: 3.2rem;
+                    }
+                } 
                 
             }
         }
@@ -110,6 +122,7 @@
     .right-content-search{ 
         width: 100%; 
         position: relative; 
+        float: right;
 
         @include breakpoint($tablet){
             padding-left: 3rem;
@@ -204,223 +217,272 @@
                                 @include calc("width", "100% - 25rem");
                                 min-height: 19rem;
                             }
-                        }
-                    } 
-                }
-    
-                
-            }
-        }
 
-        .item-block{
-            border: 1px solid #eee; 
-            @include box-shadow(0px, 3px, 8px, 1px, rgba(196, 206, 217, 0.25)); 
-            outline: 0;
-            cursor: pointer;
-            margin-bottom: 3rem;
-            border-radius: 5px;
-            overflow: hidden;
+                            ul.contact-details{
 
-            .item-image-wrapper{
-                width: 100%;
-                height: 22rem; 
-                position: relative;
-
-                span.badge{
-                    position: absolute;
-                    top: 1rem;
-                    right: 0;
-                }
-
-                .item-image{
-                    background-color: #eee;
-                    background-repeat: no-repeat;
-                    background-position: 50%;
-                    background-size: 100%;
-                    width: 100%;
-                    height: 100%;
-
-                    &.no-img{
-                        background-image: url('/assets/images/eb-default.png');
-                        background-size: 17rem;
-                    }
-     
-                }
-            }
-            
-
-            &.img-search{
-
-                .item-image{
-                    height: 26rem;
-                    background-size: cover;
-                }
-
-                .item-details{
-                    padding: 1.5rem; 
-                }
-                
-            }
-           
-            .item-details{
-                padding: 1.5rem;
-                padding-bottom: 0.8rem;
-
-                .title-and-rating{
-                    margin-bottom: 1rem;
-                }
-
-                h3{
-                    font-size: 1.6rem;
-                    margin-bottom: 0;
-                }
-
-                .project-and-company{
-                    h3{
-                        font-size: 1.6rem;
-                        margin-bottom: 0;
-                    }
-
-                    a{
-                        font-size: 1.3rem;
-                        margin-top: 0.5rem;
-                        color: $base-color;
-                    }
-                }
-
-                .ratings-holder{
-                    font-size: 1.3rem;
-                    height: 100%;
-                    overflow: hidden;
-                    margin-bottom: 0.3rem;
-
-                    star-rating{
-                        display: block;
-                        position: relative;
-                        top: 1px; 
-                        float: left;
-                     
-                        .rating{ 
-                            outline: 0;
-                            margin-bottom: 0;
-                    
-                            .star-container{
-                                margin: 0;
-                                margin-right: 0.5rem;
-                        
-                                .star{
-                                    width: 1.5rem;
-                                    height: 1.5rem;
-                        
-                                    i{
-                                        font-size: 1.7rem;
-                                        color: #FFC107 !important
+                                li{
+                                    &.email{
+                                        display: block;
                                     }
                                 }
-                            } 
+                            }
                         }
-                    }
-
-                    span.no-of-reviews{
-                        color: #6B7380;
-                        margin-left: 5px; 
-                    }
-                }
-
-                .description{
-                    font-size: 1.35rem;
-                    line-height: 1.8rem;
-                    margin-bottom: 1.5rem;
-
-                    > p{
-                        font-size: inherit;
-                        line-height: inherit;
-                    }
-                }
-                
-                .categories{
-                    display: none;
-                    margin-bottom: 0.8rem;
-
-                    span.badge{
-                        margin-right: 5px; 
-                        margin-bottom: 2px;
-                        background-color: lighten($body-text-color, 78%);
-                        color: $body-text-color;
-                        border: 1px lighten($body-text-color, 75%) solid; 
-                    }
-                }
-
-
-                ul.contact-details{
-                    display: flex;
-                    margin-top: 0.3rem; 
-                    margin-bottom: 0.3rem; 
-                    
-                    li{
-                        font-size: 1.3rem;
-                        line-height: 1.4rem;
-                        float: left;
-                        background-repeat: no-repeat ;
-                        background-position: 0 50%;
-                        padding: 0 1.5rem 0 1.5rem;  
-                        background-size: 1.2rem;
-                        color: $dark-gray;
-
-                        &.address {
-                            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABX1BMVEUAAABtc4Bsc4BrcoBrc4Brc4BqcINggIBqcoBrc4BrcoBrc4BrcoBsc4Brc4BqaoBrdIBrc4Brc4BxcYBrcoBrc4B0dItrc4Brc4BrcoBscoBqdIBtdIBqc4CAgIBrdIFrc4Bsc4Brc4Bsc4BmZplrc4Brc4Bqc4CAgIBsc4BrcYJrdIFrc4Bqc4Brc4BpdoNqc4FscoFodIBscYJscoBqcYBrdIJqcYBscoFpdIFtcYBocYRrc4Brc4Brc4Bsc4BmcIVVVaprc4Bsc4BrdIFrc4BscoBqc4BrdICAgIBsc4Brc4BtbYZrc4BrdIBrcoBrcoBrdIBsdINrc4Bqc4BodIBrc4Brc4BsdIBrdIJrc4Brc4Brc4BidolrcoFqdIFrc4Brc4Brc4Brc4BrdIFqdIFsc4Bsc4Brc4BxcY5rc4Bqc4AAAABrc4BqcoFsdYJrdIBrc4RrdIBrc4AAAABCIOyYAAAAc3RSTlMAKpXN8pQpCJz+9bOPtJsMy/2FEobKC6T7TE6jRHgEd8Z2seYFveSvBocreXqJ+idZUywtXCQ3SHtLNhtkvqJoGQPrpnXFdKjqAo73FfiNJpGYIfmXFqnzgDnnwekNaU3V19TYUWVmUMMJ48cBfH07rB/WxDK0aAAAAAFiS0dEAIgFHUgAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAHdElNRQfkBgURCBVBf1ECAAABL0lEQVQoz22R+zcCURDHv2nJJpLIUm3RrmcijxCpRfKI8s477zdl/v9zXNptd6v5Yc53vp97z52ZC6hhabJynLW5BeawtfL2Noej3c532Iy+s9PV5f4T7m5Xj8cAeoU+TfYLXt33kR8QA8HggAj4yVcFgyGJ3SJZJnZaGhrW/BFhFBijcSBMFmAiIqlgkqaAKE0DMxQFZmlOBTGaZ3NQGFggNscixVWwRMsseymRoBUmkpRSgbK6xrK4nk5vsK6Q2dzSXt/eyeq9Z3f3qjon5HWQF3J6sR/RGsHB4ZFhJcdcRpMnpykDQIE/q4g4XzCt3Xl+URHy5ZX5Q67p5n+3lKz5KaV4y2ZQ7u6lGoAHegSe6Bl18RLyvL69f9SDGP/5Rd9oECWOKzXyUf4plvXqFzqfLIWyl9WIAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIwLTA2LTA1VDE3OjA4OjIxKzAwOjAw/OAb5AAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMC0wNi0wNVQxNzowODoyMSswMDowMI29o1gAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAAAAElFTkSuQmCC);
-                            background-size: 1.1rem;
-                            background-position: 0 1px;
-                        }
-                        
-                        &.tel {
-                            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABHNCSVQICAgIfAhkiAAAA+tJREFUSEut1n9I3GUcB/D35/nenefIpB9as43+yD9WVIuB/8xYNPqBgX8MJ4Mhka2c3lF43hLbcPecuUxQv6Z5Z6YbyxpDx5JIMP0nWOWQJIjgBo1m0f4oiZDZTu/u+7zjLC9HSnX6/eeB7/f7vF/f53k+z8NXfIGmYiJnWAH5FBH8dQlghOqnn/NN+ajWidX72bRSF9CXIeYhQE2DUBlE6BWRxw0wHO3Uz2cTnsnyBUMxGJlbTCxXeZM58dUHKWvpXm9uzjgp1xatxcrhjo7fs4WkLqivCuEYJvf326eurwbVHtOFyuASBBJPLJee6W2bzxrxBUJfi4gnKagY6NRXVoN8Pt9t8BaOgaZoOeGUDfWd+mETiJ6C4FFDlPfbemZtkL9Bf0jgsDF4sr9bf5Y1crRe91gKrxigvL9Lf7I26GggfMSlOAiwpa8zHMoa8QfCByC4aMDBaJd++Vak2edSVp8xzomo/cabWSO+htadgPMFwKtW0nOot/f4ygLX1uv9SuEcwV/dKZT19IR/zBpJd/Q16EmAe0mrLGqfvJSuLDGYFLCYRh2KdofGswXS/VZ2eF0gXK0UTtNwKGLrl/wBfQEKFQTeinTq1zcD/I3UNd2hcr0TFGxzlpPVyu1uEXCfGB7oe7tlakuQlSkLhpoE0maAs4oyTOE5IeaSbu8zA+1NC5uBMgdipdaeghv4EsQOJlEFFyqUQi0N7IitG7YESYf4X9XP0cURUL5ZAqq8iudB2QWFrkiH1htBRwKBO4ds+zcAXO+dzEgyx0lQdwkQIPFRImEFPR5nEpACx6D93e5Q29qQFxvb87ypeCsE+0DMg5gl1ASJVIrmxoJa+G7UtuP/QFaqrUFPKMGzNBwR5W4kUmMgHiA5nkw6xwffab1WE2h+xCVqSERKjJGYKN4lQGG6P5keEn8RSiwHt5eti1RWak/BDkyLwh4DnF82Sydy4D2tFJ4gcQXCM6TUCXA3iQ+Sxq1dllMkxpTAQrEi7jNEoRJ5CmDvukj6a2pqatyuvKIZAR4jZWopHq/15npfAHhQRB4kMUeKjtqhs+utg79e76FwVkR9uiGSWaOAHhWFg6TEDBzb0HXZBecw6Ho/0t0c26gYfMGWEtDMwGDqX5E/91A4CLARBtsgmKYgck8ePtZamy1DVg7MY/ph5aBTFEtJoRBfETJGJ/W5s2TFBgb0zbXg/x7J2s7+4MmnHUe9pizsTlcTie8BXBeDWVicN5RvabAIMflKqYs0ZvQ/Tdc6UyK+er0bFqpAlALYLiL3p2uX6b8qEunGkDdJU50tcotbE9S7XJTtgLMXysqF4U4BchPEhfdsPfIH2vfNkc83FewAAAAASUVORK5CYII=);
-                            background-size: 1rem;
-                            background-position: 0 1px;
-                        }
-
-                        &.email {
-                            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAUCAYAAACTQC2+AAAABHNCSVQICAgIfAhkiAAAAmdJREFUSEutlVuIjVEUx3//zyBCxohClBePknJXiuR5XkgekJc5x22+I5cS+xxl3M43Yb4jDy7xLC9K8SBqKHnw4kUpipHkkttcjL20T004cztmzn7b7fX9f99a67/XFkA2zp8wsUnYvLCvxTLjJfColLjNQU/ZZnfCxkR7ZTa+FoBKDTO7WUpcozKxeyNplvf2VqIDuDVaoMEyYYskzTDjbXf3z+VqanY+EvKyrshkiIdp0a0bKSzbfPSiRWrEmA76Lnl+ScvKIAkBzySbg1EH+pAm7r/7lcm5uzJWWuiJ6DDPFEU2sRKUl9GLyCGmAp1dnjmXWt3HarLLxO6FsJkoaOiOed3A7PyAoFLi3M7YbTE4i5hm0BV5Vre1uieDwZoOttRHPd2vERMxPhs+KSWFY5k4v3FIUBDcFRcWevnHwDiDT+Z97kJr4UolrClXWByZb0cEx34GvzstFq6HuKpAIXD7/pOTJ/R2diAmBVgkzrWdca4PlondVsRpEZpOj0UsLZ12T/+cV5HR33+eybnnmM0W6gHupYlrzMTOIXYL6jG+ddZNmHX51IGv/3xXTekqS5Td526b2RpMHmgHWwKMlXiXFvPzB+pf1aXrB4tdG7JNoIbgSOBBWnQbBjPJiEHlBje7nciywJ1Skt8zlO1HBSoP4OyhhjRt+TDc3Ro1aDjAiF1XrXBl3EAZvYrEXG9cF7o/UuF+z0NkCwQ7gC+90Zi14T26TMS2EGhhGtZoKYzpsijtaeJWlbdNuSNXZdF6RH2NOAHwHvG6VHQrgmYfl2z2eMOvsT2TawX6obqf11oPv+nT+w1ahFv1YuAl4AAAAABJRU5ErkJggg==);
-                            background-size: 1.3rem;
-                        }
-
-                        &:last-child{
-                            padding-right: 0;
-                        }
-
-                    }
-                }
-
-                ul.badge-list{
-                    overflow: hidden;
-                    li{
-                        font-size: 1.3rem; 
-                        line-height: 1.3rem; 
-                        margin-right: 0.5rem;
-                        margin-bottom: 0.5rem;
-                        padding: 3px 5px;
-                        background: #ececec;
-                        border-radius: 0.3rem;
-                        float: left;
-                    }
-                }
-                
-                .contact-details{
-                    // padding-top: 0.8rem;
-                    // border-top: 1px $light-gray solid;
-                   
-
-                    .summery-area{ 
-                        display: none;
-
-                        span.badge{
-                            margin-right: 5px;
-                        }
-                    }
-                }
+                    } 
+                } 
                 
             }
         }
+
+        .item-block-wrapper{
+
+            &.grid_view{ 
+                width: 100%; 
+                padding-left: 15px;
+                flex: 0 0 calc(50% - 0.5rem);
+                max-width: calc(50% - 0.5rem);  
+
+                @include breakpoint($medium-device){   
+                    flex: 0 0 calc(50% - 0.5rem);
+                    max-width: calc(50% - 0.5rem);  
+                }
+
+                @include breakpoint($large-device){   
+                    flex: 0 0 calc(33.33% - 0.5rem);
+                    max-width: calc(33.33% - 0.5rem);  
+                }
+
+                @include breakpoint(800px){  
+                    flex: 0 0 calc(25% - 0.5rem);
+                    max-width: calc(25% - 0.5rem);
+                }
+            }
+
+            .item-block{
+                border: 1px solid #eee; 
+                @include box-shadow(0px, 3px, 8px, 1px, rgba(196, 206, 217, 0.25)); 
+                outline: 0;
+                cursor: pointer;
+                margin-bottom: 3rem;
+                border-radius: 5px;
+                overflow: hidden;
+    
+                .item-image-wrapper{
+                    width: 100%;
+                    height: 22rem; 
+                    position: relative;
+    
+                    span.badge{
+                        position: absolute;
+                        top: 1rem;
+                        right: 0;
+                    }
+    
+                    .item-image{
+                        background-color: #eee;
+                        background-repeat: no-repeat;
+                        background-position: 50%;
+                        background-size: 100%;
+                        width: 100%;
+                        height: 100%;
+    
+                        &.no-img{
+                            background-image: url('/assets/images/eb-default.png');
+                            background-size: 17rem;
+                        }
+         
+                    }
+                }
+                
+    
+                &.img-search{
+    
+                    .item-image{
+                        height: 16rem;
+                        background-size: cover;
+    
+                        @include breakpoint($tablet){
+                            height: 16rem;
+                        }
+    
+                        @include breakpoint($x-small-desktop){
+                            height: 18rem;
+                        }
+                    }
+    
+                    .item-details{
+                        padding: 1.5rem; 
+                    }
+                    
+                }
+               
+                .item-details{
+                    padding: 1.5rem;
+                    padding-bottom: 0.8rem;
+     
+    
+                    h3{
+                        font-size: 1.7rem;
+                        margin-bottom: 0.3rem;
+                    }
+    
+                    .project-and-company{
+                        h3{
+                            font-size: 1.6rem;
+                            margin-bottom: 0;
+                        }
+    
+                        a{
+                            font-size: 1.3rem;
+                            margin-top: 0.5rem;
+                            color: $base-color;
+                            display: block;
+                            line-height: 1.7rem;
+                        }
+                    }
+    
+                    .ratings-holder{
+                        font-size: 1.3rem;
+                        height: 100%;
+                        overflow: hidden;
+                        margin-bottom: 0.5rem;
+    
+                        star-rating{
+                            display: block;
+                            position: relative;
+                            top: 1px; 
+                            float: left;
+                         
+                            .rating{ 
+                                outline: 0;
+                                margin-bottom: 0;
+                        
+                                .star-container{
+                                    margin: 0;
+                                    margin-right: 0.5rem;
+                            
+                                    .star{
+                                        width: 1.5rem;
+                                        height: 1.5rem;
+                            
+                                        i{
+                                            font-size: 1.7rem;
+                                            color: #FFC107 !important
+                                        }
+                                    }
+                                } 
+                            }
+                        }
+    
+                        span.no-of-reviews{
+                            color: #6B7380;
+                            margin-left: 5px; 
+                        }
+                    }
+    
+                    .description{
+                        font-size: 1.35rem;
+                        line-height: 1.8rem;
+                        margin-bottom: 1.5rem;
+    
+                        > p{
+                            font-size: inherit;
+                            line-height: inherit;
+                        }
+                    }
+                    
+                    .categories{
+                        display: none;
+                        margin-bottom: 0.8rem;
+    
+                        span.badge{
+                            margin-right: 5px; 
+                            margin-bottom: 2px;
+                            background-color: lighten($body-text-color, 78%);
+                            color: $body-text-color;
+                            border: 1px lighten($body-text-color, 75%) solid; 
+                        }
+                    }
+    
+    
+                    ul.contact-details{
+                        display: block;
+                        margin-top: 0.3rem; 
+                        margin-bottom: 0.3rem;  
+                        overflow: hidden;
+                        
+                        li{
+                            font-size: 1.4rem;
+                            line-height: 1.4rem;
+                            float: left;
+                            background-repeat: no-repeat ;
+                            background-position: 0 50%;
+                            padding: 0 1.5rem 0 1.5rem;  
+                            background-size: 1.2rem;
+                            color: $dark-gray;
+                            margin-bottom: 0.5rem;
+    
+                            &.address {
+                                background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LmRhYmFjYmIsIDIwMjEvMDQvMTQtMDA6Mzk6NDQgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCAyMi40IChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpDNkMxNTA1RkMwQkQxMUVCQkFCQ0Y5MDI3NEU1OEY4OCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpDNkMxNTA2MEMwQkQxMUVCQkFCQ0Y5MDI3NEU1OEY4OCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkM2QzE1MDVEQzBCRDExRUJCQUJDRjkwMjc0RTU4Rjg4IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkM2QzE1MDVFQzBCRDExRUJCQUJDRjkwMjc0RTU4Rjg4Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+r0XtTAAAAglJREFUeNq8l0soRUEYx6/LRl7ZkQXCSqTERlZWWMhGFkQpomw8yoK98ooIWXhkw5LuSmShrpLksUJe5ZEoirwf/6lP3U7nm3Nm5rj/+i3u3Dln/s35vm++ichZ//EZKAIYvSBKcX4SKAGFoADkgRuwRWyCjf8y0Aj6QZxlPJ2oot8Bmnvl5qV+F3NSwQqYtFncTuXgANR6sQOJIAiSFT+VeG4OxIJxkx0Y0Vg8VH0gQ9dABahxWOABfEn+jwHTsnVkBoaZcZF2oyCNtjqBzF4w84tDAtS1gRQKPjs1gVZwTr+fwRLIBWfMM0WqBvKZcZENU8x/j6BF8X3KBgIOMSEMvtiMi4IVqWIgkxl3Ki6fVBmtiuayiTNwzoxnOxhIoOC06h1cqxg4ZMbrQbzEQCsdUFYdcenKGdiWlOUZpiSXgR7muaBqKd4He5RaVlVSkIoSu0PftlSW69Ase55L+oE2MOAz1zHI0qmE80xKqUr7MLoFg4aLn4Ixk9Owl8lrt+oCbyYGnkC35uIi8he96IjEcbqrYaDNq5bsG7QrLr5ADaonBoRWwbLLua/07X1eGhBqBvcu5nVI+gIjA5egzuEisuSUdiYG/vqBIclR3aAaqX7N3N6yCVRxD7gLh4EPUE0tWGj7vaZTLPyaReaErl8+2o2ecF1OQ7VIF9QJ2pWwGxDqND0qfwUYAJl3YkwRFLZyAAAAAElFTkSuQmCC');
+                                background-size: 1.4rem; 
+                                padding-left: 1.8rem;
+                            }
+                            
+                            &.tel {
+                                background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LmRhYmFjYmIsIDIwMjEvMDQvMTQtMDA6Mzk6NDQgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCAyMi40IChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpCMjI0QjZCRkMwQkExMUVCOTAzODlDQkE0OTE0NjNGRCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpCMjI0QjZDMEMwQkExMUVCOTAzODlDQkE0OTE0NjNGRCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkIyMjRCNkJEQzBCQTExRUI5MDM4OUNCQTQ5MTQ2M0ZEIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkIyMjRCNkJFQzBCQTExRUI5MDM4OUNCQTQ5MTQ2M0ZEIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+QsMY1AAAAb5JREFUeNpi1D3wX4yBgaESiBOAWIABE3wA4gVA3A7ErxioDFiglhfgUSOAJF9IbQcwAXEskWoToA6mugP+EKkWFBLKtHDAMxLUaw1LBzwf8SHwgAT1CrRwwA4g/s8wQACWBk4RqX4yLRwAAhuIUHseiFsHygGfgDgMiH/SygE3gPgmHnWpQHyHVmkABibhUHMdiFfTMhHCwCwgvo1FjSYQ59PDAX+gVTM20AHE+rR2AAisBeKTWNSxA/FyIOaktQNAoBSHWlBU9NHDAYeBuB+H+gwSGjBkOwAWCrtwyC0C4plAzIVDHhRNnUD8DohfAvEJIJ4PxOVA7AfEakDMDFPMCGyU4msBnYRqwJU9o4D4ApKYGjTL6hHwOLyhy0RAEcjFH/GkiRPQhiojEIcD8RkiLEdu6FbiCwEYcATi9UDMj0cNqCTVICMJfGAiQtF+IDYH4lt41GiQmQYFmIhUeBPqiF30yIb40oQXnixKcweAwF8gLgJiOxwlJs0dgFxYWQBxCI4KjOYOQK47QC3lbALtCYpyASEAqkWnQXOCJrRGPUlkQ3cBMeUAuUASiD2gTXkpKB9GswLxYlBJCBBgAFtEVsxabgPhAAAAAElFTkSuQmCC');
+                                background-size: 1.2rem; 
+                                padding-left: 1.8rem; 
+                            }
+    
+                            &.email {
+                                background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LmRhYmFjYmIsIDIwMjEvMDQvMTQtMDA6Mzk6NDQgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCAyMi40IChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpGNkMwODQ0MEMwQjkxMUVCQjMxRkZGMTRDNUQ5QjI5MSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpGNkMwODQ0MUMwQjkxMUVCQjMxRkZGMTRDNUQ5QjI5MSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkY2QzA4NDNFQzBCOTExRUJCMzFGRkYxNEM1RDlCMjkxIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkY2QzA4NDNGQzBCOTExRUJCMzFGRkYxNEM1RDlCMjkxIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Hu0tsAAAAf1JREFUeNrsl7tOAkEUhoHY0CJi4RPILbwB8VJb+go22ggiomjkEhHRShOfwdJawfgC3OEZ5Bat7NB/kn+TUywgsAsxYZIvgWHO+f9dds6ctfrefizzHDbLnMfCwJIw4gbOGel2QAP0NQMr4Amsz8hAE2yAD3Xl2+oDJ5qzFFfaysAzOBQmGiaKN4S40nxWBuzgFoSEiboJ4nUhHqKmXe6CHDgCLbBpsIk6c7aokRu0DbPgmAuV25oB4jXmajF3dlQdyIAoaNN1dQrxKnO0mTPz10J0BWLCRGUC8YoQjzHnWJUwDU5ZNLZAeQzxMmM6zJGetBSnQHxME1I8zhxTnQUJcAG6TFwasrbENV3GJIw+jDQTRZ3fikLc0NPwHFwCB9gDPZbvB/BF7jnX4xoHY86nNXAGkkz4Ch75n36CfbBGDjiX4ppXxiSZYyID2tO7DPIgIObfQVCsDXLulN8DjFkWu0l3WNET6jWFJywaTl6Nf0B8f8SFVMSOiOrVAr3AqBDPDxHX4ofdRT9zOEWFHWogAq7ZoBSAz4CzwMdcK8wdGWQgDG6AiwFeA09DL3O6qBGWBr7F+eziLfOY0A94mNsl+o9v1RPugBewygVuEzsiD++EOqTu1ENqE+IFk8W14aaW0nzRumJ1ZO7OuC1vy/eCvkHdz+LV7P8Z+BVgAEfvhwi9L0HrAAAAAElFTkSuQmCC');
+                                background-size: 1.55rem;
+                                padding-left: 2.2rem;
+                                display: none;
+                            }
+    
+                            &:last-child{
+                                padding-right: 0;
+                            }
+    
+                        }
+                    }
+    
+                    ul.badge-list{
+                        overflow: hidden;
+                        margin: 1rem 0;
+    
+                        li{
+                            font-size: 1.3rem; 
+                            line-height: 1.3rem; 
+                            margin-right: 0.5rem;
+                            margin-bottom: 0.5rem;
+                            padding: 4px 8px; 
+                            background: lighten($light-blue-color, 40%);
+                            border-radius: 2rem;
+                            color: $base-bg-color;
+                            float: left;
+                            border: 1px $base-bg-color solid;
+                        }
+                    }
+                    
+                    .contact-details{
+                        // padding-top: 0.8rem;
+                        // border-top: 1px $light-gray solid;
+                       
+    
+                        .summery-area{ 
+                            display: none;
+    
+                            span.badge{
+                                margin-right: 5px;
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+     
         
         .categories-wrapper{
  
@@ -491,7 +553,7 @@
     ul.pagination{
         margin: auto;
         margin-top: 1rem;
-        margin-bottom: 3rem;
+        margin-bottom: 0;
         display: flex;
         justify-content: center;
         

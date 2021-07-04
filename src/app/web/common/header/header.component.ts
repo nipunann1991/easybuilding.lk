@@ -11,6 +11,7 @@ import { HomepageService } from "../../../admin/api/frontend/homepage.service";
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'], 
+  encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent implements OnInit {
 
@@ -155,37 +156,60 @@ export class HeaderComponent implements OnInit {
     let count = 1; 
     let maxLength = 10; 
     let isLineBreak = false; 
+    let isLineBreakTitle = ""; 
+    let isLineBreakText = ""; 
     this.totalLinks = 0;
 
-    res.data.forEach((elm, index) => {  
+    res.data.forEach((elm, index) => {   
       
       if(breakLine){
-        isLineBreak = (count >= maxLength )
-      }
+        isLineBreak = (count >= maxLength )  
+      } 
 
       if(parentCat != elm.parent_cat_id || isLineBreak || res.data.length == (index + 1)){ 
-        parentCat = elm.parent_cat_id;  
-         
-        (menuItem.length != 0)? menuArray.push({ 
-          id: this.menuArray.length, 
-          title: parentCatName, 
-          break: breapoint,
-          children: menuItem 
-        }) : '';
+        parentCat = elm.parent_cat_id;
+       
+
+        if(isLineBreak){ 
+          isLineBreakTitle = parentCatName;
+        }
+
+        if( res.data.length == (index + 1) ){
+          menuItem.push({ id: elm.id ,title: elm.cat_lvl2_name, url: folderUrl+"/"+elm.cat_lvl2_id });
+        }
+        
+        if(menuItem.length != 0){
+          menuArray.push({ 
+            id: this.menuArray.length, 
+            title: parentCatName , 
+            break: breapoint,
+            children: menuItem 
+          })  
+        }
         
         this.totalLinks =  this.totalLinks + menuItem.length ;
         
         menuItem = []; 
         count = 1;
-      } 
+      }  
 
-      parentCatName = elm.cat_lvl1_name;  
+      parentCatName = elm.cat_lvl1_name + isLineBreakText;  
        
       menuItem.push({ id: elm.id ,title: elm.cat_lvl2_name, url: folderUrl+"/"+elm.cat_lvl2_id });
       count++;   
 
     }); 
+     
+    let fisrtBR = false;
 
+    menuArray.filter(x => {  
+      if(x.title == isLineBreakTitle && !fisrtBR) {
+        fisrtBR = true;
+      } else if(x.title == isLineBreakTitle && fisrtBR){
+        x.title = x.title + " <span>(Continued...)</span>";
+      }  
+    })
+    
     return menuArray;
 
   }
@@ -228,7 +252,7 @@ export class HeaderComponent implements OnInit {
          
         }  
   
-        if(menuArray.length == (index + 1)){
+        if(menuArray.length == (index + 1)){ 
           (newMenu.length < maxCols)? newMenu.push(groupedMenu) : newMenu[(maxCols - 1)].push(...groupedMenu);
         }
 
@@ -286,7 +310,6 @@ export class HeaderComponent implements OnInit {
     
     this.isSearchOpened = false;
     this.searchText = "";
-    console.log(this.searchText, this.isSearchOpened)
  
     this.router.navigate(['/products/search'], { queryParams: queryParams });
   
@@ -301,7 +324,6 @@ export class HeaderComponent implements OnInit {
     
     this.isSearchOpened = false;
     this.searchText = "";
-    console.log(this.searchText, this.isSearchOpened)
  
     this.router.navigate(['/image-search/search'], { queryParams: queryParams });
  

@@ -41,6 +41,41 @@ export class LoginService {
     return this.http.post(environment.baseUrl+'LoginController/onEBUserLogin', params); 
    
   }
+
+
+  
+  checkEmail(postVals) : any {  
+
+    const params = new HttpParams({
+        fromObject : postVals
+    });
+
+    return this.http.post(environment.baseUrl+'LoginController/checkEmail', params); 
+   
+  }
+
+
+  validateEmailAddressOnSignUp(postVals) : any {  
+
+    const params = new HttpParams({
+        fromObject : postVals
+    });
+
+    return this.http.post(environment.baseUrl+'LoginController/validateEmailAddressOnSignUp', params); 
+   
+  }
+
+  
+  
+  resetPassword(postVals) : any {  
+
+    const params = new HttpParams({
+        fromObject : postVals
+    });
+
+    return this.http.post(environment.baseUrl+'LoginController/resetPassword', params); 
+   
+  }
   
 
   onAdminLogin(postVals) : any {  

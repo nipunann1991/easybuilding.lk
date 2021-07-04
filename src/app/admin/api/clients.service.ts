@@ -33,6 +33,17 @@ export class ClientsService {
     return this.http.post(environment.baseUrl+'ProfileController/isFeaturedProfile?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   }
 
+  isFeaturedProduct(postVals){
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ProfileController/isFeaturedProduct?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  }
+
+  
+
 
   updateProfileDetails(postVals){ 
      

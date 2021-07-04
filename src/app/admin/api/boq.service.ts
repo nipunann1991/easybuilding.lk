@@ -39,8 +39,14 @@ export class BoqService {
     
   }
   
-  getHouseAreas(){ 
-    return this.http.get(environment.baseUrl+'BOQController/getHouseAreas');
+  getHouseAreas(postVals){ 
+    
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'BOQController/getHouseAreas', params);
+  
   }
 
   editHouseArea(postVals){ 

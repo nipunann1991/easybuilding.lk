@@ -96,9 +96,7 @@ export class EditProjectComponent implements OnInit {
     });
 
     this.companyID = this.route.snapshot.params.company_id; 
-    this.projectID = this.route.snapshot.params.project_id;
-
-    console.log(this.companyID, this.projectID, this.route.snapshot.params )
+    this.projectID = this.route.snapshot.params.project_id; 
     
     this.getProductsWithID(this.companyID);
     this.getProjectDetails(this.companyID, this.projectID);
@@ -142,8 +140,9 @@ export class EditProjectComponent implements OnInit {
               .toPromise()
               .then((response: any) => {
                 
-                this.uploadedImages.push(response.data.target_file);
-                this.uploadedFileName.push(response.data.new_file);
+                this.uploadedImages.push({ imgURL: response.data.target_file, approved: 0 });
+                this.uploadedFileName.push({ imgURL: response.data.new_file, approved: 0 }); 
+                
                 //resolve();
 
               },
@@ -250,9 +249,8 @@ export class EditProjectComponent implements OnInit {
   
       this.myaccount.getProductsWithID(params) 
         .subscribe((response: any) => {
-          if (response.status == 200 && response.data.length > 0 ) {
-            
-            console.log( response )  
+          if (response.status == 200 ) {
+             
             this.allServices = response.data
             this.getServicsWithID(company_id);
             
@@ -271,7 +269,14 @@ export class EditProjectComponent implements OnInit {
         .subscribe((response: any) => {
           if (response.status == 200 && response.data.length > 0 ) {
             
-            var newArray = this.allServices.concat(response.data)
+            var newArray = [];
+           
+            if(this.allServices.length == 0){
+              newArray = this.allServices = response.data
+            }else{
+              newArray = this.allServices.concat(response.data)
+            }
+            
             this.allServices = newArray; 
   
           }else{
@@ -291,10 +296,9 @@ export class EditProjectComponent implements OnInit {
              
   
             this.projectData = response.data;
+            console.log("---", response.data)
             this.projectImages = this.projectData.images;
-
-            console.log(this.projectData)
-
+ 
             this.clientId = this.projectData.client_id;
             this.imageURL = environment.uploadPath + this.clientId +'/'+ this.companyID +'/projects/';
             this.imageURLThumb = environment.uploadPath + this.clientId +'/'+ this.companyID +'/projects/thumb/';
@@ -317,7 +321,7 @@ export class EditProjectComponent implements OnInit {
             this.uploadedFileName =  this.projectImages;
   
             this.projectImages.forEach(element => {  
-              this.uploadedImages.push(this.imageURLThumb + element.file_name); 
+              this.uploadedImages.push({ imgURL: this.imageURLThumb + element.file_name, approved:  element.approved  }); 
             });
  
   
@@ -333,9 +337,7 @@ export class EditProjectComponent implements OnInit {
 
       if (!this.formGroup.invalid) {
         this.formGroup.value.images = JSON.stringify(this.uploadedFileName); 
-        this.formGroup.value.company_id = this.companyID; 
-        this.formGroup.value.primary_img = this.uploadedFileName[0].file_name; 
-        this.formGroup.value.total_imgs = this.uploadedFileName.length;  
+        this.formGroup.value.company_id = this.companyID;  
         
         this.formGroup.value.project_id = this.projectID; 
         this.formGroup.value.services = JSON.stringify(this.formGroup.value.services); 
@@ -375,14 +377,16 @@ export class EditProjectComponent implements OnInit {
           if(result){
 
             this.projectImagesDeleted = this.uploadedFileName[index];
+            console.log(this.projectImagesDeleted)
+          
             this.uploadedFileName.splice(index, 1); 
             this.uploadedImages = [];
   
             this.uploadedFileName.forEach(element => {  
-              this.uploadedImages.push(this.imageURLThumb + element); 
+              this.uploadedImages.push({ imgURL: this.imageURLThumb + element.file_name, approved:  element.approved  });  
             });  
 
-            let param = { company_id: this.companyID, file_name: this.projectImagesDeleted }; 
+            let param = { company_id: this.companyID, file_name: this.projectImagesDeleted.file_name}; 
 
             this.myaccount.removeProjectImages(param).subscribe((response: any) => { 
               this.projectImagesDeleted = ""; 
@@ -402,8 +406,7 @@ export class EditProjectComponent implements OnInit {
       this.myaccount.getCities() 
         .subscribe((response: any) => {
           if (response.status == 200) { 
-            this.nearestCity = response.data; 
-            console.log(this.nearestCity)
+            this.nearestCity = response.data;  
           }else{
               
           }

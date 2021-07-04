@@ -31,6 +31,7 @@ export class UploadProductComponent implements OnInit {
   projectImagesDeleted:any;
   imageURLThumb: string = "";
   allUnits: any = this.globals.unitList;
+  isContactForPrice: boolean = false;
 
   constructor(
     private myaccount: MyAccountService,
@@ -89,7 +90,7 @@ export class UploadProductComponent implements OnInit {
 
     this.myaccount.getProductsWithID(params) 
       .subscribe((response: any) => {
-        if (response.status == 200 && response.data.length > 0 ) {
+        if (response.status == 200 ) {
           
           console.log( response )  
           this.allProducts = response.data
@@ -109,7 +110,7 @@ export class UploadProductComponent implements OnInit {
 
     this.myaccount.getServicsWithID(params) 
       .subscribe((response: any) => {
-        if (response.status == 200 && response.data.length > 0 ) {
+        if (response.status == 200) {
           
           var newArray = this.allProducts.concat(response.data)
           this.allProducts = newArray; 
@@ -129,50 +130,67 @@ export class UploadProductComponent implements OnInit {
 
   public dropped(files: NgxFileDropEntry[]) {
     this.files = files;
-    for (const droppedFile of files) {
- 
-      // Is it a file?
-      if (droppedFile.fileEntry.isFile) {
-        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {
-  
- 
-          const formData = new FormData()
-          formData.append('file', file);
-          formData.append('name', file.name);  
-          formData.append('company_id', this.companyID)
-          
 
-          const promise = new Promise((resolve, reject) => { 
+    let totalLength = this.globals.maxProductImages - (this.uploadedImages.length + files.length);
+    let remainingImages = this.globals.maxProductImages - this.uploadedImages.length;
+
+    console.log(totalLength, remainingImages, files.length)
+
+    files.splice(remainingImages , files.length);
+    console.log(files)
+
+    if(remainingImages > 0){
+
+      for (const droppedFile of files) {
+       
+        // Is it a file?
+        if (droppedFile.fileEntry.isFile) {
+          const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+          fileEntry.file((file: File) => {
     
-          this.myaccount.uploadProductImages(formData)
-              .toPromise()
-              .then((response: any) => {
-                
-                this.uploadedImages.push(response.data.target_file);
-                this.uploadedFileName.push(response.data.new_file);
-
-                console.log(this.uploadedImages, this.uploadedFileName)
-                //resolve();
-
-              },
-                err => {
-                  // Error
-                  reject(err);
-                }
-              );
+   
+            const formData = new FormData()
+            formData.append('file', file);
+            formData.append('name', file.name);  
+            formData.append('company_id', this.companyID)
+            
+  
+            const promise = new Promise((resolve, reject) => { 
+      
+            this.myaccount.uploadProductImages(formData)
+                .toPromise()
+                .then((response: any) => {
+                  
+                  this.uploadedImages.push(response.data.target_file);
+                  this.uploadedFileName.push(response.data.new_file);
+  
+                  console.log(this.uploadedImages, this.uploadedFileName)
+                  //resolve();
+  
+                },
+                  err => {
+                    // Error
+                    reject(err);
+                  }
+                );
+            });
+    
+            return promise; 
+  
           });
   
-          return promise; 
-
-        });
-
-      } else {
-        // It was a directory (empty directories are added, otherwise only files)
-        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log(droppedFile.relativePath, fileEntry);
+        } else {
+          // It was a directory (empty directories are added, otherwise only files)
+          const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
+          console.log(droppedFile.relativePath, fileEntry);
+        }
       }
+
+    }else{
+      this.toastr.error('Maximum Images. You have uploaded maximum number of images.', 'Upload Error !');   
     }
+
+    
   }
   
 
@@ -256,6 +274,15 @@ export class UploadProductComponent implements OnInit {
     console.log(event);
   }
 
+  setContactForPrice(event){
+    this.isContactForPrice = event.checked;
+
+    if(this.isContactForPrice){
+      this.formGroup.controls.product_price.setValue(0)
+      this.formGroup.controls.product_unit.setValue(1) 
+    }
+    
+  }
 
   onSave(){
 

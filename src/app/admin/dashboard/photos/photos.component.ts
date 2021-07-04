@@ -292,12 +292,11 @@ export class imageModalDialog {
       this.imgURL = data.name; 
       this.imgDetails = data.img_details;
 
-      console.log(this.imgDetails) 
+        
+      ( this.imgDetails.approved == 1 )? this.isApproved = true :  this.isApproved = false;
 
       this.formGroup = new FormGroup({   
-        photo_category: new FormControl("", [
-          Validators.required
-        ]),  
+        photo_category: new FormControl(""),  
          
       });
   
@@ -374,7 +373,7 @@ export class imageModalDialog {
       this.formGroup.value.project_id = this.imgDetails.project_id; 
       this.formGroup.value.photo_category = JSON.stringify(this.formGroup.value.photo_category);  
       
-      (this.isApproved)? this.formGroup.value.approved = 1 : this.formGroup.value.approved = 0 ;
+      (this.isApproved)? this.formGroup.value.approved = 1 : this.formGroup.value.approved = 0 ; 
   
       this.imageservice.saveImageCategories(this.formGroup.value)
         .subscribe((response: any) => {

@@ -72,7 +72,7 @@ export class ViewProjectComponent implements OnInit {
 
   getProjectDetails(company_id, project_id){
 
-    let params = { company_id: company_id, project_id: project_id }
+    let params = { company_id: company_id, project_id: project_id}
  
     this.myaccount.getProjectDetails(params) 
       .subscribe((response: any) => {
@@ -112,12 +112,16 @@ export class ViewProjectComponent implements OnInit {
             approvedImagesOnly = this.projectImages; 
            
           }
-  
-           
+          
+
+          this.projectImages = approvedImagesOnly;
+          
           approvedImagesOnly.forEach(element => {  
             this.imagesGallery.push(new ImageItem({  src: this.imageURL+element.file_name, thumb: this.imageURLThumb+element.file_name }));
             this.images.push({ src: this.imageURL+element.file_name, thumb: this.imageURLThumb+element.file_name, approved: element.approved });
           });
+
+          console.log(approvedImagesOnly, "approvedImagesOnly" , this.imagesGallery)
           
           this.galleryRef.load(this.imagesGallery); 
           this.mainImg = this.imageURL + primaryImage;

@@ -23,7 +23,10 @@
             </div> 
             <div class="product-details">
               <ul class="additional-info"> 
-                <li class="photos"><strong>Price Range</strong> {{projectData.product_price | currency: currency }} / {{ unit }}</li> 
+                <li class="photos"><strong>Price Range</strong>&nbsp;
+                  <span *ngIf="projectData.product_price != 0">{{projectData.product_price | currency: currency }} / {{ unit }}</span>
+                  <span *ngIf="projectData.product_price == 0">Contact for Prices</span>
+                </li> 
               </ul> 
             </div>  
             <div class="project-desc"> 

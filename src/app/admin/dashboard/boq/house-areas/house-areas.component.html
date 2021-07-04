@@ -8,6 +8,8 @@
                 <tr>   
                     <th>House Id</th>   
                     <th>House Area</th>  
+                    <th>Cost Factor</th>  
+                    <th>Level</th>  
                     <th></th> 
                 </tr>
                 </thead>
@@ -26,6 +28,15 @@
                             <label for="house_area">House Area Name</label> 
                             <input id="house_area" name="house_area" formControlName="house_area" type="text" class="form-control">
                         </div> 
+                        <div class="form-group">
+                            <label for="cost_factor">Cost Factor</label> 
+                            <input id="cost_factor" name="cost_factor" formControlName="cost_factor" type="text" class="form-control">
+                        </div> 
+                        <div class="form-group">
+                            <label for="customer_nic">Level</label> 
+                            <ng-select2 [data]="level" [options]="select2Options" formControlName="level" class="select-fw" >
+                            </ng-select2>  
+                        </div>
                     </div>
                         
                     <div class="col-md-12">
@@ -45,6 +56,15 @@
                             <label for="house_area">Category Name</label> 
                             <input id="house_area" name="house_area" formControlName="house_area" type="text" class="form-control">
                         </div> 
+                        <div class="form-group">
+                            <label for="cost_factor">Cost Factor</label> 
+                            <input id="cost_factor" name="cost_factor" formControlName="cost_factor" type="text" class="form-control">
+                        </div> 
+                        <div class="form-group">
+                            <label for="customer_nic">Level</label> 
+                            <ng-select2 [data]="level" [options]="select2Options" formControlName="level" class="select-fw" >
+                            </ng-select2>  
+                        </div>
                     </div>
                         
                     <div class="col-md-12">

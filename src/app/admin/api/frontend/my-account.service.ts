@@ -41,8 +41,7 @@ export class MyAccountService {
  
   getServiceDetails(){   
 
-      return this.http.get(environment.baseUrl+'ProfileController/getServiceDetails'+this.setTokenData());
-   
+      return this.http.get(environment.baseUrl+'ProfileController/getServiceDetails'+this.setTokenData()); 
    
   }
  
@@ -233,6 +232,7 @@ export class MyAccountService {
     
 
   }
+  
  
   addNewProjectDetails(postVals){ 
      
@@ -384,10 +384,12 @@ export class MyAccountService {
       fromObject : postVals
     }); 
     
-    return this.http.post(environment.baseUrl+'ProfileController/deleteProfile?auth_token='+this.tokenUser.auth_token+'&session_id='+this.tokenUser.session_id, params);
+    return this.http.post(environment.baseUrl+'ProfileController/deleteProfile'+this.setTokenData(), params);
   }
 
 
-  
+  resendVerification(){   
+    return this.http.get(environment.baseUrl+'ProfileController/resendVerification'+this.setTokenData()); 
+  } 
 
 }

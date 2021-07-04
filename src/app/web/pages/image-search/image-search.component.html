@@ -13,11 +13,12 @@
             </div>
             <div class="row mid-row">
                 <div class="col-md-12">
-                    <p *ngIf="pageData.start > 0">Showing {{ pageData.start }} – {{ pageData.end }} results from {{ pageData.total_results }} profiles</p>
+                    <p *ngIf="pageData.start > 0">Showing {{ pageData.start }} – {{ pageData.start + pageData.end - 1 }} results from {{ pageData.total_results }} photos</p>
                 </div>
             </div> 
             <div class="row">  
-                <div class="item-block-wrapper" *ngFor="let img of imageSearch; let i=index" [ngClass]="(isGridView)? 'col-md-4' : 'col-md-12 list_view'" >
+                <!-- col-md-3 col-sm-6 -->
+                <div class="item-block-wrapper" *ngFor="let img of imageSearch; let i=index" [ngClass]="(isGridView)? 'grid_view' : 'col-md-12 list_view'" >
                     <div class="item-block img-search">
                         <div class="item-image" *ngIf="img.imgUrl !== ''" [ngStyle]="{'background-image': 'url('+ img.imgUrl + ')'}" [ngClass]="{'no-img': img.imgUrl === ''}" (click)="openInFullScreen(i)"></div> 
                         <div class="item-details">
@@ -43,10 +44,8 @@
                       <a class="page-link" href="javascript:void(0)" (click)="navigateToNextPage(paramIndex + 1)">Next</a>
                     </li>
                 </ul>
-            </div>
-
-        </div>
-      
-        
+            </div> 
+        </div> 
+        <div class="clearfix"></div>
     </div>
 </div>

@@ -21,8 +21,9 @@
       </ngx-file-drop> 
     </div>
     <div class="offset-md-1 col-md-6">
-      <div class="uploaded-image-holder">
-          <div *ngFor="let ui of uploadedImages; let i = index;" class="img-box"  [ngStyle]="{'background-image': 'url('+ ui +')'}" >
+      <div class="uploaded-image-holder"> 
+          <div *ngFor="let ui of uploadedImages; let i = index;" class="img-box"  [ngStyle]="{'background-image': 'url('+ ui.imgURL +')'}" >
+            <span *ngIf="ui.approved == '0'" class="badge badge-warning">Pending Approval</span> 
             <i class="icon-bin" (click)="deleteImage(i)"></i>
           </div>  
           <div class="clearfix"></div>

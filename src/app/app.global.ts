@@ -1,17 +1,20 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';   
-import { Subject } from 'rxjs'
+import { Subject, BehaviorSubject } from 'rxjs'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfimDialogBoxComponent } from "../app/web/common/confim-dialog-box/confim-dialog-box.component";
 
 
 @Injectable()
 export class Globals {
+    @Output() profileTypeOption :EventEmitter<any> = new EventEmitter();
 
 	currencyAlias = "Rs. ";
 	isItemsEditable: boolean = false; 
     editable: boolean = true; 
     isAdminToken: any ="21232f297a57a5a743894a0e4a801fc3";
     isManagerToken: any ="1d0258c2440a8d19e716292b231e3190"; 
+    isManager: boolean = false;
+    maxProductImages: number = 5;
 
     defaultQueryParams = { 
         results: '10', 
@@ -52,10 +55,15 @@ export class Globals {
     ]
   
     itemsEditable: Subject<boolean> = new Subject<boolean>();
-
     
+    private profileTypeData = new BehaviorSubject(-1);
+    getProfileTypeData = this.profileTypeData.asObservable();
 
-     constructor( public confirmBox: MatDialog )  {  
+    setProfileTypeData(message: number) {
+        this.profileTypeData.next(message)
+    }
+
+    constructor( public confirmBox: MatDialog )  {  
 
      	this.itemsEditable.subscribe((value) => {
             this.isItemsEditable = value;
@@ -64,6 +72,17 @@ export class Globals {
         });
  
     } 
+
+
+    isManagerLogin(){
+
+        if(this.isManagerToken == JSON.parse(localStorage.getItem('tokenAdmin')).provider_id){
+            return  true;
+        }else{
+            return false;
+        }
+    
+    }
     
     confirmDialogBox(data): any{  
         return this.confirmBox.open(ConfimDialogBoxComponent, {

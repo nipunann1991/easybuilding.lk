@@ -7,7 +7,7 @@ import { Options } from 'select2';
 import { Subject } from 'rxjs'
 import { CitiesService } from '../../../admin/api/cities.service'; 
 import { Globals } from "../../../app.global";
-import * as $ from 'jquery';
+import * as $ from 'jquery'; 
 declare const bootbox:any;
 
 @Component({
@@ -29,6 +29,7 @@ export class CitiesComponent implements OnInit {
   isEditableRoute: boolean = false;
   param: any = {};
   cityData: any = [];
+   
 
   constructor(
     private cities: CitiesService,
@@ -36,9 +37,24 @@ export class CitiesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router, 
     private globals: Globals,
-  ) { }
+  ) { 
+ 
+    this.route.queryParams.subscribe(params => {
+      this.param = params;
+      
+      if (Object.keys(this.param).length  !== 0 ) {
+        this.isEditableRoute = true;
+        this.getSelectedCity();   
+      }else{
+        this.isEditableRoute = false;
+      }
+         
+    });
+
+  }
 
   ngOnInit(): void {
+     
     this.getDistricts();
 
     this.formGroup = new FormGroup({ 
@@ -52,24 +68,42 @@ export class CitiesComponent implements OnInit {
         Validators.maxLength(100)
       ]),
     }); 
+    
 
-    this.route.paramMap.subscribe(params => {
-      this.param = params;
+    this.initCityTable()
 
-      if (typeof this.param.params.id !== 'undefined' ) {
-        this.isEditableRoute = true;;
-        this.getSelectedCity();  
-      }
-         
-    });
+    const component1 = this;
+
+    $('html').on('click', 'a.delete-city-data' , function(e1){ 
+      e1.preventDefault(); 
+      component1.openDeleteCityModal($(this).attr('data-id'));  
+      
+    })
+    
+    const component = this;
+
+    $('html').on('click', 'a.edit-city-data' , function(e){ 
+      e.preventDefault();
+      component.editCityPage($(this).attr('data-id'));
+      
+    }); 
+    
+
+   
+  }
+
+
+  initCityTable(){
+    const that = this;
 
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
       serverSide: true,
       processing: true,
-      autoWidth: false, 
-      bStateSave: true,
+      autoWidth: false,  
+      stateSave: true,
+      retrieve: true, 
       ajax: this.cities.getCitiesDT(), 
       columns: [ 
         { data: 'city_id' },{ data: 'district_name' },{ data: 'city' }
@@ -78,8 +112,15 @@ export class CitiesComponent implements OnInit {
       targets: 3,
       data: function( row ){   
 
-        return '<a class="edit-city-data" data-id="'+row.city_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
-          '<a class="delete-city-data" data-id="'+row.city_id+'" title="Edit"><i class="icon-bin"></i></a>'
+        if(!that.globals.isManagerLogin()){
+          return '<a class="edit-city-data" data-id="'+row.city_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
+          '<a class="delete-city-data" data-id="'+row.city_id+'" title="Delete"><i class="icon-bin"></i></a>'
+        }else{
+          return '<a class="edit-city-data" data-id="'+row.city_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
+          '<a class="disabled" title="Delete not allowed"><i class="icon-bin"></i></a>' 
+        }
+
+       
           
       },
   
@@ -109,28 +150,12 @@ export class CitiesComponent implements OnInit {
     ],
 
   };
-
-    const component1 = this;
-
-    $('html').on('click', 'a.delete-city-data' , function(e1){ 
-      e1.preventDefault(); 
-      component1.openDeleteCityModal($(this).attr('data-id'));  
-      
-    })
-    
-    const component = this;
-
-    $('html').on('click', 'a.edit-city-data' , function(e){ 
-      e.preventDefault();
-      component.editCityPage($(this).attr('data-id'));
-      
-    });
-
   }
 
 
   ngAfterViewInit(): void {
     this.dtTrigger.next();
+ 
   }
 
   ngOnDestroy(): void {
@@ -140,15 +165,16 @@ export class CitiesComponent implements OnInit {
 
   rerender(){
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        // Destroy the table first
+        // Destroy the table first   
         dtInstance.destroy(); 
-        this.dtTrigger.next();
+        this.dtTrigger.next();  
       });
   }
 
-  editCityPage(pageId){
-		this.router.navigate(['admin/cities/'+pageId]); 
+  editCityPage(pageId){  
+    this.router.navigate(['admin/cities/'], { queryParams:  {id: pageId} });
   }
+  
   
   
   onSubmit() { 
@@ -177,7 +203,7 @@ export class CitiesComponent implements OnInit {
   onUpdate(){
     const that = this;
     if (!this.formGroup.invalid) {
-      this.formGroup.value.city_id = this.param.params.id;
+      this.formGroup.value.city_id = this.param.id;
 
       this.cities.editCity(this.formGroup.value)
         .subscribe((response: any) => {
@@ -185,7 +211,7 @@ export class CitiesComponent implements OnInit {
           if (response.status == 200) {
             this.toastr.success('City has been edited successfully', 'Success !');  
             this.formGroup.reset();
-            that.rerender(); 
+            this.rerender(); 
             this.returnBack();
 
           }else if (response.status == 401){
@@ -203,7 +229,7 @@ export class CitiesComponent implements OnInit {
 	}
 
   getSelectedCity(): void{
-    let param = { city_id: this.param.params.id}
+    let param = { city_id: this.param.id}
      
      this.cities.getSelectedCity(param)
          .subscribe((response: any) => {

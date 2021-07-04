@@ -6,31 +6,42 @@
         </div>
         
 
-        <div class="featured-list row">
-            <div class="col-lg-3 col-md-6 col-sm-6 featured-item-wrapper" *ngFor="let fpl of featuredProfList">
-                <div class="featured-item" [routerLink]="fpl.profileLink">
-                    <div class="item-img" *ngIf="fpl.imgUrl !== ''" [ngStyle]="{'background-image': 'url('+ fpl.imgUrl + ')'}" [ngClass]="{'no-img': fpl.imgUrl === ''}"></div>
-                    <div class="item-img" *ngIf="fpl.imgUrl == ''" [ngClass]="{'no-img': fpl.imgUrl === ''}"></div>
-                    
-                    <div class="item-desc">
-                        <h4>{{fpl.title}}</h4>
-                        <div class="ratings-holder">
-                            <star-rating  
-                                starType="icon" 
-                                [labelText]="totalReviews"  
-                                [showHalfStars]="true" 
-                                labelPosition="right" 
-                                [rating]="fpl.rating"
-                                [readOnly]="true" 
-                            ></star-rating>  {{ fpl.rating | roundToDecimal:1  }}  <span class="no-of-reviews">( {{fpl.total_reviews}} Review )</span>
-                        </div> 
-                        <ul class="contact-details">
-                            <li class="address">{{ fpl.contact.city }}</li>
-                            <li class="tel">{{ fpl.contact.tel }}</li>
-                        </ul>                   
+        <div class="featured-list">
+            <ngx-slick-carousel class="carousel row" 
+            #slickModal="slick-carousel" 
+            [config]="slideConfig" 
+            (init)="slickInit($event)"
+            (breakpoint)="breakpoint($event)"
+            (afterChange)="afterChange($event)"
+            (beforeChange)="beforeChange($event)">
+                <!-- col-lg-3 col-md-6 col-sm-6  -->
+                <div ngxSlickItem class="featured-item-wrapper" *ngFor="let fpl of featuredProfList">
+                    <div class="featured-item" [routerLink]="fpl.profileLink">
+                        <div class="item-img" *ngIf="fpl.imgUrl !== ''" [ngStyle]="{'background-image': 'url('+ fpl.imgUrl + ')'}" [ngClass]="{'no-img': fpl.imgUrl === ''}"></div>
+                        <div class="item-img" *ngIf="fpl.imgUrl == ''" [ngClass]="{'no-img': fpl.imgUrl === ''}"></div>
+                        
+                        <div class="item-desc">
+                            <div class="title-wrap">
+                                <h4>{{fpl.title}}</h4>
+                                <div class="ratings-holder">
+                                    <star-rating  
+                                        starType="icon" 
+                                        [labelText]="totalReviews"  
+                                        [showHalfStars]="true" 
+                                        labelPosition="right" 
+                                        [rating]="fpl.rating"
+                                        [readOnly]="true" 
+                                    ></star-rating>  {{ fpl.rating | roundToDecimal:1  }}  <span class="no-of-reviews">( {{fpl.total_reviews}} Review )</span>
+                                </div>
+                            </div> 
+                            <ul class="contact-details">
+                                <li class="address">{{ fpl.contact.city }}</li>
+                                <li class="tel">{{ fpl.contact.tel }}</li>
+                            </ul>                   
+                        </div>
                     </div>
-                </div>
-            </div>  
+                </div>  
+            </ngx-slick-carousel>
         </div>
     </div>
 </div>

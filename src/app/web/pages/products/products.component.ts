@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, HostListener  } from '@angular/core';
 import { PlatformLocation } from '@angular/common'
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { SearchService } from "../../../admin/api/frontend/search.service";
@@ -9,6 +9,7 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Options } from 'select2'; 
 import { Globals } from "../../../app.global"
 import { filter } from 'rxjs/operators';
+import { AppSEO } from "./../../../app.seo";
 
 @Component({
   selector: 'app-products',
@@ -39,6 +40,7 @@ export class ProductsComponent implements OnInit {
   searchParam: string = "";
   paginations: Array<number> = [];
   paramIndex: number; 
+  isSticky: boolean = false;
   searchParams = {
     sortBy: "",
     sortByServiceArea: ""
@@ -79,20 +81,25 @@ export class ProductsComponent implements OnInit {
     private homePage: HomepageService,
     private platformLocation: PlatformLocation,
     private globals: Globals,
+    private seo: AppSEO,
   ) { 
-    
+   
     this.queryParams = this.globals.defaultQueryParams;
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
-    
-        window.scroll(0,0);    
-        this.prevParam = this.activatedRoute.snapshot.params.id; 
-        this.prevQueryParam = this.activatedRoute.snapshot.queryParams;  
-        this.paramIndex = parseInt(this.activatedRoute.snapshot.queryParams.index);
-        this.getSelectedProductData();  
-        this.filterOptions(); 
-        
 
-        (JSON.stringify(this.activatedRoute.snapshot.queryParams) !==  '{}')? this.searchProducts(this.activatedRoute.snapshot.queryParams, true) : "";  
+      if (event instanceof NavigationEnd) {
+        console.log('NavigationEnd!');
+          window.scroll(0,0);    
+          this.prevParam = this.activatedRoute.snapshot.params.id; 
+          this.prevQueryParam = this.activatedRoute.snapshot.queryParams;  
+          this.paramIndex = parseInt(this.activatedRoute.snapshot.queryParams.index); 
+          this.getSelectedProductData();  
+          this.filterOptions(); 
+          
+
+          (JSON.stringify(this.activatedRoute.snapshot.queryParams) !==  '{}')? this.searchProducts(this.activatedRoute.snapshot.queryParams, true) : "";  
+      }
+       
          
     });
      
@@ -124,6 +131,10 @@ export class ProductsComponent implements OnInit {
      
   }
 
+  @HostListener('window:scroll', ['$event'])
+  checkScroll() {
+    this.isSticky = window.pageYOffset >= 50;
+  }
 
   
 
@@ -198,7 +209,7 @@ export class ProductsComponent implements OnInit {
           
         }); 
     } 
- 
+    this.pageSEO();  
   }
 
   setMenuItems(res, breakLine = true, folderUrl = "products"): any{
@@ -218,8 +229,15 @@ export class ProductsComponent implements OnInit {
         isLineBreak = (count >= maxLength )
       }
 
+      let bgImage = ""; 
+      (elm.file_name != '')?  bgImage ='url('+ environment.uploadPath+"admin/category/thumb/"+elm.file_name : bgImage = '';
+
       if(parentCat != elm.parent_cat_id || isLineBreak || res.data.length == (index + 1)){ 
         parentCat = elm.parent_cat_id;  
+
+        if( res.data.length == (index + 1) ){
+          menuItem.push({ id: elm.id ,title: elm.cat_lvl2_name, url: "/"+folderUrl+"/"+elm.cat_lvl2_id, file_name: bgImage });
+        }
          
         (menuItem.length != 0)? menuArray.push({ 
           id: this.menuArray.length, 
@@ -234,10 +252,7 @@ export class ProductsComponent implements OnInit {
         count = 1;
       } 
 
-      parentCatName = elm.cat_lvl1_name;  
-
-      let bgImage = ""; 
-      (elm.file_name != '')?  bgImage ='url('+ environment.uploadPath+"admin/category/thumb/"+elm.file_name : bgImage = '';
+      parentCatName = elm.cat_lvl1_name;   
        
       menuItem.push({ id: elm.id ,title: elm.cat_lvl2_name, url: "/"+folderUrl+"/"+elm.cat_lvl2_id, file_name: bgImage });
       count++;   
@@ -344,9 +359,7 @@ export class ProductsComponent implements OnInit {
   searchProducts(queryParams, firstAttempt = false ){
 
     this.products = []; 
-
-     
-
+ 
     let params = { 
       cat_lvl2_id: this.activatedRoute.snapshot.params.id, 
       limit: queryParams.results, 
@@ -385,6 +398,8 @@ export class ProductsComponent implements OnInit {
           this.paginations =  Array(totalPages).fill(0).map((x,i)=>i + 1);
         } 
 
+        this.products = []
+
         response.data.forEach(elm => {
          
           let profileImg = environment.uploadPath + elm.client_id +'/'+ elm.company_id +'/';
@@ -413,9 +428,12 @@ export class ProductsComponent implements OnInit {
           
         }); 
  
+ 
       }
       
     });
+
+    
   }
 
   getGridView(){ 
@@ -537,6 +555,21 @@ export class ProductsComponent implements OnInit {
   
   beforeChange(e) {
     console.log('beforeChange');
+  }
+
+
+  pageSEO() : void{
+
+   // console.log(this.pageData)
+
+    let seoData = {
+      title: 'EasyBuilding.lk | Search Page',
+      keywords: 'Construction Services in Colombo Galle Kalutara Gampaha Srilanka,Vehicle A/C Repairs, Electrician,Plumber Colmbo Srilanka,Tile Services, Construction Deals,Mason baas,House builders Srilanka,ManPower,WorkForce,Construction Services, Construction Rates, BOQ, Quotation Requests, Construction Deals,Easybuilding, Easybuilding.lk, Easybuilding Deals, Own Quotation Requests, House construction, Building construction, Contrcators, inteiror, plumbers, Painters,  architects, structural engineers, civil construction, repair',
+      description: 'We are a leading online House and Building construction market place connecting potential house and commercial building construction clients with quality and reliable construction companies, individual contractors, masons, plumbers, electricians, and construction and interior material suppliers.',
+      image: ''
+    }
+
+    this.seo.setSEOData(seoData)
   }
 
 }

@@ -486,6 +486,11 @@ ul{
     z-index: 1003;
 }
 
+
+.loading{
+	display: block;
+	margin: auto;
+}
  
  button{
  	outline: 0 !important;
@@ -985,6 +990,10 @@ table.dataTable{
 			&:last-child{
 				a{ 
 					font-size: 1.2rem;
+
+					&.disabled{
+						opacity: 0.4;
+					}
 					
 					i{
 						font-weight: bold;
@@ -1238,6 +1247,10 @@ button.dt-button{
 
 	.left-text{
 		text-align: left;
+
+		p{
+			text-transform: capitalize;
+		}
 
 		h1{  
 			font-size: 2.5rem;

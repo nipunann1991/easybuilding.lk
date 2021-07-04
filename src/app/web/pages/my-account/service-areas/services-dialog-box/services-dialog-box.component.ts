@@ -57,6 +57,10 @@ export class ServicesDialogBoxComponent implements OnInit {
 
       if(parentCat != elm.parent_cat_id || isLineBreak || res.data.length == (index + 1)){ 
         parentCat = elm.parent_cat_id;  
+
+        if( res.data.length == (index + 1) ){
+          menuItem.push({ id: elm.id ,title: elm.cat_lvl2_name, lvl2_id: elm.cat_lvl2_id , url: "products/"+elm.cat_lvl2_id });
+        }
          
         (menuItem.length != 0)? menuArray.push({ 
           id: this.menuArray.length, 
@@ -124,7 +128,7 @@ export class ServicesDialogBoxComponent implements OnInit {
          
         }  
   
-        if(menuArray.length == (index + 1)){
+        if(menuArray.length == (index + 1)){ 
           (newMenu.length < maxCols)? newMenu.push(groupedMenu) : newMenu[(maxCols - 1)].push(...groupedMenu);
         }
 

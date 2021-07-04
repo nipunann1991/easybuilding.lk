@@ -7,8 +7,8 @@
     <div class="container"> 
         <div class="row"> 
             <div class="col-md-12"> 
-              <h2>Edit Product</h2>
-              <p>A product is a collection of photos of your products.</p>
+              <h2>Edit Product/Service</h2>
+              <p>A product/service is a collection of photos of your products/service.</p>
             </div>
             <div class="col-md-5"> 
                 <ngx-file-drop dropZoneLabel="Drop files here" 
@@ -31,37 +31,46 @@
                   <div class="row"> 
                       <div class="col-md-12">
                           <div class="form-group">
-                              <label for="project_name">Product Name<span class="required-star">*</span></label> 
+                              <label for="project_name">Product/Service Name<span class="required-star">*</span></label> 
                               <input id="project_name" name="project_name" formControlName="product_name" type="text" class="form-control">
                           </div>  
                       </div>
                       <div class="col-md-12">
                         <div class="form-group" >
-                            <label for="service_areas">Select Product Category<span class="required-star">*</span></label> 
+                            <label for="service_areas">Select Product/Service Category<span class="required-star">*</span></label> 
                             <ng-select2 [data]="allProducts" formControlName="product_category" class="select-fw" >
                             </ng-select2> 
                         </div> 
                     </div>
                       <div class="col-md-12">
                           <div class="form-group">
-                              <label for="project_description">Product Description<span class="required-star">*</span></label>
+                              <label for="project_description">Product/Service Description<span class="required-star">*</span></label>
                               <ckeditor [editor]="Editor" data="" formControlName="product_desc"></ckeditor>
                               <!-- <textarea name="description" class="form-control" formControlName="product_desc" cols="10" rows="3"></textarea> -->
                           </div>  
                       </div>  
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <label for="project_cost">Product Cost (Rs.)<span class="required-star">*</span></label> 
-                              <input id="project_cost" name="project_cost" formControlName="product_price" type="number" class="form-control">
-                          </div>  
-                      </div>
-                      <div class="col-md-6">
+                      <ng-container *ngIf="!isContactForPrice">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="project_cost">Product/Service Price (Rs.)<span class="required-star">*</span></label> 
+                                <input id="project_cost" name="project_cost" formControlName="product_price" type="number" class="form-control">
+                            </div>  
+                            </div>
+                            <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="project_cost">Unit<span class="required-star">*</span></label> 
+                                <ng-select2 [data]="allUnits" formControlName="product_unit" class="select-fw" >
+                                </ng-select2> 
+                            </div>  
+                        </div> 
+                      </ng-container> 
+                      
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <label for="project_cost">Unit<span class="required-star">*</span></label> 
-                            <ng-select2 [data]="allUnits" formControlName="product_unit" class="select-fw" >
-                            </ng-select2> 
+                            <mat-checkbox class="approve" [checked]="isContactForPrice" (change)="setContactForPrice($event)">Set as 'Contact for Price'</mat-checkbox>
                         </div>  
                     </div> 
+                   
                       <div class="col-md-12">
                           <ng-container>
                               <button mat-button name="submit" type="submit" class="btn btn-primary">Edit Product</button>

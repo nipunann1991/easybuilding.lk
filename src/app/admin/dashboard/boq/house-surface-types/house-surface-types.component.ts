@@ -69,23 +69,27 @@ export class HouseSurfaceTypesComponent implements OnInit {
 
     }); 
 
-    this.route.paramMap.subscribe(params => {
+    this.route.queryParams.subscribe(params => {
       this.param = params;
 
-      if (typeof this.param.params.id !== 'undefined' ) {
+      if (Object.keys(this.param).length  !== 0 ) {
         this.isEditableRoute = true;;
         this.getSelectedHouseSurfaceType();  
+      }else{
+        this.isEditableRoute = false;
       }
          
     });
 
-
+    const that = this;
     this.dtOptions = {
         pagingType: 'full_numbers',
         pageLength: 10,
         serverSide: true,
         processing: true,
         autoWidth: false, 
+        stateSave: true,
+        retrieve: true, 
         ajax: this.boq.getHouseSurfaceTypeDT(), 
         columns: [ 
           { data: 'house_surfaces_type_id' }, { data: 'level' },{ data: 'surface_type' },{ data: 'house_surfaces_type' }, {data: 'value'}
@@ -93,9 +97,15 @@ export class HouseSurfaceTypesComponent implements OnInit {
         columnDefs: [{
         targets: 5,
         data: function( row ){   
-
-          return '<a class="edit-boq-st-data" data-id="'+row.house_surfaces_type_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
-            '<a class="delete-boq-st-data" data-id="'+row.house_surfaces_type_id+'" title="Edit"><i class="icon-bin"></i></a>'
+          
+          if(!that.globals.isManagerLogin()){
+            return '<a class="edit-boq-st-data" data-id="'+row.house_surfaces_type_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
+            '<a class="delete-boq-st-data" data-id="'+row.house_surfaces_type_id+'" title="Delete"><i class="icon-bin"></i></a>'
+          }else{
+            return '<a class="edit-boq-st-data" data-id="'+row.house_surfaces_type_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
+            '<a class="disabled" title="Delete not allowed"><i class="icon-bin"></i></a>'
+          }
+          
             
         },
     
@@ -218,7 +228,7 @@ export class HouseSurfaceTypesComponent implements OnInit {
 
   onUpdate(){
     if (!this.formGroup.invalid) {
-      this.formGroup.value.house_surfaces_type_id = this.param.params.id;
+      this.formGroup.value.house_surfaces_type_id = this.param.id;
       this.boq.editHouseSurfaceType(this.formGroup.value)
         .subscribe((response: any) => {
 
@@ -239,8 +249,8 @@ export class HouseSurfaceTypesComponent implements OnInit {
   }
 
   
-  editHouseSurfacesPage(pageId){ 
-		this.router.navigate(['admin/boq/house-surface-types/'+pageId]); 
+  editHouseSurfacesPage(pageId){  
+    this.router.navigate(['admin/boq/house-surface-types/'], { queryParams:  {id: pageId} });
   } 
 
 
@@ -263,6 +273,7 @@ export class HouseSurfaceTypesComponent implements OnInit {
          
         if(result){
          this.deleteHouseSurfaceType(id);
+         this.rerender();
         }  
       
     }); 
@@ -279,7 +290,6 @@ export class HouseSurfaceTypesComponent implements OnInit {
 
         if (response.status == 200) {
           this.toastr.success('House surface has been deleted successfully', 'Success !');  
-          this.rerender();
 
         }else{
             this.toastr.error('House surface deleting failed. Please try again', 'Error !'); 
@@ -291,7 +301,7 @@ export class HouseSurfaceTypesComponent implements OnInit {
 
 
   getSelectedHouseSurfaceType(): void{
-    let param = { house_surfaces_type_id: this.param.params.id}
+    let param = { house_surfaces_type_id: this.param.id}
      
      this.boq.getSelectedHouseSurfaceType(param)
          .subscribe((response: any) => {

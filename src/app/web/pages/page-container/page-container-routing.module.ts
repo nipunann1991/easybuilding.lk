@@ -26,7 +26,9 @@ const routes: Routes = [{ path: '', component: PageContainerComponent, children:
   
 	{ path: 'login', canActivate: [AuthDeactiveGuard], loadChildren: () => import('../../../web/pages/login/login.module').then(m => m.LoginModule) }, 
 	{ path: 'create-account', loadChildren: () => import('../../../web/pages/create-account/create-account.module').then(m => m.CreateAccountModule) },
-  
+	{ path: 'forgot-password', loadChildren: () => import('../../../web/pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule) },
+  { path: 'reset-password', loadChildren: () => import('../../../web/pages/reset-password/reset-password.module').then(m => m.ResetPasswordModule) },
+ 
 	
 ];
 

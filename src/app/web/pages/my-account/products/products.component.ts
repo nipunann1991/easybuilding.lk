@@ -84,6 +84,10 @@ export class ProductsComponent implements OnInit {
     this.router.navigate(["view-product/"+company_id+"/"+Project_id+"/"], {relativeTo: this.route.parent} ); 
   }
 
+  viewMoreProducts(){
+    this.router.navigate(["../products"], {relativeTo: this.route.parent} ); 
+  }
+
   getMinimalProductDetails(company_id, limit){
 
     this.product = [];

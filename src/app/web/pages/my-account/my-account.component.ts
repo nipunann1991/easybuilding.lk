@@ -31,7 +31,7 @@ export class MyAccountComponent implements OnInit {
   products: any = "";
   navItems: any = [];
   baseurl = "/my-account/user/me/";
-  baseurlEdit = this.baseurl+"/edit/";
+  baseurlEdit = "edit/";
   _routeListener: any;
   previousUrl = "";
   currentUrl = "";
@@ -127,7 +127,7 @@ export class MyAccountComponent implements OnInit {
   
  
   getProfileDetails(routeParams, profile_editable = true){ 
-     
+    
       this.isPublicProfile = false;
 
       this.myaccount.getProfileDetails() 
@@ -192,12 +192,7 @@ export class MyAccountComponent implements OnInit {
       this.router.navigate(['/steps/account-info'], { relativeTo: this.route.parent });
     }else{
       this.profileCompleted = true;    
-
-      console.log(this.location)
-
-      // (this.previousUrl == "")? this.router.navigate(['/'])  : '';
  
-      
     }
  
   }

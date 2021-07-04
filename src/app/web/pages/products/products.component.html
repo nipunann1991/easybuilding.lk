@@ -1,7 +1,10 @@
  
-<div class="products-wrapper container-fluid  animated fadeIn">
-    <div class="container products-wrapper-inner">
-        <div class="left-nav-sort" [ngClass]="{'opened': isFilterOpen}" *ngIf="!isFullPageSearch">
+<div class="products-wrapper container-fluid  animated fadeIn" >
+    <div class="container products-wrapper-inner"> 
+        <div class="left-nav-sort" [ngClass]="{'opened': isFilterOpen, 'sticky': isSticky}" *ngIf="!isFullPageSearch">
+            <div class="left-nav-sticky">
+                
+            </div>
             <h2>Filters <i class="icon-close close-filter" (click)="toggleFilterArea()"></i></h2>
             <div class="filter-item">
                 <label for="" class="lbl-title">Sort By:</label>
@@ -44,11 +47,11 @@
                         <span class="filter-mobile" (click)="toggleFilterArea()">
                             <i class="icon-filter"></i> Filter
                         </span> 
-                        Showing {{ pageData.start }} – {{ pageData.end }} results from {{ pageData.total_results }} profiles</p>
+                        Showing {{ pageData.start }} – {{ pageData.start + pageData.end - 1}} results from {{ pageData.total_results }} profiles</p>
                 </div>
             </div> 
             <div class="row search-results" *ngIf="!isFullPageSearch">  
-                <div class="item-block-wrapper" *ngFor="let p of products" [ngClass]="(isGridView)? 'col-md-4' : 'col-md-12 list_view'" >
+                <div class="item-block-wrapper" *ngFor="let p of products" [ngClass]="(isGridView)? 'col-md-4 col-sm-6' : 'col-md-12 list_view'" >
                   
                     <div class="item-block animated fadeIn" [routerLink]="p.profileLink">
                         <div class="item-image-wrapper"> 
@@ -75,16 +78,18 @@
                                 <ul class="contact-details">
                                     <li class="address">{{p.contact.city}}</li>
                                     <li class="tel">{{p.contact.tel}}</li>  
-                                </ul> 
+                                    <li class="email">{{p.contact.email}}</li>  
+                                </ul>  
                             </div> 
-                            <!-- {{p.products}} {{p.services}} -->
-                            <div class="description" *ngIf="!isGridView" [innerHTML]="p.description | truncateText:[250] "></div>
-                         
+
                             <ul class="badge-list">
                                 <li *ngFor="let product of p.products" [innerHTML]="product | highlightText : searchParam">{{product}}</li>
                                 <li *ngFor="let service of p.services" [innerHTML]="service | highlightText : searchParam">{{service}}</li>
                             </ul>
-
+                           
+                            <!-- {{p.products}} {{p.services}} -->
+                            <div class="description" *ngIf="!isGridView" [innerHTML]="p.description | truncateText:[150] "></div>
+                          
                             <div class="categories" *ngIf="!isGridView">
                                 <ng-container *ngFor="let sv of p.services">
                                     <span class="badge badge-secondary">{{sv}}</span>
@@ -153,6 +158,6 @@
 
         </div>
       
-        
+        <div class="clearfix"></div>
     </div>
 </div>

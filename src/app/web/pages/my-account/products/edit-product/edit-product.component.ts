@@ -36,6 +36,7 @@ export class EditProductComponent implements OnInit {
   imageURLThumb: string = "";
   imageURL: string = ""; 
   allUnits: any = this.globals.unitList;
+  isContactForPrice: boolean = false;
 
   constructor(
     private myaccount: MyAccountService,
@@ -62,10 +63,7 @@ export class EditProductComponent implements OnInit {
       product_category: new FormControl('',[
         Validators.required
       ]),
-
-      project_address: new FormControl('',[
-        Validators.required
-      ]), 
+ 
 
       product_price: new FormControl('',[
         Validators.required
@@ -100,7 +98,7 @@ export class EditProductComponent implements OnInit {
 
     this.myaccount.getProductsWithID(params) 
       .subscribe((response: any) => {
-        if (response.status == 200 && response.data.length > 0 ) {
+        if (response.status == 200 ) {
            
           this.allProducts = response.data;  
           this.getServicsWithID(company_id);
@@ -119,7 +117,7 @@ export class EditProductComponent implements OnInit {
 
     this.myaccount.getServicsWithID(params) 
       .subscribe((response: any) => {
-        if (response.status == 200 && response.data.length > 0 ) {
+        if (response.status == 200) {
           
           var newArray = this.allProducts.concat(response.data)
           this.allProducts = newArray; 
@@ -266,6 +264,14 @@ export class EditProductComponent implements OnInit {
     console.log(event);
   }
 
+  setContactForPrice(event){
+    this.isContactForPrice = event.checked;
+
+    if(this.isContactForPrice){
+      this.formGroup.controls.product_price.setValue(0)
+      this.formGroup.controls.product_unit.setValue(1) 
+    }
+  }
 
   getProductDetails(company_id, product_id){
 
@@ -290,8 +296,9 @@ export class EditProductComponent implements OnInit {
             
           });
 
+          (this.projectData.product_price == 0)? this.isContactForPrice = true : this.isContactForPrice = false;
+          
           this.uploadedFileName =  this.projectImages;
-
 
           this.projectImages.forEach(element => {  
             this.uploadedImages.push(this.imageURLThumb + element); 
@@ -314,6 +321,12 @@ export class EditProductComponent implements OnInit {
       this.formGroup.value.primary_img = this.uploadedFileName[0]; 
       this.formGroup.value.product_id = this.productID; 
       this.formGroup.value.total_imgs = this.uploadedFileName.length;  
+
+      if(this.isContactForPrice){
+        this.formGroup.value.product_price = 0
+        this.formGroup.value.product_unit = 1 
+      }
+ 
       
       this.myaccount.editProductDetails(this.formGroup.value)
         .subscribe((response: any) => {

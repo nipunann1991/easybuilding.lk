@@ -7,6 +7,7 @@ import {MatDialog} from '@angular/material/dialog';
 import { HomepageService } from "../../../../admin/api/frontend/homepage.service";
 import { ServicesDialogBoxComponent } from "./services-dialog-box/services-dialog-box.component";
 import { Options } from 'select2'; 
+import { Globals } from "../../../../app.global";
 import * as $ from 'jquery';
 
 @Component({
@@ -27,6 +28,7 @@ export class ServiceAreasComponent implements OnInit {
   isCities: boolean = true;
   isDistricts: boolean = false;
   totalLinks: number = 0;
+  isCreateProfile: boolean = false;
   public value: string[];
   
   formGroup: FormGroup;
@@ -40,8 +42,10 @@ export class ServiceAreasComponent implements OnInit {
   linkCount:any = [];
   getServicesItems: any;
   getProductsItems: any;
+  getProfileType: number;
   selectedServicesItems: any = [];
   selectedProductsItems: any = [];
+  routerParams: any;
 
   product_services = {
     products: "[]",
@@ -57,7 +61,8 @@ export class ServiceAreasComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    private homePage: HomepageService
+    private homePage: HomepageService,
+    public globals: Globals
   ) { }
 
   ngOnInit(): void {
@@ -71,8 +76,7 @@ export class ServiceAreasComponent implements OnInit {
       service_areas: new FormControl("", [
         Validators.required
       ]), 
-
-       
+ 
     });
 
     this.options = {
@@ -89,6 +93,10 @@ export class ServiceAreasComponent implements OnInit {
 
     if(this.router.url.includes("admin")){
       this.isAdmin = true; 
+
+      this.route.params.subscribe( (routeParams) =>  {  
+        this.routerParams = routeParams; 
+      }); 
     }
 
     this.getCities();  
@@ -99,6 +107,11 @@ export class ServiceAreasComponent implements OnInit {
     this.getProductCategories();
     this.select2Order();
     this.getServiceDetails();
+
+    this.globals.getProfileTypeData.subscribe(result => {
+      this.getProfileType = result;  
+      console.log(this.getProfileType)
+    })
   
   }
 
@@ -114,6 +127,7 @@ export class ServiceAreasComponent implements OnInit {
         if (response.status == 200) {
            
           this.profile = response.data[0];
+          console.log( this.profile)
   
           if(this.profile.service_areas != "[]" && this.profile.service_dist != "[]"){
             this.isCities = true;
@@ -130,13 +144,9 @@ export class ServiceAreasComponent implements OnInit {
               this.all_island = false;
             }  
           }
-           
-      
- 
-
+             
           this.clientId = this.profile.client_id;
-          this.companyId = this.profile.company_id; 
- 
+          this.companyId = this.profile.company_id;  
 
           if(this.profile.service_areas != ''){
             this.product_services.service_areas = this.profile.service_areas 
@@ -149,9 +159,7 @@ export class ServiceAreasComponent implements OnInit {
 
           if(this.profile.services != ''){
             this.product_services.services = this.profile.services
-            this.selectedServicesItems = JSON.parse(this.profile.services);
-
-            console.log(this.selectedServicesItems);
+            this.selectedServicesItems = JSON.parse(this.profile.services); 
           }
           
 
@@ -267,8 +275,7 @@ export class ServiceAreasComponent implements OnInit {
 
 
 
-  generateMegaMenu(menuArray): any{
- 
+  generateMegaMenu(menuArray): any{ 
     let oldMenu = menuArray;
     let newMenu = [];  
 
@@ -279,6 +286,8 @@ export class ServiceAreasComponent implements OnInit {
       let i = 0;
       let lvl1 = []
       newMenu.push([]);
+
+     
       
       element.children.forEach((subLevel2, index2) => { 
         
@@ -402,10 +411,17 @@ export class ServiceAreasComponent implements OnInit {
     if (!this.formGroup.invalid) {
 
       (this.all_island)? this.formGroup.value.all_island = 1 : this.formGroup.value.all_island = 0 ; 
-       
-
+      
+      if(this.isStepsForm  && this.profile.company_profile == 1 && !this.isAdmin){
+        this.formGroup.value.verified_email = -2;
+        this.isCreateProfile = true;
+      
+      }else if(this.isAdmin){
+        this.formGroup.value.verified_email = 0;
+      }
+  
       this.formGroup.value.client_id = this.clientId;
-      this.formGroup.value.company_id = this.companyId; 
+      this.formGroup.value.company_id = this.companyId;  
       this.formGroup.value.steps = 4; 
       this.formGroup.value.services = JSON.stringify(this.formGroup.value.services); 
       this.formGroup.value.products = JSON.stringify(this.formGroup.value.products); 
@@ -431,7 +447,7 @@ export class ServiceAreasComponent implements OnInit {
 
             if(this.isAdmin){
               this.toastr.success('Profile created successfully', 'Success !');  
-              this.router.navigate(['/admin/users']);
+              this.router.navigate(['/admin/users/user/'+this.routerParams.user+"/"+this.routerParams.provider_id+"/about"]);
             }else{
 
               if( !this.isStepsForm ){
@@ -443,6 +459,8 @@ export class ServiceAreasComponent implements OnInit {
 
             }
            
+
+            this.isCreateProfile = false;
           
             
           }else if (response.status == 401){

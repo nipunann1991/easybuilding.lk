@@ -3,35 +3,39 @@
     <h2>Products/ Services ({{product.length}})</h2>
     <button *ngIf="isEdit || isEditAdmin" mat-button class="btn btn-transparent btn-review" [routerLink]="addNewProjectURL">Add Products/ Services</button>
   </div> 
-  <div *ngFor="let p of product; let i = index;" class="product-block" > 
-    <div class="product-img" [ngStyle]="{'background-image': 'url('+ imageURL + p.primary_img +')'}" (click)="openProduct(companyId, p.product_id)">
-     
+  <div class="products-items">
+    <div *ngFor="let p of product; let i = index;" class="product-block" > 
+      <div class="product-img" [ngStyle]="{'background-image': 'url('+ imageURL + p.primary_img +')'}" (click)="openProduct(companyId, p.product_id)">
+       
+      </div>  
+      <div class="dot-nav" *ngIf="isEdit || isEditAdmin">
+        <a class="dot-menu dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" #dotmenu><span>Menu</span></a>
+        <ul class="dropdown-menu mini-nav" aria-labelledby="dropdownMenuButton">
+          <li><a routerLink="edit-product/{{companyId}}/{{p.product_id}}"><i class="icon-pencil"></i> Edit</a></li>
+          <li><a href="javascript:void(0)" (click)="openDeleteProduct(i, companyId, p.product_id)"><i class="icon-bin"></i> Delete</a></li>
+        </ul>
+      </div>
+      <div class="product-content" (click)="openProduct(companyId, p.product_id)">    
+         <h3>{{p.product_name}}</h3> 
+         <p [innerHTML]="p.product_desc"></p>
+         <ul>
+           <li class="price" title="Project Year">
+            <span *ngIf="p.product_price != 0">{{p.product_price | currency: globals.currencyAlias }} / {{ allUnits[p.product_unit - 1].text }}</span>
+            <span *ngIf="p.product_price == 0">Contact for Prices</span>
+           </li> 
+         </ul>  
+      </div>
     </div> 
-  
-    <div class="dot-nav" *ngIf="isEdit || isEditAdmin">
-      <a class="dot-menu dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" #dotmenu><span>Menu</span></a>
-      <ul class="dropdown-menu mini-nav" aria-labelledby="dropdownMenuButton">
-        <li><a routerLink="edit-product/{{companyId}}/{{p.product_id}}"><i class="icon-pencil"></i> Edit</a></li>
-        <li><a href="javascript:void(0)" (click)="openDeleteProduct(i, companyId, p.product_id)"><i class="icon-bin"></i> Delete</a></li>
-      </ul>
-    </div>
-    <div class="product-content" (click)="openProduct(companyId, p.product_id)">    
-       <h3>{{p.product_name}}</h3> 
-       <p [innerHTML]="p.product_desc"></p>
-       <ul>
-         <li class="price" title="Project Year">{{p.product_price | currency: globals.currencyAlias }} / {{ allUnits[p.product_unit - 1].text }}</li> 
-       </ul>  
-    </div>
-  </div>
-
     <div class="add-new-product" *ngIf="isEdit || isEditAdmin" [routerLink]="addNewProjectURL">
       <div class="inner">
         <span class="plus"></span>
         <h3>Add New Products/<br/> Services</h3>
       </div>
     </div>
-  
-    <p *ngIf="!isProductsAvailable && !isEdit && !isEditAdmin"><i>No products available.</i></p>
     <div class="clearboth"></div>
-  </div>
+  </div>   
+  <div class="view-more" *ngIf="isProductsAvailable && !isShowHeader && (!isEdit || !isEditAdmin) && product.length == 3"><a routerLink="#" (click)="viewMoreProducts()">View more Products/Services</a></div>
+  <p *ngIf="!isProductsAvailable && !isEdit && !isEditAdmin"><i>No products available.</i></p>
+  <div class="clearboth"></div>
+</div>
   

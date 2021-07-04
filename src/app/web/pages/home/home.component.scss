@@ -31,7 +31,7 @@
     overflow: hidden;
 
     @include breakpoint($tablet){
-        height: 40rem; 
+        height: 42rem; 
     }
 
     .bg{
@@ -39,7 +39,7 @@
         top: 0;
         left: 0;
         background-image: url("/assets/images/banner-image.jpg");
-        background-position:  50%;
+        background-position: 0 50%;
         width: 100%;
         height: 100%;
         z-index: 0;
@@ -56,7 +56,7 @@
         height: 100%;
         left: 0;
         top: 0;
-        background: rgba(0, 0, 0 , 0.5);
+        background: rgba(0, 0, 0 , 0.4);
         position: absolute;
         z-index: 1;
     }
@@ -74,20 +74,18 @@
         z-index: 12;
 
         h1{ 
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-
-            @include breakpoint($tablet){
-                font-size: 4rem;
-            }
+            font-size: 3.4rem;
+            margin-bottom: 1.5rem; 
+            text-transform: capitalize;
         }
 
         p{
             font-size: 1.8rem;
             line-height: 2.4rem;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
             margin-top: 0.5rem;
             color: $white;
+            @include regular; 
         }
 
         .banner-button{
@@ -96,13 +94,11 @@
                 @include flex();
                 align-items: center;
             }
-
-
-
+ 
             button{
                 margin-right: 2.5rem;
-                font-size: 1.8rem;
-                line-height: 3.4rem;
+                font-size: 1.6rem;
+                line-height: 2.8rem;
                 padding: 0.6rem 3.5rem 0.6rem 6rem !important;
                 background-repeat: no-repeat;
                 background-position: 20px 50%;
@@ -125,7 +121,7 @@
                     background: rgba(0, 0, 0, 0.3);
                     border: 1px solid;
                     padding: 0.6rem 3rem !important;
-                    width: 36rem;
+                    width: 34rem;
                     
                     i{
                         position: relative;
@@ -267,10 +263,13 @@
                 overflow: hidden;
                 position: relative;
                 cursor: pointer;
+                @include box-shadow(0px, 3px, 8px, 1px, rgba(196, 206, 217, 0.35)); 
+                cursor: pointer;
+                border-radius: 0.3rem;
 
 
                 @include breakpoint($tablet){
-                    height: 26rem;
+                    height: 24rem;
                 }
 
                 &.item1{
@@ -283,18 +282,24 @@
 
                     .content-img{
                         position: absolute;
-                        top: 3rem;
-                        right: -32rem;
+                        top: 0;
+                        right: 0;
                         z-index: 1;
                         opacity: 0.5;
+                        background-image: url('/assets/images/home-roof.png');
+                        width: 100%;
+                        height: 100%;
+                        background-size: 50%;
+                        background-repeat: no-repeat;
+                        background-position: 114% 100%;
 
                         @include breakpoint($tablet){
                             opacity: 1;
-                            right: -28rem;
                         }
 
                         img{
                             width: 60%;
+                            display: none;
                         }
                     } 
                 }
@@ -305,9 +310,9 @@
                     background: linear-gradient(171deg, rgba(7,56,60,1) 0%, rgba(72,165,180,1) 100%);
                     
                     .content-img{
-                        position: absolute;
-                        top: -2rem;
-                        right: 7rem; 
+                        position: absolute; 
+                        right: -5rem; 
+                        top: 1rem;
                         z-index: 1;
                         opacity: 0.5;
 
@@ -316,7 +321,7 @@
                         }
 
                         img{
-                            width: 14rem;
+                            width: 34rem;
                         }
                     }
 
@@ -342,7 +347,7 @@
                     position: relative;
 
                     @include breakpoint($tablet){
-                        width: 60%;
+                        width: 50%;
                     }
     
                     h3{
@@ -444,10 +449,10 @@
 
                 h2{
                     color: inherit;
-                    font-size: 4rem;
+                    font-size: 3.2rem;
 
                     @include breakpoint($tablet){
-                        font-size: 5rem;
+                        font-size: 4rem;
                     }
                 }
                 

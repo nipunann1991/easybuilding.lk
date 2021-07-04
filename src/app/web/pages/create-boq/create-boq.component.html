@@ -7,80 +7,118 @@
                 <h1>Create Your BOQ</h1>   
             </div> 
         </div>
-        <div class="boq-content-area">
-            <form class="boq-item"  [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-                <div class="level-img">
-                    <img src="/assets/images/single-level.jpg" alt="">
-                </div>
-                <div class="boq-item-right">
-                   <div class="description">
-                    <p>Select and input values to create your BOQ in few easy steps.</p>
-                   </div>
-                    <div class="top"> 
-                        <div class="house-area-input">
-                            <div class="form-group select-area">
-                                <label>House Level</label>
-                                <ng-select2 [data]="houseLevel" [options]="select2Options"  formControlName="house_level" class="select-fw" (ngModelChange)="houseLevelSelected($event)" >
-                                </ng-select2>  
-                            </div> 
-                        </div>
-                        <div class="area-input">
-                            <div class="form-group select-area">
-                                <label>House Area</label>
-                                <ng-select2 [data]="houseArea" [options]="select2Options"  formControlName="house_area" class="select-fw" (ngModelChange)="houseAreaSelected($event)" >
-                                </ng-select2>  
-                            </div> 
-                            <div class="form-group">
-                                <label>Width (Feet)</label>
-                                <input type="text" formControlName="width" [(ngModel)]="areaCount.width" (ngModelChange)="valueChangeFn($event)" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Height (Feet)</label>
-                                <input type="text" formControlName="height" [(ngModel)]="areaCount.height" (ngModelChange)="valueChangeFn($event)" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Area (Sq. Feet)</label>
-                                <input type="text" class="form-control"  [value]="houseAreaSqFt" disabled>
-                            </div>
-                        </div>
+        <div class="boq-content-area row">
+            <form class="boq-item col-lg-4"  [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+                <div class="boq-item-inner">
+                    <div class="level-img">
+                        <img src="/assets/images/single-level.jpg" alt="">
                     </div>
-                    <div class="bottom" *ngIf="selectedHouseArea != '' && houseAreaSqFt > 0" > 
-                        <div class="area-additional-options">
-                            <div class="form-group" *ngFor="let sf of surfaces; let i = index">
-                                <label>{{sf.surface_type}}</label>
-                                <ng-select2 [data]="sf.children" [options]="select2Options" [ngModelOptions]="{standalone: true}" [(ngModel)]="value[i]" (ngModelChange)="selectedItem($event)"  class="select-fw" >
-                                </ng-select2>  
-                            </div> 
+                    <div class="boq-item-right">
+                       <div class="description">
+                        <p>Create your BOQ in few easy steps.</p>
+                       </div>
+                        <div class="top"> 
+                            <div class="house-area-input">
+                                <div class="form-group select-area">
+                                    <label>House Level</label>
+                                    <ng-select2 [data]="houseLevel" [options]="select2Options"  formControlName="house_level" class="select-fw" (ngModelChange)="houseLevelSelected($event)" >
+                                    </ng-select2>  
+                                </div> 
+                                <div class="form-group select-area">
+                                    <label>House Area</label>
+                                    <ng-select2 [data]="houseArea" [options]="select2Options"  formControlName="house_area" class="select-fw" (ngModelChange)="houseAreaSelected($event)" >
+                                    </ng-select2>  
+                                </div> 
+                            </div>
+                            <div class="area-input"> 
+                                <div class="form-group">
+                                    <label>Width (Feet)</label>
+                                    <input type="text" formControlName="width" [(ngModel)]="areaCount.width" (ngModelChange)="valueChangeFn($event)" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Length (Feet)</label>
+                                    <input type="text" formControlName="height" [(ngModel)]="areaCount.height" (ngModelChange)="valueChangeFn($event)" class="form-control">
+                                </div> 
+                            </div>
+                            <div class="area-input"> 
+                                <div class="form-group">
+                                    <label>Area (Sq. Feet)</label>
+                                    <input type="text" class="form-control"  [value]="houseAreaSqFt" disabled>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="total">
-                        <button mat-button type="submit" class="btn btn-primary">Estimate <span *ngIf="selectedHouseArea != ''">for  {{selectedHouseArea}}</span></button>
-                        <!-- <h3>Estimated Cost: 600,000.00</h3> -->
-                    </div>
+                        <div class="bottom" *ngIf="selectedHouseArea != '' && houseAreaSqFt > 0" > 
+                            <div class="area-additional-options">
+                                <div class="form-group" *ngFor="let sf of surfaces; let i = index" [ngClass]="{'d-none': i == (surfaces.length - 1) }">
+                                    <label>{{sf.surface_type}}</label> 
+                                    <ng-select2 [data]="sf.children" [options]="select2Options" [ngModelOptions]="{standalone: true}" [(ngModel)]="value[i]" (ngModelChange)="selectedItem($event)"  class="select-fw" >
+                                    </ng-select2>  
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="total">
+                            <button mat-button type="submit" class="btn btn-primary">Estimate <span *ngIf="selectedHouseArea != ''">for  {{ selectedHouseAreaString(selectedHouseArea) }}</span></button>
+                            <!-- <h3>Estimated Cost: 600,000.00</h3> -->
+                        </div>
+                    </div> 
                 </div> 
             </form>
 
-            <div class="generated-estimate" *ngIf="tableCols.length > 0">
-                <h2>Estimated BOQ</h2>
-                <table class="table table-striped">
-                    <thead>
-                      <tr> 
-                        <th *ngFor="let tblHeader of tableHeaderCols" scope="col">{{tblHeader}}</th> 
-                        <td></td>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let col of tableCols; let i = index">
-                        <td *ngFor="let text of col.selectedText; let j = index" >
-                            <span *ngIf="col.selectedText.length != (j + 1)">{{text}}</span>
-                            <span *ngIf="col.selectedText.length == (j + 1)">{{ text  | currency : currency }}</span>
-                        </td>   
-                        <td><a href="javascript:void(0)" (click)="removeField(i)"><i class="icon-bin"></i></a></td>
-                      </tr> 
-                    </tbody>
-                </table>
+            <div class="generated-estimate no-boq col-lg-8" *ngIf="tableCols.length == 0">
+                <p>No BOQ is generated yet</p>
+            </div>
 
-                <h3>Total Cost: {{ totalCost | currency: currency }}</h3>
+            <div class="generated-estimate col-lg-8" *ngIf="tableCols.length > 0">
+                <h2>Estimated BOQ</h2>
+
+                <div class="house-level" *ngIf="tableColsLevel1.length > 0">
+                    <h3>House Level - Downstairs</h3>
+                    <table class="table table-striped">
+                        <thead> 
+                            <tr> 
+                                <th *ngFor="let tblHeader of tableHeaderCols" scope="col">{{tblHeader}}</th> 
+                                <td> </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let col of tableColsLevel1; let i = index">
+                            <td *ngFor="let text of col.selectedText; let j = index" >
+                                <span *ngIf="j != 9">{{text}}</span>
+                                <span *ngIf="j == 9">{{ text  | currency :'':'' }}</span>
+                            </td>   
+                            <td><a href="javascript:void(0)" (click)="removeField(1,i)"><i class="icon-bin"></i></a></td>
+                          </tr> 
+                        </tbody>
+                    </table>
+                    <p>Estimated total area for Downstairs <strong>{{totalCost.level1Sq}} Sq Ft.</strong></p>
+                    <p>Estimated BOQ for Downstairs  <strong>{{ totalCost.level1 | currency: currency }}</strong></p>
+                </div>
+                <div class="house-level" *ngIf="tableColsLevel2.length > 0"> 
+                    <h3>House Level - Upstairs</h3>
+                    <table class="table table-striped">
+                        <thead> 
+                            <tr> 
+                                <th *ngFor="let tblHeader of tableHeaderCols" scope="col">{{tblHeader}}</th> 
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let col of tableColsLevel2; let i = index">
+                            <td *ngFor="let text of col.selectedText; let j = index" >
+                                <span *ngIf="j != 9">{{text}}</span>
+                                <span *ngIf="j == 9">{{ text  | currency :'':'' }}</span>
+                            </td>   
+                            <td><a href="javascript:void(0)" (click)="removeField(2,i)"><i class="icon-bin"></i></a></td>
+                        </tr> 
+                        </tbody>
+                    </table>
+                    <p>Estimated total area for Upstairs <strong>{{totalCost.level2Sq}} Sq Ft.</strong></p>
+                    <p>Estimated BOQ for Upstairs <strong>{{ totalCost.level2 | currency: currency }}</strong></p>
+                </div>
+                <div class="grand-total"> 
+                    <h3>Total Cost  <i>({{ totalCost.level1Sq + totalCost.level2Sq }} Sq Ft)</i> <span>{{ totalCost.total | currency: currency }}</span></h3> 
+                </div>
+               
             </div>
             
         </div>

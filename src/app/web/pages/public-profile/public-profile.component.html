@@ -46,6 +46,7 @@
                                 </div>
                             </div>
                         </ng-container>
+                     
                         <ng-container *ngIf="profileCompleted && isEditableMode">
                             <ul>
                                 <li *ngFor="let nav of navItems">
@@ -58,9 +59,9 @@
                         
                         <ng-container> 
                             <ul class="tab-list">
-                                <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="about" >About</a></li>
-                                <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="projects">Projects</a></li> 
+                                <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="about" >About</a></li> 
                                 <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="products">Products/ Services</a></li>  
+                                <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="projects">Projects</a></li> 
                                 <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="reviews/1">Reviews</a></li>
                             </ul>
                         </ng-container> 

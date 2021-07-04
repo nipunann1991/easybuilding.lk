@@ -9,9 +9,9 @@
             <p>You are logged in as admin. <a href="">Logout</a></p>
         </div>
     </div>
-    <div *ngIf="profile.verified_email == 0 && profile.profile_editable" class="top-message error-message">
+    <div *ngIf="profile.verified_email <= 0 && profile.profile_editable" class="top-message error-message">
         <div class="container">
-            <p>Please verify your email. We have sent you a verification link to the given mail address. <a href="">Resend Verification</a></p>
+            <p>Please verify your email. We have sent you a verification link to the given mail address. <a href="javascript:void(0)" (click)="resendVerification()">Resend Verification</a></p>
         </div>
     </div> 
 
@@ -70,8 +70,8 @@
                         </ul>
                         
                     </div> 
-
-                    <button *ngIf="isBgImage && isProfImage && profileData.prof_category == 1" mat-button class="btn btn-primary share-fb" (click)="share()"><i class="icon-facebook"></i> Share</button>
+                   
+                    <button *ngIf="isBgImage && isProfImage && profileData.company_profile == 1" mat-button class="btn btn-primary share-fb" (click)="share()"><i class="icon-facebook"></i> Share</button>
                     <button mat-button class="btn btn-primary edit-profile" *ngIf="profileData.company_profile != 1">Convert to Pro</button>
                 </div>
         

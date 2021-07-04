@@ -12,7 +12,7 @@ import 'rxjs/add/operator/switchMap';
   selector: 'app-reviews',
   templateUrl: './reviews.component.html',
   styleUrls: ['./reviews.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  //encapsulation: ViewEncapsulation.None
 })
 export class ReviewsComponent implements OnInit {
 

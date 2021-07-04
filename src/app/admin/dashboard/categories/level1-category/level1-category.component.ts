@@ -50,22 +50,27 @@ export class Level1CategoryComponent implements OnInit {
 
     }); 
 
-    this.route.paramMap.subscribe(params => {
+    this.route.queryParams.subscribe(params => {
       this.param = params;
 
-      if (typeof this.param.params.id !== 'undefined' ) {
+      if (Object.keys(this.param).length  !== 0 ) {
         this.isEditableRoute = true;;
         this.getSelectedLvl1Category();  
+      }else{
+        this.isEditableRoute = false;
       }
          
     });
 
+    const that = this;
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
       serverSide: true,
       processing: true,
-      autoWidth: false, 
+      autoWidth: false,
+      stateSave: true,
+      retrieve: true,  
       ajax: this.categories.getLvl1CategoriesDT(), 
       columns: [ 
         { data: 'cat_lvl1_id' },{ data: 'cat_lvl1_name' },{ data: 'cat_name' }
@@ -74,9 +79,13 @@ export class Level1CategoryComponent implements OnInit {
       targets: 3,
       data: function( row ){   
 
-        return '<a class="edit-lvl1category-data" data-id="'+row.cat_lvl1_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
-          '<a class="delete-lvl1category-data" onclick="a()" data-id="'+row.cat_lvl1_id+'" title="Edit"><i class="icon-bin"></i></a>'
-          
+        if(!that.globals.isManagerLogin()){
+          return '<a class="edit-lvl1category-data" data-id="'+row.cat_lvl1_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
+            '<a class="delete-lvl1category-data" onclick="a()" data-id="'+row.cat_lvl1_id+'" title="Delete"><i class="icon-bin"></i></a>'
+        }else{
+          return '<a class="edit-lvl1category-data" data-id="'+row.cat_lvl1_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
+            '<a class="disabled" title="Delete not allowed"><i class="icon-bin"></i></a>'
+        }
       },
   
     }],
@@ -143,8 +152,8 @@ export class Level1CategoryComponent implements OnInit {
       });
   }
 
-  editCategoryLvl1Page(pageId){
-		this.router.navigate(['admin/categories/level1-category/'+pageId]); 
+  editCategoryLvl1Page(pageId){ 
+    this.router.navigate(['admin/categories/level1-category/'], { queryParams:  {id: pageId} });
   }
   
 
@@ -174,7 +183,7 @@ export class Level1CategoryComponent implements OnInit {
 
   onUpdate(){
     if (!this.formGroup.invalid) {
-      this.formGroup.value.cat_lvl1_id = this.param.params.id;
+      this.formGroup.value.cat_lvl1_id = this.param.id;
       this.categories.editLvl1Category(this.formGroup.value)
         .subscribe((response: any) => {
 
@@ -199,7 +208,7 @@ export class Level1CategoryComponent implements OnInit {
 	}
 
   getSelectedLvl1Category(): void{
-    let param = { cat_lvl1_id: this.param.params.id}
+    let param = { cat_lvl1_id: this.param.id}
      
      this.categories.getSelectedLvl1Category(param)
          .subscribe((response: any) => {

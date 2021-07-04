@@ -6,11 +6,18 @@
   </div>
 
   <ng-container *ngIf="profileData.company_profile == 1">
+
+    <div class="project-data block">
+      <h3>Products/Services</h3>
+      <app-products itemLimit="3"></app-products>    
+    </div>
+
     <div class="project-data block">
       <h3>Projects</h3>
-      <app-projects itemLimit="5"></app-projects>   
-      
+      <app-projects itemLimit="3"></app-projects>    
     </div>
+
+    
     <div class="about-data block last">
       <h3>Reviews</h3> 
       <app-reviews [reviewData]="reviewData" ></app-reviews> 

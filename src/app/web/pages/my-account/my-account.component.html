@@ -8,7 +8,7 @@
 
             <div class="container main-content-area"> 
                 <div class="content-wrapper"> 
-                    <div class="left-block"> 
+                    <div class="left-block">  
                         <ng-container *ngIf="!isEditableMode && profileData.company_profile == 1">
                             <div class="contact-item-wrapper">
                                 <div class="item"> 
@@ -48,10 +48,11 @@
                            
                              
                         </ng-container>
+                        
                         <ng-container *ngIf="profileCompleted && isEditableMode">
                             <ul>
                                 <li *ngFor="let nav of navItems"> 
-                                    <a mat-button routerLinkActive="active-btn"  *ngIf="!nav.isPersonalProfile"[routerLinkActiveOptions]="{exact: false}"  routerLink="{{nav.url}}" >{{nav.title}}</a>
+                                    <a mat-button routerLinkActive="active-btn"  *ngIf="!nav.isPersonalProfile" [routerLinkActiveOptions]="{exact: false}"  [routerLink]="nav.url" >{{nav.title}}</a>
                                 </li>
                             </ul>
                         </ng-container>
@@ -61,9 +62,9 @@
                         <ng-container *ngIf="!isEditableMode"> 
                             <ul class="tab-list">
                                 <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="about" >About</a></li>
-                                <ng-container *ngIf="profileData.company_profile == 1">
-                                    <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="projects">Projects</a></li> 
+                                <ng-container *ngIf="profileData.company_profile == 1"> 
                                     <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="products">Products/ Services</a></li>  
+                                    <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="projects">Projects</a></li> 
                                     <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="reviews/1">Reviews</a></li>
                                 </ng-container>
                             </ul>

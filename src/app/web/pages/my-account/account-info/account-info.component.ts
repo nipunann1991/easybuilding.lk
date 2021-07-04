@@ -1,10 +1,11 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router,ActivatedRoute,  NavigationEnd } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
 import { ProfileService } from "../../../../admin/api/frontend/profile.service";
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { Globals } from "../../../../app.global";
 
 @Component({
   selector: 'app-account-info',
@@ -12,14 +13,15 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
   styleUrls: ['./account-info.component.scss']
 })
 export class AccountInfoComponent implements OnInit {
-
+ 
   profile: any = {}
   isEmailDisabled: boolean = true;
   isStepsForm: boolean = false;
   isAdmin: boolean = false;
   isCompanyProfile: boolean = false;
   formGroup: FormGroup;
-  personalFormGroup: FormGroup;
+  personalFormGroup: FormGroup; 
+  routerParams: any;
 
   public Editor = ClassicEditor;
   clientId: any; companyId: any; profileType: any;   profileTypeSelectedVal: number = -1;
@@ -31,10 +33,8 @@ export class AccountInfoComponent implements OnInit {
 
   professionalCategory: any = [
     {  id: 1, text: "Skilled Proffessional" },
-    {  id: 2, text: "Professional Service provider" },
-    {  id: 3, text: "Service provider" },
-    {  id: 4, text: "Product Sale/Brand" },
-    {  id: 5, text: "Show room/Local Retailer" }
+    {  id: 2, text: "Professional Service provider" }, 
+    {  id: 3, text: "Product Sale/Brand" }, 
   ]
 
   constructor(
@@ -43,7 +43,8 @@ export class AccountInfoComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute,
-    public cdr: ChangeDetectorRef
+    public cdr: ChangeDetectorRef,
+    public globals: Globals
   ) { }
 
   ngOnInit(): void {
@@ -98,12 +99,14 @@ export class AccountInfoComponent implements OnInit {
 
     if(this.router.url.includes("admin")){
       this.isAdmin = true; 
-    } 
-    
 
-    this.getAccountDetails();
-    
+      this.route.params.subscribe( (routeParams) =>  {  
+        this.routerParams = routeParams; 
+        console.log(this.routerParams)
+      });
+    } 
      
+    this.getAccountDetails(); 
   
   }
 
@@ -119,7 +122,7 @@ export class AccountInfoComponent implements OnInit {
           this.clientId = this.profile.client_id
           this.companyId = this.profile.company_id;
           this.profileType = this.profile.company_profile;  
-
+          this.globals.setProfileTypeData(this.profileType);
           
           if(this.profileTypeSelectedVal == 0){
 
@@ -146,19 +149,11 @@ export class AccountInfoComponent implements OnInit {
             });
  
           } 
-         
-
-          // if(this.isAdmin){
-          //   this.profileType = -1;
-          // }
           
-  
+           
         }else if (response.status == 401) {
 
-          // if(this.isAdmin){
-          //   this.profileType = -1;
-          // }
-         
+          
         }
           
       });
@@ -178,14 +173,23 @@ export class AccountInfoComponent implements OnInit {
         .subscribe((response: any) => {
 
           if (response.status == 200) {
-            if( !this.isStepsForm ){
+
+            if(this.isAdmin){
+              
               this.toastr.success('Information saved successfully', 'Success !');  
-              this.router.navigate(['/my-account']);
-            }else{ 
-              this.router.navigate(["../contact-info"], { relativeTo: this.route.parent });
-            }
-          
+              this.router.navigate(['/admin/users/user/'+this.routerParams.user+"/"+this.routerParams.provider_id+"/about"]);
             
+            }else{
+
+              if( !this.isStepsForm ){
+                this.toastr.success('Information saved successfully', 'Success !');  
+                this.router.navigate(['/my-account']);
+              }else{ 
+                this.router.navigate(["../contact-info"], { relativeTo: this.route.parent });
+              }
+
+            }
+              
           }else if (response.status == 401){
             this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  
           }else{
@@ -212,13 +216,24 @@ export class AccountInfoComponent implements OnInit {
         .subscribe((response: any) => {
 
           if (response.status == 200) {
-            if( !this.isStepsForm ){
+
+            console.log(this.routerParams)
+ 
+            if(this.isAdmin){
+              
               this.toastr.success('Information saved successfully', 'Success !');  
-              this.router.navigate(['/my-account']);
-            }else{ 
-              this.router.navigate(["../contact-info"], { relativeTo: this.route.parent });
+              this.router.navigate(['/admin/users/user/'+this.routerParams.user+"/"+this.routerParams.provider_id+"/about"]);
+            
+            }else{
+
+              if( !this.isStepsForm ){
+                this.toastr.success('Information saved successfully', 'Success !');  
+                this.router.navigate(['/my-account']);
+              }else{ 
+                this.router.navigate(["../contact-info"], { relativeTo: this.route.parent });
+              }
+
             }
-          
             
           }else if (response.status == 401){
             this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  
@@ -238,9 +253,11 @@ export class AccountInfoComponent implements OnInit {
 
   continueSteps(){
     this.profileType = this.profileTypeSelectedVal 
+    this.globals.setProfileTypeData(this.profileType) 
 
     if(this.profileTypeSelectedVal == 1){
       this.isCompanyProfile = true;
+
     }else{
       this.isCompanyProfile = false 
       this.personalFormGroup.setValue({ 

@@ -7,11 +7,13 @@ import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-logi
 import { LoginService } from '../../../admin/api/login.service'; 
 import { Globals } from './../../../app.global';
 import { environment } from "../../../../environments/environment";
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-create-account',
   templateUrl: './create-account.component.html',
-  styleUrls: ['../login//login.component.scss']
+  styleUrls: ['../login/login.component.scss']
 })
 export class CreateAccountComponent implements OnInit {
 
@@ -19,12 +21,15 @@ export class CreateAccountComponent implements OnInit {
   anim: string = '';
   status: boolean = false;
   isLoggedIn : boolean = false; 
+  isLoggedInForm : boolean = false; 
   formIsValid: boolean = true;
   isAdmin: boolean = false;
   val : number = 0;
   islogoOnly: boolean = true; 
   formGroup: FormGroup;
-
+  formGroupAdmin : FormGroup;
+  validateEmailAddress: boolean = false;
+  
   constructor(
     private router: Router, 
     private route: ActivatedRoute, 
@@ -32,7 +37,8 @@ export class CreateAccountComponent implements OnInit {
     private authservice: Auth,
     private oauth: OAuth,
     private login: LoginService,
-    private global: Globals
+    private global: Globals,
+    private toastr: ToastrService,
 
   ) {  
 
@@ -56,6 +62,7 @@ export class CreateAccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAuthorized();
+ 
 
     this.formGroup = this.formBuilder.group({ 
 
@@ -79,8 +86,39 @@ export class CreateAccountComponent implements OnInit {
         Validators.minLength(8),
         Validators.maxLength(300)
       ]),
-    });
 
+      retype_password: new FormControl(null, [ 
+        Validators.required
+      ]),
+      
+    }, {validators: this.MatchPassword('password', 'retype_password')});
+
+
+    this.formGroupAdmin = this.formBuilder.group({ 
+
+      firstName: new FormControl('', [ 
+        Validators.required,
+        Validators.maxLength(300)
+      ]),
+
+      lastName: new FormControl('', [ 
+        Validators.required,
+        Validators.maxLength(300)
+      ]),
+
+      email: new FormControl('', [ 
+        Validators.required,
+        Validators.maxLength(300)
+      ]),
+
+      password: new FormControl('', [ 
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(300)
+      ]), 
+      
+    });
+ 
     if(this.isAdmin){
       this.setDataToForm();
     }
@@ -90,31 +128,69 @@ export class CreateAccountComponent implements OnInit {
   onSubmit() { 
 
     if (!this.formGroup.invalid) { 
-      this.formIsValid = true;
-      this.formGroup.value.photoUrl = "";
-      this.formGroup.value.provider = "E";
-      this.formGroup.value.id = Date.now() + Math.floor(Math.random() * 1000);
-      this.formGroup.value.authToken = this.makeToken() + Date.now();
-  
-      this.onClientLogin(this.formGroup.value);
-      
+       
+      this.login.validateEmailAddressOnSignUp(this.formGroup.value)
+        .subscribe((response: any) => {
+          
+          if (response.status == 200 && response.data.length > 0) {    
+            this.toastr.error("An account is already registerd with the given email address.", 'Error !');  
+             
+          }else if (response.status == 200 && response.data.length == 0){  
 
+            this.isLoggedInForm = true;
+            this.formIsValid = true;
+            this.formGroup.value.photoUrl = "";
+            this.formGroup.value.provider = "E";
+            this.formGroup.value.id = Date.now() + Math.floor(Math.random() * 1000);
+            this.formGroup.value.authToken = this.makeToken() + Date.now(); 
+
+            this.onClientLogin(this.formGroup.value);
+
+          }else{
+            
+          } 
+
+
+          this.isLoggedInForm = false;
+            
+      });
+      
       }else{
         this.formIsValid = false;
     } 
   }
 
+  MatchPassword(password: string, confirmPassword: string) {
+    return (formGroup: FormGroup) => {
+      const passwordControl = formGroup.controls[password];
+      const confirmPasswordControl = formGroup.controls[confirmPassword];
+
+      if (!passwordControl || !confirmPasswordControl) {
+        return null;
+      }
+
+      if (confirmPasswordControl.errors && !confirmPasswordControl.errors.passwordMismatch) {
+        return null;
+      }
+
+      if (passwordControl.value !== confirmPasswordControl.value) {
+        confirmPasswordControl.setErrors({ passwordMismatch: true });
+      } else {
+        confirmPasswordControl.setErrors(null);
+      }
+    }
+  }
 
   onSubmitAdmin() { 
 
-    if (!this.formGroup.invalid) { 
+    if (!this.formGroupAdmin.invalid) { 
       this.formIsValid = true;
-      this.formGroup.value.photoUrl = "";
-      this.formGroup.value.provider = "E";
-      this.formGroup.value.id = Date.now() + Math.floor(Math.random() * 1000);
-      this.formGroup.value.authToken = this.makeToken() + Date.now();
+      this.formGroupAdmin.value.photoUrl = "";
+      this.formGroupAdmin.value.provider = "E";
+      this.formGroupAdmin.value.id = Date.now() + Math.floor(Math.random() * 1000);
+      this.formGroupAdmin.value.authToken = this.makeToken() + Date.now();
   
-      this.onClientLoginAdmin(this.formGroup.value);
+      this.onClientLoginAdmin(this.formGroupAdmin.value);
       
 
       }else{
@@ -123,11 +199,11 @@ export class CreateAccountComponent implements OnInit {
   }
 
   setDataToForm(){
-    this.formGroup.setValue({
+    this.formGroupAdmin.setValue({
         firstName: "Admin", 
         lastName: "User", 
         email: "info@easybuilding.lk", 
-        password: this.makeToken(), 
+        password: this.makeToken(),  
     });
   }
 
@@ -221,6 +297,8 @@ export class CreateAccountComponent implements OnInit {
     });
   }
 
+ 
+
 
   makeToken() {
     var length = 15;
@@ -271,5 +349,8 @@ export class CreateAccountComponent implements OnInit {
       
     });
   }
+
+
+  
 
 }

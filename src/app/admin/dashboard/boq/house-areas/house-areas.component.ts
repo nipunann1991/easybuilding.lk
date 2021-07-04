@@ -23,6 +23,7 @@ export class HouseAreasComponent implements OnInit {
   isEditableRoute: boolean = false;
   param: any = {};
   houseArea: any = [];
+  level: any = [1,2]
 
   constructor(
     private boq: BoqService,
@@ -39,37 +40,53 @@ export class HouseAreasComponent implements OnInit {
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(100)
-        ])
+      ]),
+
+      cost_factor: new FormControl('', [
+        Validators.required, 
+      ]),
+
+      level: new FormControl('', [
+        Validators.required, 
+      ])
+        
     }); 
 
-    this.route.paramMap.subscribe(params => {
+    this.route.queryParams.subscribe(params => {
       this.param = params;
 
-      if (typeof this.param.params.id !== 'undefined' ) {
+      if (Object.keys(this.param).length  !== 0 ) {
         this.isEditableRoute = true;;
         this.getHouseAreas();  
+      }else{
+        this.isEditableRoute = false;
       }
          
     });
 
-
+    const that = this;
     this.dtOptions = {
         pagingType: 'full_numbers',
         pageLength: 10,
         serverSide: true,
         processing: true,
         autoWidth: false, 
+        stateSave: true,
+        retrieve: true, 
         ajax: this.boq.getHouseAreasDT(), 
         columns: [ 
-          { data: 'house_area_id' },{ data: 'house_area' }
+          { data: 'house_area_id' },{ data: 'house_area' },{ data: 'cost_factor' }, { data: 'level' }
         ],
         columnDefs: [{
-        targets: 2,
+        targets: 4,
         data: function( row ){   
-
-          return '<a class="edit-boq-data" data-id="'+row.house_area_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
-            '<a class="delete-boq-data" data-id="'+row.house_area_id+'" title="Edit"><i class="icon-bin"></i></a>'
-            
+          if(!that.globals.isManagerLogin()){
+            return '<a class="edit-boq-data" data-id="'+row.house_area_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
+              '<a class="delete-boq-data" data-id="'+row.house_area_id+'" title="Delete"><i class="icon-bin"></i></a>'
+          }else{
+            return '<a class="edit-boq-data" data-id="'+row.house_area_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
+              '<a class="disabled" title="Delete not allowed"><i class="icon-bin"></i></a>'
+          }
         },
     
     }],
@@ -104,8 +121,7 @@ export class HouseAreasComponent implements OnInit {
 		$('html').on('click', 'a.delete-boq-data' , function(e1){ 
       e1.stopImmediatePropagation();
 			e1.preventDefault(); 
-      component1.openDeleteModal($(this).attr('data-id'));  
-			
+      component1.openDeleteModal($(this).attr('data-id'));   
 			
     })
     
@@ -139,7 +155,7 @@ export class HouseAreasComponent implements OnInit {
   }
   
   getHouseAreas(): void{
-    let param = { house_area_id: this.param.params.id}
+    let param = { house_area_id: this.param.id}
      
      this.boq.getSelectedHouseArea(param)
          .subscribe((response: any) => {
@@ -147,7 +163,11 @@ export class HouseAreasComponent implements OnInit {
         if (response.status == 200) { 
          
           this.houseArea = response.data[0]; 
-          this.formGroup.setValue({house_area: this.houseArea.house_area}); 
+          this.formGroup.setValue({
+            house_area: this.houseArea.house_area, 
+            cost_factor: this.houseArea.cost_factor,
+            level: this.houseArea.level
+          }); 
 
          }else{
              console.log(response)
@@ -181,7 +201,7 @@ export class HouseAreasComponent implements OnInit {
 
   onUpdate(){
     if (!this.formGroup.invalid) {
-      this.formGroup.value.house_area_id = this.param.params.id;
+      this.formGroup.value.house_area_id = this.param.id;
       this.boq.editHouseArea(this.formGroup.value)
         .subscribe((response: any) => {
 
@@ -202,8 +222,8 @@ export class HouseAreasComponent implements OnInit {
   }
 
 
-  editHouseAreaPage(pageId){ 
-		this.router.navigate(['admin/boq/house-areas/'+pageId]); 
+  editHouseAreaPage(pageId){  
+    this.router.navigate(['admin/boq/house-areas/'], { queryParams:  {id: pageId} });
   } 
 
 
@@ -226,6 +246,7 @@ export class HouseAreasComponent implements OnInit {
          
         if(result){
          this.deleteHouseArea(id);
+         this.rerender();
         }  
       
     }); 
@@ -241,8 +262,7 @@ export class HouseAreasComponent implements OnInit {
       .subscribe((response: any) => {
 
         if (response.status == 200) {
-          this.toastr.success('House area has been deleted successfully', 'Success !');  
-          this.rerender();
+          this.toastr.success('House area has been deleted successfully', 'Success !');   
 
         }else{
             this.toastr.error('House area deleting failed. Please try again', 'Error !'); 

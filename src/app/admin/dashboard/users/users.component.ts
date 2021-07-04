@@ -87,7 +87,13 @@ export class UsersComponent implements OnInit {
         {
           targets: 2,
           data: function( row ){    
-            return row.email 
+            let verified = "";
+
+            if(row.verified_email == 1){
+              verified = `<span class="badge badge-success">V</span>`;
+            }
+
+            return row.email +" "+ verified;
           },
           
         },
@@ -117,16 +123,22 @@ export class UsersComponent implements OnInit {
             let featured = ""
             
             if(row.company_status == 0){
-              return '<span class="badge badge-danger">Inactive</span>';
+              return '<span class="badge badge-danger">Blocked</span>';
 
             }else if(row.company_status == 1){ 
-
+              
+              console.log(row.company_profile, row.steps)
+              
               if(row.featured == 1){
                 featured = '<span class="badge badge-warning">F</span>';
               }
 
-              return '<span class="badge badge-success">Active</span> '+featured;
-
+              if((row.company_profile == 1 && row.steps == 4) || (row.company_profile == 0 && row.steps == 2)){
+                return '<span class="badge badge-success">Active</span> ' + featured;
+              }else{
+                return '<span class="badge badge-warning">Incomplete</span> ' + featured; 
+              }
+ 
             }else if(row.company_status == 2){
               return '<span class="badge badge-success">Active - A</span>';
 

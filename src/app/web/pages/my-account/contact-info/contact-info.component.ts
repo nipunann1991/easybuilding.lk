@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
+import { Globals } from "../../../../app.global";
 
 @Component({
   selector: 'app-contact-info',
@@ -18,12 +19,16 @@ export class ContactInfoComponent implements OnInit {
   isStepsForm: boolean = false; 
   isAdmin: boolean = false; 
   profileType: string = "";
+  getProfileType: number;
+  isCreateProfile: boolean = false;
+  routerParams: any;
 
   constructor(
     private myaccount: MyAccountService,
     private toastr: ToastrService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public globals: Globals
   ) { }
 
   ngOnInit(): void {
@@ -75,7 +80,12 @@ export class ContactInfoComponent implements OnInit {
       this.isAdmin = true;
       this.formGroup.get("address_line1").setValidators(null);
       this.formGroup.get("email").setValidators(null);
+
+      this.route.params.subscribe( (routeParams) =>  {  
+        this.routerParams = routeParams; 
+      }); 
     }
+ 
  
   }
 
@@ -89,6 +99,7 @@ export class ContactInfoComponent implements OnInit {
           let email = "";
 
           this.profile = response.data[0];
+          this.globals.setProfileTypeData(this.profile.company_profile);
 
           if(this.profile.company_profile == 1){
             this.profileType = "Company"; 
@@ -148,18 +159,34 @@ export class ContactInfoComponent implements OnInit {
       if(this.profile.company_profile == 0){
         presonalData.steps = 2; 
       } 
+      
+      if(this.isStepsForm && this.profile.company_profile == 0){
+        presonalData.verified_email = -2;
+        this.isCreateProfile = true;
+      }
 
       this.myaccount.updateProfileDetails(presonalData)
         .subscribe((response: any) => {
 
+          this.isCreateProfile = false;
+          
           if (response.status == 200) {
 
-            if( !this.isStepsForm || this.profile.company_profile == 0 ){
+            if(this.isAdmin){
               this.toastr.success('Information saved successfully', 'Success !');  
-              this.router.navigate(['/my-account/user/me/about']);
-            }else{ 
-              this.router.navigate(["../service-areas"], { relativeTo: this.route.parent });
+              this.router.navigate(['/admin/users/user/'+this.routerParams.user+"/"+this.routerParams.provider_id+"/about"]);
+            }else{
+
+              if( !this.isStepsForm || this.profile.company_profile == 0 ){
+                this.toastr.success('Information saved successfully', 'Success !');  
+                this.router.navigate(['/my-account/user/me/about']);
+              }else{ 
+                this.router.navigate(["../service-areas"], { relativeTo: this.route.parent });
+              }
+
             }
+
+           
            
             
             

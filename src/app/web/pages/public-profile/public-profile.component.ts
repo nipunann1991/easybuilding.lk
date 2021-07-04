@@ -32,7 +32,7 @@ export class PublicProfileComponent implements OnInit {
   products: any = "";
   navItems: any = [];
   baseurl = "/my-account/user/me/";
-  baseurlEdit = this.baseurl+"/edit/";
+  baseurlEdit = "edit/";
   _routeListener: any;
 
   constructor(
@@ -63,11 +63,10 @@ export class PublicProfileComponent implements OnInit {
         }else{ 
 
           if(event.url.indexOf('/edit/') > -1 ){
-            this.isEditableMode = true;  
-            window.scrollTo(0,250)
-            this.profileData.is_editable_btn = false; 
-            let params = {user: 'me' };  
-            this.getProfileDetails(params);   
+            this.isEditableMode = true;   
+            this.profileCompleted = true;     
+            window.scrollTo(0,250)   
+            this.getProfileDetails(this.route.snapshot.params, true);  
 
           }else{ 
               
@@ -95,11 +94,10 @@ export class PublicProfileComponent implements OnInit {
     
   
     this.navItems = [
-      { title: "Home", url: this.baseurl+"about", icon: ""},
+      { title: "Home", url: "about", icon: ""},
       { title: "Account Information", url: this.baseurlEdit+"account-info", icon: ""},
       { title: "Contact Details", url: this.baseurlEdit+"contact-info", icon: ""},
       { title: "Services & Areas", url: this.baseurlEdit+"service-areas", icon: ""},
-      { title: "Settings", url: this.baseurlEdit+"settings", icon: ""}
     ];
     
     this.isAdminAccessible = this.auth.validateBackendUser();
@@ -241,7 +239,7 @@ export class PublicProfileComponent implements OnInit {
         .subscribe((response: any) => {
         if (response.status == 200 && response.data.length > 0 ) {  
             this.serviceAreas = response.data;
-            
+           
         }else{
           //this.router.navigate(['/my-account/user/me/0']);
         }
@@ -276,7 +274,7 @@ export class PublicProfileComponent implements OnInit {
         if (response.status == 200 ) {  
           this.services = response.data.services;  
           this.products = response.data.products;  
-          
+         
         }else{
           
         }

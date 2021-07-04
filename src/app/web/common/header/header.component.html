@@ -1,9 +1,9 @@
-<div class="header-wrapper" [ngClass]="{'sticky': isSticky}"> 
+<div class="header-wrapper" [ngClass]="{'sticky': isSticky && !logoOnly}"> 
     <div class="container-fluid header-area" [ngClass]="{'login-border': (logoOnly === true), 'in-profile': hideNav }" >
         <div class="container">
             <div class="content-area">
                 <div class="logo">
-                    <a routerLink="/"><img src="./assets/images/easybuilding-logo.png" alt="Wasybuilding Logo"></a>
+                    <a routerLink="/"><img src="./assets/images/easybuilding-logo.png" alt="Easybuilding Logo"></a>
                 </div>
                 <!--  *ngIf="!hideNav" -->
                 <div class="search-box" [ngClass]="{'opened': mobileSearchOpen}" *ngIf="!logoOnly" (click)="isSearchOpened = true">
@@ -81,7 +81,7 @@
                             <div class="col-md-4" *ngFor="let prod_col of menuItemsProduct">
                                 <ng-container *ngFor="let prod of prod_col"> 
                                 
-                                    <h3>{{prod.title}}</h3>
+                                    <h3 [innerHTML]="prod.title"></h3>
                                     <ul>
                                         <li *ngFor="let misc of prod.children" (click)="showProducts=false"><a [routerLink]="misc.url" [queryParams]="queryParams" >{{misc.title}}</a></li>
                                     </ul>  

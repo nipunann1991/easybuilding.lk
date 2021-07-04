@@ -17,13 +17,23 @@ export class IdeasCategoryComponent implements OnInit {
   slideConfig = {
     slidesToShow: 5, 
     slidesToScroll: 5,  
-    infinite: false,
+    infinite: true,
+    autoplay: true,
+    autoplaySpeed: 7000,
+    speed: 1000,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 4,
           slidesToScroll: 4, 
+        }
+      },
+      {
+        breakpoint: 800,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3, 
         }
       },
       {

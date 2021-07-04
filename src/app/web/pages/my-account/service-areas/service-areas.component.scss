@@ -1,7 +1,7 @@
 @import '../../../../../styles';
 
 label.service-label{
-  @include bold;
+  @include regular;
   margin-right: 2rem;
   display: block;
 }
@@ -71,6 +71,8 @@ label.service-label{
 }
 
 .service-areas{
+  margin-top: 1.5rem;
+
   h2{
     border-top: 1px solid #ced4da;
     padding-top: 2rem;
@@ -87,8 +89,27 @@ a.service-dialog{
   margin-bottom: 0;
   font-size: 1.4rem;
   margin-left: 0.5rem;
+  border: 2px dashed;
+  text-align: center;
+  border-radius: 0.4rem;
+  color: $base-color;
+  font-size: 1.7rem;
+  min-height: 15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover{
+    color: $dark-gray;
+  }
+
+  i.icon-plus{
+    font-weight: 700;
+    margin-right: 1rem;
+  }
+
 }
 
-.select2-container{
-  display: none;
+.create-account{
+  text-align: center;
 }

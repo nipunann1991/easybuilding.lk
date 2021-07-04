@@ -54,6 +54,7 @@ export class MainCategoryComponent implements OnInit {
          
     });
 
+    const that = this;
 
     this.dtOptions = {
         pagingType: 'full_numbers',
@@ -69,8 +70,15 @@ export class MainCategoryComponent implements OnInit {
         targets: 2,
         data: function( row ){   
 
-          return '<a class="edit-maincategory-data" data-id="'+row.cat_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
-            '<a class="delete-maincategory-data" data-id="'+row.cat_id+'" title="Edit"><i class="icon-bin"></i></a>'
+          if(!that.globals.isManagerLogin()){
+            return '<a class="edit-maincategory-data" data-id="'+row.cat_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
+            '<a class="delete-maincategory-data" data-id="'+row.cat_id+'" title="Delete"><i class="icon-bin"></i></a>';
+          }else{
+            return '<a class="edit-maincategory-data" data-id="'+row.cat_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
+            '<a class="disabled" title="Delete not allowed"><i class="icon-bin"></i></a>'
+          }
+
+          
             
         },
     

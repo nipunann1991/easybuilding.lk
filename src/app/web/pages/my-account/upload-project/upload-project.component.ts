@@ -87,8 +87,9 @@ export class UploadProjectComponent implements OnInit {
 
     });
 
-    this.companyID = this.route.snapshot.params.company_id;
+    this.companyID = this.route.snapshot.params.company_id; 
     this.getProductsWithID(this.companyID); 
+    
     this.getCities();
    
   }
@@ -177,17 +178,18 @@ export class UploadProjectComponent implements OnInit {
 
     this.myaccount.getProductsWithID(params) 
       .subscribe((response: any) => {
-        if (response.status == 200 && response.data.length > 0 ) {
-          
-          console.log( response )  
+        if (response.status == 200 ) {
+           
           this.allServices = response.data
-          this.getServicsWithID(company_id);
+          this.getServicsWithID(company_id); 
           
         }else{
           
         }
           
       });
+
+    
   }
 
   getServicsWithID(company_id){
@@ -197,8 +199,14 @@ export class UploadProjectComponent implements OnInit {
     this.myaccount.getServicsWithID(params) 
       .subscribe((response: any) => {
         if (response.status == 200 ) {
+          var newArray = []
            
-          var newArray = this.allServices.concat(response.data)
+          if(this.allServices.length == 0){
+            newArray = this.allServices = response.data
+          }else{
+            newArray = this.allServices.concat(response.data)
+          }
+           
           this.allServices = newArray; 
 
         }else{
@@ -276,7 +284,7 @@ export class UploadProjectComponent implements OnInit {
         this.formGroup.value.images = JSON.stringify(this.uploadedFileName); 
         this.formGroup.value.company_id = this.companyID; 
         this.formGroup.value.primary_img = this.uploadedFileName[0]; 
-        this.formGroup.value.total_imgs = this.uploadedFileName.length; 
+        this.formGroup.value.total_imgs = 0; // this.uploadedFileName.length; 
         this.formGroup.value.services = JSON.stringify(this.formGroup.value.services); 
 
          
@@ -355,8 +363,7 @@ export class UploadProjectComponent implements OnInit {
       this.myaccount.getCities() 
         .subscribe((response: any) => {
           if (response.status == 200) { 
-            this.nearestCity = response.data; 
-            console.log(this.nearestCity)
+            this.nearestCity = response.data;  
           }else{
               
           }

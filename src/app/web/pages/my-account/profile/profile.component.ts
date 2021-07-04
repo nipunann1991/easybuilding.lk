@@ -203,16 +203,18 @@ validateFile(file){
   } 
 
   checkVerification(){
-
+ 
     let verifyData = this.route.snapshot.queryParams; 
-
+ 
     if( Object.keys(verifyData).length !== 0 && this.profile.verified_email == 0){
 
-      let mailToken = this.globals.token.session_id+verifyData.verify+this.globals.token.session_id; 
-
+      let mailToken = this.globals.token.session_id+verifyData.verify+this.globals.token.session_id;
+        
       if(mailToken == this.globals.token.provider_id){
  
       let param = { verified_email: 1, company_id: this.profileData.company_id}
+
+     
       this.myaccount.updateProfileDetails(param)
         .subscribe((response: any) => {
 
@@ -265,8 +267,7 @@ validateFile(file){
 
   deleteImgFromServer(){
     const promise = new Promise((resolve, reject) => {
-      let param; let editParam; 
-     
+      let param; let editParam;  
      
       if(this.deleteStatus==1){
         param = { company_id: this.companyId, client_id: this.ClientId, file_name: this.profileImage }; 
@@ -487,7 +488,15 @@ validateFile(file){
   }
 
   
+  resendVerification(){
 
+    this.myaccount.resendVerification()
+      .subscribe((response: any) => {
+ 
+        this.toastr.success('Verification mail sent successfully. Please check your mail.', 'Success !');  
+          
+      });
+  }
 
   closeModal(){
     this.isUploading = false;

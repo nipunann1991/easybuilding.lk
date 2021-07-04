@@ -77,8 +77,8 @@ export class DashboardComponent implements OnInit {
           this.barChartLabels = response.data.months;
 
           this.barChartData = [
-            { data: response.data.personal_profiles, label: 'Company' },
-            { data: response.data.company_profiles, label: 'User' }
+            { data: response.data.company_profiles , label: 'Company' },
+            { data: response.data.personal_profiles, label: 'User' }
           ]; 
           
           

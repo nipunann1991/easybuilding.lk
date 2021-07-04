@@ -65,13 +65,11 @@ export class LoginComponent implements OnInit {
         this.formGroup.value.provider = "E";
         this.formGroup.value.authToken = this.makeToken() + Date.now();
         
-        console.log(this.formGroup.value)
 
         this.login.onEBUserLogin(this.formGroup.value)
           .subscribe((response: any) => {
 
-           
-
+            
             if (response.status == 200 && response.data.length > 0) {  
 
               console.log(response.data[0]);

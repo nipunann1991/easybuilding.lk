@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   BannerImgs: any = "";
   BannerArray:any = [];
   currBannerItem: number = -1;  
-  
+  autoSlide: any;
   
   constructor(
     private seo: AppSEO, 
@@ -34,8 +34,17 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void { 
     
     window.scroll(0,0);    
-    this.getAdSlides();  
-    
+    this.getAdSlides()
+
+    this.autoSlide = setInterval(() => {
+      this.nextBanner()
+    }, 7000);
+  }
+
+  ngOnDestroy() {
+    if (this.autoSlide) {
+      clearInterval(this.autoSlide);
+    }
   }
   
   getAdSlides(){ 
@@ -66,12 +75,15 @@ export class HomeComponent implements OnInit {
         } 
           
       }); 
+
+
+      
   
   }
     
    
   pageAnimation(): void{ 
-  
+    
   } 
 
   nextBanner(){
@@ -80,9 +92,7 @@ export class HomeComponent implements OnInit {
     
     if(this.currBannerItem > (this.BannerArray.length - 1)){
       this.currBannerItem = 0;
-    }
-
-    console.log(this.currBannerItem)
+    } 
 
     this.navigateSlide(this.currBannerItem);
        

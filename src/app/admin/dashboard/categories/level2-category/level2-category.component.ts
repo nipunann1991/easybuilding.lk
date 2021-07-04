@@ -94,12 +94,14 @@ export class Level2CategoryComponent implements OnInit {
 
     }); 
 
-    this.route.paramMap.subscribe(params => {
+    this.route.queryParams.subscribe(params => {
       this.param = params;
 
-      if (typeof this.param.params.id !== 'undefined' ) {
-        this.isEditableRoute = true;;
+      if (Object.keys(this.param).length  !== 0 ) {
+        this.isEditableRoute = true;
         this.getSelectedLvl2Category();  
+      }else{
+        this.isEditableRoute = false;
       }
          
     });
@@ -129,13 +131,16 @@ export class Level2CategoryComponent implements OnInit {
 
   generateTable(){
     (this.isFeaturedCatFiltered)? this.isFeaturedCatFilteredVal = 1 : this.isFeaturedCatFilteredVal = 0;
- 
+
+      const that = this;
       this.dtOptions = {
         pagingType: 'full_numbers',
         pageLength: 10,
         serverSide: true,
         processing: true,
         autoWidth: false, 
+        stateSave: true,
+        retrieve: true, 
         ajax: this.categories.getLvl2CategoriesDT(this.isFeaturedCatFilteredVal), 
         columns: [ 
           { data: 'cat_lvl2_id' },
@@ -158,8 +163,16 @@ export class Level2CategoryComponent implements OnInit {
         },{
         targets: 3,
         data: function( row ){    
-          return '<a class="edit-lvl2category-data" data-id="'+row.cat_lvl2_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
-            '<a class="delete-lvl2category-data" data-id="'+row.cat_lvl2_id+'" title="Edit"><i class="icon-bin"></i></a>' 
+
+          if(!that.globals.isManagerLogin()){
+            return '<a class="edit-lvl2category-data" data-id="'+row.cat_lvl2_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
+            '<a class="delete-lvl2category-data" data-id="'+row.cat_lvl2_id+'" title="Delete"><i class="icon-bin"></i></a>' 
+          }else{
+            return '<a class="edit-lvl2category-data" data-id="'+row.cat_lvl2_id+'" title="Edit"><i class="icon-pencil"></i></a> '+
+            '<a class="disabled" title="Delete not allowed"><i class="icon-bin"></i></a>' 
+          }
+
+         
         },
     
       }],
@@ -209,7 +222,7 @@ export class Level2CategoryComponent implements OnInit {
   }
 
   editCategoryLvl2Page(pageId){
-		this.router.navigate(['admin/categories/level2-category/'+pageId]); 
+    this.router.navigate(['admin/categories/level2-category/'], { queryParams:  {id: pageId} });
   }
   
 
@@ -245,7 +258,7 @@ export class Level2CategoryComponent implements OnInit {
     if (!this.formGroup.invalid) {
         
         (this.isFeatured)? this.formGroup.value.featured = 1 : this.formGroup.value.featured = 0 ;
-        this.formGroup.value.cat_lvl2_id = this.param.params.id;
+        this.formGroup.value.cat_lvl2_id = this.param.id;
         this.formGroup.value.file_name = this.categoryImage;
 
         this.categories.editLvl2Category(this.formGroup.value)
@@ -255,12 +268,8 @@ export class Level2CategoryComponent implements OnInit {
             this.isBgImage = false;
             this.toastr.success('Category level 2 has been edited successfully', 'Success !');  
             this.formGroup.reset();
-            // this.rerender();
-            // this.returnBack();
-
-            this.generateTable();
-            this.cdr.detectChanges();
-            this.rerender(); 
+            this.rerender();
+            this.returnBack(); 
            
 
           }else if (response.status == 401){
@@ -278,7 +287,7 @@ export class Level2CategoryComponent implements OnInit {
 	}
 
   getSelectedLvl2Category(): void{
-    let param = { cat_lvl2_id: this.param.params.id}
+    let param = { cat_lvl2_id: this.param.id}
      
      this.categories.getSelectedLvl2Category(param)
          .subscribe((response: any) => {
@@ -393,7 +402,7 @@ export class Level2CategoryComponent implements OnInit {
   removeCategoryImages(file_name){
  
     let param = {
-      cat_lvl2_id: this.param.params.id,
+      cat_lvl2_id: this.param.id,
       file_name: file_name
     }
     

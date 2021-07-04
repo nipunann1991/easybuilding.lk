@@ -507,6 +507,12 @@
                     text-align: left; 
                     margin-bottom: 1rem;
                     font-size: 1.7rem;
+
+                    span{
+                        font-size: 1.3rem;
+                        margin-left: 5px;
+                        @include regular;
+                    }
                 }
 
                 ul{

@@ -6,20 +6,31 @@
         </div>
         
 
-        <div class="fetured-products-list row">
-            <div class="col-lg-3 col-md-6 col-sm-6 fetured-products-item-wrapper" *ngFor="let fp of featuredProdList">
-                <div class="featured-item" [routerLink]="fp.profileLink">
-                    <div class="item-img" [ngStyle]="{'background-image': 'url(' + fp.imgUrl + ')'}">
+        <div class="fetured-products-list">
+            <ngx-slick-carousel class="carousel row" 
+            #slickModal="slick-carousel" 
+            [config]="slideConfig" 
+            (init)="slickInit($event)"
+            (breakpoint)="breakpoint($event)"
+            (afterChange)="afterChange($event)"
+            (beforeChange)="beforeChange($event)">
+                <!-- col-lg-3 col-md-6 col-sm-6  -->
+                <div ngxSlickItem class="fetured-products-item-wrapper" *ngFor="let fp of featuredProdList">
+                    <div class="featured-item" [routerLink]="fp.profileLink">
+                        <div class="item-img" [ngStyle]="{'background-image': 'url(' + fp.imgUrl + ')'}">
 
+                        </div>
+                        <div class="item-desc">
+                            <div class="item-wrap">
+                                <h4>{{fp.product_name}}</h4>
+                                <p>By {{fp.display_name}}</p>
+                            </div> 
+                            <span *ngIf="fp.price != 0" class="price">{{fp.price | currency: fp.currency }} / {{fp.unit}}</span>
+                            <span *ngIf="fp.price == 0" class="price">Contact for Prices</span>
+                        </div>
                     </div>
-                    <div class="item-desc">
-                        <h4>{{fp.product_name}}</h4>
-                        <p>By {{fp.display_name}}</p>
-                        <span class="price">{{fp.price | currency: fp.currency }} / {{fp.unit}}</span>
-                    </div>
-                </div>
-            </div> 
-
+                </div> 
+            </ngx-slick-carousel>
         </div>
     </div>
 </div>

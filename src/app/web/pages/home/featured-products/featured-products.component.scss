@@ -33,7 +33,18 @@
     .fetured-products-list{
         margin-top: 5rem;
 
+        .carousel{
+            .slick-track{
+                margin-left: 0;
+            }
+        } 
+        
         .fetured-products-item-wrapper{
+            padding: 0 1.5rem; 
+
+            @include breakpoint($tablet){
+                padding: 0 1.5rem; 
+            }
 
             .featured-item{
                 cursor: pointer;
@@ -45,9 +56,10 @@
                 @include box-shadow(0px, 3px,8px, 1px, rgba(196,206,217,0.25));  
                 border: 1px #eee solid;
                 transition: 0.5s all ease;
+                width: 100%;
 
                 @include breakpointMax(767px){
-                    width: 75%;
+                    width: 100%;
                     margin-left: auto;
                     margin-right: auto
                 }
@@ -73,9 +85,13 @@
 
                 .item-desc{
                     padding: 1.5rem;
+                    @include flex-column(); 
+                    justify-content: space-around;
+                    min-height: 12rem;
 
                     h4{
-                        font-size: 1.7rem;
+                        font-size: 1.6rem;
+                        margin-bottom: 0.3rem;
                     }
 
                     .prod-desc{
@@ -84,7 +100,7 @@
                     }
 
                     p{
-                        font-size: 1.4rem; 
+                        font-size: 1.35rem; 
                         line-height: 1.9rem;
                         color: $dark-gray;
                     } 

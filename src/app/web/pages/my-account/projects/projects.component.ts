@@ -100,6 +100,7 @@ export class ProjectsComponent implements OnInit {
         if (response.status == 200 && response.data.length > 0 ) { 
           this.isProjectsAvailable = true;
           this.project = response.data
+          console.log(this.project)
          
         } if (response.status == 200 && response.data.length == 0 ) {
           this.isProjectsAvailable = false; 
@@ -115,6 +116,10 @@ export class ProjectsComponent implements OnInit {
 
   openProject(company_id, Project_id){
     this.router.navigate(["view-project/"+company_id+"/"+Project_id+"/"], {relativeTo: this.route.parent} ); 
+  }
+
+  viewMoreProjects(){
+    this.router.navigate(["../projects"], {relativeTo: this.route.parent} ); 
   }
 
   openDeleteProject(index, company_id, project_id){

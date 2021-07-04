@@ -1,5 +1,5 @@
 <form id="myform" class="wrapped-block animated fadeIn" [formGroup]="formGroup" (ngSubmit)="onSave()" novalidate="novalidate">
-    <div class="row">
+    <div class="row" *ngIf="!isCreateProfile">
         <div class="col-md-12 block-title" [ngClass]="{'title-only': !isStepsForm}">
             <h2>{{ profileType }} Contact Details</h2>
             <p *ngIf="profileType != ''">How can clients contact you via Easybuilding platform.</p>
@@ -62,9 +62,13 @@
 
             <ng-container *ngIf="isStepsForm">
                 <button mat-button type="button" (click)="previousLink()" class="btn btn-prev">Previous</button>
-                <button mat-button name="submit" type="submit" class="btn btn-next">Next</button> 
+                <button mat-button name="submit" type="submit" class="btn btn-next"><span *ngIf="profile.company_profile != 0">Next</span><span *ngIf="profile.company_profile == 0">Complete</span></button> 
             </ng-container>
             
         </div> 
-    </div> 
+    </div>  
+    <div class="create-account" *ngIf="isCreateProfile">
+        <img src="/assets/images/loader1.svg" width="80" alt="">
+        <h3>Creating Profile...</h3>
+    </div>
 </form>
