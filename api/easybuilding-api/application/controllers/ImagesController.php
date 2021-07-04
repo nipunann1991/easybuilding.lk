@@ -119,9 +119,7 @@ class ImagesController extends CommonController {
   
 			$photo_category = json_decode($dataset['photo_category']); 
 
-			 
-			 
-
+			  
 			$img_id = $dataset['img_id']; 
 
 			$this->deleteData__('image_category_list', 'img_id="'.$this->input->post('img_id').'"') ;
@@ -132,8 +130,27 @@ class ImagesController extends CommonController {
 			
 			$projectImgData = $this->updateData__('project_images', $dataset, 'img_id="'.$this->input->post('img_id').'"');
 
+			$getTotalImg = array(
+				'columns' => 'COUNT(*) as totalImg' ,   
+				'table' => 'project_images',
+				'eq_table_col' => '1',
+				'data' => 'project_id="'.$this->input->post('project_id').'" AND approved="1"', 
+			); 
 
-			$approvedData = array('approved' => 0 );
+
+			$project_images = array(
+				'columns' => 'file_name' ,   
+				'table' => 'project_images',
+				'eq_table_col' => '1',
+				'data' => 'project_id="'.$this->input->post('project_id').'" AND approved="1"', 
+			); 
+ 
+
+			$approvedData = array(
+				'approved' => 0, 
+				'total_imgs' => $this->selectRawCustomData__($getTotalImg)["data"][0]->totalImg, 
+				'primary_img' => $this->selectRawCustomData__($project_images)["data"][0]->file_name
+			);
 
 			if ($this->getApprovedImagesCount()["data"][0]->no_of_approved > 0) {
 				$approvedData["approved"] = 1;
@@ -141,7 +158,7 @@ class ImagesController extends CommonController {
 				$approvedData["approved"] = 0;
 			}
 			 
-			$this->updateData__('project', $approvedData, 'project_id="'.$this->input->post('project_id').'"');
+			$this->updateData__('project', $approvedData, 'project_id="'.$this->input->post('project_id').'"'); 
 
 			return $projectImgData;
 

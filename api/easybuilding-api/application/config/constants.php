@@ -1,7 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-define('LOCAL_PROFILE_URL', 'https://localhost:4200/my-account/user/me/about');
-define('LIVE_PROFILE_URL', 'https://easybuilding.biz/my-account/user/me/about');
+define('LOCAL_URL', 'https://localhost:4200/');
+define('LIVE_URL', 'https://easybuilding.biz/');
+define('LOCAL_PROFILE_URL', constant("LOCAL_URL").'my-account/user/me/about');
+define('LIVE_PROFILE_URL', constant("LIVE_URL").'my-account/user/me/about');
 /*
 |--------------------------------------------------------------------------
 | Display Debug backtrace

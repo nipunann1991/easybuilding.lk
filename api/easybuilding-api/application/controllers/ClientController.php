@@ -45,14 +45,14 @@ class ClientController extends CommonController {
  
 
 			$searchData = array(
-				'columns' => 'c.*, cc.display_name, cc.featured, cc.status AS company_status' ,   
+				'columns' => 'c.*, cc.display_name, cc.featured, cc.status AS company_status, cc.verified_email, cc.company_profile, cc.steps' ,   
 				'table' => 'clients c, client_company cc',
 				'data' => "cc.client_id=c.client_id ".$profile_type_val." AND (".$search_by_feilds.')  order by c.'. $orderedCol .' '.$selectedOrd.' LIMIT '.$dt['start'].','.$dt['length'].'  ',
 				'eq_table_col' => ''
 			);  
 		
 			$get_data = array(
-				'columns' => 'c.*, cc.display_name, cc.featured, cc.status AS company_status' ,   
+				'columns' => 'c.*, cc.display_name, cc.featured, cc.status AS company_status, cc.verified_email, cc.company_profile, cc.steps' ,   
 				'table' => 'clients c, client_company cc',
 				'data' => "cc.client_id=c.client_id ".$profile_type_val." AND (".$search_by_feilds.')  order by c.'. $orderedCol .' '.$selectedOrd.' ',
 			);  

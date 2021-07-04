@@ -73,8 +73,10 @@ class SearchController extends CommonController {
 					'table' => '`clients` c, `services_list` sl, `categories-level2` cl2, `client_company` cc LEFT JOIN  '.$sort_by_service_area['table']." ON sd.company_id=cc.company_id AND sd.district_id='".$area."'",
 
 					'eq_table_col' => '1 ORDER BY '.$sort_by.' '.$limit, 
-					'data' => 'cc.company_id=sl.company_id AND cl2.cat_lvl2_id=sl.cat_lvl2_id AND c.client_id=cc.client_id AND cc.status=1 '. $search.' AND ( sd.district_id='. $area .' OR cc.all_island = 1 )'
+					'data' => 'cc.company_id=sl.company_id AND cl2.cat_lvl2_id=sl.cat_lvl2_id AND c.client_id=cc.client_id AND cc.status=1 AND '. $search.' AND ( sd.district_id='. $area .' OR cc.all_island = 1 )'
 				);
+
+
 
 	  	 	}else{
 
@@ -235,7 +237,7 @@ class SearchController extends CommonController {
 				break;
 			
 			case '2':
-				$query = "c.created_date ASC";
+				$query = "c.created_date DESC";
 				break;
 
 			case '3':

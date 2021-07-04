@@ -65,8 +65,7 @@ class LoginController extends CommonController {
 				$this->updateData__('clients', $dataset, 'client_id="'.$dataset['client_id'].'"');
 
 			}else{
-
-
+ 
 
 				$dataset = array(  
 					'profie_image' => '',
@@ -87,7 +86,7 @@ class LoginController extends CommonController {
 
 		 	
 			$sessionData['data'] = $this->setNewUserSessionData($sessionData, $inputData,'Session inserted');
- 			$this->sendRegistration($inputData);
+ 			//$this->sendRegistration($inputData);
 			return $this->returnJSON($sessionData);
 	
 		}else{
@@ -115,13 +114,14 @@ class LoginController extends CommonController {
 
 	
 
-		public function onClientLoginAdmin(){    
+	public function onClientLoginAdmin(){    
  
 
  		$dataset = $this->input->post(); 
 		unset($dataset['auth_token']); 
 		unset($dataset['password']); 
 		unset($dataset['is_admin']); 
+		$dataset['created_date'] = date("Y-m-d");
 
 		 
 		$clientData = $this->insertRawData__('clients', $dataset);  
@@ -198,6 +198,55 @@ class LoginController extends CommonController {
 
 		
 	}
+
+	
+	public function checkEmail(){
+
+		$search_index = array(
+			'columns' => 'client_id, email, first_name' ,   
+			'table' => 'clients',
+			'eq_table_col' => '1',
+			'data' => 'email= "'.$this->input->post('email').'"', 
+		);
+ 
+
+		$data = $this->selectRawCustomData__($search_index);
+		
+		if (sizeof($data["data"]) == 1 && $this->input->post('email')) { 
+			$digits = 4; 
+			$rand_no = rand(pow(10, $digits-1), pow(10, $digits)-1);
+			$data["data"][0]->verifycode = $rand_no;
+
+			$dataset = array(
+				'email' => $this->input->post('email'), 
+				'request_reset' => $rand_no, 
+			);
+
+			$this->updateData__('clients', $dataset, 'email="'.$dataset['email'].'"');
+			
+			$this->sendResetPassword($data["data"][0]);
+		}
+
+		return $this->returnJSON($data);
+
+	}
+
+
+
+	public function validateEmailAddressOnSignUp(){
+
+		$search_index = array(
+			'columns' => 'client_id, email, first_name' ,   
+			'table' => 'clients',
+			'eq_table_col' => '1',
+			'data' => 'email= "'.$this->input->post('email').'"', 
+		);
+ 
+
+		return $this->selectCustomData__($search_index); 
+
+	}
+
 	
 	public function onAdminLogin(){
 
@@ -299,30 +348,68 @@ class LoginController extends CommonController {
 
 		return $this->updateRawData__('user_sessions', $dataset, 'client_id="'.$dataset['client_id'].'" AND auth_token="'.$dataset['auth_token'].'"');  
 	}
- 	
 
- 	public function sendRegistration($inputData){   
+
+
+	public function resetPassword(){   
+
+		$search_index = array(
+			'columns' => '*' ,   
+			'table' => 'clients',
+			'eq_table_col' => '1',
+			'data' => 'email= "'.$this->input->post('email').'" AND client_id= "'.$this->input->post('client_id').'" AND request_reset= "'.$this->input->post('request_reset').'"', 
+		);
+
+		$data = $this->selectRawCustomData__($search_index);
  
-		(ENVIRONMENT !== 'production')? $profileURL = constant("LOCAL_PROFILE_URL") : $profileURL = constant("LIVE_PROFILE_URL") ; 
+		 
+		if (sizeof($data["data"]) == 1 ) { 
+
+		  	$dataset = array(   
+				'client_id' => $this->input->post('client_id'),
+				'password' => $this->input->post('password') 
+			); 
+
+
+			$dataset1 = array(   
+				'client_id' => $this->input->post('client_id'),
+				'request_reset' => 0 
+			);  
+	  
+			$this->updateData__('clients', $dataset1, 'client_id="'.$dataset1['client_id'].'"');
+			return $this->updateData__('user_sessions', $dataset, 'client_id="'.$dataset['client_id'].'"');
+		}else{
+			 
+			return $this->returnJSON($data); ;
+		}
+
+		  
+	}
+ 	 
+
+ 	public function sendResetPassword($inputData){   
+ 
+		(ENVIRONMENT !== 'production')? $passwordResetURL = constant("LOCAL_URL") : $passwordResetURL = constant("LIVE_URL") ;  
 
  		$data = array(
-			'verifycode' => $inputData->provider_id,  
-			'profileURL' => $profileURL ,
+			'verifycode' => $inputData->verifycode,  
+			'profileURL' => $passwordResetURL ,
 			'email' => $inputData->email,
 			'name' => $inputData->first_name,
+			'client_id' => $inputData->client_id
 		);
  
 
  		$mail = $this->smtpConfig();
- 		$msg = $this->load->view('mail-templates/registration', $data, TRUE);
+ 		$msg = $this->load->view('mail-templates/reset-password', $data, TRUE);
 
- 		$mail->setFrom('no-reply@easybuilding.biz', 'Easybuilding.lk - Registration'); 
+ 		$mail->setFrom('no-reply@easybuilding.biz', 'Easybuilding.lk - Password Reset'); 
  		
  		// Add a recipient
- 		$mail->addAddress($inputData->email , "Nipuna"); 
+ 		$mail->addAddress($inputData->email , $inputData->first_name); 
 
  		// Email subject
-        $mail->Subject = "Welcome to Easybuilding";
+        $mail->Subject = "Password Reset - Easybuilding.lk";
 
         // Set email format to HTML
         $mail->isHTML(true);
@@ -335,21 +422,6 @@ class LoginController extends CommonController {
         $mail->send(); 
 
        
- 	}
-
-
- 	public function viewMailTemplate(){   
- 
- 	 	(ENVIRONMENT !== 'ENVIRONMENT')? $profileURL = constant("LOCAL_PROFILE_URL") : $profileURL = constant("LOCAL_PROFILE_URL") ; 
-
- 		$data = array(
-			'verifycode' => "1000",  
-			'profileURL' => $profileURL, 
-			'email' => "nipunann0710@gmail.com",
-			'name' => "Nipuna Nanayakkara",
-		);
-
- 		$this->load->view('mail-templates/registration', $data);
- 	}
+ 	} 
  
 }

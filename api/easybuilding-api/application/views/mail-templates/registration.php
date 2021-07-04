@@ -1,90 +1,190 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="x-apple-disable-message-reformatting">
-  <title></title>
-  <!--[if mso]>
-  <style>
-    table {border-collapse:collapse;border-spacing:0;border:none;margin:0;}
-    div, td {padding:0;}
-    div {margin:0 !important;}
-  </style>
-  <noscript>
-    <xml>
-      <o:OfficeDocumentSettings>
-        <o:PixelsPerInch>96</o:PixelsPerInch>
-      </o:OfficeDocumentSettings>
-    </xml>
-  </noscript>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"><head>
+  <!--[if gte mso 9]>
+  <xml>
+    <o:OfficeDocumentSettings>
+    <o:AllowPNG/>
+    <o:PixelsPerInch>96</o:PixelsPerInch>
+    </o:OfficeDocumentSettings>
+  </xml>
   <![endif]-->
-  <style>
-    table, td, div, h1, p {
-      font-family: Arial, sans-serif;
-    }
-    @media screen and (max-width: 530px) {
-      .unsub {
-        display: block;
-        padding: 8px;
-        margin-top: 14px;
-        border-radius: 6px;
-        background-color: #555555;
-        text-decoration: none !important;
-        font-weight: bold;
-      }
-      .col-lge {
-        max-width: 100% !important;
-      }
-    }
-    @media screen and (min-width: 531px) {
-      .col-sml {
-        max-width: 27% !important;
-      }
-      .col-lge {
-        max-width: 73% !important;
-      }
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="address=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="x-apple-disable-message-reformatting">
+    <!--[if !mso]><!-->
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i" rel="stylesheet">
+    <!--<![endif]-->
+  <title>Email Template</title>
+  <!--[if gte mso 9]>
+  <style type="text/css" media="all">
+    sup { font-size: 100% !important; }
+  </style>
+  <![endif]-->
+  
+
+  <style type="text/css" media="screen">
+    /* Linked Styles */
+    body { padding:0 !important; margin:0 !important; display:block !important; min-width:100% !important; width:100% !important; background:#001f51; -webkit-text-size-adjust:none }
+    a { color:#000001; text-decoration:none }
+    p { padding:0 !important; margin:0 !important } 
+    img { -ms-interpolation-mode: bicubic; /* Allow smoother rendering of resized image in Internet Explorer */ }
+    .mcnPreviewText { display: none !important; }
+
+        
+    /* Mobile styles */
+    @media only screen and (max-device-width: 480px), only screen and (max-width: 480px) {
+      .mobile-shell { width: 100% !important; min-width: 100% !important; }
+      .bg { background-size: 100% auto !important; -webkit-background-size: 100% auto !important; }
+      
+      .text-header,
+      .m-center { text-align: center !important; }
+      
+      .center { margin: 0 auto !important; }
+      .container { padding: 20px 10px !important }
+      
+      .td { width: 100% !important; min-width: 100% !important; }
+
+      .m-br-15 { height: 15px !important; }
+      .p30-15 { padding: 30px 15px !important; }
+      .p0-15-30 { padding: 0px 15px 30px 15px !important; }
+      .mpb30 { padding-bottom: 30px !important; }
+
+      .m-td,
+      .m-hide { display: none !important; width: 0 !important; height: 0 !important; font-size: 0 !important; line-height: 0 !important; min-height: 0 !important; }
+
+      .m-block { display: block !important; }
+
+      .fluid-img img { width: 100% !important; max-width: 100% !important; height: auto !important; }
+
+      .column,
+      .column-dir,
+      .column-top,
+      .column-empty,
+      .column-empty2,
+      .column-dir-top { float: left !important; width: 100% !important; display: block !important; }
+
+      .column-empty { padding-bottom: 30px !important; }
+      .column-empty2 { padding-bottom: 10px !important; }
+
+      .content-spacing { width: 15px !important; }
     }
   </style>
 </head>
-<body style="margin:0;padding:0;word-spacing:normal;background-color:#939297;">
-  <div role="article" aria-roledescription="email" lang="en" style="text-size-adjust:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;background-color:#939297;">
+<body class="body" style="padding:0 !important; margin:0 !important; display:block !important; min-width:100% !important; width:100% !important; background:#001f51; -webkit-text-size-adjust:none;" data-new-gr-c-s-check-loaded="14.1018.0" data-gr-ext-installed="" cz-shortcut-listen="true">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#001f51">
+    <tbody><tr>
+      <td align="center" valign="top">
+        <table width="650" border="0" cellspacing="0" cellpadding="0" class="mobile-shell">
+          <tbody><tr>
+            <td class="td container" style="width:650px; min-width:650px; font-size:0pt; line-height:0pt; margin:0; font-weight:normal; padding:55px 0px;">
+              <!-- Header -->
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tbody><tr>
+                  <td class="p30-15 tbrr" style="padding: 30px; border-radius:12px 12px 0px 0px;" bgcolor="#ffffff">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tbody><tr>
+                        <th class="column-top" width="145" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;">
+                          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tbody><tr>
+                              <td class="img m-center" style="font-size:0pt; line-height:0pt; text-align:left; text-align: center;"><img src="https://easybuilding.biz/assets/images/top-header.png" width="350" height="68" border="0" alt=""></td>
+                            </tr>
+                          </tbody></table>
+                        </th> 
+                      </tr>
+                    </tbody></table>
+                  </td>
+                </tr>
+              </tbody></table>
+              <!-- END Header -->
 
-  	<table role="presentation" style="width: 100%;max-width: 700px;border:none;border-spacing:0;text-align:left;font-family:Arial,sans-serif;font-size:16px;line-height:22px;color:#363636;margin: auto;">
-            <tbody>
-            
-            <tr>
-              <td style="padding:0;font-size:24px;line-height:28px;font-weight:bold">
-                <a href="https://easybuilding.biz/" style="text-decoration:none" target="_blank" ><img src="https://easybuilding.biz/assets/images/top-header.jpg" width="600" alt="" style="width:100%;height:auto;display:block;border:none;text-decoration:none;color:#363636" class="CToWUd"></a>
-              </td>
-            </tr>
-            <tr>
-              <td style="padding: 50px 50px;background-color:#ffffff; text-align: center">
-                <h1 style="margin-top:0;margin-bottom:16px;font-size:26px;line-height:32px;font-weight:bold;letter-spacing:-0.02em;  text-align: center;">Welcome to Easybuilding.lk!</h1>
-                <p style="margin:0"><span style="margin-top:0; display: block; margin-bottom:5px;">Hello <?php echo $name; ?>,</span> Welcome to Easybuilding.lk. Before you get start to explore out platform, please confirm that <b><u><?php echo $email; ?></u></b> is your email address by clicking the verify button below.</p><br/>
- 
-                <p style="margin:0; text-align: center;"><a href="<?php echo $profileURL .'?verify='. $verifycode; ?>" style="background:#27B9FD;text-decoration:none;padding:10px 25px;color:#ffffff;border-radius:4px;display:inline-block" target="_blank"><span style="font-weight:bold">Verify My Profile</span></a></p><br/>
-
-                <p style="margin:0">If you have further questions throughout our platform, we’re happy to help! Please visit our Help Center or reach out to our support team.</p>
-
-                
-              </td>
-            </tr>
-            
-            <tr>
+              <!-- Hero Image -->
               
-            </tr>
-            <tr>
-              <td style="padding:30px;text-align:center;font-size:12px;background-color: #092048;color:#cccccc;">
-                <p style="margin:0 0 8px 0"><a href="http://www.facebook.com/" style="text-decoration:none" target="_blank"><img src="https://ci6.googleusercontent.com/proxy/vKB7V0OmsLwQoTRC8BbPAGXWrTKqY2VyTuk5NWsPS2lOMYnCxzaZqd8IsQVSx3rqnFBcvaqC4arcel4yEyEtWaLp=s0-d-e1-ft#https://assets.codepen.io/210284/facebook_1.png" width="40" height="40" alt="f" style="display:inline-block;color:#cccccc" class="CToWUd"></a> <a href="http://www.twitter.com/" style="text-decoration:none" target="_blank"><img src="https://ci6.googleusercontent.com/proxy/brTirkor8R5HU4ljRIopUQ9kIbIcgFQ1McSEyt5Z_5srxP2vQVbapz8005-4Aa3PNcf9iolNsOrVNrX76B0AMls=s0-d-e1-ft#https://assets.codepen.io/210284/twitter_1.png" width="40" height="40" alt="t" style="display:inline-block;color:#cccccc" class="CToWUd"></a></p>
-                <p style="margin:0;font-size:14px;line-height:20px">Need help with Easy Building? Call 0777269108<br></p>
-              </td>
-            </tr>
-          </tbody></table>
-   
-  </div>
-</body>
-</html>
+              <!-- END Hero Image -->
 
+              <!-- Intro -->
+              <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
+                <tbody><tr>
+                  <td style="padding-bottom: 10px;">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tbody><tr>
+                        <td class="p30-15" style="padding: 30px 30px 0px 30px;">
+                          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tbody>
+                              <tr>
+                                <td class="h1 pb25" style="color:#444444; font-family:'Merriweather', Georgia,serif; font-size:25px; line-height:42px; text-align:center; padding-bottom:25px;">Welcome to Easybuilding.lk!</td>
+                              </tr>
+                              <tr>
+                              <td class="text-center pb25" style="color:#666666; font-family:Arial,sans-serif; font-size:14px; line-height:23px; text-align:center; padding-bottom:25px;">
+                                <p  style="margin-bottom: 5px !important; text-align: center;">Dear <?php echo $name; ?>,</p>
+                               Welcome to the Easybuilding.lk The online house construction platform in Sri Lanka which gives endless opportunities to Market your product/brand/service in the biggest digital construction market place.</td>
+                            </tr>
+                            <tr>
+                              <td class="text-center pb25" style="color:#666666; font-family:Arial,sans-serif; font-size:14px; line-height:23px; text-align:center; padding-bottom:25px;">Please confirm that <b><u><?php echo $email; ?></u></b> is your email address by clicking the verify button below and enter to the world of construction.</td>
+                            </tr>
+                            <!-- Button -->
+                            <tr>
+                              <td align="center">
+                                <table class="center" border="0" cellspacing="0" cellpadding="0" style="text-align:center;">
+                                  <tbody><tr>
+                                    <td class="text-button" style="background: #27B9FD;color: #ffffff; font-family:Arial,sans-serif; font-size:16px; line-height:18px; padding:12px 15px; text-align:center; border-radius:3px; "><a href="<?php echo $profileURL .'?verify='. $verifycode; ?>" target="_blank" class="link" style="color: #ffffff;text-decoration:none;"><span class="link" style="color: #ffffff; text-decoration:none;     font-weight: bold;">Verify My Profile</span></a></td>
+                                  </tr>
+                                </tbody></table>
+                              </td> 
+                            </tr> 
+                            <tr>
+                               <td class="text-center pb25" style="color:#666666; font-family:Arial,sans-serif; font-size:14px; line-height:23px; text-align:center;  padding:12px 15px; padding-top:25px;">If you have further questions throughout our platform, we're happy to help! Please visit our Help Center or reach out to our support team.</td>
+                            </tr>
+                            <!-- END Button -->
+                          </tbody></table>
+                        </td>
+                      </tr>
+                    </tbody></table>
+                  </td>
+                </tr>
+              </tbody></table>
+              <!-- END Intro --> 
+
+              <!-- Footer -->
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tbody><tr>
+                  <td class="p30-15 bbrr" style="padding: 50px 30px; border-radius:0px 0px 12px 12px;" bgcolor="#ffffff">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tbody><tr>
+                        <td align="center" style="padding-bottom: 30px;">
+                          <table border="0" cellspacing="0" cellpadding="0">
+                            <tbody><tr>
+                              <td class="img" width="35" style="font-size:0pt; line-height:0pt; text-align:left;"><a href="#" target="_blank"><img src="https://easybuilding.biz/assets/images/facebook.png" width="25" height="25" border="0" alt=""></a></td>
+                              <td class="img" width="35" style="font-size:0pt; line-height:0pt; text-align:left;"><a href="#" target="_blank"><img src="https://easybuilding.biz/assets/images/linkedin.png" width="25" height="25" border="0" alt=""></a></td> 
+                            </tr>
+                          </tbody></table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-footer1 pb10" style="color:#999999; font-family:Arial,sans-serif; font-size:14px; line-height:20px; text-align:center; padding-bottom:10px;">Need help with Easy Building? Call 0777269108</td>
+                      </tr> 
+                    </tbody></table>
+                  </td>
+                </tr>
+                <tr>
+                 <!--  <td class="text-footer3" style="padding: 40px 15px 0px; color:#425f8e; font-family:Arial,sans-serif; font-size:12px; line-height:26px; text-align:center;">
+                    <a href="#" target="_blank" class="link-blue-u" style="color:#425f8e; text-decoration:underline;"><span class="link-blue-u" style="color:#425f8e; text-decoration:underline;">Unsubscribe</span></a> from this mailing list.
+                  </td> -->
+                </tr>
+              </tbody></table>
+              <!-- END Footer -->
+            </td>
+          </tr>
+        </tbody></table>
+      </td>
+    </tr>
+  </tbody></table>
+
+
+</body></html>
 
 

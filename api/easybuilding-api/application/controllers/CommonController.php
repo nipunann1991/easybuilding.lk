@@ -771,7 +771,9 @@ class CommonController extends CI_Controller {
 		
 		$remove_dir = $_SERVER['DOCUMENT_ROOT'].'/easybuilding-api/assets/uploads/'.$dir;
 
-		 $this->rmdir_recursive($remove_dir);
+		if(is_dir($remove_dir) ){
+		 	$this->rmdir_recursive($remove_dir);
+		}
 
 	    return 'dir removed';
   

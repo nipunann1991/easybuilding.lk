@@ -146,18 +146,33 @@ class ProfileController extends CommonController {
 
 	public function isFeaturedProfile(){   
 
-		$search_index = array(
-			'columns' => 'cc.company_id ,cc.featured, cc.status, cc.company_profile, c.first_name' ,   
-			'table' => 'user_sessions us, clients c, client_company cc',
-			'eq_table_col' => '1',
-			'data' => 'c.client_id = us.client_id AND c.client_id = cc.client_id AND c.provider_id= "'.$this->input->post('provider_id').'" AND c.client_id= "'.$this->input->post('client_id').'"', 
-		);
- 
-		return $this->selectCustomData__($search_index); 
-		
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+
+			$search_index = array(
+				'columns' => 'cc.company_id ,cc.featured, cc.status, cc.company_profile, c.first_name' ,   
+				'table' => 'user_sessions us, clients c, client_company cc',
+				'eq_table_col' => '1',
+				'data' => 'c.client_id = us.client_id AND c.client_id = cc.client_id AND c.provider_id= "'.$this->input->post('provider_id').'" AND c.client_id= "'.$this->input->post('client_id').'"', 
+			);
+	 
+			return $this->selectCustomData__($search_index); 
+		}
 	}
 
- 
+ 	public function isFeaturedProduct(){   
+
+ 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+			$search_index = array(
+				'columns' => 'p.*, p.featured' ,   
+				'table' => 'products p',
+				'eq_table_col' => '1',
+				'data' => 'p.company_id= "'.$this->input->post('company_id').'" AND p.product_id= "'.$this->input->post('product_id').'"', 
+			);
+
+			return $this->selectCustomData__($search_index);  
+		}
+		
+	}
 
 	public function getAccountDetails(){  
  
@@ -226,7 +241,7 @@ class ProfileController extends CommonController {
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
 			$search_index = array(
-				'columns' => 'c.client_id, cc.company_id, cc.all_island, cc.service_areas, cc.service_dist, cc.services, cc.products' ,   
+				'columns' => 'c.client_id, cc.company_id, cc.all_island, cc.service_areas, cc.service_dist, cc.services, cc.products, cc.company_profile' ,   
 				'table' => 'user_sessions us, clients c, client_company cc',
 				'eq_table_col' => '1 ORDER BY cc.company_id DESC LIMIT 1',
 				'data' => 'us.auth_token= "'.$this->input->get('auth_token').'" AND c.client_id = us.client_id AND c.client_id = cc.client_id', 
@@ -363,9 +378,7 @@ class ProfileController extends CommonController {
 	
 
 	public function getProjectDetails(){    
- 		
- 		//print_r(sizeof($this->isUserSessionValid()['data']));
-
+ 		  
 		$search_index = array(
 			'columns' => 'p.*, cc.client_id, cc.display_name, cc.total_reviews, cc.profie_image, c.provider_id, l.city ' ,   
 			'table' => 'project p, client_company cc, clients c, cites l',
@@ -660,7 +673,32 @@ class ProfileController extends CommonController {
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
 			$dataset = $this->input->post(); 
-			return $this->updateData__('client_company', $dataset, 'company_id="'.$this->input->post('company_id').'"');
+
+
+			$returnData = $this->updateData__('client_company', $dataset, 'company_id="'.$this->input->post('company_id').'"');
+
+			 $search_index = array(
+				'columns' => 'us.*, c.*, cc.verified_email, cc.company_profile' ,   
+				'table' => 'user_sessions us, clients c, client_company cc',
+				'eq_table_col' => '1',
+				'data' => 'cc.company_id= "'. $this->input->post('company_id') .'" AND c.client_id=us.client_id AND cc.client_id=c.client_id', 
+			);
+
+			$inputData = $this->selectRawCustomData__($search_index)['data'][0];
+
+
+			if($inputData->verified_email == -2){
+ 				$this->sendRegistration($inputData);
+
+				$dataset1 = array('verified_email' => '0'); 
+				$returnData =  $this->updateData__('client_company', $dataset1, 'company_id="'.$this->input->post('company_id').'"');
+ 			}
+
+ 			return $returnData;
+
+			//return $this->updateData__('client_company', $dataset, 'company_id="'.$this->input->post('company_id').'"');
+		
+
 		}else{
 			return $this->invalidSession(); 
 		} 
@@ -671,6 +709,8 @@ class ProfileController extends CommonController {
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
 			$dataset = $this->input->post(); 
+			//unset($dataset['profileType']);
+			//print_r($dataset);
   
 			$service_areas = json_decode($dataset['service_areas']);
 			$service_dist = json_decode($dataset['service_dist']);
@@ -702,7 +742,25 @@ class ProfileController extends CommonController {
 				
 			}  
 			 
-			return $this->updateData__('client_company', $dataset, 'company_id="'.$this->input->post('company_id').'"');
+			$returnData = $this->updateData__('client_company', $dataset, 'company_id="'.$this->input->post('company_id').'"');
+
+			 $search_index = array(
+				'columns' => 'us.*, c.*, cc.verified_email, cc.company_profile' ,   
+				'table' => 'user_sessions us, clients c, client_company cc',
+				'eq_table_col' => '1',
+				'data' => 'cc.company_id= "'. $this->input->post('company_id') .'" AND c.client_id=us.client_id AND cc.client_id=c.client_id', 
+			);
+
+			$inputData = $this->selectRawCustomData__($search_index)['data'][0]; 
+
+ 			if($inputData->verified_email == -2){
+ 				$this->sendRegistration($inputData);
+
+				$dataset1 = array('verified_email' => '0'); 
+				$returnData =  $this->updateData__('client_company', $dataset1, 'company_id="'.$this->input->post('company_id').'"');
+ 			}
+
+ 			return $returnData; 
 
 		}else{
 			return $this->invalidSession(); 
@@ -821,6 +879,7 @@ class ProfileController extends CommonController {
 
 			$this->deleteData__('project_category', 'project_id="'.$project_id.'"');  
 
+		 
 			if (!empty($services)) {
 				$this->insertProjectCategory($services, $project_id); 
 			}  
@@ -1131,6 +1190,106 @@ class ProfileController extends CommonController {
 		}
 		 
 	} 
+
+
+	public function resendVerification(){   
+		
+
+		$search_index = array(
+			'columns' => 'us.client_id, c.provider_id, c.email, c.first_name, cc.company_id, cc.company_profile' ,      
+			'table' => 'user_sessions us, clients c, client_company cc',
+			'eq_table_col' => '1 ORDER BY cc.company_id DESC LIMIT 1',
+			'data' => 'us.auth_token= "'.$this->input->get('auth_token').'" AND c.client_id=us.client_id AND c.client_id=cc.client_id', 
+		);
+
+
+		$inputData = $this->selectRawCustomData__($search_index)['data'][0]; 
+ 
+	 
+		$this->sendRegistration($inputData);
+	}
+
+ 	public function sendRegistration($inputData){   
+ 
+		(ENVIRONMENT !== 'production')? $profileURL = constant("LOCAL_PROFILE_URL") : $profileURL = constant("LIVE_PROFILE_URL") ; 
+
+ 		$data = array(
+			'verifycode' => $inputData->provider_id,  
+			'profileURL' => $profileURL ,
+			'email' => $inputData->email,
+			'name' => $inputData->first_name, 
+		);
+ 
+
+ 		$mail = $this->smtpConfig();
+
+ 		if($inputData->company_profile == 1 ){
+ 			$msg = $this->load->view('mail-templates/registration', $data, TRUE);
+ 		}else{
+ 			$msg = $this->load->view('mail-templates/registration-user', $data, TRUE);
+ 		}
+ 		
+
+ 		$mail->setFrom('no-reply@easybuilding.biz', 'Easybuilding.lk - Registration'); 
+ 		
+ 		// Add a recipient
+ 		$mail->addAddress($inputData->email , $inputData->first_name); 
+
+ 		// Email subject
+        $mail->Subject = "Welcome to Easybuilding";
+
+        // Set email format to HTML
+        $mail->isHTML(true);
+
+        // Email body content
+        $mailContent = $msg; 
+
+        $mail->Body = $mailContent;
+
+        $mail->send(); 
+
+       
+ 	}
+
+ 	public function viewMailTemplate(){   
+ 
+ 	 	(ENVIRONMENT !== 'production')? $profileURL = constant("LOCAL_PROFILE_URL") : $profileURL = constant("LIVE_PROFILE_URL") ; 
+
+ 	 	(ENVIRONMENT !== 'production')? $passwordResetURL = constant("LOCAL_URL") : $passwordResetURL = constant("LIVE_URL") ; 
+
+ 		$data = array(
+			'verifycode' => "1000",  
+			'profileURL' => $passwordResetURL, 
+			'email' => "nipunann0710@gmail.com",
+			'name' => "Nipuna Nanayakkara",
+			'client_id' => "1"
+		);
+
+ 		$mail = $this->smtpConfig();
+
+ 		$msg = $this->load->view('mail-templates/reset-password', $data, TRUE);
+
+ 		//$this->load->view('mail-templates/registration', $data);
+
+ 		$mail->setFrom('no-reply@easybuilding.biz', 'Easybuilding.lk - Registration'); 
+ 		
+ 		// Add a recipient
+ 		$mail->addAddress("nipunann0710@gmail.com"); 
+
+ 		// Email subject
+        $mail->Subject = "Welcome to Easybuilding";
+
+        // Set email format to HTML
+        $mail->isHTML(true);
+
+        // Email body content
+        $mailContent = $msg; 
+
+        $mail->Body = $mailContent;
+
+        $mail->send(); 
+
+ 	}
 	 
  
 }

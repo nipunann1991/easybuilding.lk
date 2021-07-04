@@ -131,8 +131,8 @@ class DashboardController extends CommonController {
 
 	   		$search_date =  date("Y-m", strtotime( date( 'Y-m' )." -$k months"));
 
-	   		$company[] = $this->getTotalCompanyProfilesByMonth($search_date, 0);
-	   		$personal[] = $this->getTotalCompanyProfilesByMonth($search_date, 1);
+	   		$company[] = $this->getTotalCompanyProfilesByMonth($search_date, 1);
+	   		$personal[] = $this->getTotalCompanyProfilesByMonth($search_date,0);
 					
 			($company == null )? $company[] = 0 : "" ;
 			($personal == null )? $personal[] = 0 : "" ;
@@ -141,8 +141,8 @@ class DashboardController extends CommonController {
 
 		$data = array(
 			'months' => array_reverse($months),
-			'company_profiles' => $company,
-			'personal_profiles' => $personal, 
+			'company_profiles' => array_reverse($company),
+			'personal_profiles' => array_reverse($personal), 
 		); 
  
 		$dataOutput = array( 
@@ -160,7 +160,7 @@ class DashboardController extends CommonController {
 		$search_index = array(  
 			'alias' => 'c',
 			'table' => 'client_company cc, clients c',
-			'data' => 'c.client_id=cc.client_id AND company_profile="'.$company.'" AND c.created_date BETWEEN "'.$created_date.'-01" AND "'.$created_date.'-31"',
+			'data' => 'c.client_id=cc.client_id AND cc.company_profile="'.$company.'" AND c.created_date BETWEEN "'.$created_date.'-01" AND "'.$created_date.'-31"',
 		);
   
 		return $this->CommonQueryModel->getTotalCount($search_index);

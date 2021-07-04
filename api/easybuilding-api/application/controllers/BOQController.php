@@ -64,7 +64,7 @@ class BOQController extends CommonController {
 			'columns' => '*' ,   
 			'table' => 'house_area',
 			'eq_table_col' => '1',
-			'data' => '1', 
+			'data' => 'level= "'.$this->input->post('level').'"', 
 		);
 
 		return $this->selectCustomData__($search_index);

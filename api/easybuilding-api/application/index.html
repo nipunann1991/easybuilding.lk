@@ -9,3 +9,65 @@
 
 </body>
 </html>
+
+<a ng-disabled="!module.history.IsComplete && !isAllModulesReview(module.LessonInfo.List)" ng-if="module.HasCPEexam && CommonData.isCPEAvailable && module.LessonInfo.List.length > 0" ng-click="ClickOnCPEassesment(module)" class="table-row cpe-exam-row">
+
+                                        <div class="table-cell td-name cpe-ass-ctrl">
+                                            <label>
+                                                {{'MODULE.CPEAssessment' | translate}}
+                                                <span ng-if="module.history.CpeExamState != 3">
+                                                    <span class="tooltip1">
+                                                        {{'MODULE.Optional' | translate}}
+                                                        <div class="ha-tooltip-overview position-top alignment-left">
+                                                            <div class="tooltiptext tooltip-container">
+                                                                <div class="tooltip-inner">
+                                                                    <p>
+                                                                        <span class="sub-head">{{'MODULE.CPEAssessmentTitle' | translate}}</span>
+                                                                        {{'MODULE.CPEAssessmentDescription' | translate}}
+                                                                    </p>
+                                                                    <p>{{'MODULE.CPEAssessmentDescriptionRequired' | translate}}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div ng-if="module.CpeQuestionCount >0" class="table-cell td-time">
+                                            <span ng-if="module.history.CpeExamState != 3">
+                                                <span>{{module.CpeQuestionCount}}</span>
+                                                <span ng-if="module.CpeQuestionCount >  1">{{'MODULE.Questions' | translate}}</span>
+                                                <span ng-if="module.CpeQuestionCount == 1">{{'MODULE.Question' | translate}}</span>
+                                                &nbsp;&nbsp;
+                                            </span>
+                                            <span>{{module.CpePointsText}}</span>
+                                        </div>
+                                        <div class="table-cell td-action cpe-complete">
+                                            <span class="complete" ng-show="module.history.CpeExamState == 1 && (module.history.IsComplete || isAllModulesReview(module.LessonInfo.List))">{{'MODULE.Start' | translate}}</span>
+                                            <span class="complete" ng-show="module.history.CpeExamState == 2 && (module.history.IsComplete || isAllModulesReview(module.LessonInfo.List))">{{'MODULE.NotPassed' | translate}}</span>
+                                            <span class="complete" ng-show="module.history.CpeExamState == 3 && (module.history.IsComplete || isAllModulesReview(module.LessonInfo.List))">{{'MODULE.CPECreditsEarned' | translate}}</span>
+                                        </div>
+                                    </a>
+
+
+
+
+
+
+
+                                    <a class="table-row" ng-class="{'revision-on' : component.IsExamReview}" 
+                                       alt="{{component.Title}}" ng-repeat="component in module.LessonInfo.List">
+                                        <div class="table-cell td-name">
+                                            <div class="name-wrap">
+                                                <span ng-show="!component.IsExam" class="list-num">{{component.Index}}.</span>
+                                                <span class="list-title">{{component.Title}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="table-cell td-time">{{component.DurationDisplayText}}</div>
+                                        <div class="table-cell td-action">
+                                            <span ng-if="component.IsFailedLastAttempt" title="{{'COURSE.ExamReview' | translate}}" class="btn" ng-class="{'green-btn' : component.Active, 'grey-btn' : !component.Active, 'revision-btn': (!component.IsComplete && component.CompletedFound)}">{{'COURSE.ExamReview' | translate}}</span>
+                                            <span ng-show="ShowStartButton(component) && !component.IsExamReview" class="btn" title="Start" ng-class="component.IsHighligted && module.DisplayOrder == 1?  'green-btn': 'grey-btn'">{{'MODULE.Start' | translate}}</span>
+                                            <span ng-show="ShowResumeButton(component) && !component.IsFailedLastAttempt" title="{{'MODULE.Resume' | translate}}" class="btn" ng-class="{'green-btn': (component.IsHighligted && !component.IsExamReview),'grey-btn' : (!component.IsHighligted || component.IsExamReview),'revision-btn': (!component.IsComplete && component.CompletedFound)}">{{'MODULE.Resume' | translate}}</span>
+                                            <span class="complete" ng-show="component.IsComplete"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                        </div>
+                                    </a>
