@@ -121,6 +121,53 @@ class CommonQueryModel extends CI_Model{
     }
 
 
+    public function selectCustomDataUnion($search_data){
+
+    	$eq_table_col1 = '';
+    	$eq_table_col2 = '';
+
+    	if ($search_data['eq_table_col1'] != '') {
+    		$eq_table_col1 = " AND ".$search_data['eq_table_col1'];
+    	}
+
+    	if ($search_data['eq_table_col2'] != '') {
+    		$eq_table_col2 = " AND ".$search_data['eq_table_col2'];
+    	}
+
+        $select_query = "(SELECT ".$search_data['columns1']." FROM ".$search_data['table1']." WHERE ".$search_data['data1'].$eq_table_col1.") UNION (SELECT ".$search_data['columns2']." FROM ".$search_data['table2']." WHERE ".$search_data['data2'].$eq_table_col2.")" ; 
+       		 
+        $query = $this->db->query($select_query); 
+
+        if (!$query) {
+
+        	$output = array(
+				'status' => 500 , 
+				'data' => 'Query Error',
+			);
+
+			return $output;
+
+		}else{
+
+			$output = array(
+				'status' => 200 , 
+				'data' => $query->result(),
+			);
+			return $output;
+		}
+
+       
+    }
+
+
+    function count_filtered_union($data){
+        $select_query = "(select ".$data['columns1']." FROM ".$data['table1']." WHERE ".$data['data1'].") UNION (select ".$data['columns2']." FROM ".$data['table2']." WHERE ".$data['data2'].")" ;
+        $query = $this->db->query($select_query);  
+ 
+        return $query->num_rows();
+    }
+
+
     public function checkRowData($search_data){
 
         $select_query = "SELECT ".$search_data['columns']." FROM ".$search_data['table']." WHERE ".$search_data['data']."  " ; 

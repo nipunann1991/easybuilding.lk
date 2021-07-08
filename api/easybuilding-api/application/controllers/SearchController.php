@@ -62,55 +62,72 @@ class SearchController extends CommonController {
 					'table' => 'cites c, districts d',
 					'eq_table_col' => '1 order by c.city ASC',
 					'data' => 'c.district_id=d.district_id AND c.city_id="'.$this->input->post('area').'"', 
-				);
-
-				 
+				); 
 
 				$area = $this->selectRawCustomData__($search_index)["data"][0]->district_id;
 
+
 				$search_index = array(
-					'columns' =>  $distinct.' cc.*, c.provider_id, sd.district_id',   
-					'table' => '`clients` c, `services_list` sl, `categories-level2` cl2, `client_company` cc LEFT JOIN  '.$sort_by_service_area['table']." ON sd.company_id=cc.company_id AND sd.district_id='".$area."'",
+					'columns1' => $distinct.' cc.*, c.provider_id, sd.district_id',   
+					'table1' => '`clients` c, `services_list` sl, `categories-level2` cl2, `client_company` cc LEFT JOIN  '.$sort_by_service_area['table']." ON sd.company_id=cc.company_id AND sd.district_id='".$area."'",
 
-					'eq_table_col' => '1 ORDER BY '.$sort_by.' '.$limit, 
-					'data' => 'cc.company_id=sl.company_id AND cl2.cat_lvl2_id=sl.cat_lvl2_id AND c.client_id=cc.client_id AND cc.status=1 AND '. $search.' AND ( sd.district_id='. $area .' OR cc.all_island = 1 )'
+					'eq_table_col1' => '1 ORDER BY '.$sort_by.' '.$limit, 
+					'data1' => 'cc.company_id=sl.company_id AND cl2.cat_lvl2_id=sl.cat_lvl2_id AND c.client_id=cc.client_id AND cc.status=1 AND '. $search.' AND ( sd.district_id='. $area .' OR cc.all_island = 1 )',
+					'columns2' => $distinct.' cc.*, c.provider_id, ct.district_id',   
+					'table2' => '`clients` c, `cites` ct, `services_list` sl, `categories-level2` cl2, `client_company` cc LEFT JOIN service_areas sa ON sa.company_id=cc.company_id',
+					'eq_table_col2' => '1 ORDER BY '.$sort_by.' '.$limit, 
+					'data2' => 'cc.company_id=sl.company_id AND sa.city_id=ct.city_id AND cl2.cat_lvl2_id=sl.cat_lvl2_id AND c.client_id=cc.client_id AND cc.status=1 AND '. $search.' AND  ( ct.district_id='. $area .' OR cc.all_island =1 )',
 				);
-
+ 
 
 
 	  	 	}else{
 
-	  	 		$search_index = array(
-					'columns' => $distinct.' cc.*, c.provider_id, sd.district_id',   
-					'table' => '`clients` c, `services_list` sl, `categories-level2` cl2, `client_company` cc LEFT JOIN  '.$sort_by_service_area['table']." ON ".$sort_by_service_area['where'],
-					'eq_table_col' => '1 ORDER BY '.$sort_by.' '.$limit, 
-					'data' => 'cc.company_id=sl.company_id AND cl2.cat_lvl2_id=sl.cat_lvl2_id AND c.client_id=cc.client_id AND cc.status=1 AND '. $search.' AND ( sd.district_id='.$this->input->post('area').' OR cc.all_island = 1 )'
+
+				$search_index = array(
+					'columns1' => $distinct.' cc.*, c.provider_id, sd.district_id',   
+					'table1' => '`clients` c, `services_list` sl, `categories-level2` cl2, `client_company` cc LEFT JOIN  '.$sort_by_service_area['table']." ON ".$sort_by_service_area['where'],
+					'eq_table_col1' => '1 ORDER BY '.$sort_by.' '.$limit, 
+					'data1' => 'cc.company_id=sl.company_id AND cl2.cat_lvl2_id=sl.cat_lvl2_id AND c.client_id=cc.client_id AND cc.status=1 AND '. $search.' AND ( sd.district_id='.$this->input->post('area').' OR cc.all_island = 1 )',
+					'columns2' => $distinct.' cc.*, c.provider_id, ct.district_id',   
+					'table2' => '`clients` c, `cites` ct, `services_list` sl, `categories-level2` cl2, `client_company` cc LEFT JOIN  service_areas sa ON sa.company_id=cc.company_id',
+					'eq_table_col2' => '1 ORDER BY '.$sort_by.' '.$limit, 
+					'data2' => 'cc.company_id=sl.company_id AND sa.city_id=ct.city_id AND cl2.cat_lvl2_id=sl.cat_lvl2_id AND c.client_id=cc.client_id AND cc.status=1 AND '. $search.' AND ( ct.district_id='.$this->input->post('area').' OR cc.all_island = 1 )',
 				);
 
-	  	 	}
-
-	  	 	
-
+	  	 	} 
+	  	 	 
 	  	 }
-		
- 
-
-
+		 
 
 
 		$start = $this->input->post('limit') * ($this->input->post('page_index') - 1) + 1;
-		$end = $this->input->post('limit') * ($this->input->post('page_index'));
-	  	$total_results = $this->CommonQueryModel->count_filtered($search_index);
+		$end = $this->input->post('limit') * ($this->input->post('page_index')); 
+
+
+		if($this->input->post('sort_by_service_area') == 3 || $this->input->post('sort_by_service_area') == 4){  
+	  		$total_results = $this->CommonQueryModel->count_filtered_union($search_index);
+		}else{
+			$total_results = $this->CommonQueryModel->count_filtered($search_index);
+		}
+
+		
 
 	  	if ($end > $total_results) {
-	  		$end = $total_results - $start + 1;
+	  		$end = $total_results;
 	  	}
 
 	  	if ($total_results == 0 ) {
 	  		$start = 0;
 	  	}
 
-	  	$searchResults = $this->selectRawCustomData__($search_index)['data'];
+
+	  	if($this->input->post('sort_by_service_area') == 3 || $this->input->post('sort_by_service_area') == 4){ 
+	  		$searchResults = $this->selectCustomDataUnion__($search_index)['data'];
+		}else{
+			$searchResults = $this->selectRawCustomData__($search_index)['data'];
+		}
+	  	
 
 	  	foreach ($searchResults as $key => $value) {
 	  		  
@@ -271,7 +288,7 @@ class SearchController extends CommonController {
 			case '4':
 				$query = array(
 					'table' => 'service_districts sd', 
-					'where' => ''
+					'where' => 'sd.company_id=cc.company_id AND sd.district_id='.$area.''
 				);
 
 				break;

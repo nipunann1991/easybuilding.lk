@@ -251,10 +251,19 @@ class CommonController extends CI_Controller {
     }
 
 
+    
+
     public function selectRawCustomData__($search_index){ 
 
         return $this->CommonQueryModel->selectCustomData($search_index);
         //return $this->returnJSON($data["results"]);
+
+    }
+
+
+    public function selectCustomDataUnion__($search_index){ 
+
+        return $this->CommonQueryModel->selectCustomDataUnion($search_index); 
 
     }
 
