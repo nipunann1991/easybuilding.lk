@@ -55,9 +55,9 @@
                                 <a (click)="editProfile()" class="edit" *ngIf="profile.profile_editable && !isEditable" ><i class="icon-pencil"></i> Edit Profile</a>
                             </li> 
                             <li class="address" > 
-                                <p><span *ngIf="profileData.prof_category == 2">{{profile.address_line1}} {{profile.address_line2}} </span>{{profile.city}}</p> 
+                                <p><span *ngIf="profileData.prof_category != 0">{{profile.address_line1}} {{profile.address_line2}} </span>{{profile.city}}</p> 
                             </li>
-                            <li class="reviews" *ngIf="profileData.prof_category == 2">  
+                            <li class="reviews" *ngIf="profileData.prof_category != 0">  
                                 <star-rating  
                                     starType="icon"  
                                     [showHalfStars]="true" 
