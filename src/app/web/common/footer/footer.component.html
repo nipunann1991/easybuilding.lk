@@ -4,12 +4,16 @@
             <div class="columns contact-details">
                 <img src="./assets/images/easybuilding-logo-white.png" alt="Wasybuilding Logo">
                  <ul>
-                     <li class="address" [innerHTML]="companyData.company_address">  
+                     <li class="address"> 
+                         <i class="icon-location"></i>
+                         <span [innerHTML]="companyData.company_address"></span>
                      </li>
                      <li class="tel" *ngIf="companyData.company_tel1 != ''">
+                        <i class="icon-tel"></i>
                         {{companyData.company_tel1}} <span *ngIf="companyData.company_tel2 != ''">|</span> {{companyData.company_tel2}}
                      </li>
                      <li class="email" *ngIf="companyData.company_email != ''">
+                        <i class="icon-email"></i>
                         {{companyData.company_email}}
                      </li>
                  </ul>
@@ -35,7 +39,7 @@
                 <h3>Find Us On</h3>
                 <ul class="social-icons">
                     <li *ngIf="companyData.fb_url != ''"><a href="{{companyData.fb_url}}" target="_blank"><i class="icon-facebook"></i> Facebook</a></li>
-                    <li *ngIf="companyData.twitter_url != ''"><a href="{{companyData.twitter_url}}" target="_blank"><i class="icon-twitter"></i> Instagram</a></li> 
+                    <li *ngIf="companyData.twitter_url != ''"><a href="{{companyData.twitter_url}}" target="_blank"><i class="icon-instagram"></i> Instagram</a></li> 
                     <li *ngIf="companyData.linkedin_url != ''"><a href="{{companyData.linkedin_url}}" target="_blank"><i class="icon-linkedin2"></i> Linkedin</a></li> 
                     <li *ngIf="companyData.youtube_url != ''"><a href="{{companyData.youtube_url}}" target="_blank"><i class="icon-youtube"></i> Youtube</a></li> 
                 </ul>

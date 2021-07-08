@@ -21,7 +21,7 @@
          <ul>
            <li class="price" title="Project Year">
             <span *ngIf="p.product_price != 0">{{p.product_price | currency: globals.currencyAlias }} / {{ allUnits[p.product_unit - 1].text }}</span>
-            <span *ngIf="p.product_price == 0">Contact for Prices</span>
+            <span *ngIf="p.product_price == 0"><i class="icon-tel"></i> Contact for Prices</span>
            </li> 
          </ul>  
       </div>

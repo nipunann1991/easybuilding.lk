@@ -362,7 +362,7 @@
 
 
 :host ::ng-deep star-rating{
-    .rating.medium{ 
+    .rating.small{ 
 
         .star-container{
             margin-left: 0;
@@ -374,8 +374,8 @@
     
                 i{
                     color: #FFC107 !important;
-                    font-size: 1.3rem;
-                    line-height: 1.7rem;
+                    font-size: 1.3rem; 
+ 
                 }
             }
         }

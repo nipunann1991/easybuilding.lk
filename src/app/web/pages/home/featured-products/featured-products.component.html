@@ -26,7 +26,7 @@
                                 <p>By {{fp.display_name}}</p>
                             </div> 
                             <span *ngIf="fp.price != 0" class="price">{{fp.price | currency: fp.currency }} / {{fp.unit}}</span>
-                            <span *ngIf="fp.price == 0" class="price">Contact for Prices</span>
+                            <span *ngIf="fp.price == 0" class="price"><i class="icon-tel"></i> Contact for Prices</span>
                         </div>
                     </div>
                 </div> 

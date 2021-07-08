@@ -265,6 +265,11 @@
         &.price{
           color: $light-blue-color;
           @include bold; 
+
+          i{
+            font-size: 1.3rem;
+            margin-right: 0.5rem;
+          }
         }
 
         

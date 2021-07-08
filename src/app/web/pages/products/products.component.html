@@ -46,8 +46,8 @@
                     <p *ngIf="pageData.start > 0">
                         <span class="filter-mobile" (click)="toggleFilterArea()">
                             <i class="icon-filter"></i> Filter
-                        </span> 
-                        Showing {{ pageData.start }} – {{ pageData.start + pageData.end - 1}} results from {{ pageData.total_results }} profiles</p>
+                        </span>  
+                        Showing {{ pageData.start }} – {{ pageData.end }} results from {{ pageData.total_results }} profiles</p>
                 </div>
             </div> 
             <div class="row search-results" *ngIf="!isFullPageSearch">  
@@ -72,6 +72,7 @@
                                         labelPosition="right" 
                                         [rating]="p.rating"
                                         [readOnly]="true" 
+                                        size="small"
                                     ></star-rating> 
                                     {{ p.rating | roundToDecimal:1 }}  <span class="no-of-reviews">( {{p.total_reviews}} Review )</span>
                                 </div> 

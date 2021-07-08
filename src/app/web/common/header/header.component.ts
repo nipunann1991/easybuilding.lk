@@ -299,7 +299,7 @@ export class HeaderComponent implements OnInit {
 
     let queryParams = { 
       string: this.searchText,
-      results: '12', 
+      results: '10', 
       type: type,
       index: '1', 
       sort_by: '1',

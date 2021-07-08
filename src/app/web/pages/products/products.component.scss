@@ -135,6 +135,9 @@
         }
 
         &.no-results{
+            @include calc("height", "100vh - 16rem");
+            
+
             &::before{
                 content: "No results found";
                 font-family: $bold-font;
@@ -211,6 +214,7 @@
                             display: flex;
                             flex-direction: column;
                             justify-content: space-between;
+                            height: auto;
 
                             @include breakpoint($tablet){
                                 @include calc("width", "100% - 25rem");
@@ -224,6 +228,10 @@
                                         display: block;
                                     }
                                 }
+                            }
+
+                            ul.badge-list{
+                                display: block; 
                             }
                         }
                     } 
@@ -317,6 +325,8 @@
                 .item-details{
                     padding: 1.5rem;
                     padding-bottom: 0.8rem;
+                    height: 11rem;
+                    @include flex-column();
      
     
                     h3{
@@ -338,10 +348,16 @@
                             line-height: 1.7rem;
                         }
                     }
+
+                    .title-and-rating{
+                        height: 100%;
+                        @include flex-column();
+                        justify-content: space-evenly;
+                    }
     
                     .ratings-holder{
                         font-size: 1.3rem;
-                        height: 100%;
+                        // height: 100%;
                         overflow: hidden;
                         margin-bottom: 0.5rem;
     
@@ -364,7 +380,7 @@
                                         height: 1.5rem;
                             
                                         i{
-                                            font-size: 1.7rem;
+                                            font-size: 1.3rem;
                                             color: #FFC107 !important
                                         }
                                     }
@@ -449,6 +465,7 @@
                     ul.badge-list{
                         overflow: hidden;
                         margin: 1rem 0;
+                        display: none;
     
                         li{
                             font-size: 1.3rem; 
