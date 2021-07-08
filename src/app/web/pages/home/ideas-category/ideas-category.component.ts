@@ -57,19 +57,19 @@ export class IdeasCategoryComponent implements OnInit {
   }
 
   slickInit(e) {
-    console.log('slick initialized');
+    
   }
   
   breakpoint(e) {
-    console.log('breakpoint');
+    
   }
   
   afterChange(e) {
-    console.log('afterChange');
+
   }
   
   beforeChange(e) {
-    console.log('beforeChange');
+
   }
 
   getFeaturedProductsCategories(){
