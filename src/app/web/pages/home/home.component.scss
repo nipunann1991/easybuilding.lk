@@ -361,26 +361,26 @@
 }
 
 
-:host ::ng-deep star-rating{
-    .rating.small{ 
+// :host ::ng-deep star-rating{
+//     .rating.small{ 
 
-        .star-container{
-            margin-left: 0;
-            margin-top: 3px;
+//         .star-container{
+//             margin-left: 0;
+//             margin-top: 3px;
 
-            .star{
-                width: 1.5rem;
-                height: 1.5rem;
+//             .star{
+//                 width: 1.5rem;
+//                 height: 1.5rem;
     
-                i{
-                    color: #FFC107 !important;
-                    font-size: 1.3rem; 
+//                 i{
+//                     color: #FFC107 !important;
+//                     font-size: 1.3rem; 
  
-                }
-            }
-        }
-    }
-}
+//                 }
+//             }
+//         }
+//     }
+// }
 
 
 

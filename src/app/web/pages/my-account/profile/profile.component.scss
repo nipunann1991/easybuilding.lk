@@ -235,23 +235,25 @@
 
                                 }
 
-                                .star-container{
-                                    .star{
-                                        width: 1.7rem;
-                                        height: 1.7rem;;
+                                
 
-                                        @include breakpoint($tablet){
-                                            width: 2rem;
-                                            height: 2rem;
-                                        }
+                                // .star-container{
+                                //     .star{
+                                //         width: 1.7rem;
+                                //         height: 1.7rem;;
+
+                                //         @include breakpoint($tablet){
+                                //             width: 2rem;
+                                //             height: 2rem;
+                                //         }
 
 
-                                        i{
-                                            color: $yellow !important;
-                                            font-size: 1.6rem;
-                                        }
-                                    }
-                                }
+                                //         i{
+                                //             color: $yellow !important;
+                                //             font-size: 1.6rem;
+                                //         }
+                                //     }
+                                // }
                             }
     
                             &.name{
@@ -287,6 +289,21 @@
                                     justify-content: left;
                                 }
 
+                                ul.star-review{
+                                    @include flex();
+                                    align-items: center;
+                                    margin-right: 0.5rem;
+
+                                    li{
+                                        margin-bottom: 0;
+                                        margin-right: 0.5rem;
+
+                                        i{
+                                            font-size: 1.3rem;
+                                            color: $yellow; 
+                                        }
+                                    }
+                                }
                                 span.review-score{
                                     line-height: 2.3rem;
 

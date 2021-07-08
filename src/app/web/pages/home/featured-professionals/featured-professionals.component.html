@@ -23,16 +23,13 @@
                         <div class="item-desc">
                             <div class="title-wrap">
                                 <h4>{{fpl.title}}</h4>
-                                <div class="ratings-holder">
-                                    <star-rating  
-                                        starType="icon" 
-                                        [labelText]="totalReviews"  
-                                        [showHalfStars]="true" 
-                                        labelPosition="right" 
-                                        [rating]="fpl.rating"
-                                        [readOnly]="true" 
-                                        size="small"
-                                    ></star-rating>  {{ fpl.rating | roundToDecimal:1  }}  <span class="no-of-reviews">( {{fpl.total_reviews}} Review )</span>
+                                <div class="ratings-holder"> 
+                                    <ul class="star-review">
+                                        <li *ngFor="let rate of starRating; let i = index;">
+                                            <i [ngClass]="i > fpl.rating-1 ? 'icon-star-empty' : 'icon-star-full' "></i>
+                                        </li>
+                                    </ul>
+                                     {{ fpl.rating | roundToDecimal:1  }}  <span class="no-of-reviews">( {{fpl.total_reviews}} Review )</span>
                                 </div>
                             </div> 
                             <ul class="contact-details">

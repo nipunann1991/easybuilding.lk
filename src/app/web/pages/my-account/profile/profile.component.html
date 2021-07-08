@@ -58,14 +58,11 @@
                                 <p><span *ngIf="profileData.prof_category != 0"></span>{{profile.city}}</p> 
                             </li>
                             <li class="reviews" *ngIf="profileData.prof_category != 0">  
-                                <star-rating  
-                                    starType="icon"  
-                                    [showHalfStars]="true" 
-                                    labelPosition="right" 
-                                    [rating]="rating"
-                                    [readOnly]="true" 
-                                    size="small"
-                                ></star-rating>
+                                <ul class="star-review">
+                                    <li *ngFor="let rate of starRating; let i = index;">
+                                        <i [ngClass]="i > rating-1 ? 'icon-star-empty' : 'icon-star-full' "></i>
+                                    </li>
+                                </ul>
                                 <span class="review-score">{{rating}} <a routerLink="reviews/1">( {{ totalReviews }} )</a></span>
                             </li>
                         </ul>

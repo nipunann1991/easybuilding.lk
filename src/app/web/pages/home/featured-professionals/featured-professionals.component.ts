@@ -12,6 +12,7 @@ import { Globals } from "../../../../app.global";
 export class FeaturedProfessionalsComponent implements OnInit {
 
   featuredProfList: any = [];
+  starRating:any = Array.from(Array(this.globals.starRating), (_, index) => index + 1);
   slideConfig = {
     slidesToShow: 4, 
     slidesToScroll: 4,  

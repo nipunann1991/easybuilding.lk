@@ -59,7 +59,7 @@ export class ProfileComponent implements OnInit {
   };
   totalReviews: any;
   rating: any;
-  
+  starRating:any = Array.from(Array(this.globals.starRating), (_, index) => index + 1);
 
   constructor(
     private myaccount: MyAccountService,

@@ -111,6 +111,24 @@
                         align-items: center;
                         margin-bottom: 0.3rem;
 
+                        ul.star-review{
+                            @include flex();
+                            align-items: center;
+                            margin-right: 0.5rem;
+
+                            li{
+                                margin-bottom: 0;
+                                margin-right: 0.3rem;
+                                line-height: 1rem;
+
+                                i{
+                                    font-size: 1rem;
+                                    line-height: 1.8rem;
+                                    color: $yellow; 
+                                }
+                            }
+                        }
+
                         span.no-of-reviews{
                             color: $dark-gray;
                             margin-left: 5px;

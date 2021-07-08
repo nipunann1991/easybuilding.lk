@@ -15,6 +15,7 @@ export class Globals {
     isManagerToken: any ="1d0258c2440a8d19e716292b231e3190"; 
     isManager: boolean = false;
     maxProductImages: number = 5;
+    starRating: number = 5;
 
     defaultQueryParams = { 
         results: '10', 
