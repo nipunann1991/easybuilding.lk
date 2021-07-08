@@ -65,15 +65,11 @@
                                 <h3 [innerHTML]="p.title | highlightText : searchParam"></h3>
                                 
                                 <div class="ratings-holder">
-                                    <star-rating  
-                                        starType="icon" 
-                                        [labelText]=""  
-                                        [showHalfStars]="true" 
-                                        labelPosition="right" 
-                                        [rating]="p.rating"
-                                        [readOnly]="true" 
-                                        size="small"
-                                    ></star-rating> 
+                                    <ul class="star-review">
+                                        <li *ngFor="let rate of starRating; let i = index;">
+                                            <i [ngClass]="i > p.rating-1 ? 'icon-star-empty' : 'icon-star-full' "></i>
+                                        </li>
+                                    </ul>
                                     {{ p.rating | roundToDecimal:1 }}  <span class="no-of-reviews">( {{p.total_reviews}} Review )</span>
                                 </div> 
                                 <ul class="contact-details">

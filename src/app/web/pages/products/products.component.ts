@@ -41,6 +41,7 @@ export class ProductsComponent implements OnInit {
   paginations: Array<number> = [];
   paramIndex: number; 
   isSticky: boolean = false;
+  starRating:any = Array.from(Array(this.globals.starRating), (_, index) => index + 1);
   searchParams = {
     sortBy: "",
     sortByServiceArea: ""

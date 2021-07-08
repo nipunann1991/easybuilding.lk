@@ -356,35 +356,26 @@
                     }
     
                     .ratings-holder{
-                        font-size: 1.3rem;
-                        // height: 100%;
+                        font-size: 1.3rem; 
                         overflow: hidden;
                         margin-bottom: 0.5rem;
+                        @include flex();
     
-                        star-rating{
-                            display: block;
-                            position: relative;
-                            top: 1px; 
-                            float: left;
-                         
-                            .rating{ 
-                                outline: 0;
+                        ul.star-review{
+                            @include flex();
+                            align-items: center;
+                            margin-right: 0.5rem;
+
+                            li{
                                 margin-bottom: 0;
-                        
-                                .star-container{
-                                    margin: 0;
-                                    margin-right: 0.5rem;
-                            
-                                    .star{
-                                        width: 1.5rem;
-                                        height: 1.5rem;
-                            
-                                        i{
-                                            font-size: 1.3rem;
-                                            color: #FFC107 !important
-                                        }
-                                    }
-                                } 
+                                margin-right: 0.3rem;
+                                line-height: 1rem;
+
+                                i{
+                                    font-size: 1rem;
+                                    line-height: 1rem;
+                                    color: $yellow; 
+                                }
                             }
                         }
     
