@@ -19,6 +19,7 @@
         margin-bottom: 1.5rem; 
 
         h2{
+            @include medium;
             margin-bottom: 0;
 
             @include breakpointMax(767px){
@@ -96,6 +97,7 @@
   
 
                     h4{
+                        @include medium;
                         font-size: 1.6rem; 
                         margin-bottom: 3px;
                     }

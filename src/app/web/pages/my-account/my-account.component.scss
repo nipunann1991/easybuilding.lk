@@ -54,7 +54,7 @@
             h3{
                 margin-bottom: 1rem;
                 color: $base-color;
-                @include extra-bold;
+                @include bold;
                 font-size: 1.8rem;
             }
         
@@ -138,9 +138,7 @@
 
 
         a{
-            //font-size: 1.6rem;
-            font-family: $bold-font;
-	        font-weight: bold; 
+            @include bold; 
             display: block;
             text-align: left;
             text-decoration: none; 

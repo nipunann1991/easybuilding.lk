@@ -139,18 +139,13 @@
                 }
 
                 &.get-started{
-                    font-family: $normal-font;
+                    @include regular;
                     font-size: 2rem;
                     line-height: 3.4rem;
-                    padding: 1rem 6rem !important;
-                    font-weight: normal;
-                    font-style: normal;
+                    padding: 1rem 6rem !important; 
                 }
             }
-        }
-
-       
-        
+        } 
     }
 }
 
@@ -235,7 +230,8 @@
                 h3{
                     font-size: 1.8rem;
                     text-transform: capitalize;
-                     
+                    @include medium;
+                    
                     @include breakpoint($tablet){
                         margin-bottom: 0.5rem;
                     }
@@ -353,36 +349,13 @@
                     h3{
                         font-size: 2.1rem;
                         margin-bottom: 1.5rem;
+                        @include medium;
                     }
                 }  
             } 
         }
     }
-}
-
-
-// :host ::ng-deep star-rating{
-//     .rating.small{ 
-
-//         .star-container{
-//             margin-left: 0;
-//             margin-top: 3px;
-
-//             .star{
-//                 width: 1.5rem;
-//                 height: 1.5rem;
-    
-//                 i{
-//                     color: #FFC107 !important;
-//                     font-size: 1.3rem; 
- 
-//                 }
-//             }
-//         }
-//     }
-// }
-
-
+} 
 
 .fetured-banner-area{
 
@@ -518,6 +491,66 @@
 }
 
 
+.boq-banner-area{
+    padding-bottom: 5rem;
 
- 
+    .boq-banner{ 
+        position: relative;
+        height: 32rem;
+        @include flex();
+        
+        &:before{
+            content: "";
+            position: absolute; 
+            width: 100%;
+            height: 100%;
+            left: 0;
+            background-color: #eeeeee;
+            background-image: url("/assets/images/boq-banner.jpg");
+            background-size: cover;
+            z-index: -1;
+            opacity: 0.5;
+            background-position: 75% 0;
 
+            @include breakpoint($tablet){
+                @include calc("width", "100% - 3rem");
+                left: auto;
+            }
+
+            @include breakpoint($tablet-medium){ 
+                opacity: 1;
+                background-position: 100% 0;
+            }
+        }
+
+        .boq-description{
+            padding: 0 2rem;
+            width: 100%;
+
+            @include breakpoint($tablet){
+                padding: 0 5rem;
+            }
+
+            @include breakpoint($tablet-medium){ 
+                width: 50%;
+            }
+
+            h3{
+                font-size: 3.2rem;
+                margin-bottom: 1.5rem;
+                text-transform: capitalize;
+            }
+
+            p{
+                font-size: 1.8rem;
+                line-height: 2.5rem;
+                margin-bottom: 2.5rem;
+            }
+
+            button{
+                padding: 0.5rem 4rem !important;
+                font-size: 1.7rem;
+            }
+        }
+    }
+}

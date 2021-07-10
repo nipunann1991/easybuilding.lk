@@ -11,8 +11,10 @@
     .title-area{ 
         margin-bottom: 1.5rem; 
         text-align: center;
+
          
         h2{ 
+            @include medium;
             margin-bottom: 0;
 
             @include breakpointMax(767px){
@@ -90,6 +92,7 @@
                     min-height: 12rem;
 
                     h4{
+                        @include medium;
                         font-size: 1.6rem;
                         margin-bottom: 0.3rem;
                     }

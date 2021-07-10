@@ -70,8 +70,7 @@
             border-top: 1px $border-gray solid; 
 
             label.lbl-title{
-                font-family: $bold-font;
-                font-weight: 500; 
+                @include medium;
                 margin-bottom: 1rem; 
                 color: $body-text-color;
             }
@@ -140,8 +139,7 @@
 
             &::before{
                 content: "No results found";
-                font-family: $bold-font;
-	            font-weight: bold; 
+                @include bold;
                 position: absolute;
                 top: 50%; 
                 left: calc(50% - 13rem);
@@ -318,6 +316,7 @@
     
                     .item-details{
                         padding: 1.5rem; 
+                        height: 100%;
                     }
                     
                 }
@@ -338,6 +337,7 @@
                         h3{
                             font-size: 1.6rem;
                             margin-bottom: 0;
+                            @include medium;
                         }
     
                         a{
@@ -496,6 +496,11 @@
 
             .category-holder{
                 width: 100%;
+
+                h2{
+                    @include medium;
+                    margin-bottom: 2rem;
+                }
 
                 .carousel{
                     margin-top: 1.5rem;

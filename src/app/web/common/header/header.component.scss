@@ -177,8 +177,7 @@
         a.login-btn{
             margin-right: 1.5rem;
             color: $base-color;
-            font-family: $bold-font;
-            font-weight: bold; 
+            @include bold;
             text-decoration: none;
 
             i{
@@ -191,7 +190,7 @@
         }
          
         button{
-            font-family: $normal-font; 
+            @include regular;
             padding: 0.1rem 1.25rem 0.1rem 2rem !important;;
             line-height: 3.5rem;
             
@@ -397,8 +396,7 @@
  
 
             a{
-                font-family: $bold-font;
-                font-weight: bold; 
+                @include bold;
                 font-size: 1.4rem; 
                 padding: 1rem 0;
                 letter-spacing: 0.05rem;
@@ -515,6 +513,7 @@
                     text-align: left; 
                     margin-bottom: 1rem;
                     font-size: 1.7rem;
+                    @include medium;
 
                     span{
                         font-size: 1.3rem;
@@ -546,9 +545,7 @@
                             text-align: left;
                             font-size: 1.35rem;
                             line-height: 1.7rem;
-                            font-family: $normal-font;
-                            font-weight: normal;
-                            font-style: normal;
+                            @include regular;
                             text-transform: capitalize;
                             letter-spacing: 0rem; 
                             

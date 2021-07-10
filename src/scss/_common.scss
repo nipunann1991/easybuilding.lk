@@ -33,8 +33,7 @@ html{
 }
 
 h1, h2, h3, h4{  
-	font-family: $bold-font;
-	font-weight: bold; 
+	@include bold; 
 }
  
 
@@ -42,9 +41,7 @@ body{
 	font-size: 1.6rem;	  
 	background: $white;
 	overflow-x: hidden;
-	font-family: $normal-font;
-	font-weight: normal;
-	font-style: normal;
+	@include regular;
 		
 	  
 	&.admin-layout{ 
@@ -67,7 +64,7 @@ body{
 			border: 0;
 
 			.mat-tab-link{
-				font-family: $normal-font;
+				@include regular;
 				color: $body-text-color;
 				opacity: 1;
 				height: 4rem;
@@ -88,7 +85,7 @@ body{
 		}
 
 		.mat-expansion-panel-header-title, .mat-expansion-panel-header-description{
-			font-family: $bold-font;
+			@include bold;
 			margin-right: 0;
 			@include flex();
 		}
@@ -543,11 +540,9 @@ ul{
 
 .btn{
 	background: $base-color; 
-	color: $white;
-	font-family: $normal-font;
+	color: $white; 
 	letter-spacing: 0.04rem;
-	font-weight: normal;
-	font-style: normal;
+	@include regular;
 	padding: 0.1rem 3rem !important;	 
 	
 	&:focus{
@@ -883,8 +878,7 @@ label{
 }
 
 .toast-title{
-	font-family: $bold-font;
-	font-weight: bold;  
+	@include bold;
     font-size: 1.8rem;
 }
 
@@ -1061,8 +1055,7 @@ button.dt-button{
 	.modal-header{
 		.modal-title{
 			font-size: 1.8rem;
-			font-family: $bold-font;
-			font-weight: bold; 
+			@include bold;
 			text-transform: capitalize;
 		}
 	}

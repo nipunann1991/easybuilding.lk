@@ -51,7 +51,7 @@ export class CreateBoqComponent implements OnInit {
 
   ngOnInit(): void {
 
-    
+    window.scroll(0,0); 
     this.getSelectedHouseSurfaceTypeList();
 
     this.formGroup = new FormGroup({ 

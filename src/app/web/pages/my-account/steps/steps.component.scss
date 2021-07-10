@@ -64,8 +64,7 @@
           display: block;
           font-size: 1.9rem;
           color: inherit;
-          font-family: $bold-font;  
-          font-weight: bold;
+          @include bold;
         }
 
         p{

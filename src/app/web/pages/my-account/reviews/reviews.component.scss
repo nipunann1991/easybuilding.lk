@@ -16,6 +16,7 @@
     padding: 0rem 2rem !important;
     font-weight: 500;
     line-height: 3.5rem;
+    opacity: 0.2;
 
     @include breakpoint($tablet){ 
       line-height: auto;

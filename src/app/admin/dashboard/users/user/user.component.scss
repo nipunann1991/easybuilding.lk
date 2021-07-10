@@ -22,7 +22,7 @@ body.admin-layout .blacklist.mat-checkbox-checked:not(.mat-checkbox-disabled).ma
     .mat-menu-item{
         line-height: 3.4rem;
         height: inherit;
-        font-family: $normal-font;
+        @include regular;
 
         .mat-icon{
             height: 1.5rem;

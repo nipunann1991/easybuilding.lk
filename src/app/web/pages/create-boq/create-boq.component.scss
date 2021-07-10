@@ -57,26 +57,21 @@
                             font-size: 1.8rem;
                             line-height: 2.4rem;
                             margin-bottom: 1.5rem;
-                            @include bold;
+                            @include medium;
                        }
                     }
 
                     .top{ 
                         padding-bottom: 1.5rem; 
 
-                        @include breakpoint($tablet){
-                           // @include flex;   
-                        }
-
+                         
                         label{
                             font-size: 1.6rem;
                             margin: 0;
-                            @include bold;
+                            @include medium;
                         }
 
-                        .house-area-input{ 
-                            //@include flex;  
-                            //padding-right: 4rem;
+                        .house-area-input{  
                             position: relative;
         
                             &:before{

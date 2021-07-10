@@ -54,13 +54,13 @@
 
                     li{
                         &.total{
-                            font-family: $bold-font;
+                            @include bold;
                             font-size: 2.5rem;
                             margin-bottom: 0.5rem;
                         }
 
                         &.box-title{
-                            font-family: $normal-font;
+                            @include regular;
                             font-size: 1.5rem;
                             color: lighten($dark-gray, 5%);
                         }

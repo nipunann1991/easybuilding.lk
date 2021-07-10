@@ -1,7 +1,7 @@
 
 <div class="total-reviews" *ngIf="isShowHeader">
   <h2>Reviews ({{ totalReviews }})</h2> 
-  <button mat-button class="btn btn-transparent btn-review" (click)="reviewDialog()">Write a Review</button>
+  <button mat-button class="btn btn-transparent btn-review" disabled="disabled" (click)="reviewDialog()">Write a Review</button>
 </div>
 
 <p  *ngIf="!isShowHeader && reviews.length == 0" ><i>No reviews available</i></p>
