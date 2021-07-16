@@ -1290,6 +1290,14 @@ class ProfileController extends CommonController {
         $mail->send(); 
 
  	}
+
+
+ 	public function userProfile(){   
+ 		echo $this->uri->segment(2);
+ 		
+ 		$this->load->view('user/index'); 
+		
+	}
 	 
  
 }

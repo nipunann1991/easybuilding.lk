@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Inject, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute, ActivationStart ,  RoutesRecognized,  NavigationEnd } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import {ClickEvent, HoverRatingChangeEvent, RatingChangeEvent } from 'angular-star-rating';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MyAccountService } from '../../../../admin/api/frontend/my-account.service';
 import { Globals } from "../../../../app.global";
@@ -161,20 +160,8 @@ export class reviewDialog {
     });
 
   }
-
-
-  onClick = ($event: ClickEvent) => {  
-    this.setRatingWithFormValues($event.rating) 
-  };
-
-  onRatingChange = ($event: RatingChangeEvent) => {  
-    this.setRatingWithFormValues($event.rating) 
-  };
-
-  onHoverRatingChange = ($event: HoverRatingChangeEvent) => { 
-
-  };
-
+ 
+  
   setRatingWithFormValues(rating){
     this.formGroup.setValue({
       reviewer_name: this.formGroup.value.reviewer_name,

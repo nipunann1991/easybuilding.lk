@@ -446,8 +446,18 @@ export class ServiceAreasComponent implements OnInit {
           if (response.status == 200) {
 
             if(this.isAdmin){
-              this.toastr.success('Profile created successfully', 'Success !');  
-              this.router.navigate(['/admin/users/user/'+this.routerParams.user+"/"+this.routerParams.provider_id+"/about"]);
+              console.log(response)
+              if( !this.isStepsForm ){
+                this.toastr.success('Information saved successfully', 'Success !');  
+                this.router.navigate(['/admin/users/user/'+this.routerParams.user+"/"+this.profile.provider_id+"/about"]);
+
+              }else{  
+                this.toastr.success('Profile created successfully', 'Success !');  
+                this.router.navigate(['/admin/users/']);
+              //this.router.navigate(['/admin/users/user/'+this.profile.client_id+"/"+this.profile.provider_id+"/about"]);
+              }
+
+
             }else{
 
               if( !this.isStepsForm ){

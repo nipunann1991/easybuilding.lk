@@ -176,8 +176,13 @@ export class AccountInfoComponent implements OnInit {
 
             if(this.isAdmin){
               
-              this.toastr.success('Information saved successfully', 'Success !');  
-              this.router.navigate(['/admin/users/user/'+this.routerParams.user+"/"+this.routerParams.provider_id+"/about"]);
+              if( !this.isStepsForm ){ 
+                this.toastr.success('Information saved successfully', 'Success !');  
+                this.router.navigate(['/admin/users/user/'+this.routerParams.user+"/"+this.routerParams.provider_id+"/about"]);
+                
+              }else{ 
+                this.router.navigate(["../contact-info"], { relativeTo: this.route.parent });
+              }
             
             }else{
 

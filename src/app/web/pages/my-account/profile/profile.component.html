@@ -1,7 +1,7 @@
 <div class="profile-page-container page-container animated fadeIn"> 
     <div *ngIf="profileData.status == 0" class="top-message blacklist-message">
         <div class="container">
-            <p>This profile is blacklisted by easybuilding.lk</p>
+            <p>Your profile has been put on hold temporary. Please contact support team.</p>
         </div>
     </div>
     <div *ngIf="profile.admin_profile" class="top-message info-message">
@@ -70,6 +70,7 @@
                     </div> 
                    
                     <button *ngIf="isBgImage && isProfImage && profileData.company_profile == 1" mat-button class="btn btn-primary share-fb" (click)="share()"><i class="icon-facebook"></i> Share</button>
+                    
                     <button mat-button class="btn btn-primary edit-profile" *ngIf="profileData.company_profile != 1">Convert to Pro</button>
                 </div>
         

@@ -173,8 +173,15 @@ export class ContactInfoComponent implements OnInit {
           if (response.status == 200) {
 
             if(this.isAdmin){
-              this.toastr.success('Information saved successfully', 'Success !');  
-              this.router.navigate(['/admin/users/user/'+this.routerParams.user+"/"+this.routerParams.provider_id+"/about"]);
+              
+              if( !this.isStepsForm || this.profile.company_profile == 0 ){
+                this.toastr.success('Information saved successfully', 'Success !');  
+                this.router.navigate(['/admin/users/user/'+this.routerParams.user+"/"+this.routerParams.provider_id+"/about"]);
+              }else{ 
+                this.router.navigate(["../service-areas"], { relativeTo: this.route.parent });
+              }
+
+              
             }else{
 
               if( !this.isStepsForm || this.profile.company_profile == 0 ){

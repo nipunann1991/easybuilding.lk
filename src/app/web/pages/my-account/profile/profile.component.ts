@@ -95,7 +95,8 @@ export class ProfileComponent implements OnInit {
  
     const params: UIParams = {
       method: 'share',
-      href: environment.siteUrl+'user/'+this.profileData.client_id+'/'+this.profileData.provider_id+'/about',
+      href: "https://easybuilding.biz/easybuilding-api/index.php/profile/"+this.profileData.client_id+"",
+      //href: environment.siteUrl+'user/'+this.profileData.client_id+'/'+this.profileData.provider_id+'/about',
       display: 'popup',
      
     };

@@ -23,8 +23,7 @@ import { NgSelect2Module } from 'ng-select2';
 import { NgxFileDropModule } from 'ngx-file-drop'; 
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ImageCropperModule } from 'ngx-image-cropper';
-import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-import { StarRatingModule } from 'angular-star-rating';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client'; 
 import { ModalModule } from 'ngb-modal';
 import { FileSaverModule } from 'ngx-filesaver';
 import { FacebookModule } from 'ngx-facebook';
@@ -80,8 +79,7 @@ import { HighlightTextPipe } from './pipes/highlight-text.pipe';
       LightboxModule,
       ChartsModule,
       OverlayscrollbarsModule,
-      SlickCarouselModule,
-      StarRatingModule.forRoot(),
+      SlickCarouselModule, 
       NgBootstrapFormValidationModule.forRoot(), 
       FacebookModule.forRoot()
     ],
@@ -110,7 +108,6 @@ import { HighlightTextPipe } from './pipes/highlight-text.pipe';
       LoadingBarHttpClientModule,
       ModalModule,
       MatRadioModule,
-      StarRatingModule,
       FileSaverModule,
       LoadingBarModule,
       GalleryModule,
