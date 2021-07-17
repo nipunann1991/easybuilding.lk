@@ -3,9 +3,9 @@ import { Router, ActivatedRoute, ActivationStart ,  RoutesRecognized,  Navigat
 import { AuthService as OAuth } from "angularx-social-login";
 import { Globals } from "../../../app.global"
 import { AuthService as Auth } from '../../../admin/auth/auth.service';
-import { MyAccountService } from '../../../admin/api/frontend/my-account.service';
-import { ClientsService } from '../../../admin/api/clients.service';  
-import { ProfileService } from "../../../admin/api/frontend/profile.service";
+import { MyAccountService } from '../my-account/services/my-account.service';
+import { ClientsService } from '../../../admin/dashboard/client-profiles/services/clients.service';  
+import { ProfileService } from "../my-account/pages/profile/services/profile.service";
 import { environment } from "../../../../environments/environment";
 import { map, filter } from "rxjs/operators";
 import { AppSEO } from "./../../../app.seo"; 

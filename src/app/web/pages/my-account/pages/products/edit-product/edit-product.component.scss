@@ -1,0 +1,101 @@
+@import '../../../../../../../styles';
+
+.new-product{
+    padding: 3rem 0 5rem 0;
+  
+    h2{
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .uploaded-image-holder{
+      width: 100%; 
+      margin-top: 2rem;
+  
+      .img-box{
+        @include calc("width", "20% - 1rem");
+        height: 9rem;
+        background-color: #eee;
+        display: inline-block;
+        margin-right: 1rem; 
+        background-size: cover;
+        position: relative;
+
+        &:before{
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          top: 0;
+          left: 0;
+          display: none;
+        }
+
+        i.icon-bin{
+          position: absolute;
+          right: 0.5rem;
+          top: 0.5rem;
+          display: none;
+          color: $white;
+          cursor: pointer;
+        }
+
+        &:hover{
+
+          &:before{
+            display: block;
+          }
+
+          i.icon-bin{
+            display: block;
+          }
+
+        }
+      }
+  
+    }
+
+    ngx-file-drop{ 
+    
+        .ngx-file-drop__drop-zone{
+          margin-top: 3rem;
+          height: 25rem !important;
+          border-radius: 1rem;
+
+          @include breakpoint($tablet){
+            height: 80% !important; 
+          }
+    
+          &.ngx-file-drop__drop-zone--over{
+            background: $light-gray;
+          }
+    
+          .ngx-file-drop__content{
+            border: 2px $mid-gray dashed;
+            border-radius: 1rem;
+            height: 100%;
+            position: relative;
+    
+            &:before{
+              content: "Drag and drop images here.";
+              position: absolute;
+              color: $dark-gray;
+              margin-top: 4rem; 
+            }
+    
+            button.upload-img-btn{
+              border: 1px solid #ced4da;
+              margin-bottom: 4rem;
+              @include regular;
+    
+              i{
+                font-size: 2rem;
+                margin-right: 0.3rem;
+              }
+            }
+          }
+        }
+      }
+}
+

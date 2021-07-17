@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewEncapsulation, HostListener  } from '@angular/core';
 import { PlatformLocation } from '@angular/common'
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { SearchService } from "../../../admin/api/frontend/search.service";
-import { MyAccountService } from '../../../admin/api/frontend/my-account.service';
+import { SearchService } from "./services/search.service";
+import { MyAccountService } from '../my-account/services/my-account.service';
 import { environment } from "../../../../environments/environment";
-import { HomepageService } from "../../../admin/api/frontend/homepage.service"; 
+import { HomepageService } from "../home/services/homepage.service"; 
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Options } from 'select2'; 
 import { Globals } from "../../../app.global"

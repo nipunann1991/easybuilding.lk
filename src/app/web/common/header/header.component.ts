@@ -5,7 +5,7 @@ import { Router, ActivatedRoute, NavigationEnd, RouterEvent } from "@angular/rou
 import { filter } from 'rxjs/operators';
 import { Globals } from "../../../app.global"
 import { environment } from "../../../../environments/environment";
-import { HomepageService } from "../../../admin/api/frontend/homepage.service";
+import { HomepageService } from "../../../web/pages/home/services/homepage.service";
 
 @Component({
   selector: 'app-header',

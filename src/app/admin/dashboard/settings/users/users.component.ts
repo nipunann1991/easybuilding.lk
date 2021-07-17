@@ -4,7 +4,7 @@ import { RouterModule, ActivatedRoute, Routes, Router} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { SettingsService } from '../../../../admin/api/settings.service';
+import { SettingsService } from '../services/settings.service';
 import { Globals } from "../../../../app.global";
 import * as $ from 'jquery'; 
 import { AuthService as Auth } from '../../../auth/auth.service';

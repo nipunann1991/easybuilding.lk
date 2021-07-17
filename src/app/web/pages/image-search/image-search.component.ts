@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { SearchService } from "../../../admin/api/frontend/search.service";
-import { MyAccountService } from '../../../admin/api/frontend/my-account.service';
+import { SearchService } from "../../pages/products/services/search.service";
+import { MyAccountService } from '../my-account/services/my-account.service';
 import { environment } from "../../../../environments/environment";
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Options } from 'select2'; 

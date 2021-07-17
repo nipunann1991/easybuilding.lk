@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Inject, ViewEncapsulation } from '@angula
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { RouterModule, ActivatedRoute, Routes, Router, NavigationEnd} from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
-import { ImagesService } from '../../../admin/api/images.service';
+import { ImagesService } from './services/images.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from "../../../../environments/environment"; 
 import { Gallery, GalleryItem, ImageItem } from 'ng-gallery'; 

@@ -1,0 +1,48 @@
+@import '../../../../../../../styles';
+
+.mat-dialog-content{
+    overflow: hidden;
+
+    overlay-scrollbars{
+        height: 50rem;
+
+        h3{
+            @include bold;
+            line-height: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        ul{
+            margin-bottom: 1.5rem;
+        }
+
+        .form-check{  
+            margin-bottom: 1rem;
+
+            input[type=checkbox], input[type=radio]{
+                margin-right: 1rem;
+            }
+            
+            .form-check-label{
+                cursor: pointer;
+                margin-left: 1rem;
+            }
+
+        }
+        
+    }
+
+}
+
+.mat-dialog-actions{
+    padding: 1.5rem 0; 
+
+    button{ 
+
+        @include breakpointMax(767px){
+            width: 100%;
+            margin: 0; 
+            margin-bottom: 1.5rem;
+        }
+    }
+}

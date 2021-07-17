@@ -6,7 +6,7 @@ import { environment } from "../../../../../environments/environment";
 import { DataTableDirective } from 'angular-datatables';
 import { Options } from 'select2';
 import { Subject } from 'rxjs'
-import { BoqService } from "../../../api/boq.service"; 
+import { BoqService } from "../services/boq.service";
 import { Globals } from "../../../../app.global";
 import { FileSaverService, } from 'ngx-filesaver'; 
 import { ModalManager } from 'ngb-modal';

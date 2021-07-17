@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild, QueryList, ViewChildren, ElementRef } from '@angular/core';
 import { AppSEO } from "./../../../app.seo"; 
-import { HomepageService } from "../../../admin/api/frontend/homepage.service";
+import { HomepageService } from "./services/homepage.service";
 import { environment } from "../../../../environments/environment";
 import { gsap, TweenMax,  TimelineMax } from "gsap";   
 import { ScrollTrigger } from "gsap/ScrollTrigger";

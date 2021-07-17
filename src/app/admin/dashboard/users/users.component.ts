@@ -3,7 +3,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs'
 import { RouterModule, ActivatedRoute, Routes, Router, NavigationEnd} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ClientsService } from '../../api/clients.service';  
+import { ClientsService } from '../client-profiles/services/clients.service'; 
 import * as $ from 'jquery';
 declare const bootbox:any;
 

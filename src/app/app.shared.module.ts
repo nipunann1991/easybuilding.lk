@@ -27,7 +27,7 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { ModalModule } from 'ngb-modal';
 import { FileSaverModule } from 'ngx-filesaver';
 import { FacebookModule } from 'ngx-facebook';
-import { reviewDialog } from "../app/web/pages/my-account/reviews/reviews.component";
+import { reviewDialog } from "../app/web/pages/my-account/pages/reviews/reviews.component";
 import { FirstLetterPipe } from "../app/pipes/first-letter.pipe";
 import { LoadingBarModule, LoadingBarService } from '@ngx-loading-bar/core';
 import { GalleryModule } from  'ng-gallery';

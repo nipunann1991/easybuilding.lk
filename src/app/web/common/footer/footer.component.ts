@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HomepageService } from '../../../admin/api/frontend/homepage.service';
+import { ContactService } from '../../pages/contact/services/contact.service';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
@@ -10,7 +10,7 @@ export class FooterComponent implements OnInit {
   companyData: any = {}
 
   constructor(
-    private home: HomepageService
+    private contact: ContactService
   ) { }
 
   ngOnInit(): void {
@@ -18,7 +18,7 @@ export class FooterComponent implements OnInit {
   }
 
   getCompanyData(){
-    this.home.getCompanyData()
+    this.contact.getCompanyData()
       .subscribe((response: any) => {
 
           if (response.status == 200) { 

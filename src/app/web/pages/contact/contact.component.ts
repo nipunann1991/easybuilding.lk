@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppSEO } from "./../../../app.seo";
-import { HomepageService } from '../../../admin/api/frontend/homepage.service';
+import { ContactService } from './services/contact.service';
 
 @Component({
   selector: 'app-contact',
@@ -13,7 +13,7 @@ export class ContactComponent implements OnInit {
 
   constructor(
     private seo: AppSEO,
-    private home: HomepageService
+    private contact: ContactService
     ) { 
     this.pageSEO();  
   }
@@ -25,7 +25,7 @@ export class ContactComponent implements OnInit {
 
 
   getCompanyData(){
-    this.home.getCompanyData()
+    this.contact.getCompanyData()
       .subscribe((response: any) => {
 
           if (response.status == 200) { 

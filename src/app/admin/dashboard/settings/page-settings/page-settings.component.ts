@@ -5,7 +5,7 @@ import { ModalManager } from 'ngb-modal';
 import { environment } from "../../../../../environments/environment";
 import { ImageCroppedEvent, Dimensions, ImageTransform } from 'ngx-image-cropper'; 
 import { ToastrService } from 'ngx-toastr';
-import { SettingsService } from '../../../../admin/api/settings.service'; 
+import { SettingsService } from '../services/settings.service'; 
 import { Globals } from "../../../../app.global";
 import * as $ from 'jquery';
 declare const bootbox:any;

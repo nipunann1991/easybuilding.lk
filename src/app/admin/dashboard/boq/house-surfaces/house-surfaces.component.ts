@@ -5,7 +5,7 @@ import { RouterModule, ActivatedRoute, Routes, Router} from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Globals } from "../../../../app.global";
 import { Subject } from 'rxjs'
-import { BoqService } from "../../../api/boq.service";
+import { BoqService } from "../services/boq.service";
 import * as $ from 'jquery';
 
 

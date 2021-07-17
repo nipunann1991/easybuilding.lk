@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from "../../../../environments/environment";
 import { Options } from 'select2';
 import { Subject } from 'rxjs'
-import { BoqService } from "../../../admin/api/boq.service"; 
+import { BoqService } from "../../../admin/dashboard/boq/services/boq.service";
 import { Globals } from "../../../app.global";
 import { count } from 'rxjs/operators';
 import { AppSEO } from "./../../../app.seo";

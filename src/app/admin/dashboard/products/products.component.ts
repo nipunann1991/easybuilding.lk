@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Inject, ViewEncapsulation } from '@angular/core'; 
 import { Router,ActivatedRoute,  NavigationEnd } from '@angular/router'; 
 import { DataTableDirective } from 'angular-datatables';
-import { ProductsService } from '../../../admin/api/products.service';
+import { ProductsService } from './services/products.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from "../../../../environments/environment"; 
 import { Gallery, GalleryItem, ImageItem } from 'ng-gallery'; 

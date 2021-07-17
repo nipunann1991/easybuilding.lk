@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute, ActivationStart ,  RoutesRecognized,  NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
-import { ClientsService } from '../../../api/clients.service'; 
-import { MyAccountService } from '../../../api/frontend/my-account.service'; 
+import { ClientsService } from '../../client-profiles/services/clients.service'; 
+import { MyAccountService } from '../../../../web/pages/my-account/services/my-account.service'; 
 import { ToastrService } from 'ngx-toastr';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { Globals } from "../../../../app.global";

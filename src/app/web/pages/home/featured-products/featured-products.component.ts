@@ -1,5 +1,5 @@
 import { Component, OnInit,ViewEncapsulation } from '@angular/core';
-import { HomepageService } from "../../../../admin/api/frontend/homepage.service";
+import { HomepageService } from "../services/homepage.service";
 import { environment } from "../../../../../environments/environment";
 import { Globals } from "../../../../app.global";
 

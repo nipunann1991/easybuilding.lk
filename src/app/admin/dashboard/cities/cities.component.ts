@@ -5,7 +5,7 @@ import { RouterModule, ActivatedRoute, Routes, Router} from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Options } from 'select2';
 import { Subject } from 'rxjs'
-import { CitiesService } from '../../../admin/api/cities.service'; 
+import { CitiesService } from './services/cities.service'; 
 import { Globals } from "../../../app.global";
 import * as $ from 'jquery'; 
 declare const bootbox:any;

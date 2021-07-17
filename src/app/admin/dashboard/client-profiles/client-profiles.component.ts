@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs'
 import { RouterModule, ActivatedRoute, Routes, Router} from '@angular/router';
-import { ClientsService } from '../../api/clients.service'; 
+import { ClientsService } from './services/clients.service'; 
 
 @Component({
   selector: 'app-client-profiles',

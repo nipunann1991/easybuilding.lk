@@ -1,0 +1,78 @@
+@import '../../../../../../styles';
+
+
+.select-profile-form{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+
+    h2{
+        margin-bottom: 3rem;
+    }
+
+    ul.select-profile{
+        display: inline-flex;
+        margin-bottom: 4rem;
+
+        li{
+            margin-right: 4rem;
+           
+
+            &:last-child{
+                margin-right: 0;
+            }
+
+            i.icon{
+                display: block;
+                margin: auto;
+                font-size: 8rem;
+                margin-bottom: 1.5rem; 
+                color: $base-color;
+            }
+
+            .form-check-inline{
+                margin-right: 0;
+            }
+
+            .form-check-input{
+                margin-left: 0;
+                position: absolute;
+                top: 0.8rem;
+                left: 0.8rem;
+
+                &:checked ~ label {
+                    border-color: $light-blue-color ; 
+                    color:  $light-blue-color;
+
+                    i.icon{
+                        color:  $light-blue-color;
+                    }
+                }
+                  
+            }
+
+            label.form-check-label {
+                margin-left: 0;
+                padding: 2rem;
+                border: 2px solid;
+                border-radius: 5px;  
+                cursor: pointer;
+
+                @include breakpoint($tablet){
+                    padding: 3rem;
+                }
+            }
+        }
+    }
+
+    button.btn{
+        i.icon-dark-arrow-right{
+            position: relative;
+            top: -1px;
+            margin-left: 8px;
+            font-size: 10px;
+        }
+    }
+
+}

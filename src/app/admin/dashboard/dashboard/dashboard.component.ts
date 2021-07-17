@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label, Color, SingleDataSet, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts'
-import { DashboardService } from "../../api/dashboard.service";
+import { DashboardService } from "./services/dashboard.service";
 
 
 @Component({
