@@ -72,38 +72,40 @@ export class FeaturedProductsComponent implements OnInit {
   getFeaturedProducts(){
 
     this.homePage.getFeaturedProducts() 
-      .subscribe((response: any) => {
+      .subscribe({
+        next: (response: any) => {
  
-        if (response.status == 200) {   
-
-          response.data.forEach(elm => {
-         
-            let profileImg = environment.uploadPath + elm.client_id +'/'+ elm.company_id +'/';
+          if (response.status == 200) {   
   
-            (elm.primary_img == '')?  profileImg = ''  : profileImg = profileImg + "products/thumb/" + elm.primary_img  ;
-  
-            let featuredProducts = {
-              id: elm.client_id,
-              product_name: elm.product_name, 
-              product_desc: elm.product_desc,
-              profileLink: '/user/'+ elm.client_id +'/'+ elm.provider_id +'/products', 
-              imgUrl: profileImg, 
-              display_name: elm.display_name,
-              price: elm.product_price,
-              currency: this.globals.currencyAlias,
-              unit: this.globals.unitList[elm.product_unit - 1].text
-            }
-  
-            this.featuredProdList.push(featuredProducts);
-  
+            response.data.forEach(elm => {
            
-          }); 
- 
+              let profileImg = environment.uploadPath + elm.client_id +'/'+ elm.company_id +'/';
+    
+              (elm.primary_img == '')?  profileImg = ''  : profileImg = profileImg + "products/thumb/" + elm.primary_img  ;
+    
+              let featuredProducts = {
+                id: elm.client_id,
+                product_name: elm.product_name, 
+                product_desc: elm.product_desc,
+                profileLink: '/user/'+ elm.client_id +'/'+ elm.provider_id +'/products', 
+                imgUrl: profileImg, 
+                display_name: elm.display_name,
+                price: elm.product_price,
+                currency: this.globals.currencyAlias,
+                unit: this.globals.unitList[elm.product_unit - 1].text
+              }
+    
+              this.featuredProdList.push(featuredProducts); 
+             
+            }); 
+    
+          }else{
+              
+          }
+    
+        },
 
-        }else{
-            
-        }
-  
+        error: (err) =>{ console.log(err) }
       }); 
   }
 

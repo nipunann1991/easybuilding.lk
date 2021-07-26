@@ -75,15 +75,21 @@ export class IdeasCategoryComponent implements OnInit {
   getFeaturedProductsCategories(){
 
     this.homePage.getFeaturedProductsCategories() 
-      .subscribe((response: any) => {
+      .subscribe({
+        next: (response: any) => {
  
-        if (response.status == 200) {   
-          this.featuredProductsCategories = response.data;
-
-        }else{
-            
-        }
+          if (response.status == 200) {   
+            this.featuredProductsCategories = response.data;
   
+          }else{
+              
+          }
+    
+        },
+
+        error: err =>{
+          console.log(err)
+        }
       }); 
   }
 

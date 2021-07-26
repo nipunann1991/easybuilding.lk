@@ -74,34 +74,39 @@ export class FeaturedProfessionalsComponent implements OnInit {
   getFeaturedProfessionals(){ 
       
     this.homePage.getConstructors() 
-      .subscribe((response: any) => {
+      .subscribe({
+        next: (response: any) => {
 
-        response.data.forEach(elm => {
-         
-          let profileImg = environment.uploadPath + elm.client_id +'/'+ elm.company_id +'/';
-
-          (elm.profie_image == '')?  profileImg = ''  : profileImg = profileImg + elm.profie_image  ;
-
-          let constructors = {
-            id: elm.client_id,
-            title: elm.display_name, 
-            description: elm.description,
-            profileLink: '/user/'+ elm.client_id +'/'+ elm.provider_id +'/about', 
-            imgUrl: profileImg,
-            rating:  elm.rating,
-            total_reviews : elm.total_reviews,
-            contact: {
-              city : elm.city, 
-              tel : elm.tel1, 
+          response.data.forEach(elm => {
+           
+            let profileImg = environment.uploadPath + elm.client_id +'/'+ elm.company_id +'/';
+  
+            (elm.profie_image == '')?  profileImg = ''  : profileImg = profileImg + elm.profie_image  ;
+  
+            let constructors = {
+              id: elm.client_id,
+              title: elm.display_name, 
+              description: elm.description,
+              profileLink: '/user/'+ elm.client_id +'/'+ elm.provider_id +'/about', 
+              imgUrl: profileImg,
+              rating:  elm.rating,
+              total_reviews : elm.total_reviews,
+              contact: {
+                city : elm.city, 
+                tel : elm.tel1, 
+              }
             }
-          }
+  
+            this.featuredProfList.push(constructors)
+  
+           
+          });
+    
+        },
 
-          this.featuredProfList.push(constructors)
+        error: err =>{
 
-         
-        });
- 
-          
+        }
       }); 
   
   }

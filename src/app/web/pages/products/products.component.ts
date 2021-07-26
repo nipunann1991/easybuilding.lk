@@ -292,9 +292,7 @@ export class ProductsComponent implements OnInit {
   getPhotosMenuItems(){
     this.homePage.getPhotosMenuItems() 
     .subscribe((response: any) => {
-
-      this.categoriesList = this.setMenuItems(response, false, "image-search");   
-      
+      this.categoriesList = this.setMenuItems(response, false, "image-search");    
     }); 
   }
 
