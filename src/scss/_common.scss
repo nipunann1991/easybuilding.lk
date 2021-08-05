@@ -385,6 +385,7 @@ ul{
 
 		  
 		.title{ 
+			@include flex();
 			margin-bottom: 2rem;
 
 			h2{
@@ -397,13 +398,34 @@ ul{
 			} 
 
 			.btn{
-				margin-left: 15px;
+				margin-left: auto; 
 				@include box-shadow(2px, 4px, 42px, -9px, rgba(142, 142, 142, 0.75));
 				
 				&.transparent-btn{ 
 					border-radius: 20px;
 				}
 			}
+
+			.pull-right{
+				margin-left: auto;
+			}
+
+			ul.right-links{
+				margin-left: auto;
+				
+				li{
+					display: inline-block;
+					padding: 0 1.5rem;
+					border-right: 1px $border-gray solid;
+
+					&:first-child, &:last-child{
+						padding-right: 0;
+						border: 0;
+					}
+ 
+				}
+			}
+
 		}
 	}
 }
@@ -1402,3 +1424,10 @@ button.dt-button{
 		font-weight: 500;
 	}
 }
+
+ 
+  
+.disabled-link {
+	pointer-events: none;
+	cursor: default;
+ }

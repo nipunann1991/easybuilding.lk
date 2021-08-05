@@ -32,7 +32,6 @@ export class CategoriesService {
     return this.http.get(environment.baseUrl+'CategoriesController/getMainCategories?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
   }
 
-
   getParentLvl1Categories(){ 
     return this.http.get(environment.baseUrl+'CategoriesController/getParentLvl1Categories?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
   }
@@ -102,6 +101,10 @@ export class CategoriesService {
     
     return this.http.post(environment.baseUrl+'CategoriesController/getSelectedLvl2Category?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   }
+  
+  getFeaturedCategories(){
+    return this.http.get(environment.baseUrl+'CategoriesController/getFeaturedCategories?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
+  }
 
   editMainCategory(postVals){
      
@@ -131,6 +134,15 @@ export class CategoriesService {
     return this.http.post(environment.baseUrl+'CategoriesController/editLvl2Category?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   } 
   
+
+  updateFeaturedCategory(postVals){
+    
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'CategoriesController/updateFeaturedCategory?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  } 
   
   deleteMainCategory(postVals){
      
