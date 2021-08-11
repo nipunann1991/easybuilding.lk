@@ -20,7 +20,38 @@ export class IdeasCategoryComponent implements OnInit {
   featuredProductsCategories: any = [];
   queryParams =  { results: '10',  index: '1'};
   isAdminData: boolean = false; 
- 
+
+  slideConfig = {
+    slidesToShow: 5, 
+    slidesToScroll: 5,  
+    infinite: true,
+    autoplay: true,
+    autoplaySpeed: 7000,
+    speed: 1000,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4, 
+        }
+      },
+      {
+        breakpoint: 800,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3, 
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2, 
+        }
+      }, 
+    ]
+  }; 
 
   constructor(
     private homePage: HomepageService,
@@ -76,38 +107,6 @@ export class IdeasCategoryComponent implements OnInit {
       }); 
   }
 
-  slideConfig(){
-    return {
-      slidesToShow: 5, 
-      slidesToScroll: 5,  
-      infinite: true,
-      autoplay: true,
-      autoplaySpeed: 7000,
-      speed: 1000,
-      responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 4,
-            slidesToScroll: 4, 
-          }
-        },
-        {
-          breakpoint: 800,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3, 
-          }
-        },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2, 
-          }
-        }, 
-      ]
-    };
-  }
+   
 
 }

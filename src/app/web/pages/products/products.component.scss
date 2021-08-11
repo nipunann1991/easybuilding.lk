@@ -94,6 +94,7 @@
                 label{
                     cursor: pointer;
                     margin-left: 10px;
+                    font-size: 1.5rem;;
                 }  
             }
 
@@ -335,13 +336,13 @@
     
                     .project-and-company{
                         h3{
-                            font-size: 1.6rem;
-                            margin-bottom: 0;
+                            font-size: 1.5rem;
+                            margin-bottom: 0.8rem;
                             @include medium;
                         }
     
                         a{
-                            font-size: 1.3rem;
+                            font-size: 1.2rem;
                             margin-top: 0.5rem;
                             color: $base-color;
                             display: block;
@@ -459,8 +460,8 @@
                         display: none;
     
                         li{
-                            font-size: 1.3rem; 
-                            line-height: 1.3rem; 
+                            font-size: 1.2rem; 
+                            line-height: 1rem; 
                             margin-right: 0.5rem;
                             margin-bottom: 0.5rem;
                             padding: 4px 8px; 
@@ -552,7 +553,7 @@
                     .category-footer{
                         padding: 1.5rem;
                         text-align: center;
-                        font-size: 1.5rem;
+                        font-size: 1.4rem;
                         line-height: 1.8rem;
                     }
                 }

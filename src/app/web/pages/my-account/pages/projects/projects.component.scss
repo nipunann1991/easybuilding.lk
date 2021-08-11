@@ -17,6 +17,7 @@
 
   h2{
     margin-right: auto;
+    font-size: 1.8rem;
     
     @include breakpoint($tablet){
       
@@ -239,7 +240,8 @@
 
     h3{
       @include medium; 
-      font-size: 1.6rem;
+      font-size: 1.5rem;
+      line-height: 2rem;
       margin-bottom: 1rem;
     }
 

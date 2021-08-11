@@ -31,7 +31,7 @@
         background: $danger-color;
 
         p{
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             letter-spacing: 0.03rem;
         }
     }
@@ -324,6 +324,7 @@
                                 font-weight: 400;
                                 padding: 0.5rem 1rem; 
                                 border-radius: 0.5rem;
+                                color: inherit;
 
                                 @include breakpoint($tablet){
                                     font-size: 1.4rem;

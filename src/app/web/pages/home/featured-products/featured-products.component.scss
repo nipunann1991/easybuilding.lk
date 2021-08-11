@@ -14,7 +14,7 @@
 
          
         h2{ 
-            @include medium;
+            @include bold;
             margin-bottom: 0;
 
             @include breakpointMax(767px){
@@ -88,12 +88,13 @@
                 .item-desc{
                     padding: 1.5rem;
                     @include flex-column(); 
-                    justify-content: space-around;
+                    justify-content: space-between;
                     min-height: 12rem;
 
                     h4{
                         @include medium;
-                        font-size: 1.6rem;
+                        font-size: 1.5rem;
+                        line-height: 2rem;
                         margin-bottom: 0.3rem;
                     }
 
@@ -103,15 +104,16 @@
                     }
 
                     p{
-                        font-size: 1.35rem; 
+                        font-size: 1.2rem; 
                         line-height: 1.9rem;
                         color: $dark-gray;
                     } 
 
                     span.price{
                         padding-top: 0.5rem;
-                        font-size: 1.5rem; 
+                        font-size: 1.4rem; 
                         color: $light-blue-color;
+                        @include medium;
 
                         i{
                             font-size: 1.3rem;

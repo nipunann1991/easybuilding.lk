@@ -138,11 +138,12 @@
 
 
         a{
-            @include bold; 
+            @include medium; 
             display: block;
             text-align: left;
             text-decoration: none; 
             line-height: 3.5rem;
+            font-size: 1.5rem;
             
             &.active-btn{ 
                 color: $base-bg-color; 

@@ -280,25 +280,25 @@
 
 
 @mixin regular {
-  font-family: 'Circular Std Book';
+  font-family: $base-font;
   font-weight: normal;
   font-style: normal;
 }
 
 @mixin medium {
-  font-family: 'Circular Std';
+  font-family: $base-font;
   font-weight: 500;
   font-style: normal;
 }
 
 @mixin bold {
-  font-family: 'Circular Std';
+  font-family: $base-font;
   font-weight: bold;
   font-style: normal;
 }
 
 @mixin extra-bold {
-  font-family: 'Circular Std';
+  font-family: $base-font;
   font-weight: 900;
   font-style: normal;
 }

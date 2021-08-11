@@ -6,7 +6,7 @@
         
         <ngx-slick-carousel class="carousel" 
             #slickModal="slick-carousel" 
-            [config]="slideConfig()" 
+            [config]="slideConfig" 
             (init)="slickInit($event)"
             (breakpoint)="breakpoint($event)"
             (afterChange)="afterChange($event)"
