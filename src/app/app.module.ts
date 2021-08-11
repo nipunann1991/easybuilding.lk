@@ -39,7 +39,7 @@ export function provideConfig() {
 
   imports: [
     BrowserJsonLdModule,
-    BrowserModule, 
+    BrowserModule.withServerTransition({ appId: 'serverApp' }), 
     BrowserAnimationsModule, 
     AppRoutingModule,  
     SocialLoginModule,

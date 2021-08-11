@@ -20,7 +20,7 @@ const routes: Routes = [
     ] 
   },   
  
-  { path: '', redirectTo: 'user/me/about', canActivate: [AuthGuard], loadChildren: () => import('../my-account/pages/user/user.module').then(m => m.UserModule) },
+  { path: '', redirectTo: 'user/me/about', loadChildren: () => import('../my-account/pages/user/user.module').then(m => m.UserModule) },
   
 ];
 

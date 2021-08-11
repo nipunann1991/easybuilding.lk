@@ -19,7 +19,7 @@
         margin-bottom: 1.5rem; 
 
         h2{
-            @include medium;
+            @include bold;
             margin-bottom: 0;
 
             @include breakpointMax(767px){
@@ -93,12 +93,13 @@
                     height: 11rem;
                     display: flex;
                     flex-direction: column;
-                    justify-content: space-evenly;
+                    justify-content: space-between;
   
 
                     h4{
                         @include medium;
-                        font-size: 1.6rem; 
+                        font-size: 1.5rem; 
+                        line-height: 2rem;
                         margin-bottom: 3px;
                     }
 
@@ -144,7 +145,7 @@
                             font-size: 1.35rem;
                             float: left;
                             background-repeat: no-repeat ;
-                            background-position: 0 50%;
+                            background-position: 0 75%;
                             padding: 0 1.8rem;  
                             background-size: 1.1rem;
                             color: $dark-gray;

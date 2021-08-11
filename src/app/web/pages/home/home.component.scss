@@ -77,10 +77,11 @@
             font-size: 3.4rem;
             margin-bottom: 1.5rem; 
             text-transform: capitalize;
+            letter-spacing: 0.05rem;
         }
 
         p{
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             line-height: 2.4rem;
             margin-bottom: 4rem;
             margin-top: 0.5rem;
@@ -228,7 +229,7 @@
                 }
                
                 h3{
-                    font-size: 1.8rem;
+                    font-size: 1.7rem;
                     text-transform: capitalize;
                     @include medium;
                     
@@ -239,6 +240,7 @@
 
                 p{
                     color: $dark-gray;
+                    line-height: 1.8rem;
                 }
             }
         }
@@ -347,9 +349,13 @@
                     }
     
                     h3{
-                        font-size: 2.1rem;
+                        font-size: 2rem;
                         margin-bottom: 1.5rem;
-                        @include medium;
+                        @include bold;
+                    }
+
+                    p{
+                        line-height: 2rem;
                     }
                 }  
             } 
@@ -536,13 +542,13 @@
             }
 
             h3{
-                font-size: 3.2rem;
+                font-size: 3rem;
                 margin-bottom: 1.5rem;
                 text-transform: capitalize;
             }
 
             p{
-                font-size: 1.8rem;
+                font-size: 1.7rem;
                 line-height: 2.5rem;
                 margin-bottom: 2.5rem;
             }

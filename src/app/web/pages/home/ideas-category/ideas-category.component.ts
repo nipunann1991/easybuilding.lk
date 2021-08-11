@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { HomepageService } from "../services/homepage.service";
 import { environment } from "../../../../../environments/environment";
 import { Globals } from "../../../../app.global";
+import { HostListener } from "@angular/core";
+import { SlickCarouselComponent } from "ngx-slick-carousel";
 
 @Component({
   selector: 'app-ideas-category',
@@ -11,9 +13,14 @@ import { Globals } from "../../../../app.global";
 })
 export class IdeasCategoryComponent implements OnInit {
 
+  @Input() setCategoryData: any = {};
+  @ViewChild("slickModal") slickModal: SlickCarouselComponent;
+
   bgImageCatPath = environment.uploadPath + "admin/category/thumb/";
   featuredProductsCategories: any = [];
-  queryParams =  { results: '10',  index: '1'}; 
+  queryParams =  { results: '10',  index: '1'};
+  isAdminData: boolean = false; 
+
   slideConfig = {
     slidesToShow: 5, 
     slidesToScroll: 5,  
@@ -44,7 +51,7 @@ export class IdeasCategoryComponent implements OnInit {
         }
       }, 
     ]
-  };
+  }; 
 
   constructor(
     private homePage: HomepageService,
@@ -57,7 +64,7 @@ export class IdeasCategoryComponent implements OnInit {
   }
 
   slickInit(e) {
-    
+    console.log(e)
   }
   
   breakpoint(e) {
@@ -72,19 +79,34 @@ export class IdeasCategoryComponent implements OnInit {
 
   }
 
+  ngOnChanges() {    
+    this.ngOnInit();
+    this.isAdminData = this.setCategoryData.isAdmin; 
+  }   
+
   getFeaturedProductsCategories(){
+    this.featuredProductsCategories = [];
 
     this.homePage.getFeaturedProductsCategories() 
-      .subscribe((response: any) => {
- 
-        if (response.status == 200) {   
-          this.featuredProductsCategories = response.data;
+      .subscribe({
+        next: (response: any) => { 
 
-        }else{
-            
+          if (response.status == 200) {   
+            this.featuredProductsCategories = response.data;
+            this.featuredProductsCategories.map(x=> x.url = "/image-search/"+x.cat_lvl2_id );
+
+          }else{
+              
+          }
+    
+        },
+
+        error: err =>{
+          console.log(err)
         }
-  
       }); 
   }
+
+   
 
 }

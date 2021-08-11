@@ -1,8 +1,9 @@
 
  <div class="categories-wrapper featured-products-categories" *ngIf="featuredProductsCategories.length > 0">  
-    <h2>House and Building Designs</h2>
+    <h2 *ngIf="!isAdminData">House and Building Designs</h2> 
 
-    <div class="category-holder">
+    <div class="category-holder">  
+        
         <ngx-slick-carousel class="carousel" 
             #slickModal="slick-carousel" 
             [config]="slideConfig" 
@@ -12,7 +13,7 @@
             (beforeChange)="beforeChange($event)">
             
             <div ngxSlickItem *ngFor="let categories of featuredProductsCategories" class="slide">
-                <div class="category-item" routerLink="/image-search/{{categories.cat_lvl2_id}}" [queryParams]="queryParams">
+                <div class="category-item" [class.disabled-link]="isAdminData ? true : null" [routerLink]="categories.url" [queryParams]="queryParams">
                     <div class="category-bg-img" *ngIf="categories.file_name != ''" [ngStyle]="{'background-image':  'url('+ bgImageCatPath + categories.file_name + ')' , 'background-size': 'cover' }"> </div>
                     <div class="category-bg-img" *ngIf="categories.file_name == ''"> </div>
                     <div class="category-footer">

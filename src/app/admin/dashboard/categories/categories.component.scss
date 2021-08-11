@@ -1,1 +1,20 @@
+@import '../../../../styles.scss';
 
+.mat-menu-content{
+    .mat-menu-item{
+        line-height: 4rem;
+        height: inherit;
+        @include regular;
+
+        .mat-icon{
+            height: 1.5rem;
+            width: 1.5rem;
+            font-size: 1.8rem;
+            line-height: 1.5rem;
+            position: relative;
+            top: -4px;
+        }
+
+    }
+    
+}

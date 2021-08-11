@@ -1,0 +1,56 @@
+@import "../../../../../../styles.scss";
+
+.dragbox{
+	margin-top: 2rem;
+	color: rgba(0, 0, 0, 0.87); 
+	justify-content: space-between;
+	box-sizing: border-box;
+	cursor: move;  
+
+	&:last-child {
+		border: none;
+	}
+
+	button.drag-item{
+		border: 1px $border-gray solid;
+		padding: 1rem 2rem;
+		border-radius: 0.4rem;
+		margin-bottom: 0.5rem;
+		list-style: none;
+		width: 100%;
+		background: $body-bg;
+		text-align: left;
+		font-size: 1.5rem;
+	}
+
+	.dragbox-placeholder {
+		background: #ccc; 
+		min-height: 60px;
+		transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+		border: 1px $border-gray solid;
+		padding: 1rem;
+		margin-bottom: 0.2rem;
+		list-style: none;
+	}
+
+	.cdk-drag-preview {
+		box-sizing: border-box;
+		border-radius: 4px;
+		@include box-shadow(0, 5px, 5px, -3px, rgba(0, 0, 0, 0.2));
+	} 
+	
+	.cdk-drag-animating {
+		transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+	}
+	
+}
+  
+	
+.cdk-drop-list-dragging .drag-item:not(.cdk-drag-placeholder) {
+	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+
+.mt15{
+	margin-top: 1.5rem;
+}

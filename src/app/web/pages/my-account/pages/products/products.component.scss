@@ -15,6 +15,7 @@
 
   h2{
     margin-right: auto;
+    font-size: 1.8rem;
     
     @include breakpoint($tablet){
       
@@ -237,8 +238,9 @@
 
     h3{
       @include medium; 
-      font-size: 1.6rem;
-      height: 3.8rem;
+      font-size: 1.5rem;
+      line-height: 2rem;
+      height: 4rem;
       overflow: hidden; 
       margin-bottom: 1rem;
     }
@@ -247,7 +249,7 @@
       font-size: 1.3rem;
       line-height: 1.7rem;
       color: $darker-gray;
-      height: 3.4rem;
+      height: 3.5rem;
       overflow: hidden;
     }
 
@@ -259,15 +261,15 @@
         float: left;
         margin-top: 0.8rem;
         margin-right: 1.5rem; 
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         letter-spacing: 0.02rem;
 
         &.price{
           color: $light-blue-color;
-          @include bold; 
+          @include medium; 
 
           i{
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             margin-right: 0.5rem;
           }
         }

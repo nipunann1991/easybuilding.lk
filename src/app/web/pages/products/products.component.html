@@ -124,10 +124,14 @@
                         <h1>{{ pageData.categoryLevel2 }}</h1>  
                     </div>
                 </div>
-                  
+                
+                <div class="loader-box" *ngIf="categoriesList.length == 0">
+                    <img src="/assets/images/loader1.svg" width="80" alt="">
+                    <h3>Loading...</h3>
+                </div>
                 <div class="category-holder" *ngFor="let cl of categoriesList">
                     <h2>{{ cl.title }}</h2> 
-
+                    
                     <ngx-slick-carousel class="carousel" 
                         #slickModal="slick-carousel" 
                         [config]="slideConfig" 

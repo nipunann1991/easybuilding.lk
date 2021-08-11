@@ -213,32 +213,20 @@ export class PageSettingsComponent implements OnInit {
     var formData = new FormData();
     formData.append("file", blob);
     formData.append('name', "test");
- 
+   
+    this.settings.uploadSliderImage(formData).subscribe({
+      next: (response: any) =>{
+          if (response.status == 200) {    
+            this.addSliderData(response.data.new_file) 
+          } 
+      },
 
-     const promise = new Promise((resolve, reject) => { 
-      
-        this.settings.uploadSliderImage(formData)
-          .toPromise()
-          .then((response: any) => {
-            
-            if (response.status == 200) {   
-                
-            this.addSliderData(response.data.new_file)
+      error: err =>{
 
-            }else{
-                
-            } 
+      }
+    });
 
-              resolve();
-          },
-            err => {
-              
-              reject(err);
-            }
-          );
-      });
-
-     return promise;
+          
   }
 
   addSliderData(file_name){

@@ -9,15 +9,13 @@
       "projectType": "application",
       "prefix": "app",
       "schematics": {
-        "@schematics/angular:component": {
-          "styleext": "scss"
-        }
+         
       },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/easybuilding.lk",
+            "outputPath": "dist/easybuilding.lk/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -130,6 +128,62 @@
               "**/node_modules/**"
             ]
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/easybuilding.lk/server",
+            "main": "server.ts",
+            "tsConfig": "src/tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "sourceMap": false,
+              "extractLicenses": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "easybuilding.lk:build:development",
+              "serverTarget": "easybuilding.lk:server:development"
+            },
+            "production": {
+              "browserTarget": "easybuilding.lk:build:production",
+              "serverTarget": "easybuilding.lk:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "easybuilding.lk:build:production",
+              "serverTarget": "easybuilding.lk:server:production"
+            },
+            "development": {
+              "browserTarget": "easybuilding.lk:build:development",
+              "serverTarget": "easybuilding.lk:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     },

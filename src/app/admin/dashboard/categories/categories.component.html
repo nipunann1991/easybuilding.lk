@@ -1,14 +1,29 @@
 <div class="right-container  animated fadeIn">
     <div class="title">
-      <h2><button mat-button class="transparent-btn back-btn"  ><i class="icon-left-arrow"></i></button> Categories</h2> 
+      <h2><button mat-button class="transparent-btn backto-btn" [routerLink]="['/admin/categories']" routerLinkActive="router-link-active"  ><i class="icon-left-arrow"></i></button> Categories</h2> 
+      <ul class="right-links">
+        <li>
+          Order Categories 
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Order menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" >
+            <button *ngFor="let category of orderCategories" 
+            [routerLink]="category.url" 
+            [queryParams]="{ name: category.title }"
+            mat-menu-item> 
+              <span>{{category.title}} Categories</span>
+            </button> 
+          </mat-menu>
+        </li>
+      </ul>
+     
       <div class="clearfix"></div>
-    </div> 
-
-    <nav mat-tab-nav-bar>
+    </div>  
+    <nav *ngIf="!isOrderPage" mat-tab-nav-bar> 
       <a mat-tab-link *ngFor="let link of links"
       (click)="activeLink = link.id"
       [active]="rla.isActive" [routerLink]="link.url" routerLinkActive #rla="routerLinkActive"> {{link.title}} </a>
     </nav> 
-    <router-outlet></router-outlet> 
-    
+    <router-outlet></router-outlet>  
 </div>

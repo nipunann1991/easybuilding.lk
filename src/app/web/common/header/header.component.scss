@@ -177,7 +177,8 @@
         a.login-btn{
             margin-right: 1.5rem;
             color: $base-color;
-            @include bold;
+            @include medium;
+            font-size: 1.5rem;
             text-decoration: none;
 
             i{
@@ -512,13 +513,13 @@
                     color: $light-blue-color;
                     text-align: left; 
                     margin-bottom: 1rem;
-                    font-size: 1.7rem;
-                    @include medium;
+                    font-size: 1.6rem;
+                    @include bold;
 
                     span{
                         font-size: 1.3rem;
                         margin-left: 5px;
-                        @include regular;
+                        @include medium;
                     }
                 }
 

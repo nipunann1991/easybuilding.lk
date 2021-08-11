@@ -8,6 +8,7 @@ const routes: Routes = [
       { path: 'main-categories', loadChildren: () => import('./sub-components/main-category/main-category.module').then(m => m.MainCategoryModule) },
       { path: 'level1-category', loadChildren: () => import('./sub-components/level1-category/level1-category.module').then(m => m.Level1CategoryModule) },
 	    { path: 'level2-category', loadChildren: () => import('./sub-components/level2-category/level2-category.module').then(m => m.Level2CategoryModule) },
+      { path: 'category-order', loadChildren: () => import('./sub-components/category-order/category-order.module').then(m => m.CategoryOrderModule) },
     ]
   }, 
  
