@@ -56,18 +56,11 @@ export class ImageSearchComponent implements OnInit {
     this.router.events.subscribe((event) => {
 
       if (event instanceof NavigationEnd) { 
-        window.scroll(0,0);   
-        
-        //if(this.prevParam == "" || this.prevParam != this.activatedRoute.snapshot.params.id ){
-          this.isGridView = true; 
-          this.prevParam = this.activatedRoute.snapshot.params.id;
-          this.paramIndex = parseInt(this.activatedRoute.snapshot.queryParams.index);
-
-          this.getSelectedProductData(); 
-      
-       // }
-        
-        
+        window.scroll(0,0);    
+        this.isGridView = true; 
+        this.prevParam = this.activatedRoute.snapshot.params.id;
+        this.paramIndex = parseInt(this.activatedRoute.snapshot.queryParams.index); 
+        this.getSelectedProductData(); 
       }
       
     })
@@ -96,10 +89,7 @@ export class ImageSearchComponent implements OnInit {
       multiple: false, 
       closeOnSelect: true, 
       tags: true 
-    };
-
-    
-   
+    }; 
      
   }
 
@@ -107,7 +97,7 @@ export class ImageSearchComponent implements OnInit {
 
     if( this.activatedRoute.snapshot.queryParams["string"] === undefined) {
 
-      let params = { cat_lvl2_id: this.activatedRoute.snapshot.params.id }; 
+      let params = { cat_lvl2_id: this.activatedRoute.snapshot.queryParams.id }; 
 
       this.search.getSelectedProductData(params) 
       .subscribe((response: any) => {
@@ -156,7 +146,7 @@ export class ImageSearchComponent implements OnInit {
     this.imagesResults = [];
 
     let params = { 
-      cat_lvl2_id: this.activatedRoute.snapshot.params.id, 
+      cat_lvl2_id: this.activatedRoute.snapshot.queryParams.id, 
       limit: queryParams.results, 
       page_index: queryParams.index,
       sort_by: queryParams.sort_by,
@@ -315,7 +305,7 @@ export class ImageSearchComponent implements OnInit {
     
     let queryParams =  {...this.activatedRoute.snapshot.queryParams};
     queryParams['index'] = pageID;
-    this.router.navigate(['/image-search/'+this.activatedRoute.snapshot.params.id], { queryParams: queryParams });
+    this.router.navigate(['/photos/'+this.activatedRoute.snapshot.params.id], { queryParams: queryParams });
   }
 
 }

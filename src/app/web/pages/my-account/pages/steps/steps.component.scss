@@ -18,7 +18,6 @@
       position: relative;
       z-index: 1; 
       margin-bottom: 4rem;
-      letter-spacing: 0.08rem;
       margin-bottom: 1rem;
 
       @include breakpoint($tablet){
@@ -62,14 +61,14 @@
           margin-top: 2.5rem;
           margin-bottom: 1rem;
           display: block;
-          font-size: 1.9rem;
+          font-size: $eb-font-size + 0.1;
           color: inherit;
           @include bold;
         }
 
         p{
           color: inherit;
-          font-size: 1.45rem;
+          font-size: $eb-font-size - 0.3;
           line-height: 1.7rem;
         }
 
@@ -155,7 +154,7 @@
           justify-content: center;
 
           i{ 
-            font-size: 2.5rem;
+            font-size: $eb-font-size + 0.9;
             color: inherit; 
           }
         }

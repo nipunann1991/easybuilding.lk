@@ -116,7 +116,7 @@ export class HeaderComponent implements OnInit {
   getProductsMenuItems(){
     this.homePage.getProductsMenuItems() 
     .subscribe((response: any) => {
-      let menuArray = this.setMenuItems(response)
+      let menuArray = this.setMenuItems(response, false, "products")
       this.menuItemsProduct = this.generateMegaMenu(menuArray);
 
     }); 
@@ -139,7 +139,7 @@ export class HeaderComponent implements OnInit {
     this.homePage.getPhotosMenuItems() 
     .subscribe((response: any) => {
 
-      let menuArray = this.setMenuItems(response, false, "image-search");  
+      let menuArray = this.setMenuItems(response, false, "photos");  
 
       this.menuItemsPhotos = this.generateMegaMenu(menuArray); 
 
@@ -175,7 +175,7 @@ export class HeaderComponent implements OnInit {
         }
 
         if( res.data.length == (index + 1) ){
-          menuItem.push({ id: elm.id ,title: elm.cat_lvl2_name, url: folderUrl+"/"+elm.cat_lvl2_id });
+          menuItem.push({ id: elm.id ,title: elm.cat_lvl2_name, cat_id: elm.cat_lvl2_id.toString(), url: "/"+folderUrl+"/"+ this.generateSlug(elm.cat_lvl2_name) });
         }
         
         if(menuItem.length != 0){
@@ -195,7 +195,7 @@ export class HeaderComponent implements OnInit {
 
       parentCatName = elm.cat_lvl1_name + isLineBreakText;  
        
-      menuItem.push({ id: elm.id ,title: elm.cat_lvl2_name, url: folderUrl+"/"+elm.cat_lvl2_id });
+      menuItem.push({ id: elm.id ,title: elm.cat_lvl2_name, cat_id: elm.cat_lvl2_id.toString(), url: "/"+folderUrl+"/"+ this.generateSlug(elm.cat_lvl2_name)});
       count++;   
 
     }); 
@@ -325,7 +325,7 @@ export class HeaderComponent implements OnInit {
     this.isSearchOpened = false;
     this.searchText = "";
  
-    this.router.navigate(['/image-search/search'], { queryParams: queryParams });
+    this.router.navigate(['/photos/search'], { queryParams: queryParams });
  
   }
 
@@ -340,7 +340,14 @@ export class HeaderComponent implements OnInit {
     this.mobileSearchOpen = !this.mobileSearchOpen
   }
 
-  
+  generateSlug(text){
+    return text.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-');
+  }
+
+  gotoURL(url){
+    this.queryParams.id = url.cat_id; 
+    this.router.navigate([url.url], { queryParams: this.queryParams });
+  }
   
 
 }

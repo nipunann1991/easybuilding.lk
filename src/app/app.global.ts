@@ -18,6 +18,7 @@ export class Globals {
     starRating: number = 5;
 
     defaultQueryParams = { 
+        id: "0",
         results: '10', 
         index: '1',
         sort_by: '1',

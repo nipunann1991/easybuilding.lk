@@ -6,7 +6,7 @@
 
   h2{
     float: left;
-    font-style: 1.8rem;
+    font-size: $eb-font-size + 0.2;
   }
 
   .btn-review{
@@ -103,12 +103,12 @@ ul.reviews-list{
                 h3{
                   float: left;
                   font-weight: 400;
-                  font-size: 1.6rem;
+                  font-size: $eb-font-size;
                   margin-bottom: 2px;
                 }
 
                 span.date{
-                  font-size: 1.3rem;
+                  font-size: $eb-font-size - 0.3;
                   float: right;
                 }
 
@@ -125,7 +125,7 @@ ul.reviews-list{
                       width: 1.8rem;
                       height: 1.8rem;
                       i{
-                        font-size: 1.9rem;
+                        font-size: $eb-font-size + 0.3;
                         color: $yellow !important;
                       }
                     }

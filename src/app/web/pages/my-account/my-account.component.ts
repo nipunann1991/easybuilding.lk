@@ -88,9 +88,7 @@ export class MyAccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-     
-  
+ 
     this.navItems = [
       { title: "Home", url: this.baseurl+"about", icon: "", isPersonalProfile: false},
       { title: "Account Information", url: this.baseurlEdit+"account-info", icon: "", isPersonalProfile: false},

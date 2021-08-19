@@ -26,7 +26,7 @@
 				text-decoration: none;
 				font-family: $adminfont;
 				font-weight: 700; 
-				font-size: 2rem; 
+				font-size: $eb-font-size + 0.4; 
 				color: $white;
 				border-radius: 0; 
 				background-color: transparent;
@@ -39,14 +39,14 @@
 				}
 
 				i{
-					font-size: 2.5rem;
+					font-size: $eb-font-size + 0.9;
 					display: block;
 					margin: auto;
 					text-align: center;
 				}
 
 				span.nav-title{
-					font-size: 13px;
+					font-size: $eb-font-size - 0.3;
 					line-height: 17px; 
 					margin-top: 5px;
 					margin-left: 0;

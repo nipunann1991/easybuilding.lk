@@ -20,7 +20,7 @@
 		width: 100%;
 		background: $body-bg;
 		text-align: left;
-		font-size: 1.5rem;
+		font-size: $eb-font-size - 0.1;
 	}
 
 	.dragbox-placeholder {

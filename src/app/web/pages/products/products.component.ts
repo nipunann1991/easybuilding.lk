@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, HostListener  } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, HostListener  } from '@angular/core';
 import { PlatformLocation } from '@angular/common'
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { SearchService } from "./services/search.service";
@@ -18,7 +18,7 @@ import { AppSEO } from "./../../../app.seo";
   encapsulation: ViewEncapsulation.None,
 })
 
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
 
   pageData: any = {};
   sortByFilter: any = [];
@@ -41,6 +41,7 @@ export class ProductsComponent implements OnInit {
   paginations: Array<number> = [];
   paramIndex: number; 
   isSticky: boolean = false;
+  _routeListener: any;
   starRating:any = Array.from(Array(this.globals.starRating), (_, index) => index + 1);
   searchParams = {
     sortBy: "",
@@ -85,32 +86,27 @@ export class ProductsComponent implements OnInit {
     private seo: AppSEO,
   ) { 
    
-    this.queryParams = this.globals.defaultQueryParams;
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
+    this.queryParams = this.globals.defaultQueryParams; 
+    this._routeListener =  this.router.events.subscribe((event: any) => {
 
-      if (event instanceof NavigationEnd) {
-        console.log('NavigationEnd!');
-          window.scroll(0,0);    
+      if (event instanceof NavigationEnd) { 
+          window.scroll(0,0);
           this.prevParam = this.activatedRoute.snapshot.params.id; 
           this.prevQueryParam = this.activatedRoute.snapshot.queryParams;  
           this.paramIndex = parseInt(this.activatedRoute.snapshot.queryParams.index); 
           this.getSelectedProductData();  
-          this.filterOptions(); 
-          
-
+          this.filterOptions();   
           (JSON.stringify(this.activatedRoute.snapshot.queryParams) !==  '{}')? this.searchProducts(this.activatedRoute.snapshot.queryParams, true) : "";  
       }
-       
-         
+        
     });
-     
 
-    platformLocation.onPopState(() => { 
+    this.platformLocation.onPopState(() => { 
       (JSON.stringify(this.activatedRoute.snapshot.queryParams) !==  '{}')? this.searchProducts(this.activatedRoute.snapshot.queryParams, true) : "";  
     });
   }
  
-  ngOnInit(): void { 
+  ngOnInit(): void {  
   
     this.formGroup = new FormGroup({   
 
@@ -129,6 +125,7 @@ export class ProductsComponent implements OnInit {
     this.getGridView();
     this.getDistricts();
     this.getCities();
+    this.pageSEO(this.pageData);  
      
   }
 
@@ -137,62 +134,64 @@ export class ProductsComponent implements OnInit {
     this.isSticky = window.pageYOffset >= 50;
   }
 
-  
+  ngOnDestroy() { 
+    this._routeListener.unsubscribe();
+  }
 
   getSelectedProductData(){ 
-    
-    let params = { cat_lvl2_id: this.activatedRoute.snapshot.params.id }; 
 
-    if(params.cat_lvl2_id == 1){
-      this.isFullPageSearch = true;
+    let currentRouteID = 0; 
+    let isSearchString = this.activatedRoute.snapshot.params['id'] === 'search';
+    let isSearchUndefined = typeof this.activatedRoute.snapshot.params['id'] == 'undefined';
+
+    switch (this.router.url.split('/')[1]) {
+      case 'photos':
+        currentRouteID = 3;
+        break;
+
+      case 'services':
+          currentRouteID = 2;
+          break;
       
-      this.pageData = {
-        parentCategory: "Search",
-        categoryLevel1: "Products",
-        categoryLevel2: "Products"
-      } 
+      case 'products':
+        currentRouteID = 1;
+        break; 
+    }
+     
+    let params = { cat_lvl2_id: currentRouteID };  
 
+    if(params.cat_lvl2_id == 1 && !isSearchString && isSearchUndefined){
+      this.isFullPageSearch = true;
+      this.pageData = {  parentCategory: "Search", categoryLevel1: "Products", categoryLevel2: "Products" } 
       this.getProductsMenuItems()
+      
 
-    }else if(params.cat_lvl2_id == 2){
+    }else if(params.cat_lvl2_id == 2 && !isSearchString && isSearchUndefined){
       this.isFullPageSearch = true;
-
-      this.pageData = {
-        parentCategory: "Search",
-        categoryLevel1: "Services",
-        categoryLevel2: "Services"
-      } 
-
+      this.pageData = { parentCategory: "Search", categoryLevel1: "Services", categoryLevel2: "Services" } 
       this.getServicesMenuItems()
- 
+     
 
-    }else if(params.cat_lvl2_id == 3){
+    }else if(params.cat_lvl2_id == 3 && !isSearchString && isSearchUndefined){
       this.isFullPageSearch = true;
-
-      this.pageData = {
-        parentCategory: "Search",
-        categoryLevel1: "Photos",
-        categoryLevel2: "Photos"
-      } 
-
+      this.pageData = { parentCategory: "Search", categoryLevel1: "Photos", categoryLevel2: "Photos" } 
       this.getPhotosMenuItems()
- 
+       
 
-    }else if(params.cat_lvl2_id == 'search'){
-
+    }else if(isSearchString){ 
       this.isFullPageSearch = false;
       this.searchParam = this.activatedRoute.snapshot.queryParams["string"];
 
       this.pageData = {
         parentCategory: this.activatedRoute.snapshot.queryParams["type"] ,
         categoryLevel1: "Search Results",
-        categoryLevel2: "Search '"+ this.searchParam +"'"
+        categoryLevel2: "Search '"+ this.searchParam +"'" 
       }  
-
-
+    
     }else{
-
-      this.isFullPageSearch = false; 
+      
+      this.isFullPageSearch = false;     
+      let params = { cat_lvl2_id: this.activatedRoute.snapshot.queryParams.id }; 
        
       this.search.getSelectedProductData(params) 
         .subscribe((response: any) => {
@@ -200,6 +199,7 @@ export class ProductsComponent implements OnInit {
           if (response.status == 200) {
   
               let page = response.data[0];
+
               this.pageData = {
                 parentCategory: page.cat_name,
                 categoryLevel1: page.cat_lvl1_name,
@@ -209,8 +209,9 @@ export class ProductsComponent implements OnInit {
           }
           
         }); 
-    } 
-    this.pageSEO();  
+ 
+    }  
+ 
   }
 
   setMenuItems(res, breakLine = true, folderUrl = "products"): any{
@@ -237,7 +238,7 @@ export class ProductsComponent implements OnInit {
         parentCat = elm.parent_cat_id;  
 
         if( res.data.length == (index + 1) ){
-          menuItem.push({ id: elm.id ,title: elm.cat_lvl2_name, url: "/"+folderUrl+"/"+elm.cat_lvl2_id, file_name: bgImage });
+          menuItem.push({ id: elm.id ,title: elm.cat_lvl2_name, cat_id: elm.cat_lvl2_id.toString(), url: "/"+folderUrl+"/"+ this.generateSlug(elm.cat_lvl2_name), file_name: bgImage });
         }
          
         (menuItem.length != 0)? menuArray.push({ 
@@ -255,13 +256,24 @@ export class ProductsComponent implements OnInit {
 
       parentCatName = elm.cat_lvl1_name;   
        
-      menuItem.push({ id: elm.id ,title: elm.cat_lvl2_name, url: "/"+folderUrl+"/"+elm.cat_lvl2_id, file_name: bgImage });
+      menuItem.push({ id: elm.id ,title: elm.cat_lvl2_name, cat_id: elm.cat_lvl2_id.toString(), url: "/"+folderUrl+"/"+ this.generateSlug(elm.cat_lvl2_name), file_name: bgImage });
       count++;   
 
     }); 
 
     return menuArray;
 
+  }
+
+
+  generateSlug(text){
+    return text.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-');
+  }
+ 
+
+  gotoURL(url){
+    this.queryParams.id = url.cat_id; 
+    this.router.navigate([url.url], { queryParams: this.queryParams });
   }
 
   capitalizeString(name): string{
@@ -274,7 +286,6 @@ export class ProductsComponent implements OnInit {
        
      this.categoriesList = this.setMenuItems(response)
      
-
     }); 
   }
 
@@ -292,7 +303,7 @@ export class ProductsComponent implements OnInit {
   getPhotosMenuItems(){
     this.homePage.getPhotosMenuItems() 
     .subscribe((response: any) => {
-      this.categoriesList = this.setMenuItems(response, false, "image-search");    
+      this.categoriesList = this.setMenuItems(response, false, "photos");    
     }); 
   }
 
@@ -360,7 +371,7 @@ export class ProductsComponent implements OnInit {
     this.products = []; 
  
     let params = { 
-      cat_lvl2_id: this.activatedRoute.snapshot.params.id, 
+      cat_lvl2_id: this.activatedRoute.snapshot.queryParams.id, 
       limit: queryParams.results, 
       page_index: queryParams.index,
       sort_by: queryParams.sort_by,
@@ -557,12 +568,12 @@ export class ProductsComponent implements OnInit {
   }
 
 
-  pageSEO() : void{
+  pageSEO(pageData: any) : void{
 
    // console.log(this.pageData)
 
     let seoData = {
-      title: 'EasyBuilding.lk | Search Page',
+      title: 'EasyBuilding.lk | '+ this.pageData.categoryLevel2,
       keywords: 'Construction Services in Colombo Galle Kalutara Gampaha Srilanka,Vehicle A/C Repairs, Electrician,Plumber Colmbo Srilanka,Tile Services, Construction Deals,Mason baas,House builders Srilanka,ManPower,WorkForce,Construction Services, Construction Rates, BOQ, Quotation Requests, Construction Deals,Easybuilding, Easybuilding.lk, Easybuilding Deals, Own Quotation Requests, House construction, Building construction, Contrcators, inteiror, plumbers, Painters,  architects, structural engineers, civil construction, repair',
       description: 'We are a leading online House and Building construction market place connecting potential house and commercial building construction clients with quality and reliable construction companies, individual contractors, masons, plumbers, electricians, and construction and interior material suppliers.',
       image: ''

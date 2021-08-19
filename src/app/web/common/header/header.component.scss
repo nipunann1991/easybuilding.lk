@@ -117,7 +117,7 @@
             padding-left: 4.2rem;
             min-height: 3.6rem;
             background-size: 1.5rem;
-            font-size: 1.5rem;
+            font-size: $eb-font-size - 0.1;
 
             @include placeholder() {
                 color: #b9b9bc;
@@ -178,7 +178,8 @@
             margin-right: 1.5rem;
             color: $base-color;
             @include medium;
-            font-size: 1.5rem;
+            letter-spacing: 0cm;
+            font-size: $eb-font-size - 0.1;
             text-decoration: none;
 
             i{
@@ -191,9 +192,10 @@
         }
          
         button{
-            @include regular;
+            @include medium;
             padding: 0.1rem 1.25rem 0.1rem 2rem !important;;
             line-height: 3.5rem;
+            font-size: $eb-font-size - 0.2;
             
             &.btn-login{
                 background-color: $light-blue-color;
@@ -213,7 +215,7 @@
                 }
 
                 i{
-                    font-size: 2rem;
+                    font-size: $eb-font-size + 0.4;
                     position: relative;
                     top: -2px;
                     left: -7px;
@@ -250,7 +252,7 @@
                 align-items: center;
                 justify-content: center;
                 color: $base-bg-color;
-                font-size: 2rem;
+                font-size: $eb-font-size + 0.4;
             }
 
             .user-name{
@@ -301,7 +303,7 @@
                             display: block;
                             color: $dark-gray;
                             text-decoration: none;
-                            font-size: 1.4rem; 
+                            font-size: $eb-font-size - 0.2; 
 
                             i{
                                 color: inherit;
@@ -398,9 +400,8 @@
 
             a{
                 @include bold;
-                font-size: 1.4rem; 
-                padding: 1rem 0;
-                letter-spacing: 0.05rem;
+                font-size: $eb-font-size - 0.2; 
+                padding: 1rem 0; 
                 display: block;
                 text-transform: uppercase;
                 position: relative; 
@@ -513,11 +514,11 @@
                     color: $light-blue-color;
                     text-align: left; 
                     margin-bottom: 1rem;
-                    font-size: 1.6rem;
+                    font-size: $eb-font-size;
                     @include bold;
 
                     span{
-                        font-size: 1.3rem;
+                        font-size: $eb-font-size - 0.3;
                         margin-left: 5px;
                         @include medium;
                     }
@@ -544,11 +545,12 @@
                         a{
                             padding: 0;
                             text-align: left;
-                            font-size: 1.35rem;
+                            font-size: $eb-font-size - 0.3;
                             line-height: 1.7rem;
                             @include regular;
                             text-transform: capitalize;
                             letter-spacing: 0rem; 
+                            cursor: pointer;
                             
 
                             &::before, &:after{

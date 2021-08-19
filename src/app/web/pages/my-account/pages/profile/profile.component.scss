@@ -9,7 +9,7 @@
     text-align: center;
 
     p{
-        font-size: 1.7rem;
+        font-size: $eb-font-size + 0.1;
     }
 
     a{
@@ -31,8 +31,7 @@
         background: $danger-color;
 
         p{
-            font-size: 1.4rem;
-            letter-spacing: 0.03rem;
+            font-size: $eb-font-size - 0.2;
         }
     }
 
@@ -162,6 +161,7 @@
                     width: 100%;
                     margin-top: 1.5rem;
                     display: none;
+                    @include medium;
 
                     @include breakpoint($tablet){
                         display: block;
@@ -215,7 +215,6 @@
     
                         li{
                             color: inherit;
-                            letter-spacing: 0.05rem;
                             margin-bottom: 0.5rem;
 
                             .star-icon{
@@ -280,7 +279,7 @@
                                         margin-right: 0.4rem;
 
                                         i{
-                                            font-size: 1.3rem;
+                                            font-size: $eb-font-size - 0.3;
                                             color: $yellow; 
                                         }
                                     }
@@ -291,7 +290,7 @@
                                     a{
                                         color: $darker-gray;
                                         margin-left: 5px;
-                                        font-size: 1.4rem;
+                                        font-size: $eb-font-size - 0.2;
 
                                         @include breakpoint($tablet){
                                             color: $light-gray;
@@ -327,7 +326,7 @@
                                 color: inherit;
 
                                 @include breakpoint($tablet){
-                                    font-size: 1.4rem;
+                                    font-size: $eb-font-size - 0.2;
                                     margin-left: 1.5rem;
                                 }
 
@@ -335,7 +334,7 @@
                                     position: relative;
                                     top: 0.2rem;
                                     margin-right: 0.2rem;
-                                    font-size: 1.4rem;
+                                    font-size: $eb-font-size - 0.2;
  
                                 }
                             }
@@ -355,6 +354,7 @@
                     line-height: 3rem;
                     display: block;
                     margin: auto;
+                    @include medium;
 
                     @include breakpoint($tablet){
                         margin: 0;
@@ -371,7 +371,7 @@
                         padding-bottom: 0;
                         margin-right: 0.5rem;
                         position: relative;
-                        font-size: 1.3rem;
+                        font-size: $eb-font-size - 0.3;
                         top: -1px;
     
                         &:before{
@@ -422,7 +422,7 @@
         position: absolute;
         right: 2rem;
         top: 2rem;
-        font-size: 2rem;
+        font-size: $eb-font-size + 0.4;
         cursor: pointer;
         color: $white;
         z-index: 100;

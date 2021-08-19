@@ -41,7 +41,7 @@
 
             i.icon{
                 padding: 1.5rem; 
-                font-size: 2.5rem;
+                font-size: $eb-font-size + 0.9;
                 margin-right: 0.5rem;
                 display: inline-block;
                 border-radius: 50%;
@@ -55,13 +55,13 @@
                     li{
                         &.total{
                             @include bold;
-                            font-size: 2.5rem;
+                            font-size: $eb-font-size + 0.9;
                             margin-bottom: 0.5rem;
                         }
 
                         &.box-title{
                             @include regular;
-                            font-size: 1.5rem;
+                            font-size: $eb-font-size - 0.1;
                             color: lighten($dark-gray, 5%);
                         }
                     }

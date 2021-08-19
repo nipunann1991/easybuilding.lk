@@ -44,7 +44,7 @@
         
         h2{
             .close-filter{
-                font-size: 1.4rem;
+                font-size: $eb-font-size - 0.2;
                 float: right; 
 
                 @include breakpoint($tablet){
@@ -94,7 +94,7 @@
                 label{
                     cursor: pointer;
                     margin-left: 10px;
-                    font-size: 1.5rem;;
+                    font-size: $eb-font-size - 0.1;
                 }  
             }
 
@@ -160,14 +160,14 @@
             span.filter-mobile{
                 @include flex();
                 float: left;
-                font-size: 1.35rem;
+                font-size: $eb-font-size - 0.3;
                 
                 @include breakpoint($tablet){
                     display: none;
                 }
 
                 i{
-                    font-size: 2rem;
+                    font-size: $eb-font-size + 0.4;
                     margin-right: 1rem;
                 }
             }
@@ -330,19 +330,19 @@
      
     
                     h3{
-                        font-size: 1.7rem;
+                        font-size: $eb-font-size + 0.1;
                         margin-bottom: 0.3rem;
                     }
     
                     .project-and-company{
                         h3{
-                            font-size: 1.5rem;
+                            font-size: $eb-font-size - 0.1;
                             margin-bottom: 0.8rem;
                             @include medium;
                         }
     
                         a{
-                            font-size: 1.2rem;
+                            font-size: $eb-font-size - 0.4;
                             margin-top: 0.5rem;
                             color: $base-color;
                             display: block;
@@ -357,7 +357,7 @@
                     }
     
                     .ratings-holder{
-                        font-size: 1.3rem; 
+                        font-size: $eb-font-size - 0.3; 
                         overflow: hidden;
                         margin-bottom: 0.5rem;
                         @include flex();
@@ -373,7 +373,7 @@
                                 line-height: 1rem;
 
                                 i{
-                                    font-size: 1rem;
+                                    font-size: $eb-font-size - 0.6;
                                     line-height: 1rem;
                                     color: $yellow; 
                                 }
@@ -387,7 +387,7 @@
                     }
     
                     .description{
-                        font-size: 1.35rem;
+                        font-size: $eb-font-size - 0.3;
                         line-height: 1.8rem;
                         margin-bottom: 1.5rem;
     
@@ -418,7 +418,7 @@
                         overflow: hidden;
                         
                         li{
-                            font-size: 1.4rem;
+                            font-size: $eb-font-size - 0.2;
                             line-height: 1.4rem;
                             float: left;
                             background-repeat: no-repeat ;
@@ -460,7 +460,7 @@
                         display: none;
     
                         li{
-                            font-size: 1.2rem; 
+                            font-size: $eb-font-size - 0.4; 
                             line-height: 1rem; 
                             margin-right: 0.5rem;
                             margin-bottom: 0.5rem;
@@ -553,7 +553,7 @@
                     .category-footer{
                         padding: 1.5rem;
                         text-align: center;
-                        font-size: 1.4rem;
+                        font-size: $eb-font-size - 0.2;
                         line-height: 1.8rem;
                     }
                 }

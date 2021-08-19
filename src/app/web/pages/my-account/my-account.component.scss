@@ -55,11 +55,11 @@
                 margin-bottom: 1rem;
                 color: $base-color;
                 @include bold;
-                font-size: 1.8rem;
+                font-size: 1.6rem;
             }
         
             p, li{
-                font-size: 1.4rem; 
+                font-size: $eb-font-size - 0.2; 
                 line-height: 2.3rem;
                  
             }
@@ -68,7 +68,7 @@
                 background: #F0F0F0;
                 padding: 0.5rem 1rem;
                 border-radius: 2rem;
-                font-size: 1.35rem;
+                font-size: $eb-font-size - 0.3;
                 display: inline-block;
                 line-height: 1.5rem;
                 margin: 0 0.5rem 0.5rem 0;
@@ -76,7 +76,6 @@
         
             li{
                 line-height: 1.95rem;
-                letter-spacing: 0.05rem;
                 margin-bottom: 2rem;
                 background-repeat: no-repeat;
                 background-position: 0 0;
@@ -143,7 +142,7 @@
             text-align: left;
             text-decoration: none; 
             line-height: 3.5rem;
-            font-size: 1.5rem;
+            font-size: $eb-font-size - 0.2;
             
             &.active-btn{ 
                 color: $base-bg-color; 
@@ -179,7 +178,7 @@
                 a{
                     padding: 1.2rem 1.3rem;
                     display: block;
-                    font-size: 1.6rem;
+                    font-size: $eb-font-size;
                     color: $base-color;
                     @include bold;
 

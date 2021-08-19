@@ -9,6 +9,7 @@
         padding-bottom: 4rem;
         align-items: baseline;
         justify-content: space-between;
+        flex-wrap: wrap;
 
         @include breakpoint($tablet){   
             flex-direction: row;
@@ -17,17 +18,20 @@
          
         .columns{ 
             padding-right: 1.5rem; 
+            order: 1;
+            max-width: 25%;
            
             @include breakpointMax($tablet){
-                max-width: 33.33%;
-                float: left;
+                flex-basis: 50%;
+                max-width: inherit;
                 margin-bottom: 4.5rem;
 
             }
             
             &:first-child{ 
                 @include breakpointMax($tablet){
-                    display: none;
+                    order: 2;
+                    flex-basis: 50%; 
                 }
             } 
 
@@ -44,7 +48,7 @@
                     li{
                         a{
                             text-decoration: none;
-                            font-size: 1.4rem;
+                            font-size: $eb-font-size - 0.2;
 
                             i{
                                 color: $form-control-gray;
@@ -66,7 +70,7 @@
 
                 li{ 
                     line-height: 2.2rem;
-                    margin-bottom: 0.5rem;
+                    margin-bottom: 1.5rem;
 
                     @include breakpoint($tablet){
                         margin-bottom: 1.5rem;
@@ -79,13 +83,14 @@
 
                     a{
                         color: $bluish-gray;
-                        font-size: 1.4rem;
+                        font-size: $eb-font-size - 0.2;
                     }
                 }
             }
 
             &.contact-details{
                 img{
+                    width: 19rem;
                     margin-bottom: 1.5rem;
                 }
 
@@ -96,8 +101,7 @@
                         background-position: 0px 3px;
                         padding-left: 2.5rem;
                         color: $bluish-gray;
-                        font-size: 1.5rem;
-                        letter-spacing: 0.03rem;
+                        font-size: $eb-font-size - 0.2;
                         position: relative;
 
                         i{
@@ -116,7 +120,7 @@
 
             h3{
                 text-transform: uppercase;
-                font-size: 1.6rem;
+                font-size: $eb-font-size;
                 margin-bottom: 2rem;
             }
         }
@@ -126,7 +130,7 @@
         padding-top: 2rem;
         text-align: center; 
         border-top: 1px rgba(255, 255, 255, 0.1) solid;
-        font-size: 1.3rem;
+        font-size: $eb-font-size - 0.4;
         
         p{
             color: $bluish-gray;

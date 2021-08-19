@@ -17,7 +17,7 @@
 
   h2{
     margin-right: auto;
-    font-size: 1.8rem;
+    font-size: $eb-font-size + 0.2;
     
     @include breakpoint($tablet){
       
@@ -226,7 +226,7 @@
           }
 
           i{
-            font-size: 1.3rem;
+            font-size: $eb-font-size - 0.3;
             margin-right: 0.5rem;
           }
         }
@@ -240,26 +240,25 @@
 
     h3{
       @include medium; 
-      font-size: 1.5rem;
+      font-size: $eb-font-size - 0.1;
       line-height: 2rem;
       margin-bottom: 1rem;
     }
 
     p{
-      font-size: 1.3rem;
+      font-size: $eb-font-size - 0.3;
     }
 
     ul{ 
       overflow: hidden;
 
       li{
-        font-size: 1.3rem; 
+        font-size: $eb-font-size - 0.3; 
         padding-left: 2.1rem;
         background-repeat: no-repeat;
         float: left;
         margin-right: 1.5rem; 
-        font-size: 1.35rem;
-        letter-spacing: 0.02rem;
+        font-size: $eb-font-size - 0.3;
 
         &.year{
           background-size: 1.5rem;

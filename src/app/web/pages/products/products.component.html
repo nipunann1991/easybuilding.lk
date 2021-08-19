@@ -141,11 +141,11 @@
                         (beforeChange)="beforeChange($event)">
                         
                         <div ngxSlickItem *ngFor="let categories of cl.children" class="slide">
-                            <div class="category-item" [routerLink]="categories.url" [queryParams]="queryParams">
+                            <div class="category-item" (click)="gotoURL(categories)">
                                 <div class="category-bg-img" *ngIf="categories.file_name != ''" [ngStyle]="{'background-image': categories.file_name, 'background-size': 'cover' }"> </div>
                                 <div class="category-bg-img" *ngIf="categories.file_name == ''"> </div>
                                 <div class="category-footer">
-                                    {{ categories.title }}
+                                    {{ categories.title }} 
                                 </div>
                             </div> 
                         </div>

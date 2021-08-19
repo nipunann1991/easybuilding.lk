@@ -9,7 +9,7 @@
     }
 
     .mat-checkbox {
-        font-size: 1.4rem;
+        font-size: $eb-font-size - 0.2;
         margin-left: auto;
     }
 }
@@ -60,7 +60,7 @@ table.lvl2-table{
     i.delete{
         cursor: pointer;
         color: $white;
-        font-size: 2rem;
+        font-size: $eb-font-size + 0.4;
         position: relative;
         z-index: 100;
         opacity: 0;
