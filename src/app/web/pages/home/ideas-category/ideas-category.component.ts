@@ -66,7 +66,7 @@ export class IdeasCategoryComponent implements OnInit {
   }
 
   slickInit(e) {
-    console.log(e)
+    
   }
   
   breakpoint(e) {
@@ -96,7 +96,6 @@ export class IdeasCategoryComponent implements OnInit {
           if (response.status == 200) {   
             this.featuredProductsCategories = response.data;
             this.featuredProductsCategories.map(x=> x.url = "/photos/"+this.generateSlug(x.cat_lvl2_name) );
-            console.log(this.featuredProductsCategories)
           }else{
               
           }

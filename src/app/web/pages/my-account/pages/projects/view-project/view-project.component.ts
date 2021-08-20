@@ -120,14 +120,11 @@ export class ViewProjectComponent implements OnInit {
             this.imagesGallery.push(new ImageItem({  src: this.imageURL+element.file_name, thumb: this.imageURLThumb+element.file_name }));
             this.images.push({ src: this.imageURL+element.file_name, thumb: this.imageURLThumb+element.file_name, approved: element.approved });
           });
-
-          console.log(approvedImagesOnly, "approvedImagesOnly" , this.imagesGallery)
+ 
           
           this.galleryRef.load(this.imagesGallery); 
           this.mainImg = this.imageURL + primaryImage;
           this.profileImg = environment.uploadPath + this.clientId +'/'+ this.companyID +'/'+ this.projectData.profie_image;
-
-          console.log(this.mainImg,100000000)
 
         }else{
           
