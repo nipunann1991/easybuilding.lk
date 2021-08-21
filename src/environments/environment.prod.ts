@@ -4,7 +4,7 @@ let serverUrl = "https://easybuilding.lk/easybuilding-api/";
 
 export const environment = {
   production: true,
-  siteUrl: 'https://easybuilding.lk/', 
+  siteUrl: 'https://easybuilding-lk.herokuapp.com/', 
   baseUrl: serverUrl+'index.php/',
   uploadPath: serverUrl+"/assets/uploads/",
   token: JSON.parse(localStorage.getItem('token')),
