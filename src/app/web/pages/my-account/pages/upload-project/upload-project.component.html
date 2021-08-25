@@ -1,4 +1,4 @@
-<div class="back-to-area">
+<div *ngIf="!isAdmin" class="back-to-area">
     <div class="container">
         <a class="back-to" href="javascript:void(0);" (click)="goBack()">Back to Profile</a>
     </div> 
@@ -7,8 +7,16 @@
   <div class="container"> 
     <div class="row"> 
       <div class="col-md-12"> 
-        <h2>Upload a New Project</h2>
-        <p>A Project is a collection of photos and videos of your own work or products.</p>
+        <ng-container  *ngIf="!isAdmin">
+            <h2>Upload a New Project</h2>
+            <p>A Project is a collection of photos and videos of your own work or products.</p>
+        </ng-container>
+
+        <ng-container  *ngIf="isAdmin">
+            <h2>Upload Photos</h2>
+            <p>Upload a collection of photos to be displayed in the image search.</p>
+        </ng-container>
+      
       </div>
       <div class="col-md-5"> 
         <ngx-file-drop dropZoneLabel="Drop files here" 
@@ -48,13 +56,24 @@
                       <textarea name="description" class="form-control" formControlName="project_description" cols="10" rows="5"></textarea>
                   </div>  
               </div> 
-              <div class="col-md-12">
+              <div class="col-md-12" *ngIf="!isCustomLocation">
                 <div class="form-group">
                     <label for="city_id">Project Location<span class="required-star">*</span></label> 
                     <ng-select2 [data]="nearestCity"  formControlName="project_address"  class="select-fw" >
                     </ng-select2> 
                 </div>  
             </div> 
+            <div class="col-md-12" *ngIf="isAdmin">
+                <div class="form-group">
+                    <mat-checkbox class="approve" [checked]="isCustomLocation" (change)="setCustomLocation($event)">Set Custom Location</mat-checkbox>
+                </div>  
+            </div>
+            <div class="col-md-12" *ngIf="isCustomLocation">
+                <div class="form-group">
+                    <label for="country_location">Custom Location</label> 
+                    <input id="country_location" name="country_location" formControlName="country_location" type="text" class="form-control">
+                </div>  
+            </div>
               <div class="col-md-6"> 
                   <div class="form-group">
                       <label for="project_year">Project Year</label> 

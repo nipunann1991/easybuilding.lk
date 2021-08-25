@@ -34,7 +34,8 @@ export class ProjectsComponent implements OnInit {
   isMenuOpen: boolean;
   isProjectsAvailable: boolean = false;
   isShowHeader: boolean = false;
-  addNewProjectURL: string = ""; 
+  addNewProjectURL: string = "";
+  isGalleryPage: boolean = false; 
 
   constructor(
     private router: Router,
@@ -44,28 +45,33 @@ export class ProjectsComponent implements OnInit {
     private globals: Globals,
     private toastr: ToastrService,
   ) { 
-  
+     
 
   }
 
   ngOnInit(): void { 
-    window.scroll(0,0); 
+    window.scroll(0,0);  
     this.getProfileDetails(); 
+   
   }
 
 
   getProfileDetails(){   
     let limit = 0;
+ 
 
     this.profile.userProfileData.subscribe(data => { 
       this.profileData = data; 
-      this.clientId  = this.profileData.client_id;  
-      this.companyId = this.profileData.company_id;   
+ 
+      this.clientId  = !this.profileData.client_id || this.route.snapshot.params.user == '0' ? 0 : this.profileData.client_id ;  
+      this.companyId = !this.profileData.company_id || this.route.snapshot.params.user == '0' ? 0 : this.profileData.company_id;   
       this.isEdit = this.profileData.profile_editable;
-      this.isEditAdmin = this.profileData.admin_profile;  
+      this.isEditAdmin = this.profileData.admin_profile;   
       this.imageURL = environment.uploadPath + this.clientId +'/'+ this.companyId +'/projects/thumb/';
 
-      if(!this.isEditAdmin){
+      (this.clientId == 0 && this.companyId == 0)? this.isGalleryPage = true : this.isGalleryPage = false;
+
+      if(!this.isEditAdmin && !this.isGalleryPage){
         this.addNewProjectURL = environment.profileUrl.split('/').slice(0, -1).join('/') + "/projects/upload-project/"+this.companyId;  
        
       }else{ 
@@ -82,8 +88,7 @@ export class ProjectsComponent implements OnInit {
 
       }
       
-    });
- 
+    }); 
 
     this.getMinimalProjectDetails( this.companyId, limit, this.isEdit);
   
@@ -91,7 +96,6 @@ export class ProjectsComponent implements OnInit {
  
  
   getMinimalProjectDetails(company_id, limit, isUserProfile){
-
     this.project = [];
     let params = { company_id: company_id, limit: limit, isUserProfile: isUserProfile }
 
@@ -100,7 +104,7 @@ export class ProjectsComponent implements OnInit {
         if (response.status == 200 && response.data.length > 0 ) { 
           this.isProjectsAvailable = true;
           this.project = response.data
-          console.log(this.project)
+          
          
         } if (response.status == 200 && response.data.length == 0 ) {
           this.isProjectsAvailable = false; 
@@ -115,8 +119,28 @@ export class ProjectsComponent implements OnInit {
   }
 
   openProject(company_id, Project_id){
-    this.router.navigate(["view-project/"+company_id+"/"+Project_id+"/"], {relativeTo: this.route.parent} ); 
+    let projectURL = "view-project/"+company_id+"/"+Project_id+"/";
+
+    if(this.isGalleryPage){
+      this.router.navigate(['/admin/users/user/'+this.route.snapshot.params.user+"/"+this.route.snapshot.params.provider_id+"/projects/"+projectURL ]); 
+    }else{
+      this.router.navigate([projectURL], {relativeTo: this.route.parent} ); 
+    }
+
   }
+
+
+  gotoEditProfile(company_id, Project_id){
+    let editProjectURL = "edit-project/"+company_id+"/"+Project_id+"/";
+
+    if(this.isGalleryPage){
+      this.router.navigate(['/admin/users/user/'+this.route.snapshot.params.user+"/"+this.route.snapshot.params.provider_id+"/projects/"+editProjectURL ]); 
+    }else{
+      this.router.navigate([editProjectURL], {relativeTo: this.route.parent} ); 
+    }
+   
+  }
+
 
   viewMoreProjects(){
     this.router.navigate(["../projects"], {relativeTo: this.route.parent} ); 

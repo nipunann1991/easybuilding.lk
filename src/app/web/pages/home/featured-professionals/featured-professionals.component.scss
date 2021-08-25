@@ -10,7 +10,7 @@
     }
 
     h2{
-        font-size: 2.5rem;
+        font-size: 2.3rem;
         margin-bottom: 1.5rem; 
     }
 
@@ -73,6 +73,10 @@
                 &:focus{
                     outline: 0;
                     bottom: -2px;
+                }
+
+                img{
+                    display: none;
                 }
 
                 .item-img{

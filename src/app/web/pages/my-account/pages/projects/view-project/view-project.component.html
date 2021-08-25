@@ -1,6 +1,8 @@
 <div class="back-to-area">
   <div class="container">
-      <a class="back-to" href="javascript:void(0)" (click)="goBack()">Back to Profile</a>
+      <a class="back-to" href="javascript:void(0)" (click)="goBack()">
+        Back to <span *ngIf="companyID != '0'" >Profile</span><span *ngIf="companyID == '0'" >Gallery</span>
+      </a>
   </div> 
 </div>
 <div class="page-container animated fadeIn  view-project">
@@ -31,7 +33,7 @@
             <ul class="additional-info">
               <li class="year"><strong>Project Year </strong>  {{projectData.project_year}}</li>
               <li class="photos"><strong>Project Cost </strong> {{projectData.project_cost}}</li>
-              <li class="location"><strong>Location </strong>{{projectData.city}}</li>  
+              <li class="location"><strong>Location </strong> <span *ngIf="projectData.country_location == ''">{{projectData.city}}</span><span *ngIf="projectData.country_location != ''">{{projectData.country_location}}</span></li>  
             </ul> 
           </div>  
           <div class="project-desc"> 
@@ -39,7 +41,7 @@
           </div>
         </div>
         
-        <div class="user-profile-details">
+        <div *ngIf="companyID != '0'" class="user-profile-details">
           <div class="profile-image" (click)="gotoProfile()" [ngStyle]="{'background-image': 'url('+ profileImg +')'}"></div>
           <div class="user-details">
             <h3>{{projectData.display_name}}</h3>

@@ -96,9 +96,7 @@ export class ReviewsComponent implements OnInit {
           this.pagination = Array(Math.floor(this.totalReviews / this.resultLimit) + 1 ).fill(0).map((x,i)=>(i + 1));
         }else{
           this.pagination = Array(Math.floor(this.totalReviews / this.resultLimit)).fill(0).map((x,i)=>(i + 1));
-        }
-
-        console.log("length", this.pagination.length)
+        } 
       
       } 
         

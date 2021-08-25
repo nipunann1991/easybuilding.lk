@@ -1,0 +1,32 @@
+<div class="right-container  animated fadeIn">
+    <div class="title">
+        <h2><button mat-button class="transparent-btn back-btn"  ><i class="icon-left-arrow"></i></button> Photos</h2> 
+        <div class="pull-right">
+            <button mat-button name="button" type="button" class="btn btn-primary-transparent" [routerLink]="['gallery/0/16296409244970']">Gallery by Admin</button>
+            <button mat-button name="button" type="button" class="btn btn-primary upload" [routerLink]="['/admin/users/user/0/16296409244970/projects/upload-project/0']">Upload Photos</button>
+        </div> 
+        <div class="clearfix"></div>
+    </div>
+    <div class="row"> 
+        <div class="col-md-12"> 
+            <div class="white-box-panel">
+                <h3 class="title">Client Uploaded Images</h3>
+                
+                <button id="refresh-btn" type="button" class="btn waves-effect waves-light blue d-none" (click)="rerender()">  Rerender  </button>
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="row-border hover">
+                    <thead>
+                    <tr>   
+                        <th>Image Id</th>   
+                        <th>Company</th> 
+                        <th>Project Name</th>   
+                        <th>Project ID</th>   
+                        <th>Image</th> 
+                        <th></th> 
+                    </tr>
+                    </thead>
+                    
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

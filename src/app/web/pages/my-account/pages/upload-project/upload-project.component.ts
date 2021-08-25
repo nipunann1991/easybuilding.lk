@@ -25,6 +25,7 @@ export class UploadProjectComponent implements OnInit {
   public files: NgxFileDropEntry[] = []; 
   imageChangedEvent: any = '';
   isUploading: boolean = false;
+  isAdmin: boolean = false;
   croppedImage: any = '';
   uploadedImages: any = [];
   uploadedFileName: any = [];
@@ -32,16 +33,14 @@ export class UploadProjectComponent implements OnInit {
   projectImagesDeleted:any;
   imageURLThumb: string = "";
   nearestCity: any = [];
+  isCustomLocation: boolean = false;
 
   constructor(
     private myaccount: MyAccountService,
     private toastr: ToastrService,  
     private route: ActivatedRoute,
     private location: Location
-  ) {  
-    
-    
-  }
+  ) { }
 
   ngOnInit(): void { 
 
@@ -75,6 +74,8 @@ export class UploadProjectComponent implements OnInit {
         Validators.required
       ]),
 
+      country_location: new FormControl(''),
+
       project_year: new FormControl(''),
 
       project_cost: new FormControl(''),
@@ -88,8 +89,10 @@ export class UploadProjectComponent implements OnInit {
     });
 
     this.companyID = this.route.snapshot.params.company_id; 
-    this.getProductsWithID(this.companyID); 
-    
+
+    (this.companyID == '0')? this.isAdmin = true : this.isAdmin = false; 
+    (this.isAdmin)? this.getServicsforAdmin() : this.getProductsWithID(this.companyID); 
+  
     this.getCities();
    
   }
@@ -187,9 +190,8 @@ export class UploadProjectComponent implements OnInit {
           
         }
           
-      });
+      }); 
 
-    
   }
 
   getServicsWithID(company_id){
@@ -215,7 +217,18 @@ export class UploadProjectComponent implements OnInit {
           
       });
   }
-    
+
+
+  getServicsforAdmin(){
+
+    this.myaccount.getServicsforAdmin() 
+      .subscribe((response: any) => {
+        if (response.status == 200 ) {
+          this.allServices = response.data; 
+        } 
+          
+      });
+  } 
 
   imageCropped(event: ImageCroppedEvent) {
       this.croppedImage = event.base64; 
@@ -241,16 +254,16 @@ export class UploadProjectComponent implements OnInit {
     let validFileExtensions = [".jpg", ".jpeg", ".png"]; 
     let isValid = false;
   
-        for (var j = 0; j < validFileExtensions.length; j++) {
-            var sCurExtension = validFileExtensions[j];
-            if (file_name.substr(file_name.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
-                
-                isValid = true; 
-                break;
-            }
+    for (var j = 0; j < validFileExtensions.length; j++) {
+        var sCurExtension = validFileExtensions[j];
+        if (file_name.substr(file_name.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+            
+            isValid = true; 
+            break;
         }
-  
-        return isValid;
+    }
+
+    return isValid;
   }
   
   validateFile(file){
@@ -287,6 +300,9 @@ export class UploadProjectComponent implements OnInit {
         this.formGroup.value.total_imgs = 0; // this.uploadedFileName.length; 
         this.formGroup.value.services = JSON.stringify(this.formGroup.value.services); 
 
+        if(this.isCustomLocation){
+          this.formGroup.value.project_address = 0;
+        }
          
         this.myaccount.addNewProjectDetails(this.formGroup.value)
           .subscribe((response: any) => {
@@ -370,4 +386,13 @@ export class UploadProjectComponent implements OnInit {
             
         });
     }
+
+    setCustomLocation(e){
+      this.isCustomLocation = e.checked;
+      
+      if(this.isCustomLocation){
+        this.formGroup.controls['project_address'].setValue(0)
+      } 
+    }
+
 }

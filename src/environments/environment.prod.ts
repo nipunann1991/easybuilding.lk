@@ -1,10 +1,10 @@
 
 
-let serverUrl = "https://easybuilding.lk/easybuilding-api/";
+let serverUrl = "https://easybuilding.biz/easybuilding-api/";
 
 export const environment = {
   production: true,
-  siteUrl: 'https://easybuilding.lk/', 
+  siteUrl: 'https://easybuilding.biz/', 
   baseUrl: serverUrl+'index.php/',
   uploadPath: serverUrl+"/assets/uploads/",
   token: JSON.parse(localStorage.getItem('token')),

@@ -142,7 +142,9 @@
                         
                         <div ngxSlickItem *ngFor="let categories of cl.children" class="slide">
                             <div class="category-item" (click)="gotoURL(categories)">
-                                <div class="category-bg-img" *ngIf="categories.file_name != ''" [ngStyle]="{'background-image': categories.file_name, 'background-size': 'cover' }"> </div>
+                                <div class="category-bg-img" *ngIf="categories.file_name != ''" [ngStyle]="{'background-image': 'url(' + categories.file_name + ')', 'background-size': 'cover' }">
+                                    <img [src]="safeURL(categories.file_name)" [alt]="categories.title">
+                                </div>
                                 <div class="category-bg-img" *ngIf="categories.file_name == ''"> </div>
                                 <div class="category-footer">
                                     {{ categories.title }} 

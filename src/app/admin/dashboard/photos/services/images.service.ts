@@ -16,8 +16,7 @@ export class ImagesService {
     let url = environment.baseUrl+'ImagesController/getImageDetailsDT?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id; 
    	return url;  
   }
-
-  
+ 
 
   getImageCategories(){ 
     return this.http.get(environment.baseUrl+'ImagesController/getImageCategories?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id);
@@ -45,5 +44,18 @@ export class ImagesService {
 
   }
 
+  getServicsforAdmin(){ 
+    return this.http.get(environment.baseUrl+'ImagesController/getServicsforAdmin');
+  }
   
+
+  uploadProjectImages(formData){
+     
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'undefined');
+
+    return this.http.post(environment.baseUrl+'ImagesController/uploadProjectImages?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, formData , { headers: headers });  
+  }
+
+
 }

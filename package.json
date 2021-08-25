@@ -7,11 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "dev:ssr": "ng run easybuilding.lk:serve-ssr",
-    "serve:ssr": "node dist/easybuilding.lk/server/main.js",
-    "build:ssr": "ng build && ng run easybuilding.lk:server",
-    "prerender": "ng run easybuilding.lk:prerender"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {

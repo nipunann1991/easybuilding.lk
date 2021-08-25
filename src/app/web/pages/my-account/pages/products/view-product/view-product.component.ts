@@ -53,9 +53,7 @@ export class ViewProductComponent implements OnInit {
     this.myaccount.getProductDetails(params) 
       .subscribe((response: any) => {
         if (response.status == 200  ) { 
-          
-          console.log(response.data);
-
+            
           this.projectData = response.data[0];
   
           this.imageURL = environment.uploadPath + this.projectData.client_id +'/'+ this.companyID +'/products/';
@@ -66,7 +64,6 @@ export class ViewProductComponent implements OnInit {
 
           this.unit = this.units[this.projectData.product_unit - 1].text
          
-
           if( parseInt(this.projectData.client_id)  ==  parseInt(this.globals.token.session_id)){
             this.profileURL = "/my-account/user/me/about";
           }else{

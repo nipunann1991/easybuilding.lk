@@ -26,42 +26,29 @@ export class MyAccountService {
     return this.http.get(environment.baseUrl+'ProfileController/getProfileDetails'+this.setTokenData());
   }
  
- 
   getCustomProfileDetails(params){   
     return this.http.get(environment.baseUrl+'ProfileController/getCustomProfileDetails?client_id='+params.client_id+'&provider_id='+params.provider_id);
   }
 
-  getAccountDetails(){  
-    
-   
+  getAccountDetails(){   
       return this.http.get(environment.baseUrl+'ProfileController/getAccountDetails'+this.setTokenData());
-    
-    
   }
  
-  getServiceDetails(){   
-
-      return this.http.get(environment.baseUrl+'ProfileController/getServiceDetails'+this.setTokenData()); 
-   
+  getServiceDetails(){
+    return this.http.get(environment.baseUrl+'ProfileController/getServiceDetails'+this.setTokenData()); 
   }
- 
 
   getCities(){   
       return this.http.get(environment.baseUrl+'ProfileController/getCities');
-  
-   }
-
+  }
 
   getCitiesByDistrict(){    
     return this.http.get(environment.baseUrl+'ProfileController/getCitiesByDistrict');
-  
   }
 
 
-  getDistricts(){   
-
+  getDistricts(){
     return this.http.get(environment.baseUrl+'ProfileController/getDistricts');
-   
   } 
 
   getAllCategoriesData(){   
@@ -69,17 +56,11 @@ export class MyAccountService {
   } 
 
   getServiceCategories(){ 
-    
     return this.http.get(environment.baseUrl+'ProfileController/getServiceCategories'+this.setTokenData());
-    
-    
   }
 
-  getProductCategories(){   
-
-      return this.http.get(environment.baseUrl+'ProfileController/getProductCategories'+this.setTokenData());
-    
-   
+  getProductCategories(){ 
+    return this.http.get(environment.baseUrl+'ProfileController/getProductCategories'+this.setTokenData());
   }
   
   getServiceCitiesByCompany(postVals){   
@@ -89,10 +70,9 @@ export class MyAccountService {
     }); 
     
     return this.http.post(environment.baseUrl+'ProfileController/getServiceCitiesByCompany', params);
-  }
-
   
-
+  }
+ 
   getServiceDistrictsByCompany(postVals){   
 
     const params = new HttpParams({
@@ -112,6 +92,10 @@ export class MyAccountService {
     return this.http.post(environment.baseUrl+'ProfileController/getServics', params);
   }
 
+  getServicsforAdmin(){ 
+    return this.http.get(environment.baseUrl+'ImagesController/getServicsforAdmin');
+  }
+  
   getServicsWithID(postVals){   
 
     const params = new HttpParams({
@@ -170,11 +154,7 @@ export class MyAccountService {
   }
   
   getContactDetails(){  
-
-      return this.http.get(environment.baseUrl+'ProfileController/getContactDetails'+this.setTokenData());
-   
-     
-    
+    return this.http.get(environment.baseUrl+'ProfileController/getContactDetails'+this.setTokenData());
   }
   
   updateProfileDetails(postVals){ 
@@ -184,8 +164,6 @@ export class MyAccountService {
     }); 
     
       return this.http.post(environment.baseUrl+'ProfileController/updateProfileDetails'+this.setTokenData(), params);
-    
-
   }
 
   updateProfileWithServiceArea(postVals){ 
@@ -194,9 +172,8 @@ export class MyAccountService {
       fromObject : postVals
     }); 
 
-      return this.http.post(environment.baseUrl+'ProfileController/updateProfileWithServiceArea'+this.setTokenData(), params);
-    
-     
+    return this.http.post(environment.baseUrl+'ProfileController/updateProfileWithServiceArea'+this.setTokenData(), params); 
+  
   }
 
   
@@ -206,9 +183,8 @@ export class MyAccountService {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'undefined');
  
-      return this.http.post(environment.baseUrl+'ProfileController/fileUpload'+this.setTokenData(), formData , { headers: headers });
-    
-    
+    return this.http.post(environment.baseUrl+'ProfileController/fileUpload'+this.setTokenData(), formData , { headers: headers });
+
   }
 
   uploadProjectImages(formData){
@@ -216,10 +192,7 @@ export class MyAccountService {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'undefined');
 
-      return this.http.post(environment.baseUrl+'ProfileController/uploadProjectImages'+this.setTokenData(), formData , { headers: headers });
-    
-
-    
+    return this.http.post(environment.baseUrl+'ProfileController/uploadProjectImages'+this.setTokenData(), formData , { headers: headers });  
   }
 
 
@@ -228,9 +201,8 @@ export class MyAccountService {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'undefined');
 
-      return this.http.post(environment.baseUrl+'ProfileController/uploadProjectImagesOnEdit'+this.setTokenData(), formData , { headers: headers });
-    
-
+    return this.http.post(environment.baseUrl+'ProfileController/uploadProjectImagesOnEdit'+this.setTokenData(), formData , { headers: headers });
+  
   }
   
  
@@ -240,8 +212,7 @@ export class MyAccountService {
       fromObject : postVals
     }); 
     
-      return this.http.post(environment.baseUrl+'ProfileController/addNewProjectDetails'+this.setTokenData(), params);
-    
+    return this.http.post(environment.baseUrl+'ProfileController/addNewProjectDetails'+this.setTokenData(), params);
     
   }
 
@@ -252,6 +223,7 @@ export class MyAccountService {
     }); 
     
     return this.http.post(environment.baseUrl+'ProfileController/addNewProductDetails'+this.setTokenData(), params);
+  
   }
   
 
@@ -283,11 +255,8 @@ export class MyAccountService {
       fromObject : postVals
     }); 
 
-  
-      return this.http.post(environment.baseUrl+'ProfileController/deleteProject'+this.setTokenData(), params);
-    
-    
-   
+    return this.http.post(environment.baseUrl+'ProfileController/deleteProject'+this.setTokenData(), params);
+     
   }
 
 
@@ -297,8 +266,7 @@ export class MyAccountService {
       fromObject : postVals
     }); 
     
-      return this.http.post(environment.baseUrl+'ProfileController/deleteProductDB'+this.setTokenData(), params);
-   
+    return this.http.post(environment.baseUrl+'ProfileController/deleteProductDB'+this.setTokenData(), params);
    
   }
 
@@ -309,11 +277,8 @@ export class MyAccountService {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'undefined');
 
+    return this.http.post(environment.baseUrl+'ProfileController/saveProfileImage'+this.setTokenData(), formData , { headers: headers });
    
-      return this.http.post(environment.baseUrl+'ProfileController/saveProfileImage'+this.setTokenData(), formData , { headers: headers });
-   
-
-    
   }
 
   removeCoverImage(postVals){
@@ -322,7 +287,7 @@ export class MyAccountService {
        fromObject : postVals
     });
 
-      return this.http.post(environment.baseUrl+'ProfileController/removeCoverImage'+this.setTokenData(), params);
+    return this.http.post(environment.baseUrl+'ProfileController/removeCoverImage'+this.setTokenData(), params);
    
   }
 
@@ -332,8 +297,7 @@ export class MyAccountService {
        fromObject : postVals
     });
  
-      return this.http.post(environment.baseUrl+'ProfileController/removeProjectImages'+this.setTokenData(), params);
-   
+    return this.http.post(environment.baseUrl+'ProfileController/removeProjectImages'+this.setTokenData(), params);
     
   }
 
@@ -344,7 +308,6 @@ export class MyAccountService {
     });
  
     return this.http.post(environment.baseUrl+'ProfileController/removeProductImages'+this.setTokenData(), params);
-   
     
   }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation, HostListener  } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { PlatformLocation } from '@angular/common'
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { SearchService } from "./services/search.service";
@@ -83,6 +84,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     private homePage: HomepageService,
     private platformLocation: PlatformLocation,
     private globals: Globals,
+    private sanitizer: DomSanitizer,
     private seo: AppSEO,
   ) { 
    
@@ -205,7 +207,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
                 categoryLevel1: page.cat_lvl1_name,
                 categoryLevel2: page.cat_lvl2_name
               } 
-  
+              
+              this.pageSEO(this.pageData);
           }
           
         }); 
@@ -232,7 +235,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       }
 
       let bgImage = ""; 
-      (elm.file_name != '')?  bgImage ='url('+ environment.uploadPath+"admin/category/thumb/"+elm.file_name : bgImage = '';
+      (elm.file_name != '')?  bgImage = environment.uploadPath+"admin/category/thumb/"+elm.file_name : bgImage = '';
 
       if(parentCat != elm.parent_cat_id || isLineBreak || res.data.length == (index + 1)){ 
         parentCat = elm.parent_cat_id;  
@@ -503,11 +506,16 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.area = value; 
     this.setURL(true);
   }
+
+  safeURL(url){
+    return this.sanitizer.bypassSecurityTrustUrl(url)
+  }
    
 
-  setURL(isInit = false){ 
-     
+  setURL(isInit = false){  
+  
     let queryParams = { 
+      id: this.activatedRoute.snapshot.queryParams['id'],
       results: '10', 
       index: '1',
       sort_by: this.searchParams.sortBy,
@@ -518,8 +526,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
     if(this.router.url.includes('string=')){
       queryParams["string"] = this.activatedRoute.snapshot.queryParams.string
     }
-  
-    this.router.navigate(['/products/'+this.activatedRoute.snapshot.params.id], { queryParams: queryParams });
+     
+    this.router.navigate([this.router.url.split('?')[0]], { queryParams: queryParams });
   
   }
 
@@ -569,8 +577,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
 
   pageSEO(pageData: any) : void{
-
-   // console.log(this.pageData)
 
     let seoData = {
       title: 'EasyBuilding.lk | '+ this.pageData.categoryLevel2,

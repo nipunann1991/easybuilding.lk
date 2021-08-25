@@ -130,7 +130,6 @@ export class ImageSearchComponent implements OnInit {
 
     this.searchImages(this.activatedRoute.snapshot.queryParams); 
     
- 
   }
   
 
@@ -140,13 +139,12 @@ export class ImageSearchComponent implements OnInit {
     });
   } 
 
-  searchImages(queryParams){
+  searchImages(queryParams){ 
 
-    this.imageSearch = []; 
-    this.imagesResults = [];
+    if(queryParams.id){ this.searchParam = ""; }
 
     let params = { 
-      cat_lvl2_id: this.activatedRoute.snapshot.queryParams.id, 
+      cat_lvl2_id: (this.activatedRoute.snapshot.params.id == 'search')? this.activatedRoute.snapshot.params.id : this.activatedRoute.snapshot.queryParams.id, 
       limit: queryParams.results, 
       page_index: queryParams.index,
       sort_by: queryParams.sort_by,
@@ -173,6 +171,9 @@ export class ImageSearchComponent implements OnInit {
         }else{
           this.paginations =  Array(totalPages).fill(0).map((x,i)=>i + 1);
         } 
+
+        this.imageSearch = []; 
+        this.imagesResults = []; 
         
         response.data.forEach(elm => {
          
@@ -198,13 +199,11 @@ export class ImageSearchComponent implements OnInit {
           }
 
           this.imagesResults.push(new ImageItem({ src: profileImg, thumb: profileImgThumb }));
-          this.galleryRef.load(this.imagesResults);
-          
+          this.galleryRef.load(this.imagesResults); 
           this.imageSearch.push(constructors)
           
         }); 
-        
-       
+         
       }
       
     });
@@ -212,8 +211,6 @@ export class ImageSearchComponent implements OnInit {
 
   getGridView(){ 
     let storageData = JSON.parse(localStorage.getItem('isGridView')); 
-
-   
 
     if(typeof storageData !== 'undefined' ){
       this.isGridView = storageData;

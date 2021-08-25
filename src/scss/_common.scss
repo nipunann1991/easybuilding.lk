@@ -40,6 +40,7 @@ h1, h2, h3, h4{
 body{   
 	font-size: $eb-font-size;	  
 	background: $white;
+	letter-spacing: -0.01rem;
 	overflow-x: hidden;
 	@include regular;
 		
@@ -391,7 +392,7 @@ ul{
 			h2{
 				font-size: $h3-font-size + 3;
 				font-family: inherit;
-				font-weight: 700;
+				font-weight: 600;
 				text-transform: capitalize;
 				margin-bottom: 0;
 				float: left; 
@@ -403,6 +404,10 @@ ul{
 				
 				&.transparent-btn{ 
 					border-radius: 20px;
+				}
+
+				&.upload{
+					margin-left: 1.5rem;
 				}
 			}
 
@@ -987,6 +992,7 @@ table.dataTable{
 	thead {
 		th, td{
 			padding: 0.85rem 1rem;
+			@include medium;
 		}
 	}
 

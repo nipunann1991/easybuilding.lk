@@ -16,9 +16,7 @@
 .products-wrapper{
     padding: 2rem 0 5rem 0;   
 
-    .products-wrapper-inner{
-        // display: flex; 
-        //overflow: hidden;
+    .products-wrapper-inner{ 
 
         @include breakpoint($tablet){
             min-height: inherit;
@@ -347,6 +345,11 @@
                             color: $base-color;
                             display: block;
                             line-height: 1.7rem;
+
+                            &.no-link{
+                                cursor: default;
+                                text-decoration: none;
+                            }
                         }
                     }
 
@@ -473,10 +476,7 @@
                         }
                     }
                     
-                    .contact-details{
-                        // padding-top: 0.8rem;
-                        // border-top: 1px $light-gray solid;
-                       
+                    .contact-details{  
     
                         .summery-area{ 
                             display: none;
@@ -538,6 +538,10 @@
 
                     &:focus{
                         outline: 0;
+                    }
+
+                    img{
+                        display: none;
                     }
 
                     .category-bg-img{

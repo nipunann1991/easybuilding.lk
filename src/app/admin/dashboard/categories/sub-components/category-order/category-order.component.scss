@@ -13,7 +13,7 @@
 
 	button.drag-item{
 		border: 1px $border-gray solid;
-		padding: 1rem 2rem;
+		padding: 1.3rem 2rem;
 		border-radius: 0.4rem;
 		margin-bottom: 0.5rem;
 		list-style: none;
@@ -21,6 +21,8 @@
 		background: $body-bg;
 		text-align: left;
 		font-size: $eb-font-size - 0.1;
+		cursor: move; 
+
 	}
 
 	.dragbox-placeholder {

@@ -35,11 +35,6 @@ export class HomepageService {
 
   getFeaturedProducts(){   
     return this.http.get(environment.baseUrl+'HomeController/getFeaturedProducts');
-  }
-
+  } 
   
-
-
-  
-
 }

@@ -11,6 +11,7 @@ import { AppSharedModule } from '../../../../../../app.shared.module';
     CommonModule,
     AppSharedModule,
     ViewProjectRoutingModule
-  ]
+  ],
+  exports: [ViewProjectComponent]
 })
 export class ViewProjectModule { }

@@ -128,7 +128,7 @@ export class HeaderComponent implements OnInit {
     .subscribe((response: any) => {
 
       let menuArray = this.setMenuItems(response, false, 'services');  
-
+      console.log(menuArray)
       this.menuItemsServices = this.generateMegaMenu(menuArray);
 
     }); 

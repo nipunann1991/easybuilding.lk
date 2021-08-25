@@ -181,6 +181,7 @@
                     font-size: $eb-font-size;
                     color: $base-color;
                     @include bold;
+                    text-decoration: none;
 
                     @include breakpoint($tablet){
                         padding: 1.7rem 2.5rem;
@@ -190,9 +191,13 @@
                         padding: 1.7rem 4rem;
                     }
 
+                    &:hover{
+                        color: $darker-gray;
+                    }
+
                     &.active-link{
                         position: relative;
-                        color: $base-bg-color;
+                        color: $base-bg-color; 
 
                         &:before{
                             content: "";
