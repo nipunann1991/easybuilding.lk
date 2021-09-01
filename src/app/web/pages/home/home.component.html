@@ -6,8 +6,8 @@
             <p>We are a leading online House and Building construction marketplace<br class="sm-hidden"/> connecting with quality and reliable construction companies and individuals.</p>
             
             <div class="banner-button">
-                <button mat-button class="btn btn-primary products-btn" routerLink="/products/1">Products</button>
-                <button mat-button class="btn btn-primary services-btn" routerLink="/services/2">Services</button>  
+                <button mat-button class="btn btn-primary products-btn" routerLink="/products">Products</button>
+                <button mat-button class="btn btn-primary services-btn" routerLink="/services">Services</button>  
             </div>
             <div class="banner-button">
                 <button mat-button class="btn btn-primary upload-btn" routerLink="/login"><i class="icon-upload"></i> Upload Product/Service</button>
@@ -20,21 +20,21 @@
             <app-ideas-category></app-ideas-category> 
             
             <ul class="services-list">
-                <li routerLink="/photos/3">
+                <li routerLink="/photos">
                     <img src="./assets/images/design.png" alt="">
                     <div class="service-desc">
                         <h3>Design ideas</h3>
                         <p>Browse more than 20 million photos and filter based on your taste.</p>
                     </div> 
                 </li>
-                <li routerLink="/services/2">
+                <li routerLink="/services">
                     <img src="./assets/images/architect.png" alt="">
                     <div class="service-desc">
                     <h3>Contractors</h3>
                     <p>Connect with local professionals who can help with your project.</p>
                     </div>
                 </li>
-                <li routerLink="/products/1">
+                <li routerLink="/products">
                     <img src="./assets/images/professional.png" alt=""> 
                     <div class="service-desc">
                     <h3>Products</h3>
@@ -45,12 +45,12 @@
             
             <div class="browse-items-list row">  
                 <div class="col-md-6 browse-wrapper anim-left">
-                    <div class="browse-item item1"  routerLink="/photos/3">
+                    <div class="browse-item item1"  routerLink="/photos">
                         <div class="browse-content">
                             <div class="browse-content-inner">
                                 <h3>Find House Designs</h3>
                                 <p>Best house and building construction, interior designs, landscaping and all associated construction images.</p>
-                                <a href="javascript:void(0)" class="read-more-link">View more</a>
+                                <a routerLink="/photos" class="read-more-link">View more</a>
                             </div> 
                         </div>
                         <div class="content-img">
@@ -59,12 +59,12 @@
                     </div> 
                 </div>
                 <div class="col-md-6 browse-wrapper anim-right">
-                    <div class="browse-item item2" routerLink="/products/1">
+                    <div class="browse-item item2" routerLink="/products">
                         <div class="browse-content">
                             <div class="browse-content-inner"> 
                                 <h3>Find Products</h3>
                                 <p>Best products for home and building construction, Electrical installation, Air condition and machinery usage.</p>
-                                <a routerLink="/products/1" class="read-more-link">View more</a>
+                                <a routerLink="/products" class="read-more-link">View more</a>
                             </div>
                         </div> 
                         <div class="content-img">

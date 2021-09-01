@@ -241,7 +241,7 @@ class ProfileController extends CommonController {
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
 			$search_index = array(
-				'columns' => 'c.client_id, cc.company_id, cc.all_island, cc.service_areas, cc.service_dist, cc.services, cc.products, cc.company_profile' ,   
+				'columns' => 'c.client_id, c.provider_id, cc.company_id, cc.all_island, cc.service_areas, cc.service_dist, cc.services, cc.products, cc.company_profile' ,   
 				'table' => 'user_sessions us, clients c, client_company cc',
 				'eq_table_col' => '1 ORDER BY cc.company_id DESC LIMIT 1',
 				'data' => 'us.auth_token= "'.$this->input->get('auth_token').'" AND c.client_id = us.client_id AND c.client_id = cc.client_id', 
@@ -1213,11 +1213,20 @@ class ProfileController extends CommonController {
  
 		(ENVIRONMENT !== 'production')? $profileURL = constant("LOCAL_PROFILE_URL") : $profileURL = constant("LIVE_PROFILE_URL") ; 
 
+		$search_index = array(
+			'columns' => 'company_tel1, company_email, fb_url, twitter_url, youtube_url, linkedin_url' ,   
+			'table' => 'company_details',
+			'eq_table_col' => '1',
+			'data' => '1', 
+		);
+
  		$data = array(
 			'verifycode' => $inputData->provider_id,  
 			'profileURL' => $profileURL ,
 			'email' => $inputData->email,
 			'name' => $inputData->first_name, 
+			'social_data' => $this->selectRawCustomData__($search_index)["data"][0],
+			'live_url' => constant("LIVE_URL")
 		);
  
 
@@ -1257,19 +1266,29 @@ class ProfileController extends CommonController {
 
  	 	(ENVIRONMENT !== 'production')? $passwordResetURL = constant("LOCAL_URL") : $passwordResetURL = constant("LIVE_URL") ; 
 
+ 	 	$search_index = array(
+			'columns' => 'company_tel1, company_email, fb_url, twitter_url, youtube_url, linkedin_url' ,   
+			'table' => 'company_details',
+			'eq_table_col' => '1',
+			'data' => '1', 
+		);
+
  		$data = array(
 			'verifycode' => "1000",  
 			'profileURL' => $passwordResetURL, 
 			'email' => "nipunann0710@gmail.com",
 			'name' => "Nipuna Nanayakkara",
-			'client_id' => "1"
+			'client_id' => "1",
+			'social_data' => $this->selectRawCustomData__($search_index)["data"][0],
+			'live_url' => constant("LIVE_URL")
 		);
+ 
 
  		$mail = $this->smtpConfig();
 
- 		$msg = $this->load->view('mail-templates/reset-password', $data, TRUE);
+ 		$msg = $this->load->view('mail-templates/registration', $data, TRUE);
 
- 		//$this->load->view('mail-templates/registration', $data);
+ 		//$this->load->view('mail-templates/reset-password', $data);
 
  		$mail->setFrom('no-reply@easybuilding.biz', 'Easybuilding.lk - Registration'); 
  		
@@ -1294,8 +1313,24 @@ class ProfileController extends CommonController {
 
  	public function userProfile(){   
  		echo $this->uri->segment(2);
- 		
- 		$this->load->view('user/index'); 
+ 		$this->load->helper('url');
+
+ 		$search_index = array(
+			'columns' => 'c.*, cc.*' ,   
+			'table' => 'user_sessions us, clients c, client_company cc',
+			'eq_table_col' => '1',
+			'data' => 'c.client_id = us.client_id AND c.client_id = cc.client_id AND c.client_id= "'.$this->uri->segment(2).'"', 
+		);
+  		 
+  		$data = $this->selectRawCustomData__($search_index)["data"][0];  
+ 
+  		$dataset = array(
+  			"display_name" => $data->display_name,
+  			"description" => $data->description,
+  			"image" => base_url()."assets/uploads/".$data->client_id."/".$data->company_id."/".$data->cover_img, 
+  		); 
+  		
+ 		$this->load->view('user/index', $dataset); 
 		
 	}
 	 

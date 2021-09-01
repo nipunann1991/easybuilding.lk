@@ -6,6 +6,7 @@ import { AboutComponent } from './about.component';
 import { ProjectsModule } from '../projects/projects.module';
 import { ReviewsModule } from '../reviews/reviews.module';
 import { ProductsModule } from '../products/products.module';
+import { CommonInfoModule } from '../common-info/common-info.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ProductsModule } from '../products/products.module';
     AboutRoutingModule,
     ProjectsModule,
     ReviewsModule,
-    ProductsModule
+    ProductsModule,
+    CommonInfoModule
   ],
   exports: [AboutComponent]
 })

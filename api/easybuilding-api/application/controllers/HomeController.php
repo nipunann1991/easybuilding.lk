@@ -44,19 +44,16 @@ class HomeController extends CommonController {
 	} 
 
 
-	public function getConstructors(){  
-  
-		
-			$search_index = array(
-				'columns' => 'cc.*, c.provider_id ' ,   
-				'table' => 'client_company cc, clients c',
-				'eq_table_col' => 'cc.company_profile = 1 AND cc.status = 1 AND cc.featured = 1 Limit 8',
-				'data' => 'c.client_id = cc.client_id', 
-			);
+	public function getConstructors(){   
 
-			return $this->selectCustomData__($search_index);
+		$search_index = array(
+			'columns' => 'cc.*, c.provider_id ' ,   
+			'table' => 'client_company cc, clients c',
+			'eq_table_col' => '1 order by cc.company_id DESC Limit 25',
+			'data' => 'c.client_id = cc.client_id AND cc.company_profile = 1 AND cc.status = 1 AND cc.featured = 1', 
+		);
 
-		
+		return $this->selectCustomData__($search_index);  
 		
 	} 
 
@@ -66,7 +63,7 @@ class HomeController extends CommonController {
 			$search_index = array(
 				'columns' => 'c2.*, c1.cat_lvl1_name' ,   
 				'table' => '`categories-level2` c2, `categories-level1` c1, categories c',
-				'eq_table_col' => '1 order by c1.cat_lvl1_name, c2.cat_lvl2_name ASC',
+				'eq_table_col' => '1 order by c1.sort_order ASC, c2.sort_order ASC, c1.cat_lvl1_name, c2.cat_lvl2_name ASC',
 				'data' => 'c2.parent_cat_id=c1.cat_lvl1_id AND c1.parent_cat_id=c.cat_id AND c.cat_id="C1015"', 
 			);
 		 
@@ -81,8 +78,8 @@ class HomeController extends CommonController {
 			$search_index = array(
 				'columns' => 'c2.*, c1.cat_lvl1_name' ,   
 				'table' => '`categories-level2` c2, `categories-level1` c1, categories c',
-				'eq_table_col' => '1 order by c1.cat_lvl1_name, c2.cat_lvl2_name ASC',
-				'data' => 'c2.parent_cat_id=c1.cat_lvl1_id AND c1.parent_cat_id=c.cat_id AND c2.featured=1', 
+				'eq_table_col' => '1 order by c2.featured_order ASC , c2.cat_lvl2_name ASC',
+				'data' => 'c2.parent_cat_id=c1.cat_lvl1_id AND c1.parent_cat_id=c.cat_id AND c2.featured=1 ', 
 			);
 		 
 			return $this->selectCustomData__($search_index);
@@ -97,7 +94,7 @@ class HomeController extends CommonController {
 		$search_index = array(
 			'columns' => 'p.*, cc.display_name, c.provider_id, cc.client_id' ,   
 			'table' => 'client_company cc, clients c, products p',
-			'eq_table_col' => '1 order by p.product_id DESC LIMIT 8',
+			'eq_table_col' => '1 order by p.product_id DESC LIMIT 25',
 			'data' => 'cc.company_id=p.company_id AND cc.client_id=c.client_id AND p.featured=1', 
 		);
 	 
@@ -112,7 +109,7 @@ class HomeController extends CommonController {
 			$search_index = array(
 				'columns' => 'c2.*, c1.cat_lvl1_name' ,   
 				'table' => '`categories-level2` c2, `categories-level1` c1, categories c',
-				'eq_table_col' => '1 order by c1.cat_lvl1_name, c2.cat_lvl2_name ASC',
+				'eq_table_col' => '1 order by c1.sort_order ASC, c2.sort_order ASC, c1.cat_lvl1_name, c2.cat_lvl2_name ASC',
 				'data' => 'c2.parent_cat_id=c1.cat_lvl1_id AND c1.parent_cat_id=c.cat_id AND c.cat_id="C1019"', 
 			);
 		 
@@ -127,7 +124,7 @@ class HomeController extends CommonController {
 			$search_index = array(
 				'columns' => 'c2.*, c1.cat_lvl1_name' ,   
 				'table' => '`categories-level2` c2, `categories-level1` c1, categories c',
-				'eq_table_col' => '1 order by c1.cat_lvl1_name, c2.cat_lvl2_name ASC',
+				'eq_table_col' => '1 order by c1.sort_order ASC, c2.sort_order ASC, c1.cat_lvl1_name, c2.cat_lvl2_name ASC',
 				'data' => 'c2.parent_cat_id=c1.cat_lvl1_id AND c1.parent_cat_id=c.cat_id AND c.cat_id="C1022"', 
 			);
 		 

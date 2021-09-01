@@ -1,23 +1,26 @@
 <div class="projects-wrapper" > 
-  <div class="total-projects" *ngIf="isShowHeader">
+  <div class="total-projects" *ngIf="isShowHeader && !isGalleryPage">
     <h2>Projects ({{project.length}})</h2>
     <button *ngIf="isEdit || isEditAdmin" mat-button class="btn btn-transparent btn-review" [routerLink]="addNewProjectURL">Add New Project</button>
   </div> 
+  <div class="total-projects" *ngIf="isShowHeader && isGalleryPage">
+    <h2>Galleries by admin ({{project.length}})</h2>
+  </div> 
   <div class="products-items">
-    <div *ngFor="let p of project; let i = index;" class="project-block" >
+    <div *ngFor="let p of project; let i = index;" class="project-block" [ngClass]="{'col-block-4': isGalleryPage}">
       <!-- routerLink="view-project/{{companyId}}/{{p.project_id}}" -->
       <div class="project-img" [ngStyle]="{'background-image': 'url('+ imageURL + p.primary_img +')'}"  (click)="openProject(companyId, p.project_id)">
         <span *ngIf="p.approved == '0'" class="badge badge-warning">Pending Approval</span> 
       </div> 
     
-      <div class="dot-nav" *ngIf="isEdit || isEditAdmin">
+      <div class="dot-nav" *ngIf="isEdit || isEditAdmin || isGalleryPage">
         <a class="dot-menu dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" #dotmenu><span>Menu</span></a>
         <ul class="dropdown-menu mini-nav" aria-labelledby="dropdownMenuButton">
-          <li><a routerLink="edit-project/{{companyId}}/{{p.project_id}}"><i class="icon-pencil"></i> Edit</a></li>
+          <li><a (click)="gotoEditProfile(companyId, p.project_id)"><i class="icon-pencil"></i> Edit</a></li>
           <li><a href="javascript:void(0)" (click)="openDeleteProject(i, companyId, p.project_id)"><i class="icon-bin"></i> Delete</a></li>
         </ul>
       </div>
-      <div class="project-content"  (click)="openProject(companyId, p.project_id)">    
+      <div class="project-content" (click)="openProject(companyId, p.project_id)">    
          <h3>{{p.project_name}}</h3> 
          <ul>
            <li class="year" title="Project Year">{{p.project_year}}</li>
@@ -25,9 +28,9 @@
          </ul>  
       </div>
     </div>
-    <div class="add-new-project" *ngIf="isEdit || isEditAdmin" [routerLink]="addNewProjectURL">
+    <div class="add-new-project" *ngIf="isEdit || isEditAdmin || isGalleryPage" [routerLink]="addNewProjectURL" [ngClass]="{'col-block-4': isGalleryPage}">
       <div class="inner">
-        <span class="plus"></span>
+        <span class="plus"></span> 
         <h3>Add New Project</h3>
       </div>
     </div>
@@ -35,7 +38,7 @@
   </div>
   
   <div class="view-more" *ngIf="isProjectsAvailable && !isShowHeader && (!isEdit || !isEditAdmin) && project.length == 3"><a routerLink="#" (click)="viewMoreProjects()">View more Products/Services</a></div>
-  <p *ngIf="!isProjectsAvailable && !isEdit && !isEditAdmin"><i>No projects available.</i></p>
+  <p *ngIf="!isProjectsAvailable && !isEdit && !isEditAdmin && companyId != '0'"><i>No projects available.</i></p>
   <div class="clearboth"></div>
   
 </div>

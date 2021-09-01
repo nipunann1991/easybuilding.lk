@@ -2,30 +2,62 @@
 
 <div class="row"> 
     <div class="col-md-12"> 
-        <div class="white-box-panel">
-            <h2 class="title">Order {{selectedCategory}} Categories</h2> 
-            <p>Drag and drop to re-order the categories and save once done.</p>
-             
-            <div class="row">
-                <div class="col-md-3">
-                    <div  *ngIf="getFeaturedData.length > 0" class="featured-data">
-                        <div class="dragbox" cdkDropList (cdkDropListDropped)="drop($event)">
-                            <button *ngFor="let featured of getFeaturedData; let i = index" class="drag-item" cdkDrag> {{i + 1}}. {{ featured.cat_lvl2_name }}</button>
+        
+        <div class="featured-data row" >
+            <div class="col-md-5">
+                <div class="featured-data white-box-panel"> 
+                    <h2 class="title">Order {{selectedCategory}} Categories</h2> 
+                    <p>Drag and drop to re-order the categories and save once done.</p>
+                    <p>Double click categories to edit the sub-level.</p>
+                    <ng-container *ngIf="isFeatured">
+                        <div class="dragbox" cdkDropList (cdkDropListDropped)="dropFeatured($event)">
+                            <button *ngFor="let featured of getFeaturedData; let i = index" class="drag-item" cdkDrag>{{ featured.cat_lvl2_name }}</button>
                             <div class="dragbox-placeholder" *cdkDragPlaceholder></div>
                         </div> 
             
                         <div class="action-btn mt15">
-                            <button (click)="saveFeatured()" mat-button name="submit" type="button" class="btn btn-primary">Save</button>
-                            <button mat-button type="button" class="btn btn-default close-btn">Cancel</button>
+                            <button (click)="saveFeaturedOrder()" mat-button name="submit" type="button" class="btn btn-primary">Save</button>
+                            <button (click)="close()" mat-button type="button" class="btn btn-default clear-btn">Cancel</button>
                         </div> 
+                    </ng-container>
+
+                    <ng-container *ngIf="isServices">
+                        <div class="featured-data"> 
+                            <div class="dragbox" cdkDropList (cdkDropListDropped)="dropServices($event)" >
+                                <button *ngFor="let service of getServicesData; let i = index" class="drag-item" (dblclick)="openSecondLvlNav(service.cat_lvl1_id, service.cat_lvl1_name)" cdkDrag>{{ service.cat_lvl1_name }}</button>
+                                <div class="dragbox-placeholder" *cdkDragPlaceholder></div>
+                            </div> 
+                
+                            <div class="action-btn mt15">
+                                <button (click)="saveServicesOrder()" mat-button name="submit" type="button" class="btn btn-primary">Save</button>
+                                <button (click)="close()" mat-button type="button" class="btn btn-default clear-btn">Cancel</button>
+                            </div> 
+                        </div> 
+                    </ng-container>
+                    
+                </div> 
+            </div>
+            <div class="col-md-5" *ngIf="isSortSecondLevel">
+                <div class="white-box-panel">
+                    <div class="title-area">
+                        <h2>Order {{selectedChildCategory}}</h2>
+                        <a href="javascript:void(0)" class="close-btn" (click)="closeSecondLvlNav()">Close</a>
+                    </div> 
+                    <div class="dragbox" cdkDropList (cdkDropListDropped)="dropChildServices($event)" >
+                        <button *ngFor="let childService of getServicesChildData; let i = index" class="drag-item"  cdkDrag>{{childService.cat_lvl2_name}}</button>
+                        <div class="dragbox-placeholder" *cdkDragPlaceholder></div>
+                    </div>   
+                    <div class="action-btn mt15">
+                        <button (click)="saveServicesChildOrder()" mat-button name="submit" type="button" class="btn btn-primary">Save</button>
+                        <button (click)="closeSecondLvlNav()" mat-button type="button" class="btn btn-default clear-btn">Cancel</button>
                     </div> 
                 </div>
-                <div class="col-md-9" *ngIf="getFeaturedData.length > 0" >
-                    <app-ideas-category [setCategoryData]="categoryData"></app-ideas-category>
-                </div>
             </div>
-            
-
-        </div>
+            <div *ngIf="isFeatured" class="col-md-7">
+                <div class="white-box-panel">
+                    <app-ideas-category [setCategoryData]="categoryData"></app-ideas-category>
+                </div> 
+            </div>
+        </div> 
     </div>
 </div>

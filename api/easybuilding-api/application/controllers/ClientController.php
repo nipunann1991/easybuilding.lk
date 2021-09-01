@@ -26,7 +26,7 @@ class ClientController extends CommonController {
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
 
 			$dt = $this->dataTableInitialValues(); 
-			$search_columns = array('c.client_id', 'c.first_name', 'c.last_name', 'c.email', 'c.provider'); 
+			$search_columns = array('c.client_id', 'cc.display_name', 'c.first_name', 'c.last_name', 'c.email', 'c.provider'); 
 
 	     	$search_by_feilds = $this->searchFromColsDT($search_columns, $dt['search_val']); 
 			$selectedOrd = 'desc'; 
@@ -47,14 +47,14 @@ class ClientController extends CommonController {
 			$searchData = array(
 				'columns' => 'c.*, cc.display_name, cc.featured, cc.status AS company_status, cc.verified_email, cc.company_profile, cc.steps' ,   
 				'table' => 'clients c, client_company cc',
-				'data' => "cc.client_id=c.client_id ".$profile_type_val." AND (".$search_by_feilds.')  order by c.'. $orderedCol .' '.$selectedOrd.' LIMIT '.$dt['start'].','.$dt['length'].'  ',
+				'data' => "cc.client_id=c.client_id AND c.client_id <> 0  ".$profile_type_val." AND (".$search_by_feilds.')  order by c.'. $orderedCol .' '.$selectedOrd.' LIMIT '.$dt['start'].','.$dt['length'].'  ',
 				'eq_table_col' => ''
 			);  
 		
 			$get_data = array(
 				'columns' => 'c.*, cc.display_name, cc.featured, cc.status AS company_status, cc.verified_email, cc.company_profile, cc.steps' ,   
 				'table' => 'clients c, client_company cc',
-				'data' => "cc.client_id=c.client_id ".$profile_type_val." AND (".$search_by_feilds.')  order by c.'. $orderedCol .' '.$selectedOrd.' ',
+				'data' => "cc.client_id=c.client_id AND c.client_id <> 0 ".$profile_type_val." AND (".$search_by_feilds.')  order by c.'. $orderedCol .' '.$selectedOrd.' ',
 			);  
 			  
 			$data = json_decode($this->selectCustomData__($searchData)->final_output, true);

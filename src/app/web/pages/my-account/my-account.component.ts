@@ -15,11 +15,12 @@ import { AppSEO } from "./../../../app.seo";
   selector: 'app-my-account',
   templateUrl: './my-account.component.html',
   styleUrls: ['./my-account.component.scss'],
-  encapsulation: ViewEncapsulation.None
+ 
 })
 export class MyAccountComponent implements OnInit {
 
   @Input() getRouterParams: any = {};
+  contactInfo: any = "test";
   isEditableMode: boolean = false;
   isAdminAccessible: boolean = false;
   profileData: any = {};
@@ -88,9 +89,7 @@ export class MyAccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-     
-  
+ 
     this.navItems = [
       { title: "Home", url: this.baseurl+"about", icon: "", isPersonalProfile: false},
       { title: "Account Information", url: this.baseurlEdit+"account-info", icon: "", isPersonalProfile: false},
@@ -123,8 +122,6 @@ export class MyAccountComponent implements OnInit {
   onOpen($event){
     console.log($event)
   }
-
-  
  
   getProfileDetails(routeParams, profile_editable = true){ 
     
@@ -175,17 +172,7 @@ export class MyAccountComponent implements OnInit {
   }
 
 
-  getOtherProfileRelatedData(){
-    if(this.profileData.all_island == "1"){
-      this.serviceAreas = "All Island Service";
-    }else{
-
-      this.getServiceCitiesByCompany( this.profileData.company_id);
-      this.getServiceDistrictsByCompany( this.profileData.company_id);  
-
-    }
-
-    this.getServics( this.profileData.company_id); 
+  getOtherProfileRelatedData(){ 
   
     if((this.profileData.steps < 4 && this.profileData.company_profile == 1) || (this.profileData.steps < 2 && this.profileData.company_profile == 0) || (this.profileData.steps < 2 && this.profileData.company_profile == 0) || this.profileData.company_profile == -1){
       this.profileCompleted = false;
@@ -197,56 +184,7 @@ export class MyAccountComponent implements OnInit {
  
   }
 
-  getServiceCitiesByCompany(company_id){
-
-    let params = { company_id: company_id }
-
-    this.myaccount.getServiceCitiesByCompany(params) 
-        .subscribe((response: any) => {
-        if (response.status == 200 && response.data.length > 0 ) {  
-            this.serviceAreas = response.data;
-            
-        }else{
-          //this.router.navigate(['/my-account/user/me/0']);
-        }
-          
-      });
-  }
-
-
-   getServiceDistrictsByCompany(company_id){
-
-    let params = { company_id: company_id }
-
-    this.myaccount.getServiceDistrictsByCompany(params) 
-        .subscribe((response: any) => {
-        if (response.status == 200 && response.data.length > 0 ) {  
-            this.serviceAreas = response.data;
-            
-        }else{ 
-        }
-          
-      });
-  }
-
-  getServics(company_id){
-
-    let params = { company_id: company_id }
-
-      this.myaccount.getServics(params) 
-        .subscribe((response: any) => {
-          
-        if (response.status == 200 ) {  
-          this.services = response.data.services.split(",");  
-          this.products = response.data.products.split(","); 
-          
-        }else{
-          
-        }
-          
-      });
-  }
-
+  
   signOut(): void {
     this.oauth.signOut().then( (userDetails) =>{  
         localStorage.clear();  

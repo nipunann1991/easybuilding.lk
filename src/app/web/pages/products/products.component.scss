@@ -16,9 +16,7 @@
 .products-wrapper{
     padding: 2rem 0 5rem 0;   
 
-    .products-wrapper-inner{
-        // display: flex; 
-        //overflow: hidden;
+    .products-wrapper-inner{ 
 
         @include breakpoint($tablet){
             min-height: inherit;
@@ -44,7 +42,7 @@
         
         h2{
             .close-filter{
-                font-size: 1.4rem;
+                font-size: $eb-font-size - 0.2;
                 float: right; 
 
                 @include breakpoint($tablet){
@@ -94,7 +92,7 @@
                 label{
                     cursor: pointer;
                     margin-left: 10px;
-                    font-size: 1.5rem;;
+                    font-size: $eb-font-size - 0.1;
                 }  
             }
 
@@ -160,14 +158,14 @@
             span.filter-mobile{
                 @include flex();
                 float: left;
-                font-size: 1.35rem;
+                font-size: $eb-font-size - 0.3;
                 
                 @include breakpoint($tablet){
                     display: none;
                 }
 
                 i{
-                    font-size: 2rem;
+                    font-size: $eb-font-size + 0.4;
                     margin-right: 1rem;
                 }
             }
@@ -177,11 +175,16 @@
             }
         }
 
-        .search-results{
+        .search-results{ 
+
+            @include breakpoint($tablet){   
+                @include calc("width", "100% + 1.5rem");
+            }
             
             .item-block-wrapper{
 
                 &.list_view{ 
+                    width: 100%;
     
                     .item-block{ 
                         margin-bottom: 3rem; 
@@ -239,7 +242,7 @@
             }
         }
 
-        .item-block-wrapper{
+        .item-block-wrapper{  
 
             &.grid_view{ 
                 width: 100%; 
@@ -261,6 +264,22 @@
                     flex: 0 0 calc(25% - 0.5rem);
                     max-width: calc(25% - 0.5rem);
                 }
+            }
+
+            &.profile_grid_view{
+                width: 100%; 
+                padding: 0 1.5rem; 
+
+                @include breakpoint($large-device){   
+                    flex: 0 0 calc(50% - 0.5rem);
+                    max-width: calc(50% - 0.5rem);  
+                }
+
+                @include breakpoint(1200px){   
+                    flex: 0 0 calc(33.33% - 0.5rem);
+                    max-width: calc(33.33% - 0.5rem);  
+                } 
+               
             }
 
             .item-block{
@@ -330,34 +349,41 @@
      
     
                     h3{
-                        font-size: 1.7rem;
+                        font-size: $eb-font-size - 0.1;
+                        line-height: 2rem;
                         margin-bottom: 0.3rem;
+                        @include medium;
                     }
     
                     .project-and-company{
                         h3{
-                            font-size: 1.5rem;
+                            font-size: $eb-font-size - 0.1;
                             margin-bottom: 0.8rem;
                             @include medium;
                         }
     
                         a{
-                            font-size: 1.2rem;
+                            font-size: $eb-font-size - 0.4;
                             margin-top: 0.5rem;
                             color: $base-color;
                             display: block;
                             line-height: 1.7rem;
+
+                            &.no-link{
+                                cursor: default;
+                                text-decoration: none;
+                            }
                         }
                     }
 
                     .title-and-rating{
                         height: 100%;
                         @include flex-column();
-                        justify-content: space-evenly;
+                        justify-content: space-between;
                     }
     
                     .ratings-holder{
-                        font-size: 1.3rem; 
+                        font-size: $eb-font-size - 0.3; 
                         overflow: hidden;
                         margin-bottom: 0.5rem;
                         @include flex();
@@ -373,7 +399,7 @@
                                 line-height: 1rem;
 
                                 i{
-                                    font-size: 1rem;
+                                    font-size: $eb-font-size - 0.6;
                                     line-height: 1rem;
                                     color: $yellow; 
                                 }
@@ -387,7 +413,7 @@
                     }
     
                     .description{
-                        font-size: 1.35rem;
+                        font-size: $eb-font-size - 0.3;
                         line-height: 1.8rem;
                         margin-bottom: 1.5rem;
     
@@ -418,7 +444,7 @@
                         overflow: hidden;
                         
                         li{
-                            font-size: 1.4rem;
+                            font-size: $eb-font-size - 0.2;
                             line-height: 1.4rem;
                             float: left;
                             background-repeat: no-repeat ;
@@ -437,7 +463,15 @@
                             &.tel {
                                 background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LmRhYmFjYmIsIDIwMjEvMDQvMTQtMDA6Mzk6NDQgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCAyMi40IChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpCMjI0QjZCRkMwQkExMUVCOTAzODlDQkE0OTE0NjNGRCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpCMjI0QjZDMEMwQkExMUVCOTAzODlDQkE0OTE0NjNGRCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkIyMjRCNkJEQzBCQTExRUI5MDM4OUNCQTQ5MTQ2M0ZEIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkIyMjRCNkJFQzBCQTExRUI5MDM4OUNCQTQ5MTQ2M0ZEIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+QsMY1AAAAb5JREFUeNpi1D3wX4yBgaESiBOAWIABE3wA4gVA3A7ErxioDFiglhfgUSOAJF9IbQcwAXEskWoToA6mugP+EKkWFBLKtHDAMxLUaw1LBzwf8SHwgAT1CrRwwA4g/s8wQACWBk4RqX4yLRwAAhuIUHseiFsHygGfgDgMiH/SygE3gPgmHnWpQHyHVmkABibhUHMdiFfTMhHCwCwgvo1FjSYQ59PDAX+gVTM20AHE+rR2AAisBeKTWNSxA/FyIOaktQNAoBSHWlBU9NHDAYeBuB+H+gwSGjBkOwAWCrtwyC0C4plAzIVDHhRNnUD8DohfAvEJIJ4PxOVA7AfEakDMDFPMCGyU4msBnYRqwJU9o4D4ApKYGjTL6hHwOLyhy0RAEcjFH/GkiRPQhiojEIcD8RkiLEdu6FbiCwEYcATi9UDMj0cNqCTVICMJfGAiQtF+IDYH4lt41GiQmQYFmIhUeBPqiF30yIb40oQXnixKcweAwF8gLgJiOxwlJs0dgFxYWQBxCI4KjOYOQK47QC3lbALtCYpyASEAqkWnQXOCJrRGPUlkQ3cBMeUAuUASiD2gTXkpKB9GswLxYlBJCBBgAFtEVsxabgPhAAAAAElFTkSuQmCC');
                                 background-size: 1.2rem; 
-                                padding-left: 1.8rem; 
+                                padding-left: 1.8rem;  
+
+                                @include breakpoint($tablet){
+                                    display: none;
+                                }
+
+                                @include breakpoint(850px){
+                                    display: block;
+                                }
                             }
     
                             &.email {
@@ -460,7 +494,7 @@
                         display: none;
     
                         li{
-                            font-size: 1.2rem; 
+                            font-size: $eb-font-size - 0.4; 
                             line-height: 1rem; 
                             margin-right: 0.5rem;
                             margin-bottom: 0.5rem;
@@ -473,10 +507,7 @@
                         }
                     }
                     
-                    .contact-details{
-                        // padding-top: 0.8rem;
-                        // border-top: 1px $light-gray solid;
-                       
+                    .contact-details{  
     
                         .summery-area{ 
                             display: none;
@@ -540,6 +571,10 @@
                         outline: 0;
                     }
 
+                    img{
+                        display: none;
+                    }
+
                     .category-bg-img{
                         width: 100%;
                         height: 15rem;
@@ -553,7 +588,7 @@
                     .category-footer{
                         padding: 1.5rem;
                         text-align: center;
-                        font-size: 1.4rem;
+                        font-size: $eb-font-size - 0.2;
                         line-height: 1.8rem;
                     }
                 }

@@ -31,9 +31,7 @@ export class ContactComponent implements OnInit {
           if (response.status == 200) { 
             this.companyData = response.data[0]; 
             this.companyData.company_address = this.companyData.company_address.replace(/\n/ig, '<br/>');
-
-            console.log(this.companyData)
-
+ 
           }else if (response.status == 401){
              
           }else{

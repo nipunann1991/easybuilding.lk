@@ -186,17 +186,17 @@ class SearchController extends CommonController {
 		if($this->input->post('cat_lvl2_id') == 'search'){
 
 			$search_index = array(
-				'columns' => 'DISTINCT pi.*, p.project_name, cc.display_name, cc.client_id, cc.company_id, c.provider_id, icl.*, cl2.cat_lvl2_name',   
+				'columns' => 'DISTINCT pi.*, p.project_name, p.architect, cc.display_name, cc.client_id, cc.company_id, c.provider_id, icl.*, cl2.cat_lvl2_name',   
 				'table' => '`project_images` pi, `project` p, client_company cc, clients c, image_category_list icl, `categories-level2` cl2',
-				'eq_table_col' => '1 '.$limit, 
+				'eq_table_col' => '1 GROUP BY pi.file_name ORDER BY p.project_id DESC '.$limit, 
 				'data' => 'pi.project_id=p.project_id AND p.company_id=cc.company_id AND icl.img_id=pi.img_id AND c.client_id=cc.client_id AND cl2.cat_lvl2_id=icl.cat_lvl2_id AND cc.status=1 AND ( p.project_name LIKE "%'.$searchArray[0].'%" OR cl2.cat_lvl2_name LIKE "%'.$searchArray[0].'%")' 
 			);
 		}else{
 
 			$search_index = array(
-				'columns' => 'pi.*, p.project_name, cc.display_name, cc.client_id, cc.company_id, c.provider_id',   
+				'columns' => 'pi.*, p.project_name, p.architect, cc.display_name, cc.client_id, cc.company_id, c.provider_id',   
 				'table' => '`project_images` pi, `project` p, client_company cc, clients c, image_category_list icl',
-				'eq_table_col' => '1 '.$limit, 
+				'eq_table_col' => '1 GROUP BY pi.file_name ORDER BY p.project_id DESC '.$limit, 
 				'data' => 'pi.project_id=p.project_id AND p.company_id=cc.company_id AND icl.img_id=pi.img_id AND c.client_id=cc.client_id AND cc.status=1 AND icl.cat_lvl2_id="'.$this->input->post('cat_lvl2_id').'"  ' 
 			);
 

@@ -50,54 +50,59 @@
                         Showing {{ pageData.start }} – {{ pageData.end }} results from {{ pageData.total_results }} profiles</p>
                 </div>
             </div> 
-            <div class="row search-results" *ngIf="!isFullPageSearch">  
-                <div class="item-block-wrapper" *ngFor="let p of products" [ngClass]="(isGridView)? 'col-md-4 col-sm-6' : 'col-md-12 list_view'" >
+            <div class="search-results" *ngIf="!isFullPageSearch">  
+                <div class="row">
+                    <div class="item-block-wrapper" *ngFor="let p of products" [ngClass]="(isGridView)? 'profile_grid_view' : 'list_view'" >
                   
-                    <div class="item-block animated fadeIn" [routerLink]="p.profileLink">
-                        <div class="item-image-wrapper"> 
-                            <span *ngIf="p.isAllIsland == 1" class="badge badge-primary">All Island</span>
-                            <div class="item-image" *ngIf="p.imgUrl !== ''" [ngStyle]="{'background-image': 'url('+ p.imgUrl + ')'}" [ngClass]="{'no-img': p.imgUrl === ''}"></div>
-                            <div class="item-image" *ngIf="p.imgUrl == ''" [ngClass]="{'no-img': p.imgUrl === ''}"></div>
+                        <div class="item-block animated fadeIn" [routerLink]="p.profileLink">
+                            <div class="item-image-wrapper"> 
+                                <span *ngIf="p.isAllIsland == 1" class="badge badge-primary">All Island</span>
+                                <div class="item-image" *ngIf="p.imgUrl !== ''" [ngStyle]="{'background-image': 'url('+ p.imgUrl + ')'}" [ngClass]="{'no-img': p.imgUrl === ''}"></div>
+                                <div class="item-image" *ngIf="p.imgUrl == ''" [ngClass]="{'no-img': p.imgUrl === ''}"></div>
+                            </div>
+                             
+                            <div class="item-details">
+                                <div class="title-and-rating">
+                                    <div class="title-wrap">
+                                        <h3 [innerHTML]="p.title | highlightText : searchParam"></h3>
+                                        <div class="ratings-holder">
+                                            <ul class="star-review">
+                                                <li *ngFor="let rate of starRating; let i = index;">
+                                                    <i [ngClass]="i > p.rating-1 ? 'icon-star-empty' : 'icon-star-full' "></i>
+                                                </li>
+                                            </ul>
+                                            {{ p.rating | roundToDecimal:1 }}  <span class="no-of-reviews">( {{p.total_reviews}} Review )</span>
+                                        </div>
+                                    </div>
+                                     
+                                    <ul class="contact-details">
+                                        <li class="address">{{p.contact.city}}</li>
+                                        <li class="tel">{{p.contact.tel}}</li>  
+                                        <li class="email">{{p.contact.email}}</li>  
+                                    </ul>  
+                                </div> 
+    
+                                <ul class="badge-list">
+                                    <li *ngFor="let product of p.products" [innerHTML]="product | highlightText : searchParam">{{product}}</li>
+                                    <li *ngFor="let service of p.services" [innerHTML]="service | highlightText : searchParam">{{service}}</li>
+                                </ul>
+                               
+                                <!-- {{p.products}} {{p.services}} -->
+                                <div class="description" *ngIf="!isGridView" [innerHTML]="p.description | truncateText:[150] "></div>
+                              
+                                <div class="categories" *ngIf="!isGridView">
+                                    <ng-container *ngFor="let sv of p.services">
+                                        <span class="badge badge-secondary">{{sv}}</span>
+                                    </ng-container> 
+                                </div> 
+     
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
                          
-                        <div class="item-details">
-                            <div class="title-and-rating">
-                                <h3 [innerHTML]="p.title | highlightText : searchParam"></h3>
-                                
-                                <div class="ratings-holder">
-                                    <ul class="star-review">
-                                        <li *ngFor="let rate of starRating; let i = index;">
-                                            <i [ngClass]="i > p.rating-1 ? 'icon-star-empty' : 'icon-star-full' "></i>
-                                        </li>
-                                    </ul>
-                                    {{ p.rating | roundToDecimal:1 }}  <span class="no-of-reviews">( {{p.total_reviews}} Review )</span>
-                                </div> 
-                                <ul class="contact-details">
-                                    <li class="address">{{p.contact.city}}</li>
-                                    <li class="tel">{{p.contact.tel}}</li>  
-                                    <li class="email">{{p.contact.email}}</li>  
-                                </ul>  
-                            </div> 
-
-                            <ul class="badge-list">
-                                <li *ngFor="let product of p.products" [innerHTML]="product | highlightText : searchParam">{{product}}</li>
-                                <li *ngFor="let service of p.services" [innerHTML]="service | highlightText : searchParam">{{service}}</li>
-                            </ul>
-                           
-                            <!-- {{p.products}} {{p.services}} -->
-                            <div class="description" *ngIf="!isGridView" [innerHTML]="p.description | truncateText:[150] "></div>
-                          
-                            <div class="categories" *ngIf="!isGridView">
-                                <ng-container *ngFor="let sv of p.services">
-                                    <span class="badge badge-secondary">{{sv}}</span>
-                                </ng-container> 
-                            </div> 
- 
-                        </div>
-                        <div class="clearfix"></div>
                     </div>
-                     
                 </div>
+              
 
                 <div class="col-md-12 text-center" *ngIf="pageData.start != 0"> 
                     <ul class="pagination">
@@ -141,11 +146,13 @@
                         (beforeChange)="beforeChange($event)">
                         
                         <div ngxSlickItem *ngFor="let categories of cl.children" class="slide">
-                            <div class="category-item" [routerLink]="categories.url" [queryParams]="queryParams">
-                                <div class="category-bg-img" *ngIf="categories.file_name != ''" [ngStyle]="{'background-image': categories.file_name, 'background-size': 'cover' }"> </div>
+                            <div class="category-item" (click)="gotoURL(categories)">
+                                <div class="category-bg-img" *ngIf="categories.file_name != ''" [ngStyle]="{'background-image': 'url(' + categories.file_name + ')', 'background-size': 'cover' }">
+                                    <img [src]="safeURL(categories.file_name)" [alt]="categories.title">
+                                </div>
                                 <div class="category-bg-img" *ngIf="categories.file_name == ''"> </div>
                                 <div class="category-footer">
-                                    {{ categories.title }}
+                                    {{ categories.title }} 
                                 </div>
                             </div> 
                         </div>

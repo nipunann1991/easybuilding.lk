@@ -220,7 +220,7 @@
           }
 
           i{
-            font-size: 1.3rem;
+            font-size: $eb-font-size - 0.3;
             margin-right: 0.5rem;
           }
         }
@@ -238,7 +238,7 @@
 
     h3{
       @include medium; 
-      font-size: 1.5rem;
+      font-size: $eb-font-size - 0.1;
       line-height: 2rem;
       height: 4rem;
       overflow: hidden; 
@@ -246,7 +246,7 @@
     }
 
     p{
-      font-size: 1.3rem;
+      font-size: $eb-font-size - 0.3;
       line-height: 1.7rem;
       color: $darker-gray;
       height: 3.5rem;
@@ -259,17 +259,16 @@
       li{  
         background-repeat: no-repeat;
         float: left;
-        margin-top: 0.8rem;
+        margin-top: 1rem;
         margin-right: 1.5rem; 
-        font-size: 1.4rem;
-        letter-spacing: 0.02rem;
+        font-size: $eb-font-size - 0.2;
 
         &.price{
           color: $light-blue-color;
           @include medium; 
 
           i{
-            font-size: 1.2rem;
+            font-size: $eb-font-size - 0.4;
             margin-right: 0.5rem;
           }
         }
@@ -299,7 +298,7 @@
     display: block;
 
     a{
-      font-size: 1.4rem;
+      font-size: $eb-font-size - 0.2;
       border: 1px solid;
       padding: 1rem 2rem;
       display: inline-block;

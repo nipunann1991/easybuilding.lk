@@ -391,12 +391,21 @@ class LoginController extends CommonController {
  
 		(ENVIRONMENT !== 'production')? $passwordResetURL = constant("LOCAL_URL") : $passwordResetURL = constant("LIVE_URL") ;  
 
+		$search_index = array(
+			'columns' => 'company_tel1, company_email, fb_url, twitter_url, youtube_url, linkedin_url' ,   
+			'table' => 'company_details',
+			'eq_table_col' => '1',
+			'data' => '1', 
+		);
+
  		$data = array(
 			'verifycode' => $inputData->verifycode,  
 			'profileURL' => $passwordResetURL ,
 			'email' => $inputData->email,
 			'name' => $inputData->first_name,
-			'client_id' => $inputData->client_id
+			'client_id' => $inputData->client_id,
+			'social_data' => $this->selectRawCustomData__($search_index)["data"][0],
+			'live_url' => constant("LIVE_URL")
 		);
  
 

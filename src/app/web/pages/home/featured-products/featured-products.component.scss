@@ -4,7 +4,7 @@
     padding: 6rem 0;
 
     h2{
-        font-size: 2.5rem;
+        font-size: 2.3rem;
         margin-bottom: 1.5rem; 
     }
 
@@ -34,16 +34,29 @@
     
     .fetured-products-list{
         margin-top: 5rem;
+        padding-left: 1.5rem;
+
+        @include breakpoint($tablet){
+            padding-left: 0;
+        }
 
         .carousel{
             .slick-track{
                 margin-left: 0;
             }
         } 
+
+        .slick-prev{
+            left: -11px;
+
+            @include breakpoint($tablet){
+                left: 0;
+            }
+        }
         
         .fetured-products-item-wrapper{
-            padding: 0 1.5rem; 
-
+            padding: 0 1.5rem 0 0; 
+ 
             @include breakpoint($tablet){
                 padding: 0 1.5rem; 
             }
@@ -71,13 +84,20 @@
                     bottom: -2px;
                 }
 
-                .item-img{
-                    height: 23rem;
+                .item-img{ 
                     background-color: #eee;
                     background-image: url("/assets/images/picture.png");
                     background-repeat: no-repeat;
                     background-position: 50%;
-                    background-size: cover;
+                    height: 17rem; 
+
+                    @include breakpoint($large-device){ 
+                        height: 23rem;
+                    }
+
+                    img{
+                        display: none;
+                    }
 
                     @include breakpoint($tablet){
                         background-size: auto;
@@ -93,7 +113,7 @@
 
                     h4{
                         @include medium;
-                        font-size: 1.5rem;
+                        font-size: $eb-font-size - 0.1;
                         line-height: 2rem;
                         margin-bottom: 0.3rem;
                     }
@@ -104,19 +124,19 @@
                     }
 
                     p{
-                        font-size: 1.2rem; 
+                        font-size: $eb-font-size - 0.4; 
                         line-height: 1.9rem;
                         color: $dark-gray;
                     } 
 
                     span.price{
                         padding-top: 0.5rem;
-                        font-size: 1.4rem; 
+                        font-size: $eb-font-size - 0.2; 
                         color: $light-blue-color;
                         @include medium;
 
                         i{
-                            font-size: 1.3rem;
+                            font-size: $eb-font-size - 0.3;
                             margin-right: 0.5rem;
                         }
                     }

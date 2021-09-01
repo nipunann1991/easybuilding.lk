@@ -35,7 +35,8 @@ export class UserComponent implements OnInit {
   isFeaturedProduct: boolean = false;
   productID: number;
   isManager: boolean = this.globals.isManagerLogin();
-  
+  isProductPage: boolean = false;
+
   constructor(
     private route: ActivatedRoute, 
     private myaccount: MyAccountService,
@@ -61,7 +62,13 @@ export class UserComponent implements OnInit {
              this.forProfileOnly = false;
              let routeURL = event.url.split('/');
              this.productID = parseInt(routeURL[routeURL.length - 1]); 
- 
+
+             if( (event.url.indexOf('/edit-product/') > -1 ) || (event.url.indexOf('/upload-product/') > -1 ) ){
+               this.isProductPage = true;
+             }else{
+               this.isProductPage = false;
+             }
+
              this.getProductData(event);
              
           }else{

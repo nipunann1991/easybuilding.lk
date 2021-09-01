@@ -27,7 +27,7 @@ body.admin-layout .blacklist.mat-checkbox-checked:not(.mat-checkbox-disabled).ma
         .mat-icon{
             height: 1.5rem;
             width: 1.5rem;
-            font-size: 1.8rem;
+            font-size: $eb-font-size + 0.2;
             line-height: 1.5rem;
             position: relative;
             top: -4px;

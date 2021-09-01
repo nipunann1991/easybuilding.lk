@@ -94,7 +94,7 @@
           @include regular;
 
           i{
-            font-size: 2rem;
+            font-size: $eb-font-size + 0.4;
             margin-right: 0.3rem;
           }
         }

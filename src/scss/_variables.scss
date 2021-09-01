@@ -8,11 +8,10 @@
 
 /// Code (monospace) font family
 $code-font: 'Hind Siliguri', sans-serif;
-$normal-font: 'Circular Std Book'; //'Nunito', sans-serif; //;
-$bold-font: 'Circular Std';
+$normal-font: 'Circular Std Book';
+$bold-font: 'Urbanist', sans-serif; 
 
-
-$base-font: 'Noto Sans JP', sans-serif; 
+$base-font: 'Rubik', sans-serif;
 $adminfont: $base-font;
  
 /// Base font sizes for small and large screens
@@ -28,7 +27,7 @@ $h2-font-size: 36px;
 $h3-font-size: 25px;
 $h4-font-size: 19px;
 $base-font-size: 15px;
-
+$eb-font-size: 1.6rem;
 
 /// Main brand colours
 $form-control-gray: #F0F0F0;

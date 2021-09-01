@@ -89,7 +89,7 @@
                         <th class="column-top" width="145" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;">
                           <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tbody><tr>
-                              <td class="img m-center" style="font-size:0pt; line-height:0pt; text-align:left; text-align: center;"><img src="https://easybuilding.biz/assets/images/top-header.png" width="350" height="68" border="0" alt=""></td>
+                              <td class="img m-center" style="font-size:0pt; line-height:0pt; text-align:left; text-align: center;"> <a href="<?php echo $live_url; ?> " target="_blank"><img src="https://easybuilding.biz/assets/images/top-header.png" width="350" height="68" border="0" alt=""></a></td>
                             </tr>
                           </tbody></table>
                         </th> 
@@ -142,7 +142,7 @@
                               </td> 
                             </tr> 
                             <tr>
-                               <td class="text-center pb25" style="color:#666666; font-family:Arial,sans-serif; font-size:14px; line-height:23px; text-align:center;  padding:12px 15px; padding-top:25px;">If you have further questions throughout our platform, we’re happy to help! Please visit our Help Center or reach out to our support team.</td>
+                               <td class="text-center pb25" style="color:#666666; font-family:Arial,sans-serif; font-size:14px; line-height:23px; text-align:center;  padding:12px 15px; padding-top:25px;">If you have further questions throughout our platform, we’re happy to help! Please visit our Help Center or reach out to our <a href="<?php echo $live_url; ?>contact" target="_blank"><u>support team</u></a>.</td>
                             </tr>
                             <!-- END Button -->
                           </tbody></table>
@@ -163,14 +163,16 @@
                         <td align="center" style="padding-bottom: 30px;">
                           <table border="0" cellspacing="0" cellpadding="0">
                             <tbody><tr>
-                              <td class="img" width="35" style="font-size:0pt; line-height:0pt; text-align:left;"><a href="#" target="_blank"><img src="https://easybuilding.biz/assets/images/facebook.png" width="25" height="25" border="0" alt=""></a></td>
-                              <td class="img" width="35" style="font-size:0pt; line-height:0pt; text-align:left;"><a href="#" target="_blank"><img src="https://easybuilding.biz/assets/images/linkedin.png" width="25" height="25" border="0" alt=""></a></td> 
+                                <td class="img" width="35" style="font-size:0pt; line-height:0pt; text-align:left;"><a href="<?php echo $social_data->fb_url; ?> " target="_blank"><img src="<?php echo $live_url; ?>/assets/images/facebook.png" width="25" height="25" border="0" alt=""></a></td>
+                               <td class="img" width="35" style="font-size:0pt; line-height:0pt; text-align:left;"><a href="<?php echo $social_data->twitter_url; ?> " target="_blank"><img src="<?php echo $live_url; ?>/assets/images/instagram.png" width="25" height="25" border="0" alt=""></a></td>
+                              <td class="img" width="35" style="font-size:0pt; line-height:0pt; text-align:left;"><a href="<?php echo $social_data->linkedin_url; ?> " target="_blank"><img src="<?php echo $live_url; ?>/assets/images/linkedin.png" width="25" height="25" border="0" alt=""></a></td> 
+                              <td class="img" width="35" style="font-size:0pt; line-height:0pt; text-align:left;"><a href="<?php echo $social_data->youtube_url; ?> " target="_blank"><img src="<?php echo $live_url; ?>/assets/images/youtube.png" width="25" height="25" border="0" alt=""></a></td> 
                             </tr>
                           </tbody></table>
                         </td>
                       </tr>
                       <tr>
-                        <td class="text-footer1 pb10" style="color:#999999; font-family:Arial,sans-serif; font-size:14px; line-height:20px; text-align:center; padding-bottom:10px;">Need help with Easy Building? Call 0777269108</td>
+                        <td class="text-footer1 pb10" style="color:#999999; font-family:Arial,sans-serif; font-size:14px; line-height:20px; text-align:center; padding-bottom:10px;">Need help with Easy Building? Call <?php echo $social_data->company_tel1; ?></td>
                       </tr> 
                     </tbody></table>
                   </td>

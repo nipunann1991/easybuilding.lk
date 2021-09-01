@@ -11,40 +11,9 @@
                 <div class="content-wrapper"> 
                     <div class="left-block"> 
                         <ng-container *ngIf="!isEditableMode && profileData.prof_category != 0">
-                            <div class="contact-item-wrapper">
-
-                            
-                                <div class="item"> 
-                                    <h3>Contact Details</h3>
-                                    <ul>
-                                        <li class="address">
-                                            {{profileData.address_line1}} {{profileData.address_line2}} {{profileData.city}}
-                                        </li>
-                                        <li class="tel">{{profileData.tel1}} <span *ngIf="profileData.tel2 != 0">{{profileData.tel2}}</span></li> 
-                                        <li class="email" title="{{profileData.email}}"><a href="mailto:{{profileData.email}}" target="_blank">{{profileData.email}}</a></li>
-                                        <li class="website" title="{{profileData.website}}"><a href="{{profileData.website}}" target="_blank">{{profileData.website}}</a></li>
-                                    </ul>
-                                </div>
-                                <div class="item"> 
-                                    <h3>Service Areas</h3>
-                                    <p *ngIf="serviceAreas == ''"><i>No service areas yet.</i></p>
-                                    <p *ngIf="serviceAreas != ''">{{ serviceAreas }}</p>
-                                </div>
-                                <div class="item" *ngIf="services != ''"> 
-                                    <h3>Services</h3>
-                                    <p *ngIf="services == ''"><i>No services yet.</i></p>
-                                    <p *ngIf="services != ''">{{ services }}</p>
-                                </div>
-                                <div class="item" *ngIf="products != ''"> 
-                                    <h3>Products</h3>
-                                    <p *ngIf="products == ''"><i>No products yet.</i></p>
-                                    <p *ngIf="products != ''">{{ products }}</p>
-                                </div>
-                                <div class="item"> 
-                                    <h3>Awards</h3>
-                                    <p><i>No awards yet.</i></p>
-                                </div>
-                            </div>
+                            <div class="contact-item-wrapper"> 
+                                <app-common-info [profileData]="profileData"></app-common-info> 
+                            </div> 
                         </ng-container>
                      
                         <ng-container *ngIf="profileCompleted && isEditableMode">
@@ -55,8 +24,7 @@
                             </ul>
                         </ng-container>
                     </div>
-                    <div class="right-block">
-                        
+                    <div class="right-block"> 
                         <ng-container> 
                             <ul class="tab-list">
                                 <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="about" >About</a></li> 

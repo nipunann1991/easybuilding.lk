@@ -1,0 +1,30 @@
+<div class="item"> 
+    <h3>Contact Details</h3>
+    <ul>
+        <li class="address">
+            {{profileData.address_line1}} {{profileData.address_line2}} {{profileData.city}}
+        </li>
+        <li class="tel">{{profileData.tel1}} <span *ngIf="profileData.tel2 != 0">{{profileData.tel2}}</span></li> 
+        <li class="email" title="{{profileData.email}}">{{profileData.email}}</li>
+        <li class="website" title="{{profileData.website}}"><a href="{{profileData.website}}" rel="nofollow" target="_blank">{{profileData.website}}</a></li>
+    </ul>
+</div> 
+<div class="item"> 
+    <h3>Service Areas</h3>
+    <p *ngIf="serviceAreas == ''"><i>No service added.</i></p>
+    <p *ngIf="serviceAreas != ''">{{ serviceAreas }}</p>
+</div>
+<div class="item"> 
+    <h3>Services</h3>
+    <p *ngIf="services == ''"><i>No services added.</i></p>
+    <p *ngIf="services != ''">{{ services }}</p>
+</div>
+<div class="item"> 
+    <h3>Products</h3>
+    <p *ngIf="products == ''"><i>No products added.</i></p>
+    <p *ngIf="products != ''">{{ products }}</p>
+</div>
+<div class="item"> 
+    <h3>Awards</h3>
+    <p><i>No awards yet.</i></p>
+</div>

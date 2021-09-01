@@ -9,18 +9,17 @@
         margin-bottom: 2rem;
         color: $base-color;
         @include extra-bold;
-        font-size: 1.8rem;
+        font-size: $eb-font-size + 0.2;
     }
 
     p, li{
-        font-size: 1.5rem; 
+        font-size: $eb-font-size - 0.1; 
         line-height: 2.3rem;
         color: $dark-gray;
     }
 
     li{
         line-height: 1.95rem;
-        letter-spacing: 0.05rem;
         margin-bottom: 2.5rem;
         background-repeat: no-repeat;
         background-position: 0 0;

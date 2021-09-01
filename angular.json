@@ -52,7 +52,7 @@
               "node_modules/nanoscroller/bin/javascripts/jquery.nanoscroller.js",
               "node_modules/select2/dist/js/select2.min.js",
               "node_modules/slick-carousel/slick/slick.min.js",
-              "node_modules/chart.js/dist/chart.min.js",
+              "node_modules/chart.js/dist/Chart.min.js",
               "src/assets/js/app.main.js"
             ]
           },

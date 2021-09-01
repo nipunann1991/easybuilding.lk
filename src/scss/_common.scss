@@ -11,10 +11,10 @@
 }
 
 html{
-	font-size: 52%;
+	font-size: 55%;
 
 	@include breakpoint($tablet) { 
-		font-size: 55%;
+		font-size: 58%;
 	}
 
 	@include breakpoint($small-desktop) { 
@@ -38,8 +38,9 @@ h1, h2, h3, h4{
  
 
 body{   
-	font-size: 1.6rem;	  
+	font-size: $eb-font-size;	  
 	background: $white;
+	letter-spacing: -0.01rem;
 	overflow-x: hidden;
 	@include regular;
 		
@@ -49,12 +50,12 @@ body{
 	  
 		.form-control, p{
 			font-weight: 400;
-			font-size: 1.45rem; 
+			font-size: $eb-font-size - 0.2; 
 		}
 
 		div.dataTables_wrapper{
 			label{
-				font-size: 1.3rem;
+				font-size: $eb-font-size - 0.3;
 				font-weight: 500;
 			}
 		}
@@ -105,7 +106,7 @@ body{
 			.form-check-inline{
 				margin-right: 1.5rem;
 				label{
-					font-size: 1.4rem;
+					font-size: $eb-font-size - 0.2;
 					font-family: inherit;
 				} 
 			}
@@ -119,7 +120,7 @@ body{
 				padding-left: 0;
 				margin-left: 0.5rem;
 				margin-right: 1rem;
-				font-size: 1.4rem;
+				font-size: $eb-font-size - 0.2;
 			}
 			
 		}
@@ -144,15 +145,15 @@ body{
 		}
 		
 		table.dataTable thead th, table.dataTable tfoot th {
-			font-size: 1.35rem;
+			font-size: $eb-font-size - 0.3;
 		}
 
 		table.dataTable tbody th, table.dataTable tbody td{
-			font-size: 1.35rem;
+			font-size: $eb-font-size - 0.3;
 		}
 
 		div.dataTables_wrapper div.dataTables_info, div.dataTables_wrapper div.dataTables_paginate{
-			font-size: 1.2rem;
+			font-size: $eb-font-size - 0.4;
 		}
 	}
 
@@ -193,12 +194,11 @@ body{
 .select2-container--default .select2-results__group{
 	padding: 15px;
 	background: #f9f9f9;
-	font-size: 17px;
-	letter-spacing: 0.02rem;
+	font-size: $eb-font-size + 0.1;
 }
 
 p{ 
-	font-size: 1.4rem;	
+	font-size: $eb-font-size - 0.2;	
 	line-height: 2rem; 
 	margin-bottom: 0; 
 	font-weight: 400;
@@ -209,7 +209,7 @@ ul{
 	padding: 0;
 
 	li{
-		font-size: 1.4rem;	
+		font-size: $eb-font-size - 0.2;	
 		line-height: 1.8rem;    
 		list-style: none;
 	}
@@ -240,7 +240,7 @@ ul{
 
 	&.medium {
 		.label-value{
-			font-size: 1.4rem;
+			font-size: $eb-font-size - 0.2;
 			padding-left: 1rem;
 			margin-left: 0.5rem;
 			position: relative;
@@ -310,14 +310,14 @@ ul{
 
 			.select2-selection__rendered{
 				line-height: 4.2rem;
-				font-size: 1.5rem;
+				font-size: $eb-font-size - 0.1;
 			}
 		}
 	}
 }
 
 .ck.ck-editor__main>.ck-editor__editable p{
-	font-size: 1.5rem;
+	font-size: $eb-font-size - 0.1;
 }
 
 .select-service .select2-container--default .select2-selection--single, 
@@ -343,18 +343,15 @@ ul{
 		background-repeat: no-repeat;
 		background-position: 0 50%;
 		padding-left: 1.8rem;
-		font-size: 1.5rem;
+		font-size: $eb-font-size - 0.1;
 	}
 }
 
 .steps-form{ 
 
 	label{
-		@include bold; 
-
-		&.form-check-label{
-			//margin-left: 1rem;
-		}
+		@include medium;  
+		margin-bottom: 1rem;
 	}
 }
  
@@ -395,7 +392,7 @@ ul{
 			h2{
 				font-size: $h3-font-size + 3;
 				font-family: inherit;
-				font-weight: 700;
+				font-weight: 600;
 				text-transform: capitalize;
 				margin-bottom: 0;
 				float: left; 
@@ -407,6 +404,10 @@ ul{
 				
 				&.transparent-btn{ 
 					border-radius: 20px;
+				}
+
+				&.upload{
+					margin-left: 1.5rem;
 				}
 			}
 
@@ -446,7 +447,7 @@ ul{
 
 		a{
 			padding: 0.3rem 3rem;
-			font-size: 1.5rem;
+			font-size: $eb-font-size - 0.1;
 			text-decoration: none;
 			border: 1px transparent solid;
 
@@ -531,7 +532,7 @@ ul{
  }
 
 .datepicker td, .datepicker th{
-	font-size: 14px;
+	font-size: $eb-font-size - 0.2;
 }
 
 .datepicker table tr td.active.active{
@@ -552,7 +553,7 @@ ul{
 }
 
 .form-control{
-	font-size: 1.5rem;
+	font-size: $eb-font-size - 0.1;
 	min-height: 4.2rem;
 }
 
@@ -566,11 +567,10 @@ ul{
 
 .btn{
 	background: $base-color; 
-	color: $white; 
-	letter-spacing: 0.04rem;
-	@include regular;
+	color: $white;
+	@include medium;
 	padding: 0.2rem 3rem !important;	
-	font-size: 1.5rem;
+	font-size: $eb-font-size - 0.1;
 	
 	&:focus{
 		box-shadow: none;
@@ -635,7 +635,7 @@ ul{
 	&.btn-fb{
 		background-color: #1877F2;
     	border-color: #1877F2;
-		color: $white;
+		color: $white; 
 
 		i{
 			position: relative;
@@ -664,7 +664,7 @@ ul{
 
 	&.btn-google{
 		background-color: transparent;
-    border: 1px $border-gray solid;
+    	border: 1px $border-gray solid;
 		color: $dark-gray;
 
 		&:before{
@@ -803,7 +803,7 @@ button.add{
 	font-weight: 700;
 
 	i{
-		font-size: 18px;
+		font-size: $eb-font-size + 0.2;
 	    position: relative;
 	    top: -2px;
 	    margin-right: 5px;
@@ -888,6 +888,9 @@ ngx-file-drop{
 label{ 
 	color: $dark-gray;
 	@include regular; 
+	font-size: $eb-font-size - 0.1;
+	margin-bottom: 0.5rem;
+	display: block;
 }
 
 .toast-container .ngx-toastr{
@@ -899,14 +902,14 @@ label{
 
 
     div[aria-live="polite"]{
-    	font-size: 1.4rem;
+    	font-size: $eb-font-size - 0.2;
     	line-height: 1.9rem;
     }
 }
 
 .toast-title{
 	@include bold;
-    font-size: 1.8rem;
+    font-size: $eb-font-size + 0.2;
 }
 
 .toast-top-right{
@@ -973,13 +976,23 @@ label{
 }
 
 
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, 
+.mat-checkbox-checked.mat-accent .mat-checkbox-background{
+	background-color: $base-bg-color;
+}
+
+.mat-checkbox .mat-checkbox-ripple{
+	opacity: 0;
+}
+
 table.dataTable{
-	font-size: 1.3rem;
+	font-size: $eb-font-size - 0.3;
     line-height: 1.9rem;
 
 	thead {
 		th, td{
 			padding: 0.85rem 1rem;
+			@include medium;
 		}
 	}
 
@@ -998,7 +1011,7 @@ table.dataTable{
 
 			&:last-child{
 				a{ 
-					font-size: 1.2rem;
+					font-size: $eb-font-size - 0.4;
 
 					&.disabled{
 						opacity: 0.4;
@@ -1024,10 +1037,10 @@ table.dataTable{
 }
 
 div.dataTables_wrapper{
-		font-size: 1.4rem;
+		font-size: $eb-font-size - 0.2;
 
 	div.dataTables_paginate{ 
-		font-size: 1.4rem;
+		font-size: $eb-font-size - 0.2;
 
 		.paginate_button{
 				padding: 2px;
@@ -1044,7 +1057,7 @@ div.dataTables_wrapper{
 	}
 
 	div.dataTables_info{ 
-		font-size: 1.2rem;
+		font-size: $eb-font-size - 0.4;
 	}
 
 	div.dataTables_filter input{
@@ -1082,7 +1095,7 @@ button.dt-button{
 .bootbox {
 	.modal-header{
 		.modal-title{
-			font-size: 1.8rem;
+			font-size: $eb-font-size + 0.2;
 			@include bold;
 			text-transform: capitalize;
 		}
@@ -1091,7 +1104,7 @@ button.dt-button{
 		border-top: 0;
 		
 		button.btn {
-			font-size: 1.5rem;
+			font-size: $eb-font-size - 0.1;
 			padding: 0.5rem 3rem;
 			line-height: 3.2rem;
 
@@ -1135,7 +1148,7 @@ button.dt-button{
 			transition: all 0.2s ease;
 			
 			.modal-body{
-				font-size: 1.5rem;
+				font-size: $eb-font-size - 0.1;
 				line-height: 1.9rem; 
 			}
 		}
@@ -1166,11 +1179,11 @@ button.dt-button{
 		}
 
 		h2{
-			font-size: 2.6rem;  
+			font-size: 2.4rem;  
 		}
 
 		p{
-			font-size: 1.8rem; 
+			font-size: $eb-font-size + 0.2; 
 			color: $dark-gray;
 			display: none;
 		}
@@ -1210,7 +1223,7 @@ button.dt-button{
 					position: absolute;
 				    right: 15px;
 				    top: 15px;
-				    font-size: 17px;
+				    font-size: $eb-font-size + 0.1;
 				    cursor: pointer;
 
 				    &:hover{
@@ -1248,7 +1261,7 @@ button.dt-button{
 	}
 
 	p{
-		font-size: 1.45rem;
+		font-size: $eb-font-size - 0.2;
 		margin-top: 0;
 		margin-bottom: 0.2rem;
 	}
@@ -1285,7 +1298,7 @@ button.dt-button{
 			a{
 				text-align: left;
 				width: 100%;
-				font-size: 2rem;
+				font-size: $eb-font-size + 0.4;
 				line-height: 1rem;
 				border-radius: 3px;
 				padding: 6px;
@@ -1426,7 +1439,7 @@ button.dt-button{
 	text-align: center;
 
 	h3{
-		font-size: 1.7rem;
+		font-size: $eb-font-size + 0.1;
 		font-weight: 500;
 	}
 }

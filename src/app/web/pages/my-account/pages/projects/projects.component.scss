@@ -17,7 +17,7 @@
 
   h2{
     margin-right: auto;
-    font-size: 1.8rem;
+    font-size: $eb-font-size + 0.2;
     
     @include breakpoint($tablet){
       
@@ -32,7 +32,7 @@
     font-weight: 500;
     line-height: 3.5rem;
     margin-top: 0; 
-    margin-left: auto;
+    margin-left: auto; 
 
     @include breakpoint($tablet){  
       line-height: auto;
@@ -52,6 +52,11 @@
   text-align: center;  
   cursor: pointer;
   display: none;
+
+  &.col-block-4{
+    @include calc("width","25% - 2rem");
+    margin-right: 2rem;
+  }
 
   @include breakpoint($tablet){
     @include flex();
@@ -93,17 +98,7 @@
     margin-bottom: 0;
   }
 } 
-
-// .projects-wrapper{
-
-//   // @include breakpointMax(479px){
-//   //   display: flex;
-//   //   flex-direction: column;
-//   //   justify-content: center;
-//   //   align-items: center;
-//   // }
-// }
-
+ 
 .project-block{
   position: relative;
   width: 72%;
@@ -113,6 +108,11 @@
   cursor: pointer;
   border: 1px #ededed solid;
   border-radius: 0.5rem;
+
+  &.col-block-4{
+    @include calc("width","25% - 2rem");
+    margin-right: 2rem;
+  }
 
   @include breakpoint($medium-device){
     @include calc("width","50% - 2rem");
@@ -226,7 +226,7 @@
           }
 
           i{
-            font-size: 1.3rem;
+            font-size: $eb-font-size - 0.3;
             margin-right: 0.5rem;
           }
         }
@@ -240,26 +240,25 @@
 
     h3{
       @include medium; 
-      font-size: 1.5rem;
+      font-size: $eb-font-size - 0.1;
       line-height: 2rem;
       margin-bottom: 1rem;
     }
 
     p{
-      font-size: 1.3rem;
+      font-size: $eb-font-size - 0.3;
     }
 
     ul{ 
       overflow: hidden;
 
       li{
-        font-size: 1.3rem; 
+        font-size: $eb-font-size - 0.3; 
         padding-left: 2.1rem;
         background-repeat: no-repeat;
         float: left;
         margin-right: 1.5rem; 
-        font-size: 1.35rem;
-        letter-spacing: 0.02rem;
+        font-size: $eb-font-size - 0.3;
 
         &.year{
           background-size: 1.5rem;

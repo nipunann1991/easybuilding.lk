@@ -6,7 +6,7 @@
         <div class="pull-right">
           <mat-checkbox #blacklisted_cb *ngIf="forProfileOnly" class="blacklist" [checked]="isBlacklisted" (change)="setBlacklisted($event)">Blacklisted</mat-checkbox>
           <mat-checkbox *ngIf="!isPersonalProfile && forProfileOnly" [checked]="isFeatured" [disabled]="isBlacklisted" (change)="setFeatured($event)">Featured Profile</mat-checkbox> 
-          <mat-checkbox *ngIf="!forProfileOnly" [checked]="isFeaturedProduct" (change)="setFeaturedProduct($event)">Featured Product</mat-checkbox> 
+          <mat-checkbox *ngIf="!forProfileOnly && isProductPage" [checked]="isFeaturedProduct" (change)="setFeaturedProduct($event)">Featured Product</mat-checkbox> 
           <button mat-icon-button *ngIf="forProfileOnly" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
             <mat-icon>more_vert</mat-icon>
           </button>

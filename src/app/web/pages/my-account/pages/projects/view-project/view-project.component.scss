@@ -26,7 +26,7 @@
       .full-screen-mode{
         padding: 5px 10px;
         background: #fff;
-        font-size: 1.5rem;
+        font-size: $eb-font-size - 0.1;
         position: absolute;
         bottom: 1.5rem;
         right: 1.5rem;
@@ -72,7 +72,7 @@
       align-items: center;
 
       a.edit{
-        font-size: 1.3rem;
+        font-size: $eb-font-size - 0.3;
         margin-left: 1rem;
         text-decoration: none;
         color: $body-text-color;
@@ -80,7 +80,7 @@
 
       span.badge{
         color: $white;
-        font-size: 1.2rem;
+        font-size: $eb-font-size - 0.4;
         margin-left: 1.5rem;
       }
     }
@@ -106,7 +106,7 @@
           margin-right: 1.5rem; 
           padding-left: 2.5rem;
           background-repeat: no-repeat; 
-          font-size: 1.4rem;
+          font-size: $eb-font-size - 0.2;
           margin-bottom: 0.5rem;
 
           @include breakpoint($tablet){  
@@ -158,7 +158,7 @@
         background-repeat: no-repeat; 
 
         &.photos{
-          font-size: 1.4rem;
+          font-size: $eb-font-size - 0.2;
           background-image: url("data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNTEyIDUxMiIgaGVpZ2h0PSI1MTIiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnPjxwYXRoIGQ9Im0yNTYgNTEyYy02OC4zOCAwLTEzMi42NjgtMjYuNjI4LTE4MS4wMi03NC45OHMtNzQuOTgtMTEyLjY0LTc0Ljk4LTE4MS4wMiAyNi42MjktMTMyLjY2NyA3NC45OC0xODEuMDIgMTEyLjY0LTc0Ljk4IDE4MS4wMi03NC45OCAxMzIuNjY4IDI2LjYyOCAxODEuMDIgNzQuOTggNzQuOTggMTEyLjY0IDc0Ljk4IDE4MS4wMi0yNi42MjkgMTMyLjY2Ny03NC45OCAxODEuMDItMTEyLjY0IDc0Ljk4LTE4MS4wMiA3NC45OHptMC00ODBjLTEyMy41MTQgMC0yMjQgMTAwLjQ4Ni0yMjQgMjI0czEwMC40ODYgMjI0IDIyNCAyMjQgMjI0LTEwMC40ODYgMjI0LTIyNC0xMDAuNDg2LTIyNC0yMjQtMjI0eiIvPjxwYXRoIGQ9Im0yNTYgMjQwYy0yMi4wNTYgMC00MC0xNy45NDQtNDAtNDBzMTcuOTQ0LTQwIDQwLTQwIDQwIDE3Ljk0NCA0MCA0MGMwIDguODM2IDcuMTYzIDE2IDE2IDE2czE2LTcuMTY0IDE2LTE2YzAtMzQuMjAxLTIzLjk3OC02Mi44ODgtNTYtNzAuMTg2di0xNy44MTRjMC04LjgzNi03LjE2My0xNi0xNi0xNnMtMTYgNy4xNjQtMTYgMTZ2MTcuODE0Yy0zMi4wMjIgNy4yOTgtNTYgMzUuOTg1LTU2IDcwLjE4NiAwIDM5LjcwMSAzMi4yOTkgNzIgNzIgNzIgMjIuMDU2IDAgNDAgMTcuOTQ0IDQwIDQwcy0xNy45NDQgNDAtNDAgNDAtNDAtMTcuOTQ0LTQwLTQwYzAtOC44MzYtNy4xNjMtMTYtMTYtMTZzLTE2IDcuMTY0LTE2IDE2YzAgMzQuMjAxIDIzLjk3OCA2Mi44ODggNTYgNzAuMTg2djE3LjgxNGMwIDguODM2IDcuMTYzIDE2IDE2IDE2czE2LTcuMTY0IDE2LTE2di0xNy44MTRjMzIuMDIyLTcuMjk4IDU2LTM1Ljk4NSA1Ni03MC4xODYgMC0zOS43MDEtMzIuMjk5LTcyLTcyLTcyeiIvPjwvZz48L3N2Zz4=");
           background-size: 1.5rem;
           background-position: 0 20%;
@@ -172,7 +172,7 @@
     padding: 2.5rem 2.5rem;
 
     p{
-      font-size: 1.4rem;
+      font-size: $eb-font-size - 0.2;
       line-height: 2.1rem;
 
       &:last-child{
@@ -188,8 +188,7 @@
 
     li{ 
       background-repeat: no-repeat;  
-      font-size: 1.4rem;
-      letter-spacing: 0.02rem;
+      font-size: $eb-font-size - 0.2;
       float: left; 
       line-height: 2rem;
       width: 100%; 
@@ -225,7 +224,7 @@
         padding: 5px 10px;
         border-radius: 0.5rem;
         background: $base-bg-color;
-        font-size: 1.2rem;
+        font-size: $eb-font-size - 0.4;
       }
     }
   }
@@ -264,12 +263,12 @@
       h3{
         display: block;
         margin-bottom: 0;
-        font-size: 1.6rem;
+        font-size: $eb-font-size;
         @include medium;
       }
 
       span{
-        font-size: 1.35rem;
+        font-size: $eb-font-size - 0.3;
         color: $dark-gray;
         display: block;
       }
@@ -293,7 +292,7 @@
 
       span.badge{
         color: $white;
-        font-size: 1.2rem;
+        font-size: $eb-font-size - 0.4;
         margin-left: 0.5rem;
       }
     }

@@ -35,11 +35,52 @@ class CategoriesController extends CommonController {
 	public function getSelectedLvl1Category(){  
 
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+
 			$search_index = array(
 				'columns' => '*' ,   
 				'table' => '`categories-level1`',
-				'eq_table_col' => '1',
+				'eq_table_col' => '1 ORDER BY sort_order ASC , cat_lvl1_name ASC',
 				'data' => 'cat_lvl1_id= "'.$this->input->post('cat_lvl1_id').'"', 
+			);
+
+			return $this->selectCustomData__($search_index);
+
+		}else{
+			return $this->invalidSession(); 
+		}
+		
+	}
+
+
+	public function getLvl2Categories(){  
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+
+			$search_index = array(
+				'columns' => '*' ,   
+				'table' => '`categories-level2`',
+				'eq_table_col' => '1 ORDER BY sort_order ASC , cat_lvl2_name ASC',
+				'data' => 'parent_cat_id= "'.$this->input->post('parent_cat_id').'"', 
+			);
+
+			return $this->selectCustomData__($search_index);
+
+		}else{
+			return $this->invalidSession(); 
+		}
+		
+	}
+
+
+	public function getSelectedLvl1CategoryByID(){  
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+			
+			$search_index = array(
+				'columns' => '*' ,   
+				'table' => '`categories-level1`',
+				'eq_table_col' => '1 ORDER BY sort_order ASC , cat_lvl1_name ASC',
+				'data' => 'parent_cat_id= "'.$this->input->post('parent_cat_id').'"', 
 			);
 
 			return $this->selectCustomData__($search_index);
@@ -169,6 +210,25 @@ class CategoriesController extends CommonController {
 	} 
 
 
+	public function getFeaturedCategories(){  
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+			$search_index = array(
+				'columns' => 'cl.*, c.cat_lvl1_name' ,   
+				'table' => '`categories-level2` cl, `categories-level1` c',
+				'data' => 'c.cat_lvl1_id=cl.parent_cat_id AND cl.featured=1' ,
+				'eq_table_col' => ' 1 ORDER BY cl.featured_order ASC , cl.cat_lvl2_name ASC'
+			);
+
+			return $this->selectCustomData__($search_index);
+
+		}else{
+			return $this->invalidSession(); 
+		}
+		
+	}
+
+
 	public function getMainCategoriesDT(){   
   
 		if (sizeof($this->isUserSessionValid()['data']) == 1) { 
@@ -267,7 +327,6 @@ class CategoriesController extends CommonController {
   
 		if (sizeof($this->isUserSessionValid()['data']) == 1) { 
 
-
  
 			$dt = $this->dataTableInitialValues(); 
 			$search_columns = array('cl.cat_lvl2_id', 'cl.cat_lvl2_name', 'c.cat_lvl1_name'); 
@@ -346,6 +405,83 @@ class CategoriesController extends CommonController {
 		if (sizeof($this->isUserSessionValid()['data']) == 1) {
 			$dataset = $this->input->post(); 
 			return $this->updateData__('`categories-level2`', $dataset,'cat_lvl2_id="'.$this->input->post('cat_lvl2_id').'"');
+		}else{
+			return $this->invalidSession(); 
+		} 
+
+	}
+
+	public function updateFeaturedCategory(){ 
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+
+			$dataset = json_decode($this->input->post()["data"]); 
+
+			foreach ($dataset as $data) {   
+
+				$featuredData =  [
+				    'cat_lvl2_id' => $data->cat_lvl2_id, 
+				    'featured_order' => $data->featured_order
+				];
+
+				$result = $this->updateData__('`categories-level2`', $featuredData,'cat_lvl2_id="'.$featuredData["cat_lvl2_id"].'"');
+			}  
+
+			return $result;
+
+			  
+		}else{
+			return $this->invalidSession(); 
+		} 
+
+	}
+
+
+	public function updateLvl1CategoryOrder(){ 
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+
+			$dataset = json_decode($this->input->post()["data"]); 
+
+			foreach ($dataset as $data) {   
+
+				$featuredData =  [
+				    'cat_lvl1_id' => $data->cat_lvl1_id, 
+				    'sort_order' => $data->sort_order
+				];
+
+				$result = $this->updateData__('`categories-level1`', $featuredData,'cat_lvl1_id="'.$featuredData["cat_lvl1_id"].'"');
+			}  
+
+			return $result;
+
+			  
+		}else{
+			return $this->invalidSession(); 
+		} 
+
+	}
+
+
+	public function updateLvl2CategoryOrder(){ 
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) {
+
+			$dataset = json_decode($this->input->post()["data"]); 
+
+			foreach ($dataset as $data) {   
+
+				$featuredData =  [
+				    'cat_lvl2_id' => $data->cat_lvl2_id, 
+				    'sort_order' => $data->sort_order
+				];
+
+				$result = $this->updateData__('`categories-level2`', $featuredData,'cat_lvl2_id="'.$featuredData["cat_lvl2_id"].'"');
+			}  
+
+			return $result;
+
+			  
 		}else{
 			return $this->invalidSession(); 
 		} 

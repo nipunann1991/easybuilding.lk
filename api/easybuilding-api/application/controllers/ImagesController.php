@@ -212,7 +212,33 @@ class ImagesController extends CommonController {
 		return $this->selectRawCustomData__($search_index); 
 		
 	}
+ 	
+
+ 	public function getServicsforAdmin(){    
+
+		 
+		$search_index = array(
+			'columns' => 'DISTINCT cl2.cat_lvl2_id AS id, cl2.cat_lvl2_name AS text' ,   
+			'table' => 'services_list sl, `categories-level2` cl2, `categories-level1` cl1, categories c',
+			'eq_table_col' => 'cl2.cat_lvl2_id = sl.cat_lvl2_id  AND cl2.parent_cat_id = cl1.cat_lvl1_id AND cl1.parent_cat_id = c.cat_id',
+			'data' => '1', 
+		);
+
+		return $this->selectCustomData__($search_index);
+		 
+		
+	}
+
+
+	public function uploadProjectImages(){ 
+
+		if (sizeof($this->isUserSessionValid()['data']) == 1) { 
+			return $this->uploadProjectImages__( 'admin', $_POST, $_FILES, false, 'projects');
+		}else{
+			return $this->invalidSession(); 
+		}  
  
+	} 
 
  
 }

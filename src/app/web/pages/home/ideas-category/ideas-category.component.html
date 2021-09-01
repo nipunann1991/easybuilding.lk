@@ -13,8 +13,10 @@
             (beforeChange)="beforeChange($event)">
             
             <div ngxSlickItem *ngFor="let categories of featuredProductsCategories" class="slide">
-                <div class="category-item" [class.disabled-link]="isAdminData ? true : null" [routerLink]="categories.url" [queryParams]="queryParams">
-                    <div class="category-bg-img" *ngIf="categories.file_name != ''" [ngStyle]="{'background-image':  'url('+ bgImageCatPath + categories.file_name + ')' , 'background-size': 'cover' }"> </div>
+                <div class="category-item" [class.disabled-link]="isAdminData ? true : null"  (click)="gotoURL(categories)">
+                    <div class="category-bg-img" *ngIf="categories.file_name != ''" [ngStyle]="{'background-image':  'url('+ bgImageCatPath + categories.file_name + ')' , 'background-size': 'cover' }">
+                        <img [src]="bgImageCatPath + categories.file_name" [alt]="categories.cat_lvl2_name ">
+                    </div>
                     <div class="category-bg-img" *ngIf="categories.file_name == ''"> </div>
                     <div class="category-footer">
                         {{ categories.cat_lvl2_name }}

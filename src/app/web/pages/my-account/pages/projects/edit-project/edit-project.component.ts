@@ -28,6 +28,7 @@ export class EditProjectComponent implements OnInit {
   public files: NgxFileDropEntry[] = []; 
   imageChangedEvent: any = '';
   isUploading: boolean = false;
+  isAdmin: boolean = false;
   croppedImage: any = '';
   uploadedImages: any = [];
   uploadedFileName: any = [];
@@ -40,6 +41,7 @@ export class EditProjectComponent implements OnInit {
   imageURLThumb: string = "";
   allServices: any = [];
   nearestCity: any = [];
+  isCustomLocation: boolean = false;
 
   constructor(
     private myaccount: MyAccountService,
@@ -77,6 +79,8 @@ export class EditProjectComponent implements OnInit {
         Validators.required
       ]), 
 
+      country_location: new FormControl(''),
+
       project_description: new FormControl('',[
         Validators.required,
         Validators.minLength(2),
@@ -97,20 +101,21 @@ export class EditProjectComponent implements OnInit {
 
     this.companyID = this.route.snapshot.params.company_id; 
     this.projectID = this.route.snapshot.params.project_id; 
-    
-    this.getProductsWithID(this.companyID);
+
+    (this.companyID == '0')? this.isAdmin = true : this.isAdmin = false; 
+    (this.isAdmin)? this.getServicsforAdmin() : this.getProductsWithID(this.companyID); 
+     
     this.getProjectDetails(this.companyID, this.projectID);
     this.getCities();
     
   }
 
   ngOnDestroy(){
-    //alert();
+  
   }
 
   openImgUpload(fileInput:any, profile_state){ 
-
-    //fileInput.click();   
+ 
   }
 
   public dropped(files: NgxFileDropEntry[]) {
@@ -286,6 +291,18 @@ export class EditProjectComponent implements OnInit {
         });
     }
 
+
+    getServicsforAdmin(){
+
+      this.myaccount.getServicsforAdmin() 
+        .subscribe((response: any) => {
+          if (response.status == 200 ) {
+            this.allServices = response.data; 
+          } 
+            
+        });
+    }
+
     getProjectDetails(company_id, project_id){
 
       let params = { company_id: company_id, project_id: project_id }
@@ -295,10 +312,8 @@ export class EditProjectComponent implements OnInit {
           if (response.status == 200) {
              
   
-            this.projectData = response.data;
-            console.log("---", response.data)
-            this.projectImages = this.projectData.images;
- 
+            this.projectData = response.data; 
+            this.projectImages = this.projectData.images; 
             this.clientId = this.projectData.client_id;
             this.imageURL = environment.uploadPath + this.clientId +'/'+ this.companyID +'/projects/';
             this.imageURLThumb = environment.uploadPath + this.clientId +'/'+ this.companyID +'/projects/thumb/';
@@ -315,9 +330,10 @@ export class EditProjectComponent implements OnInit {
               architect: this.projectData.architect, 
               contractor: this.projectData.contractor, 
               structural_engineer: this.projectData.structural_engineer, 
-              
+              country_location: this.projectData.country_location
             });
 
+            (this.formGroup.controls['country_location'].value != '')? this.isCustomLocation = true : this.isCustomLocation = false;
             this.uploadedFileName =  this.projectImages;
   
             this.projectImages.forEach(element => {  
@@ -341,7 +357,12 @@ export class EditProjectComponent implements OnInit {
         
         this.formGroup.value.project_id = this.projectID; 
         this.formGroup.value.services = JSON.stringify(this.formGroup.value.services); 
-        console.log(this.formGroup.value)
+
+        if(this.isCustomLocation){
+          this.formGroup.value.project_address = 0;
+        }else{
+          this.formGroup.value.country_location = '';
+        }
         
         this.myaccount.editProjectDetails(this.formGroup.value)
           .subscribe((response: any) => {
@@ -416,6 +437,15 @@ export class EditProjectComponent implements OnInit {
 
     goBack(){
       window.history.back();
+    }
+
+
+    setCustomLocation(e){
+      this.isCustomLocation = e.checked;
+      
+      if(this.isCustomLocation){
+        this.formGroup.controls['project_address'].setValue(0)
+      } 
     }
 
 }

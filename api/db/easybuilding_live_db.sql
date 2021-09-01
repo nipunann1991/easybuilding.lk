@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jul 04, 2021 at 11:46 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.9
+-- Host: localhost
+-- Generation Time: Sep 01, 2021 at 06:44 AM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 8.0.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -52,31 +52,32 @@ CREATE TABLE `categories-level1` (
   `id` int(11) NOT NULL,
   `cat_lvl1_id` varchar(100) NOT NULL,
   `cat_lvl1_name` varchar(100) NOT NULL,
-  `parent_cat_id` varchar(100) NOT NULL
+  `parent_cat_id` varchar(100) NOT NULL,
+  `sort_order` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `categories-level1`
 --
 
-INSERT INTO `categories-level1` (`id`, `cat_lvl1_id`, `cat_lvl1_name`, `parent_cat_id`) VALUES
-(15, 'CL11015', 'Construction Contractors', 'C1019'),
-(16, 'CL11016', 'Professional Service Providers', 'C1019'),
-(18, 'CL11018', 'Construction Materials', 'C1015'),
-(21, 'CL11021', 'Electrical, AC & Mechanical Contractors', 'C1019'),
-(22, 'CL11022', 'Flooring Materials ', 'C1015'),
-(23, 'CL11023', 'Paints & Coating ', 'C1015'),
-(24, 'CL11024', 'Electrical ', 'C1015'),
-(25, 'CL11025', 'Furniture ', 'C1015'),
-(26, 'CL11026', 'Bathroom ', 'C1015'),
-(27, 'CL11027', 'Roofing Materials', 'C1015'),
-(28, 'CL11028', 'CCTV & Home Security Systems ', 'C1015'),
-(29, 'CL11029', 'House Interior Deco ', 'C1015'),
-(30, 'CL11030', 'AC & Mechanical Systems ', 'C1015'),
-(32, 'CL11032', 'Machinery Tools and Vehicles ', 'C1015'),
-(33, 'CL11033', 'House', 'C1022'),
-(34, 'CL11034', 'Product Photos', 'C1022'),
-(39, 'CL11039', 'Hardware Shops (Near By) ', 'C1015');
+INSERT INTO `categories-level1` (`id`, `cat_lvl1_id`, `cat_lvl1_name`, `parent_cat_id`, `sort_order`) VALUES
+(15, 'CL11015', 'Construction Contractors', 'C1019', 1),
+(16, 'CL11016', 'Professional Service Providers', 'C1019', 3),
+(18, 'CL11018', 'Construction Materials', 'C1015', 6),
+(21, 'CL11021', 'Electrical, AC & Mechanical Contractors', 'C1019', 2),
+(22, 'CL11022', 'Flooring Materials ', 'C1015', 9),
+(23, 'CL11023', 'Paints & Coating ', 'C1015', 11),
+(24, 'CL11024', 'Electrical ', 'C1015', 3),
+(25, 'CL11025', 'Furniture ', 'C1015', 2),
+(26, 'CL11026', 'Bathroom ', 'C1015', 4),
+(27, 'CL11027', 'Roofing Materials', 'C1015', 12),
+(28, 'CL11028', 'CCTV & Home Security Systems ', 'C1015', 8),
+(29, 'CL11029', 'House Interior Deco ', 'C1015', 1),
+(30, 'CL11030', 'AC & Mechanical Systems ', 'C1015', 7),
+(32, 'CL11032', 'Machinery Tools and Vehicles ', 'C1015', 10),
+(33, 'CL11033', 'House', 'C1022', 1),
+(34, 'CL11034', 'Product Photos', 'C1022', 2),
+(39, 'CL11039', 'Hardware Shops (Near By) ', 'C1015', 5);
 
 -- --------------------------------------------------------
 
@@ -90,119 +91,121 @@ CREATE TABLE `categories-level2` (
   `cat_lvl2_name` varchar(100) NOT NULL,
   `parent_cat_id` varchar(100) NOT NULL,
   `file_name` varchar(100) NOT NULL,
-  `featured` int(11) NOT NULL DEFAULT 0
+  `featured` int(11) NOT NULL DEFAULT 0,
+  `featured_order` int(11) NOT NULL DEFAULT 0,
+  `sort_order` int(11) NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `categories-level2`
 --
 
-INSERT INTO `categories-level2` (`id`, `cat_lvl2_id`, `cat_lvl2_name`, `parent_cat_id`, `file_name`, `featured`) VALUES
-(185, 'CL21185', 'Fabrications (Steel & Stainless Steel)', 'CL11021', '16229508971721452706.jpg', 0),
-(11, 'CL21011', 'Architects', 'CL11016', '1622081531588719478.jpg', 0),
-(13, 'CL21013', 'Interior Work, Partition Work & Ceiling work Contractors', 'CL11017', '', 0),
-(14, 'CL21014', 'Interior Designers', 'CL11017', '', 0),
-(184, 'CL21184', 'Hardware Shops', 'CL11039', '16223078931959308477.jpg', 0),
-(16, 'CL21016', 'Cement', 'CL11018', '1622081360708768815.jpg', 0),
-(18, 'CL21018', 'Ready Mix Concrete', 'CL11018', '16220812501727112173.jpg', 0),
-(20, 'CL21020', 'Pipes & Sealants', 'CL11018', '1622081018825471857.jpg', 0),
-(22, 'CL21022', 'Structural Engineers', 'CL11016', '16220805772118126615.jpg', 0),
-(23, 'CL21023', 'Sand & Stones ', 'CL11018', '1622080905690067731.jpg', 0),
-(24, 'CL21024', 'Bricks & Blocks', 'CL11018', '1622080169189366919.jpg', 0),
-(146, 'CL21146', 'Houses (Exterior look)', 'CL11033', '16143670451697543230.jpg', 1),
-(27, 'CL21027', 'Water Proofing Materials ', 'CL11018', '16220429851911635601.jpg', 0),
-(28, 'CL21028', 'Glass and AL', 'CL11018', '1622042595863172419.jpg', 0),
-(29, 'CL21029', 'Door & Window Fittings ', 'CL11018', '16220423511475836019.jpg', 0),
-(32, 'CL21032', 'Concrete Products', 'CL11018', '16220419581849028808.jpg', 0),
-(33, 'CL21033', 'Timber & Saw Mills', 'CL11018', '16220391591806562146.jpg', 0),
-(179, 'CL21179', 'House Cleaners', 'CL11015', '16220386401463125632.jpg', 0),
-(180, 'CL21180', 'Designers Interior ', 'CL11016', '1622038726758825684.jpg', 0),
-(181, 'CL21181', 'Steel Reinforcement ', 'CL11018', '1622082201901579628.jpg', 0),
-(43, 'CL21043', 'Quantity Surveyors (QS)', 'CL11016', '16220380561805798896.jpg', 0),
-(44, 'CL21044', 'Surveyors Land', 'CL11016', '16220379611076365339.jpg', 0),
-(45, 'CL21045', 'Draftsman', 'CL11016', '16220378311766870921.jpg', 0),
-(46, 'CL21046', 'Electrical Engineers', 'CL11016', '1622037767570893443.jpg', 0),
-(47, 'CL21047', 'Plumbing Engineers (MEP)', 'CL11016', '16220376971110060609.jpg', 0),
-(48, 'CL21048', 'Air condition & Energy Consultants (AC)', 'CL11016', '16220371861338761786.jpg', 0),
-(50, 'CL21050', '3D Images', 'CL11016', '16220365501069361308.jpg', 0),
-(51, 'CL21051', 'Home Valuers', 'CL11016', '1622036498919821605.jpg', 0),
-(52, 'CL21052', 'Project Managers', 'CL11016', '1622036125352526495.jpg', 0),
-(53, 'CL21053', 'Steel Building ', 'CL11015', '16220339311717716567.jpg', 0),
-(54, 'CL21054', 'Road & Infrastructure ', 'CL11015', '1622033826276695619.jpg', 0),
-(55, 'CL21055', 'Painters', 'CL11015', '16220337181227014601.jpg', 0),
-(56, 'CL21056', 'Landscaping & Paving ', 'CL11015', '1622033574910502458.jpg', 0),
-(57, 'CL21057', 'Grass  & Tree Cutters', 'CL11015', '1622033416401124770.jpg', 0),
-(58, 'CL21058', 'Carpenters & Wood ', 'CL11015', '1622033286585664779.jpg', 0),
-(59, 'CL21059', 'Plumbers', 'CL11015', '16220332291953113241.jpg', 0),
-(60, 'CL21060', 'Water Proofing ', 'CL11015', '1622033163692690422.jpg', 0),
-(61, 'CL21061', 'Soil & Concrete Testing ', 'CL11015', '1622032915921255039.jpg', 0),
-(62, 'CL21062', 'Aluminum & Glass ', 'CL11015', '16220316341699858612.jpg', 0),
-(63, 'CL21063', 'Masons', 'CL11015', '1622031573435581316.jpg', 0),
-(64, 'CL21064', 'Welders & Steel', 'CL11015', '16220315211917173185.jpg', 0),
-(65, 'CL21065', 'Titanium & Tiling', 'CL11015', '1622031322274655327.jpg', 0),
-(66, 'CL21066', 'Pest Controllers', 'CL11015', '16220309241253946158.jpg', 0),
-(68, 'CL21068', 'Swimming Pool ', 'CL11015', '1622030715578567425.jpg', 0),
-(69, 'CL21069', 'Gully Bowsers ', 'CL11015', '16220305471655403726.jpg', 0),
-(70, 'CL21070', 'Electricians', 'CL11021', '16216697151774324931.jpg', 0),
-(71, 'CL21071', 'Electrical  Contractors', 'CL11021', '1621669567760155954.jpg', 0),
-(72, 'CL21072', 'AC Contractors', 'CL11021', '16216694251847363675.jpg', 0),
-(74, 'CL21074', 'AC Technicians', 'CL11021', '16216690021544578759.jpg', 0),
-(75, 'CL21075', 'Solar ', 'CL11021', '16216687931256804441.jpg', 0),
-(79, 'CL21079', 'Titanium Products', 'CL11022', '16216686031925246051.jpg', 0),
-(80, 'CL21080', 'Tiles', 'CL11022', '16216662101744838490.jpg', 0),
-(81, 'CL21081', 'Timber & Wooden Flooring', 'CL11022', '16216660051091066887.jpg', 0),
-(82, 'CL21082', 'Carpets', 'CL11022', '1621665855189513598.jpg', 0),
-(83, 'CL21083', 'Epoxy and Floor Paints', 'CL11022', '1621665598241994076.jpg', 0),
-(84, 'CL21084', 'Laminated Flooring', 'CL11022', '16216654051120260574.jpg', 0),
-(85, 'CL21085', 'Wall Paints', 'CL11023', '1621661619465862946.jpg', 0),
-(86, 'CL21086', 'Wood Care Coatings', 'CL11023', '1621661346269729626.jpg', 0),
-(89, 'CL21089', 'Primer Paints ', 'CL11023', '1621661081747078706.jpg', 0),
-(90, 'CL21090', 'Steel & Metal Care Coatings', 'CL11023', '16216614301945077043.jpg', 0),
-(91, 'CL21091', 'Light Fittings', 'CL11024', '1621659522565851551.jpg', 0),
-(92, 'CL21092', 'Wires & Cables', 'CL11024', '1621659630561069904.jpg', 0),
-(175, 'CL21175', 'Pumps & Motors', 'CL11024', '16216598861077422701.jpg', 0),
-(96, 'CL21096', 'Electrical Accessories ', 'CL11024', '16216593211039946574.jpg', 0),
-(97, 'CL21097', 'Generators', 'CL11024', '1621658941872235470.jpg', 0),
-(98, 'CL21098', 'Roller Doors & Gates', 'CL11024', '1621658693189731967.jpg', 0),
-(99, 'CL21099', 'Sofas', 'Furniture', '', 0),
-(100, 'CL21100', 'Living Room Furniture', 'Furniture', '', 0),
-(174, 'CL21174', 'Pantry Cupboards', 'CL11025', '16211839532004052402.jpg', 0),
-(103, 'CL21103', 'Living & Dining Room (Kitchen) Furniture', 'CL11025', '16211837181944970691.jpg', 0),
-(104, 'CL21104', 'Office Furniture ', 'CL11025', '162118337485186557.jpg', 0),
-(173, 'CL21173', 'Electrical Appliances ', 'CL11029', '1621182538463274465.jpg', 0),
-(106, 'CL21106', 'Bed Room  Furniture ', 'CL11025', '162118321318885662.jpg', 0),
-(107, 'CL21107', 'Outdoor Furniture ', 'CL11025', '16211830901263989603.jpg', 0),
-(111, 'CL21111', 'Floor & Wall Tiles', 'CL11026', '1621181043549117907.jpg', 0),
-(112, 'CL21112', 'Bathroom Fittings', 'CL11026', '16211799312049517681.jpg', 0),
-(116, 'CL21116', 'Roofing Tiles', 'CL11027', '1621179398787835719.jpg', 0),
-(117, 'CL21117', 'Roofing Sheets', 'CL11027', '16211795371295563313.jpg', 0),
-(118, 'CL21118', 'Gutters', 'CL11027', '1621179310195152310.jpg', 0),
-(122, 'CL21122', 'Fire Protection ', 'CL11028', '16211784382086945137.jpg', 0),
-(124, 'CL21124', 'Sound Systems', 'CL11028', '16211783261848181070.jpg', 0),
-(125, 'CL21125', 'IT & Network', 'CL11028', '162117810048560480.jpg', 0),
-(126, 'CL21126', 'CCTV & Security', 'CL11028', '16211777321159597420.jpg', 0),
-(127, 'CL21127', 'Blinds & Curtains', 'CL11029', '16211768371419555237.jpg', 0),
-(128, 'CL21128', 'Arts & Crafts', 'CL11029', '16211765031018264277.jpg', 0),
-(130, 'CL21130', 'Plywood & Gypsum', 'CL11029', '1621176174619642632.jpg', 0),
-(132, 'CL21132', 'Air Condition ', 'CL11030', '16211753621856536332.jpg', 0),
-(134, 'CL21134', 'Industrial Machineries ', 'CL11030', '1621174416286899697.jpg', 0),
-(135, 'CL21135', 'Lifts & Hoists', 'CL11030', '16211741022045586252.jpg', 0),
-(136, 'CL21136', 'Fans & Exhausts', 'CL11030', '16211752131350404102.jpg', 0),
-(143, 'CL21143', 'Heavy Machines', 'CL11032', '16211708861121778313.jpg', 0),
-(144, 'CL21144', ' Tools', 'CL11032', '16211498731545559773.jpg', 0),
-(145, 'CL21145', 'Material Handling ', 'CL11032', '162115029942889733.jpg', 0),
-(147, 'CL21147', 'Living Rooms', 'CL11033', '1622092608190020996.jpg', 1),
-(148, 'CL21148', 'Bed Room & Closet', 'CL11033', '16143644231004933114.jpg', 1),
-(149, 'CL21149', 'Kitchen & Pantry', 'CL11033', '16143661591659840798.jpg', 1),
-(150, 'CL21150', 'Bathrooms', 'CL11033', '16220924701773124543.jpg', 1),
-(151, 'CL21151', 'Landscaping', 'CL11033', '16220922971823272305.jpg', 1),
-(152, 'CL21152', 'Swimming Pools', 'CL11033', '1622092090399755567.jpg', 1),
-(154, 'CL21154', 'Light fittings ', 'CL11033', '1622091734532643194.jpg', 1),
-(156, 'CL21156', 'Furniture', 'CL11033', '1614366711502216453.jpg', 1),
-(182, 'CL21182', 'Air Condition Units', 'CL11034', '16220930761550126156.jpg', 0),
-(183, 'CL21183', 'test1', 'CL11034', '', 0),
-(177, 'CL21177', 'House Building Contractors', 'CL11015', '16220342501513318709.jpg', 0),
-(178, 'CL21178', 'Building Contractors', 'CL11015', '16220343892059626478.jpg', 0);
+INSERT INTO `categories-level2` (`id`, `cat_lvl2_id`, `cat_lvl2_name`, `parent_cat_id`, `file_name`, `featured`, `featured_order`, `sort_order`) VALUES
+(185, 'CL21185', 'Fabrications (Steel & Stainless Steel)', 'CL11021', '16229508971721452706.jpg', 0, 0, 0),
+(11, 'CL21011', 'Architects', 'CL11016', '1622081531588719478.jpg', 0, 0, 0),
+(13, 'CL21013', 'Interior Work, Partition Work & Ceiling work Contractors', 'CL11017', '', 0, 0, 0),
+(14, 'CL21014', 'Interior Designers', 'CL11017', '', 0, 0, 0),
+(184, 'CL21184', 'Hardware Shops', 'CL11039', '16223078931959308477.jpg', 0, 0, 0),
+(16, 'CL21016', 'Cement', 'CL11018', '1622081360708768815.jpg', 0, 0, 3),
+(18, 'CL21018', 'Ready Mix Concrete', 'CL11018', '16220812501727112173.jpg', 0, 0, 8),
+(20, 'CL21020', 'Pipes & Sealants', 'CL11018', '1622081018825471857.jpg', 0, 0, 7),
+(22, 'CL21022', 'Structural Engineers', 'CL11016', '16220805772118126615.jpg', 0, 0, 0),
+(23, 'CL21023', 'Sand & Stones ', 'CL11018', '1622080905690067731.jpg', 0, 0, 2),
+(24, 'CL21024', 'Bricks & Blocks', 'CL11018', '1622080169189366919.jpg', 0, 0, 1),
+(146, 'CL21146', 'Houses (Exterior look)', 'CL11033', '16143670451697543230.jpg', 1, 9, 2),
+(27, 'CL21027', 'Water Proofing Materials ', 'CL11018', '16220429851911635601.jpg', 0, 0, 11),
+(28, 'CL21028', 'Glass and AL', 'CL11018', '1622042595863172419.jpg', 0, 0, 6),
+(29, 'CL21029', 'Door & Window Fittings ', 'CL11018', '16220423511475836019.jpg', 0, 0, 5),
+(32, 'CL21032', 'Concrete Products', 'CL11018', '16220419581849028808.jpg', 0, 0, 4),
+(33, 'CL21033', 'Timber & Saw Mills', 'CL11018', '16220391591806562146.jpg', 0, 0, 10),
+(179, 'CL21179', 'House Cleaners', 'CL11015', '16220386401463125632.jpg', 0, 0, 9),
+(180, 'CL21180', 'Designers Interior ', 'CL11016', '1622038726758825684.jpg', 0, 0, 0),
+(181, 'CL21181', 'Steel Reinforcement ', 'CL11018', '1622082201901579628.jpg', 0, 0, 9),
+(43, 'CL21043', 'Quantity Surveyors (QS)', 'CL11016', '16220380561805798896.jpg', 0, 0, 0),
+(44, 'CL21044', 'Surveyors Land', 'CL11016', '16220379611076365339.jpg', 0, 0, 0),
+(45, 'CL21045', 'Draftsman', 'CL11016', '16220378311766870921.jpg', 0, 0, 0),
+(46, 'CL21046', 'Electrical Engineers', 'CL11016', '1622037767570893443.jpg', 0, 0, 0),
+(47, 'CL21047', 'Plumbing Engineers (MEP)', 'CL11016', '16220376971110060609.jpg', 0, 0, 0),
+(48, 'CL21048', 'Air condition & Energy Consultants (AC)', 'CL11016', '16220371861338761786.jpg', 0, 0, 0),
+(50, 'CL21050', '3D Images', 'CL11016', '16220365501069361308.jpg', 0, 0, 0),
+(51, 'CL21051', 'Home Valuers', 'CL11016', '1622036498919821605.jpg', 0, 0, 0),
+(52, 'CL21052', 'Project Managers', 'CL11016', '1622036125352526495.jpg', 0, 0, 0),
+(53, 'CL21053', 'Steel Building ', 'CL11015', '16220339311717716567.jpg', 0, 0, 15),
+(54, 'CL21054', 'Road & Infrastructure ', 'CL11015', '1622033826276695619.jpg', 0, 0, 13),
+(55, 'CL21055', 'Painters', 'CL11015', '16220337181227014601.jpg', 0, 0, 2),
+(56, 'CL21056', 'Landscaping & Paving ', 'CL11015', '1622033574910502458.jpg', 0, 0, 10),
+(57, 'CL21057', 'Grass  & Tree Cutters', 'CL11015', '1622033416401124770.jpg', 0, 0, 6),
+(58, 'CL21058', 'Carpenters & Wood ', 'CL11015', '1622033286585664779.jpg', 0, 0, 5),
+(59, 'CL21059', 'Plumbers', 'CL11015', '16220332291953113241.jpg', 0, 0, 12),
+(60, 'CL21060', 'Water Proofing ', 'CL11015', '1622033163692690422.jpg', 0, 0, 18),
+(61, 'CL21061', 'Soil & Concrete Testing ', 'CL11015', '1622032915921255039.jpg', 0, 0, 14),
+(62, 'CL21062', 'Aluminum & Glass ', 'CL11015', '16220316341699858612.jpg', 0, 0, 3),
+(63, 'CL21063', 'Masons', 'CL11015', '1622031573435581316.jpg', 0, 0, 1),
+(64, 'CL21064', 'Welders & Steel', 'CL11015', '16220315211917173185.jpg', 0, 0, 19),
+(65, 'CL21065', 'Titanium & Tiling', 'CL11015', '1622031322274655327.jpg', 0, 0, 17),
+(66, 'CL21066', 'Pest Controllers', 'CL11015', '16220309241253946158.jpg', 0, 0, 11),
+(68, 'CL21068', 'Swimming Pool ', 'CL11015', '1622030715578567425.jpg', 0, 0, 16),
+(69, 'CL21069', 'Gully Bowsers ', 'CL11015', '16220305471655403726.jpg', 0, 0, 7),
+(70, 'CL21070', 'Electricians', 'CL11021', '16216697151774324931.jpg', 0, 0, 0),
+(71, 'CL21071', 'Electrical  Contractors', 'CL11021', '1621669567760155954.jpg', 0, 0, 0),
+(72, 'CL21072', 'AC Contractors', 'CL11021', '16216694251847363675.jpg', 0, 0, 0),
+(74, 'CL21074', 'AC Technicians', 'CL11021', '16216690021544578759.jpg', 0, 0, 0),
+(75, 'CL21075', 'Solar ', 'CL11021', '16216687931256804441.jpg', 0, 0, 0),
+(79, 'CL21079', 'Titanium Products', 'CL11022', '16216686031925246051.jpg', 0, 0, 0),
+(80, 'CL21080', 'Tiles', 'CL11022', '16216662101744838490.jpg', 0, 0, 0),
+(81, 'CL21081', 'Timber & Wooden Flooring', 'CL11022', '16216660051091066887.jpg', 0, 0, 0),
+(82, 'CL21082', 'Carpets', 'CL11022', '1621665855189513598.jpg', 0, 0, 0),
+(83, 'CL21083', 'Epoxy and Floor Paints', 'CL11022', '1621665598241994076.jpg', 0, 0, 0),
+(84, 'CL21084', 'Laminated Flooring', 'CL11022', '16216654051120260574.jpg', 0, 0, 0),
+(85, 'CL21085', 'Wall Paints', 'CL11023', '1621661619465862946.jpg', 0, 0, 0),
+(86, 'CL21086', 'Wood Care Coatings', 'CL11023', '1621661346269729626.jpg', 0, 0, 0),
+(89, 'CL21089', 'Primer Paints ', 'CL11023', '1621661081747078706.jpg', 0, 0, 0),
+(90, 'CL21090', 'Steel & Metal Care Coatings', 'CL11023', '16216614301945077043.jpg', 0, 0, 0),
+(91, 'CL21091', 'Light Fittings', 'CL11024', '1621659522565851551.jpg', 0, 0, 0),
+(92, 'CL21092', 'Wires & Cables', 'CL11024', '1621659630561069904.jpg', 0, 0, 0),
+(175, 'CL21175', 'Pumps & Motors', 'CL11024', '16216598861077422701.jpg', 0, 0, 0),
+(96, 'CL21096', 'Electrical Accessories ', 'CL11024', '16216593211039946574.jpg', 0, 0, 0),
+(97, 'CL21097', 'Generators', 'CL11024', '1621658941872235470.jpg', 0, 0, 0),
+(98, 'CL21098', 'Roller Doors & Gates', 'CL11024', '1621658693189731967.jpg', 0, 0, 0),
+(99, 'CL21099', 'Sofas', 'Furniture', '', 0, 0, 0),
+(100, 'CL21100', 'Living Room Furniture', 'Furniture', '', 0, 0, 0),
+(174, 'CL21174', 'Pantry Cupboards', 'CL11025', '16211839532004052402.jpg', 0, 0, 0),
+(103, 'CL21103', 'Living & Dining Room (Kitchen) Furniture', 'CL11025', '16211837181944970691.jpg', 0, 0, 0),
+(104, 'CL21104', 'Office Furniture ', 'CL11025', '162118337485186557.jpg', 0, 0, 0),
+(173, 'CL21173', 'Electrical Appliances ', 'CL11029', '1621182538463274465.jpg', 0, 0, 3),
+(106, 'CL21106', 'Bed Room  Furniture ', 'CL11025', '162118321318885662.jpg', 0, 0, 0),
+(107, 'CL21107', 'Outdoor Furniture ', 'CL11025', '16211830901263989603.jpg', 0, 0, 0),
+(111, 'CL21111', 'Floor & Wall Tiles', 'CL11026', '1621181043549117907.jpg', 0, 0, 0),
+(112, 'CL21112', 'Bathroom Fittings', 'CL11026', '16211799312049517681.jpg', 0, 0, 0),
+(116, 'CL21116', 'Roofing Tiles', 'CL11027', '1621179398787835719.jpg', 0, 0, 0),
+(117, 'CL21117', 'Roofing Sheets', 'CL11027', '16211795371295563313.jpg', 0, 0, 0),
+(118, 'CL21118', 'Gutters', 'CL11027', '1621179310195152310.jpg', 0, 0, 0),
+(122, 'CL21122', 'Fire Protection ', 'CL11028', '16211784382086945137.jpg', 0, 0, 0),
+(124, 'CL21124', 'Sound Systems', 'CL11028', '16211783261848181070.jpg', 0, 0, 0),
+(125, 'CL21125', 'IT & Network', 'CL11028', '162117810048560480.jpg', 0, 0, 0),
+(126, 'CL21126', 'CCTV & Security', 'CL11028', '16211777321159597420.jpg', 0, 0, 0),
+(127, 'CL21127', 'Blinds & Curtains', 'CL11029', '16211768371419555237.jpg', 0, 0, 2),
+(128, 'CL21128', 'Arts & Crafts', 'CL11029', '16211765031018264277.jpg', 0, 0, 4),
+(130, 'CL21130', 'Plywood & Gypsum', 'CL11029', '1621176174619642632.jpg', 0, 0, 1),
+(132, 'CL21132', 'Air Condition', 'CL11030', '16211753621856536332.jpg', 0, 0, 1),
+(134, 'CL21134', 'Industrial Machineries ', 'CL11030', '1621174416286899697.jpg', 0, 0, 4),
+(135, 'CL21135', 'Lifts & Hoists', 'CL11030', '16211741022045586252.jpg', 0, 0, 3),
+(136, 'CL21136', 'Fans & Exhausts', 'CL11030', '16211752131350404102.jpg', 0, 0, 2),
+(143, 'CL21143', 'Heavy Machines', 'CL11032', '16211708861121778313.jpg', 0, 0, 0),
+(144, 'CL21144', ' Tools', 'CL11032', '16211498731545559773.jpg', 0, 0, 0),
+(145, 'CL21145', 'Material Handling ', 'CL11032', '162115029942889733.jpg', 0, 0, 0),
+(147, 'CL21147', 'Living Rooms', 'CL11033', '1622092608190020996.jpg', 1, 3, 8),
+(148, 'CL21148', 'Bed Room & Closet', 'CL11033', '16143644231004933114.jpg', 1, 5, 4),
+(149, 'CL21149', 'Kitchen & Pantry', 'CL11033', '16143661591659840798.jpg', 1, 2, 3),
+(150, 'CL21150', 'Bathrooms', 'CL11033', '16220924701773124543.jpg', 1, 6, 5),
+(151, 'CL21151', 'Landscaping', 'CL11033', '16220922971823272305.jpg', 1, 1, 6),
+(152, 'CL21152', 'Swimming Pools', 'CL11033', '1622092090399755567.jpg', 1, 8, 9),
+(154, 'CL21154', 'Light fittings ', 'CL11033', '1622091734532643194.jpg', 1, 7, 7),
+(156, 'CL21156', 'Furniture', 'CL11033', '1614366711502216453.jpg', 1, 4, 1),
+(182, 'CL21182', 'Air Condition Units', 'CL11034', '16220930761550126156.jpg', 0, 0, 0),
+(183, 'CL21183', 'test1', 'CL11034', '', 0, 0, 0),
+(177, 'CL21177', 'House Building Contractors', 'CL11015', '16220342501513318709.jpg', 0, 0, 8),
+(178, 'CL21178', 'Building Contractors', 'CL11015', '16220343892059626478.jpg', 0, 0, 4);
 
 -- --------------------------------------------------------
 
@@ -546,7 +549,11 @@ INSERT INTO `clients` (`client_id`, `first_name`, `last_name`, `company_name`, `
 (187, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1624524016231', 0, 0, 0, '2021-06-24'),
 (188, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1624524519844', 0, 0, 0, '2021-06-24'),
 (189, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1624525241452', 0, 0, 0, '2021-06-24'),
-(190, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1624766022294', 0, 0, 0, '2021-06-26');
+(190, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1624766022294', 0, 0, 0, '2021-06-26'),
+(213, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1625993678151', 0, 0, 0, '2021-07-11'),
+(210, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '1625991163954', 0, 0, 0, '2021-07-11'),
+(0, 'Admin', 'User', '', 'info@easybuilding.lk', '', 1, 'E', '16296409244970', 0, 0, 0, '2021-08-22'),
+(217, 'Nipuna', 'Nanayakkara', '', 'nipunann0710@gmail.com', '1630233192prof.png', 1, 'G', '101780267759212434309', 0, 0, 0, '2021-08-29');
 
 -- --------------------------------------------------------
 
@@ -595,13 +602,13 @@ CREATE TABLE `client_company` (
 --
 
 INSERT INTO `client_company` (`company_id`, `client_id`, `display_name`, `description`, `website`, `br_no`, `email`, `address_line1`, `address_line2`, `city`, `city_id`, `tel1`, `tel2`, `profie_image`, `cover_img`, `prof_category`, `verified_email`, `verify_code`, `steps`, `parent`, `all_island`, `service`, `products`, `product_string`, `service_areas`, `service_dist`, `services`, `services_string`, `total_reviews`, `rating`, `company_profile`, `featured`, `status`) VALUES
-(103, 162, 'Vibhawa Consultants  (Electrical & Energy)', '<p>Vibhawa Consultants (Pvt) Ltd is a Leading Electrical Consultancy &amp; Electrical Testing Services Providing Company Based in Colombo, Sri Lanka. Vibhawa Consultants extend its service to Electrical Testing &amp; Inspection, Electrical Safty Audits, Condition Monitoring, Electrical Design Services, Charted Engineer Certifications, and Energy Management.&nbsp;</p>', 'https://vibhawa.lk', '', 'info@vibhawa.lk', '651 Kotte Rd,', 'Sri Jayawardenepura Kotte', 'Ethulkotte ', 0, '76 657 0000 ', '76 034 7737', '16228855351137167354.jpg', '16228873781452133403.jpg', 2, 0, 0, 4, 0, 0, 0, 0x5b5d, '', 0x5b5d, 0x5b2238222c223130222c223133225d, 0x5b22434c3231303436222c22434c3231303438225d, '', 0, 0, 1, 1, 1),
+(103, 162, 'Vibhawa Consultants  (Electrical & Energy)', '<p>Vibhawa Consultants (Pvt) Ltd is a Leading Electrical Consultancy &amp; Electrical Testing Services Providing Company Based in Colombo, Sri Lanka. Vibhawa Consultants extend its service to Electrical Testing &amp; Inspection, Electrical Safty Audits, Condition Monitoring, Electrical Design Services, Charted Engineer Certifications, and Energy Management.&nbsp;</p>', 'https://vibhawa.lk', '', 'info@vibhawa.lk', '651 Kotte Rd,', 'Sri Jayawardenepura Kotte', 'Ethulkotte ', 0, '76 657 0000 ', '76 034 7737', '16228855351137167354.jpg', '16228873781452133403.jpg', 2, 0, 0, 4, 0, 0, 0, 0x5b5d, '', 0x5b5d, 0x5b2238222c223130222c223133225d, 0x5b22434c3231303436222c22434c3231303438225d, '', 0, 3.5, 1, 1, 1),
 (105, 164, 'Eaksha Holdings (Pvt) Ltd', '<p>Steel and Stainless Steel Fabricators. All household and industrial fabrication work will be fabricated with the best engineering and quality features.</p>', '', '', 'info@eaksha.com', 'No. 147/B,', 'Honnanthara,', 'Piliyandala', 1076, '0714800889', '', '16229515961295729576.jpg', '1622951678131557062.jpg', 3, 0, 0, 4, 0, 0, 0, 0x5b22434c3231313735225d, '', 0x5b5d, 0x5b2238222c223130222c223133225d, 0x5b22434c3231313835225d, '', 0, 0, 1, 0, 1),
 (104, 163, '', '', '', '', '', '', '', '', 0, '', '', '', '', 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '', 0, 0, -1, 0, 1),
 (94, 153, 'Dblend Coatings (Pvt) Limited', '<p>Dblend Coatings (Pvt) Ltd is a &nbsp;manufacturing company of Coatings and Paints. We specialize in manufacturing skim coats, tile mortars, Cement cut Coatings (Titanium), and Wall Decorative Coatings &amp; Paints.&nbsp;</p><p>&nbsp;</p><p>Designed to achieve higher adhesive and bonding strength for leveling agent on masonry surfaces. Made out of finest minerals, special additives, and special polymers.</p><p>&nbsp;</p><p>Dblend tile mortar is specially formulated to lay tiles on floor and wall surfaces which is available in gray and off-white colors. Dblend soft plaster and advanced textured colors are design for an efficient and low-cost option to achieve sand textured colorful walls and many texture designs are available with thousands of color combinations to match customer’s expectations. Get a unique &amp; uncommon appearance on your walls.</p>', 'https://www.dblendcoatings.com', '', 'info@dblendcoatings.com', '163/2, Athurugiriya Road', 'Malapalla,', 'Pannipitiya.', 1268, '0768223314', '0363121272', '16221029811330787413.jpg', '16221030991106064860.jpg', 4, 0, 0, 4, 0, 0, 0, 0x5b22434c3231303839222c22434c3231303835222c22434c3231303237222c22434c3231303739225d, '', 0x5b5d, 0x5b2238222c223130222c223133225d, 0x5b5d, '', 0, 0, 1, 0, 1),
 (96, 155, 'Jayathilaka Construction ', '<p>A very reliable, trustworthy, and technically very competent house building contractor. Construction drawing will be followed and technical execution plans given by consultants will be correctly and neatly followed. &nbsp;Expert in civil construction work, foundation work, slab work , tile flooring work, and all house finishing construction work.</p>', '', '', '', '134/2, Eight Miles Post,', 'Panamure,', 'Embilipitiya', 1260, '0717493877', '0714224251', '16221266251160423746.jpg', '16221266031855379007.jpg', 3, 0, 0, 4, 0, 0, 0, 0x5b5d, '', 0x5b5d, 0x5b2238222c2239222c223130222c223131222c223133222c223230222c223231222c223236225d, 0x5b22434c3231303633222c22434c3231313737225d, '', 0, 0, 1, 0, 1),
-(97, 156, 'Tissa Construction ', '<p>Reliable and Trustworthy House Building Contractor. &nbsp;Experience more than 20 years in the house, building, and civil construction work. &nbsp;</p>', '', '', '', 'No: 26/10,', 'PahalaGettuwana, ', 'Kurunegala', 1197, '0773875157', '', '1622287203959142068.jpg', '1622287248140047086.jpg', 3, 0, 0, 4, 0, 0, 0, 0x5b5d, '', 0x5b5d, 0x5b2238222c223130222c223134222c223137225d, 0x5b22434c3231313738222c22434c3231313737225d, '', 0, 0, 1, 1, 1),
-(102, 161, 'Euro Pantry Systems ', '<p>Euro Pantry System is a Manufacturer and Supplier of Best Quality Furniture, Pantry Systems, &nbsp;TOP STAR post forming laminates, Fioronti Giovenzana (FGV) Dolce Vita kitchen inner wear and accessories, Aluminia Italia for aluminum profiles, Vicostone quartz countertops for worktops and, SIGEE ITALY wire basket innerwear for kitchens and FBS Italy for aluminum roller shutters are the main collaborators.</p><p>&nbsp;</p><p><br>&nbsp;</p>', 'http://europantry.lk/', '', 'info@europantry.lk', '83/1 Ward Place,', '', 'Colombo 7 ', 0, '011 2683632', '', '16228662451171672860.jpg', '1622866271551124594.jpg', 4, 0, 0, 4, 0, 0, 0, 0x5b22434c3231313036222c22434c3231313033222c22434c3231313034222c22434c3231313734222c22434c3231313733225d, '', 0x5b5d, 0x5b2238222c223130225d, 0x5b5d, '', 0, 0, 1, 1, 1),
+(97, 156, 'Tissa Construction ', '<p>Reliable and Trustworthy House Building Contractor. &nbsp;Experience more than 20 years in the house, building, and civil construction work. &nbsp;</p>', '', '', '', 'No: 26/10,', 'PahalaGettuwana, ', 'Kurunegala', 1197, '0773875157', '', '1622287203959142068.jpg', '1622287248140047086.jpg', 3, 0, 0, 4, 0, 0, 0, 0x5b5d, '', 0x5b5d, 0x5b2238222c223130222c223134222c223137225d, 0x5b22434c3231313738222c22434c3231313737225d, '', 0, 2, 1, 1, 1),
+(102, 161, 'Euro Pantry Systems ', '<p>Euro Pantry System is a Manufacturer and Supplier of Best Quality Furniture, Pantry Systems, &nbsp;TOP STAR post forming laminates, Fioronti Giovenzana (FGV) Dolce Vita kitchen inner wear and accessories, Aluminia Italia for aluminum profiles, Vicostone quartz countertops for worktops and, SIGEE ITALY wire basket innerwear for kitchens and FBS Italy for aluminum roller shutters are the main collaborators.</p><p>&nbsp;</p><p><br>&nbsp;</p>', 'http://europantry.lk/', '', 'info@europantry.lk', '83/1 Ward Place,', '', 'Colombo 7 ', 0, '011 2683632', '', '16228662451171672860.jpg', '1622866271551124594.jpg', 4, 0, 0, 4, 0, 0, 0, 0x5b22434c3231313036222c22434c3231313033222c22434c3231313034222c22434c3231313734222c22434c3231313733225d, '', 0x5b5d, 0x5b2238222c223130225d, 0x5b5d, '', 0, 4.5, 1, 1, 1),
 (50, 120, 'Grass Cutters - Athurugiriya', '', '', '', '', '', '', 'Athurugiriya', 0, '0786553219', '', '', '', 2, 0, 0, 4, 0, 0, 0, 0x2222, '', 0x5b2231303735225d, 0x5b5d, 0x5b22434c3231303537225d, '', 0, 0, 1, 0, 1),
 (106, 165, 'Simple Engineering ', '<p>Simple Engineering is a renewable/sustainable energy engineering company. We specialize in machine selection &amp; quality assessment, energy auditing, carbon footprint analysis, factory automation, development &amp;&nbsp;maintenance of hydropower plants, and solar PV systems.</p><p>As&nbsp;a registered Energy Services Company (ESCO), we strive to give the best service at all times for our clients.</p><p>Due to our commitment and contribution to the hydropower sector in the international arena, we have been actively participating as a resource for&nbsp;<a href=\"http://www.hpnet.org/\">HPNet</a>‘s training sessions and knowledge transfer sessions.</p>', 'http://simple-engineering.lk', '', 'info@simple-engineering.lk', '64/7, Suhanda Mawatha,', 'I Jothipala Mawatha,', 'Malabe,', 1073, '011 241 3841', '', '1622956794387410355.jpg', '16229568611963917538.jpg', 2, 0, 0, 4, 0, 1, 0, 0x5b5d, '', 0x5b5d, 0x5b5d, 0x5b22434c3231303438222c22434c3231303735225d, '', 0, 0, 1, 0, 1),
 (67, 126, 'Gully bowser service', '', '', '', '', '', '', 'Piliyandala', 0, '0715239985', '', '', '', 2, 0, 0, 4, 0, 0, 0, 0x2222, '', 0x5b5d, 0x5b2238225d, 0x5b22434c3231303639225d, '', 0, 0, 1, 0, 1),
@@ -609,7 +616,7 @@ INSERT INTO `client_company` (`company_id`, `client_id`, `display_name`, `descri
 (76, 135, 'SMS Holdings (Pvt) Ltd', '<p>As Sri Lanka’s largest manufacturer and supplier of paving bricks, we are passionate about where you walk. Since 2001, we’ve paved the way for many leading businesses, notable public spaces as well as residential areas to expand and thrive in.</p>', 'http://smspavers.com/', '', 'info@smspavers.com', '622', 'E.W Perera mawatha,', 'Ethulkotte ', 1069, '011 281 3787', '011 534 2414', '16126087391285042574.jpg', '1612610128815593078.jpg', 3, 0, 0, 4, 0, 1, 0, 0x5b22434c3231303331222c22434c3231303137225d, '', 0x5b5d, 0x5b5d, 0x5b22434c3231303536225d, '', 0, 0, 1, 1, 1),
 (77, 136, 'Architect Rukmal Indrajith Kasthiriarchchi', '<p>Architectural Designs - House, Private residencies and Commercial building Architectural Designing and Interior Designing</p>', '', '', '', '107/11', 'Salawa Road', 'Mirihana', 1071, '0112834684', '', '1612614044669515687.jpg', '16126140621767506695.jpg', 1, 0, 0, 4, 0, 0, 0, 0x2222, '', 0x5b5d, 0x5b2238225d, 0x5b22434c3231303131222c22434c3231303132225d, '', 0, 0, 1, 1, 1),
 (98, 157, 'Crystal Stone', '<h2>Crystal Stone - Quartz &nbsp;a Luxury that Lasts a Lifetime</h2><p>&nbsp;</p><p>Made from Quartz, one of the strongest minerals in nature, Crystal-Stone is an engineered stone surface, highly resistant to impacts, stains, and scratches. Mainly used as kitchen tops, it is superior to granite in many ways. It is the number one choice internationally due to its hygiene and durability.</p><p>&nbsp;</p><p>Crystal Stone offers a wide range of unique surfaces to choose from. With a smooth finish that’s elegant and seamless, quartz surfaces are available in natural granite-like finishes to dazzling whites. Application is avilable for Kitchen Tops Beautiful Kitchen , Vanity Tops for Elegant Bathroom, Table tops for classy appernaces, &nbsp;floors and Stairs for luxuries living&nbsp;</p><p><br>&nbsp;</p>', 'https://crystalstone.lk', '', 'info@crystalstone.lk', 'No 551 Nawala Road,', 'Koswatta, ', 'Rajagiriya', 1072, '0776678679', '', '16223043552025255039.jpg', '16223044701695249798.jpg', 4, 0, 0, 4, 0, 0, 0, 0x5b22434c3231313132222c22434c3231303830222c22434c3231313033222c22434c3231313734225d, '', 0x5b5d, 0x5b2238222c223130222c223133225d, 0x5b22434c3231303635225d, '', 0, 0, 1, 1, 1),
-(116, 175, 'Dubai Homes', '<p>They say, “home is where the heart is”. Setup your dream home or workspace in Dubai where the sun, sand and surf blend with the best the cosmopolitan world has to offer. Dubai has embraced the future and is the perfect place for a family or business to thrive. We at Find My Property help our clients discover the finest homes for sale, lease or rent.</p>', '', '', 'info@oozmm.com', '275 A Colombo Road', '', 'Gampaha', 1040, '033-222-8887', '', '', '', 1, 0, 0, 4, 0, 0, 0, 0x5b5d, '', 0x5b5d, 0x5b2238222c223130225d, 0x5b22434c3231313830222c22434c3231303131222c22434c3231313737222c22434c3231313738225d, '', 0, 0, 1, 0, 1),
+(116, 175, 'Dubai Homes', '<p>They say, “home is where the heart is”. Setup your dream home or workspace in Dubai where the sun, sand and surf blend with the best the cosmopolitan world has to offer. Dubai has embraced the future and is the perfect place for a family or business to thrive. We at Find My Property help our clients discover the finest homes for sale, lease or rent.</p>', '', '', 'info@oozmm.com', '275 A Colombo Road', '', 'Gampaha', 1040, '033-222-8887', '', '16264525641032645822.jpg', '1628623004459778405.jpg', 1, 0, 0, 4, 0, 0, 0, 0x5b5d, '', 0x5b5d, 0x5b2238222c223130225d, 0x5b22434c3231313830222c22434c3231303131222c22434c3231313737222c22434c3231313738225d, '', 0, 0, 1, 0, 1),
 (114, 173, 'Sisira Concrete Works', '<p>Sisira Concrete works are easily located in 3 places in Colombo district – Kaduwela, Malabe, and Biyagama, We supply our products to small households to large scale projects and we have experience in working with contractors, engineers, and developers who want a supplier they can count on to provide good quality concrete products that are built to exacting standards and delivered on time.</p>', 'http://www.sisiraconcreteworks.com', '', 'sisiraconcreteworks@gmail.com', '132/3, Awissawella Road,', 'Hewagama,', 'Kaduwela', 7, '0775175066', ' 0718450148', '16234929901475184794.jpg', '16234929031051266731.jpg', 4, 0, 0, 4, 0, 0, 0, 0x5b22434c3231303332222c22434c3231303234225d, '', 0x5b2231303735222c2231303734222c2236222c2237222c2231303733225d, 0x5b5d, 0x5b22434c3231303536225d, '', 0, 0, 1, 1, 1),
 (115, 174, 'Super  Titanium ', '<p>We have a wide range of products and services offered to the construction industry. we are doing macra painting, outsides walls rooftop and bathroom waterproofing products, and Crystolac Super Titanium Special Effect Decorative Wall &amp; Floor Paste is another revolutionary product in the leading Market. It is an easy to apply, special effect wall and floor paste. It gives you maximum freedom for your wall or floor decorating. in these 8 years, we’ve become one of the leading construction materials manufacturer and service provider in Sri Lanka. Starting as a small-scale entity, we’ve introduced a vast range of new products to the construction industry in Sri Lanka, within this 8 years long period. Also, our products have been used in many counties. We are working to become a leader in the production of Super Titanium Special Effects Plaster and Waterproofing Products.</p>', 'https://supertitanium.lk', '', 'crystolac@gmail.com', 'No 32 Sunethradevi Rd,', 'Kohuwala', 'Nugegoda', 1071, '011-4988888', '011-2820255', '1623500365785614124.jpg', '16235004931621681433.jpg', 4, 0, 0, 4, 0, 0, 0, 0x5b22434c3231303739225d, '', 0x5b5d, 0x5b2238222c223130222c223134222c223230225d, 0x5b22434c3231303630222c22434c3231303635225d, '', 0, 0, 1, 1, 1),
 (117, 176, 'Binuditha Industries ', '<p>Binuditha Industries are a very reliable &amp; &nbsp;Trustworthy House Construction and Electrical Wiring Company with 10 years\' experience.&nbsp;</p>', '', '', 'binudithaindu@gmail.com', 'No 270,  Lunugama', 'Mandawala', 'Kirindiwela', 1284, '0764136290', '0718342818', '16235561711394427792.jpg', '16235562181285741523.jpg', 3, 0, 0, 4, 0, 0, 0, 0x5b5d, '', 0x5b5d, 0x5b2238222c223130222c223133222c223134225d, 0x5b22434c3231313737222c22434c3231303633222c22434c3231303731222c22434c3231303730225d, '', 0, 0, 1, 0, 1),
@@ -621,7 +628,11 @@ INSERT INTO `client_company` (`company_id`, `client_id`, `display_name`, `descri
 (126, 185, 'Mithila Samarasinghe', '', '', '', 'mithilas@easybuilding.lk', '70,Diyawanna Gardens,', 'Palawatta', 'Battaramulla', 0, '0777269108', '', '', '', 0, 0, 0, 2, 0, 0, 0, '', '', '', '', '', '', 0, 0, 0, 0, 1),
 (127, 186, 'Kapila Indika Plumbing Work', '<p>Very &nbsp;Trustworthy Skilled Plumbing Professional</p>', '', '', 'N/A', '215/3, Lihiniya Garden', 'Puwakwatha Para', 'Meegoda', 1058, '0718038720', '0785828040', '1624523790472409100.jpg', '16245238171524664408.jpg', 1, 0, 0, 4, 0, 0, 0, 0x5b5d, '', 0x5b2231303735222c2231303636222c2231303734222c2231303437222c2231303432222c2231303639222c2231303538222c2237222c2231323638222c2231303631222c2231303733222c2231303731222c2231303634222c2231303638225d, 0x5b5d, 0x5b22434c3231303539225d, '', 0, 0, 1, 0, 1),
 (130, 189, 'W.  K. Indika Wood Work', '<p>Very Reliable Trustworthy Wood Work and Roof Work Professional&nbsp;</p>', '', '', 'NA', '215/4, Lihiniya Garden', 'Puwakwatha Para', 'Meegoda', 1058, '0712315396', '', '1624525938266257310.jpg', '16245259561559567963.jpg', 1, 0, 0, 4, 0, 0, 0, 0x5b22434c3231313036222c22434c3231313033222c22434c3231313034222c22434c3231313734225d, '', 0x5b5d, 0x5b2238225d, 0x5b22434c3231303538225d, '', 0, 0, 1, 0, 1),
-(131, 190, 'Chaminda Pluming Work', '<p>Reliable and technically very &nbsp;capable Plumber&nbsp;</p>', '', '', '', '284Q, Silavimala Mawatha', 'Oruwala', 'Athurugiriya ', 1075, '0774356864', '0774356864', '16247667302067414334.jpg', '1624766745113102383.jpg', 1, 0, 0, 4, 0, 0, 0, 0x5b5d, '', 0x5b5d, 0x5b2238222c223130222c223133225d, 0x5b22434c3231303539222c22434c3231303730222c22434c3231303635225d, '', 0, 0, 1, 0, 1);
+(131, 190, 'Chaminda Pluming Work', '<p>Reliable and technically very &nbsp;capable Plumber&nbsp;</p>', '', '', '', '284Q, Silavimala Mawatha', 'Oruwala', 'Athurugiriya ', 1075, '0774356864', '0774356864', '16247667302067414334.jpg', '1624766745113102383.jpg', 1, 0, 0, 4, 0, 0, 0, 0x5b5d, '', 0x5b5d, 0x5b2238222c223130222c223133225d, 0x5b22434c3231303539222c22434c3231303730222c22434c3231303635225d, '', 0, 0, 1, 0, 1),
+(154, 213, 'New Bus2', '', '', '', '', '23 Kandy Road', '', 'Kegalle', 1182, '0813356223', '', '', '', 2, 0, 0, 4, 0, 0, 0, 0x5b22434c3231313330225d, '', 0x5b5d, 0x5b223134222c223135225d, 0x5b22434c3231313835222c22434c3231303630225d, '', 0, 0, 1, 0, 1),
+(151, 210, 'LK Homes', '', '', '', '', '23', '', 'Colombo', 1047, '01122233342', '', '', '', 1, 0, 0, 4, 0, 0, 0, 0x5b22434c3231313434222c22434c3231313330222c22434c3231313733225d, '', 0x5b5d, 0x5b2237222c2238225d, 0x5b22434c3231313835222c22434c3231303735225d, '', 0, 0, 1, 0, 1),
+(158, 217, 'B@B Sri Lanka', '', '', '', 'nnn@gmail.com', '275A Colombo Road', '', 'Gampaha', 1086, '0716378556', '', '', '', 2, 0, 0, 4, 0, 0, 0, 0x5b5d, '', 0x5b2231303836222c2231303934222c2231323639225d, 0x5b5d, 0x5b22434c3231313738222c22434c3231303537222c22434c3231313835222c22434c3231303436225d, '', 0, 0, 1, 0, 1),
+(0, 0, 'Easybuilding Admin', '', '', '00000', '', '70, Diyawanna Gardens,', 'Palawatta', 'Battaramulla', 0, '77 7269108', '', '', '', 1, 0, 0, 4, 0, 1, 0, 0x5b5d, '', 0x5b5d, 0x5b5d, 0x5b22434c3231313830222c22434c3231303131225d, '', 0, 0, 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -650,7 +661,7 @@ CREATE TABLE `company_details` (
 --
 
 INSERT INTO `company_details` (`company_id`, `company_name`, `company_logo`, `company_desc`, `company_start_date`, `company_address`, `company_tel1`, `company_tel2`, `company_email`, `fb_url`, `twitter_url`, `youtube_url`, `linkedin_url`) VALUES
-(1, 'EasyBuilding.lk', '', '<p>EasyBuilding.lk is the Premier House and Building Construction Web Portal which is designed to cater all your construction requirements! We aim at finding a Reputed, Reliable, and Trustworthy local construction related partners for you just within a click.</p><p>&nbsp;</p><p>Our website forms an ideal platform through which client can connect with our reputed service providers, apply for quotation requests, create your own Bill of Quantities (BOQ), view our best deals and rates for your services, while also standing a chance to grasp some of the useful construction tips provided by us! &nbsp;</p><p>&nbsp;</p>', '05/08/2020', '70, Diyawanna Gardens, \nPalawatta, Battaramulla, \nSri Lanka', '077 7269108', '', 'info@easybuilding.lk', 'https://www.facebook.com/ConstructionEasyBuilding/', '', 'https://www.youtube.com/channel/UCY5nKYQ-Uiq9Zg2UyGKtvxQ', 'https://www.linkedin.com/company/easybuilding-lk-pvt-ltd/');
+(1, 'EasyBuilding.lk', '', '<p>EasyBuilding.lk is the Premier House and Building Construction Web Portal which is designed to cater all your construction requirements! We aim at finding a Reputed, Reliable, and Trustworthy local construction related partners for you just within a click.</p><p>&nbsp;</p><p>Our website forms an ideal platform through which client can connect with our reputed service providers, apply for quotation requests, create your own Bill of Quantities (BOQ), view our best deals and rates for your services, while also standing a chance to grasp some of the useful construction tips provided by us! &nbsp;</p><p>&nbsp;</p>', '05/08/2020', '70, Diyawanna Gardens, \nPalawatta, Battaramulla, \nSri Lanka', '077 7269108', '', 'info@easybuilding.lk', 'https://www.facebook.com/ConstructionEasyBuilding/', 'https://www.instagram.com/', 'https://www.youtube.com/channel/UCY5nKYQ-Uiq9Zg2UyGKtvxQ', 'https://www.linkedin.com/company/easybuilding-lk-pvt-ltd/');
 
 -- --------------------------------------------------------
 
@@ -937,7 +948,15 @@ INSERT INTO `image_category_list` (`id`, `img_id`, `cat_lvl2_id`) VALUES
 (136, 202, 'CL21148'),
 (137, 202, 'CL21156'),
 (140, 203, 'CL21148'),
-(141, 203, 'CL21156');
+(141, 203, 'CL21156'),
+(143, 219, 'CL21156'),
+(144, 219, 'CL21146'),
+(145, 220, 'CL21149'),
+(146, 224, 'CL21149'),
+(149, 228, 'CL21148'),
+(151, 229, 'CL21156'),
+(152, 229, 'CL21146'),
+(153, 229, 'CL21154');
 
 -- --------------------------------------------------------
 
@@ -1124,6 +1143,7 @@ CREATE TABLE `project` (
   `project_year` varchar(10) NOT NULL,
   `project_cost` varchar(100) NOT NULL,
   `project_address` varchar(500) NOT NULL,
+  `country_location` varchar(500) NOT NULL,
   `company_id` int(11) NOT NULL,
   `services` mediumblob NOT NULL,
   `images` mediumblob NOT NULL,
@@ -1139,22 +1159,25 @@ CREATE TABLE `project` (
 -- Dumping data for table `project`
 --
 
-INSERT INTO `project` (`project_id`, `project_name`, `project_description`, `project_year`, `project_cost`, `project_address`, `company_id`, `services`, `images`, `architect`, `contractor`, `structural_engineer`, `primary_img`, `total_imgs`, `approved`) VALUES
-(31, 'Katunayaka Airport Project', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. \n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '2020', '10B', '0', 2, '', 0x5b22313539353730323733327765625f4368616e67692d54342d53696e6761706f72652d332d48522d4372656469742d42656e6f792e6a7067222c22313539353730323733387765625f4368616e67692d54342d53696e6761706f72652d312d48522d4372656469742d42656e6f792e6a7067222c22313539353730323833377765625f4368616e67692d54342d53696e6761706f72652d382d48522d4372656469742d42656e6f792e6a7067222c22313539353730333335337765625f4368616e67692d54342d53696e6761706f72652d372d48522d4372656469742d42656e6f792e6a7067225d, '', '0', '0', '1595702732web_Changi-T4-Singapore-3-HR-Credit-Benoy.jpg', 4, 1),
-(30, 'Homagama Housing Project', 'Homagama Housing Project - The traditional beige two-story wood exterior home idea in Boston with a shingle roof uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non.', '2020', '30M', '0', 1, 0x5b22434c3231303131225d, 0x5b22313539353730323133313232363231363138362e6a7067222c22313539353730323133314e6f726d616e746f6e2d4176656e75652d332d3136303078313036382e6a7067222c22313539353730323133316c616b652d686f7573652d696e2d6173636f6e612d62792d77657370692d64652d6d6575726f6e2d726f6d656f2d617263686974656374732d3035312e6a7067225d, 'Amal Fernando', 'R&D Constructions', 'Nirmal Perera', '1595702131226216186.jpg', 3, 1),
-(38, 'Switzerland landscape project', 'Switzerland landscape project ', '2018', '', '0', 1, 0x5b22434c3231303134225d, 0x5b2231363036353537393632304d47733933592d737769747a65726c616e642d77616c6c70617065722e6a7067222c223136303635353739363277616c6c7061706572666c6172652e636f6d5f77616c6c70617065725f315f2e6a7067225d, '', '', '', '16065579620MGs93Y-switzerland-wallpaper.jpg', 2, 1),
-(41, '96 Residencies', 'A 12 story Condominium, Offering 54 Contemporary, Luxury Apartments, 96 residencies is set to become the landmark that will redefine the suburb of pagoda. Sri Jayawardenepura Kotte is a planned urban site with government offices and residential housing. 96 Residencies is destined to elevate the lifestyles of those seeking a new home in the modern Suburb Kotte. The 12-story tower, inclusive of 3 levels of car park and a range of opulent amenities, features 54 two- and three bedroom apartments.', '2019', '22.5M', '0', 2, 0x5b22434c3231303134225d, 0x5b2231363037333334393538736c6964655f30342e6a7067222c2231363037333334393538736c6964655f30332e6a7067222c2231363037333334393538736c6964655f30382e6a7067222c2231363037333334393538736c6964655f30362e6a7067222c2231363037333334393538736c6964655f30372e6a7067222c22313630373333353231337a63615641564156622e6a7067222c22313630373333353234347663414341562e6a7067225d, ' I. W. Architects', 'JAT Homes', 'Michelle Rodrigo', '1607334958slide_04.jpg', 7, 1),
-(43, 'The Mount', 'Ensuring maximum natural light to come in through seamless environment friendly architectural design, this complex will be a unique piece in the Mt. Lavinia neighborhood with its green balconies overlooking the sea view, making this a wise investment.\n\nTHE MOUNT is centrally located in Mount Lavinia on Old Quarry Road within 150 meters to Galle Road, leading to the city of Colombo and the south with access to prominent routes. With the completion of the Marine Drive project, owners will have the privilege to reach Colombo in a few minutes.\n', '2020', '28M', '0', 1, 0x5b22434c3231303131222c22434c3231303134225d, 0x5b2231363133333233373931313638353537323437372e6a7067222c2231363133333233383238323033343137343536352e6a7067222c2231363133333233393833313332333933363639362e6a7067225d, 'Mount Archs', 'L.H. Company (Pvt) Ltd', 'Mount Archs', '16133237911685572477.jpg', 3, 1),
-(53, 'Commercial Credit - Borella', 'Paving at Borella Commercial credit building', '2015', '1.5M', '0', 76, 0x5b22434c3231303536225d, 0x5b22313631323630393038333934383134363630322e6a7067222c2231363132363039303937313437363439373130342e6a7067222c2231363132363039313030313735353139303130322e6a7067222c22313631323630393130323730323432343339302e6a7067222c2231363132363039313033313534393434323435372e6a7067222c2231363132363039313034313738373434373033302e6a7067225d, '', '', '', '1612609083948146602.jpg', 6, 1),
-(54, 'Maga NSBM Homagama', 'Maga NSBM Homagama Project ', '2018', '7.7', '0', 76, 0x5b22434c3231303536225d, 0x5b2231363132363039323737313136333031393432342e6a7067222c2231363132363039323737323036373735393434342e6a7067222c22313631323630393237383831303134333534342e6a7067222c2231363132363039323738313530303434343934372e6a7067222c223136313236303932373835323530363237352e6a7067222c22313631323630393237393431313335313532342e6a7067225d, '', '', '', '16126092771163019424.jpg', 6, 1),
-(55, 'St Mary\'s Church', 'St Mary\'s Church ', '2016', '3.2 M', '0', 76, 0x5b22434c3231303536225d, 0x5b2231363132363039333935313738383438393736332e6a7067222c2231363132363039333935313533313739303830312e6a7067222c2231363132363039333936313532393237353933332e6a7067222c22313631323630393339363431363635313735362e6a7067222c223136313236303933393631303035363835352e6a7067222c2231363132363039333936313238383537323938342e6a7067225d, '', '', '', '16126093951788489763.jpg', 6, 1),
-(56, 'Individual House In Palawatta', 'House architect and interior designing ', '2012', '17M', '0', 77, 0x5b22434c3231303131225d, 0x5b2231363132363134303937313433393039383630322e6a7067222c2231363132363134303937313632313432303430332e6a7067222c22313631323631343039383930363536373539382e6a7067222c2231363132363134303939313736333633353437372e6a7067222c223136313236313430393933303235303037322e6a7067222c22313631323631343039393532303036373530392e6a7067222c2231363132363134303939313333323330393236312e6a7067225d, 'Rukmal  Indrajith Kathriarachchi', '', '', '16126140971439098602.jpg', 7, 1),
-(64, 'Pandanus Beach Resort & Spa - Skim Coat Project', 'Skim Coat Project ', '', '', '1159', 94, 0x5b22434c3231303839225d, 0x5b22313632323231343537373539323834353938342e6a7067222c2231363232323134353738313434333830373633352e6a7067222c2231363232323134353832313535333534323339362e6a7067222c22313632323231343538363937373238313339382e6a7067222c22313632323231343538383432353430313630382e6a7067222c22313632323231343539313638333834383631392e6a7067222c22313632323231343539313537363730383430302e6a7067225d, '', '', '', '1622214577592845984.jpg', 7, 1),
-(65, 'Housing Project Images Done by Tissa Construction in Kurunegala', 'Very few house construction images were constructed by Tissa Construction and handed over to clients with full client satisfaction ', '', '', '1197', 97, 0x5b22434c3231313737222c22434c3231313738225d, 0x5b22313632323238373438353237343137383935342e6a7067222c2231363232323837343835313339393732313938322e6a7067222c2231363232323837343836323032353830383436382e6a7067222c22313632323238373531323330353530393835322e6a7067222c2231363232323837353439313132303632393436382e6a7067222c22313632323238373536313130383033363832332e6a7067225d, '', 'Tissa Construction ', '', '1622287485274178954.jpg', 6, 1),
-(66, 'Quartz Flooring & Stairs ', 'Crystal Stone offers flooring for airports, hotels, shopping malls that demand scratch-resistant, easy to clean floors. Being homogeneous they will never wear out or have permanent stains.\n\nQuartz is perfect for staircases as it is homogeneous which gives it depth and character. Its impact resistance also means the stairs are less likely to chip off at the edges.\n', '', '', '1072', 98, 0x5b22434c3231303830225d, 0x5b2231363232333034393636313036303939363237312e6a7067222c22313632323330343936383831353431303333302e6a7067222c2231363232333034393730313832343935383932302e6a7067222c22313632323330343937313839313038343834342e6a7067225d, '', 'Crystal Stone', '', '16223049661060996271.jpg', 4, 1),
-(67, 'Quartz Kitchen ', 'Modern kitchens have progressed from gloomy rooms to the home’s center stage. This demands kitchen tops to be both elegant and hygienic. Crystal Stone kitchen tops are by far the most resistant to wear and tear while being rated highest in food safety. ', '', '', '1072', 98, 0x5b22434c3231313734222c22434c3231313033225d, 0x5b22313632323330353235323539323737303032382e6a7067222c2231363232333035323533313230333132373133372e6a7067222c22313632323330353235343639383834393534392e6a7067225d, '', 'Crystal Stone', '', '1622305252592770028.jpg', 3, 1),
-(68, 'Furniture for Office, Living, Dinning, kitchen and Pantry ', 'Sri Lankan Best Woodwork Products, Furniture and Pantry supplier ', '', '', '0', 102, 0x5b22434c3231313033222c22434c3231313034222c22434c3231313733222c22434c3231313036225d, 0x5b2231363232383732313939313138333034333431372e6a7067222c22313632323837323237373939323935373832382e6a7067222c2231363232383732323833323131303439343131322e6a7067222c223136323238373232383433303332353634392e6a7067222c2231363232383732323837313138353631363633352e6a7067225d, '', '', '', '16228721991183043417.jpg', 5, 1),
-(69, 'Electrical Conultation and Testing Projects ', 'Colombo Waste to Energy Project -Protection coordination study and protection function testing/verifying at 10MW Power plant, Kerawalaptiya,\n\nCommissioning & Testing of the Protection System of the 1.7MW Solar PV System (Includes 33kV level NVD Protection, Under & Over Frequency at LV level etc.)\n\n', '', '', '0', 103, 0x5b22434c3231303436222c22434c3231303438225d, 0x5b7b22696d675f6964223a22323037222c2266696c655f6e616d65223a2231363232383836303031313937313933313038352e6a706567222c22617070726f766564223a2231227d2c7b22696d675f6964223a22323038222c2266696c655f6e616d65223a22313632323838363030313630333139343239332e6a706567222c22617070726f766564223a2231227d2c7b22696d675f6964223a22323039222c2266696c655f6e616d65223a2231363232383836303032313332373538353831302e6a7067222c22617070726f766564223a2231227d2c7b22696d675f6964223a22323130222c2266696c655f6e616d65223a22313632323838363030333637343233383435342e6a706567222c22617070726f766564223a2231227d2c7b22696d675f6964223a22323131222c2266696c655f6e616d65223a22313632323838363030333238353033393830302e6a706567222c22617070726f766564223a2231227d2c7b22696d675f6964223a22323132222c2266696c655f6e616d65223a2231363232383836303039313630353436373936322e706e67222c22617070726f766564223a2230227d2c7b22696d675f6964223a22323133222c2266696c655f6e616d65223a2231363232383836303039313538363933343236372e706e67222c22617070726f766564223a2231227d2c7b22696d675f6964223a22323134222c2266696c655f6e616d65223a2231363232383836303130313034333832303535322e706e67222c22617070726f766564223a2231227d5d, '', '', '', '16228860011971931085.jpeg', 8, 1);
+INSERT INTO `project` (`project_id`, `project_name`, `project_description`, `project_year`, `project_cost`, `project_address`, `country_location`, `company_id`, `services`, `images`, `architect`, `contractor`, `structural_engineer`, `primary_img`, `total_imgs`, `approved`) VALUES
+(31, 'Katunayaka Airport Project', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. \n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '2020', '10B', '0', '', 2, '', 0x5b22313539353730323733327765625f4368616e67692d54342d53696e6761706f72652d332d48522d4372656469742d42656e6f792e6a7067222c22313539353730323733387765625f4368616e67692d54342d53696e6761706f72652d312d48522d4372656469742d42656e6f792e6a7067222c22313539353730323833377765625f4368616e67692d54342d53696e6761706f72652d382d48522d4372656469742d42656e6f792e6a7067222c22313539353730333335337765625f4368616e67692d54342d53696e6761706f72652d372d48522d4372656469742d42656e6f792e6a7067225d, '', '0', '0', '1595702732web_Changi-T4-Singapore-3-HR-Credit-Benoy.jpg', 4, 1),
+(30, 'Homagama Housing Project', 'Homagama Housing Project - The traditional beige two-story wood exterior home idea in Boston with a shingle roof uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non.', '2020', '30M', '0', '', 1, 0x5b22434c3231303131225d, 0x5b22313539353730323133313232363231363138362e6a7067222c22313539353730323133314e6f726d616e746f6e2d4176656e75652d332d3136303078313036382e6a7067222c22313539353730323133316c616b652d686f7573652d696e2d6173636f6e612d62792d77657370692d64652d6d6575726f6e2d726f6d656f2d617263686974656374732d3035312e6a7067225d, 'Amal Fernando', 'R&D Constructions', 'Nirmal Perera', '1595702131226216186.jpg', 3, 1),
+(38, 'Switzerland landscape project', 'Switzerland landscape project ', '2018', '', '0', '', 1, 0x5b22434c3231303134225d, 0x5b2231363036353537393632304d47733933592d737769747a65726c616e642d77616c6c70617065722e6a7067222c223136303635353739363277616c6c7061706572666c6172652e636f6d5f77616c6c70617065725f315f2e6a7067225d, '', '', '', '16065579620MGs93Y-switzerland-wallpaper.jpg', 2, 1),
+(41, '96 Residencies', 'A 12 story Condominium, Offering 54 Contemporary, Luxury Apartments, 96 residencies is set to become the landmark that will redefine the suburb of pagoda. Sri Jayawardenepura Kotte is a planned urban site with government offices and residential housing. 96 Residencies is destined to elevate the lifestyles of those seeking a new home in the modern Suburb Kotte. The 12-story tower, inclusive of 3 levels of car park and a range of opulent amenities, features 54 two- and three bedroom apartments.', '2019', '22.5M', '0', '', 2, 0x5b22434c3231303134225d, 0x5b2231363037333334393538736c6964655f30342e6a7067222c2231363037333334393538736c6964655f30332e6a7067222c2231363037333334393538736c6964655f30382e6a7067222c2231363037333334393538736c6964655f30362e6a7067222c2231363037333334393538736c6964655f30372e6a7067222c22313630373333353231337a63615641564156622e6a7067222c22313630373333353234347663414341562e6a7067225d, ' I. W. Architects', 'JAT Homes', 'Michelle Rodrigo', '1607334958slide_04.jpg', 7, 1),
+(43, 'The Mount', 'Ensuring maximum natural light to come in through seamless environment friendly architectural design, this complex will be a unique piece in the Mt. Lavinia neighborhood with its green balconies overlooking the sea view, making this a wise investment.\n\nTHE MOUNT is centrally located in Mount Lavinia on Old Quarry Road within 150 meters to Galle Road, leading to the city of Colombo and the south with access to prominent routes. With the completion of the Marine Drive project, owners will have the privilege to reach Colombo in a few minutes.\n', '2020', '28M', '0', '', 1, 0x5b22434c3231303131222c22434c3231303134225d, 0x5b2231363133333233373931313638353537323437372e6a7067222c2231363133333233383238323033343137343536352e6a7067222c2231363133333233393833313332333933363639362e6a7067225d, 'Mount Archs', 'L.H. Company (Pvt) Ltd', 'Mount Archs', '16133237911685572477.jpg', 3, 1),
+(53, 'Commercial Credit - Borella', 'Paving at Borella Commercial credit building', '2015', '1.5M', '0', '', 76, 0x5b22434c3231303536225d, 0x5b22313631323630393038333934383134363630322e6a7067222c2231363132363039303937313437363439373130342e6a7067222c2231363132363039313030313735353139303130322e6a7067222c22313631323630393130323730323432343339302e6a7067222c2231363132363039313033313534393434323435372e6a7067222c2231363132363039313034313738373434373033302e6a7067225d, '', '', '', '1612609083948146602.jpg', 6, 1),
+(54, 'Maga NSBM Homagama', 'Maga NSBM Homagama Project ', '2018', '7.7', '0', '', 76, 0x5b22434c3231303536225d, 0x5b2231363132363039323737313136333031393432342e6a7067222c2231363132363039323737323036373735393434342e6a7067222c22313631323630393237383831303134333534342e6a7067222c2231363132363039323738313530303434343934372e6a7067222c223136313236303932373835323530363237352e6a7067222c22313631323630393237393431313335313532342e6a7067225d, '', '', '', '16126092771163019424.jpg', 6, 1),
+(55, 'St Mary\'s Church', 'St Mary\'s Church ', '2016', '3.2 M', '0', '', 76, 0x5b22434c3231303536225d, 0x5b2231363132363039333935313738383438393736332e6a7067222c2231363132363039333935313533313739303830312e6a7067222c2231363132363039333936313532393237353933332e6a7067222c22313631323630393339363431363635313735362e6a7067222c223136313236303933393631303035363835352e6a7067222c2231363132363039333936313238383537323938342e6a7067225d, '', '', '', '16126093951788489763.jpg', 6, 1),
+(56, 'Individual House In Palawatta', 'House architect and interior designing ', '2012', '17M', '0', '', 77, 0x5b22434c3231303131225d, 0x5b2231363132363134303937313433393039383630322e6a7067222c2231363132363134303937313632313432303430332e6a7067222c22313631323631343039383930363536373539382e6a7067222c2231363132363134303939313736333633353437372e6a7067222c223136313236313430393933303235303037322e6a7067222c22313631323631343039393532303036373530392e6a7067222c2231363132363134303939313333323330393236312e6a7067225d, 'Rukmal  Indrajith Kathriarachchi', '', '', '16126140971439098602.jpg', 7, 1),
+(64, 'Pandanus Beach Resort & Spa - Skim Coat Project', 'Skim Coat Project ', '', '', '1159', '', 94, 0x5b22434c3231303839225d, 0x5b22313632323231343537373539323834353938342e6a7067222c2231363232323134353738313434333830373633352e6a7067222c2231363232323134353832313535333534323339362e6a7067222c22313632323231343538363937373238313339382e6a7067222c22313632323231343538383432353430313630382e6a7067222c22313632323231343539313638333834383631392e6a7067222c22313632323231343539313537363730383430302e6a7067225d, '', '', '', '1622214577592845984.jpg', 7, 1),
+(65, 'Housing Project Images Done by Tissa Construction in Kurunegala', 'Very few house construction images were constructed by Tissa Construction and handed over to clients with full client satisfaction ', '', '', '1197', '', 97, 0x5b22434c3231313737222c22434c3231313738225d, 0x5b22313632323238373438353237343137383935342e6a7067222c2231363232323837343835313339393732313938322e6a7067222c2231363232323837343836323032353830383436382e6a7067222c22313632323238373531323330353530393835322e6a7067222c2231363232323837353439313132303632393436382e6a7067222c22313632323238373536313130383033363832332e6a7067225d, '', 'Tissa Construction ', '', '1622287485274178954.jpg', 6, 1),
+(66, 'Quartz Flooring & Stairs ', 'Crystal Stone offers flooring for airports, hotels, shopping malls that demand scratch-resistant, easy to clean floors. Being homogeneous they will never wear out or have permanent stains.\n\nQuartz is perfect for staircases as it is homogeneous which gives it depth and character. Its impact resistance also means the stairs are less likely to chip off at the edges.\n', '', '', '1072', '', 98, 0x5b22434c3231303830225d, 0x5b2231363232333034393636313036303939363237312e6a7067222c22313632323330343936383831353431303333302e6a7067222c2231363232333034393730313832343935383932302e6a7067222c22313632323330343937313839313038343834342e6a7067225d, '', 'Crystal Stone', '', '16223049661060996271.jpg', 4, 1),
+(67, 'Quartz Kitchen ', 'Modern kitchens have progressed from gloomy rooms to the home’s center stage. This demands kitchen tops to be both elegant and hygienic. Crystal Stone kitchen tops are by far the most resistant to wear and tear while being rated highest in food safety. ', '', '', '1072', '', 98, 0x5b22434c3231313734222c22434c3231313033225d, 0x5b22313632323330353235323539323737303032382e6a7067222c2231363232333035323533313230333132373133372e6a7067222c22313632323330353235343639383834393534392e6a7067225d, '', 'Crystal Stone', '', '1622305252592770028.jpg', 3, 1),
+(68, 'Furniture for Office, Living, Dinning, kitchen and Pantry ', 'Sri Lankan Best Woodwork Products, Furniture and Pantry supplier ', '', '', '0', '', 102, 0x5b22434c3231313033222c22434c3231313034222c22434c3231313733222c22434c3231313036225d, 0x5b2231363232383732313939313138333034333431372e6a7067222c22313632323837323237373939323935373832382e6a7067222c2231363232383732323833323131303439343131322e6a7067222c223136323238373232383433303332353634392e6a7067222c2231363232383732323837313138353631363633352e6a7067225d, '', '', '', '16228721991183043417.jpg', 5, 1),
+(69, 'Electrical Conultation and Testing Projects ', 'Colombo Waste to Energy Project -Protection coordination study and protection function testing/verifying at 10MW Power plant, Kerawalaptiya,\n\nCommissioning & Testing of the Protection System of the 1.7MW Solar PV System (Includes 33kV level NVD Protection, Under & Over Frequency at LV level etc.)\n\n', '', '', '0', '', 103, 0x5b22434c3231303436222c22434c3231303438225d, 0x5b7b22696d675f6964223a22323037222c2266696c655f6e616d65223a2231363232383836303031313937313933313038352e6a706567222c22617070726f766564223a2231227d2c7b22696d675f6964223a22323038222c2266696c655f6e616d65223a22313632323838363030313630333139343239332e6a706567222c22617070726f766564223a2231227d2c7b22696d675f6964223a22323039222c2266696c655f6e616d65223a2231363232383836303032313332373538353831302e6a7067222c22617070726f766564223a2231227d2c7b22696d675f6964223a22323130222c2266696c655f6e616d65223a22313632323838363030333637343233383435342e6a706567222c22617070726f766564223a2231227d2c7b22696d675f6964223a22323131222c2266696c655f6e616d65223a22313632323838363030333238353033393830302e6a706567222c22617070726f766564223a2231227d2c7b22696d675f6964223a22323132222c2266696c655f6e616d65223a2231363232383836303039313630353436373936322e706e67222c22617070726f766564223a2230227d2c7b22696d675f6964223a22323133222c2266696c655f6e616d65223a2231363232383836303039313538363933343236372e706e67222c22617070726f766564223a2231227d2c7b22696d675f6964223a22323134222c2266696c655f6e616d65223a2231363232383836303130313034333832303535322e706e67222c22617070726f766564223a2231227d5d, '', '', '', '16228860021327585810.jpg', 5, 1),
+(76, 'Test Project 09', 'Test Project', '2017', '', '1206', '', 116, 0x5b22434c3231313737225d, 0x5b7b22696d675f6964223a22323237222c2266696c655f6e616d65223a2231363239373339323437313238343839393635382e6a706567222c22617070726f766564223a2230227d5d, '', '', '', '16297392471284899658.jpeg', 0, 0),
+(77, 'Test new', 'Test new', '2018', '', '1104', '', 154, 0x5b22434c3231303630225d, 0x5b2231363239383331373739313332343136333839322e6a706567225d, '', '', '', '16298317791324163892.jpeg', 1, 1),
+(78, 'India Architect 01', 'New Kitchen desings', '2015', '23M', '0', 'Delhi - India', 0, 0x5b22434c3231313034222c22434c3231313033225d, 0x5b7b22696d675f6964223a22323239222c2266696c655f6e616d65223a2231363239383331383932323130383234383531312e6a706567222c22617070726f766564223a2231227d5d, 'Randir Nair', '', '', '16298318922108248511.jpeg', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1215,7 +1238,19 @@ INSERT INTO `project_category` (`project_cat_id`, `project_id`, `cat_lvl2_id`) V
 (110, 68, 'CL21173'),
 (111, 68, 'CL21106'),
 (114, 69, 'CL21046'),
-(115, 69, 'CL21048');
+(115, 69, 'CL21048'),
+(116, 70, 'CL21075'),
+(117, 71, 'CL21060'),
+(118, 72, 'CL21180'),
+(119, 73, 'CL21145'),
+(120, 73, 'CL21144'),
+(121, 74, 'CL21106'),
+(145, 76, 'CL21177'),
+(154, 75, 'CL21011'),
+(155, 75, 'CL21177'),
+(156, 77, 'CL21060'),
+(163, 78, 'CL21104'),
+(164, 78, 'CL21103');
 
 -- --------------------------------------------------------
 
@@ -1321,7 +1356,10 @@ INSERT INTO `project_images` (`img_id`, `project_id`, `file_name`, `description`
 (211, 69, '1622886003285039800.jpeg', '', 1, 0x5b5d, 1),
 (212, 69, '16228860091605467962.png', '', 1, '', 0),
 (213, 69, '16228860091586934267.png', '', 1, 0x5b5d, 1),
-(214, 69, '16228860101043820552.png', '', 1, 0x5b5d, 1);
+(214, 69, '16228860101043820552.png', '', 1, 0x5b5d, 1),
+(227, 76, '16297392471284899658.jpeg', '', 1, '', 0),
+(228, 77, '16298317791324163892.jpeg', '', 1, 0x5b22434c3231313438225d, 1),
+(229, 78, '16298318922108248511.jpeg', '', 1, 0x5b22434c3231313536222c22434c3231313436222c22434c3231313534225d, 1);
 
 -- --------------------------------------------------------
 
@@ -1490,10 +1528,10 @@ INSERT INTO `services_list` (`id`, `cat_lvl2_id`, `company_id`) VALUES
 (586, 'CL21079', 115),
 (585, 'CL21065', 115),
 (584, 'CL21060', 115),
-(620, 'CL21178', 116),
-(619, 'CL21177', 116),
-(618, 'CL21011', 116),
-(617, 'CL21180', 116),
+(676, 'CL21178', 116),
+(675, 'CL21177', 116),
+(674, 'CL21011', 116),
+(673, 'CL21180', 116),
 (591, 'CL21177', 117),
 (592, 'CL21063', 117),
 (593, 'CL21071', 117),
@@ -1517,7 +1555,42 @@ INSERT INTO `services_list` (`id`, `cat_lvl2_id`, `company_id`) VALUES
 (616, 'CL21174', 130),
 (621, 'CL21059', 131),
 (622, 'CL21070', 131),
-(623, 'CL21065', 131);
+(623, 'CL21065', 131),
+(624, 'CL21045', 135),
+(625, 'CL21051', 135),
+(626, 'CL21022', 135),
+(636, 'CL21180', 143),
+(635, 'CL21011', 143),
+(634, 'CL21055', 143),
+(633, 'CL21177', 143),
+(632, 'CL21069', 143),
+(637, 'CL21045', 143),
+(638, 'CL21180', 144),
+(639, 'CL21070', 144),
+(640, 'CL21069', 144),
+(641, 'CL21089', 144),
+(642, 'CL21145', 144),
+(643, 'CL21075', 147),
+(658, 'CL21130', 151),
+(657, 'CL21144', 151),
+(656, 'CL21075', 151),
+(655, 'CL21185', 151),
+(659, 'CL21173', 151),
+(660, 'CL21047', 153),
+(661, 'CL21052', 153),
+(669, 'CL21011', 155),
+(668, 'CL21130', 154),
+(667, 'CL21060', 154),
+(666, 'CL21185', 154),
+(670, 'CL21180', 155),
+(671, 'CL21045', 155),
+(672, 'CL21055', 155),
+(677, 'CL21180', 157),
+(678, 'CL21011', 157),
+(684, 'CL21185', 158),
+(683, 'CL21057', 158),
+(682, 'CL21178', 158),
+(685, 'CL21046', 158);
 
 -- --------------------------------------------------------
 
@@ -1574,7 +1647,10 @@ INSERT INTO `service_areas` (`id`, `city_id`, `company_id`) VALUES
 (208, 1073, 127),
 (209, 1071, 127),
 (210, 1064, 127),
-(211, 1068, 127);
+(211, 1068, 127),
+(217, 1269, 158),
+(216, 1094, 158),
+(215, 1086, 158);
 
 -- --------------------------------------------------------
 
@@ -1644,8 +1720,8 @@ INSERT INTO `service_districts` (`id`, `district_id`, `company_id`) VALUES
 (292, 14, 115),
 (291, 10, 115),
 (290, 8, 115),
-(319, 10, 116),
-(318, 8, 116),
+(345, 10, 116),
+(344, 8, 116),
 (296, 8, 117),
 (297, 10, 117),
 (298, 13, 117),
@@ -1668,7 +1744,20 @@ INSERT INTO `service_districts` (`id`, `district_id`, `company_id`) VALUES
 (317, 8, 130),
 (320, 8, 131),
 (321, 10, 131),
-(322, 13, 131);
+(322, 13, 131),
+(323, 8, 135),
+(324, 10, 135),
+(330, 13, 143),
+(329, 10, 143),
+(328, 8, 143),
+(331, 14, 143),
+(332, 8, 144),
+(333, 10, 144),
+(337, 7, 151),
+(338, 8, 151),
+(339, 9, 153),
+(343, 15, 154),
+(342, 14, 154);
 
 -- --------------------------------------------------------
 
@@ -1802,7 +1891,7 @@ INSERT INTO `user_sessions` (`session_id`, `client_id`, `auth_token`, `password`
 (149, 172, 'ya29.a0AfH6SMDe_ipz4YUeIVTk35bfGacBqBw3evfd4cVZbkbbM4OVy4PuF0W40nrDJ2NzZQiWMAGi3aG2ahA_BT5GWE_rbKYFq2sI3MhH9_XIcQ5MaqoiP57Mi5fN0GUFP1I-4vEFT43Idhz5X1EOakCCLMxbJBn1', ''),
 (150, 173, 'soJJ3QfTqBbJzof1623492009369', ''),
 (151, 174, 'V2rlHKuVikNmTXw1623498782302', ''),
-(152, 175, 'EAAQPlMeiuc0BAI07xeDkSGhjhUR3K6iZC6vD8GUEoaUMnZBnlCtv15Xp4pAFGVLf7UU1e9UGWCN1ItQMCHfJ8iZAao80kcdWycMXYWoEkzz3T720AvoiH9GoAhjXkitOymmZAZBYaZBl8UUSX0rSqP0NbKkn3VBObsLrAxNZATPupRsSUiOqHw8mwTHsEjBCDYZD', ''),
+(152, 175, 'EAAlrbREIkZCkBAFYYJAgovXCeKcCB8oTyp9TQx0XZCNrgEMOIxCKwkNQQYEnfoygschuWs7YVAAY4tJ9AeVuJ8ZA57c2BZCmmMSxhaRdK9KwQZAGXZBEQOg5wimjfXb3RBOTEPDfhBNUP3H6sS0mRDyPUCN22TSFHgL0m2pe4yMfFfHk6Uok2QqoZCcP7pmKQ9VF5CV158eoLzWR65uFTB3', ''),
 (153, 176, 'ukrdWFBnAAGB4561623555199793', ''),
 (154, 177, 'v65TvJQz3TE293v1623557955177', ''),
 (155, 178, 'CmV3vr0mivUGufZ1623563556184', 'nn123456'),
@@ -1817,7 +1906,34 @@ INSERT INTO `user_sessions` (`session_id`, `client_id`, `auth_token`, `password`
 (164, 187, 'sApLOKHo1gn3q8R1624524015980', ''),
 (165, 188, 'NJtxKnOZYWBz2TD1624524518883', ''),
 (166, 189, 'AiaNi7K2wJzHT0P1624525241134', ''),
-(167, 190, 'IIIDJFV4rhOxuo21624766022196', '');
+(167, 190, 'IIIDJFV4rhOxuo21624766022196', ''),
+(168, 191, 'ya29.a0ARrdaM_l5rJTKLCpxQuSizNsifBtU6_cJG-bNCdPbasyPpujqOvBDABoQWq4IOlVBpiLkol5Pv2l0qZzKsQVvx134dY-T088jYNKaH2esQZik7BeSoB48uJTXn9aGIsiz2SeR7XzL3WN0Bp6czq6_QI5YpnjXus', ''),
+(169, 192, 'ya29.a0ARrdaM-62t73CNBiOtAaekHJ54Izeq4lTLQJ_F-Zcimhjq_EQNEi5rTMAGM-9MZeYm7UJZ3qK5I6CV-DIiAvllYGmF4YsFud9a0hqlXE-fzyyjhT_90lsHtkhiHs4s6N_7hQALd0Ztf70E93uKeWrZpvMyuPWPY', ''),
+(170, 193, 'ya29.a0ARrdaM8OgW74IIjgC73FdimPkWVhq6KYl1PnS7jhjQlbPcG-5VoWxngcLT_fPwOph6GzAD5nvJsLUXJy6wTGIzhS5h0iNHtP9MSRltlkQFCAVPyQGStaEbMF6uO4rLY3pfQl9h5FRLzICahm72Dtsy_yvbCCL9M', ''),
+(171, 194, 'ya29.a0ARrdaM9dI9CSKC40BqJHMIhnYyGYumdXvGVDOTpocBqQxh4ZY-4fqGz46W7yecHCQDDFUdh5bW8n6efuxJS4nFzoXWzUwlFXmneVE159VHX5bUMJkTRt5zCFGnrbR2Qz2h2T6T06UqDuEBenWo6MnMfrrGR8sIM', 'lV2228887-*/'),
+(180, 203, 'ya29.a0ARrdaM_c4trcYih7PfTAj807fm_bojAE4WbuF6qv18Lrx4GlPXCJEhII8dH-VyJyEBs2CtyuLJgaKiZzvUjokmHaFMaHEkSfj80JXUZqicnkaNK27OXogANHZynyF4_yCjqTQ_EDZuRdDgUQGq8GslSequt4du0', 'adminadmin'),
+(172, 195, 'ya29.a0ARrdaM-vCwl7D5sdqiXUiBVShrBqELZOMTeaU6elEfU9GWla9NFVXW0WfEWEnufeCiyiht9NY6w0V6_hJqjy-BMn0V1LpxTGtNaCD9v9FvceT2-iaFL0UH3xoa5tan_xTrDG4ogAi4UCidwumq1bboC7jMr91wM', ''),
+(173, 196, '1l2Ft1zOffZsP9W1625981474548', ''),
+(174, 197, 'rLem0YSpSf0gPEQ1625981490143', ''),
+(175, 198, 'JOEYMSx7rG4qEnq1625981859709', ''),
+(176, 199, 'Hzxr1uwR8higGi11625983540545', ''),
+(177, 200, 'NgX2d5FEoZGUwjV1625983732174', ''),
+(178, 201, '52ED7Rh6A3TXJMz1625983851156', ''),
+(179, 202, 'hssN1UQjT13dqlI1625983926211', ''),
+(181, 204, 'ya29.a0ARrdaM8D6m51K-h6dvCdUTj3MhTRBFdEvyZFk9vuoJlLuxjktuKTKncdJjlehT5XpYQU6tr0JURfVcOTCZ2KBlAt8TIBQirwLEb5wkiYwW6wObVeOQ-FA-JKG9ULi-Ju9iCovjWjoEyHcJMEZXRqAWVfzxwrf5Q', ''),
+(182, 205, 'Nh4OFXIY6mFOA6Q1625989530717', ''),
+(183, 206, 'LV8UebnSRvHvsDQ1625989546083', ''),
+(184, 207, 'GE1F2KT5mHw9Y001625989803079', ''),
+(185, 208, 'XsmZVmTtJTwlpb61625990847994', ''),
+(186, 209, 'L8LcNDNcZ2aV8oZ1625990973085', ''),
+(187, 210, 'VN9aqnTBbTWvPqA1625991163881', ''),
+(188, 211, 'q4q67UZOh22uozd1625991303199', 'adminadmin'),
+(189, 212, 'XPzGhMZRK0lV8Tg1625991700035', ''),
+(190, 213, 'kWhAVC5NW19HfZe1625993677181', ''),
+(194, 217, 'ya29.a0ARrdaM_Vbl0EorDA0JRRzfsmxSYx6zakvfX2QcTzJbWT05B-bpXkIFz7Ymjy2Fom459SWDJo_fIkxN-Ys_m09inqxnZopjED5z9Yyf_N1DEhSKUuK5jxKk1W4G7xXo_OZwzefar91WJoR80boi3qd1L5zOLp7dY', ''),
+(191, 214, 'ya29.a0ARrdaM9pKgTIzkt4zgwf_-32x_lC1EBU4DdSIAxsbEy7dGM5Ms10Lbvk7Cflh3_E4REy2KR_S0h8bzSurOflC8vPTp801rB0G6woashw60i_8O1nqkZ4VVfHwdIjv6SnuIppT8L8uehxg16tKLDXNjFPNjDYF4I', ''),
+(192, 215, 'ya29.a0ARrdaM8z1SsdX-r22-scqffmUrDnBHf_XZu55xFJcZ-CUwIDbVwuMIiEWO8tQ1MTqOXvXCgLw2-D36kVvTxIeL1aPNiiS9lcHuRowZ78GI5YMBc_TsDXlYBINvUcL9utiAbEIVkpbx79xuiZX1V_KxeZqYGfH7U', ''),
+(193, 0, 'utTpjQMHJsgfGcG1629640924175', '');
 
 --
 -- Indexes for dumped tables
@@ -1981,7 +2097,7 @@ ALTER TABLE `user_sessions`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `categories-level1`
@@ -2005,13 +2121,13 @@ ALTER TABLE `cites`
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=191;
+  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=218;
 
 --
 -- AUTO_INCREMENT for table `client_company`
 --
 ALTER TABLE `client_company`
-  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
+  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
 
 --
 -- AUTO_INCREMENT for table `company_details`
@@ -2029,7 +2145,7 @@ ALTER TABLE `districts`
 -- AUTO_INCREMENT for table `home_slider`
 --
 ALTER TABLE `home_slider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `house_area`
@@ -2053,37 +2169,37 @@ ALTER TABLE `house_surfaces_type`
 -- AUTO_INCREMENT for table `image_category_list`
 --
 ALTER TABLE `image_category_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT for table `project`
 --
 ALTER TABLE `project`
-  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `project_category`
 --
 ALTER TABLE `project_category`
-  MODIFY `project_cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+  MODIFY `project_cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
 
 --
 -- AUTO_INCREMENT for table `project_images`
 --
 ALTER TABLE `project_images`
-  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=215;
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=230;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -2095,19 +2211,19 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `services_list`
 --
 ALTER TABLE `services_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=624;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=686;
 
 --
 -- AUTO_INCREMENT for table `service_areas`
 --
 ALTER TABLE `service_areas`
-  MODIFY `id` double NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=212;
+  MODIFY `id` double NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=218;
 
 --
 -- AUTO_INCREMENT for table `service_districts`
 --
 ALTER TABLE `service_districts`
-  MODIFY `id` float NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=323;
+  MODIFY `id` float NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=346;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -2119,7 +2235,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_sessions`
 --
 ALTER TABLE `user_sessions`
-  MODIFY `session_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=168;
+  MODIFY `session_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=195;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

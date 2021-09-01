@@ -74,15 +74,15 @@
         z-index: 12;
 
         h1{ 
-            font-size: 3.4rem;
+            font-size: 3.2rem;
+            line-height: 4.2rem;
             margin-bottom: 1.5rem; 
             text-transform: capitalize;
-            letter-spacing: 0.05rem;
         }
 
         p{
-            font-size: 1.6rem;
-            line-height: 2.4rem;
+            font-size: $eb-font-size;
+            line-height: 2.2rem;
             margin-bottom: 4rem;
             margin-top: 0.5rem;
             color: $white;
@@ -98,7 +98,7 @@
  
             button{
                 margin-right: 2.5rem;
-                font-size: 1.6rem;
+                font-size: $eb-font-size;
                 line-height: 2.8rem;
                 padding: 0.6rem 3.5rem 0.6rem 6rem !important;
                 background-repeat: no-repeat;
@@ -128,10 +128,8 @@
                         position: relative;
                         left: -8px;
                         top: -2px;
-                        font-size: 19px;
+                        font-size: $eb-font-size + 0.2;
                     }
-
-                     
 
                 }
 
@@ -141,7 +139,7 @@
 
                 &.get-started{
                     @include regular;
-                    font-size: 2rem;
+                    font-size: $eb-font-size + 0.4;
                     line-height: 3.4rem;
                     padding: 1rem 6rem !important; 
                 }
@@ -158,7 +156,7 @@
     }
 
     p.text-center{
-        font-size: 1.7rem;
+        font-size: $eb-font-size;
         line-height: 2.1rem; 
         color: $dark-gray;
     }
@@ -229,7 +227,7 @@
                 }
                
                 h3{
-                    font-size: 1.7rem;
+                    font-size: $eb-font-size;
                     text-transform: capitalize;
                     @include medium;
                     
@@ -349,7 +347,7 @@
                     }
     
                     h3{
-                        font-size: 2rem;
+                        font-size: $eb-font-size + 0.3;
                         margin-bottom: 1.5rem;
                         @include bold;
                     }
@@ -434,7 +432,7 @@
                 
                 p{
                     color: inherit;
-                    font-size: 2rem;
+                    font-size: $eb-font-size + 0.4;
                     line-height: 2.6rem;
                 }
             }
@@ -548,14 +546,14 @@
             }
 
             p{
-                font-size: 1.7rem;
-                line-height: 2.5rem;
+                font-size: $eb-font-size;
+                line-height: 2.3rem;
                 margin-bottom: 2.5rem;
             }
 
             button{
                 padding: 0.5rem 4rem !important;
-                font-size: 1.7rem;
+                font-size: $eb-font-size;
             }
         }
     }
