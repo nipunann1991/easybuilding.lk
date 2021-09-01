@@ -6,7 +6,7 @@
         </div>
         <div class="col-md-6"> 
             <div class="form-group" >
-                <label for="servic e_areas">Offered Services</label>&nbsp; 
+                <label for="servic e_areas">Offered Services</label>
                 <ng-select2 [data]="allServices" [options]="options" formControlName="services" class="select-fw select-service" *ngIf="product_services.services != '[]' || selectedServicesItems != ''" >
                 </ng-select2>  
                 <a href="javascript:void(0)" *ngIf="selectedServicesItems == ''" (click)="openServiceAreaModal()" class="service-dialog"><i class="icon-plus"></i> Select Service Categories</a>  

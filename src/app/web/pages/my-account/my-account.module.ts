@@ -6,6 +6,7 @@ import { MyAccountComponent } from './my-account.component';
 import { ProfileModule } from './pages/profile/profile.module';
 import { AppSharedModule } from '../../../app.shared.module';
 import { UserModule } from './pages/user/user.module';
+import { CommonInfoModule } from './pages/common-info/common-info.module';
 
  
 @NgModule({
@@ -15,6 +16,7 @@ import { UserModule } from './pages/user/user.module';
     MyAccountRoutingModule,
     AppSharedModule,
     ProfileModule, 
+    CommonInfoModule
   ],
   exports: [MyAccountComponent]
 })

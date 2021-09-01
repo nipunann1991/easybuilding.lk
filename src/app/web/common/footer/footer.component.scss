@@ -2,7 +2,13 @@
 
 .footer-area{
     padding: 4rem 0 2rem 0;
-    background: #092048; // #04142f; // $form-control-gray; 
+    background: #092048;
+
+    .container{
+        @include breakpointMax($tablet){
+            padding-left: 3rem;
+        }
+    }
 
     .flex-wrapper{   
         @include flex();
@@ -13,8 +19,7 @@
 
         @include breakpoint($tablet){   
             flex-direction: row;
-        }
-
+        } 
          
         .columns{ 
             padding-right: 1.5rem; 
@@ -90,8 +95,14 @@
 
             &.contact-details{
                 img{
-                    width: 19rem;
+                    width: 15rem;
                     margin-bottom: 1.5rem;
+                    margin-top: 1.5rem;
+
+                    @include breakpoint($tablet){   
+                        width: 19rem;
+                        margin-top: 0;
+                    }
                 }
 
                 ul{

@@ -102,6 +102,16 @@ export class CategoriesService {
     return this.http.post(environment.baseUrl+'CategoriesController/getSelectedLvl1CategoryByID?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   }
 
+  
+  getLvl2Categories(postVals){
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'CategoriesController/getLvl2Categories?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  }
+
   getSelectedLvl2Category(postVals){
      
     const params = new HttpParams({
@@ -169,6 +179,15 @@ export class CategoriesService {
     }); 
     
     return this.http.post(environment.baseUrl+'CategoriesController/updateLvl1CategoryOrder?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
+  }
+
+  updateLvl2CategoryOrder(postVals){
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'CategoriesController/updateLvl2CategoryOrder?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   }
 
   

@@ -24,7 +24,7 @@
                         <div class="item-details">
                             <div class="project-and-company"> 
                                 <h3 [innerHTML]="img.project_name | highlightText : searchParam"></h3> 
-                                <a *ngIf="img.id == 0" [ngClass]="{'no-link' : img.id == 0}" href="javascript:void(0);">By <span [innerHTML]="img.title | highlightText : searchParam"></span></a>
+                                <a *ngIf="img.id == 0" [ngClass]="{'no-link' : img.id == 0}" href="javascript:void(0);">By <span [innerHTML]="img.architect | highlightText : searchParam"></span></a>
                                 <a *ngIf="img.id != 0" [routerLink]="img.profileLink">By <span [innerHTML]="img.title | highlightText : searchParam"></span></a>
                             </div>  
                         </div>

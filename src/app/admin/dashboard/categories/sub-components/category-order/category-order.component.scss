@@ -46,7 +46,16 @@
 	}
 	
 }
-  
+
+.white-box-panel{
+	.title-area{
+		@include flex;
+		
+		a.close-btn{
+			margin-left: auto;
+		}
+	}
+}
 	
 .cdk-drop-list-dragging .drag-item:not(.cdk-drag-placeholder) {
 	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);

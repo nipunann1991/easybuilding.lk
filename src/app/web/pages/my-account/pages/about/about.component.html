@@ -1,8 +1,11 @@
 <div class="page-container animated fadeIn">
-  <div class="about-data block">
-    <h3>About</h3>
-    <div class="desc" [innerHTML]="profileData.description"></div> 
-    <p *ngIf="profileData.description == ''"><i>No description available.</i></p>
+  <div class="about-data block"> 
+    <div class="about-info">
+      <h3>About</h3>
+      <div class="desc" [innerHTML]="profileData.description"></div> 
+      <p *ngIf="profileData.description == ''"><i>No description available.</i></p>
+    </div> 
+    <app-common-info [profileData]="profileData"></app-common-info>
   </div>
 
   <ng-container *ngIf="profileData.company_profile == 1">

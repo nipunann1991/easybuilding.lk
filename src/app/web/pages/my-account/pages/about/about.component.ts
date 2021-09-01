@@ -10,7 +10,6 @@ import { environment } from "../../../../../../environments/environment";
   selector: 'app-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss'],
-  encapsulation: ViewEncapsulation.None
 })
 export class AboutComponent implements OnInit {
 
@@ -20,6 +19,7 @@ export class AboutComponent implements OnInit {
   companyId: any = "";
   clientId: any = "";
   project: any = "";
+  contactInfo: any  = "fuck";
 
   imageURL: string = "";
   isPrevEdit: boolean = false;
@@ -40,7 +40,7 @@ export class AboutComponent implements OnInit {
   ngOnInit(): void {
 
     this.profile.userProfileData.subscribe(data => {
-      this.profileData = data;  
+      this.profileData = data;    
     });
 
     this.profile.setfullScreenView(false);  
@@ -60,7 +60,7 @@ export class AboutComponent implements OnInit {
       .subscribe((response: any) => {
         if (response.status == 200) {
           
-          this.profileData = response.data[0];    
+          this.profileData = response.data[0];  
           this.profileData.profile_editable = true;
           this.profileData.is_editable_btn = false; 
           this.profile.setProfileData(this.profileData);

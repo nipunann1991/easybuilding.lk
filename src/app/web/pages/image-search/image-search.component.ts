@@ -196,6 +196,7 @@ export class ImageSearchComponent implements OnInit {
             profileLink: '/user/'+ elm.client_id +'/'+ elm.provider_id +'/about', 
             imgUrl: profileImgThumb,  
             imgUrlFull: profileImg,  
+            architect: elm.architect
           }
 
           this.imagesResults.push(new ImageItem({ src: profileImg, thumb: profileImgThumb }));

@@ -5,6 +5,14 @@
   padding-bottom: 3rem;
   border-bottom: 1px $light-gray solid; 
 
+  .about-info{
+    margin-bottom: 3rem;
+
+    @include breakpoint($tablet){
+      margin-bottom: 0;
+    }
+  }
+
   &.last{
     border-bottom: 0;
     padding-bottom: 0;
@@ -18,5 +26,13 @@
   p{
     line-height: 2.2rem;
   }  
- 
+  
+} 
+
+app-common-info{
+  display: block;
+
+  @include breakpoint($tablet){
+    display: none;
+  }
 }

@@ -7,6 +7,7 @@ import { ProfileModule } from '../my-account/pages/profile/profile.module';
 import { AppSharedModule } from '../../../app.shared.module';
 import { MyAccountModule } from '../my-account/my-account.module';
 import { AboutModule } from '../my-account/pages/about/about.module';
+import { CommonInfoModule } from '../my-account/pages/common-info/common-info.module';
 
 @NgModule({
   declarations: [PublicProfileComponent],
@@ -16,7 +17,8 @@ import { AboutModule } from '../my-account/pages/about/about.module';
     AppSharedModule,
     ProfileModule, 
     MyAccountModule,
-    AboutModule
+    AboutModule,
+    CommonInfoModule
   ],
   exports: [PublicProfileComponent]
 })
