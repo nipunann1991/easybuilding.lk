@@ -50,7 +50,7 @@
                         Showing {{ pageData.start }} – {{ pageData.end }} results from {{ pageData.total_results }} profiles</p>
                 </div>
             </div> 
-            <div class="search-results" *ngIf="!isFullPageSearch">  
+            <div class="search-results" *ngIf="!isFullPageSearch" [ngClass]="(isGridView)? 'profile_grid_search' : 'profile_list_search'">  
                 <div class="row">
                     <div class="item-block-wrapper" *ngFor="let p of products" [ngClass]="(isGridView)? 'profile_grid_view' : 'list_view'" >
                   

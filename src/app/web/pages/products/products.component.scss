@@ -176,10 +176,13 @@
         }
 
         .search-results{ 
+            width: 100%;
+            padding: 0 1.5rem;
 
-            @include breakpoint($tablet){   
-                @include calc("width", "100% + 1.5rem");
+            &.profile_grid_search{
+                padding: 0;
             }
+            
             
             .item-block-wrapper{
 
@@ -271,13 +274,13 @@
                 padding: 0 1.5rem; 
 
                 @include breakpoint($large-device){   
-                    flex: 0 0 calc(50% - 0.5rem);
-                    max-width: calc(50% - 0.5rem);  
+                    flex: 0 0 50%;
+                    max-width: 50%;  
                 }
 
                 @include breakpoint(1200px){   
-                    flex: 0 0 calc(33.33% - 0.5rem);
-                    max-width: calc(33.33% - 0.5rem);  
+                    flex: 0 0 33.33%;
+                    max-width: 33.33%;  
                 } 
                
             }
