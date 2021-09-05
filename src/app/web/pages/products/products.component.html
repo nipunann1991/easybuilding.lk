@@ -51,9 +51,12 @@
                 </div>
             </div> 
             <div class="search-results" *ngIf="!isFullPageSearch" [ngClass]="(isGridView)? 'profile_grid_search' : 'profile_list_search'">  
-                <div class="row">
-                    <div class="item-block-wrapper" *ngFor="let p of products" [ngClass]="(isGridView)? 'profile_grid_view' : 'list_view'" >
-                  
+                <div class="loader-box" *ngIf="isProductsLoading">
+                    <img src="/assets/images/loader1.svg" width="80" alt="">
+                    <h3>Loading Results</h3>
+                </div>
+                <div *ngIf="!isProductsLoading" class="row"> 
+                    <div  class="item-block-wrapper" *ngFor="let p of products" [ngClass]="(isGridView)? 'profile_grid_view' : 'list_view'" >
                         <div class="item-block animated fadeIn" [routerLink]="p.profileLink">
                             <div class="item-image-wrapper"> 
                                 <span *ngIf="p.isAllIsland == 1" class="badge badge-primary">All Island</span>
@@ -101,22 +104,17 @@
                         </div>
                          
                     </div>
+
+                    <div class="col-md-12 text-center" *ngIf="pageData.start != 0"> 
+                        <ul>
+                            <li *ngFor="let item of collection | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }">{{item}}</li>
+                        </ul> 
+                        <pagination-controls (pageChange)="navigateToNextPage($event)"></pagination-controls>
+                    </div>
                 </div>
               
 
-                <div class="col-md-12 text-center" *ngIf="pageData.start != 0"> 
-                    <ul class="pagination">
-                        <li class="page-item" [ngClass]="{'disabled': activatedRoute.snapshot.queryParams.index == 1 }">
-                          <a class="page-link" href="javascript:void(0)" tabindex="-1" (click)="navigateToNextPage(paramIndex - 1)">Previous</a>
-                        </li>
-                        <li class="page-item" *ngFor="let p of paginations" [ngClass]="{'active': p == activatedRoute.snapshot.queryParams.index }" >
-                            <a class="page-link" href="javascript:void(0)" (click)="navigateToNextPage(p)" >{{p}}</a>
-                        </li> 
-                        <li class="page-item" [ngClass]="{'disabled': activatedRoute.snapshot.queryParams.index == paginations.length }">
-                          <a class="page-link" href="javascript:void(0)" (click)="navigateToNextPage(paramIndex + 1)">Next</a>
-                        </li>
-                    </ul>
-                </div>
+                
  
             </div>
 

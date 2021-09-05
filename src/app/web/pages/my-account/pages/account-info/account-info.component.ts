@@ -101,8 +101,7 @@ export class AccountInfoComponent implements OnInit {
       this.isAdmin = true; 
 
       this.route.params.subscribe( (routeParams) =>  {  
-        this.routerParams = routeParams; 
-        console.log(this.routerParams)
+        this.routerParams = routeParams;  
       });
     } 
      
@@ -220,12 +219,9 @@ export class AccountInfoComponent implements OnInit {
       this.myaccount.updateProfileDetails(presonalData)
         .subscribe((response: any) => {
 
-          if (response.status == 200) {
-
-            console.log(this.routerParams)
+          if (response.status == 200) { 
  
-            if(this.isAdmin){
-              
+            if(this.isAdmin){ 
               this.toastr.success('Information saved successfully', 'Success !');  
               this.router.navigate(['/admin/users/user/'+this.routerParams.user+"/"+this.routerParams.provider_id+"/about"]);
             
@@ -253,7 +249,10 @@ export class AccountInfoComponent implements OnInit {
 
   selectedProfileType(e){
     this.profileTypeSelectedVal =  e.srcElement.defaultValue;  
-    
+  }
+
+  backToProfile(){ 
+   this.router.navigate([this.router.url.split('/edit/')[0] +'/about']);
   }
 
   continueSteps(){

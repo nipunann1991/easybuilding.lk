@@ -135,10 +135,8 @@ export class MyAccountComponent implements OnInit {
             this.profileData.profile_editable = profile_editable;
             this.profileData.is_editable_btn = false; 
             this.profile.setProfileData(this.profileData);
-      
             
             ( this.profileData.company_profile == 0 )?  this.navItems[3].isPersonalProfile = true  : '';
-
       
             this.pageSEO();  
             this.getOtherProfileRelatedData();

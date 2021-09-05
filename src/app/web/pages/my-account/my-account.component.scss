@@ -8,7 +8,7 @@
     @include flex(); 
     flex-direction: column;
     align-items: inherit;
-    padding: 0 0 4rem 0;
+    padding: 0;
 
     @include breakpoint($tablet){
         flex-direction: row; 
@@ -16,15 +16,27 @@
 
       .modal{
         top: -14rem;
-    }
-
-    
+    } 
  
     .left-block{ 
         padding-top: 0;
         order: 2;
         position: relative;
         top: -3rem;
+        margin-bottom: 5rem;
+
+        &.edit-account-mode{
+            background-color: lighten($light-gray, 2%);
+            width: 25rem;
+            padding: 0;
+            padding-top: 10rem;
+            left: 2rem;
+            margin-bottom: 0;
+
+            a{
+                padding: 0 2.5rem; 
+            }
+        }
          
         @include breakpoint($tablet){
             padding-left: 2rem;
@@ -54,10 +66,12 @@
             text-decoration: none; 
             line-height: 3.5rem;
             font-size: $eb-font-size - 0.2;
+            border-radius: 0;
             
             &.active-btn{ 
                 color: $base-bg-color; 
-
+                background: lighten($base-bg-color, 32%);
+                border-left: 0.5rem $base-bg-color solid;
             }
         }
     }
@@ -67,6 +81,14 @@
         position: relative;
         top: -3rem;
         order: 1;
+
+        &.edit-account-mode{
+            @include breakpoint($tablet){
+                padding: 1rem;
+                padding-bottom: 4rem;
+                left: 2rem;
+            }
+        }
 
         @include breakpoint($tablet){
             top: 0;

@@ -16,7 +16,7 @@ const routes: Routes = [
 	  	{ path: 'edit/account-info', loadChildren: () => import('../my-account/pages/account-info/account-info.module').then(m => m.AccountInfoModule) },
       { path: 'edit/service-areas', loadChildren: () => import('../my-account/pages/service-areas/service-areas.module').then(m => m.ServiceAreasModule) },
       { path: 'edit/contact-info', loadChildren: () => import('../my-account/pages/contact-info/contact-info.module').then(m => m.ContactInfoModule) },
-      
+      { path: 'edit/subscription', loadChildren: () => import('../my-account/pages/subscription/subscription.module').then(m => m.SubscriptionModule) },
     ] 
   },   
  

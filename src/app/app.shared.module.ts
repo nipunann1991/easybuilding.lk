@@ -38,6 +38,7 @@ import { OverlayscrollbarsModule } from "overlayscrollbars-ngx";
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ConfimDialogBoxComponent } from './web/common/confim-dialog-box/confim-dialog-box.component';
 import { HighlightTextPipe } from './pipes/highlight-text.pipe';
+import { NgxPaginationModule } from 'ngx-pagination'; 
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { HighlightTextPipe } from './pipes/highlight-text.pipe';
       ChartsModule,
       OverlayscrollbarsModule,
       SlickCarouselModule, 
+      NgxPaginationModule,
       NgBootstrapFormValidationModule.forRoot(), 
       FacebookModule.forRoot()
     ],
@@ -119,6 +121,7 @@ import { HighlightTextPipe } from './pipes/highlight-text.pipe';
       FirstLetterPipe,
       TruncateTextPipe,
       RoundToDecimalPipe,
+      NgxPaginationModule,
       HighlightTextPipe
   ],
   entryComponents: [

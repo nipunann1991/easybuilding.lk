@@ -96,11 +96,7 @@ export class ServicesDialogBoxComponent implements OnInit {
     let totalCount = 0; 
     let column = 0; 
     let totalCols = menuArray.length 
-    let maxCols = 3
-
-    
-    console.log(menuArray, menuArray.length )
-
+    let maxCols = 3 
     let noOfItemsPerCol =  Math.round(this.totalLinks / maxCols); 
 
     oldMenu.forEach((element, index) => {  

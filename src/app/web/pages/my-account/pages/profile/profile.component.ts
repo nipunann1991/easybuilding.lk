@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild, Inject, EventEmitter, Input, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { environment } from "../../../../../../environments/environment";
 import { HttpClient } from '@angular/common/http';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop'; 
@@ -53,6 +53,7 @@ export class ProfileComponent implements OnInit {
   optimizedImg: any;
   uploadStatus: number = 0;
   deleteStatus: number = 0; 
+  isEditInProgress: boolean = false;
   aspectRatio: any = {
     x: 1400,
     y: 450
@@ -83,11 +84,24 @@ export class ProfileComponent implements OnInit {
       
     };
  
-    fb.init(initParams);
+    fb.init(initParams); 
 
   }
 
   ngOnInit(): void { 
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) { 
+        if((event.url.indexOf('/about') > -1 )){
+          this.isEditInProgress = false;
+        }else if((event.url.indexOf('/edit/') > -1 )){
+          this.isEditInProgress = true;
+        } 
+      }
+    });
+
+    if((this.router.url.indexOf('/edit/') > -1 )){
+      this.isEditInProgress = true; 
+    }  
     
   }
 
@@ -147,47 +161,44 @@ export class ProfileComponent implements OnInit {
   
      });
 
-     this.checkVerification();
-
-    
+     this.checkVerification(); 
 
   }
  
 
  
-validateFileExtention(file_name){
+  validateFileExtention(file_name){
 
-  let validFileExtensions = [".jpg", ".jpeg", ".png"]; 
-  let isValid = false;
+    let validFileExtensions = [".jpg", ".jpeg", ".png"]; 
+    let isValid = false;
 
-      for (var j = 0; j < validFileExtensions.length; j++) {
-          var sCurExtension = validFileExtensions[j];
-          if (file_name.substr(file_name.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
-              
-              isValid = true; 
-              break;
-          }
-      }
+    for (var j = 0; j < validFileExtensions.length; j++) {
+        var sCurExtension = validFileExtensions[j];
+        if (file_name.substr(file_name.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+            
+            isValid = true; 
+            break;
+        }
+    }
 
-      return isValid;
-}
-
-validateFile(file){
-
-  let isValid = true;
-
-  if (!this.validateFileExtention(file.name)) {
-        this.toastr.error('Invalid image extention. Please upload an image only with jpg, jpeg or png extentions.', 'Upload Error !');   
-    isValid = false;
-  }else if(file.size > 1024000){
-      this.toastr.info('Optimizing the file since sile size is too large.', 'Uploading');    
-    // isValid = false;
-
+    return isValid;
   }
 
-  return isValid;
 
-}
+  validateFile(file){
+
+    let isValid = true;
+
+    if (!this.validateFileExtention(file.name)) {
+          this.toastr.error('Invalid image extention. Please upload an image only with jpg, jpeg or png extentions.', 'Upload Error !');   
+      isValid = false;
+    }else if(file.size > 1024000){
+        this.toastr.info('Optimizing the file since sile size is too large.', 'Uploading');    
+    }
+
+    return isValid;
+
+  }
 
   fileOver(event){
     console.log(event);
@@ -505,11 +516,16 @@ validateFile(file){
   }
 
   editProfile(){ 
-    this.isProfileEditable.emit(true); 
-    this.isEditable = true;
+    this.isProfileEditable.emit(true);  
+    this.isEditInProgress = true;
     this.router.navigate(['/my-account/user/me/edit/account-info']);
   }
 
+
+  backToProfile(){
+    this.isEditInProgress = false;
+    this.router.navigate(['/my-account/user/me/about']);
+  }
 
   onSave() {  
     let blob = this.dataURItoBlob(this.croppedImage); 

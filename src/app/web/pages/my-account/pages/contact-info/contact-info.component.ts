@@ -212,4 +212,8 @@ export class ContactInfoComponent implements OnInit {
     this.router.navigate(["../account-info"], { relativeTo: this.route.parent });
   }
 
+  backToProfile(){ 
+    this.router.navigate([this.router.url.split('/edit/')[0] +'/about']);
+  }
+
 }

@@ -691,6 +691,19 @@ ul{
 		}
 	}
 
+
+	&.btn-white-transparent{
+		background-color: transparent;
+		border: 1px $white solid;
+		color: $white;
+
+		&:hover{
+			background-color: inherit;
+			border-color: darken($white, 5%);
+			color: darken($white, 5%);;
+		}
+	}
+
 	&.btn-primary-transparent{ 
 		border: 1px $base-bg-color solid;
 		color: $base-bg-color;
@@ -1338,7 +1351,8 @@ button.dt-button{
 		@include flex();
 
 		h2{ 
-			font-weight: 900;
+			@include medium;
+			font-size: 1.9rem;
 			line-height: 1.1;
 			margin: 0;
 			padding: 0;
@@ -1370,6 +1384,8 @@ button.dt-button{
         padding-bottom: 1.5rem;
         padding-top: 1.5rem; 
 		margin-bottom: 1.5rem;
+		font-size: 1.5rem;
+		line-height: 2rem;
 	}
 }
 
@@ -1443,10 +1459,64 @@ button.dt-button{
 		font-weight: 500;
 	}
 }
-
  
   
 .disabled-link {
 	pointer-events: none;
 	cursor: default;
  }
+
+
+pagination-controls{
+	display: block;
+	margin: auto;
+
+	ul.ngx-pagination {
+		margin-bottom: 0;
+		
+		li{
+			font-size: 1.4rem;
+			line-height: 1.8rem;
+			margin: 0;
+			border-right: 0; 
+			
+			&.current{
+				background: $base-bg-color;
+				border: 1px solid $base-bg-color;
+				padding: .5rem .75rem;
+			}
+
+			&.disabled{
+				border: 1px solid #dee2e6;
+				padding: .5rem .75rem;
+			}
+
+			&.pagination-previous{
+				&::before, a::before{
+					display: none !important;
+				}
+			}
+
+			&.pagination-next{
+				&::after, a::after{
+					display: none !important;
+				}
+
+				a{
+					border-right: 1px solid $border-gray;
+				}
+			}
+
+			a, button{
+				border: 1px solid $border-gray;
+				color: $darker-gray !important;
+				border-right: 0;
+				padding: .5rem .75rem;
+				text-decoration: none !important;
+			}
+		}
+
+
+	}
+	
+}

@@ -42,7 +42,7 @@
                         <a href="javascript:void(0)" *ngIf="profile.profile_editable || profile.admin_profile" class="upload-btn" title="Upload profile image"  (click)="openImgUpload(fileInput, 1)"> </a>
                     </div>
                     <ng-container>
-                        <a mat-button class="btn btn-primary btn-contact" href="mailto:{{userEmail}}">Contact Me</a>
+                        <a mat-button *ngIf="!isEditInProgress" class="btn btn-primary btn-contact" href="mailto:{{userEmail}}">Contact Me</a>
                     </ng-container>
                 </div> 
                 <div class="details-wrapper">
@@ -51,8 +51,7 @@
                         <ul>
                             <li class="name">
                                 <h3 *ngIf="isDisplayNameNull">{{profile.first_name}} {{profile.last_name}}</h3>
-                                <h3 *ngIf="!isDisplayNameNull">{{profile.display_name}}</h3> 
-                                <a (click)="editProfile()" class="edit" *ngIf="profile.profile_editable && !isEditable" ><i class="icon-pencil"></i> Edit Profile</a>
+                                <h3 *ngIf="!isDisplayNameNull">{{profile.display_name}}</h3>  
                             </li> 
                             <li class="address" > 
                                 <p><span *ngIf="profileData.prof_category != 0"></span>{{profile.city}}</p> 
@@ -68,8 +67,13 @@
                         </ul>
                         
                     </div> 
+                    
+                    <div class="share-edit-button-wrapper" [ngClass]="{'no-img': !isBgImage}">
+                        <button *ngIf="!profile.profile_editable && isBgImage && isProfImage && profileData.company_profile == 1" mat-button class="btn btn-primary share-fb" (click)="share()"><i class="icon-facebook"></i> Share</button>
+                        <button *ngIf="profile.profile_editable && !isEditInProgress" mat-button class="btn btn-white-transparent edit-profile-btn " (click)="editProfile()"><i class="icon-pencil"></i> Edit Account</button>
+                        <button *ngIf="profile.profile_editable && isEditInProgress" mat-button class="btn btn-white-transparent edit-profile-btn" (click)="backToProfile()" ><i class="icon-pencil"></i> Done Editing</button>
+                    </div>
                    
-                    <button *ngIf="isBgImage && isProfImage && profileData.company_profile == 1" mat-button class="btn btn-primary share-fb" (click)="share()"><i class="icon-facebook"></i> Share</button>
                     
                     <button mat-button class="btn btn-primary edit-profile" *ngIf="profileData.company_profile != 1">Convert to Pro</button>
                 </div>

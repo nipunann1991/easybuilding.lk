@@ -12,6 +12,7 @@ import { Lightbox } from 'ng-gallery/lightbox';
   selector: 'app-image-search',
   templateUrl: './image-search.component.html',
   styleUrls: ['../products/products.component.scss'], 
+  encapsulation: ViewEncapsulation.None
 })
 export class ImageSearchComponent implements OnInit {
 
@@ -36,6 +37,14 @@ export class ImageSearchComponent implements OnInit {
   paginations: Array<number> = []; 
   paramIndex: number;
   searchParam: string = "";
+
+
+  //pagination
+  pageOfItems: Array<number>;
+  collection: Array<number> = [];
+  currentPage: number = 0;
+  itemsPerPage: number = 0;
+  totalItems: number = 0;
 
   // gallery images
   imagesResults: GalleryItem[] = [];
@@ -162,15 +171,11 @@ export class ImageSearchComponent implements OnInit {
         this.pageData.end = response.end;
         this.pageData.total_results = response.total_results;
 
-        let totalPages = Math.floor(this.pageData.total_results / queryParams.results);
-        let remainingElms = this.pageData.total_results % queryParams.results;
-          
+        let queryParams = this.activatedRoute.snapshot.queryParams;
 
-        if( remainingElms != 0){
-          this.paginations = Array(totalPages + 1).fill(0).map((x,i)=>i + 1);
-        }else{
-          this.paginations =  Array(totalPages).fill(0).map((x,i)=>i + 1);
-        } 
+        this.totalItems = this.pageData.total_results;
+        this.currentPage = queryParams.index;
+        this.itemsPerPage = queryParams.results; 
 
         this.imageSearch = []; 
         this.imagesResults = []; 
@@ -249,7 +254,7 @@ export class ImageSearchComponent implements OnInit {
     this.resetChecked(this.sortByLocation)
     this.sortByLocation[i].isChecked = true; 
     this.searchParams.sortByServiceArea = this.sortByLocation[i].id;
-    console.log(i)
+ 
     if(i < 2 ){ 
       this.area = -1;
       this.setURL(isInit);
@@ -281,9 +286,7 @@ export class ImageSearchComponent implements OnInit {
       results: '12', 
       index: '1', 
     };
-
-    
-   
+ 
 
     if(isInit){
       this.searchImages(queryParams);
@@ -304,6 +307,11 @@ export class ImageSearchComponent implements OnInit {
     let queryParams =  {...this.activatedRoute.snapshot.queryParams};
     queryParams['index'] = pageID;
     this.router.navigate(['/photos/'+this.activatedRoute.snapshot.params.id], { queryParams: queryParams });
+  
   }
+
+  pageChanged(e){  
+   console.log(e)
+ }
 
 }

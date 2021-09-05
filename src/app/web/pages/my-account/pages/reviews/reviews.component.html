@@ -3,7 +3,7 @@
   <h2>Reviews ({{ totalReviews }})</h2> 
   <button mat-button class="btn btn-transparent btn-review" disabled="disabled" (click)="reviewDialog()">Write a Review</button>
 </div>
-
+<p>Reviews will be activated soon.</p>
 <p  *ngIf="!isShowHeader && reviews.length == 0" ><i>No reviews available</i></p>
 <ul class="reviews-list" [ngClass]="{'view-more-bg': !isShowHeader}">
   <li *ngFor="let r of reviews" class="reviews" >

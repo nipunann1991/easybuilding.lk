@@ -8,22 +8,23 @@
 
             <div class="container main-content-area"> 
                 <div class="content-wrapper"> 
-                    <div class="left-block">  
+                    <div class="left-block" [ngClass]="{'edit-account-mode': profileCompleted && isEditableMode}">  
+                        
                         <ng-container *ngIf="!isEditableMode && profileData.company_profile == 1">
-                            <div class="contact-item-wrapper">
+                            <div class="contact-item-wrapper"> 
                                 <app-common-info [profileData]="profileData"></app-common-info> 
                             </div>  
                         </ng-container>
                         
                         <ng-container *ngIf="profileCompleted && isEditableMode">
-                            <ul>
+                            <ul> 
                                 <li *ngFor="let nav of navItems"> 
                                     <a mat-button routerLinkActive="active-btn"  *ngIf="!nav.isPersonalProfile" [routerLinkActiveOptions]="{exact: false}"  [routerLink]="nav.url" >{{nav.title}}</a>
                                 </li>
                             </ul>
                         </ng-container>
                     </div>
-                    <div class="right-block">
+                    <div class="right-block" [ngClass]="{'edit-account-mode': profileCompleted && isEditableMode}">
                         
                         <ng-container *ngIf="!isEditableMode"> 
                             <ul class="tab-list">

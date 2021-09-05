@@ -9,7 +9,7 @@
     text-align: center;
 
     p{
-        font-size: $eb-font-size + 0.1;
+        font-size: $eb-font-size - 0.1;
     }
 
     a{
@@ -187,7 +187,7 @@
                     }
                     
                     &.no-img{
-                        color: inherit;
+                        color: inherit; 
 
                         ul{  
                             li{  
@@ -347,7 +347,35 @@
                     }
                     
                 }
-    
+                
+                .share-edit-button-wrapper{
+                    margin-left: auto;
+
+                    .edit-profile-btn{
+                        @include breakpointMax(767px){
+                            border-color: $base-color;
+                            color: $base-color;
+                            display: block;
+                            margin: auto;
+                            margin-top: 1.5rem;
+                        }
+                    }
+                    
+
+                    i{
+                        position: relative;
+                        top: -2px;
+                        left: -5px;
+                    }
+
+                    &.no-img{
+                        .edit-profile-btn{
+                            border-color: $base-color;
+                            color: $base-color;
+                        }
+                    }
+                }
+
                 .fb_iframe_widge, .share-fb{
                     margin-left: auto;
                     background: #1877f2;

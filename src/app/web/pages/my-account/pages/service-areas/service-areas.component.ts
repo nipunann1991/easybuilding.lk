@@ -109,8 +109,7 @@ export class ServiceAreasComponent implements OnInit {
     this.getServiceDetails();
 
     this.globals.getProfileTypeData.subscribe(result => {
-      this.getProfileType = result;  
-      console.log(this.getProfileType)
+      this.getProfileType = result;
     })
   
   }
@@ -126,8 +125,7 @@ export class ServiceAreasComponent implements OnInit {
       .subscribe((response: any) => {
         if (response.status == 200) {
            
-          this.profile = response.data[0];
-          console.log( this.profile)
+          this.profile = response.data[0]; 
   
           if(this.profile.service_areas != "[]" && this.profile.service_dist != "[]"){
             this.isCities = true;
@@ -454,7 +452,7 @@ export class ServiceAreasComponent implements OnInit {
               }else{  
                 this.toastr.success('Profile created successfully', 'Success !');  
                 this.router.navigate(['/admin/users/']);
-              //this.router.navigate(['/admin/users/user/'+this.profile.client_id+"/"+this.profile.provider_id+"/about"]);
+
               }
 
 
@@ -492,16 +490,22 @@ export class ServiceAreasComponent implements OnInit {
 
 
   openServiceAreaModal(){ 
+    console.log( this.getServicesItems,  this.selectedServicesItems);
 
     const dialogRef = this.dialog.open(ServicesDialogBoxComponent, {
       width: '1000px',
       data: {view_id: 1, data: this.getServicesItems, selected: this.selectedServicesItems  }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(result => { 
+      
       if(result != false){
-        this.selectedServicesItems = this.formGroup.value.services = result; 
-        this.formGroup.get('services').setValue(result);
+ 
+        if(typeof result !== 'undefined'){
+          this.selectedServicesItems = this.formGroup.value.services = result;  
+          this.formGroup.get('services').setValue(result);
+        }
+        
       }
       
     });
@@ -517,8 +521,10 @@ export class ServiceAreasComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result != false){
-        this.selectedProductsItems = this.formGroup.value.products = result; 
-        this.formGroup.get('products').setValue(result);
+        if(typeof result !== 'undefined'){
+          this.selectedProductsItems = this.formGroup.value.products = result; 
+          this.formGroup.get('products').setValue(result);
+        }
          
       }
       
@@ -537,6 +543,10 @@ export class ServiceAreasComponent implements OnInit {
     .subscribe((response: any) => { 
       this.getServicesItems = response; 
     }); 
+  }
+
+  backToProfile(){ 
+    this.router.navigate([this.router.url.split('/edit/')[0] +'/about']);
   }
 
 }

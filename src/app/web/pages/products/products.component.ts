@@ -37,6 +37,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   totalLinks: number = 0;
   isFullPageSearch: boolean = false;
   isFilterOpen: boolean = false;
+  isProductsLoading: boolean = false;
   queryParams: any;
   searchParam: string = "";
   paginations: Array<number> = [];
@@ -49,6 +50,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
     sortByServiceArea: ""
   }
 
+  //pagination
+  pageOfItems: Array<number>;
+  collection: Array<number> = [];
+  currentPage: number = 0;
+  itemsPerPage: number = 0;
+  totalItems: number = 0;
   
   slideConfig = {
     slidesToShow: 5, slidesToScroll: 5,  infinite: false,
@@ -372,6 +379,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   searchProducts(queryParams, firstAttempt = false ){
 
     this.products = []; 
+    this.isProductsLoading = true;
  
     let params = { 
       cat_lvl2_id: this.activatedRoute.snapshot.queryParams.id, 
@@ -399,17 +407,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
         this.pageData.start = response.start;
         this.pageData.end = response.end;
         this.pageData.total_results = response.total_results;
-
         
-        let totalPages = Math.floor(this.pageData.total_results / queryParams.results);
-        let remainingElms = this.pageData.total_results % queryParams.results;
-          
+        let queryParams = this.activatedRoute.snapshot.queryParams;
 
-        if( remainingElms != 0){
-          this.paginations = Array(totalPages + 1).fill(0).map((x,i)=>i + 1);
-        }else{
-          this.paginations =  Array(totalPages).fill(0).map((x,i)=>i + 1);
-        } 
+        this.totalItems = this.pageData.total_results;
+        this.currentPage = queryParams.index;
+        this.itemsPerPage = queryParams.results; 
 
         this.products = []
 
@@ -437,10 +440,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
             }
           }
 
-          this.products.push(constructors)
-          
+          this.products.push(constructors);  
         }); 
- 
+        
+        this.isProductsLoading = false;
  
       }
       

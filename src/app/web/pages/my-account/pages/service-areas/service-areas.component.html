@@ -61,7 +61,7 @@
         <div class="col-md-12 btn-wrapper">
             <ng-container *ngIf="!isStepsForm">
                 <button mat-button name="submit" type="submit" class="btn btn-primary">Save</button>
-                <button mat-button type="button" class="btn btn-default close-btn">Close</button>
+                <button mat-button type="button" (click)="backToProfile()"  class="btn btn-default clear-btn">Close</button>
             </ng-container>
 
             <ng-container *ngIf="isStepsForm">

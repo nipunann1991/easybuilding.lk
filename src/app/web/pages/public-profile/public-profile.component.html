@@ -9,7 +9,7 @@
 
             <div class="container main-content-area"> 
                 <div class="content-wrapper"> 
-                    <div class="left-block"> 
+                    <div class="left-block" [ngClass]="{'edit-account-mode': profileCompleted && isEditableMode}"> 
                         <ng-container *ngIf="!isEditableMode && profileData.prof_category != 0">
                             <div class="contact-item-wrapper"> 
                                 <app-common-info [profileData]="profileData"></app-common-info> 
@@ -24,8 +24,8 @@
                             </ul>
                         </ng-container>
                     </div>
-                    <div class="right-block"> 
-                        <ng-container> 
+                    <div class="right-block" [ngClass]="{'edit-account-mode': profileCompleted && isEditableMode}"> 
+                        <ng-container *ngIf="!isEditableMode"> 
                             <ul class="tab-list">
                                 <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="about" >About</a></li> 
                                 <li><a routerLinkActive="active-link"  [routerLinkActiveOptions]="{exact: false}" routerLink="products">Products/ Services</a></li>  
