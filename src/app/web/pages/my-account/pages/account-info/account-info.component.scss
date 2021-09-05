@@ -42,11 +42,11 @@
                 left: 0.8rem;
 
                 &:checked ~ label {
-                    border-color: $light-blue-color ; 
-                    color:  $light-blue-color;
+                    border-color: $base-bg-color ; 
+                    color:  $base-bg-color;
 
                     i.icon{
-                        color:  $light-blue-color;
+                        color:  $base-bg-color;
                     }
                 }
                   

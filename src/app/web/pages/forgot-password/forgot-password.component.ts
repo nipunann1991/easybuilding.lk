@@ -27,7 +27,8 @@ export class ForgotPasswordComponent implements OnInit {
 
         email: new FormControl('', [ 
           Validators.required,
-          Validators.maxLength(300)
+          Validators.maxLength(300),
+          Validators.email
         ]),
  
     });  

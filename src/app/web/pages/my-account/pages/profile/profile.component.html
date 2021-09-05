@@ -72,10 +72,9 @@
                         <button *ngIf="!profile.profile_editable && isBgImage && isProfImage && profileData.company_profile == 1" mat-button class="btn btn-primary share-fb" (click)="share()"><i class="icon-facebook"></i> Share</button>
                         <button *ngIf="profile.profile_editable && !isEditInProgress" mat-button class="btn btn-white-transparent edit-profile-btn " (click)="editProfile()"><i class="icon-pencil"></i> Edit Account</button>
                         <button *ngIf="profile.profile_editable && isEditInProgress" mat-button class="btn btn-white-transparent edit-profile-btn" (click)="backToProfile()" ><i class="icon-pencil"></i> Done Editing</button>
-                    </div>
+                        <button mat-button class="btn btn-primary convert-btn" *ngIf="profileData.company_profile != 1">Convert to Pro</button>
+                    </div> 
                    
-                    
-                    <button mat-button class="btn btn-primary edit-profile" *ngIf="profileData.company_profile != 1">Convert to Pro</button>
                 </div>
         
             </div>

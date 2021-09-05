@@ -57,13 +57,11 @@ export class CreateAccountComponent implements OnInit {
     }); 
 
   }
-
-   
+ 
 
   ngOnInit(): void {
     this.isAuthorized();
- 
-
+  
     this.formGroup = this.formBuilder.group({ 
 
       firstName: new FormControl('', [ 
@@ -78,7 +76,8 @@ export class CreateAccountComponent implements OnInit {
 
       email: new FormControl('', [ 
         Validators.required,
-        Validators.maxLength(300)
+        Validators.maxLength(300),
+        Validators.email
       ]),
 
       password: new FormControl('', [ 

@@ -186,8 +186,13 @@
       color: $font-color;  
     }
 
-}          
-
+}        
+  
+@mixin concat-text() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 @mixin bg-gradient($from, $to, $direction) {
   background: $to;
