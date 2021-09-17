@@ -95,7 +95,7 @@ export class MyAccountComponent implements OnInit {
       { title: "Account Information", url: this.baseurlEdit+"account-info", icon: "", isPersonalProfile: false},
       { title: "Contact Details", url: this.baseurlEdit+"contact-info", icon: "", isPersonalProfile: false},
       { title: "Services & Areas", url: this.baseurlEdit+"service-areas", icon: "", isPersonalProfile: false},
-      // { title: "Settings", url: this.baseurlEdit+"settings", icon: "", isPersonalProfile: false}
+      { title: "Subscription", url: this.baseurlEdit+"subscription", icon: "", isPersonalProfile: false}
     ];
     
     this.isAdminAccessible = this.auth.validateBackendUser();

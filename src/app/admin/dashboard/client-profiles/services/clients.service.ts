@@ -41,9 +41,7 @@ export class ClientsService {
     
     return this.http.post(environment.baseUrl+'ProfileController/isFeaturedProduct?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   }
-
-  
-
+ 
 
   updateProfileDetails(postVals){ 
      
@@ -73,6 +71,15 @@ export class ClientsService {
     
     return this.http.post(environment.baseUrl+'ClientController/getProfileToken?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
 
+  }
+
+  transferUserProfile(postVals){
+     
+    const params = new HttpParams({
+      fromObject : postVals
+    }); 
+    
+    return this.http.post(environment.baseUrl+'ProfileController/transferUserProfile?auth_token='+this.token.auth_token+'&session_id='+this.token.session_id, params);
   }
  
 }

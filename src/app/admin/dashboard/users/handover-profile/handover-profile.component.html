@@ -1,0 +1,34 @@
+<div class="popup-wrapper">
+    <div class="popup-header">
+        <h2>Transfer Profile</h2>
+        
+        <button type="button" class="close" aria-label="Close" (click)="onDismiss()">
+            <span aria-hidden="true">×</span>
+          </button>
+    </div> 
+    <div class="popup-body">
+        <form class="app-form"  [formGroup]="formGroup" (ngSubmit)="onSubmit()">  
+            <div class="app-form-inner"> 
+                <div class="form-group">
+                    <label for="">User's First Name*</label>
+                    <input placeholder=""  formControlName="first_name" class="form-control" name="first_name" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="">User's Last Name*</label>
+                    <input placeholder=""  formControlName="last_name" class="form-control" name="last_name" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="">User's Email Address*</label>
+                    <input placeholder=""  formControlName="email" class="form-control" name="email" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="">Preffered Password*</label>
+                    <input placeholder=""  formControlName="password" class="form-control" name="password" type="password" autocomplete="new-password" >
+                </div>
+                   
+                <button mat-raised-button class="btn btn-danger" >Transfer Profile</button>  
+                <button mat-raised-button (click)="onDismiss()" class="btn">Cancel</button>
+            </div> 
+        </form> 
+    </div>
+</div>

@@ -11,10 +11,14 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="handOverProfile()">
+              <mat-icon><i class="icon-transfer"></i></mat-icon>
+              <span>Transfer Profile</span>
+            </button>
             <button mat-menu-item (click)="editClent()">
               <mat-icon><i class="icon-pencil"></i></mat-icon>
               <span>Edit Profile</span>
-            </button>
+            </button> 
             <button mat-menu-item (click)="openDeleteProfileModal()" *ngIf="!isManager" > 
               <!--  -->
               <mat-icon><i class="icon-bin"></i></mat-icon>

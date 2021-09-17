@@ -6,7 +6,9 @@ import { MyAccountService } from '../../../../web/pages/my-account/services/my-a
 import { ToastrService } from 'ngx-toastr';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { Globals } from "../../../../app.global";
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as $ from 'jquery';
+import { HandoverProfileComponent } from '../handover-profile/handover-profile.component';
 
 declare const bootbox:any;
 
@@ -45,6 +47,7 @@ export class UserComponent implements OnInit {
     private clients: ClientsService,
     private toastr: ToastrService,
     private globals: Globals,
+    public dialog: MatDialog
   ) {  
 
     this.route.params.subscribe( (routeParams) =>  {  
@@ -112,8 +115,7 @@ export class UserComponent implements OnInit {
           (response.data[0].status == 0)? this.isBlacklisted = true  : this.isBlacklisted = false; 
           (response.data[0].company_profile == 0)? this.isPersonalProfile = true  : this.isPersonalProfile = false; 
           (response.data[0].first_name == "Admin")? this.isProfileByAdmin = true  : this.isProfileByAdmin = false; 
-        
-
+      
         }else{ 
           
         } 
@@ -232,8 +234,7 @@ export class UserComponent implements OnInit {
  
 
   updateProfileDetails(params, blacklistedAccessed = false){ 
- 
-
+  
       this.clients.updateProfileDetails(params)
         .subscribe((response: any) => {
 
@@ -289,9 +290,16 @@ export class UserComponent implements OnInit {
         }else{
             console.log(response)
         }
-           
+
     });  
    
+ }
+
+ handOverProfile(){
+    this.dialog.open(HandoverProfileComponent, {
+      width: '600px',
+      data: {client_id: this.clientID } 
+    })
  }
 
 
@@ -317,22 +325,26 @@ export class UserComponent implements OnInit {
 
 
   deleteProfile(client_id){
- 
-    let param = { client_id: client_id}
+
+    const dialogRef = this.globals.confirmPasswordDialog('');
+    dialogRef.afterClosed().subscribe(result => {  
+      if(result){
+        let param = { client_id: client_id}
     
-    this.myaccount.deleteProfile(param)
-      .subscribe((response: any) => {
+        this.myaccount.deleteProfile(param)
+          .subscribe((response: any) => { 
+          if (response.status == 200) {
+            this.toastr.success('Profile has been deleted successfully', 'Success !');  
+            this.router.navigate(['admin/users']);  
 
-        if (response.status == 200) {
-          this.toastr.success('Profile has been deleted successfully', 'Success !');  
-          this.router.navigate(['admin/users']); 
+          }else{
+              this.toastr.error('Profile deleting failed. Please try again', 'Error !'); 
+          }
+            
+        });
+      }
 
-
-        }else{
-            this.toastr.error('Profile deleting failed. Please try again', 'Error !'); 
-        }
-          
-      });
+    }); 
 	   
 	}
 

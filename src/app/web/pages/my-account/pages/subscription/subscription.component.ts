@@ -5,7 +5,7 @@ import { Payhere, AccountCategory,  Customer, CurrencyType, PayhereCheckout, Che
 @Component({
   selector: 'app-subscription',
   templateUrl: './subscription.component.html',
-  styleUrls: ['./subscription.component.css']
+  styleUrls: ['./subscription.component.scss']
 })
 export class SubscriptionComponent implements OnInit {
 

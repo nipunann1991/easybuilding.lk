@@ -4,8 +4,6 @@ import { Router } from "@angular/router";
 import { AuthService as Auth } from '../../auth/auth.service';
 import { LoginService } from '../../../admin/api/login.service'; 
 import { Globals } from './../../../app.global';
-//import { AuthService as OAuth } from "angularx-social-login";
-//import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 
 
 @Component({
@@ -35,8 +33,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authservice: Auth,
     private login: LoginService,
-    private global: Globals
-    //private oauth: OAuth
+    private global: Globals 
 
   ) { }
 

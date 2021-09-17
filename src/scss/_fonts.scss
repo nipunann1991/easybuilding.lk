@@ -25,6 +25,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-transfer:before {
+  content: "\e924";
+}
+.icon-menu-2:before {
+  content: "\e922";
+}
+.icon-menu-3:before {
+  content: "\e923";
+}
 .icon-instagram:before {
   content: "\e900";
 }

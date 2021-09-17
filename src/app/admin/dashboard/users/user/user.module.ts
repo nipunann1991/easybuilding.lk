@@ -6,6 +6,7 @@ import { UserComponent } from './user.component';
 import { MyAccountModule } from '../../../../web/pages/my-account/my-account.module';
 import { AppSharedModule } from '../../../../../app/app.shared.module'; 
 import { PublicProfileModule } from '../../../../web/pages/public-profile/public-profile.module';
+import { HandoverProfileModule } from '../handover-profile/handover-profile.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { PublicProfileModule } from '../../../../web/pages/public-profile/public
     UserRoutingModule, 
     AppSharedModule,
     MyAccountModule,
-    PublicProfileModule
+    PublicProfileModule,
+    HandoverProfileModule
   ]
 })
 export class UserModule { }

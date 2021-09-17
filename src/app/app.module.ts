@@ -13,6 +13,7 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from "../environments/environment";
+import { PasswordVerificationDialogComponent } from './admin/common/password-verification-dialog/password-verification-dialog.component';
 
  
 //const config: SocketIoConfig = { url: 'http://localhost:8988', options: {} };
@@ -34,7 +35,8 @@ export function provideConfig() {
 
 @NgModule({
   declarations: [
-    AppComponent, 
+    AppComponent,
+    PasswordVerificationDialogComponent, 
   ],
 
   imports: [

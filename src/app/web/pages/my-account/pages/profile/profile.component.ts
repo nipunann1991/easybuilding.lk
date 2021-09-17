@@ -73,7 +73,8 @@ export class ProfileComponent implements OnInit {
     private fileSaverService: FileSaverService,
     private fb: FacebookService, 
     private route: ActivatedRoute,
-    public confirmBox: MatDialog
+    public confirmBox: MatDialog,
+    public dialog: MatDialog
     
   ) {  
 
@@ -102,6 +103,10 @@ export class ProfileComponent implements OnInit {
     if((this.router.url.indexOf('/edit/') > -1 )){
       this.isEditInProgress = true; 
     }  
+
+    if(this.profileData.profile_editable){
+      this.subscriptionBox();
+    }
     
   }
 
@@ -134,6 +139,7 @@ export class ProfileComponent implements OnInit {
       this.userEmail = this.profileData.email;
       this.totalReviews = this.profile.total_reviews + " Reviews";
       this.rating = parseFloat(this.profile.rating).toFixed(1);  
+ 
 
       if(this.profileData.cover_img == "" ){
         this.isBgImage = false;
@@ -566,7 +572,6 @@ export class ProfileComponent implements OnInit {
     }
 
   }
-
  
 
   resizeMe(img) {
@@ -593,4 +598,22 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  subscriptionBox(){
+    const dialogRef = this.dialog.open(SubscriptionDialog,{
+      width: '1100px' 
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
 }
+
+
+@Component({
+  selector: 'subscription-dialog',
+  templateUrl: '../subscription/subscription-dialog.html',
+  styleUrls: ['../subscription/subscription.component.scss'],
+})
+export class SubscriptionDialog {}

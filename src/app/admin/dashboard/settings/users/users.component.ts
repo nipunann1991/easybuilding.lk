@@ -1,13 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
-import { RouterModule, ActivatedRoute, Routes, Router} from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SettingsService } from '../services/settings.service';
 import { Globals } from "../../../../app.global";
 import * as $ from 'jquery'; 
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthService as Auth } from '../../../auth/auth.service';
+import { PasswordVerificationDialogComponent } from 'src/app/admin/common/password-verification-dialog/password-verification-dialog.component';
  
 declare const bootbox:any;
 
@@ -26,7 +28,7 @@ export class UsersComponent implements OnInit {
   roleData: any; 
   isEditableRoute: boolean = false;
   param: any = {};
-
+  
   constructor(
     private settings: SettingsService,
     private router: Router,
@@ -34,6 +36,7 @@ export class UsersComponent implements OnInit {
     private toastr: ToastrService,
     private authservice: Auth,
     private globals: Globals,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -53,9 +56,7 @@ export class UsersComponent implements OnInit {
         Validators.maxLength(100)
       ]), 
     }); 
-
-      
-
+ 
     this.route.paramMap.subscribe(params => {
       this.param = params;
 
@@ -129,6 +130,7 @@ export class UsersComponent implements OnInit {
     const component1 = this;
 
     $('html').on('click', 'a.delete-user-data' , function(e1){ 
+      e1.stopImmediatePropagation();
       e1.preventDefault(); 
       component1.openDeleteUserModal($(this).attr('data-id'));  
       
@@ -137,6 +139,7 @@ export class UsersComponent implements OnInit {
     const component = this;
 
     $('html').on('click', 'a.edit-user-data' , function(e){ 
+      e.stopImmediatePropagation();
       e.preventDefault();
       component.editUser($(this).attr('data-id'));
       
@@ -169,21 +172,30 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(user_id){
-  
-    let param = { user_id: user_id };
 
-    this.settings.deleteUser(param)
-      .subscribe((response: any) => {
+    const dialogRef = this.globals.confirmPasswordDialog('');
+    dialogRef.afterClosed().subscribe(result => { 
 
-        if (response.status == 200) {
-          this.toastr.success('User has been deleted successfully', 'Success !');  
-          $('#refresh-btn').trigger('click'); 
+      if(result){
+        let param = { user_id: user_id };
 
-        }else{
-            this.toastr.error('User deleting failed. Please try again', 'Error !'); 
-        }
-          
-      });
+        this.settings.deleteUser(param)
+          .subscribe((response: any) => {
+
+            if (response.status == 200) {
+              this.toastr.success('User has been deleted successfully', 'Success !');  
+              $('#refresh-btn').trigger('click'); 
+
+            }else{
+                this.toastr.error('User deleting failed. Please try again', 'Error !'); 
+            }
+              
+        });
+        
+      } 
+
+    });
+   
 	   
 	}
 
@@ -239,21 +251,25 @@ export class UsersComponent implements OnInit {
   onAddAdminUser(){
     if (!this.formGroup.invalid) {
 
-      this.formGroup.value.auth_token = this.authservice.generateRandomToken();
+      const dialogRef = this.globals.confirmPasswordDialog('');
+      dialogRef.afterClosed().subscribe(result => { 
+        if(result){ 
+          this.formGroup.value.auth_token = this.authservice.generateRandomToken();
   
-      this.settings.addAdminUser(this.formGroup.value)
-        .subscribe((response: any) => {
+          this.settings.addAdminUser(this.formGroup.value)
+            .subscribe((response: any) => { 
+              if (response.status == 200) {
+                this.toastr.success('New city has been added successfully', 'Success !');  
+                this.formGroup.reset();
+                $('#refresh-btn').trigger('click');
+    
+              }else{
+                  this.toastr.error('New city adding failed. Please try again', 'Error !'); 
+              } 
+          });
+        }
+      });   
 
-          if (response.status == 200) {
-            this.toastr.success('New city has been added successfully', 'Success !');  
-            this.formGroup.reset();
-            $('#refresh-btn').trigger('click');
- 
-          }else{
-              this.toastr.error('New city adding failed. Please try again', 'Error !'); 
-          }
-           
-        });  
     } 
   }
 
@@ -282,36 +298,44 @@ export class UsersComponent implements OnInit {
 
    }
 
-   onUpdateAdminUser(){
+   onUpdateAdminUser(){ 
     
     if (!this.formGroup.invalid) {
-      //this.formGroup.value.user_email = this.authservice.generateRandomToken();
+       
+      const dialogRef = this.globals.confirmPasswordDialog('');
+      dialogRef.afterClosed().subscribe(result => {
 
-      let param = { 
-        user_id: this.param.params.id,
-        user_email: this.formGroup.value.user_email,
-        role_id: this.formGroup.value.role_id,
-        password: this.formGroup.value.password
-      }
-
-      this.settings.editAdminUser(param)
-        .subscribe((response: any) => {
-
-          if (response.status == 200) {
-            this.toastr.success('User has been edited successfully', 'Success !');  
-            this.formGroup.reset();
-            $('#refresh-btn').trigger('click');
-            this.returnBack();
-
-          }else if (response.status == 401){
-            this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  
-          }else{
-            this.toastr.error('User editing failed. Please try again', 'Error !'); 
+        if(result){ 
+          let param = { 
+            user_id: this.param.params.id,
+            user_email: this.formGroup.value.user_email,
+            role_id: this.formGroup.value.role_id,
+            password: this.formGroup.value.password
           }
-            
-        });
+    
+          this.settings.editAdminUser(param)
+            .subscribe((response: any) => {
+    
+              if (response.status == 200) {
+                this.toastr.success('User has been edited successfully', 'Success !');  
+                this.formGroup.reset();
+                $('#refresh-btn').trigger('click');
+                this.returnBack();
+    
+              }else if (response.status == 401){
+                this.toastr.error('Invalid user token or session has been expired. Please re-loging and try again.', 'Error !');  
+              }else{
+                this.toastr.error('User editing failed. Please try again', 'Error !'); 
+              }
+
+          });
+        }
+
+      }); 
     }
   }
+
+ 
 
   returnBack(): void{
 		this.router.navigate(['admin/settings/users']);

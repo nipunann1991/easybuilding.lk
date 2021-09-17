@@ -2,6 +2,7 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfimDialogBoxComponent } from "../app/web/common/confim-dialog-box/confim-dialog-box.component";
+import { PasswordVerificationDialogComponent } from './admin/common/password-verification-dialog/password-verification-dialog.component';
 
 
 @Injectable()
@@ -88,6 +89,14 @@ export class Globals {
     
     confirmDialogBox(data): any{  
         return this.confirmBox.open(ConfimDialogBoxComponent, {
+            width: '450px',
+            data: data  
+        });
+    }
+
+
+    confirmPasswordDialog(data): any{  
+        return this.confirmBox.open(PasswordVerificationDialogComponent, {
             width: '450px',
             data: data  
         });

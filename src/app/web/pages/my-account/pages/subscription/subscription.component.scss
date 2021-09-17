@@ -1,0 +1,60 @@
+@import '../../../../../../styles';
+
+.subscription-wrapper{
+    
+    .subscription{ 
+
+        h2{
+            font-size: 2.5rem;
+            line-height: 2.7rem;
+            @include regular;
+            margin-bottom: 1.5rem;
+
+            span{
+                display: block;
+                @include bold;
+            }
+
+            i{
+                @include regular;
+                font-style: normal;
+            }
+        }
+
+        .plan-block{
+ 
+            .plan-block-inner{
+                padding: 1.5rem;
+                color: $white;
+                background: $dark-purple-color;
+                border-radius: 0.5rem;
+            } 
+
+            p{
+                margin-bottom: 1.5rem;
+
+                &:last-child{
+                    margin-bottom: 0;
+                }
+            }
+
+        }
+        .plan-list-wrapper{
+            padding-top: 1.5rem;
+
+            .plan-list-inner{
+                padding: 1.5rem;
+                border-radius: 0.5rem;
+                background: #eee;
+                height: 100%;
+
+                h3{
+                    font-size: 2.3rem;
+                    @include medium;
+                }
+            }
+
+            
+        }
+    }
+}
