@@ -204,6 +204,7 @@ export class Level1CategoryComponent implements OnInit {
   }
 
   returnBack(): void{
+    this.formGroup.reset();
 		this.router.navigate(['admin/categories/level1-category']);
 	}
 

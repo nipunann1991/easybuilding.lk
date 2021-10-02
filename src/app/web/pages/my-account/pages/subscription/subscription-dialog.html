@@ -2,29 +2,38 @@
     <div class="subscription row">
         <div class="plan-block col-md-4">
             <div class="plan-block-inner">
-            <h2>Save your <span>Money now</span></h2>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo dolore vitae praesentium exercitationem architecto sed ipsum! Iusto nam quia a soluta blanditiis, nulla dolorem, aliquid quidem doloremque numquam sapiente qui.</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Animi unde cupiditate quisquam aspernatur hic, nesciunt quasi deserunt asperiores corrupti deleniti! Consequuntur voluptatum rerum quas, consectetur iure amet iusto molestiae quibusdam!.</p>
+                <div class="title">
+                    <h3>{{freePackage?.package_name}}</h3>
+                    <div class="package-price">
+                        <span class="price">Rs. {{freePackage?.price_per_month}}</span>
+                        <p>With 3 months trial</p>
+                    </div>
+                </div>
+                <div class="body">
+                    <div class="description" [innerHTML]="freePackage?.description"></div>
+                    <button (click)="selectedFreePlan()" mat-button name="submit" type="submit" class="btn btn-primary">Select Plan</button>
+                </div> 
+            
             </div> 
         </div>
         <div class="plan-list-wrapper col-md-8">
-            <h2>Star your <span>free plan <i>today</i></span></h2>
+            <h2>Select your <span>subscription plan <i>today</i></span></h2>
             <div class="row">
-                <div class="plan-list col-md-6">
-                    <div class="plan-list-inner">
+                <div *ngFor="let package of packages" class="plan-list col-md-6">
+                    <div  class="plan-list-inner">
                         <div class="title">
-                            <h3>Lite</h3>
+                            <h3>{{package?.package_name}}</h3> 
+                            <div class="package-price">
+                                <span class="price">Rs. {{package?.price_per_month}}</span>
+                                <p>Monthly</p>
+                            </div>
+                        </div>
+                        <div class="body">
+                            <div class="description" [innerHTML]="package?.description"></div>
+                            <button (click)="selectedFreePlan()" mat-button name="submit" type="submit" class="btn btn-primary">Select Plan</button>
                         </div>
                     </div> 
-                </div>
-                <div class="plan-list col-md-6">
-                    <div class="plan-list-inner">
-                        <div class="title">
-                            <h3>Pro</h3>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum illo totam nemo eos accusamus corporis, adipisci impedit libero debitis unde, expedita facilis, ipsum sunt distinctio. Hic dolorem architecto molestiae inventore.</p>
-                    </div> 
-                </div>
+                </div> 
             </div>
            
         </div> 

@@ -1,8 +1,22 @@
 
- <div class="categories-wrapper featured-products-categories" *ngIf="featuredProductsCategories.length > 0">  
+ <div class="categories-wrapper featured-products-categories">  
     <h2 *ngIf="!isAdminData">House and Building Designs</h2> 
 
-    <div class="category-holder">  
+    <div class="category-holder">   
+        <div *ngIf="!isCategoryLoaded" class="skelton-wrapper">
+            <div class="category-item skelton">
+                <div class="category-bg-img skeleton-box"></div> 
+                <div class="category-footer">
+                    <p class="skeleton-box">Category Item</p>
+                </div>
+            </div>  
+            <div class="category-item skelton">
+                <div class="category-bg-img skeleton-box"></div> 
+                <div class="category-footer">
+                    <p class="skeleton-box">Category Item</p>
+                </div>
+            </div>
+        </div> 
         
         <ngx-slick-carousel class="carousel" 
             #slickModal="slick-carousel" 

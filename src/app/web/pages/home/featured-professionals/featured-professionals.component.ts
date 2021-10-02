@@ -12,6 +12,7 @@ import { Globals } from "../../../../app.global";
 export class FeaturedProfessionalsComponent implements OnInit {
 
   featuredProfList: any = [];
+  isContentLoaded: boolean = true;
   starRating:any = Array.from(Array(this.globals.starRating), (_, index) => index + 1);
   slideConfig = {
     slidesToShow: 4, 
@@ -77,6 +78,7 @@ export class FeaturedProfessionalsComponent implements OnInit {
       .subscribe({
         next: (response: any) => {
 
+          this.isContentLoaded = false;
           response.data.forEach(elm => {
            
             let profileImg = environment.uploadPath + elm.client_id +'/'+ elm.company_id +'/';

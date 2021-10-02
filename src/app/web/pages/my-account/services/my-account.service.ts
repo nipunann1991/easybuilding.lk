@@ -355,4 +355,9 @@ export class MyAccountService {
     return this.http.get(environment.baseUrl+'ProfileController/resendVerification'+this.setTokenData()); 
   } 
 
+  getAllSubscriptionPackages(){
+    return this.http.get(environment.baseUrl+'SubscriptionController/getAllSubscriptionPackages'+this.setTokenData());
+  }
+  
+
 }

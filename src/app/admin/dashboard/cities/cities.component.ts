@@ -75,6 +75,7 @@ export class CitiesComponent implements OnInit {
     const component1 = this;
 
     $('html').on('click', 'a.delete-city-data' , function(e1){ 
+      e1.stopImmediatePropagation();
       e1.preventDefault(); 
       component1.openDeleteCityModal($(this).attr('data-id'));  
       
@@ -83,6 +84,7 @@ export class CitiesComponent implements OnInit {
     const component = this;
 
     $('html').on('click', 'a.edit-city-data' , function(e){ 
+      e.stopImmediatePropagation();
       e.preventDefault();
       component.editCityPage($(this).attr('data-id'));
       
@@ -225,6 +227,7 @@ export class CitiesComponent implements OnInit {
   }
 
   returnBack(): void{
+    this.formGroup.reset();
 		this.router.navigate(['admin/cities']);
 	}
 

@@ -7,6 +7,7 @@ const routes: Routes = [
 	{ path: 'admin', loadChildren: () => import('./admin/dashboard/dashboard-container/dashboard-container.module').then(m => m.DashboardContainerModule) },
 	{ path: '404-page-not-found', loadChildren: () => import('./web/pages/page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) },
 	{ path: 'admin/dashboard/users/handover-profile', loadChildren: () => import('./admin/dashboard/users/handover-profile/handover-profile.module').then(m => m.HandoverProfileModule) },
+	
 	{ path: '**', redirectTo: '/404-page-not-found' } 
 ];
 

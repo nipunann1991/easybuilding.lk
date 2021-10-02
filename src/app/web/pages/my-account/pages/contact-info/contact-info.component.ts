@@ -192,9 +192,6 @@ export class ContactInfoComponent implements OnInit {
               }
 
             }
-
-           
-           
             
             
           }else if (response.status == 401){

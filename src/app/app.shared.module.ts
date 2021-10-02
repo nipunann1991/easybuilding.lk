@@ -39,6 +39,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ConfimDialogBoxComponent } from './web/common/confim-dialog-box/confim-dialog-box.component';
 import { HighlightTextPipe } from './pipes/highlight-text.pipe';
 import { NgxPaginationModule } from 'ngx-pagination'; 
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
       OverlayscrollbarsModule,
       SlickCarouselModule, 
       NgxPaginationModule,
+      EditorModule,
       NgBootstrapFormValidationModule.forRoot(), 
       FacebookModule.forRoot()
     ],
@@ -122,7 +124,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
       TruncateTextPipe,
       RoundToDecimalPipe,
       NgxPaginationModule,
-      HighlightTextPipe
+      HighlightTextPipe,
+      EditorModule
   ],
   entryComponents: [
     reviewDialog,

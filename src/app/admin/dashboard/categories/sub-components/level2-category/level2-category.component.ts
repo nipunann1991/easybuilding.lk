@@ -283,6 +283,7 @@ export class Level2CategoryComponent implements OnInit {
   }
 
   returnBack(): void{
+    this.formGroup.reset();
 		this.router.navigate(['admin/categories/level2-category']);
 	}
 

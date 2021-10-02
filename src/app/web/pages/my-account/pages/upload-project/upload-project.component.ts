@@ -87,8 +87,9 @@ export class UploadProjectComponent implements OnInit {
       structural_engineer: new FormControl(''),
 
     });
-
+    console.log( "==fff=====", this.route.snapshot.params.company_id )
     this.companyID = this.route.snapshot.params.company_id; 
+  
 
     (this.companyID == '0')? this.isAdmin = true : this.isAdmin = false; 
     (this.isAdmin)? this.getServicsforAdmin() : this.getProductsWithID(this.companyID); 

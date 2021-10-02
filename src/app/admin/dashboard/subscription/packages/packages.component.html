@@ -1,0 +1,82 @@
+<div class="right-container  animated fadeIn">
+    <div class="title">
+        <h2><button mat-button class="transparent-btn back-btn"  ><i class="icon-left-arrow"></i></button> Packages</h2>
+        <div class="clearfix"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-7"> 
+            <div class="white-box-panel">
+                <h3 class="title">Package List</h3>
+                <button id="refresh-btn" type="button" class="btn waves-effect waves-light blue d-none" (click)="rerender()">  Rerender  </button>
+                <table datatable  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+                    <thead>
+                    <tr>   
+                        <th>Package Id</th>   
+                        <th>Package Name</th>  
+                        <th>Cost</th> 
+                        <th></th> 
+                    </tr>
+                    </thead>
+                    
+                </table>
+            </div>
+        </div>
+          
+        <div class="col-md-5"> 
+            <div  *ngIf="!isEditableRoute"  class="white-box-panel">
+                <h3 class="title">Add Packages</h3>
+                <form id="myform" class="wrapped-block" (ngSubmit)="onSubmit()" [formGroup]="formGroup" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="package_name">Package Name</label> 
+                                <input id="package_name" name="package_name" formControlName="package_name" type="text" class="form-control">
+                            </div> 
+                            <div class="form-group">
+                                <label for="price_per_month">Package Price</label> 
+                                <input id="price_per_month" name="price_per_month" formControlName="price_per_month" type="text" class="form-control">
+                            </div>   
+                            <div class="form-group">
+                                <label for="description">Package Description</label>  
+                                <editor [apiKey]="editorConfig.apiKey" [init]="editorConfig.config" name="description" formControlName="description"></editor>
+                            </div>  
+                        </div> 
+
+                        <div class="col-md-12">
+                            <button mat-button name="submit" type="submit" class="btn btn-primary"> Add Package</button>
+                            <button mat-button (click)="returnBack()" type="button" class="btn btn-default close-btn" >Close</button>
+                        </div> 
+                    </div> 
+                </form>
+            </div> 
+  
+            <div *ngIf="isEditableRoute" class="white-box-panel">
+                <h3 class="title">Edit Packages</h3>
+                <form id="myform" class="wrapped-block" (ngSubmit)="onUpdate()" [formGroup]="formGroup" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="package_name">Package Name</label> 
+                                <input id="package_name" name="package_name" formControlName="package_name" type="text" class="form-control">
+                            </div> 
+                            <div class="form-group">
+                                <label for="price_per_month">Package Price</label> 
+                                <input id="price_per_month" name="price_per_month" formControlName="price_per_month" type="text" class="form-control">
+                            </div>  
+                            <div class="form-group">
+                                <label for="description">Package Description</label>  
+                                <editor [apiKey]="editorConfig.apiKey" [init]="editorConfig.config" name="description" formControlName="description"></editor>
+                            </div>  
+                        </div> 
+
+                        <div class="col-md-12">
+                            <button mat-button name="submit" type="submit" class="btn btn-primary"> <i class="icon-pencil"></i> Edit Package</button>
+                            <button mat-button (click)="returnBack()" type="button" class="btn btn-default close-btn" >Close</button>
+                        </div> 
+                    </div> 
+                </form>
+            </div> 
+        </div> 
+        
+    </div>
+</div>

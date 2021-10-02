@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ProfileRoutingModule } from './profile-routing.module';
-import { ProfileComponent } from './profile.component';
+import { ProfileComponent, SubscriptionDialog } from './profile.component';
 import { AppSharedModule } from '../../../../../app.shared.module';
 
 
 @NgModule({
-  declarations: [ProfileComponent],
+  declarations: [ProfileComponent, SubscriptionDialog],
   imports: [
     CommonModule,
     ProfileRoutingModule,

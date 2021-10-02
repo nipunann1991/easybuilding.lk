@@ -51,8 +51,7 @@
                     display: none;
                 }
     
-            }
-            
+            } 
     
             .category-item{
                 @include box-shadow(0px, 3px, 8px, 1px, rgba(196, 206, 217, 0.25)); 
@@ -60,6 +59,28 @@
                 cursor: pointer;
                 border-radius: 0.5rem;
                 overflow: hidden;
+
+                &.skelton{ 
+                    margin-right: 3rem; 
+                    width: 100%;
+                    
+                    @include breakpoint($tablet){
+                        width: 33.33%;
+                    }
+
+                    @include breakpoint($x-small-desktop){
+                        width: 20%;
+                    }
+
+                    .category-footer{
+                        p{
+                            height: 1.5rem;
+                            width: 60%; 
+                            margin: auto;
+                            font-size: 0;
+                        }
+                    }
+                }
     
                 &:focus{
                     outline: 0;

@@ -4,11 +4,60 @@
     
     .subscription{ 
 
-        h2{
-            font-size: 2.5rem;
-            line-height: 2.7rem;
-            @include regular;
+        .title{
+            @include flex;
+            width: 100%;
             margin-bottom: 1.5rem;
+
+            h3{
+                font-size: 3rem;
+                @include medium;
+                margin-right: auto;
+            }
+
+            .package-price{
+                text-align: right;
+                line-height: 1.9rem;
+
+                span.price{
+                    font-size: 2rem;
+                    line-height: 1.5rem;
+                }
+
+                p{
+                    font-size: 1.2rem;
+                }
+            } 
+        }
+
+        .body{ 
+            .description{ 
+                ul{  
+
+                    li{
+                        background-image: url("/assets/images/tick-light.png");
+                        background-repeat: no-repeat;
+                        margin-bottom: 1rem;
+                        background-position: 0 0;
+                        background-size: 1.5rem;
+                        padding-left: 3rem;
+                    }
+                }
+            }
+        }
+
+        button{ 
+            display: block;
+            margin: auto;
+            margin-top: 3.5rem;
+            @include regular; 
+        }
+
+        h2{
+            font-size: 2.8rem;
+            line-height: 3rem;
+            @include regular;
+            margin-bottom: 2.5rem;
 
             span{
                 display: block;
@@ -24,10 +73,17 @@
         .plan-block{
  
             .plan-block-inner{
-                padding: 1.5rem;
+                padding: 2.5rem 2rem;
                 color: $white;
-                background: $dark-purple-color;
+                background-image: url("/assets/images/free-plan.jpg");
+                background-repeat: no-repeat;
                 border-radius: 0.5rem;
+                height: 65rem;
+ 
+                button{
+                    background-color: $white;
+                    color: $purple-color;
+                }
             } 
 
             p{
@@ -43,15 +99,23 @@
             padding-top: 1.5rem;
 
             .plan-list-inner{
-                padding: 1.5rem;
+                padding: 2.5rem 2rem;
                 border-radius: 0.5rem;
-                background: #eee;
+                background: $lightest-blue;
+                border: 1px transparent solid;
                 height: 100%;
+                transition: all 0.5s ease;
+                cursor: pointer;
+                height: 55rem;
+ 
+                &:hover{
+                    border-color: $purple-color;
+                }  
 
-                h3{
-                    font-size: 2.3rem;
-                    @include medium;
+                button{
+                    background: $purple-color;
                 }
+               
             }
 
             

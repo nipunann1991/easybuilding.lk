@@ -220,6 +220,7 @@ export class HouseSurfacesComponent implements OnInit {
 
 
   returnBack(): void{
+    this.formGroup.reset();
 		this.router.navigate(['admin/boq/house-surfaces']);
 	}
 

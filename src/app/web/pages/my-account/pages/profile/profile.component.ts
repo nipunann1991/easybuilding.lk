@@ -94,6 +94,7 @@ export class ProfileComponent implements OnInit {
       if (event instanceof NavigationEnd) { 
         if((event.url.indexOf('/about') > -1 )){
           this.isEditInProgress = false;
+          console.log('sdsdf - about')
         }else if((event.url.indexOf('/edit/') > -1 )){
           this.isEditInProgress = true;
         } 
@@ -308,8 +309,6 @@ export class ProfileComponent implements OnInit {
           }
           
           this.myaccount.removeCoverImage(param).subscribe((response: any) => { }); 
-
-           // resolve();
         },
           err => {  reject(err);  }
         );
@@ -425,7 +424,6 @@ export class ProfileComponent implements OnInit {
                 
             } 
 
-            //  resolve();
           },
             err => {
               
@@ -500,8 +498,6 @@ export class ProfileComponent implements OnInit {
         closeOnOutsideClick: false,
         backdropClass: "modal-backdrop"
     }) 
- 
-
   }
 
   
@@ -509,9 +505,7 @@ export class ProfileComponent implements OnInit {
 
     this.myaccount.resendVerification()
       .subscribe((response: any) => {
- 
         this.toastr.success('Verification mail sent successfully. Please check your mail.', 'Success !');  
-          
       });
   }
 
@@ -600,7 +594,8 @@ export class ProfileComponent implements OnInit {
 
   subscriptionBox(){
     const dialogRef = this.dialog.open(SubscriptionDialog,{
-      width: '1100px' 
+      width: '1100px',
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -615,5 +610,38 @@ export class ProfileComponent implements OnInit {
   selector: 'subscription-dialog',
   templateUrl: '../subscription/subscription-dialog.html',
   styleUrls: ['../subscription/subscription.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
-export class SubscriptionDialog {}
+export class SubscriptionDialog {
+
+  packages: any
+  freePackage: any;
+
+  constructor(
+    private account: MyAccountService,
+    private dialogRef: MatDialogRef<SubscriptionDialog>
+    ){
+    dialogRef.disableClose = true;
+    this.getAllSubscriptionPackages();
+  }
+
+
+  getAllSubscriptionPackages(){
+    this.account.getAllSubscriptionPackages().subscribe({
+      next: (res: any) =>{ 
+        this.freePackage = res.data.filter(x => x.price_per_month == 0 )[0]; 
+        this.packages = res.data.filter(x => x.price_per_month != 0 );
+        console.log(this.freePackage, this.packages)
+      },
+
+      error: err =>{
+
+      }
+    })
+  }
+
+  selectedFreePlan(){ 
+    this.dialogRef.close();
+  }
+
+}

@@ -4,9 +4,35 @@
             <h2>Best Products</h2>
             <a class="read-more-link" routerLink="/">View More</a>
         </div>
-        
-
+         
         <div class="fetured-products-list">
+            <div *ngIf="!isContentLoaded" class="skelton-wrapper">
+                <div class="fetured-products-item-wrapper skelton">
+                    <div class="featured-item">
+                        <div class="item-img skeleton-box" ></div> 
+                        <div class="item-desc">
+                            <div class="item-wrap">
+                                <h4 class="skeleton-box"></h4>
+                                <p class="skeleton-box"></p>
+                            </div> 
+                            <span class="price skeleton-box">Contact for Prices</span>
+                        </div>
+                    </div>
+                </div>   
+                <div class="fetured-products-item-wrapper skelton">
+                    <div class="featured-item">
+                        <div class="item-img skeleton-box" ></div> 
+                        <div class="item-desc">
+                            <div class="item-wrap">
+                                <h4 class="skeleton-box"></h4>
+                                <p class="skeleton-box"></p>
+                            </div> 
+                            <span class="price skeleton-box">Contact for Prices</span>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+
             <ngx-slick-carousel class="carousel row" 
             #slickModal="slick-carousel" 
             [config]="slideConfig" 

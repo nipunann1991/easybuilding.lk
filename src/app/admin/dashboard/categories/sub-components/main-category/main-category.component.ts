@@ -213,6 +213,7 @@ export class MainCategoryComponent implements OnInit {
   }
 
   returnBack(): void{
+    this.formGroup.reset();
 		this.router.navigate(['admin/categories/main-categories']);
 	}
 

@@ -13,7 +13,7 @@ export const environment = {
   profileUrl: '/my-account/user/me/about',
   fb_provider : "2651390971778041",
   google_provider: "308484019125-bouf476qe8mbm9593net0fad8ddgts5q.apps.googleusercontent.com",
-
+  tinyMCEAPI: "pckrow7imtz8efu8d15fa1kcbnpvqybfgzlzthu5zln78wyc"
 };
 
 /*

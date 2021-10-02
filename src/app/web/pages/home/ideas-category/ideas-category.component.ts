@@ -19,6 +19,7 @@ export class IdeasCategoryComponent implements OnInit {
 
   bgImageCatPath = environment.uploadPath + "admin/category/thumb/";
   featuredProductsCategories: any = [];
+  isCategoryLoaded: boolean = false;
   queryParams =  { id: 0, results: '10',  index: '1'};
   isAdminData: boolean = false; 
 
@@ -112,8 +113,11 @@ export class IdeasCategoryComponent implements OnInit {
         next: (response: any) => { 
 
           if (response.status == 200) {   
-            this.featuredProductsCategories = response.data;
-            this.featuredProductsCategories.map(x=> x.url = "/photos/"+this.generateSlug(x.cat_lvl2_name) );
+ 
+              this.isCategoryLoaded = true;
+              this.featuredProductsCategories = response.data;
+              this.featuredProductsCategories.map(x=> x.url = "/photos/"+this.generateSlug(x.cat_lvl2_name) );
+             
           }else{
               
           }

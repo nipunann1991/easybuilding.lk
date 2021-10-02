@@ -11,6 +11,7 @@ import { Globals } from "../../../../app.global";
 })
 export class FeaturedProductsComponent implements OnInit {
   featuredProdList: any = []; 
+  isContentLoaded: boolean = false;
 
   slideConfig = {
     slidesToShow: 4, 
@@ -76,7 +77,8 @@ export class FeaturedProductsComponent implements OnInit {
         next: (response: any) => {
  
           if (response.status == 200) {   
-  
+            
+            this.isContentLoaded = true
             response.data.forEach(elm => {
            
               let profileImg = environment.uploadPath + elm.client_id +'/'+ elm.company_id +'/';

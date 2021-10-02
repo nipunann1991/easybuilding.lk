@@ -187,7 +187,7 @@ export class AccountInfoComponent implements OnInit {
 
               if( !this.isStepsForm ){
                 this.toastr.success('Information saved successfully', 'Success !');  
-                this.router.navigate(['/my-account']);
+                this.router.navigate(['/my-account/user/me/about']);
               }else{ 
                 this.router.navigate(["../contact-info"], { relativeTo: this.route.parent });
               }

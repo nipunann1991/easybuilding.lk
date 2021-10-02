@@ -54,6 +54,13 @@ export class NavComponent implements OnInit {
 				permission: 0,
 			},
 			{
+				title: 'Subscriptions',
+				icon: 'icon-invoice',
+				link: '/admin/subscription',
+				permission: 0,
+
+			}, 
+			{
 				title: 'Cities',
 				icon: 'icon-location',
 				link: '/admin/cities',
@@ -77,19 +84,12 @@ export class NavComponent implements OnInit {
 
 			{
 				title: 'BOQ',
-				icon: 'icon-business-profile',
+				icon: 'icon-tower-crane',
 				link: '/admin/boq',
 				permission: 0,
 
-			},
-			
-			// {
-			// 	title: 'Certification',
-			// 	icon: 'icon-certificate',
-			// 	link: '/admin/certification',
-			// 	permission: 0,
-
-			// }, 
+			}, 
+		
 			
 			{
 				title: 'Settings',

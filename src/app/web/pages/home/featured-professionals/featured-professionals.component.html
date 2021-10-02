@@ -4,9 +4,41 @@
             <h2>Best Contractors and Professionals</h2>
             <a class="read-more-link" routerLink="/">View More</a>
         </div>
-        
-
+ 
         <div class="featured-list">
+            <div *ngIf="isContentLoaded" class="skelton-wrapper">
+                <div class="featured-item-wrapper skelton">
+                    <div class="featured-item">
+                        <div class="item-img skeleton-box" ></div> 
+                        <div class="item-desc">
+                            <div class="title-wrap">
+                                <h4 class="skeleton-box">Title</h4>
+                                <div class="ratings-holder skeleton-box"> </div>
+                            </div> 
+                            <ul class="contact-details">
+                                <li class="address skeleton-box"></li>
+                                <li class="address skeleton-box"></li>
+                            </ul>                   
+                        </div>
+                    </div>
+                </div>  
+                <div class="featured-item-wrapper skelton">
+                    <div class="featured-item">
+                        <div class="item-img skeleton-box" ></div> 
+                        <div class="item-desc">
+                            <div class="title-wrap">
+                                <h4 class="skeleton-box">Title</h4>
+                                <div class="ratings-holder skeleton-box"> </div>
+                            </div> 
+                            <ul class="contact-details">
+                                <li class="address skeleton-box"></li>
+                                <li class="address skeleton-box"></li>
+                            </ul>                   
+                        </div>
+                    </div>
+                </div>  
+            </div> 
+
             <ngx-slick-carousel class="carousel row" 
             #slickModal="slick-carousel" 
             [config]="slideConfig" 
