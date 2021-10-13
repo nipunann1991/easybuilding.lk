@@ -9,7 +9,7 @@ import { ProfileService } from "../my-account/pages/profile/services/profile.ser
 import { environment } from "../../../../environments/environment";
 import { map, filter } from "rxjs/operators";
 import { AppSEO } from "./../../../app.seo"; 
-
+import { Meta, MetaDefinition } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-public-profile',
@@ -44,6 +44,7 @@ export class PublicProfileComponent implements OnInit {
     private myaccount: MyAccountService,
     private profile: ProfileService,
     private route: ActivatedRoute,
+    private metaService: Meta,
     private seo: AppSEO
   ) { 
  
@@ -140,7 +141,8 @@ export class PublicProfileComponent implements OnInit {
           this.isPublicProfile = true; 
           this.profile.setProfileData(this.profileData);  
           this.getOtherProfileRelatedData();
-          this.pageSEO();  
+          this.addMetaTags();
+          //this.pageSEO();  
 
         }else{
           
@@ -291,6 +293,17 @@ export class PublicProfileComponent implements OnInit {
         localStorage.clear();  
         window.location.href = "login";
     });    
+  }
+
+
+  addMetaTags() {
+    
+    this.metaService.updateTag({ name: 'description', content: this.profileData.description });
+    this.metaService.updateTag({ name: 'keywords', content: this.services +","+ this.products });
+    this.metaService.updateTag({ name: 'robots', content: 'index,follow' });
+    this.metaService.updateTag({ property: 'og:title', content: 'EasyBuilding.lk | '+ this.profileData.display_name });
+    this.metaService.updateTag({ property: 'og:description', content: this.profileData.description });
+    this.metaService.updateTag({ property: 'og:image', content: environment.uploadPath+''+this.profileData.client_id+'/'+this.profileData.company_id+'/'+this.profileData.profie_image });
   }
 
   pageSEO() : void{

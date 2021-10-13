@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser'; 
+import { BrowserModule, Meta } from '@angular/platform-browser'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import { NgModule } from '@angular/core';
 import { Globals } from './app.global';
@@ -15,8 +15,7 @@ import { AppComponent } from './app.component';
 import { environment } from "../environments/environment";
 import { PasswordVerificationDialogComponent } from './admin/common/password-verification-dialog/password-verification-dialog.component';
 
- 
-//const config: SocketIoConfig = { url: 'http://localhost:8988', options: {} };
+
  
 let config = new AuthServiceConfig([
   {
@@ -56,6 +55,7 @@ export function provideConfig() {
   ],
   providers: [
     Globals, 
+    Meta,
     AppSEO, 
     {
       provide: AuthServiceConfig,

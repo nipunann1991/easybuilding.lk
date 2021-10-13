@@ -9,8 +9,7 @@ import { MyAccountService } from "../../services/my-account.service";
 })
 export class SubscriptionComponent implements OnInit {
 
-  checkoutParams: any
-  payhere: any
+  checkoutParams: any 
 
   constructor(
     private account: MyAccountService
@@ -28,20 +27,21 @@ export class SubscriptionComponent implements OnInit {
       first_name: "Nipuna",
       last_name: "Nanayakkara",
       phone: "+94771234567",
-      email: "plumberhl@gmail.com",
+      email: "nipunann0710@gmail.com",
       address: "No. 50, Highlevel Road",
-      city: "Panadura",
+      city: "Maharagama",
       country: "Sri Lanka",
     })
 
     this.checkoutParams = {
       returnUrl: 'https://localhost:4200/my-account/user/me/edit/subscription',
-      cancelUrl: 'http://localhost:3000/cancel',
+      cancelUrl: 'http://localhost:4200/cancel',
       notifyUrl: 'https://easybuilding.biz/easybuilding-api/index.php/ProfileController/payHerePayment',
-      order_id: '124890',
-      itemTitle: 'Demo Item 1001',
-      currency: CurrencyType.LKR,
-      amount: 50
+      order_id: '877',
+      itemTitle: 'Subscription Package 3 Months',
+      currency: CurrencyType.LKR, 
+      amount: 1500,
+      custom_1: "251"
     }
   
     const checkoutData = new CheckoutParams(this.checkoutParams);

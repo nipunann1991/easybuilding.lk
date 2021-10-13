@@ -13,8 +13,7 @@ import { FacebookService, InitParams, UIParams, UIResponse } from 'ngx-facebook'
 import { FileSaverOptions, saveA, ResponseContentType  } from 'file-saver';
 import { Globals } from "../../../../../app.global";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import * as $ from 'jquery'; 
-declare const bootbox:any;
+
 
 @Component({
   selector: 'app-profile',
